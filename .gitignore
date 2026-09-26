@@ -1,0 +1,18 @@
+# 依存関係
+node_modules/
+
+# IDE
+.idea/
+
+# 環境変数（.env.example と .env.vault は追跡する）
+.env
+.env.*
+!.env.example
+!.env.vault
+
+# OS
+.DS_Store
+
+# ビルド成果物・一時ファイル
+tmp/
+site/

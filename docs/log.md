@@ -1,6 +1,10 @@
 # Docs Update Log
 
+## 2026-09-27
+* **Creation**: [Unit 3 の Bolt 計画](/development/iteration_plan-3.md) を作成（AI-DLC 準拠）。序盤から中盤への局面移行の確認、アプローチをインサイドアウトに切り替える根拠、Unit 2 からの持ち込み 5 項目と学び 2 件の織り込み、疎いゲート密度（5 箇所）、ドメインモデル図と状態遷移図を定義（claude-code/claude-opus-5）
+
 ## 2026-09-26
+* **Verification**: [iteration_plan-3](/development/iteration_plan-3.md) を human:kakimomokuri が検証
 * **Creation**: [Unit 2 の Bolt 終了報告](/development/bolt_report-2.md) と [開発ジャーナル Unit 2](/journal/20260926-unit2.md) を作成。持ち込み 8 項目を全消化、記事のコード例検査が作った当日に 2 回ドリフトを検出、Unit 3 のゲート密度を疎にする判断を記録（claude-code/claude-opus-5）
 * **Creation**: [第 3 章 ドメインの定義とテスト](/article/zettai/kotlin/chapter03.md) を公開。受け入れテストが実装に結合している問題を特定し、高階関数で実行経路を抽象化して同じシナリオを 2 経路で実行できるようにし、自前の DDT を Pesticide に載せ替える過程を記述（claude-code/claude-opus-5）
 * **Creation**: [ADR-002 受け入れテストを Cucumber ではなく DDT / Pesticide で書く](/adr/ADR-002-ddt-pesticide.md) を作成（claude-code/claude-opus-5）

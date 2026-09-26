@@ -84,6 +84,7 @@ nav:
       - Bolt 計画:
           - Unit 1 実行環境と第 1 章: development/iteration_plan-1.md
           - Unit 2 ウォーキングスケルトンとドメイン分離: development/iteration_plan-2.md
+          - Unit 3 関数型 DI とイベント: development/iteration_plan-3.md
       - Bolt 終了報告:
           - Unit 1 実行環境と第 1 章: development/bolt_report-1.md
           - Unit 2 ウォーキングスケルトンとドメイン分離: development/bolt_report-2.md

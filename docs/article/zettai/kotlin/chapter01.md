@@ -414,6 +414,12 @@ else             -> rolls.frameScore(rollsUsed = 2, bonusRolls = 0) + ...
 - テスト: `apps/kotlin/zettai/zettai-step1-http/src/test/kotlin/zettai/BowlingGameTest.kt`、`BowlingGameOOTest.kt`
 - 環境: `ops/nix/environments/kotlin/shell.nix`、`apps/kotlin/zettai/`
 
+本文のコードは、上のファイルからの転記です。次の 3 種類だけは逐語の転記ではありません。
+
+- **使用例**（`val game = BowlingGame()` の 4 行）: API の呼び出し方を示したものです。振る舞いは `BowlingGameOOTest` で確かめています
+- **リファクタリング前のコード**（`strikeScore` と `spareScore`）: 作り替える前の状態を示すために載せています。現在のファイルには残っていません
+- **`...` を含む抜粋**: `when` の分岐だけを取り出すために、式の後半を省略しています
+
 ## 参照
 
 - Uberto Barbini『From Objects to Functions』第 1 章。題材の設定とボウリングの例は本書に拠っています。本連載のコードはすべて書き起こした自作実装です

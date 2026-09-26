@@ -81,8 +81,13 @@ nav:
       - 開発戦略: development/development_strategy.md
       - Bolt 計画:
           - Unit 1 実行環境と第 1 章: development/iteration_plan-1.md
+      - Bolt 終了報告:
+          - Unit 1 実行環境と第 1 章: development/bolt_report-1.md
   - 運用:
       - 概要: operation/index.md
+  - ジャーナル:
+      - 概要: journal/index.md
+      - 2026-09-26: journal/20260926.md
   - レビュー:
       - 概要: review/index.md
   - ADR:

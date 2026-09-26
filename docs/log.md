@@ -1,6 +1,8 @@
 # Docs Update Log
 
 ## 2026-09-26
+* **Creation**: [Unit 1 の Bolt 終了報告](/development/bolt_report-1.md) を作成。Bolt 1-1 / 1-2 の成果、完了 Unit 数 1・承認ゲート通過数 8・変更依頼数 1・リードタイム 1 日の実績、エントロピー評価の的中度、Unit 2 のゲート密度の決定を記録（claude-code/claude-opus-5）
+* **Creation**: [開発ジャーナル 2026-09-26](/journal/20260926.md) を作成。AI-DLC への計画の作り直し、スパイクの効果、BDD 不採用の判断、記事のコード例の出所管理という学びを記録（claude-code/claude-opus-5）
 * **Creation**: [第 1 章 新しいアプリケーションを準備する](/article/zettai/kotlin/chapter01.md) を公開。題材の定義、テストに開発をガイドさせる前提、Nix devShell と Gradle マルチプロジェクトのセットアップ、ボウリングの得点計算を題材にしたユニットテストの関数型化を TDD で記述（claude-code/claude-opus-5）
 * **Creation**: [ADR-001 サンプル実装に Kotlin 2.2 / JDK 21 を採用する](/adr/ADR-001-kotlin-toolchain.md) を作成。原著の Kotlin 1.8.20 / JDK 11 を踏襲せず、ビルドの正を Gradle 側に置く判断と、devShell の kotlinc 2.3 との差を許容する理由を記録（claude-code/claude-opus-5）
 * **Update**: Unit 1 の完了にあわせて[シリーズ索引](/article/zettai/index.md)・[Kotlin 版トップ](/article/zettai/kotlin/index.md)・[執筆計画](/article/outline.md)の進捗と前提整備チェックリストを更新（claude-code/claude-opus-5）

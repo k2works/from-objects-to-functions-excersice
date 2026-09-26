@@ -1,8 +1,8 @@
-site_name: Site Name
-site_description: Site Description
+site_name: From Objects to Functions 演習
+site_description: 関数型プログラミングで作る変更を楽に安全にできるソフトウェア
 site_author: Project Team
-repo_url: https://github.com/k2works/claude-code-booster
-repo_name: claude-code-booster
+repo_url: https://github.com/k2works/from-objects-to-functions-excersice
+repo_name: from-objects-to-functions-excersice
 
 theme:
   name: material
@@ -65,6 +65,7 @@ plugins:
 
 exclude_docs: |
   wiki
+  article/fotf/
 
 nav:
   - Home: index.md
@@ -84,6 +85,11 @@ nav:
       - 概要: adr/index.md
   - 記事:
       - 概要: article/index.md
+      - 執筆計画: article/outline.md
+      - 章構成マインドマップ: article/draft.md
+      - Zettai:
+          - 概要: article/zettai/index.md
+          - Kotlin 版: article/zettai/kotlin/index.md
   - リファレンス:
       - 概要: reference/index.md
       - よいソフトウェアとは: reference/よいソフトウェアとは.md

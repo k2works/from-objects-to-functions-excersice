@@ -1,6 +1,13 @@
 # Docs Update Log
 
 ## 2026-09-26
+* **Creation**: [開発戦略](/development/development_strategy.md) を作成。7 Unit を序盤・中盤・終盤の 3 局面に割り当て、アプローチ選択の根拠、共通の TDD サイクル、承認ゲートとゲート密度、デモ項目を受け入れ基準とする方針（BDD 不採用・DDT / Pesticide 採用）、設計ドキュメント整合、局面移行時の一貫性維持を定義（claude-code/claude-opus-5）
+* **Creation**: [Unit 1 の Bolt 計画](/development/iteration_plan-1.md) を作成（AI-DLC 準拠）。Unit 1 の満足条件・5 軸のエントロピー評価・スコープと深さとテスト戦略・Bolt 1-1 / 1-2 のステップ計画 18 件・承認ゲート 8 箇所・Deployment Unit の完了条件を定義（claude-code/claude-opus-5）
+* **Update**: [リリース計画](/development/release_plan.md) を AI-DLC 準拠に改訂。Intent・ビジネス価値・Unit 分解・依存 DAG・エントロピー評価・スコープと深さとテスト戦略を追加し、ベロシティを完了 Unit 数・承認ゲート通過数・変更依頼数・リードタイムに置き換え（claude-code/claude-opus-5）
+* **Creation**: [リリース計画 - Zettai 連載（Kotlin 版）](/development/release_plan.md) を作成。執筆計画の全 13 章と前提整備を 14 ストーリー・75SP に分解し、1 イテレーション 2 章の 7 イテレーション・3 フェーズ構成、ベロシティ見積もり、バッファ戦略、リスク台帳 8 件、進捗管理の枠組みを定義（claude-code/claude-opus-5）
+* **Update**: [執筆計画](/article/outline.md) をリリース計画と相互対応させ、章別計画にストーリー・IT・SP 列とフェーズ区切りを追加。あわせて OKF フロントマターを付与（claude-code/claude-opus-5）
+* **Update**: [章構成マインドマップ](/article/draft.md) に OKF フロントマターを付与（claude-code/claude-opus-5）
+* **Update**: 原著コンパニオンコードを `docs/article/fotf/` から `references/fotf/`（git 管理外）へ移し、OKF バンドルの外に出した。関連ドキュメントのパス記述を更新（claude-code/claude-opus-5）
 * **Creation**: [BDD導入ガイド](/reference/BDD導入ガイド.md) を作成（claude-code/claude-opus-5）
 
 ## 2026-09-12

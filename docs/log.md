@@ -1,6 +1,8 @@
 # Docs Update Log
 
 ## 2026-09-26
+* **Verification**: [iteration_plan-1](/development/iteration_plan-1.md) を human:kakimomokuri が検証
+* **Update**: [Unit 1 の Bolt 計画](/development/iteration_plan-1.md) を開始準備の検証結果で更新。テンプレート必須節（ゴール・リスクと対策）を追加し、局面とアプローチ（序盤アウトサイドインの適用例外）、受入条件とステップの対応表、省略する設計 4 図とマニュアルの理由、`docs/design/` への反映注記を追記（claude-code/claude-opus-5）
 * **Creation**: [開発戦略](/development/development_strategy.md) を作成。7 Unit を序盤・中盤・終盤の 3 局面に割り当て、アプローチ選択の根拠、共通の TDD サイクル、承認ゲートとゲート密度、デモ項目を受け入れ基準とする方針（BDD 不採用・DDT / Pesticide 採用）、設計ドキュメント整合、局面移行時の一貫性維持を定義（claude-code/claude-opus-5）
 * **Creation**: [Unit 1 の Bolt 計画](/development/iteration_plan-1.md) を作成（AI-DLC 準拠）。Unit 1 の満足条件・5 軸のエントロピー評価・スコープと深さとテスト戦略・Bolt 1-1 / 1-2 のステップ計画 18 件・承認ゲート 8 箇所・Deployment Unit の完了条件を定義（claude-code/claude-opus-5）
 * **Update**: [リリース計画](/development/release_plan.md) を AI-DLC 準拠に改訂。Intent・ビジネス価値・Unit 分解・依存 DAG・エントロピー評価・スコープと深さとテスト戦略を追加し、ベロシティを完了 Unit 数・承認ゲート通過数・変更依頼数・リードタイムに置き換え（claude-code/claude-opus-5）

@@ -77,6 +77,10 @@ nav:
       - 概要: design/index.md
   - 開発:
       - 概要: development/index.md
+      - リリース計画: development/release_plan.md
+      - 開発戦略: development/development_strategy.md
+      - Bolt 計画:
+          - Unit 1 実行環境と第 1 章: development/iteration_plan-1.md
   - 運用:
       - 概要: operation/index.md
   - レビュー:

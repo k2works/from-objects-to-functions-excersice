@@ -19,3 +19,7 @@ site/
 
 # 参照専用の外部コード（原著コンパニオンコードなど。改変せず読むだけ）
 references/
+
+# Gradle
+.gradle/
+build/

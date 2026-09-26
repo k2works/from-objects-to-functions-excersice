@@ -1,0 +1,14 @@
+# 依存バージョンはこのファイルに集中管理する。
+# build.gradle.kts にリテラルのバージョンを書かない。
+[versions]
+kotlin = "2.2.0"
+junit = "5.12.2"
+strikt = "0.35.1"
+
+[libraries]
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }
+junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher" }
+strikt-core = { module = "io.strikt:strikt-core", version.ref = "strikt" }
+
+[plugins]
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }

@@ -209,32 +209,34 @@ end note
 
 状態記号は `[ ]` 未着手／`[-]` 進行中／`[?]` 承認待ち／`[R]` 修正中／`[x]` 完了／`[S]` スキップ。
 
-- [ ] **1-1.0 スパイク**: nixpkgs の `kotlin` のバージョン、JDK 21 との組み合わせ、Strikt の最新版を調べ、選択肢と根拠を提示する
+- [x] **1-1.0 スパイク**: nixpkgs の `kotlin` のバージョン、JDK 21 との組み合わせ、Strikt の最新版を調べ、選択肢と根拠を提示する
   - 入力: `ops/nix/environments/java/shell.nix`、`flake.nix`、`flake.lock`
   - 完了判定: 採用するバージョンの組み合わせが根拠つきで 1 案に絞られている
   - **人の確認が必要**（未解決の仮定が HIGH。結果を見てから本実装に入る）
-- [ ] **1-1.1 devShell の定義**: `ops/nix/environments/kotlin/shell.nix` を新設する
+  - **結果**: nixpkgs は kotlin 2.3.0 / jdk21 21.0.8 / gradle 8.14.3。Maven Central の最新安定版は kotlin-gradle-plugin 2.2.0 / junit-bom 5.12.2 / strikt-core 0.35.1。CLI（2.3.0）とビルド（2.2.0）でバージョンが食い違うため、ビルドの正を Gradle 側に置く。[ADR-001](../adr/ADR-001-kotlin-toolchain.md) に記録
+- [x] **1-1.1 devShell の定義**: `ops/nix/environments/kotlin/shell.nix` を新設する
   - 入力: `ops/nix/environments/java/shell.nix`（雛形）、`ops/nix/shells/shell.nix`（baseShell）
   - 完了判定: `baseShell` を継承し、`kotlin`・JDK 21・Gradle を `buildInputs` に足した定義になっている
   - **人の確認が必要**（新規ファイル作成）
-- [ ] **1-1.2 flake への登録**: `flake.nix` の `devShells` に `kotlin` を 1 行追加する
+- [x] **1-1.2 flake への登録**: `flake.nix` の `devShells` に `kotlin` を 1 行追加する
   - 完了判定: `nix flake show` に `kotlin` が現れ、**既存 13 devShell もすべて認識される**
   - **人の確認が必要**（構造変更。既存 devShell への影響を確認する）
-- [ ] **1-1.3 Gradle マルチプロジェクトの構成案**: `apps/kotlin/zettai/` のディレクトリ構成とモジュール命名を提示する
+- [x] **1-1.3 Gradle マルチプロジェクトの構成案**: `apps/kotlin/zettai/` のディレクトリ構成とモジュール命名を提示する
   - 入力: `references/fotf/settings.gradle`（読むだけ）、[執筆計画](../article/outline.md) の章とモジュールの対応
   - 完了判定: モジュール名・`libs.versions.toml` の項目・`jvmToolchain` の指定方針が確定している
   - **人の確認が必要**（新規ファイル作成が広範。構成を先に合意する）
-- [ ] **1-1.4 雛形の作成**: `settings.gradle.kts`・`build.gradle.kts`・`gradle/libs.versions.toml`・最初のモジュールを作成する
+- [x] **1-1.4 雛形の作成**: `settings.gradle.kts`・`build.gradle.kts`・`gradle/libs.versions.toml`・最初のモジュールを作成する
   - 完了判定: `./gradlew projects` でモジュールが認識される
-- [ ] **1-1.5 最小のテストを書く（Red）**: 失敗するテスト 1 本を書き、**失敗することを確認する**
+- [x] **1-1.5 最小のテストを書く（Red）**: 失敗するテスト 1 本を書き、**失敗することを確認する**
   - 完了判定: テストが実行され、期待どおり失敗する
-- [ ] **1-1.6 最小の実装で通す（Green）**: テストを通す最小限の実装を書く
+- [x] **1-1.6 最小の実装で通す（Green）**: テストを通す最小限の実装を書く
   - 完了判定: `./gradlew check` が green
-- [ ] **1-1.7 ビルド時間の計測**: キャッシュを消して `./gradlew check` の所要時間を測る
+- [x] **1-1.7 ビルド時間の計測**: キャッシュを消して `./gradlew check` の所要時間を測る
   - 完了判定: NFR の 3 分以内を満たすか判定し、超えた場合は Unit 2 に持ち込む課題として記録する
-- [ ] **1-1.8 README の作成**: `apps/kotlin/zettai/README.md` にディレクトリ規約と実行コマンドを書く
+  - **結果**: クリーンビルドで 34 秒。NFR を満たす
+- [x] **1-1.8 README の作成**: `apps/kotlin/zettai/README.md` にディレクトリ規約と実行コマンドを書く
   - **人の確認が必要**（新規ファイル作成）
-- [ ] **1-1.9 ADR-001 の作成**: ツールチェーン選定（Kotlin 2.x / JDK 21）の判断を ADR に記録する
+- [x] **1-1.9 ADR-001 の作成**: ツールチェーン選定（Kotlin 2.x / JDK 21）の判断を ADR に記録する
   - 入力: `docs/template/ADR.md`、1-1.0 のスパイク結果
   - **人の確認が必要**（設計判断の記録。`creating-adr` スキル）
 

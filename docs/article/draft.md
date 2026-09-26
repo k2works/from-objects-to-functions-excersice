@@ -1,3 +1,12 @@
+---
+type: Outline
+title: "章構成マインドマップ：関数型プログラミングで作る変更を楽に安全にできるソフトウェア"
+description: "Zettai 連載の全 13 章とその節構成を PlantUML マインドマップで示した一次情報。記事の節見出しはこのマインドマップに一致させる。"
+tags: [article, zettai]
+status: draft
+generated: { by: claude-code/claude-opus-5, at: 2026-09-26T12:29:40Z }
+---
+
 ```plantuml
 @startmindmap
 

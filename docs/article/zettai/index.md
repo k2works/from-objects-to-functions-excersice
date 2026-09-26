@@ -3,8 +3,9 @@
 ToDo リストアプリケーション **Zettai** を TDD で一から作りながら、オブジェクト指向から関数型へ設計を移していく連載シリーズです。題材と章構成は Uberto Barbini 著『From Objects to Functions』に拠っています。
 
 - 執筆計画：[outline.md](../outline.md)
+- リリース計画（イテレーション・ストーリー・進捗）：[release_plan.md](../../development/release_plan.md)
 - 章構成マインドマップ：[draft.md](../draft.md)
-- 参照元の原著コンパニオンコード：`docs/article/fotf/`（読み取り専用）
+- 参照元の原著コンパニオンコード：`references/fotf/`（読み取り専用）
 
 ## 対象別一覧
 

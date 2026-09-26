@@ -5,7 +5,7 @@ Kotlin で Zettai を実装しながら、関数型の設計手法を積み上�
 - シリーズ索引：[Zettai シリーズ索引](../index.md)
 - 執筆計画：[outline.md](../../outline.md)
 - サンプル実装：`apps/kotlin/zettai/`
-- 参照元の原著コード：`docs/article/fotf/`（読み取り専用）
+- 参照元の原著コード：`references/fotf/`（読み取り専用）
 
 ## 開発環境
 

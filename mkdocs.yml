@@ -76,6 +76,7 @@ nav:
   - 設計:
       - 概要: design/index.md
       - バックエンドアーキテクチャ: design/architecture_backend.md
+      - ドメインモデル: design/domain-model.md
       - UI 設計: design/ui_design.md
   - 開発:
       - 概要: development/index.md
@@ -88,12 +89,14 @@ nav:
       - Bolt 終了報告:
           - Unit 1 実行環境と第 1 章: development/bolt_report-1.md
           - Unit 2 ウォーキングスケルトンとドメイン分離: development/bolt_report-2.md
+          - Unit 3 関数型 DI とイベント: development/bolt_report-3.md
   - 運用:
       - 概要: operation/index.md
   - ジャーナル:
       - 概要: journal/index.md
       - 2026-09-26 計画立ち上げと Unit 1: journal/20260926.md
       - 2026-09-26 Unit 2: journal/20260926-unit2.md
+      - 2026-09-27 Unit 3: journal/20260927.md
   - レビュー:
       - 概要: review/index.md
   - ADR:
@@ -102,6 +105,7 @@ nav:
       - ADR-002 DDT / Pesticide の採用: adr/ADR-002-ddt-pesticide.md
       - ADR-003 http4k 6.x の採用: adr/ADR-003-http4k-6.md
       - ADR-004 静的解析を入れない判断: adr/ADR-004-static-analysis.md
+      - ADR-005 プロパティベーステストの方針: adr/ADR-005-property-based-testing.md
   - 記事:
       - 概要: article/index.md
       - 執筆計画: article/outline.md
@@ -113,6 +117,8 @@ nav:
               - 第 1 章 新しいアプリケーションを準備する: article/zettai/kotlin/chapter01.md
               - 第 2 章 関数を使って HTTP を扱う: article/zettai/kotlin/chapter02.md
               - 第 3 章 ドメインの定義とテスト: article/zettai/kotlin/chapter03.md
+              - 第 4 章 ドメインとアダプタのモデリング: article/zettai/kotlin/chapter04.md
+              - 第 5 章 イベントで状態を変更する: article/zettai/kotlin/chapter05.md
   - リファレンス:
       - 概要: reference/index.md
       - よいソフトウェアとは: reference/よいソフトウェアとは.md

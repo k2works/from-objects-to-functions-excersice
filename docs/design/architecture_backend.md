@@ -65,7 +65,7 @@ end note
 | 確認方法 | 状態 |
 | :--- | :--- |
 | ドメイン層のテストがフレームワークなしで通る | 実施中（`zettai.domain` のテスト） |
-| import を機械的に検査する | 未実施。Unit 5（第 9 章）で依存が増える時点で検討する |
+| import を機械的に検査する | **実施中**（`DomainBoundaryTest`。http4k・JDBC・Exposed・Kondor を検査） |
 
 ## モジュール分割
 
@@ -82,7 +82,7 @@ apps/kotlin/zettai/
 | モジュール | 章 | 状態 |
 | :--- | :--- | :--- |
 | `zettai-step1-http` | 1〜3 | 作成済み |
-| `zettai-step2-domain` | 4〜5 | 未作成 |
+| `zettai-step2-domain` | 4〜5 | **作成済み** |
 | `zettai-step3-events` | 5〜6 | 未作成 |
 | `zettai-step4-projections` | 7〜8 | 未作成 |
 | `zettai-step5-persistence` | 9〜10 | 未作成 |
@@ -112,7 +112,7 @@ src/test/kotlin/zettai/
 
 | パッケージ | 章 | 内容 |
 | :--- | :--- | :--- |
-| `domain/events/` | 5 | イベントと畳み込み |
+| `domain/events/` | 5 | イベントと畳み込み（**作成済み**） |
 | `domain/commands/` | 6 | コマンドと関数型ステートマシン |
 | `fp/` | 7・9・10・11 | `Outcome`・`ContextReader`・`Validation` |
 | `domain/queries/` | 8 | 射影（CQRS のクエリ側） |
@@ -121,11 +121,15 @@ src/test/kotlin/zettai/
 
 ## ポートの一覧
 
+ポートは `ToDoListHub` が受け取ります（第 4 章以降）。HTTP の層はハブしか知りません。
+
 | ポート | 型 | アダプタ | 章 |
 | :--- | :--- | :--- | :--- |
-| ToDo リストの取得 | `(User, ListName) -> ToDoList?` | `inMemoryFetcher` | 2 |
+| ToDo リストの取得 | `ToDoListFetcher = (User, ListName) -> ToDoList?` | `inMemoryFetcher`、またはイベントを畳み込んだ状態から引く実装 | 2（`Zettai` が直接）、4（ハブ経由） |
 
-第 9 章で PostgreSQL 版のアダプタが加わります。ポートの型が変わらなければ、`Zettai` 側のコードは変わりません。
+第 6 章でコマンドの受け付けが加わり、ポートが 2 つになります。第 9 章で PostgreSQL 版のアダプタが加わります。**ポートの型が変わらなければ、ハブより上のコードは変わりません。**
+
+`ToDoListFetcher` の定義は第 4 章で `zettai.web` から `zettai.domain` へ移しました。**ポートはドメインが決めるもの**だからです。
 
 エラーを `null` で表しているのは暫定です。第 7 章で `Outcome` に置き換えます。
 
@@ -150,10 +154,13 @@ BDD / Gherkin（Cucumber）は採用していません。理由は [開発戦略
 | テスト | 全件 green |
 | カバレッジ（Kover） | ドメイン層 80% 以上 |
 | 静的解析 | 導入しない（[ADR-004](../adr/ADR-004-static-analysis.md)。Unit 5 で再検討） |
+| ドメインの境界 | `DomainBoundaryTest` が green |
+| 代数的性質 | プロパティベーステストで検証（[ADR-005](../adr/ADR-005-property-based-testing.md)） |
 | 記事のコード例検査 | CI の独立したジョブ。違反 0 件 |
 
 ## 関連ドキュメント
 
+- [ドメインモデル設計](domain-model.md)
 - [UI 設計](ui_design.md)
 - [ADR-001 Kotlin 2.2 / JDK 21 の採用](../adr/ADR-001-kotlin-toolchain.md)
 - [ADR-003 http4k 6.x の採用](../adr/ADR-003-http4k-6.md)

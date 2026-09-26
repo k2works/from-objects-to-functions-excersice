@@ -1,6 +1,11 @@
 # Docs Update Log
 
 ## 2026-09-27
+* **Creation**: [第 4 章 ドメインとアダプタのモデリング](/article/zettai/kotlin/chapter04.md)、[第 5 章 イベントで状態を変更する](/article/zettai/kotlin/chapter05.md) を公開（claude-code/claude-opus-5）
+* **Creation**: [ドメインモデル設計](/design/domain-model.md) を作成。ユビキタス言語の対訳表、要素表、イベントと状態の関係、状態遷移図、満たす法則を記述（claude-code/claude-opus-5）
+* **Creation**: [ADR-005 プロパティベーステストを自前で書き kotest-property を導入しない](/adr/ADR-005-property-based-testing.md) を作成（claude-code/claude-opus-5）
+* **Creation**: [Unit 3 の Bolt 終了報告](/development/bolt_report-3.md) と [開発ジャーナル Unit 3](/journal/20260927.md) を作成。疎いゲート密度で変更依頼 0 件、ゲートを外せる条件、抽象概念の名前を最後に出す構成を記録（claude-code/claude-opus-5）
+* **Update**: [バックエンドアーキテクチャ設計](/design/architecture_backend.md) と [UI 設計](/design/ui_design.md) に Unit 3 の実装を反映（claude-code/claude-opus-5）
 * **Creation**: [Unit 3 の Bolt 計画](/development/iteration_plan-3.md) を作成（AI-DLC 準拠）。序盤から中盤への局面移行の確認、アプローチをインサイドアウトに切り替える根拠、Unit 2 からの持ち込み 5 項目と学び 2 件の織り込み、疎いゲート密度（5 箇所）、ドメインモデル図と状態遷移図を定義（claude-code/claude-opus-5）
 
 ## 2026-09-26

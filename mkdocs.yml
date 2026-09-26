@@ -93,7 +93,9 @@ nav:
       - 章構成マインドマップ: article/draft.md
       - Zettai:
           - 概要: article/zettai/index.md
-          - Kotlin 版: article/zettai/kotlin/index.md
+          - Kotlin 版:
+              - 概要: article/zettai/kotlin/index.md
+              - 第 1 章 新しいアプリケーションを準備する: article/zettai/kotlin/chapter01.md
   - リファレンス:
       - 概要: reference/index.md
       - よいソフトウェアとは: reference/よいソフトウェアとは.md

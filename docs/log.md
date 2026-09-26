@@ -1,6 +1,9 @@
 # Docs Update Log
 
 ## 2026-09-26
+* **Creation**: [第 1 章 新しいアプリケーションを準備する](/article/zettai/kotlin/chapter01.md) を公開。題材の定義、テストに開発をガイドさせる前提、Nix devShell と Gradle マルチプロジェクトのセットアップ、ボウリングの得点計算を題材にしたユニットテストの関数型化を TDD で記述（claude-code/claude-opus-5）
+* **Creation**: [ADR-001 サンプル実装に Kotlin 2.2 / JDK 21 を採用する](/adr/ADR-001-kotlin-toolchain.md) を作成。原著の Kotlin 1.8.20 / JDK 11 を踏襲せず、ビルドの正を Gradle 側に置く判断と、devShell の kotlinc 2.3 との差を許容する理由を記録（claude-code/claude-opus-5）
+* **Update**: Unit 1 の完了にあわせて[シリーズ索引](/article/zettai/index.md)・[Kotlin 版トップ](/article/zettai/kotlin/index.md)・[執筆計画](/article/outline.md)の進捗と前提整備チェックリストを更新（claude-code/claude-opus-5）
 * **Verification**: [iteration_plan-1](/development/iteration_plan-1.md) を human:kakimomokuri が検証
 * **Update**: [Unit 1 の Bolt 計画](/development/iteration_plan-1.md) を開始準備の検証結果で更新。テンプレート必須節（ゴール・リスクと対策）を追加し、局面とアプローチ（序盤アウトサイドインの適用例外）、受入条件とステップの対応表、省略する設計 4 図とマニュアルの理由、`docs/design/` への反映注記を追記（claude-code/claude-opus-5）
 * **Creation**: [開発戦略](/development/development_strategy.md) を作成。7 Unit を序盤・中盤・終盤の 3 局面に割り当て、アプローチ選択の根拠、共通の TDD サイクル、承認ゲートとゲート密度、デモ項目を受け入れ基準とする方針（BDD 不採用・DDT / Pesticide 採用）、設計ドキュメント整合、局面移行時の一貫性維持を定義（claude-code/claude-opus-5）

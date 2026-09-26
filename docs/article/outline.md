@@ -23,7 +23,7 @@ generated: { by: claude-code/claude-opus-5, at: 2026-09-26T12:29:40Z }
 
 | 対象 | 実行環境 | 章数 | 記事 | サンプル実装 | 状態 |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| Kotlin | Nix devShell `kotlin`（JDK 21 / Gradle） | 13 | `docs/article/zettai/kotlin/` | `apps/kotlin/zettai/` | 準備中 |
+| Kotlin | Nix devShell `kotlin`（JDK 21 / Gradle） | 13 | `docs/article/zettai/kotlin/` | `apps/kotlin/zettai/` | 連載中（1 / 13 章公開） |
 
 2 言語目を追加した時点で、横断比較コンテンツ `docs/article/zettai/comparison/` を新設します。それまでは比較コンテンツを作りません。
 
@@ -78,10 +78,10 @@ apps/
 
 章の執筆に入る前に、次を完了させます。リリース計画では冒頭 4 項目を US-000（Unit 1 / Bolt 1-1）、CI の 1 項目を US-002（Unit 2 / Bolt 2-1）に含めています。
 
-- [ ] `ops/nix/environments/kotlin/shell.nix` を新設（既存 `java/shell.nix` を雛形に `kotlin`・JDK 21・Gradle を載せる）
-- [ ] `flake.nix` の `devShells` に `kotlin` を登録し、`nix flake show` で認識されることを確認
-- [ ] `apps/kotlin/zettai/` に Gradle マルチプロジェクトの雛形を作成（`gradle/libs.versions.toml` でバージョンを集中管理）
-- [ ] 最小のテスト 1 本が `./gradlew check` で通ることを確認
+- [x] `ops/nix/environments/kotlin/shell.nix` を新設（既存 `java/shell.nix` を雛形に `kotlin`・JDK 21・Gradle を載せる）
+- [x] `flake.nix` の `devShells` に `kotlin` を登録し、`nix flake show` で認識されることを確認
+- [x] `apps/kotlin/zettai/` に Gradle マルチプロジェクトの雛形を作成（`gradle/libs.versions.toml` でバージョンを集中管理）
+- [x] 最小のテスト 1 本が `./gradlew check` で通ることを確認
 - [ ] `.github/workflows/kotlin-zettai.yml` を新設（第 2 章の実装が入った直後。Unit 2 で実施）
 
 ### 実行環境の方針

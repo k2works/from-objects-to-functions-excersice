@@ -1,0 +1,161 @@
+---
+type: Design
+title: "バックエンドアーキテクチャ設計 - Zettai"
+description: "Zettai（Kotlin 版）のバックエンドアーキテクチャ設計。ドメインとアダプタの境界の定義と担保方法、Gradle マルチプロジェクトのモジュール分割と命名規約、パッケージ構成、依存の向き、関数の型による依存表現、章の進行にあわせた構造の変化を記述する。"
+tags: [design, architecture, zettai, kotlin]
+status: draft
+generated: { by: claude-code/claude-opus-5, at: 2026-09-26T14:01:38Z }
+---
+
+# バックエンドアーキテクチャ設計 - Zettai
+
+ToDo リストアプリケーション Zettai（Kotlin 版）のバックエンド構成を定義します。連載の進行にあわせて構造が変わるため、**現時点の構造と、どの章で何が変わるか**を並べて書きます。
+
+実装は `apps/kotlin/zettai/` にあります。
+
+## 全体方針
+
+ヘキサゴナルアーキテクチャ（ポートとアダプタ）を、**関数の型**で表現します。インターフェースを定義してクラスで実装するのではなく、ポートを関数の型（`typealias`）として宣言し、アダプタはその型の値（ラムダや関数参照）として渡します。
+
+```plantuml
+@startuml
+title 依存の向き
+
+package "web（アダプタ）" {
+  class Zettai
+  class HtmlPage
+  class InMemoryToDoListFetcher
+}
+
+package "domain（ドメイン）" {
+  class ToDoList
+  class ToDoItem
+  class User
+  class ListName
+}
+
+Zettai --> ToDoList : 使う
+HtmlPage --> ToDoList : 使う
+InMemoryToDoListFetcher --> ToDoList : 使う
+
+note right of ToDoList
+  ドメインはアダプタを知らない。
+  http4k を import しない
+end note
+
+note bottom of Zettai
+  ポートは関数の型で表す。
+  ToDoListFetcher = (User, ListName) -> ToDoList?
+end note
+@enduml
+```
+
+依存は常に **アダプタ → ドメイン** の一方向です。
+
+## ドメインとアダプタの境界
+
+境界の定義は 1 つだけです。
+
+> **`zettai.domain` パッケージのファイルは、フレームワークを import しない。**
+
+現時点では http4k が対象で、第 9 章以降は JDBC / Exposed が、第 12 章では Kondor が加わります。
+
+この定義を採る理由は、**破ろうとしたときに目に見える**ことです。コメントや命名規約と違い、import 文は書けば残ります。レビューで検出でき、将来は依存関係のテストで機械的に止められます。
+
+| 確認方法 | 状態 |
+| :--- | :--- |
+| ドメイン層のテストがフレームワークなしで通る | 実施中（`zettai.domain` のテスト） |
+| import を機械的に検査する | 未実施。Unit 5（第 9 章）で依存が増える時点で検討する |
+
+## モジュール分割
+
+Gradle のマルチプロジェクトとし、**章の進行にあわせてモジュールを増やします**。読者が「その章の時点のコード」を丸ごと参照できるようにするためです。
+
+```text
+apps/kotlin/zettai/
+├── settings.gradle.kts          # モジュールを include
+├── build.gradle.kts             # 全モジュール共通（jvmToolchain(21)・テスト依存・Kover）
+├── gradle/libs.versions.toml    # 依存バージョンの集中管理
+└── zettai-stepN-<テーマ>/
+```
+
+| モジュール | 章 | 状態 |
+| :--- | :--- | :--- |
+| `zettai-step1-http` | 1〜3 | 作成済み |
+| `zettai-step2-domain` | 4〜5 | 未作成 |
+| `zettai-step3-events` | 5〜6 | 未作成 |
+| `zettai-step4-projections` | 7〜8 | 未作成 |
+| `zettai-step5-persistence` | 9〜10 | 未作成 |
+| `zettai-step6-validation` | 11 | 未作成 |
+| `zettai-step7-monitoring` | 12 | 未作成 |
+
+### 命名規約
+
+- モジュール名は `zettai-stepN-<テーマ>`。原著のコンパニオンコード（`zettai_stepN_*`）に対応させ、Gradle の慣習にあわせてハイフン区切りにする
+- パッケージのルートは `zettai`。原著（`com.ubertob.fotf.*`）とは分ける。自作実装であることを明確にするため
+- 依存バージョンは `gradle/libs.versions.toml` の 1 箇所に書く。`build.gradle.kts` にリテラルのバージョンを書かない
+
+## パッケージ構成
+
+```text
+src/main/kotlin/zettai/
+├── domain/     ドメイン。フレームワークを知らない
+└── web/        HTTP アダプタ
+
+src/test/kotlin/zettai/
+├── ddt/        受け入れテスト（Pesticide）
+├── smoke/      実行環境のスモークテスト
+└── web/        アダプタのテスト
+```
+
+章の進行で増える予定のパッケージは次のとおりです。
+
+| パッケージ | 章 | 内容 |
+| :--- | :--- | :--- |
+| `domain/events/` | 5 | イベントと畳み込み |
+| `domain/commands/` | 6 | コマンドと関数型ステートマシン |
+| `fp/` | 7・9・10・11 | `Outcome`・`ContextReader`・`Validation` |
+| `domain/queries/` | 8 | 射影（CQRS のクエリ側） |
+| `persistence/` | 9 | PostgreSQL アダプタ |
+| `logger/` | 12 | 構造化ロギング |
+
+## ポートの一覧
+
+| ポート | 型 | アダプタ | 章 |
+| :--- | :--- | :--- | :--- |
+| ToDo リストの取得 | `(User, ListName) -> ToDoList?` | `inMemoryFetcher` | 2 |
+
+第 9 章で PostgreSQL 版のアダプタが加わります。ポートの型が変わらなければ、`Zettai` 側のコードは変わりません。
+
+エラーを `null` で表しているのは暫定です。第 7 章で `Outcome` に置き換えます。
+
+## テストの構成
+
+| 種別 | 対象 | 実行経路 |
+| :--- | :--- | :--- |
+| 受け入れテスト（DDT） | シナリオ全体 | ドメイン直接 / HTTP 経由の 2 経路 |
+| ユニットテスト | ドメイン層 | 直接 |
+| スモークテスト | 実行環境とサイト構成 | 直接 |
+
+受け入れテストは [Pesticide](https://github.com/uberto/pesticide) を使い、**同じシナリオを複数の経路で実行**します。経路を差し替えても確かめている内容が変わらないことが、ドメインとインフラが分離できている証拠になります。
+
+BDD / Gherkin（Cucumber）は採用していません。理由は [開発戦略](../development/development_strategy.md) と ADR-002 にあります。
+
+## 品質ゲート
+
+`./gradlew check` にコンパイル・テスト・カバレッジ検証を集約します。ローカルと CI で同じコマンドを実行し、判定を一致させます。
+
+| ゲート | 基準 |
+| :--- | :--- |
+| テスト | 全件 green |
+| カバレッジ（Kover） | ドメイン層 80% 以上 |
+| 静的解析 | 導入しない（[ADR-004](../adr/ADR-004-static-analysis.md)。Unit 5 で再検討） |
+| 記事のコード例検査 | CI の独立したジョブ。違反 0 件 |
+
+## 関連ドキュメント
+
+- [UI 設計](ui_design.md)
+- [ADR-001 Kotlin 2.2 / JDK 21 の採用](../adr/ADR-001-kotlin-toolchain.md)
+- [ADR-003 http4k 6.x の採用](../adr/ADR-003-http4k-6.md)
+- [ADR-004 静的解析を入れない判断](../adr/ADR-004-static-analysis.md)
+- [開発戦略](../development/development_strategy.md)

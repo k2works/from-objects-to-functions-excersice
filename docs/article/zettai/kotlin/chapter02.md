@@ -90,6 +90,8 @@ dependencies {
 
 一番外側、つまり HTTP のレベルで書きます。
 
+<!-- code-check: ignore 第 2 章時点のテスト。第 3 章で DDT に置き換えたため現在のファイルには存在しない -->
+
 ```kotlin
 class SeeATodoListTest {
 
@@ -267,6 +269,8 @@ fun inMemoryFetcher(lists: Map<User, List<ToDoList>>): ToDoListFetcher =
 
 存在しないリストへのリクエストも試します。
 
+<!-- code-check: ignore 第 2 章時点のテスト。第 3 章で DDT に置き換えたため現在のファイルには存在しない -->
+
 ```kotlin
     @Test
     fun `存在しないリストは 404 を返す`() {
@@ -287,6 +291,8 @@ val todoList = fetchList(user, listName) ?: return Response(Status.NOT_FOUND)
 「リストが無い」ことを `null` で表しているのが気になるかもしれません。気になって正解です。**null は「なぜ無いのか」を説明しません。** 権限が無いのか、名前が間違っているのか、削除されたのか、区別がつきません。
 
 この問題は第 7 章「関数型手法によるエラーハンドリング」で `Outcome` という型を導入して解決します。今は素朴なままにしておきます。**問題を認識しつつ、解決を後の章に譲るのも設計判断です。**
+
+> **第 3 章で置き換えます。** ここで書いた 2 つのテストは、次の章で DDT という形に作り直します。この章のコードは「第 2 章時点のもの」として読んでください。
 
 ### 縦串が通った
 

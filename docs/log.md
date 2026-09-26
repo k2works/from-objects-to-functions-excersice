@@ -1,6 +1,10 @@
 # Docs Update Log
 
 ## 2026-09-26
+* **Creation**: [Unit 2 の Bolt 終了報告](/development/bolt_report-2.md) と [開発ジャーナル Unit 2](/journal/20260926-unit2.md) を作成。持ち込み 8 項目を全消化、記事のコード例検査が作った当日に 2 回ドリフトを検出、Unit 3 のゲート密度を疎にする判断を記録（claude-code/claude-opus-5）
+* **Creation**: [第 3 章 ドメインの定義とテスト](/article/zettai/kotlin/chapter03.md) を公開。受け入れテストが実装に結合している問題を特定し、高階関数で実行経路を抽象化して同じシナリオを 2 経路で実行できるようにし、自前の DDT を Pesticide に載せ替える過程を記述（claude-code/claude-opus-5）
+* **Creation**: [ADR-002 受け入れテストを Cucumber ではなく DDT / Pesticide で書く](/adr/ADR-002-ddt-pesticide.md) を作成（claude-code/claude-opus-5）
+* **Creation**: [バックエンドアーキテクチャ設計](/design/architecture_backend.md)、[UI 設計](/design/ui_design.md) を作成。ドメインとアダプタの境界、モジュール分割、ポートの一覧、画面一覧と遷移を記述（claude-code/claude-opus-5）
 * **Creation**: [第 2 章 関数を使って HTTP を扱う](/article/zettai/kotlin/chapter02.md) を公開。http4k でウォーキングスケルトンを通し、HttpHandler が (Request) -> Response であることを軸に矢印で依存を表す設計を記述（claude-code/claude-opus-5）
 * **Creation**: [ADR-003 http4k 6.x を採用し原著の 4.x との差分は章ごとに注記する](/adr/ADR-003-http4k-6.md)、[ADR-004 静的解析を check に組み込まず記事のコード例検査を優先する](/adr/ADR-004-static-analysis.md) を作成（claude-code/claude-opus-5）
 * **Verification**: [iteration_plan-2](/development/iteration_plan-2.md) を human:kakimomokuri が検証

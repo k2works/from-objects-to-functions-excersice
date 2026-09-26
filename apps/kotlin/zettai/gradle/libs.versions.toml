@@ -4,11 +4,19 @@
 kotlin = "2.2.0"
 junit = "5.12.2"
 strikt = "0.35.1"
+http4k = "6.15.1.0"
+pesticide = "1.6.6"
+kover = "0.9.1"
 
 [libraries]
 junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }
 junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher" }
 strikt-core = { module = "io.strikt:strikt-core", version.ref = "strikt" }
+http4k-core = { module = "org.http4k:http4k-core", version.ref = "http4k" }
+http4k-server-jetty = { module = "org.http4k:http4k-server-jetty", version.ref = "http4k" }
+http4k-client-jetty = { module = "org.http4k:http4k-client-jetty", version.ref = "http4k" }
+pesticide-core = { module = "com.ubertob.pesticide:pesticide-core", version.ref = "pesticide" }
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }

@@ -1,0 +1,78 @@
+name: Kotlin Zettai
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'apps/kotlin/zettai/**'
+      - 'docs/article/zettai/**'
+      - 'ops/scripts/article/**'
+      - '.github/workflows/kotlin-zettai.yml'
+  pull_request:
+    paths:
+      - 'apps/kotlin/zettai/**'
+      - 'docs/article/zettai/**'
+      - 'ops/scripts/article/**'
+      - '.github/workflows/kotlin-zettai.yml'
+  workflow_dispatch:
+
+jobs:
+  check:
+    name: build, test, coverage
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: apps/kotlin/zettai
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # devShell と同じ JDK 21 を使う。ローカルと CI の判定を一致させるため
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      # check にコンパイル・テスト・カバレッジ検証（80%）が集約されている
+      - name: Run check
+        run: ./gradlew check
+
+      - name: Generate coverage report
+        if: always()
+        run: ./gradlew koverXmlReport koverHtmlReport
+
+      - name: Upload coverage report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: kover-report
+          path: apps/kotlin/zettai/build/reports/kover/
+
+      - name: Upload test results
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: apps/kotlin/zettai/**/build/reports/tests/
+
+  article-code:
+    name: article code examples
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # 記事のコード例が実装に存在することを確かめる。
+      # 逐語でない抜粋は記事側の code-check: ignore マーカーで除外する
+      - name: Check article code examples
+        run: python3 ops/scripts/article/check_article_code.py

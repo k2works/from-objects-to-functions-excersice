@@ -204,6 +204,8 @@ cd apps/kotlin/zettai
 
 ボウリングの得点計算をオブジェクト指向で書くと、だいたいこうなります。
 
+<!-- code-check: ignore API の使用例。振る舞いは BowlingGameOOTest で確認している -->
+
 ```kotlin
 val game = BowlingGame()
 game.roll(5)
@@ -364,6 +366,8 @@ BowlingGameTest > パーフェクトゲームは 300 点() PASSED
 ### リファクタリングで気づくこと
 
 最初に書いた実装では、ストライクとスペアの加点が別々の関数になっていました。
+
+<!-- code-check: ignore リファクタリング前のコード。現在のファイルには残っていない -->
 
 ```kotlin
 private fun List<Int>.strikeScore(): Int = take(3).sum()

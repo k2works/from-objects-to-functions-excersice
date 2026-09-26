@@ -81,6 +81,7 @@ nav:
       - 開発戦略: development/development_strategy.md
       - Bolt 計画:
           - Unit 1 実行環境と第 1 章: development/iteration_plan-1.md
+          - Unit 2 ウォーキングスケルトンとドメイン分離: development/iteration_plan-2.md
       - Bolt 終了報告:
           - Unit 1 実行環境と第 1 章: development/bolt_report-1.md
   - 運用:

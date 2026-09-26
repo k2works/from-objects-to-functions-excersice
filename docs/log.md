@@ -1,6 +1,9 @@
 # Docs Update Log
 
 ## 2026-09-26
+* **Verification**: [iteration_plan-2](/development/iteration_plan-2.md) を human:kakimomokuri が検証
+* **Creation**: [Unit 2 の Bolt 計画](/development/iteration_plan-2.md) を作成（AI-DLC 準拠）。ウォーキングスケルトンとドメイン分離を対象に、Unit 1 からの持ち込み 8 項目の消化先、5 軸のエントロピー評価、Bolt 2-1 / 2-2 のステップ計画 23 件・承認ゲート 11 箇所、ドメインモデル図と画面遷移図、Deployment Unit の完了条件を定義（claude-code/claude-opus-5）
+* **Update**: [開発戦略](/development/development_strategy.md) に Unit 1 の完了と Unit 2 の計画確定を反映し、Unit 1 で積み残した静的解析の判断を Unit 2 へ移した（claude-code/claude-opus-5）
 * **Creation**: [Unit 1 の Bolt 終了報告](/development/bolt_report-1.md) を作成。Bolt 1-1 / 1-2 の成果、完了 Unit 数 1・承認ゲート通過数 8・変更依頼数 1・リードタイム 1 日の実績、エントロピー評価の的中度、Unit 2 のゲート密度の決定を記録（claude-code/claude-opus-5）
 * **Creation**: [開発ジャーナル 2026-09-26](/journal/20260926.md) を作成。AI-DLC への計画の作り直し、スパイクの効果、BDD 不採用の判断、記事のコード例の出所管理という学びを記録（claude-code/claude-opus-5）
 * **Creation**: [第 1 章 新しいアプリケーションを準備する](/article/zettai/kotlin/chapter01.md) を公開。題材の定義、テストに開発をガイドさせる前提、Nix devShell と Gradle マルチプロジェクトのセットアップ、ボウリングの得点計算を題材にしたユニットテストの関数型化を TDD で記述（claude-code/claude-opus-5）

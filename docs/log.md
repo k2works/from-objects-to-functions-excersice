@@ -1,6 +1,8 @@
 # Docs Update Log
 
 ## 2026-09-26
+* **Creation**: [第 2 章 関数を使って HTTP を扱う](/article/zettai/kotlin/chapter02.md) を公開。http4k でウォーキングスケルトンを通し、HttpHandler が (Request) -> Response であることを軸に矢印で依存を表す設計を記述（claude-code/claude-opus-5）
+* **Creation**: [ADR-003 http4k 6.x を採用し原著の 4.x との差分は章ごとに注記する](/adr/ADR-003-http4k-6.md)、[ADR-004 静的解析を check に組み込まず記事のコード例検査を優先する](/adr/ADR-004-static-analysis.md) を作成（claude-code/claude-opus-5）
 * **Verification**: [iteration_plan-2](/development/iteration_plan-2.md) を human:kakimomokuri が検証
 * **Creation**: [Unit 2 の Bolt 計画](/development/iteration_plan-2.md) を作成（AI-DLC 準拠）。ウォーキングスケルトンとドメイン分離を対象に、Unit 1 からの持ち込み 8 項目の消化先、5 軸のエントロピー評価、Bolt 2-1 / 2-2 のステップ計画 23 件・承認ゲート 11 箇所、ドメインモデル図と画面遷移図、Deployment Unit の完了条件を定義（claude-code/claude-opus-5）
 * **Update**: [開発戦略](/development/development_strategy.md) に Unit 1 の完了と Unit 2 の計画確定を反映し、Unit 1 で積み残した静的解析の判断を Unit 2 へ移した（claude-code/claude-opus-5）

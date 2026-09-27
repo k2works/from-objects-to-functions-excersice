@@ -4,7 +4,7 @@ title: "Unit 7 開発成果物レビュー（マルチパースペクティブ�
 description: "Zettai 連載 Kotlin 版 Unit 7（第 12〜13 章）の成果物を 5 つの XP 視点（programmer / tester / architect / technical-writer / user-representative）で並列レビューした統合レポート。高優先度 9 件・中 7 件・低 6 件の指摘と対応方針、修正内容、次のリリースへ回した項目を記録する。"
 tags: [review, development, zettai, kotlin, unit-7]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-27T06:39:56Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-27T06:57:10Z }
 ---
 
 # Unit 7 開発成果物レビュー（マルチパースペクティブ）
@@ -73,7 +73,7 @@ generated: { by: claude-code/claude-opus-5, at: 2026-09-27T06:39:56Z }
 | :--- | :--- | :--- | :--- | :--- |
 | 23 | `TestDatabase.reset()` が `Outcome` を捨て、スキーマ作成の失敗を黙って通す | `TestDatabase.kt:21`（3 モジュール） | tester | **修正**。失敗したら `error()` で落とす（「skip にしない」方針と一貫させた） |
 | 24 | `eventType` をクラス名から作るため、改名すると保存済みデータが読めなくなる（往復テストは green のまま） | `json/EventConverter.kt:54` | tester | **修正**。保存する文字列を固定するテストと、保存済みの 4 種類を読み戻すテストを追加 |
-| 25 | `forAllRandom` が試行ごとに `Random(seed)` を作り、境界値（`0`・`Int.MIN_VALUE`・`Int.MAX_VALUE`）を踏まない | `property/PropertyTest.kt:18` | tester | **保留**。このヘルパーは第 5・7・9・11・12 章のスニペットに載っているため、変更は 5 章に波及する。次のリリースの Try に回す |
+| 25 | `forAllRandom` がランダムのみで、範囲の端を踏まない | `property/PropertyTest.kt:18` | tester | **修正**（ユーザー承認済み）。ランダムの前に範囲の最小・最大・0 を試す `EdgeRandom` を足した（4 モジュール）。**呼び出し側は 1 文字も変わらない**。端を踏んでいること自体を `PropertyTestSelfTest` 3 件で検査し、第 5 章に節を追加 |
 | 26 | `zettai.fp.Failure` が完全修飾で `Success` と揃わない | `json/EventConverter.kt:94` | tester | **修正**。import に揃えた |
 
 ## 許容・保留とした指摘
@@ -98,7 +98,7 @@ generated: { by: claude-code/claude-opus-5, at: 2026-09-27T06:39:56Z }
 
 | 項目 | 結果 |
 | :--- | :--- |
-| `./gradlew clean check`（5 モジュール） | **BUILD SUCCESSFUL**（テスト 711 件。修正前は 690 件） |
+| `./gradlew clean check`（5 モジュール） | **BUILD SUCCESSFUL**（テスト 714 件。修正前は 690 件） |
 | 追加したテスト | `LoggedActionTest` 8 件・`EventConverterFailureTest` 8 件・`DomainBoundaryTest` の検査対象アサート 5 件 |
 | `check_article_code.py` | 違反 0 件 |
 | `check_code_style.py` | 190 ファイル / 違反 0 件 |

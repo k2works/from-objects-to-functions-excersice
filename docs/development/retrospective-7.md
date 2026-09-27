@@ -4,7 +4,7 @@ title: "Unit 7 のふりかえり（KPT）- Zettai 連載（Kotlin 版）"
 description: "Zettai 連載 Kotlin 版の最終 Unit 7（監視とアーキテクチャ総括）の KPT ふりかえり。連載 7 Unit を締めるにあたり、続けること・問題・次に試すことを整理し、レビュー指摘への対応方針と次のリリースへの引き継ぎを記録する。"
 tags: [development, retrospective, ai-dlc, zettai, kotlin, unit-7]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-27T05:12:58Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-27T06:57:10Z }
 ---
 
 # Unit 7 のふりかえり（KPT）- Zettai 連載（Kotlin 版）
@@ -58,7 +58,7 @@ Unit 1〜6 では Bolt 終了報告に学びを書き、独立したふりかえ
 | 3 | **記事に書く数値（件数・テスト数）を検査対象にする**（Problem 2） | 「全件」「N 件」の主張が実物とずれたら落ちる | 次の連載の Unit 2 |
 | 4 | **計画の本文には件数を書かず、索引へのリンクで示す**（Problem 3） | 承認済みの計画が古くならない | 次のリリース計画の作成時 |
 | 5 | **各 Unit のクローズで KPT を独立した文書にする**（Problem 5） | Try が報告書に埋もれず、次 Unit の計画の入力になる | 次のリリースの Unit 1 から |
-| 7 | **`forAllRandom` に境界値（`0`・最小・最大）を混ぜる** | 5 章分のプロパティテストが境界を踏んでいない。ヘルパーが 5 章のスニペットに載っているため、次の連載の第 1 章で作り直すときに入れる | 次の連載のヘルパー作成時 |
+| 7 | ~~**`forAllRandom` に境界値（最小・最大・0）を混ぜる**~~ → **本 Unit で対応済み** | ランダムの前に範囲の端を試す `EdgeRandom` を足した。呼び出し側は変わらず、端を踏んでいることを `PropertyTestSelfTest` で検査。第 5 章にも節を追加 | 完了（2026-09-27） |
 | 6 | **リードタイムの代わりに「人が検証に使った時間」を測る**（Problem 6） | AI の実装速度に影響されない指標になる。検証負荷ポイントの妥当性も検証できる | 次のリリース計画の指標定義時 |
 
 ---

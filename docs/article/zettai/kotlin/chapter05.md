@@ -4,7 +4,7 @@ title: "第 5 章 イベントで状態を変更する"
 description: "Zettai 連載 Kotlin 版の第 5 章。状態を上書きするのではなく出来事として残す設計に切り替える。リスト作成の表示を起点に、状態変更をイベントで保存し、再帰で畳み込んでから fold に置き換え、状態変換の合成が満たす法則を見つけて最後にモノイドという名前を与える過程を TDD で示す。"
 tags: [article, zettai, kotlin, chapter]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-26T15:26:38Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-27T06:57:10Z }
 ---
 
 # 第 5 章 イベントで状態を変更する
@@ -322,13 +322,62 @@ f → 何もしない変換    は   f と同じ
 `forAllRandom` は繰り返しの骨格だけを持つヘルパーです。
 
 ```kotlin
-/** ランダムな入力で check を trials 回試す。 */
 fun forAllRandom(trials: Int = DEFAULT_TRIALS, check: (Random) -> Unit) {
+    edges.forEach { edge -> check(EdgeRandom(edge)) }
+
     repeat(trials) { seed -> check(Random(seed)) }
 }
 ```
 
 シードを固定しているので、失敗したら同じ入力を再現できます。
+
+### ランダムだけでは端を踏まない
+
+1 行目の `edges` には理由があります。**ランダムに 200 回試しても、範囲の端が出るとは限りません。**
+
+`random.nextInt(0, 5)` を 200 回引いて、`0` が一度も出ない確率は小さいですが、範囲が広ければ端はほぼ出ません。そして**反例は端に潜みます**（空のリスト、1 件だけ、最大値）。
+
+そこで、先に端を試してからランダムに移ります。
+
+```kotlin
+/** 範囲の端を選ぶ方法。最小・最大・0（範囲に入るなら）。 */
+private val edges: List<(Int, Int) -> Int> = listOf(
+    { from, _ -> from },
+    { _, until -> until - 1 },
+    { from, until -> 0.coerceIn(from, until - 1) }
+)
+```
+
+端を返す `Random` を渡すだけなので、**テストの側は 1 文字も変わりません**。
+
+```kotlin
+private class EdgeRandom(private val edge: (Int, Int) -> Int) : Random() {
+    private val base = Random(0)
+
+    override fun nextBits(bitCount: Int): Int = base.nextBits(bitCount)
+
+    override fun nextInt(from: Int, until: Int): Int = edge(from, until)
+
+    override fun nextInt(until: Int): Int = nextInt(0, until)
+}
+```
+
+`nextInt(from, until)` だけを差し替えています。一覧から選ぶ `values.random(random)` もこの経路を通るので、**先頭と末尾の要素が必ず試されます**。
+
+そして「端を踏んでいる」こと自体をテストにします。**検査すると書いただけでは、検査していないことがあります。**
+
+```kotlin
+    @Test
+    fun `範囲の最小と最大と 0 を試す`() {
+        val drawn = mutableListOf<Int>()
+
+        forAllRandom(trials = 1) { random -> drawn += random.nextInt(-10, 11) }
+
+        expectThat(drawn).contains(-10)
+        expectThat(drawn).contains(10)
+        expectThat(drawn).contains(0)
+    }
+```
 
 このように「具体例ではなく性質を確かめる」テストを**プロパティベーステスト**と呼びます。ライブラリもありますが、本連載では 20 行の自前で済ませています。理由は [ADR-005](../../../adr/ADR-005-property-based-testing.md) に書きました。
 

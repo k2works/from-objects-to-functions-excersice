@@ -4,7 +4,7 @@ title: "Unit 7 の Bolt 終了報告 - Zettai 連載（Kotlin 版）"
 description: "Zettai 連載 Kotlin 版の最終 Unit 7（監視とアーキテクチャ総括）の Bolt 終了報告。ポートの型を変えずにログを足せたこと（波及 0 ファイル）、全 13 章と ADR 12 件の整合確認で見つけた 3 件の矛盾と修正、持ち込み 9 項目の消化、連載全体（7 Unit・13 章・714 テスト）を通じた学びを記録する。"
 tags: [development, report, ai-dlc, bolt, zettai, kotlin, unit-7]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-27T06:57:10Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-27T07:31:27Z }
 ---
 
 # Unit 7 の Bolt 終了報告 - Zettai 連載（Kotlin 版）
@@ -70,7 +70,7 @@ generated: { by: claude-code/claude-opus-5, at: 2026-09-27T06:57:10Z }
 | 変更依頼数 | - | **0** |
 | リードタイム | 10 営業日 | 1 日 |
 | テスト本数 | - | **714**（Unit 6 は 476）。うち 24 件はクローズのレビュー指摘で追加 |
-| カバレッジ（ドメイン層） | 80% 以上 | 80% 以上 |
+| カバレッジ（ドメイン層） | 80% 以上 | **99.0%**（`koverVerify` の下限は 80%） |
 | 持ち込み項目の消化 | 9 / 9 | **9 / 9** |
 | 既存シナリオの回帰 | 0 件 | **0 件** |
 | **ポートの型変更で変わったファイル数** | **0（目標）** | **0** |

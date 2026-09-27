@@ -4,7 +4,7 @@ title: "リリース完了報告書 v1.0.0 - Zettai 連載（Kotlin 版）"
 description: "Zettai 連載 Kotlin 版 v1.0.0 のリリース完了報告書。全 7 Unit・14 ストーリー・13 章を完了した実績、AI-DLC の指標（完了 Unit 数・承認ゲート通過数・変更依頼数・リードタイム）、ゲート密度を動かした結果、12 件の ADR の傾向、扱わなかったこと 5 件、次のリリースへの提案を記録する。"
 tags: [development, report, release, ai-dlc, zettai, kotlin]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-27T06:57:10Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-27T07:31:27Z }
 ---
 
 # リリース完了報告書 v1.0.0 - Zettai 連載（Kotlin 版）
@@ -138,7 +138,7 @@ Unit 5 で 4 → 8 に戻しました。変更依頼は 0 件でしたが、**8 
 | 指標 | 目標 | 実績 |
 | :--- | :--- | :--- |
 | テスト数 | — | **714** |
-| カバレッジ（ドメイン層） | 80% 以上 | 達成 |
+| カバレッジ（ドメイン層） | 80% 以上 | **99.0%**（モジュール別 91.2〜100%。`check` が `koverVerify` を含むので下回ると落ちる） |
 | 既存シナリオの回帰 | 0 件 | **全 Unit で 0 件** |
 | 記事とサンプル実装の一致 | 100% | **達成**（CI で機械検証） |
 | 結合テストの安定性 | 3 回連続 green | 達成 |

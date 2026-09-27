@@ -4,7 +4,7 @@ title: "ADR-012 JSON の変換を自前の Converter で書き Kondor を導入�
 description: "Zettai 連載 Kotlin 版で、JSON ライブラリ Kondor を導入せず、第 9 章の手書きシリアライズを双方向変換の型（Converter）に発展させる決定。Kondor が独自の Outcome を持ち込むこと、第 12 章の主題が双方向変換をプロファンクタとして型にすることである点、失うものを記録する。"
 tags: [adr, json, zettai, kotlin]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-27T03:52:49Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-27T04:37:32Z }
 ---
 
 # ADR-012 JSON の変換を自前の Converter で書き Kondor を導入しない
@@ -112,6 +112,16 @@ data class Converter<A, B>(
 | エスケープ | 値に `"` が入ると壊れる。**実務では必須**。第 13 章の「扱わなかったこと」に加える |
 
 最後の項目は第 11 章の HTML エスケープと同じ種類の限界です。**第 13 章で明示します。**
+
+## 再検討の条件
+
+次のいずれかに当たったら、Kondor などの JSON ライブラリの導入を検討します。
+
+1. 入れ子の JSON や配列を扱う必要が出た
+2. 外部と JSON をやり取りするようになり、エスケープと型（数値・真偽値）の正しさが要求になった
+3. 変換する型が増え、`Converter` の組み立てが重複しはじめた
+
+**再検討は「2 の事象が起きたとき」を最優先の目安にします。** 自前の実装はエスケープを扱っていないので、外部と JSON をやり取りする時点で条件を満たします。
 
 ## コンプライアンス
 

@@ -4,7 +4,7 @@ title: "ADR-009 結合テストの DB を docker-compose と CI のサービス�
 description: "Zettai 連載 Kotlin 版で、結合テストのデータベースを Testcontainers ではなく docker-compose と GitHub Actions のサービスコンテナで用意する決定。ローカルと CI で判定を一致させる理由、結合テストを check に含める理由、接続できないときに skip しない理由を記録する。"
 tags: [adr, zettai, kotlin]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-27T01:48:33Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-27T04:37:32Z }
 ---
 
 # ADR-009 結合テストの DB を docker-compose と CI のサービスコンテナで用意する
@@ -73,6 +73,16 @@ Testcontainers は「テストが自分で DB を起動する」ので便利で�
 ### 安定性の確認
 
 結合テストを **3 回連続で実行して 3 回 green** であることを確認しました（NFR）。不安定さが出たらリトライで隠さず、原因を特定して記事に書きます。
+
+## 再検討の条件
+
+次のいずれかに当たったら、Testcontainers の導入を検討します。
+
+1. 結合テストの実行順序でデータが混ざり、テストごとに独立した DB が必要になった
+2. 複数のバージョンの PostgreSQL に対してテストする必要が出た
+3. docker-compose の起動待ちが CI の不安定さの原因になった
+
+**再検討は「結合テストが 2 種類以上の DB 状態を要求したとき」を目安にします。**
 
 ## コンプライアンス
 

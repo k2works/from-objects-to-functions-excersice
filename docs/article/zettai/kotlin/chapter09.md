@@ -4,7 +4,7 @@ title: "第 9 章 モナドによる安全なデータ永続化"
 description: "Zettai 連載 Kotlin 版の第 9 章。イベントを PostgreSQL に保存する。接続がある状態でしか実行できない計算を ContextReader として表し、flatMap で繋げてモナドに到達する。1 テーブルだけのイベントストア、結合テストの用意、JSONB の正規化で実際に踏んだ失敗を TDD で示す。"
 tags: [article, zettai, kotlin, chapter]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-27T01:52:12Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-27T04:37:32Z }
 ---
 
 # 第 9 章 モナドによる安全なデータ永続化
@@ -504,7 +504,7 @@ JSON のシリアライズは手書きです（第 12 章で Kondor に置き換
 
 第 3 章でこう書きました。
 
-> 経路を差し替えても結果が変わらないことが、ドメインとインフラが分離できている証拠になります。
+> 分離できたことは、同じシナリオが 2 経路で通ることで確かめられます。片方だけ落ちたら、そこに業務ロジックが漏れています
 
 6 章後に、その証拠が 3 つめの経路で確かめられました。
 

@@ -16,7 +16,12 @@ data class JsonObject(val fields: Map<String, String?>) {
     }
 }
 
-/** JSON の文字列に書き出す。 */
+/**
+ * JSON の文字列に書き出す。
+ *
+ * **値をエスケープしていない。** 値に `"` や改行が入ると壊れた JSON になる。
+ * 実務では既製のライブラリを使うこと（ADR-012 の「失うもの」、第 13 章の「扱わなかったこと」）。
+ */
 fun JsonObject.toJsonString(): String =
     fields.entries.joinToString(",", prefix = "{", postfix = "}") { (name, value) ->
         if (value == null) """"$name":null""" else """"$name":"$value""""

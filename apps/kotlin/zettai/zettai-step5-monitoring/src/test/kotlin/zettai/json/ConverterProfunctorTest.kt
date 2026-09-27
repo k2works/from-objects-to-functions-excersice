@@ -41,6 +41,7 @@ class ConverterProfunctorTest {
             val contramapped = intToText.contramap(to = { it: Int -> it }, from = { it })
 
             expectThat(contramapped.render(value)).isEqualTo(intToText.render(value))
+            expectThat(contramapped.parse(value.toString())).isEqualTo(intToText.parse(value.toString()))
         }
     }
 
@@ -70,13 +71,16 @@ class ConverterProfunctorTest {
         forAllRandom { random ->
             val value = random.nextInt(-500, 500)
 
+            // 逆向き（from）も検証するので、往復できる変換を選ぶ。
+            // it * 2 と it / 2 は整数の割り算で奇数が戻らないため、足し算にする
             val twice = intToText
-                .contramap(to = { it: Int -> it * 2 }, from = { it / 2 })
+                .contramap(to = { it: Int -> it + 10 }, from = { it - 10 })
                 .contramap(to = { it: Int -> it + 1 }, from = { it - 1 })
 
-            val once = intToText.contramap(to = { it: Int -> (it + 1) * 2 }, from = { it / 2 - 1 })
+            val once = intToText.contramap(to = { it: Int -> it + 11 }, from = { it - 11 })
 
             expectThat(twice.render(value)).isEqualTo(once.render(value))
+            expectThat(twice.parse(value.toString())).isEqualTo(once.parse(value.toString()))
         }
     }
 

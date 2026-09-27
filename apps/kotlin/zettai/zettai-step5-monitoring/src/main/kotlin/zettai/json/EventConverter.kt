@@ -57,7 +57,25 @@ private fun base(event: ToDoListEvent): JsonObject =
         "listName" to event.listName.name
     )
 
-private fun fromJsonObject(json: JsonObject): Outcome<ZettaiError, ToDoListEvent> {
+/**
+ * JSON から出来事に戻す。
+ *
+ * Converter.parse は「失敗しうる」ことを Outcome で表している。
+ * 項目の欠落や知らない状態名は例外ではなく Failure にしないと、
+ * 型に書いた約束（第 7 章）を破ることになる。
+ */
+private fun fromJsonObject(json: JsonObject): Outcome<ZettaiError, ToDoListEvent> =
+    try {
+        eventFrom(json)
+    } catch (e: IllegalStateException) {
+        zettai.fp.Failure(ZettaiParsingError("JSON を読めません: ${e.message}"))
+    } catch (e: IllegalArgumentException) {
+        zettai.fp.Failure(ZettaiParsingError("JSON を読めません: ${e.message}"))
+    } catch (e: java.time.format.DateTimeParseException) {
+        zettai.fp.Failure(ZettaiParsingError("JSON を読めません: ${e.message}"))
+    }
+
+private fun eventFrom(json: JsonObject): Outcome<ZettaiError, ToDoListEvent> {
     val user = User(json.text("user"))
     val listName = ListName(json.text("listName"))
 

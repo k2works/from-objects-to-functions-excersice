@@ -58,7 +58,7 @@ class EventConverterTest {
     }
 
     @Test
-    fun `どんな出来事でも往復できる`() {
+    fun `生成した出来事が往復できる`() {
         forAllRandom { random ->
             EventGenerator.events(random, random.nextInt(1, 6)).forEach { event ->
                 expectThat(eventConverter.roundTrip(event)).isEqualTo(Success(event))

@@ -25,6 +25,9 @@ import zettai.fp.Outcome
 import zettai.fp.Success
 import zettai.fp.Valid
 import zettai.fp.ZettaiError
+import zettai.logger.LogContext
+import zettai.logger.jsonLogger
+import zettai.logger.logged
 import zettai.persistence.EntityId
 import zettai.persistence.PostgresEventStore
 import zettai.persistence.TestDatabase
@@ -40,6 +43,10 @@ import zettai.persistence.runInTransaction
  */
 class PostgresActions : ZettaiActions {
     override val protocol: DdtProtocol = Http("postgres")
+
+    /** ログの行を貯める。データベース操作が実際に記録されることを確かめる。 */
+    private val logLines = mutableListOf<String>()
+    private val logger = jsonLogger(logLines::add)
 
     /** シナリオごとにテーブルを空にする。 */
     override fun prepare(): DomainSetUp {
@@ -90,12 +97,24 @@ class PostgresActions : ZettaiActions {
     private fun hub(user: User, listName: ListName): ToDoListHub {
         val entityId = EntityId.of(user, listName)
 
+        // ログを包む。ポートの型は変わらないので、ハブもドメインもシナリオも変わらない。
+        // 「包むだけで足せる」ことは、この配線を入れても 3 経路のシナリオが
+        // 1 文字も変わらないことで確かめられる（第 12 章）
+        val readLog = LogContext("出来事を読む", mapOf("entityId" to entityId.value))
+        val appendLog = LogContext("出来事を保存する", mapOf("entityId" to entityId.value))
+
         return ToDoListHub(
-            fetchState = { PostgresEventStore.readAll().asHubAction().map { it.replayFrom(ToDoListState.empty) } },
-            fetchProjection = {
-                PostgresEventStore.readAll().asHubAction().map { it.projectFrom(ToDoListProjection.empty) }
+            fetchState = {
+                PostgresEventStore.readAll().asHubAction().logged(logger, readLog)
+                    .map { it.replayFrom(ToDoListState.empty) }
             },
-            persist = { events -> PostgresEventStore.append(entityId, events).asHubAction() }
+            fetchProjection = {
+                PostgresEventStore.readAll().asHubAction().logged(logger, readLog)
+                    .map { it.projectFrom(ToDoListProjection.empty) }
+            },
+            persist = { events ->
+                PostgresEventStore.append(entityId, events).asHubAction().logged(logger, appendLog)
+            }
         )
     }
 

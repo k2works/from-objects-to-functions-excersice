@@ -6,3 +6,4 @@ rootProject.name = "zettai"
 include("zettai-step1-http")
 include("zettai-step2-domain")
 include("zettai-step3-persistence")
+include("zettai-step4-context")

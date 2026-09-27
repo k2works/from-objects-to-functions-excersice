@@ -1,0 +1,70 @@
+package zettai.web
+
+import org.http4k.core.HttpHandler
+import org.http4k.core.Method
+import org.http4k.core.Request
+import org.http4k.core.Response
+import org.http4k.core.Status
+import org.http4k.routing.bind
+import org.http4k.routing.path
+import org.http4k.routing.routes
+import zettai.domain.HubAction
+import zettai.domain.ListName
+import zettai.domain.ToDoItem
+import zettai.domain.ToDoListHub
+import zettai.domain.User
+import zettai.fp.InvalidTransition
+import zettai.fp.ItemNotFound
+import zettai.fp.ListAlreadyExists
+import zettai.fp.ListNotFound
+import zettai.fp.Outcome
+import zettai.fp.PersistenceError
+import zettai.fp.ZettaiError
+
+/**
+ * HubAction を実行して結果を取り出す。
+ *
+ * ハブは「文脈がある状態で実行できる計算」を返すだけなので、
+ * それを実際に走らせる責務を HTTP の層に置いている。
+ * インメモリなら文脈を使わず、PostgreSQL ならトランザクションで走らせる。
+ */
+typealias HubRunner = (HubAction<Outcome<ZettaiError, List<ToDoItem>>>) -> Outcome<ZettaiError, List<ToDoItem>>
+
+/**
+ * Zettai のウェブアプリケーション。
+ *
+ * HttpHandler は (Request) -> Response の関数なので、Zettai 自身が関数として振る舞う。
+ * リストの取り出しはハブに委ねる。HTTP の層はドメインの呼び出し方を知らない。
+ */
+class Zettai(
+    private val hub: ToDoListHub,
+    private val runAction: HubRunner
+) : HttpHandler {
+
+    private val routes = routes(
+        "/todo/{user}/{list}" bind Method.GET to ::showList
+    )
+
+    override fun invoke(request: Request): Response = routes(request)
+
+    private fun showList(request: Request): Response {
+        val user = User(request.path("user").orEmpty())
+        val listName = ListName(request.path("list").orEmpty())
+
+        return runAction(hub.itemsFor(user, listName))
+            .fold(::toResponse) { Response(Status.OK).body(renderHtml(listName, it)) }
+    }
+}
+
+/**
+ * 失敗の種類に応じてステータスコードを決める。
+ *
+ * null だった頃は、すべての失敗が 404 だった。
+ * 型で区別できるようになったので、利用者に伝える内容を変えられる。
+ */
+private fun toResponse(error: ZettaiError): Response =
+    when (error) {
+        is ListNotFound, is ItemNotFound -> Response(Status.NOT_FOUND).body(error.message)
+        is ListAlreadyExists, is InvalidTransition -> Response(Status.BAD_REQUEST).body(error.message)
+        is PersistenceError -> Response(Status.INTERNAL_SERVER_ERROR).body(error.message)
+    }

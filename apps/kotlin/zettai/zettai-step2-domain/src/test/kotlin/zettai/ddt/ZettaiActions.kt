@@ -5,6 +5,7 @@ import com.ubertob.pesticide.core.DdtProtocol
 import zettai.domain.ListName
 import zettai.domain.ToDoItem
 import zettai.domain.ToDoList
+import zettai.domain.ToDoStatus
 import zettai.domain.User
 
 /**
@@ -20,4 +21,13 @@ interface ZettaiActions : DdtActions<DdtProtocol> {
 
     /** 出来事としてリストを作る（第 5 章）。 */
     fun createList(user: User, listName: ListName)
+
+    /** コマンドで項目を追加する（第 6 章）。 */
+    fun addItem(user: User, listName: ListName, item: ToDoItem)
+
+    /** コマンドで項目の状態を変える（第 6 章）。失敗したら false。 */
+    fun changeItemStatus(user: User, listName: ListName, description: String, status: ToDoStatus): Boolean
+
+    /** 失敗の理由を取り出す（第 7 章）。成功したら null。 */
+    fun errorFor(user: User, listName: ListName): String?
 }

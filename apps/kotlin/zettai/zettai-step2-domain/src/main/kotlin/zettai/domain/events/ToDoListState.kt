@@ -23,4 +23,17 @@ fun ToDoListState.apply(event: ToDoListEvent): ToDoListState =
             val current = lists[key]
             if (current == null) this else copy(lists = lists + (key to current.copy(items = current.items + event.item)))
         }
+
+        is ItemStatusChanged -> {
+            val key = event.user to event.listName
+            val current = lists[key]
+            if (current == null) {
+                this
+            } else {
+                val updated = current.items.map {
+                    if (it.description == event.description) it.copy(status = event.newStatus) else it
+                }
+                copy(lists = lists + (key to current.copy(items = updated)))
+            }
+        }
     }

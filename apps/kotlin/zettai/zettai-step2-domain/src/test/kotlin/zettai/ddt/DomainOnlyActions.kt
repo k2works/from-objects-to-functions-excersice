@@ -8,11 +8,18 @@ import zettai.domain.ListName
 import zettai.domain.ToDoItem
 import zettai.domain.ToDoList
 import zettai.domain.ToDoListHub
+import zettai.domain.ToDoStatus
+import zettai.domain.commands.AddToDoItem
+import zettai.domain.commands.ChangeItemStatus
+import zettai.domain.commands.CreateToDoList
 import zettai.domain.events.ItemAdded
 import zettai.domain.events.ListCreated
 import zettai.domain.events.ToDoListEvent
 import zettai.domain.events.ToDoListState
 import zettai.domain.events.replayFrom
+import zettai.fp.ListNotFound
+import zettai.fp.asFailure
+import zettai.fp.asSuccess
 import zettai.domain.User
 import zettai.web.inMemoryFetcher
 
@@ -38,9 +45,32 @@ class DomainOnlyActions : ZettaiActions {
     }
 
     override fun createList(user: User, listName: ListName) {
-        events += ListCreated(user, listName)
+        hub().handle(CreateToDoList(user, listName))
     }
 
+    override fun addItem(user: User, listName: ListName, item: ToDoItem) {
+        hub().handle(AddToDoItem(user, listName, item))
+    }
+
+    override fun changeItemStatus(
+        user: User,
+        listName: ListName,
+        description: String,
+        status: ToDoStatus
+    ): Boolean = hub().handle(ChangeItemStatus(user, listName, description, status)) is zettai.fp.Success
+
+    override fun errorFor(user: User, listName: ListName): String? =
+        hub().getList(user, listName).fold({ it.message }, { null })
+
+    /** ハブを組み立てる。出来事の保存先はこのオブジェクトが持つリスト。 */
+    private fun hub() = ToDoListHub(
+        fetchList = { u, l ->
+            state.listFor(u, l)?.asSuccess() ?: ListNotFound("${l.name} が見つかりません").asFailure()
+        },
+        fetchState = { state },
+        persist = { events += it }
+    )
+
     override fun getToDoList(user: User, listName: ListName): List<ToDoItem>? =
-        ToDoListHub { u, l -> state.listFor(u, l) }.getList(user, listName)?.items
+        hub().getList(user, listName).fold({ null }, { it.items })
 }

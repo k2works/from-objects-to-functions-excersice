@@ -15,12 +15,15 @@ class DomainBoundaryTest {
 
     private val frameworks = listOf("org.http4k", "java.sql", "org.jetbrains.exposed", "com.ubertob.kondor")
 
-    private val domainSources = File("src/main/kotlin/zettai/domain")
-        .walkTopDown()
+    /** ドメインと関数型の部品。どちらもフレームワークを知らない。 */
+    private val domainSources = listOf("src/main/kotlin/zettai/domain", "src/main/kotlin/zettai/fp")
+        .map(::File)
+        .filter { it.exists() }
+        .flatMap { it.walkTopDown() }
         .filter { it.extension == "kt" }
 
     @Test
-    fun `ドメインはフレームワークを import しない`() {
+    fun `ドメインと fp はフレームワークを import しない`() {
         val violations = domainSources.flatMap { file ->
             file.readLines()
                 .filter { it.trimStart().startsWith("import ") }

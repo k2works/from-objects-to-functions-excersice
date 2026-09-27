@@ -4,6 +4,9 @@ import zettai.domain.ListName
 import zettai.domain.ToDoList
 import zettai.domain.ToDoListFetcher
 import zettai.domain.User
+import zettai.fp.ListNotFound
+import zettai.fp.asFailure
+import zettai.fp.asSuccess
 
 /**
  * インメモリの Map から ToDo リストを取り出す。
@@ -12,4 +15,8 @@ import zettai.domain.User
  * データベースを用意しなくてよいことのほうが価値が大きい。
  */
 fun inMemoryFetcher(lists: Map<User, List<ToDoList>>): ToDoListFetcher =
-    { user, listName -> lists[user]?.firstOrNull { it.listName == listName } }
+    { user, listName ->
+        lists[user]?.firstOrNull { it.listName == listName }
+            ?.asSuccess()
+            ?: ListNotFound("${listName.name} が見つかりません").asFailure()
+    }

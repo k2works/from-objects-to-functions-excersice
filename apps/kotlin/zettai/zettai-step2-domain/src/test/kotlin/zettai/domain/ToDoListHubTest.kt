@@ -1,9 +1,15 @@
 package zettai.domain
 
 import java.time.LocalDate
+import zettai.fp.Failure
+import zettai.fp.ListNotFound
+import zettai.fp.Success
+import zettai.fp.asFailure
+import zettai.fp.asSuccess
 import org.junit.jupiter.api.Test
 import strikt.api.expectThat
 import strikt.assertions.isEqualTo
+import strikt.assertions.isA
 import strikt.assertions.isNull
 
 /**
@@ -19,25 +25,35 @@ class ToDoListHubTest {
 
     @Test
     fun `リストを取り出す`() {
-        val hub = ToDoListHub { u, l -> if (u == user && l == listName) ToDoList(listName, items) else null }
+        val hub = ToDoListHub(
+            fetchList = { u, l ->
+                if (u == user && l == listName) {
+                    ToDoList(listName, items).asSuccess()
+                } else {
+                    ListNotFound("なし").asFailure()
+                }
+            }
+        )
 
-        expectThat(hub.getList(user, listName)?.items).isEqualTo(items)
+        expectThat(hub.getList(user, listName)).isEqualTo(Success(ToDoList(listName, items)))
     }
 
     @Test
-    fun `見つからなければ null`() {
-        val hub = ToDoListHub { _, _ -> null }
+    fun `見つからなければ失敗を返す`() {
+        val hub = ToDoListHub(fetchList = { _, _ -> ListNotFound("なし").asFailure() })
 
-        expectThat(hub.getList(user, ListName("missing"))).isNull()
+        expectThat(hub.getList(user, ListName("missing"))).isA<Failure<*>>()
     }
 
     @Test
     fun `アダプタが呼ばれた回数を数えられる`() {
         var calls = 0
-        val hub = ToDoListHub { _, _ ->
-            calls++
-            null
-        }
+        val hub = ToDoListHub(
+            fetchList = { _, _ ->
+                calls++
+                ListNotFound("なし").asFailure()
+            }
+        )
 
         hub.getList(user, listName)
         hub.getList(user, listName)

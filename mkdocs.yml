@@ -89,6 +89,7 @@ nav:
           - Unit 3 関数型 DI とイベント: development/iteration_plan-3.md
           - Unit 4 コマンドとエラーハンドリング: development/iteration_plan-4.md
           - Unit 5 射影と永続化: development/iteration_plan-5.md
+          - Unit 6 文脈の受け渡しとバリデーション: development/iteration_plan-6.md
       - Bolt 終了報告:
           - Unit 1 実行環境と第 1 章: development/bolt_report-1.md
           - Unit 2 ウォーキングスケルトンとドメイン分離: development/bolt_report-2.md

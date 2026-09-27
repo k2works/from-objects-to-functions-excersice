@@ -1,6 +1,8 @@
 # Docs Update Log
 
 ## 2026-09-27
+* **Verification**: [iteration_plan-6](/development/iteration_plan-6.md) を human:kakimomokuri が検証
+* **Creation**: [Unit 6 の Bolt 計画](/development/iteration_plan-6.md) を作成（AI-DLC 準拠）。中盤から終盤への局面移行の確認、Unit 5 からの持ち込み 8 項目（テンプレートエンジンの前提の訂正とスナップショットを扱わない判断を含む）と学び 5 件の織り込み、ポートの型変更の見積もり、疎いゲート密度（6 箇所）、画面遷移図の更新案を定義（claude-code/claude-opus-5）
 * **Creation**: [第 8 章 ファンクタを使ってイベントを射影する](/article/zettai/kotlin/chapter08.md)、[第 9 章 モナドによる安全なデータ永続化](/article/zettai/kotlin/chapter09.md) を公開（claude-code/claude-opus-5）
 * **Creation**: [データモデル設計](/design/data-model.md) を作成。イベントストアのスキーマ、ER 図、正規化を論じない理由を記述（claude-code/claude-opus-5）
 * **Creation**: [ADR-007 モジュールを Unit の境界で切る](/adr/ADR-007-module-per-unit.md)、[ADR-008 イベントストアを 1 テーブルで持ち状態を保存しない](/adr/ADR-008-event-store-single-table.md)、[ADR-009 結合テストの DB を docker-compose と CI のサービスコンテナで用意する](/adr/ADR-009-integration-test-database.md) を作成（claude-code/claude-opus-5）

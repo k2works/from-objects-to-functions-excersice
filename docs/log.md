@@ -1,6 +1,9 @@
 # Docs Update Log
 
 ## 2026-09-27
+* **Verification**: [iteration_plan-5](/development/iteration_plan-5.md) を human:kakimomokuri が検証
+* **Verification**: [iteration_plan-5](/development/iteration_plan-5.md) を human:kakimomokuri が検証
+* **Creation**: [Unit 5 の Bolt 計画](/development/iteration_plan-5.md) を作成（AI-DLC 準拠）。ゲート密度を密に戻す根拠、Unit 4 からの持ち込み 8 項目と学び 5 件の織り込み、モジュールを Unit の境界で切る判断、エントロピー評価 HIGH 3 軸とスパイクの再導入、ER 図の初回作成案、ADR-004・005 の再検討を定義（claude-code/claude-opus-5）
 * **Creation**: [第 6 章 コマンドを実行してイベントを生成する](/article/zettai/kotlin/chapter06.md)、[第 7 章 関数型手法によるエラーハンドリング](/article/zettai/kotlin/chapter07.md) を公開（claude-code/claude-opus-5）
 * **Creation**: [ADR-006 失敗を Outcome で表しポートの型を変える](/adr/ADR-006-outcome-port-type.md) を作成。波及が 6 ファイルだったこと、波及しなかった理由が境界の位置であることを記録（claude-code/claude-opus-5）
 * **Creation**: [Unit 4 の Bolt 終了報告](/development/bolt_report-4.md) と [開発ジャーナル Unit 4](/journal/20260927-unit4.md) を作成（claude-code/claude-opus-5）

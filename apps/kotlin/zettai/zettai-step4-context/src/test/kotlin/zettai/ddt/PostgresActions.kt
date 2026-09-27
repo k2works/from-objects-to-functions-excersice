@@ -14,12 +14,16 @@ import zettai.domain.User
 import zettai.domain.commands.AddToDoItem
 import zettai.domain.commands.ChangeItemStatus
 import zettai.domain.commands.CreateToDoList
+import zettai.domain.commands.RenameToDoList
 import zettai.domain.events.ToDoListState
 import zettai.domain.events.replayFrom
 import zettai.domain.queries.ToDoListProjection
 import zettai.domain.queries.projectFrom
+import zettai.domain.validateListName
+import zettai.fp.Invalid
 import zettai.fp.Outcome
 import zettai.fp.Success
+import zettai.fp.Valid
 import zettai.fp.ZettaiError
 import zettai.persistence.EntityId
 import zettai.persistence.PostgresEventStore
@@ -95,5 +99,15 @@ class PostgresActions : ZettaiActions {
         )
     }
 
+
+    override fun renameList(user: User, listName: ListName, newName: String): List<String> =
+        when (val validated = validateListName(newName)) {
+            is Invalid -> validated.errors
+            is Valid -> if (renameTo(user, listName, validated.value)) emptyList() else listOf("名前を変更できません")
+        }
+
+    private fun renameTo(user: User, listName: ListName, newName: ListName): Boolean =
+        inTransaction(user, listName) { handle(RenameToDoList(user, listName, newName)) }
+            .fold({ false }, { it is Success })
 
 }

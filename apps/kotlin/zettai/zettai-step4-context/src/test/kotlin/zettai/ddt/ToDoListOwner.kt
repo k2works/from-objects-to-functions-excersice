@@ -80,6 +80,16 @@ data class ToDoListOwner(override val name: String) : DdtActor<ZettaiActions>() 
             expectThat(errorFor(user, ListName(listName))).isEqualTo("$listName が見つかりません")
         }
 
+    fun `renames the list`(listName: String, newName: String) =
+        step(listName, newName) {
+            expectThat(renameList(user, ListName(listName), newName)).isEqualTo(emptyList())
+        }
+
+    fun `is told all the problems`(listName: String, newName: String, problems: List<String>) =
+        step(listName, newName) {
+            expectThat(renameList(user, ListName(listName), newName)).isEqualTo(problems)
+        }
+
     fun `cannot see the list`(listName: String) =
         step(listName) {
             expectThat(getToDoList(user, ListName(listName))).isNull()

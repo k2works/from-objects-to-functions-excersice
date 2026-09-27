@@ -4,6 +4,7 @@ import zettai.domain.canTransitionTo
 import zettai.domain.events.ItemAdded
 import zettai.domain.events.ItemStatusChanged
 import zettai.domain.events.ListCreated
+import zettai.domain.events.ListRenamed
 import zettai.domain.events.ToDoListEvent
 import zettai.domain.events.ToDoListState
 
@@ -28,6 +29,15 @@ fun handle(command: ToDoListCommand, state: ToDoListState): List<ToDoListEvent> 
                 emptyList()
             } else {
                 listOf(ItemAdded(command.user, command.listName, command.item))
+            }
+
+        is RenameToDoList ->
+            if (state.listFor(command.user, command.listName) == null ||
+                state.listFor(command.user, command.newName) != null
+            ) {
+                emptyList()
+            } else {
+                listOf(ListRenamed(command.user, command.listName, command.newName))
             }
 
         is ChangeItemStatus -> {

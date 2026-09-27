@@ -87,6 +87,32 @@ class SeeATodoListDdt : DomainDrivenTest<ZettaiActions>(allActions) {
         )
     }
 
+    @TestFactory
+    fun `リスト名を変更できる`() = ddtScenario {
+        val uberto = ToDoListOwner("uberto")
+
+        play(
+            uberto.`creates a list`("book"),
+            uberto.`adds an item`("book", "write chapter"),
+            uberto.`renames the list`("book", "reading"),
+            uberto.`sees items`("reading", listOf("write chapter"))
+        )
+    }
+
+    @TestFactory
+    fun `不正な名前は理由をまとめて教える`() = ddtScenario {
+        val uberto = ToDoListOwner("uberto")
+
+        play(
+            uberto.`creates a list`("book"),
+            uberto.`is told all the problems`(
+                "book",
+                " ".repeat(50),
+                listOf("リスト名を入力してください", "リスト名は 40 文字以内にしてください")
+            )
+        )
+    }
+
     companion object {
         val allActions = listOf(DomainOnlyActions(), HttpActions(), PostgresActions())
     }

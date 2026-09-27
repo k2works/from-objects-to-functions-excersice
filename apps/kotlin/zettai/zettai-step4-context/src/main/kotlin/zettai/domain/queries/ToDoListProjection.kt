@@ -7,6 +7,7 @@ import zettai.domain.User
 import zettai.domain.events.ItemAdded
 import zettai.domain.events.ItemStatusChanged
 import zettai.domain.events.ListCreated
+import zettai.domain.events.ListRenamed
 import zettai.domain.events.ToDoListEvent
 
 /**
@@ -49,6 +50,16 @@ data class ToDoListProjection(
             )
 
             is ItemAdded -> withItems(key, (items[key] ?: return this) + event.item)
+
+            is ListRenamed -> {
+                val currentItems = items[key] ?: return this
+                val newKey = event.user to event.newName
+
+                copy(
+                    rows = rows - key + (newKey to summarize(event.newName, currentItems)),
+                    items = items - key + (newKey to currentItems)
+                )
+            }
 
             is ItemStatusChanged -> {
                 val current = items[key] ?: return this

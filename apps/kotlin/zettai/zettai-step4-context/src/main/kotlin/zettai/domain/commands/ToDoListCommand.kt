@@ -25,6 +25,12 @@ data class AddToDoItem(
     val item: ToDoItem
 ) : ToDoListCommand
 
+data class RenameToDoList(
+    override val user: User,
+    override val listName: ListName,
+    val newName: ListName
+) : ToDoListCommand
+
 data class ChangeItemStatus(
     override val user: User,
     override val listName: ListName,

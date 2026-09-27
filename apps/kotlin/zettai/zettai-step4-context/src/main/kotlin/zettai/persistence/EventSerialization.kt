@@ -8,6 +8,7 @@ import zettai.domain.User
 import zettai.domain.events.ItemAdded
 import zettai.domain.events.ItemStatusChanged
 import zettai.domain.events.ListCreated
+import zettai.domain.events.ListRenamed
 import zettai.domain.events.ToDoListEvent
 
 /**
@@ -23,6 +24,9 @@ fun ToDoListEvent.toJson(): String =
         is ItemAdded ->
             """{"user":"${user.name}","listName":"${listName.name}","description":"${item.description}",""" +
                 """"dueDate":${item.dueDate.toJsonValue()},"status":"${item.status}"}"""
+
+        is ListRenamed ->
+            """{"user":"${user.name}","listName":"${listName.name}","newName":"${newName.name}"}"""
 
         is ItemStatusChanged ->
             """{"user":"${user.name}","listName":"${listName.name}",""" +
@@ -46,6 +50,8 @@ fun eventFrom(eventType: String, json: String): ToDoListEvent {
                 status = ToDoStatus.valueOf(fields.getValue("status"))
             )
         )
+
+        "ListRenamed" -> ListRenamed(user, listName, ListName(fields.getValue("newName")))
 
         "ItemStatusChanged" -> ItemStatusChanged(
             user,

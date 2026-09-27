@@ -52,7 +52,7 @@ class Zettai(
         val listName = ListName(request.path("list").orEmpty())
 
         return runAction(hub.itemsFor(user, listName))
-            .fold(::toResponse) { Response(Status.OK).body(renderHtml(listName, it)) }
+            .fold(::toResponse) { items -> renderPage(listName, items) }
     }
 }
 
@@ -68,3 +68,16 @@ private fun toResponse(error: ZettaiError): Response =
         is ListAlreadyExists, is InvalidTransition -> Response(Status.BAD_REQUEST).body(error.message)
         is PersistenceError -> Response(Status.INTERNAL_SERVER_ERROR).body(error.message)
     }
+
+/**
+ * 画面を組み立てる。
+ *
+ * テンプレートの適用に失敗したら 500 を返す。未適用のタグが残るのは
+ * 実装の誤りなので、利用者に壊れた画面を見せずにエラーにする。
+ */
+private fun renderPage(listName: ListName, items: List<ToDoItem>): Response =
+    renderHtml(listName, items)
+        .fold(
+            { Response(Status.INTERNAL_SERVER_ERROR).body("画面を組み立てられません: ${it.message}") },
+            { Response(Status.OK).body(it) }
+        )

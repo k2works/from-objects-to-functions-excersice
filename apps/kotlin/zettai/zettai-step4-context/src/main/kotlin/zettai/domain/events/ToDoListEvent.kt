@@ -25,6 +25,12 @@ data class ItemAdded(
     val item: ToDoItem
 ) : ToDoListEvent
 
+data class ListRenamed(
+    override val user: User,
+    override val listName: ListName,
+    val newName: ListName
+) : ToDoListEvent
+
 data class ItemStatusChanged(
     override val user: User,
     override val listName: ListName,

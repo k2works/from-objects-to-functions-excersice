@@ -30,4 +30,7 @@ interface ZettaiActions : DdtActions<DdtProtocol> {
 
     /** 失敗の理由を取り出す（第 7 章）。成功したら null。 */
     fun errorFor(user: User, listName: ListName): String?
+
+    /** リスト名を変更する（第 11 章）。検証に失敗したら理由の一覧を返す。 */
+    fun renameList(user: User, listName: ListName, newName: String): List<String>
 }

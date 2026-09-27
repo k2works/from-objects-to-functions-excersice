@@ -4,7 +4,7 @@ title: "Unit 7 開発成果物レビュー（マルチパースペクティブ�
 description: "Zettai 連載 Kotlin 版 Unit 7（第 12〜13 章）の成果物を 5 つの XP 視点（programmer / tester / architect / technical-writer / user-representative）で並列レビューした統合レポート。高優先度 9 件・中 7 件・低 6 件の指摘と対応方針、修正内容、次のリリースへ回した項目を記録する。"
 tags: [review, development, zettai, kotlin, unit-7]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-27T05:12:58Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-27T06:31:06Z }
 ---
 
 # Unit 7 開発成果物レビュー（マルチパースペクティブ）
@@ -82,7 +82,7 @@ generated: { by: claude-code/claude-opus-5, at: 2026-09-27T05:12:58Z }
 | :--- | :--- | :--- |
 | JSON エスケープを実装していない（`"` で壊れた JSON を JSONB に書き込む） | **許容（記録済み）** | [ADR-012](../adr/ADR-012-own-json-converter.md) の「失うもの」と第 13 章の「扱わなかったこと」に記録済み。今回さらに第 12 章・KDoc・テストの 3 箇所に限界を明示した。実装すると「扱わなかったこと」の記録と齟齬が出るため、次のリリースの候補（提案 2）として残す |
 | `fun main` と `./gradlew run` が無く、アプリを起動してログを見られない | **保留（要判断）** | モジュール構成の変更（application プラグイン・新規ファイル）にあたり**承認ゲートの対象**。第 12 章の価値は「動かして見る」ことで伝わるという指摘は妥当なので、ユーザーの判断を仰ぐ |
-| ログに利用者名・リスト名を載せる例があり、実務で PII が流れうる | **保留** | 第 13 章の「扱わなかったこと」6 件目にするか、第 12 章に 1 段落置くかの判断が必要。次のリリースの候補に記録 |
+| ログに利用者名・リスト名を載せる例があり、実務で PII が流れうる | **修正** | 第 12 章に「何をログに載せないか」の節を追加（載せないもの 4 種・判断の基準・`LogContext` を型で縛る選択肢）。ユーザーの判断で第 13 章の 6 件目ではなく章内に置いた |
 | `logger/JsonLogger.kt` で `context.detail` が `level`・`message` を上書きできる | **許容** | 教材の範囲。予約キーの分離は次のリリースの候補 |
 | `check_adr_references.py:62` の `filename[:7]` 決め打ち | **許容** | ADR のファイル名規約が変わったときに気づく想定。正規表現化は次の連載で |
 | `zettai-step1-http/build/test-results/` の残存 | **確認済み** | `.gitignore` 対象で追跡されていない |

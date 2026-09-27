@@ -98,6 +98,9 @@ nav:
           - Unit 4 コマンドとエラーハンドリング: development/bolt_report-4.md
           - Unit 5 射影と永続化: development/bolt_report-5.md
           - Unit 6 文脈の受け渡しとバリデーション: development/bolt_report-6.md
+          - Unit 7 監視とアーキテクチャ総括: development/bolt_report-7.md
+      - リリース完了報告:
+          - Release v1.0.0: development/release_report-1.0.0.md
   - 運用:
       - 概要: operation/index.md
   - ジャーナル:
@@ -108,6 +111,7 @@ nav:
       - 2026-09-27 Unit 4: journal/20260927-unit4.md
       - 2026-09-27 Unit 5: journal/20260927-unit5.md
       - 2026-09-27 Unit 6: journal/20260927-unit6.md
+      - 2026-09-27 Unit 7: journal/20260927-unit7.md
   - レビュー:
       - 概要: review/index.md
   - ADR:

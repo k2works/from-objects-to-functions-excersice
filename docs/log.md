@@ -1,6 +1,22 @@
 # Docs Update Log
 
 ## 2026-09-27
+* **Update**: [20260927-unit7](/journal/20260927-unit7.md) を更新（claude-code/claude-opus-5）
+* **Update**: [release_report-1.0.0](/development/release_report-1.0.0.md) を更新（claude-code/claude-opus-5）
+* **Update**: [bolt_report-7](/development/bolt_report-7.md) を更新（claude-code/claude-opus-5）
+* **Update**: [release_plan](/development/release_plan.md) を更新（claude-code/claude-opus-5）
+* **Update**: [iteration_plan-7](/development/iteration_plan-7.md) を更新（claude-code/claude-opus-5）
+* **Update**: [chapter13](/article/zettai/kotlin/chapter13.md) を更新（claude-code/claude-opus-5）
+* **Update**: [chapter09](/article/zettai/kotlin/chapter09.md) を更新（claude-code/claude-opus-5）
+* **Update**: [ADR-012-own-json-converter](/adr/ADR-012-own-json-converter.md) を更新（claude-code/claude-opus-5）
+* **Update**: [ADR-010-own-template](/adr/ADR-010-own-template.md) を更新（claude-code/claude-opus-5）
+* **Update**: [ADR-009-integration-test-database](/adr/ADR-009-integration-test-database.md) を更新（claude-code/claude-opus-5）
+* **Update**: [ADR-008-event-store-single-table](/adr/ADR-008-event-store-single-table.md) を更新（claude-code/claude-opus-5）
+* **Creation**: [リリース完了報告（v1.0.0）](/development/release_report-1.0.0.md) を作成。7 Unit・14 ストーリー・13 章・690 テスト・ADR 12 件の実績、ゲート密度の推移（8→11→5→4→8→6→5、47/47 通過・変更依頼 2 件）、作った 4 つの検査が止めたもの、扱わなかったこと 5 件、学び 7 件、次のリリースへの提案 3 件を記録（claude-code/claude-opus-5）
+* **Creation**: [Unit 7 の Bolt 終了報告](/development/bolt_report-7.md) と [開発ジャーナル Unit 7](/journal/20260927-unit7.md) を作成。ポートの型を変えずにログを足せたこと（波及 0 ファイル）、連載全体を通じた学び 7 件を記録（claude-code/claude-opus-5）
+* **Update**: [第 9 章](/article/zettai/kotlin/chapter09.md)・[第 13 章](/article/zettai/kotlin/chapter13.md) の整合を修正。第 3 章に存在しない文を引用していた 2 箇所を実際の文に差し替え、ADR の再検討条件に関する記述を実態（「入れない」と決めた 6 件）に合わせた（claude-code/claude-opus-5）
+* **Update**: [ADR-008](/adr/ADR-008-event-store-single-table.md)・[ADR-009](/adr/ADR-009-integration-test-database.md)・[ADR-010](/adr/ADR-010-own-template.md)・[ADR-012](/adr/ADR-012-own-json-converter.md) に再検討の条件（どの事象が起きたら入れるか）を追記。「入れない」と決めた 6 件すべてが時期ではなく事象で条件を持った（claude-code/claude-opus-5）
+* **Update**: [リリース計画](/development/release_plan.md)・[開発](/development/index.md)・[ジャーナル](/journal/index.md) の進捗を Unit 7 完了（完了 Unit 数 7 / 7・ゲート通過 47 / 47）に更新し、Release v1.0.0 を記録（claude-code/claude-opus-5）
 * **Verification**: [iteration_plan-7](/development/iteration_plan-7.md) を human:kakimomokuri が検証
 * **Creation**: [Unit 7 の Bolt 計画](/development/iteration_plan-7.md) を作成（AI-DLC 準拠・最終 Unit）。第 12 章の構造化ロギングとプロファンクタ、第 13 章の総括、Unit 6 からの持ち込み 9 項目と学び 5 件の織り込み、リスク欄をエントロピー評価に反映、ADR と記事の対応を機械検査する方針、Release v1.0.0 の完了条件を定義（claude-code/claude-opus-5）
 * **Creation**: [第 10 章 コンテキストを読み込み、コマンドを処理する](/article/zettai/kotlin/chapter10.md)、[第 11 章 アプリカティブによるデータバリデーション](/article/zettai/kotlin/chapter11.md) を公開（claude-code/claude-opus-5）

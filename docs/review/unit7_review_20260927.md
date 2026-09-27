@@ -4,7 +4,7 @@ title: "Unit 7 開発成果物レビュー（マルチパースペクティブ�
 description: "Zettai 連載 Kotlin 版 Unit 7（第 12〜13 章）の成果物を 5 つの XP 視点（programmer / tester / architect / technical-writer / user-representative）で並列レビューした統合レポート。高優先度 9 件・中 7 件・低 6 件の指摘と対応方針、修正内容、次のリリースへ回した項目を記録する。"
 tags: [review, development, zettai, kotlin, unit-7]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-27T06:57:10Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-27T07:21:44Z }
 ---
 
 # Unit 7 開発成果物レビュー（マルチパースペクティブ）
@@ -65,7 +65,7 @@ generated: { by: claude-code/claude-opus-5, at: 2026-09-27T06:57:10Z }
 | 19 | 第 9 章の前方参照「第 12 章で Kondor に置き換えます」が事実と異なる | `chapter09.md:455` | 本レビューで併せて検出 | **修正**。「双方向変換の型 `Converter` に置き換えます」 |
 | 20 | 第 7 章のヘルパー名は `repeatWithRandomOutcomes` で `forAllRandom` は登場しない | `chapter12.md:391` | writer | **修正**。括弧で補足 |
 | 21 | Bolt 終了報告 7 件の Unit 7 だけリンクが無い | `release_report-1.0.0.md:282` | writer | **修正** |
-| 22 | 読者が「自分向けか」を判断する 2 行（想定読者・読了後に得るもの）が入口に無い | `article/zettai/kotlin/index.md` | user | **保留**。次のリリースで入口を作り直すときに扱う |
+| 22 | 読者が「自分向けか」を判断する 2 行（想定読者・読了後に得るもの）が入口に無い | `article/zettai/kotlin/index.md` | user | **修正**。想定読者と読了後に得られるものを冒頭に置き、教材である旨の警告も入口に出した。章の表に「この章の焦点」列（`outline.md` の情報）を移し、途中の章から入れるようにした |
 
 ### 追加ラウンド（要約で届いた中・低）
 

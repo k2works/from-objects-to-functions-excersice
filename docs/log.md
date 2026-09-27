@@ -2,6 +2,7 @@
 
 ## 2026-09-27
 * **Update**: [unit7_review_20260927](/review/unit7_review_20260927.md) を更新（claude-code/claude-opus-5）
+* **Update**: [unit7_review_20260927](/review/unit7_review_20260927.md) を更新（claude-code/claude-opus-5）
 * **Update**: [20260927-unit7](/journal/20260927-unit7.md) を更新（claude-code/claude-opus-5）
 * **Update**: [retrospective-7](/development/retrospective-7.md) を更新（claude-code/claude-opus-5）
 * **Update**: [release_report-1.0.0](/development/release_report-1.0.0.md) を更新（claude-code/claude-opus-5）

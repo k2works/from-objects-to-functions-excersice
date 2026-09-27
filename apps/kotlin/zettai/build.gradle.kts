@@ -13,6 +13,7 @@ dependencies {
     kover(project(":zettai-step2-domain"))
     kover(project(":zettai-step3-persistence"))
     kover(project(":zettai-step4-context"))
+    kover(project(":zettai-step5-monitoring"))
 }
 
 subprojects {

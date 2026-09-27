@@ -1,6 +1,8 @@
 # Docs Update Log
 
 ## 2026-09-27
+* **Verification**: [iteration_plan-7](/development/iteration_plan-7.md) を human:kakimomokuri が検証
+* **Creation**: [Unit 7 の Bolt 計画](/development/iteration_plan-7.md) を作成（AI-DLC 準拠・最終 Unit）。第 12 章の構造化ロギングとプロファンクタ、第 13 章の総括、Unit 6 からの持ち込み 9 項目と学び 5 件の織り込み、リスク欄をエントロピー評価に反映、ADR と記事の対応を機械検査する方針、Release v1.0.0 の完了条件を定義（claude-code/claude-opus-5）
 * **Creation**: [第 10 章 コンテキストを読み込み、コマンドを処理する](/article/zettai/kotlin/chapter10.md)、[第 11 章 アプリカティブによるデータバリデーション](/article/zettai/kotlin/chapter11.md) を公開（claude-code/claude-opus-5）
 * **Creation**: [ADR-010 テンプレート機構を自前で書く](/adr/ADR-010-own-template.md)、[ADR-011 トランザクションの境界と文脈の型](/adr/ADR-011-transaction-boundary.md) を作成（claude-code/claude-opus-5）
 * **Creation**: [Unit 6 の Bolt 終了報告](/development/bolt_report-6.md) と [開発ジャーナル Unit 6](/journal/20260927-unit6.md) を作成。第 13 章への持ち込み（扱わなかったこと 4 件）を記録（claude-code/claude-opus-5）

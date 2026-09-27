@@ -6371,8 +6371,8 @@
 </tr>
 <tr>
 <td style="text-align: left;">ログに利用者名・リスト名を載せる例があり、実務で PII が流れうる</td>
-<td style="text-align: left;"><strong>保留</strong></td>
-<td style="text-align: left;">第 13 章の「扱わなかったこと」6 件目にするか、第 12 章に 1 段落置くかの判断が必要。次のリリースの候補に記録</td>
+<td style="text-align: left;"><strong>修正</strong></td>
+<td style="text-align: left;">第 12 章に「何をログに載せないか」の節を追加（載せないもの 4 種・判断の基準・<code>LogContext</code> を型で縛る選択肢）。ユーザーの判断で第 13 章の 6 件目ではなく章内に置いた</td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>logger/JsonLogger.kt</code> で <code>context.detail</code> が <code>level</code>・<code>message</code> を上書きできる</td>

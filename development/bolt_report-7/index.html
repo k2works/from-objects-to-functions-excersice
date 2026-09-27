@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Zettai 連載 Kotlin 版の最終 Unit 7（監視とアーキテクチャ総括）の Bolt 終了報告。ポートの型を変えずにログを足せたこと（波及 0 ファイル）、全 13 章と ADR 12 件の整合確認で見つけた 3 件の矛盾と修正、持ち込み 9 項目の消化、連載全体（7 Unit・13 章・711 テスト）を通じた学びを記録する。">
+        <meta name="description" content="Zettai 連載 Kotlin 版の最終 Unit 7（監視とアーキテクチャ総括）の Bolt 終了報告。ポートの型を変えずにログを足せたこと（波及 0 ファイル）、全 13 章と ADR 12 件の整合確認で見つけた 3 件の矛盾と修正、持ち込み 9 項目の消化、連載全体（7 Unit・13 章・714 テスト）を通じた学びを記録する。">
       
       
         <meta name="author" content="Project Team">
@@ -6308,7 +6308,7 @@
 <tr>
 <td style="text-align: left;">テスト本数</td>
 <td style="text-align: left;">-</td>
-<td style="text-align: left;"><strong>711</strong>（Unit 6 は 476）。うち 21 件はクローズのレビュー指摘で追加</td>
+<td style="text-align: left;"><strong>714</strong>（Unit 6 は 476）。うち 24 件はクローズのレビュー指摘で追加</td>
 </tr>
 <tr>
 <td style="text-align: left;">カバレッジ（ドメイン層）</td>
@@ -6475,7 +6475,7 @@
 <tr>
 <td style="text-align: left;">1</td>
 <td style="text-align: left;"><strong>設計の規則は、気をつけるものではなく検査するもの</strong></td>
-<td style="text-align: left;">20 行の <code>DomainBoundaryTest</code> が、コンパイルも他のテストも通る境界違反を止めた（第 10 章）</td>
+<td style="text-align: left;"><code>DomainBoundaryTest</code>（コード 29 行）が、コンパイルも他のテストも通る境界違反を止めた（第 10 章）</td>
 </tr>
 <tr>
 <td style="text-align: left;">2</td>

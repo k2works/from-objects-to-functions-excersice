@@ -6205,9 +6205,9 @@
 </tr>
 <tr>
 <td style="text-align: left;">7</td>
-<td style="text-align: left;"><strong><code>forAllRandom</code> に境界値（<code>0</code>・最小・最大）を混ぜる</strong></td>
-<td style="text-align: left;">5 章分のプロパティテストが境界を踏んでいない。ヘルパーが 5 章のスニペットに載っているため、次の連載の第 1 章で作り直すときに入れる</td>
-<td style="text-align: left;">次の連載のヘルパー作成時</td>
+<td style="text-align: left;">~~<strong><code>forAllRandom</code> に境界値（最小・最大・0）を混ぜる</strong>~~ → <strong>本 Unit で対応済み</strong></td>
+<td style="text-align: left;">ランダムの前に範囲の端を試す <code>EdgeRandom</code> を足した。呼び出し側は変わらず、端を踏んでいることを <code>PropertyTestSelfTest</code> で検査。第 5 章にも節を追加</td>
+<td style="text-align: left;">完了（2026-09-27）</td>
 </tr>
 <tr>
 <td style="text-align: left;">6</td>

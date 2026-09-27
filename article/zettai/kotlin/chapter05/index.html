@@ -3633,7 +3633,7 @@
   <a href="#_12" class="md-nav__link">
     <span class="md-ellipsis">
       
-        名前を与える
+        ランダムだけでは端を踏まない
       
     </span>
   </a>
@@ -3642,6 +3642,17 @@
         
           <li class="md-nav__item">
   <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        名前を与える
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
     <span class="md-ellipsis">
       
         モノイドは既に身の回りにある
@@ -3657,7 +3668,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_14" class="md-nav__link">
+  <a href="#_15" class="md-nav__link">
     <span class="md-ellipsis">
       
         まとめ
@@ -3668,7 +3679,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_15" class="md-nav__link">
+  <a href="#_16" class="md-nav__link">
     <span class="md-ellipsis">
       
         この章で書いたコード
@@ -3679,7 +3690,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_16" class="md-nav__link">
+  <a href="#_17" class="md-nav__link">
     <span class="md-ellipsis">
       
         参照
@@ -6400,14 +6411,50 @@ f → 何もしない変換    は   f と同じ
 <span class="w">    </span><span class="p">}</span>
 </code></pre></div>
 <p><code>forAllRandom</code> は繰り返しの骨格だけを持つヘルパーです。</p>
-<div class="highlight"><pre><span></span><code><span class="cm">/** ランダムな入力で check を trials 回試す。 */</span>
-<span class="kd">fun</span><span class="w"> </span><span class="nf">forAllRandom</span><span class="p">(</span><span class="n">trials</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DEFAULT_TRIALS</span><span class="p">,</span><span class="w"> </span><span class="n">check</span><span class="p">:</span><span class="w"> </span><span class="p">(</span><span class="n">Random</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kd">fun</span><span class="w"> </span><span class="nf">forAllRandom</span><span class="p">(</span><span class="n">trials</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DEFAULT_TRIALS</span><span class="p">,</span><span class="w"> </span><span class="n">check</span><span class="p">:</span><span class="w"> </span><span class="p">(</span><span class="n">Random</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">edges</span><span class="p">.</span><span class="na">forEach</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">edge</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">check</span><span class="p">(</span><span class="n">EdgeRandom</span><span class="p">(</span><span class="n">edge</span><span class="p">))</span><span class="w"> </span><span class="p">}</span>
+
 <span class="w">    </span><span class="n">repeat</span><span class="p">(</span><span class="n">trials</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">seed</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">check</span><span class="p">(</span><span class="n">Random</span><span class="p">(</span><span class="n">seed</span><span class="p">))</span><span class="w"> </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>シードを固定しているので、失敗したら同じ入力を再現できます。</p>
+<h3 id="_12">ランダムだけでは端を踏まない<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<p>1 行目の <code>edges</code> には理由があります。<strong>ランダムに 200 回試しても、範囲の端が出るとは限りません。</strong></p>
+<p><code>random.nextInt(0, 5)</code> を 200 回引いて、<code>0</code> が一度も出ない確率は小さいですが、範囲が広ければ端はほぼ出ません。そして<strong>反例は端に潜みます</strong>（空のリスト、1 件だけ、最大値）。</p>
+<p>そこで、先に端を試してからランダムに移ります。</p>
+<div class="highlight"><pre><span></span><code><span class="cm">/** 範囲の端を選ぶ方法。最小・最大・0（範囲に入るなら）。 */</span>
+<span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">edges</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="p">(</span><span class="kt">Int</span><span class="p">,</span><span class="w"> </span><span class="kt">Int</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Int</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">listOf</span><span class="p">(</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="n">from</span><span class="p">,</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="n">_</span><span class="p">,</span><span class="w"> </span><span class="n">until</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">until</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="n">from</span><span class="p">,</span><span class="w"> </span><span class="n">until</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="m">0.</span><span class="n">coerceIn</span><span class="p">(</span><span class="n">from</span><span class="p">,</span><span class="w"> </span><span class="n">until</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>端を返す <code>Random</code> を渡すだけなので、<strong>テストの側は 1 文字も変わりません</strong>。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">private</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">EdgeRandom</span><span class="p">(</span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">edge</span><span class="p">:</span><span class="w"> </span><span class="p">(</span><span class="kt">Int</span><span class="p">,</span><span class="w"> </span><span class="kt">Int</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Int</span><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Random</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">base</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Random</span><span class="p">(</span><span class="m">0</span><span class="p">)</span>
+
+<span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">nextBits</span><span class="p">(</span><span class="n">bitCount</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">):</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">base</span><span class="p">.</span><span class="na">nextBits</span><span class="p">(</span><span class="n">bitCount</span><span class="p">)</span>
+
+<span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">nextInt</span><span class="p">(</span><span class="n">from</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">,</span><span class="w"> </span><span class="n">until</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">):</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">edge</span><span class="p">(</span><span class="n">from</span><span class="p">,</span><span class="w"> </span><span class="n">until</span><span class="p">)</span>
+
+<span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">nextInt</span><span class="p">(</span><span class="n">until</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">):</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nextInt</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">until</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><code>nextInt(from, until)</code> だけを差し替えています。一覧から選ぶ <code>values.random(random)</code> もこの経路を通るので、<strong>先頭と末尾の要素が必ず試されます</strong>。</p>
+<p>そして「端を踏んでいる」こと自体をテストにします。<strong>検査すると書いただけでは、検査していないことがあります。</strong></p>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="nd">@Test</span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="err">`範囲の最小と最大と 0 を試す`() {</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">drawn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mutableListOf</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">()</span>
+
+<span class="w">        </span><span class="n">forAllRandom</span><span class="p">(</span><span class="n">trials</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">drawn</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">random</span><span class="p">.</span><span class="na">nextInt</span><span class="p">(</span><span class="o">-</span><span class="m">10</span><span class="p">,</span><span class="w"> </span><span class="m">11</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">        </span><span class="n">expectThat</span><span class="p">(</span><span class="n">drawn</span><span class="p">).</span><span class="na">contains</span><span class="p">(</span><span class="o">-</span><span class="m">10</span><span class="p">)</span>
+<span class="w">        </span><span class="n">expectThat</span><span class="p">(</span><span class="n">drawn</span><span class="p">).</span><span class="na">contains</span><span class="p">(</span><span class="m">10</span><span class="p">)</span>
+<span class="w">        </span><span class="n">expectThat</span><span class="p">(</span><span class="n">drawn</span><span class="p">).</span><span class="na">contains</span><span class="p">(</span><span class="m">0</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+</code></pre></div>
 <p>このように「具体例ではなく性質を確かめる」テストを<strong>プロパティベーステスト</strong>と呼びます。ライブラリもありますが、本連載では 20 行の自前で済ませています。理由は <a href="../../../../adr/ADR-005-property-based-testing/">ADR-005</a> に書きました。</p>
-<h3 id="_12">名前を与える<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<h3 id="_13">名前を与える<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
 <p>さて、ここまで見つけた構造を整理します。</p>
 <ol>
 <li>ある型の値がある（<code>StateTransition</code>）</li>
@@ -6417,7 +6464,7 @@ f → 何もしない変換    は   f と同じ
 </ol>
 <p><strong>この 4 つを満たす構造を、モノイドと呼びます。</strong></p>
 <p>名前を後に回したのは、順序が大事だからです。「モノイドとは結合律と単位元を持つ代数構造である」から始めると、定義は正しくても、なぜそれが嬉しいのか分かりません。<strong>先に構造を見つけて、後から名前を知るほうが、記憶に残ります。</strong></p>
-<h3 id="_13">モノイドは既に身の回りにある<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<h3 id="_14">モノイドは既に身の回りにある<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
 <p>同じ構造は他にもあります。</p>
 <table>
 <thead>
@@ -6468,7 +6515,7 @@ f → 何もしない変換    は   f と同じ
 <span class="w">    </span><span class="p">}</span>
 </code></pre></div>
 <p>出来事の列を繋いでから変換にしても、別々に変換にしてから繋いでも、結果は同じです。<strong>だから、出来事を溜めておいて後でまとめて処理しても、1 つずつ処理しても、同じ状態になります。</strong> 実装を選ぶ自由が生まれます。</p>
-<h2 id="_14">まとめ<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h2>
+<h2 id="_15">まとめ<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h2>
 <p>この章でやったことを振り返ります。</p>
 <ul>
 <li><strong>状態を上書きせず、出来事として残しました。</strong> 過去が失われないので、「なぜ今この状態なのか」に答えられます</li>
@@ -6479,14 +6526,14 @@ f → 何もしない変換    は   f と同じ
 <p>この章で扱ったイベントには、まだ足りないものがあります。<strong>誰がそれを起こすのか</strong>です。今は受け入れテストが直接イベントを作っていますが、本来は利用者の操作から生まれるはずです。</p>
 <p>次の章では、利用者の意図を<strong>コマンド</strong>として表し、コマンドからイベントを生成する仕組みを作ります。そこで <code>status</code> を使った状態遷移も扱います。</p>
 <hr />
-<h2 id="_15">この章で書いたコード<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h2>
+<h2 id="_16">この章で書いたコード<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h2>
 <ul>
 <li>イベント: <code>apps/kotlin/zettai/zettai-step2-domain/src/main/kotlin/zettai/domain/events/ToDoListEvent.kt</code></li>
 <li>状態: <code>.../events/ToDoListState.kt</code></li>
 <li>畳み込みと合成: <code>.../events/Replay.kt</code></li>
 <li>テスト: <code>.../test/kotlin/zettai/domain/events/</code>（<code>ToDoListEventTest.kt</code>・<code>StateTransitionMonoidTest.kt</code>・<code>EventGenerator.kt</code>）</li>
 </ul>
-<h2 id="_16">参照<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h2>
+<h2 id="_17">参照<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Uberto Barbini『From Objects to Functions』第 5 章。イベントの畳み込みからモノイドを見出す流れは本書に拠っています。本連載のコードはすべて書き起こした自作実装です</li>
 </ul>

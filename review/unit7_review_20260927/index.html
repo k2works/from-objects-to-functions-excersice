@@ -6335,10 +6335,10 @@
 </tr>
 <tr>
 <td style="text-align: left;">25</td>
-<td style="text-align: left;"><code>forAllRandom</code> が試行ごとに <code>Random(seed)</code> を作り、境界値（<code>0</code>・<code>Int.MIN_VALUE</code>・<code>Int.MAX_VALUE</code>）を踏まない</td>
+<td style="text-align: left;"><code>forAllRandom</code> がランダムのみで、範囲の端を踏まない</td>
 <td style="text-align: left;"><code>property/PropertyTest.kt:18</code></td>
 <td style="text-align: left;">tester</td>
-<td style="text-align: left;"><strong>保留</strong>。このヘルパーは第 5・7・9・11・12 章のスニペットに載っているため、変更は 5 章に波及する。次のリリースの Try に回す</td>
+<td style="text-align: left;"><strong>修正</strong>（ユーザー承認済み）。ランダムの前に範囲の最小・最大・0 を試す <code>EdgeRandom</code> を足した（4 モジュール）。<strong>呼び出し側は 1 文字も変わらない</strong>。端を踏んでいること自体を <code>PropertyTestSelfTest</code> 3 件で検査し、第 5 章に節を追加</td>
 </tr>
 <tr>
 <td style="text-align: left;">26</td>
@@ -6430,7 +6430,7 @@
 <tbody>
 <tr>
 <td style="text-align: left;"><code>./gradlew clean check</code>（5 モジュール）</td>
-<td style="text-align: left;"><strong>BUILD SUCCESSFUL</strong>（テスト 711 件。修正前は 690 件）</td>
+<td style="text-align: left;"><strong>BUILD SUCCESSFUL</strong>（テスト 714 件。修正前は 690 件）</td>
 </tr>
 <tr>
 <td style="text-align: left;">追加したテスト</td>

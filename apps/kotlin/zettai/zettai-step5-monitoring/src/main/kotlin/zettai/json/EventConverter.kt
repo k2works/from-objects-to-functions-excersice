@@ -11,6 +11,7 @@ import zettai.domain.events.ListCreated
 import zettai.domain.events.ListRenamed
 import zettai.domain.events.ToDoListEvent
 import zettai.fp.Converter
+import zettai.fp.Failure
 import zettai.fp.Outcome
 import zettai.fp.Success
 import zettai.fp.ZettaiError
@@ -68,11 +69,11 @@ private fun fromJsonObject(json: JsonObject): Outcome<ZettaiError, ToDoListEvent
     try {
         eventFrom(json)
     } catch (e: IllegalStateException) {
-        zettai.fp.Failure(ZettaiParsingError("JSON を読めません: ${e.message}"))
+        Failure(ZettaiParsingError("JSON を読めません: ${e.message}"))
     } catch (e: IllegalArgumentException) {
-        zettai.fp.Failure(ZettaiParsingError("JSON を読めません: ${e.message}"))
+        Failure(ZettaiParsingError("JSON を読めません: ${e.message}"))
     } catch (e: java.time.format.DateTimeParseException) {
-        zettai.fp.Failure(ZettaiParsingError("JSON を読めません: ${e.message}"))
+        Failure(ZettaiParsingError("JSON を読めません: ${e.message}"))
     }
 
 private fun eventFrom(json: JsonObject): Outcome<ZettaiError, ToDoListEvent> {
@@ -105,6 +106,6 @@ private fun eventFrom(json: JsonObject): Outcome<ZettaiError, ToDoListEvent> {
             )
         )
 
-        else -> zettai.fp.Failure(ZettaiParsingError("知らない出来事の種類です: $type"))
+        else -> Failure(ZettaiParsingError("知らない出来事の種類です: $type"))
     }
 }

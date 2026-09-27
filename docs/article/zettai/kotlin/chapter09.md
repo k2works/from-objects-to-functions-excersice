@@ -4,7 +4,7 @@ title: "第 9 章 モナドによる安全なデータ永続化"
 description: "Zettai 連載 Kotlin 版の第 9 章。イベントを PostgreSQL に保存する。接続がある状態でしか実行できない計算を ContextReader として表し、flatMap で繋げてモナドに到達する。1 テーブルだけのイベントストア、結合テストの用意、JSONB の正規化で実際に踏んだ失敗を TDD で示す。"
 tags: [article, zettai, kotlin, chapter]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-27T05:06:57Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-27T05:12:58Z }
 ---
 
 # 第 9 章 モナドによる安全なデータ永続化
@@ -296,8 +296,13 @@ data class PersistenceError(override val message: String) : ZettaiError
 たとえばテスト用の初期化で、「テーブルを作ってから、中身を空にする」をやりたい。
 
 ```kotlin
-        PostgresEventStore.createSchema().flatMap { PostgresEventStore.truncate() }.runOn(::connect)
+        PostgresEventStore.createSchema()
+            .flatMap { PostgresEventStore.truncate() }
+            .runOn(::connect)
+            .fold({ error("テスト用データベースを初期化できません: $it") }, { })
 ```
+
+最後の `fold` は、**初期化の失敗を捨てないため**です。捨てるとスキーマが作れていないままテストが通ってしまい、「接続できないなら失敗させる」という方針と矛盾します。
 
 `truncate()` は `DbAction<Unit>` です。`map` で繋ぐと、結果が `DbAction<DbAction<Unit>>` になります。**箱が二重になります。**
 

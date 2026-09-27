@@ -4,7 +4,7 @@ title: "Unit 7 開発成果物レビュー（マルチパースペクティブ�
 description: "Zettai 連載 Kotlin 版 Unit 7（第 12〜13 章）の成果物を 5 つの XP 視点（programmer / tester / architect / technical-writer / user-representative）で並列レビューした統合レポート。高優先度 9 件・中 7 件・低 6 件の指摘と対応方針、修正内容、次のリリースへ回した項目を記録する。"
 tags: [review, development, zettai, kotlin, unit-7]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-27T05:06:57Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-27T05:12:58Z }
 ---
 
 # Unit 7 開発成果物レビュー（マルチパースペクティブ）
@@ -67,6 +67,15 @@ generated: { by: claude-code/claude-opus-5, at: 2026-09-27T05:06:57Z }
 | 21 | Bolt 終了報告 7 件の Unit 7 だけリンクが無い | `release_report-1.0.0.md:282` | writer | **修正** |
 | 22 | 読者が「自分向けか」を判断する 2 行（想定読者・読了後に得るもの）が入口に無い | `article/zettai/kotlin/index.md` | user | **保留**。次のリリースで入口を作り直すときに扱う |
 
+### 追加ラウンド（要約で届いた中・低）
+
+| # | 提案 | 箇所 | 指摘元 | 対応 |
+| :--- | :--- | :--- | :--- | :--- |
+| 23 | `TestDatabase.reset()` が `Outcome` を捨て、スキーマ作成の失敗を黙って通す | `TestDatabase.kt:21`（3 モジュール） | tester | **修正**。失敗したら `error()` で落とす（「skip にしない」方針と一貫させた） |
+| 24 | `eventType` をクラス名から作るため、改名すると保存済みデータが読めなくなる（往復テストは green のまま） | `json/EventConverter.kt:54` | tester | **修正**。保存する文字列を固定するテストと、保存済みの 4 種類を読み戻すテストを追加 |
+| 25 | `forAllRandom` が試行ごとに `Random(seed)` を作り、境界値（`0`・`Int.MIN_VALUE`・`Int.MAX_VALUE`）を踏まない | `property/PropertyTest.kt:18` | tester | **保留**。このヘルパーは第 5・7・9・11・12 章のスニペットに載っているため、変更は 5 章に波及する。次のリリースの Try に回す |
+| 26 | `zettai.fp.Failure` が完全修飾で `Success` と揃わない | `json/EventConverter.kt:94` | tester | **修正**。import に揃えた |
+
 ## 許容・保留とした指摘
 
 | 指摘 | 判断 | 理由 |
@@ -89,8 +98,8 @@ generated: { by: claude-code/claude-opus-5, at: 2026-09-27T05:06:57Z }
 
 | 項目 | 結果 |
 | :--- | :--- |
-| `./gradlew clean check`（5 モジュール） | **BUILD SUCCESSFUL**（テスト 709 件。修正前は 690 件） |
-| 追加したテスト | `LoggedActionTest` 8 件・`EventConverterFailureTest` 6 件・`DomainBoundaryTest` の検査対象アサート 5 件 |
+| `./gradlew clean check`（5 モジュール） | **BUILD SUCCESSFUL**（テスト 711 件。修正前は 690 件） |
+| 追加したテスト | `LoggedActionTest` 8 件・`EventConverterFailureTest` 8 件・`DomainBoundaryTest` の検査対象アサート 5 件 |
 | `check_article_code.py` | 違反 0 件 |
 | `check_code_style.py` | 190 ファイル / 違反 0 件 |
 | `check_adr_references.py` | ADR 12 件 / 章 13 件 / 違反 0 件 |

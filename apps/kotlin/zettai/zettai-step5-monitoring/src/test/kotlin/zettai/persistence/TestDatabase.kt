@@ -17,8 +17,16 @@ object TestDatabase {
 
     fun connect(): Connection = DriverManager.getConnection(URL, USER, PASSWORD)
 
-    /** スキーマを用意し、データを空にする。テストごとに呼ぶ。 */
+    /**
+     * スキーマを用意し、データを空にする。テストごとに呼ぶ。
+     *
+     * 失敗を捨てない。捨てるとスキーマが作れていないまま
+     * 「テストが通った」ことになり、skip にしない方針と矛盾する。
+     */
     fun reset() {
-        PostgresEventStore.createSchema().flatMap { PostgresEventStore.truncate() }.runOn(::connect)
+        PostgresEventStore.createSchema()
+            .flatMap { PostgresEventStore.truncate() }
+            .runOn(::connect)
+            .fold({ error("テスト用データベースを初期化できません: $it") }, { })
     }
 }

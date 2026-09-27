@@ -1,6 +1,9 @@
 # Docs Update Log
 
 ## 2026-09-27
+* **Update**: [開発戦略](/development/development_strategy.md) に「進捗管理の手段」の節を追加。GitHub に同期しない判断とユーザーマニュアルを作らない判断を、連載を通じての方針として確定（claude-code/claude-opus-5）
+* **Verification**: [iteration_plan-4](/development/iteration_plan-4.md) を human:kakimomokuri が検証
+* **Creation**: [Unit 4 の Bolt 計画](/development/iteration_plan-4.md) を作成（AI-DLC 準拠）。ポートの型が Outcome に変わる影響の見積もり、Unit 3 からの持ち込み 7 項目と学び 4 件の織り込み、ユーザーマニュアルを作らない判断の確定、遷移表 16 マス、疎いゲート密度に 1 つ足す判断を定義（claude-code/claude-opus-5）
 * **Creation**: [第 4 章 ドメインとアダプタのモデリング](/article/zettai/kotlin/chapter04.md)、[第 5 章 イベントで状態を変更する](/article/zettai/kotlin/chapter05.md) を公開（claude-code/claude-opus-5）
 * **Creation**: [ドメインモデル設計](/design/domain-model.md) を作成。ユビキタス言語の対訳表、要素表、イベントと状態の関係、状態遷移図、満たす法則を記述（claude-code/claude-opus-5）
 * **Creation**: [ADR-005 プロパティベーステストを自前で書き kotest-property を導入しない](/adr/ADR-005-property-based-testing.md) を作成（claude-code/claude-opus-5）

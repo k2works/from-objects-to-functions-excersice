@@ -18,6 +18,7 @@
 | Unit 1 実行環境と第 1 章 | [Unit 1 の Bolt 計画](iteration_plan-1.md) | - | [Bolt 終了報告](bolt_report-1.md) | **完了** |
 | Unit 2 ウォーキングスケルトンとドメイン分離 | [Unit 2 の Bolt 計画](iteration_plan-2.md) | - | [Bolt 終了報告](bolt_report-2.md) | **完了** |
 | Unit 3 関数型 DI とイベント | [Unit 3 の Bolt 計画](iteration_plan-3.md) | - | [Bolt 終了報告](bolt_report-3.md) | **完了** |
+| Unit 4 コマンドとエラーハンドリング | [Unit 4 の Bolt 計画](iteration_plan-4.md) | - | - | 計画済み |
 
 Unit（イテレーション）開始時に行を追加します。AI-DLC では 1 Unit = 2 Bolt（章 1 本ずつ）とし、Bolt のステップ計画と承認ゲートを各計画に書きます。
 
@@ -30,7 +31,8 @@ AI-DLC ではベロシティの代わりに完了 Unit 数・承認ゲート通�
 | Unit 1 | 8 | 8 / 8 | 1 | 1 日 |
 | Unit 2 | 13 | 11 / 11 | 1 | 1 日 |
 | Unit 3 | 13 | 5 / 5 | 0 | 1 日 |
-| **累計** | **34 / 75** | **24** | **2** | 完了 Unit 数 **3 / 7** |
+| Unit 4 | 10 | - / 4 | - | - |
+| **累計** | **44 / 75** | **24** | **2** | 完了 Unit 数 **3 / 7** |
 
 ### フェーズ進捗
 

@@ -1,9 +1,9 @@
 package zettai.domain.events
 
-import kotlin.random.Random
 import org.junit.jupiter.api.Test
 import strikt.api.expectThat
 import strikt.assertions.isEqualTo
+import zettai.property.forAllRandom
 
 /**
  * 状態変換がモノイドであることを確かめる。
@@ -16,8 +16,6 @@ import strikt.assertions.isEqualTo
  * ランダムな入力を 200 回試して反例が出ないことを確かめる。
  */
 class StateTransitionMonoidTest {
-
-    private val trials = 200
 
     @Test
     fun `結合律が成り立つ`() {
@@ -53,15 +51,11 @@ class StateTransitionMonoidTest {
 
     private fun repeatWithRandomEvents(
         check: (List<ToDoListEvent>, List<ToDoListEvent>, List<ToDoListEvent>) -> Unit
-    ) {
-        repeat(trials) { seed ->
-            val random = Random(seed)
-
-            check(
-                EventGenerator.events(random, random.nextInt(0, 5)),
-                EventGenerator.events(random, random.nextInt(0, 5)),
-                EventGenerator.events(random, random.nextInt(0, 5))
-            )
-        }
+    ) = forAllRandom { random ->
+        check(
+            EventGenerator.events(random, random.nextInt(0, 5)),
+            EventGenerator.events(random, random.nextInt(0, 5)),
+            EventGenerator.events(random, random.nextInt(0, 5))
+        )
     }
 }

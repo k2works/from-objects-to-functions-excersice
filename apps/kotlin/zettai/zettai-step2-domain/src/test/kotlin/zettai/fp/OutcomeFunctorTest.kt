@@ -4,6 +4,7 @@ import kotlin.random.Random
 import org.junit.jupiter.api.Test
 import strikt.api.expectThat
 import strikt.assertions.isEqualTo
+import zettai.property.forAllRandom
 
 /**
  * Outcome の map がファンクタであることを確かめる。
@@ -15,8 +16,6 @@ import strikt.assertions.isEqualTo
  * 第 5 章のモノイド則と同じ形で書ける。ランダムな入力を 200 回試す。
  */
 class OutcomeFunctorTest {
-
-    private val trials = 200
 
     private val f: (Int) -> Int = { it * 2 }
     private val g: (Int) -> String = { "値は $it" }
@@ -44,11 +43,8 @@ class OutcomeFunctorTest {
         }
     }
 
-    private fun repeatWithRandomOutcomes(check: (Outcome<ZettaiError, Int>) -> Unit) {
-        repeat(trials) { seed ->
-            check(OutcomeGenerator.outcome(Random(seed)))
-        }
-    }
+    private fun repeatWithRandomOutcomes(check: (Outcome<ZettaiError, Int>) -> Unit) =
+        forAllRandom { random -> check(OutcomeGenerator.outcome(random)) }
 }
 
 /** 成功と失敗をランダムに作る。失敗の理由も混ぜる。 */

@@ -9,6 +9,7 @@ import zettai.domain.ToDoItem
 import zettai.domain.ToDoList
 import zettai.domain.ToDoListHub
 import zettai.domain.ToDoStatus
+import zettai.domain.User
 import zettai.domain.commands.AddToDoItem
 import zettai.domain.commands.ChangeItemStatus
 import zettai.domain.commands.CreateToDoList
@@ -20,7 +21,6 @@ import zettai.domain.events.replayFrom
 import zettai.fp.ListNotFound
 import zettai.fp.asFailure
 import zettai.fp.asSuccess
-import zettai.domain.User
 import zettai.web.inMemoryFetcher
 
 /** ドメインを直接呼ぶ経路。HTTP を経由しないので速い。 */

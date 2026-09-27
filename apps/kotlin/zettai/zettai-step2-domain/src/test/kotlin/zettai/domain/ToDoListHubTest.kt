@@ -1,16 +1,16 @@
 package zettai.domain
 
 import java.time.LocalDate
+import org.junit.jupiter.api.Test
+import strikt.api.expectThat
+import strikt.assertions.isA
+import strikt.assertions.isEqualTo
+import strikt.assertions.isNull
 import zettai.fp.Failure
 import zettai.fp.ListNotFound
 import zettai.fp.Success
 import zettai.fp.asFailure
 import zettai.fp.asSuccess
-import org.junit.jupiter.api.Test
-import strikt.api.expectThat
-import strikt.assertions.isEqualTo
-import strikt.assertions.isA
-import strikt.assertions.isNull
 
 /**
  * ハブのテスト。

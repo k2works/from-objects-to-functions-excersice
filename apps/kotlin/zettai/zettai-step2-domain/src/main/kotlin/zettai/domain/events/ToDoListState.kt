@@ -17,23 +17,23 @@ data class ToDoListState(val lists: Map<Pair<User, ListName>, ToDoList>) {
 /** 1 つの出来事を状態に適用する。 */
 fun ToDoListState.apply(event: ToDoListEvent): ToDoListState =
     when (event) {
-        is ListCreated -> copy(lists = lists + ((event.user to event.listName) to ToDoList(event.listName, emptyList())))
+        is ListCreated ->
+            copy(lists = lists + (event.key() to ToDoList(event.listName, emptyList())))
         is ItemAdded -> {
-            val key = event.user to event.listName
-            val current = lists[key]
-            if (current == null) this else copy(lists = lists + (key to current.copy(items = current.items + event.item)))
+            val current = lists[event.key()] ?: return this
+
+            copy(lists = lists + (event.key() to current.copy(items = current.items + event.item)))
         }
 
         is ItemStatusChanged -> {
-            val key = event.user to event.listName
-            val current = lists[key]
-            if (current == null) {
-                this
-            } else {
-                val updated = current.items.map {
-                    if (it.description == event.description) it.copy(status = event.newStatus) else it
-                }
-                copy(lists = lists + (key to current.copy(items = updated)))
+            val current = lists[event.key()] ?: return this
+            val updated = current.items.map {
+                if (it.description == event.description) it.copy(status = event.newStatus) else it
             }
+
+            copy(lists = lists + (event.key() to current.copy(items = updated)))
         }
     }
+
+/** 状態の中でリストを引くための鍵。 */
+private fun ToDoListEvent.key(): Pair<User, ListName> = user to listName

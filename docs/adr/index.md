@@ -15,5 +15,7 @@
 | [ADR-007](ADR-007-module-per-unit.md) | モジュールを Unit の境界で切る | 提案 |
 | [ADR-008](ADR-008-event-store-single-table.md) | イベントストアを 1 テーブルで持ち状態を保存しない | 提案 |
 | [ADR-009](ADR-009-integration-test-database.md) | 結合テストの DB を docker-compose と CI のサービスコンテナで用意する | 提案 |
+| [ADR-010](ADR-010-own-template.md) | テンプレート機構を自前で書き既製のテンプレートエンジンを使わない | 提案 |
+| [ADR-011](ADR-011-transaction-boundary.md) | トランザクションの境界をコマンド 1 つの処理に置き文脈を不透明な型にする | 提案 |
 
 ADR の作成には `creating-adr` スキルを使用してください。

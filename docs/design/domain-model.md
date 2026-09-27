@@ -32,6 +32,9 @@ Zettai のドメインモデルを定義します。連載の進行にあわせ�
 | `Outcome` | 結果 | 成功か失敗 |
 | `ContextReader` | 文脈つきの計算 | 文脈を受け取ってから値を返す |
 | `ToDoListProjection` | 射影 | 表示のためのモデル |
+| `Validation` | 検証結果 | 成功か、失敗の一覧 |
+| `TxContext` | 文脈 | 操作を実行する文脈。中身はアダプタが決める |
+| `Template` | テンプレート | 画面の雛形 |
 | `ZettaiError` | 失敗 | 失敗の理由 |
 
 ## 要素表
@@ -60,6 +63,14 @@ Zettai のドメインモデルを定義します。連載の進行にあわせ�
 | :--- | :--- | :--- | :--- |
 | `ToDoStatus` | `Todo`、`InProgress`、`Done`、`Blocked` | ToDo 項目の進み具合 | 4 |
 
+### 検証
+
+| 名前 | 責務 | 章 |
+| :--- | :--- | :--- |
+| `validateListName` | リスト名の検証。空でないこと・40 文字以内であることを**独立に**確かめ、両方だめなら両方の理由を返す | 11 |
+
+`Outcome`（モナド）で書くと最初の失敗で止まり、2 つめの条件を確かめられません。`Validation`（アプリカティブ）は止まらず、失敗を全部集めます。
+
 ### ドメインサービス
 
 | 名前 | 責務 | 受け取るアダプタ | 章 |
@@ -77,6 +88,7 @@ Zettai のドメインモデルを定義します。連載の進行にあわせ�
 | `ListCreated` | `user`、`listName` | リストが作られた | 5 |
 | `ItemAdded` | `user`、`listName`、`item` | 項目が追加された | 5 |
 | `ItemStatusChanged` | `user`、`listName`、`description`、`newStatus` | 項目の状態が変わった | 6 |
+| `ListRenamed` | `user`、`listName`、`newName` | リスト名が変わった | 11 |
 
 ### コマンド
 
@@ -85,6 +97,7 @@ Zettai のドメインモデルを定義します。連載の進行にあわせ�
 | `CreateToDoList` | `user`、`listName` | リストを作れ | 6 |
 | `AddToDoItem` | `user`、`listName`、`item` | 項目を追加せよ | 6 |
 | `ChangeItemStatus` | `user`、`listName`、`description`、`newStatus` | 項目の状態を変えよ | 6 |
+| `RenameToDoList` | `user`、`listName`、`newName` | リスト名を変えよ | 11 |
 
 コマンドは**命令形**、イベントは**過去形**で名付けます。コマンドは拒否できますが、イベントは拒否できません。この違いが両方を持つ理由です。
 
@@ -114,6 +127,8 @@ Zettai のドメインモデルを定義します。連載の進行にあわせ�
 | `Outcome<E, T>` | `Success<T>` / `Failure<E>` | 成功か失敗。`map` がファンクタ | 7 |
 | `ToDoListProjection` | イベントの畳み込み先 | 表示用のモデル。`map` がファンクタ | 8 |
 | `ContextReader<CTX, T>` | `(CTX) -> T` | 文脈つきの計算。`flatMap` があるのでモナド | 9 |
+| `TxContext` | 中身が空のインターフェース | 操作を実行する文脈。ドメインは中身を知らない（[ADR-011](../adr/ADR-011-transaction-boundary.md)） | 10 |
+| `Validation<T>` | `Valid<T>` / `Invalid` | 検証結果。`combine` があるのでアプリカティブ | 11 |
 
 ## モデル図
 
@@ -250,7 +265,7 @@ end note
 
 | 法則 | 対象 | 内容 |
 | :--- | :--- | :--- |
-| 恒等則（ファンクタ） | `Outcome.map` | `map { it }` == 何もしない |
+| 恒等則（ファンクタ） | `Outcome.map`・`ToDoListProjection.map`・`Validation.map` | `map { it }` == 何もしない |
 | 合成則（ファンクタ） | `Outcome.map` | `map(f).map(g)` == `map { g(f(it)) }` |
 | 結合律（モノイド） | `StateTransition` | `(f andThen g) andThen h` == `f andThen (g andThen h)` |
 | 単位元（モノイド） | `StateTransition` | `identityTransition andThen f` == `f` == `f andThen identityTransition` |
@@ -269,7 +284,10 @@ end note
 | 7 | `Outcome` と `ZettaiError`。`null` によるエラー表現を置き換えた（**実装済み**）。ポートの型が変わった（[ADR-006](../adr/ADR-006-outcome-port-type.md)） |
 | 8 | 射影（クエリ側のモデル）。ハブをコマンド側とクエリ側に分けた（**実装済み**） |
 | 9 | `ContextReader`（モナド）と PostgreSQL への永続化。`PersistenceError`（**実装済み**） |
-| 11 | 値オブジェクトの生成時バリデーション |
+| 10 | `TxContext`（トランザクションの文脈）。ポート 3 つが `HubAction` を返す形に（**実装済み**） |
+| 11 | `Validation`（アプリカティブ）と `Template`。`validateListName` による生成時バリデーション（**実装済み**） |
+| 12 | 構造化ロギングと関数型 JSON（プロファンクタ） |
+| 13 | 総括（実装追加は最小） |
 
 ## 関連ドキュメント
 

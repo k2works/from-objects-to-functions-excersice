@@ -1,6 +1,10 @@
 # Docs Update Log
 
 ## 2026-09-27
+* **Creation**: [第 10 章 コンテキストを読み込み、コマンドを処理する](/article/zettai/kotlin/chapter10.md)、[第 11 章 アプリカティブによるデータバリデーション](/article/zettai/kotlin/chapter11.md) を公開（claude-code/claude-opus-5）
+* **Creation**: [ADR-010 テンプレート機構を自前で書く](/adr/ADR-010-own-template.md)、[ADR-011 トランザクションの境界と文脈の型](/adr/ADR-011-transaction-boundary.md) を作成（claude-code/claude-opus-5）
+* **Creation**: [Unit 6 の Bolt 終了報告](/development/bolt_report-6.md) と [開発ジャーナル Unit 6](/journal/20260927-unit6.md) を作成。第 13 章への持ち込み（扱わなかったこと 4 件）を記録（claude-code/claude-opus-5）
+* **Update**: [ドメインモデル設計](/design/domain-model.md)・[バックエンドアーキテクチャ設計](/design/architecture_backend.md)・[UI 設計](/design/ui_design.md) に Unit 6 の実装（トランザクション・TxContext・Validation・テンプレート機構）を反映（claude-code/claude-opus-5）
 * **Verification**: [iteration_plan-6](/development/iteration_plan-6.md) を human:kakimomokuri が検証
 * **Creation**: [Unit 6 の Bolt 計画](/development/iteration_plan-6.md) を作成（AI-DLC 準拠）。中盤から終盤への局面移行の確認、Unit 5 からの持ち込み 8 項目（テンプレートエンジンの前提の訂正とスナップショットを扱わない判断を含む）と学び 5 件の織り込み、ポートの型変更の見積もり、疎いゲート密度（6 箇所）、画面遷移図の更新案を定義（claude-code/claude-opus-5）
 * **Creation**: [第 8 章 ファンクタを使ってイベントを射影する](/article/zettai/kotlin/chapter08.md)、[第 9 章 モナドによる安全なデータ永続化](/article/zettai/kotlin/chapter09.md) を公開（claude-code/claude-opus-5）

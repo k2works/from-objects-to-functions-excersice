@@ -96,6 +96,7 @@ nav:
           - Unit 3 関数型 DI とイベント: development/bolt_report-3.md
           - Unit 4 コマンドとエラーハンドリング: development/bolt_report-4.md
           - Unit 5 射影と永続化: development/bolt_report-5.md
+          - Unit 6 文脈の受け渡しとバリデーション: development/bolt_report-6.md
   - 運用:
       - 概要: operation/index.md
   - ジャーナル:
@@ -105,6 +106,7 @@ nav:
       - 2026-09-27 Unit 3: journal/20260927.md
       - 2026-09-27 Unit 4: journal/20260927-unit4.md
       - 2026-09-27 Unit 5: journal/20260927-unit5.md
+      - 2026-09-27 Unit 6: journal/20260927-unit6.md
   - レビュー:
       - 概要: review/index.md
   - ADR:
@@ -118,6 +120,8 @@ nav:
       - ADR-007 モジュールを Unit の境界で切る: adr/ADR-007-module-per-unit.md
       - ADR-008 イベントストアの構成: adr/ADR-008-event-store-single-table.md
       - ADR-009 結合テストの DB: adr/ADR-009-integration-test-database.md
+      - ADR-010 自前のテンプレート機構: adr/ADR-010-own-template.md
+      - ADR-011 トランザクションの境界と文脈の型: adr/ADR-011-transaction-boundary.md
   - 記事:
       - 概要: article/index.md
       - 執筆計画: article/outline.md
@@ -135,6 +139,8 @@ nav:
               - 第 7 章 関数型手法によるエラーハンドリング: article/zettai/kotlin/chapter07.md
               - 第 8 章 ファンクタを使ってイベントを射影する: article/zettai/kotlin/chapter08.md
               - 第 9 章 モナドによる安全なデータ永続化: article/zettai/kotlin/chapter09.md
+              - 第 10 章 コンテキストを読み込み、コマンドを処理する: article/zettai/kotlin/chapter10.md
+              - 第 11 章 アプリカティブによるデータバリデーション: article/zettai/kotlin/chapter11.md
   - リファレンス:
       - 概要: reference/index.md
       - よいソフトウェアとは: reference/よいソフトウェアとは.md

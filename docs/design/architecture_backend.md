@@ -85,8 +85,8 @@ apps/kotlin/zettai/
 | :--- | :--- | :--- | :--- |
 | `zettai-step1-http` | 1〜3 | Unit 1〜2 | 作成済み |
 | `zettai-step2-domain` | 4〜7 | Unit 3〜4 | 作成済み |
-| `zettai-step3-persistence` | 8〜9 | Unit 5 | **作成済み** |
-| `zettai-step4-*` | 10〜11 | Unit 6 | 未作成 |
+| `zettai-step3-persistence` | 8〜9 | Unit 5 | 作成済み |
+| `zettai-step4-context` | 10〜11 | Unit 6 | **作成済み** |
 | `zettai-step5-*` | 12〜13 | Unit 7 | 未作成 |
 
 ### 命名規約
@@ -117,6 +117,7 @@ src/test/kotlin/zettai/
 | `domain/queries/` | 8 | 射影（クエリ側のモデル）（**作成済み**） |
 | `fp/` | 7・9 | `Outcome`・`ContextReader`（**作成済み**） |
 | `persistence/` | 9 | PostgreSQL のイベントストア（**作成済み**） |
+| `ui/` | 11 | 自前のテンプレート機構（**作成済み**。[ADR-010](../adr/ADR-010-own-template.md)） |
 | `domain/commands/` | 6 | コマンドと関数型ステートマシン |
 | `fp/` | 7・9・10・11 | `Outcome`・`ContextReader`・`Validation` |
 | `domain/queries/` | 8 | 射影（CQRS のクエリ側） |
@@ -129,10 +130,15 @@ src/test/kotlin/zettai/
 
 | ポート | 型 | アダプタ | 章 |
 | :--- | :--- | :--- | :--- |
-| ToDo リストの取得 | `ToDoListFetcher = (User, ListName) -> Outcome<ZettaiError, ToDoList>` | `inMemoryFetcher`、またはイベントを畳み込んだ状態から引く実装 | 2（`Zettai` が直接）、4（ハブ経由）、**7（戻り値が `Outcome`）** |
-| 現在の状態の取得 | `StateFetcher = () -> ToDoListState` | イベントを畳み込む実装（コマンド側） | 6 |
-| 表示用の射影の取得 | `ProjectionFetcher = () -> ToDoListProjection` | イベントを射影に畳み込む実装（クエリ側） | 8 |
-| 出来事の保存 | `EventPersister = (List<ToDoListEvent>) -> Outcome<ZettaiError, Unit>` | インメモリのリスト、または PostgreSQL | 6（`Unit`）、9（`Outcome`） |
+| 現在の状態の取得 | `StateFetcher = () -> HubAction<ToDoListState>` | イベントを畳み込む実装（コマンド側） | 6、**10（`HubAction`）** |
+| 表示用の射影の取得 | `ProjectionFetcher = () -> HubAction<ToDoListProjection>` | イベントを射影に畳み込む実装（クエリ側） | 8、**10（`HubAction`）** |
+| 出来事の保存 | `EventPersister = (List<ToDoListEvent>) -> HubAction<Unit>` | インメモリのリスト、または PostgreSQL | 6、9、**10（`HubAction`）** |
+
+`HubAction<T>` は `ContextReader<TxContext, T>` です。**実行を後回しにすることで、複数の操作が同じ文脈を受け取り 1 つのトランザクションになります**（[ADR-011](../adr/ADR-011-transaction-boundary.md)）。
+
+第 4 章の `ToDoListFetcher` は第 8 章の CQRS 化で使わなくなりました（クエリ側が射影を見るため）。
+
+**第 10 章でポートの型から失敗が消えました。** 第 9 章までは `Outcome` を返していましたが、`HubAction` になったため、失敗は実行時（`runInTransaction`）に捕らえて `Outcome` に変えます。得たもの（トランザクション）と失ったもの（型に現れる失敗）のトレードオフです。
 
 第 8 章でハブをコマンド側とクエリ側に分けました（CQRS）。`ToDoListFetcher` は使わなくなり、クエリ側は射影を見ます。
 
@@ -172,6 +178,8 @@ BDD / Gherkin（Cucumber）は採用していません。理由は [開発戦略
 | ドメインの境界 | `DomainBoundaryTest` が green |
 | 代数的性質 | プロパティベーステストで検証（モノイド・ファンクタ・モナド。[ADR-005](../adr/ADR-005-property-based-testing.md)） |
 | 結合テスト | `check` に含める。別ジョブに分けない（[ADR-009](../adr/ADR-009-integration-test-database.md)） |
+| トランザクション | 失敗時に書き込みが 1 件も残らないことを結合テストで確認（[ADR-011](../adr/ADR-011-transaction-boundary.md)） |
+| テンプレート | 未適用のタグが残ったら `Outcome` の失敗（[ADR-010](../adr/ADR-010-own-template.md)） |
 | コードの読みやすさ | 行長 120 以下・`import` の並び。汎用の静的解析は入れない（[ADR-004](../adr/ADR-004-static-analysis.md)） |
 | 記事のコード例検査 | CI の独立したジョブ。違反 0 件 |
 

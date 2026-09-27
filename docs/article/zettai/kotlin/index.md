@@ -15,6 +15,12 @@ cd apps/kotlin/zettai
 ./gradlew check
 ```
 
+動かして構造化ログ（第 12 章）を見る場合は次を実行し、`http://localhost:8080/todo/uberto/book` を開きます。
+
+```bash
+./gradlew :zettai-step5-monitoring:run
+```
+
 | 項目 | 内容 |
 | :--- | :--- |
 | 言語 | Kotlin 2.x |
@@ -22,7 +28,7 @@ cd apps/kotlin/zettai
 | ビルド | Gradle（マルチプロジェクト、`gradle/libs.versions.toml` でバージョン管理） |
 | Web | http4k |
 | テスト | JUnit 5、Strikt、Pesticide（DDT） |
-| 永続化 | PostgreSQL、Exposed（第 9 章以降） |
+| 永続化 | PostgreSQL（JDBC 直。第 9 章以降。[ADR-008](../../../adr/ADR-008-event-store-single-table.md) で ORM を使わない判断） |
 | JSON | 自前の `Converter`（第 12 章。[ADR-012](../../../adr/ADR-012-own-json-converter.md) で Kondor を採用せず） |
 
 第 9 章以降の結合テストで使う PostgreSQL は、リポジトリ既存の `docker-compose.yml` のサービスを利用します。

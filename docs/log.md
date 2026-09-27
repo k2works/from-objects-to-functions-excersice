@@ -3,6 +3,8 @@
 ## 2026-09-27
 * **Update**: [unit7_review_20260927](/review/unit7_review_20260927.md) を更新（claude-code/claude-opus-5）
 * **Update**: [chapter12](/article/zettai/kotlin/chapter12.md) を更新（claude-code/claude-opus-5）
+* **Update**: [unit7_review_20260927](/review/unit7_review_20260927.md) を更新（claude-code/claude-opus-5）
+* **Update**: [chapter12](/article/zettai/kotlin/chapter12.md) を更新（claude-code/claude-opus-5）
 * **Update**: [chapter12](/article/zettai/kotlin/chapter12.md) を更新（claude-code/claude-opus-5）
 * **Update**: [unit7_review_20260927](/review/unit7_review_20260927.md) を更新（claude-code/claude-opus-5）
 * **Update**: [20260927-unit7](/journal/20260927-unit7.md) を更新（claude-code/claude-opus-5）

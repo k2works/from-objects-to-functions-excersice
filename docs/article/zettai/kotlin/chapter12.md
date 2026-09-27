@@ -4,7 +4,7 @@ title: "第 12 章 監視と関数型 JSON"
 description: "Zettai 連載 Kotlin 版の第 12 章。動いているアプリケーションを外から見る手段を作る。構造化ログを 1 行 1 JSON で出し、JSON の書き出しと読み込みを 1 つの型で対にする。出力側の map と入力側の contramap の両方を持つ構造を見つけ、最後にプロファンクタという名前を与える。"
 tags: [article, zettai, kotlin, chapter]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-27T06:31:06Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-27T06:39:56Z }
 ---
 
 # 第 12 章 監視と関数型 JSON
@@ -199,6 +199,22 @@ fun stdoutLogger(): Logger = jsonLogger(::println)
 ```
 
 改行が入っていないこと、そしてパースできることを確かめています。**「見た目が JSON っぽい」では足りません。**
+
+### 動かして見る
+
+ログは動かして見ないと分かりません。起動する入口を用意しました。
+
+```bash
+./gradlew :zettai-step5-monitoring:run
+```
+
+`http://localhost:8080/todo/uberto/book` を開くと、標準出力にログが 1 行出ます。
+
+```text
+{"at":"2026-09-27T06:37:09.150285Z","level":"INFO","message":"射影を読む を実行しました","operation":"射影を読む","reason":null}
+```
+
+出来事の保存先はメモリなので、止めると消えます。組み立てているのは `Main.kt` です。**ハブに渡す関数を包んだだけで、ドメインも HTTP の層も変わっていません。**
 
 ### 何をログに載せないか
 

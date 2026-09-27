@@ -28,6 +28,16 @@ devShell には次が入ります。
 
 `check` にコンパイルとテストが集約されています。コミット前にこれが green であることを確認します。
 
+## 動かす
+
+第 12 章の構造化ログは、動かすと標準出力で見られます。
+
+```bash
+./gradlew :zettai-step5-monitoring:run
+```
+
+`http://localhost:8080/todo/uberto/book` を開くと画面が表示され、標準出力にログが 1 行 1 JSON で出ます。出来事の保存先はメモリなので、止めると消えます（PostgreSQL 経由の経路は結合テストで確かめています）。
+
 ## ディレクトリ規約
 
 ```text

@@ -11,6 +11,7 @@ repositories {
 dependencies {
     kover(project(":zettai-step1-http"))
     kover(project(":zettai-step2-domain"))
+    kover(project(":zettai-step3-persistence"))
 }
 
 subprojects {

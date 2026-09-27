@@ -7,6 +7,7 @@ strikt = "0.35.1"
 http4k = "6.15.1.0"
 pesticide = "1.6.6"
 kover = "0.9.1"
+postgresql = "42.7.7"
 
 [libraries]
 junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }
@@ -16,6 +17,7 @@ http4k-core = { module = "org.http4k:http4k-core", version.ref = "http4k" }
 http4k-server-jetty = { module = "org.http4k:http4k-server-jetty", version.ref = "http4k" }
 http4k-client-jetty = { module = "org.http4k:http4k-client-jetty", version.ref = "http4k" }
 pesticide-core = { module = "com.ubertob.pesticide:pesticide-core", version.ref = "pesticide" }
+postgresql = { module = "org.postgresql:postgresql", version.ref = "postgresql" }
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }

@@ -26,6 +26,23 @@ jobs:
       run:
         working-directory: apps/kotlin/zettai
 
+    # 第 9 章の結合テスト用。docker-compose.yml の zettai-db と同じ設定にしている。
+    # ローカルと CI で接続先の形を揃え、テスト側の分岐を増やさないため。
+    services:
+      zettai-db:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_DB: zettai
+          POSTGRES_USER: zettai
+          POSTGRES_PASSWORD: zettai
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U zettai -d zettai"
+          --health-interval 2s
+          --health-timeout 3s
+          --health-retries 30
+
     steps:
       - uses: actions/checkout@v4
 
@@ -39,7 +56,9 @@ jobs:
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
 
-      # check にコンパイル・テスト・カバレッジ検証（80%）が集約されている
+      # check にコンパイル・テスト（結合テストを含む）・カバレッジ検証（80%）が集約されている。
+      # 結合テストを別ジョブに分けていない。分けるとローカルの ./gradlew check と
+      # CI の判定が食い違い、「ローカルでは通るのに CI で落ちる」が起きる
       - name: Run check
         run: ./gradlew check
 
@@ -76,3 +95,7 @@ jobs:
       # 逐語でない抜粋は記事側の code-check: ignore マーカーで除外する
       - name: Check article code examples
         run: python3 ops/scripts/article/check_article_code.py
+
+      # 行長と import 順だけを見る。汎用の静的解析は入れていない（ADR-004）
+      - name: Check code style
+        run: python3 ops/scripts/article/check_code_style.py

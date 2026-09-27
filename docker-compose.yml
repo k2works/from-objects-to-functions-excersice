@@ -27,6 +27,21 @@ services:
     links:
       - plantuml
 
+  # Zettai（第 9 章）の結合テスト用。既存サービスの定義は変えていない。
+  zettai-db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: zettai
+      POSTGRES_USER: zettai
+      POSTGRES_PASSWORD: zettai
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U zettai -d zettai"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+
   plantuml:
     image: plantuml/plantuml-server:jetty
     environment:

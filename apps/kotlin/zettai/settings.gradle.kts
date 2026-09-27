@@ -5,3 +5,4 @@ rootProject.name = "zettai"
 // Gradle の慣習にあわせてハイフン区切りにする。
 include("zettai-step1-http")
 include("zettai-step2-domain")
+include("zettai-step3-persistence")

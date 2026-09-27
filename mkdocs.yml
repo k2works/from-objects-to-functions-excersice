@@ -123,6 +123,7 @@ nav:
       - ADR-009 結合テストの DB: adr/ADR-009-integration-test-database.md
       - ADR-010 自前のテンプレート機構: adr/ADR-010-own-template.md
       - ADR-011 トランザクションの境界と文脈の型: adr/ADR-011-transaction-boundary.md
+      - ADR-012 自前の JSON Converter: adr/ADR-012-own-json-converter.md
   - 記事:
       - 概要: article/index.md
       - 執筆計画: article/outline.md
@@ -142,6 +143,8 @@ nav:
               - 第 9 章 モナドによる安全なデータ永続化: article/zettai/kotlin/chapter09.md
               - 第 10 章 コンテキストを読み込み、コマンドを処理する: article/zettai/kotlin/chapter10.md
               - 第 11 章 アプリカティブによるデータバリデーション: article/zettai/kotlin/chapter11.md
+              - 第 12 章 監視と関数型 JSON: article/zettai/kotlin/chapter12.md
+              - 第 13 章 関数型アーキテクチャの設計: article/zettai/kotlin/chapter13.md
   - リファレンス:
       - 概要: reference/index.md
       - よいソフトウェアとは: reference/よいソフトウェアとは.md

@@ -11,7 +11,7 @@ ToDo リストアプリケーション **Zettai** を TDD で一から作りな�
 
 | 対象 | 記事 | サンプル実装 | 実行環境 | 状態 |
 | :--- | :--- | :--- | :--- | :--- |
-| Kotlin | [Kotlin 版](kotlin/index.md) | `apps/kotlin/zettai/` | Nix devShell `kotlin`（JDK 21 / Gradle） | 準備中 |
+| Kotlin | [Kotlin 版](kotlin/index.md) | `apps/kotlin/zettai/` | Nix devShell `kotlin`（JDK 21 / Gradle） | **完結（13 / 13 章）** |
 
 現在の対象は 1 言語です。2 言語目を追加した時点で横断比較コンテンツを新設します。
 
@@ -30,8 +30,8 @@ ToDo リストアプリケーション **Zettai** を TDD で一から作りな�
 | 9 | モナドによる安全なデータ永続化 | [公開済み](kotlin/chapter09.md) |
 | 10 | コンテキストを読み込み、コマンドを処理する | [公開済み](kotlin/chapter10.md) |
 | 11 | アプリカティブによるデータバリデーション | [公開済み](kotlin/chapter11.md) |
-| 12 | 監視と関数型 JSON | 未着手 |
-| 13 | 関数型アーキテクチャの設計 | 未着手 |
+| 12 | 監視と関数型 JSON | [公開済み](kotlin/chapter12.md) |
+| 13 | 関数型アーキテクチャの設計 | [公開済み](kotlin/chapter13.md) |
 
 章を公開したら、この表の状態を記事へのリンクに置き換え、`mkdocs.yml` の nav にも追加します。
 
@@ -42,7 +42,7 @@ ToDo リストアプリケーション **Zettai** を TDD で一から作りな�
 | 実行環境（Nix devShell） | **完了** |
 | サンプル実装の雛形 | **完了** |
 | CI | **完了** |
-| 公開済みの章 | **11 / 13** |
+| 公開済みの章 | **13 / 13（完結）** |
 
 ## 実行環境一覧
 

@@ -6366,8 +6366,8 @@
 </tr>
 <tr>
 <td style="text-align: left;"><code>fun main</code> と <code>./gradlew run</code> が無く、アプリを起動してログを見られない</td>
-<td style="text-align: left;"><strong>保留（要判断）</strong></td>
-<td style="text-align: left;">モジュール構成の変更（application プラグイン・新規ファイル）にあたり<strong>承認ゲートの対象</strong>。第 12 章の価値は「動かして見る」ことで伝わるという指摘は妥当なので、ユーザーの判断を仰ぐ</td>
+<td style="text-align: left;"><strong>修正</strong>（ユーザー承認済み）</td>
+<td style="text-align: left;"><code>zettai-step5-monitoring</code> に application プラグインと <code>Main.kt</code>（インメモリの組み立て＋<code>stdoutLogger</code>）を追加。実際に起動して画面とログ 1 行 1 JSON を確認し、第 12 章・Kotlin 版索引・README に手順を記載</td>
 </tr>
 <tr>
 <td style="text-align: left;">ログに利用者名・リスト名を載せる例があり、実務で PII が流れうる</td>

@@ -3811,6 +3811,17 @@
   <a href="#_9" class="md-nav__link">
     <span class="md-ellipsis">
       
+        動かして見る
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
         何をログに載せないか
       
     </span>
@@ -3874,7 +3885,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_10" class="md-nav__link">
+  <a href="#_11" class="md-nav__link">
     <span class="md-ellipsis">
       
         プロファンクタとの出会い
@@ -3886,7 +3897,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_11" class="md-nav__link">
+  <a href="#_12" class="md-nav__link">
     <span class="md-ellipsis">
       
         出力側を変換する
@@ -3897,7 +3908,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_12" class="md-nav__link">
+  <a href="#_13" class="md-nav__link">
     <span class="md-ellipsis">
       
         入力側を変換する
@@ -3919,7 +3930,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_13" class="md-nav__link">
+  <a href="#_14" class="md-nav__link">
     <span class="md-ellipsis">
       
         名前を与える
@@ -3930,7 +3941,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_14" class="md-nav__link">
+  <a href="#_15" class="md-nav__link">
     <span class="md-ellipsis">
       
         身の回りのプロファンクタ
@@ -3957,7 +3968,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_15" class="md-nav__link">
+  <a href="#_16" class="md-nav__link">
     <span class="md-ellipsis">
       
         データベース呼び出しのロギング
@@ -3969,7 +3980,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_16" class="md-nav__link">
+  <a href="#_17" class="md-nav__link">
     <span class="md-ellipsis">
       
         ポートの型を変えない
@@ -3980,7 +3991,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_17" class="md-nav__link">
+  <a href="#_18" class="md-nav__link">
     <span class="md-ellipsis">
       
         包めるのは「結果を読まない」範囲まで
@@ -3991,7 +4002,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_18" class="md-nav__link">
+  <a href="#_19" class="md-nav__link">
     <span class="md-ellipsis">
       
         横断関心事の見分け方
@@ -4002,7 +4013,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_19" class="md-nav__link">
+  <a href="#_20" class="md-nav__link">
     <span class="md-ellipsis">
       
         扱わなかったこと
@@ -4018,7 +4029,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_20" class="md-nav__link">
+  <a href="#_21" class="md-nav__link">
     <span class="md-ellipsis">
       
         まとめ
@@ -4029,7 +4040,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_21" class="md-nav__link">
+  <a href="#_22" class="md-nav__link">
     <span class="md-ellipsis">
       
         この章で書いたコード
@@ -4040,7 +4051,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_22" class="md-nav__link">
+  <a href="#_23" class="md-nav__link">
     <span class="md-ellipsis">
       
         参照
@@ -6469,7 +6480,15 @@
 <span class="w">    </span><span class="p">}</span>
 </code></pre></div>
 <p>改行が入っていないこと、そしてパースできることを確かめています。<strong>「見た目が JSON っぽい」では足りません。</strong></p>
-<h3 id="_9">何をログに載せないか<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<h3 id="_9">動かして見る<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<p>ログは動かして見ないと分かりません。起動する入口を用意しました。</p>
+<div class="highlight"><pre><span></span><code>./gradlew<span class="w"> </span>:zettai-step5-monitoring:run
+</code></pre></div>
+<p><code>http://localhost:8080/todo/uberto/book</code> を開くと、標準出力にログが 1 行出ます。</p>
+<div class="highlight"><pre><span></span><code>{"at":"2026-09-27T06:37:09.150285Z","level":"INFO","message":"射影を読む を実行しました","operation":"射影を読む","reason":null}
+</code></pre></div>
+<p>出来事の保存先はメモリなので、止めると消えます。組み立てているのは <code>Main.kt</code> です。<strong>ハブに渡す関数を包んだだけで、ドメインも HTTP の層も変わっていません。</strong></p>
+<h3 id="_10">何をログに載せないか<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
 <p><code>detail</code> には何でも入ります。だから決めておくことがあります。<strong>ログは消しにくい場所です。</strong></p>
 <p>この章では <code>detail</code> に利用者名とリスト名を入れています。教材なので構いませんが、<strong>業務のシステムで同じことをすると、個人情報がログに流れます</strong>。ログは集約先に転送され、保持期間の間は残り、開発者が広く読めます。あとから「あの行だけ消す」のは難しい仕組みです。</p>
 <p>載せないものを決めておきます。</p>
@@ -6571,9 +6590,9 @@
 </tbody>
 </table>
 <p>どれも取りたくありませんでした。判断は <a href="../../../../adr/ADR-012-own-json-converter/">ADR-012</a> に記録しています。</p>
-<h2 id="_10">プロファンクタとの出会い<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<h2 id="_11">プロファンクタとの出会い<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
 <p><code>Converter</code> には、これまでと違う性質があります。</p>
-<h3 id="_11">出力側を変換する<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<h3 id="_12">出力側を変換する<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
 <p><code>Converter&lt;ToDoListEvent, JsonObject&gt;</code> を <code>Converter&lt;ToDoListEvent, String&gt;</code> にしたいとします。<strong>変換先を変える</strong>のです。</p>
 <div class="highlight"><pre><span></span><code><span class="w">    </span><span class="cm">/** 出力側（B）を変換する。ファンクタの map と同じ向き。 */</span>
 <span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="o">&lt;</span><span class="n">C</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">map</span><span class="p">(</span><span class="n">to</span><span class="p">:</span><span class="w"> </span><span class="p">(</span><span class="n">B</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="n">from</span><span class="p">:</span><span class="w"> </span><span class="p">(</span><span class="n">C</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">B</span><span class="p">):</span><span class="w"> </span><span class="n">Converter</span><span class="o">&lt;</span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="n">C</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span>
@@ -6593,7 +6612,7 @@
 </code></pre></div>
 <p><strong>2 段になっています。</strong> 出来事 ↔ 「名前と値の並び」の対応を書き、その上に「並び ↔ 文字列」の変換を重ねました。</p>
 <p>直接「出来事 ↔ 文字列」を書くこともできますが、2 段にすると<strong>それぞれが小さくなります</strong>。</p>
-<h3 id="_12">入力側を変換する<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<h3 id="_13">入力側を変換する<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
 <p>今度は変換元を変えます。<code>Converter&lt;Int, String&gt;</code> を <code>Converter&lt;UserId, String&gt;</code> にしたい、という場合です。</p>
 <div class="highlight"><pre><span></span><code><span class="w">    </span><span class="cm">/** 入力側（A）を変換する。向きが逆なので contramap。 */</span>
 <span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="o">&lt;</span><span class="n">C</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">contramap</span><span class="p">(</span><span class="n">to</span><span class="p">:</span><span class="w"> </span><span class="p">(</span><span class="n">C</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="n">from</span><span class="p">:</span><span class="w"> </span><span class="p">(</span><span class="n">A</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">C</span><span class="p">):</span><span class="w"> </span><span class="n">Converter</span><span class="o">&lt;</span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="n">B</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span>
@@ -6666,7 +6685,7 @@
 </code></pre></div>
 <p>入力側も同じ 2 つを確かめます。<strong>合計 4 つの法則</strong>です。</p>
 <p>テストの形は第 5・7・9・11 章と同じ <code>forAllRandom</code> です。<strong>5 回目です。</strong>（第 7 章では <code>Outcome</code> 専用のラッパー <code>repeatWithRandomOutcomes</code> 越しに使っています。）</p>
-<h3 id="_13">名前を与える<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<h3 id="_14">名前を与える<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
 <p>整理します。</p>
 <ol>
 <li>ある型が<strong>2 つの型引数</strong>を持つ（<code>Converter&lt;A, B&gt;</code>）</li>
@@ -6676,7 +6695,7 @@
 </ol>
 <p><strong>この構造をプロファンクタと呼びます。</strong></p>
 <p>「プロ」は「前の」という意味ではなく、<strong>反変（contravariant）</strong>を表します。出力側は共変（そのままの向き）、入力側は反変（逆の向き）です。両方持つのでプロファンクタです。</p>
-<h3 id="_14">身の回りのプロファンクタ<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
+<h3 id="_15">身の回りのプロファンクタ<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
 <p><strong>関数そのものがプロファンクタです。</strong></p>
 <div class="highlight"><pre><span></span><code>(A) -&gt; B
 </code></pre></div>
@@ -6757,9 +6776,9 @@
 </table>
 <p><strong>プロファンクタだけ型引数が 2 つです。</strong> 入力と出力の両方を持つので、変換の向きが 2 つあります。</p>
 <p>次の章で、この 5 つをいつ選ぶかを整理します。</p>
-<h2 id="_15">データベース呼び出しのロギング<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h2>
+<h2 id="_16">データベース呼び出しのロギング<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h2>
 <p>最後に、データベースの操作をログに残します。</p>
-<h3 id="_16">ポートの型を変えない<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h3>
+<h3 id="_17">ポートの型を変えない<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h3>
 <p>ここで方針を決めました。<strong>ポートの型を変えません。</strong></p>
 <p>第 7 章で <code>Outcome</code> を導入したとき、ポートの型を変えて 6 ファイルが変わりました。第 10 章で <code>HubAction</code> にしたとき、7 ファイル変更 + 3 ファイル新設でした。</p>
 <p><strong>2 回続けて型を変えたので、3 回目は変えずに済む方法を探しました。</strong></p>
@@ -6779,7 +6798,7 @@
 PostgresEventStore.readAll().logged(logger, context)   // ログあり
 </code></pre></div>
 <p><strong>型が変わらないので、既存のコードは 1 行も変わりません。</strong></p>
-<h3 id="_17">包めるのは「結果を読まない」範囲まで<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h3>
+<h3 id="_18">包めるのは「結果を読まない」範囲まで<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h3>
 <p>ここで気をつけることがあります。<strong>この <code>logged</code> は結果の中身を読めません。</strong></p>
 <p>書いているのは <code>LogSuccess</code>（「実行しました」）だけです。操作が失敗しても <code>LogSuccess</code> になります。</p>
 <p>理由は型に出ています。<code>T</code> が何なのかを知らないから、型を変えずに包めました。<strong>知らないものは読めません。</strong></p>
@@ -6814,7 +6833,7 @@ PostgresEventStore.readAll().logged(logger, context)   // ログあり
 </tbody>
 </table>
 <p><strong>横断関心事であっても、結果を読むなら型を知る必要があります。</strong> この区別を書いておかないと、ログが全部「成功」として残ります。</p>
-<h3 id="_18">横断関心事の見分け方<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h3>
+<h3 id="_19">横断関心事の見分け方<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h3>
 <p>「包むだけで済むか」は、次で見分けられます。</p>
 <table>
 <thead>
@@ -6840,7 +6859,7 @@ PostgresEventStore.readAll().logged(logger, context)   // ログあり
 <p>第 7 章の <code>Outcome</code> は、<strong>戻り値の意味が変わりました</strong>（「値」から「値か失敗」へ）。だから呼び出し側が <code>fold</code> を書く必要があり、型を変えるほかありませんでした。</p>
 <p>ログは戻り値の意味を変えません。だから包めます。</p>
 <p><strong>設計を変えるとき、「これは横断関心事か」を先に問うと、波及の大きさが見積もれます。</strong></p>
-<h3 id="_19">扱わなかったこと<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h3>
+<h3 id="_20">扱わなかったこと<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h3>
 <p>第 11 章の HTML エスケープと同じ形の限界が、この章にもあります。</p>
 <table>
 <thead>
@@ -6869,7 +6888,7 @@ PostgresEventStore.readAll().logged(logger, context)   // ログあり
 </code></pre></div>
 <p>「まだできないこと」をテストに書くと、直したときにこのテストが落ちます。<strong>限界の場所が、直す合図になります。</strong></p>
 <p>この判断は <a href="../../../../adr/ADR-012-own-json-converter/">ADR-012</a> の「失うもの」に記録し、<a href="../chapter13/">第 13 章</a> の「扱わなかったこと」にも挙げています。</p>
-<h2 id="_20">まとめ<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h2>
+<h2 id="_21">まとめ<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h2>
 <p>この章でやったことを振り返ります。</p>
 <ul>
 <li><strong>構造化ログを作りました。</strong> 1 行 1 JSON。成功と失敗を型で分けたので、集計に文字列の解析が要りません</li>
@@ -6882,7 +6901,7 @@ PostgresEventStore.readAll().logged(logger, context)   // ログあり
 </ul>
 <p>これで 5 つの構造が揃いました。次の章で、13 章で積み上げたものを総括します。<strong>そして扱わなかったことも書きます。</strong></p>
 <hr />
-<h2 id="_21">この章で書いたコード<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h2>
+<h2 id="_22">この章で書いたコード<a class="headerlink" href="#_22" title="Permanent link">&para;</a></h2>
 <ul>
 <li>双方向変換: <code>apps/kotlin/zettai/zettai-step5-monitoring/src/main/kotlin/zettai/fp/Converter.kt</code></li>
 <li>JSON: <code>.../json/</code>（<code>JsonValue.kt</code>・<code>EventConverter.kt</code>）</li>
@@ -6890,7 +6909,7 @@ PostgresEventStore.readAll().logged(logger, context)   // ログあり
 <li>テスト: <code>.../test/kotlin/zettai/json/</code>（<code>EventConverterTest.kt</code>・<code>ConverterProfunctorTest.kt</code>）、<code>.../logger/LoggerTest.kt</code></li>
 </ul>
 <p>この章から <code>zettai-step5-monitoring</code> モジュールに移ります。</p>
-<h2 id="_22">参照<a class="headerlink" href="#_22" title="Permanent link">&para;</a></h2>
+<h2 id="_23">参照<a class="headerlink" href="#_23" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Uberto Barbini『From Objects to Functions』第 12 章。構造化ロギングと双方向変換からプロファンクタに至る流れは本書に拠っています。本連載のコードはすべて書き起こした自作実装です</li>
 <li><a href="../../../../adr/ADR-012-own-json-converter/">ADR-012 JSON の変換を自前の <code>Converter</code> で書き Kondor を導入しない</a></li>

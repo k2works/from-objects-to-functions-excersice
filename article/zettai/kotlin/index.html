@@ -5978,6 +5978,9 @@
 <span class="nb">cd</span><span class="w"> </span>apps/kotlin/zettai
 ./gradlew<span class="w"> </span>check
 </code></pre></div>
+<p>動かして構造化ログ（第 12 章）を見る場合は次を実行し、<code>http://localhost:8080/todo/uberto/book</code> を開きます。</p>
+<div class="highlight"><pre><span></span><code>./gradlew<span class="w"> </span>:zettai-step5-monitoring:run
+</code></pre></div>
 <table>
 <thead>
 <tr>
@@ -6008,7 +6011,7 @@
 </tr>
 <tr>
 <td style="text-align: left;">永続化</td>
-<td style="text-align: left;">PostgreSQL、Exposed（第 9 章以降）</td>
+<td style="text-align: left;">PostgreSQL（JDBC 直。第 9 章以降。<a href="../../../adr/ADR-008-event-store-single-table/">ADR-008</a> で ORM を使わない判断）</td>
 </tr>
 <tr>
 <td style="text-align: left;">JSON</td>

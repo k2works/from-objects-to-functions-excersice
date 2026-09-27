@@ -77,6 +77,7 @@ nav:
       - 概要: design/index.md
       - バックエンドアーキテクチャ: design/architecture_backend.md
       - ドメインモデル: design/domain-model.md
+      - データモデル: design/data-model.md
       - UI 設計: design/ui_design.md
   - 開発:
       - 概要: development/index.md
@@ -93,6 +94,7 @@ nav:
           - Unit 2 ウォーキングスケルトンとドメイン分離: development/bolt_report-2.md
           - Unit 3 関数型 DI とイベント: development/bolt_report-3.md
           - Unit 4 コマンドとエラーハンドリング: development/bolt_report-4.md
+          - Unit 5 射影と永続化: development/bolt_report-5.md
   - 運用:
       - 概要: operation/index.md
   - ジャーナル:
@@ -101,6 +103,7 @@ nav:
       - 2026-09-26 Unit 2: journal/20260926-unit2.md
       - 2026-09-27 Unit 3: journal/20260927.md
       - 2026-09-27 Unit 4: journal/20260927-unit4.md
+      - 2026-09-27 Unit 5: journal/20260927-unit5.md
   - レビュー:
       - 概要: review/index.md
   - ADR:
@@ -111,6 +114,9 @@ nav:
       - ADR-004 静的解析を入れない判断: adr/ADR-004-static-analysis.md
       - ADR-005 プロパティベーステストの方針: adr/ADR-005-property-based-testing.md
       - ADR-006 Outcome とポートの型変更: adr/ADR-006-outcome-port-type.md
+      - ADR-007 モジュールを Unit の境界で切る: adr/ADR-007-module-per-unit.md
+      - ADR-008 イベントストアの構成: adr/ADR-008-event-store-single-table.md
+      - ADR-009 結合テストの DB: adr/ADR-009-integration-test-database.md
   - 記事:
       - 概要: article/index.md
       - 執筆計画: article/outline.md
@@ -126,6 +132,8 @@ nav:
               - 第 5 章 イベントで状態を変更する: article/zettai/kotlin/chapter05.md
               - 第 6 章 コマンドを実行してイベントを生成する: article/zettai/kotlin/chapter06.md
               - 第 7 章 関数型手法によるエラーハンドリング: article/zettai/kotlin/chapter07.md
+              - 第 8 章 ファンクタを使ってイベントを射影する: article/zettai/kotlin/chapter08.md
+              - 第 9 章 モナドによる安全なデータ永続化: article/zettai/kotlin/chapter09.md
   - リファレンス:
       - 概要: reference/index.md
       - よいソフトウェアとは: reference/よいソフトウェアとは.md

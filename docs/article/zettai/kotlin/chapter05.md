@@ -117,13 +117,21 @@ data class ToDoListState(val lists: Map<Pair<User, ListName>, ToDoList>) {
 /** 1 つの出来事を状態に適用する。 */
 fun ToDoListState.apply(event: ToDoListEvent): ToDoListState =
     when (event) {
-        is ListCreated -> copy(lists = lists + ((event.user to event.listName) to ToDoList(event.listName, emptyList())))
+        is ListCreated ->
+            copy(lists = lists + (event.key() to ToDoList(event.listName, emptyList())))
         is ItemAdded -> {
-            val key = event.user to event.listName
-            val current = lists[key]
-            if (current == null) this else copy(lists = lists + (key to current.copy(items = current.items + event.item)))
+            val current = lists[event.key()] ?: return this
+
+            copy(lists = lists + (event.key() to current.copy(items = current.items + event.item)))
         }
     }
+```
+
+対象を引く鍵は共通なので、関数に切り出しています。
+
+```kotlin
+/** 状態の中でリストを引くための鍵。 */
+private fun ToDoListEvent.key(): Pair<User, ListName> = user to listName
 ```
 
 `copy` で新しい状態を作っています。元の状態は変わりません。**出来事を適用しても、前の状態は残る**ということです。
@@ -302,17 +310,22 @@ f → 何もしない変換    は   f と同じ
 ```kotlin
     private fun repeatWithRandomEvents(
         check: (List<ToDoListEvent>, List<ToDoListEvent>, List<ToDoListEvent>) -> Unit
-    ) {
-        repeat(trials) { seed ->
-            val random = Random(seed)
-
-            check(
-                EventGenerator.events(random, random.nextInt(0, 5)),
-                EventGenerator.events(random, random.nextInt(0, 5)),
-                EventGenerator.events(random, random.nextInt(0, 5))
-            )
-        }
+    ) = forAllRandom { random ->
+        check(
+            EventGenerator.events(random, random.nextInt(0, 5)),
+            EventGenerator.events(random, random.nextInt(0, 5)),
+            EventGenerator.events(random, random.nextInt(0, 5))
+        )
     }
+```
+
+`forAllRandom` は繰り返しの骨格だけを持つヘルパーです。
+
+```kotlin
+/** ランダムな入力で check を trials 回試す。 */
+fun forAllRandom(trials: Int = DEFAULT_TRIALS, check: (Random) -> Unit) {
+    repeat(trials) { seed -> check(Random(seed)) }
+}
 ```
 
 シードを固定しているので、失敗したら同じ入力を再現できます。

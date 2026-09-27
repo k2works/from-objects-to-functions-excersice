@@ -30,6 +30,8 @@ Zettai のドメインモデルを定義します。連載の進行にあわせ�
 | `StateTransition` | 状態変換 | 状態から状態への関数 |
 | `ToDoListCommand` | コマンド | 利用者の意図 |
 | `Outcome` | 結果 | 成功か失敗 |
+| `ContextReader` | 文脈つきの計算 | 文脈を受け取ってから値を返す |
+| `ToDoListProjection` | 射影 | 表示のためのモデル |
 | `ZettaiError` | 失敗 | 失敗の理由 |
 
 ## 要素表
@@ -94,6 +96,7 @@ Zettai のドメインモデルを定義します。連載の進行にあわせ�
 | `ItemNotFound` | 項目が見つからない | 404 | 7 |
 | `ListAlreadyExists` | 同名のリストが既にある | 400 | 7 |
 | `InvalidTransition` | 許されない状態遷移 | 400 | 7 |
+| `PersistenceError` | データベースへの接続・読み書きの失敗 | 500 | 9 |
 
 `ZettaiError` は `sealed` なので、失敗を 1 種類足すと扱い忘れている場所がコンパイルエラーになります。
 
@@ -109,6 +112,8 @@ Zettai のドメインモデルを定義します。連載の進行にあわせ�
 | `identityTransition` | `StateTransition` | 何もしない変換（合成の単位元） | 5 |
 | `andThen` | `StateTransition.(StateTransition) -> StateTransition` | 変換の合成 | 5 |
 | `Outcome<E, T>` | `Success<T>` / `Failure<E>` | 成功か失敗。`map` がファンクタ | 7 |
+| `ToDoListProjection` | イベントの畳み込み先 | 表示用のモデル。`map` がファンクタ | 8 |
+| `ContextReader<CTX, T>` | `(CTX) -> T` | 文脈つきの計算。`flatMap` があるのでモナド | 9 |
 
 ## モデル図
 
@@ -262,7 +267,8 @@ end note
 | 5 | `ToDoListEvent`（`ListCreated`・`ItemAdded`）・`ToDoListState`・`StateTransition` |
 | 6 | コマンドと関数型ステートマシン。状態遷移が実装された（**実装済み**） |
 | 7 | `Outcome` と `ZettaiError`。`null` によるエラー表現を置き換えた（**実装済み**）。ポートの型が変わった（[ADR-006](../adr/ADR-006-outcome-port-type.md)） |
-| 8 | 射影（クエリ側のモデル） |
+| 8 | 射影（クエリ側のモデル）。ハブをコマンド側とクエリ側に分けた（**実装済み**） |
+| 9 | `ContextReader`（モナド）と PostgreSQL への永続化。`PersistenceError`（**実装済み**） |
 | 11 | 値オブジェクトの生成時バリデーション |
 
 ## 関連ドキュメント
@@ -271,4 +277,6 @@ end note
 - [UI 設計](ui_design.md)
 - [ADR-005 プロパティベーステストの方針](../adr/ADR-005-property-based-testing.md)
 - [ADR-006 失敗を `Outcome` で表しポートの型を変える](../adr/ADR-006-outcome-port-type.md)
+- [ADR-008 イベントストアを 1 テーブルで持ち状態を保存しない](../adr/ADR-008-event-store-single-table.md)
+- [データモデル設計](data-model.md)
 - [第 4 章](../article/zettai/kotlin/chapter04.md) / [第 5 章](../article/zettai/kotlin/chapter05.md)

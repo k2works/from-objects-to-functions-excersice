@@ -1,6 +1,12 @@
 # Docs Update Log
 
 ## 2026-09-27
+* **Creation**: [第 8 章 ファンクタを使ってイベントを射影する](/article/zettai/kotlin/chapter08.md)、[第 9 章 モナドによる安全なデータ永続化](/article/zettai/kotlin/chapter09.md) を公開（claude-code/claude-opus-5）
+* **Creation**: [データモデル設計](/design/data-model.md) を作成。イベントストアのスキーマ、ER 図、正規化を論じない理由を記述（claude-code/claude-opus-5）
+* **Creation**: [ADR-007 モジュールを Unit の境界で切る](/adr/ADR-007-module-per-unit.md)、[ADR-008 イベントストアを 1 テーブルで持ち状態を保存しない](/adr/ADR-008-event-store-single-table.md)、[ADR-009 結合テストの DB を docker-compose と CI のサービスコンテナで用意する](/adr/ADR-009-integration-test-database.md) を作成（claude-code/claude-opus-5）
+* **Update**: [ADR-004](/adr/ADR-004-static-analysis.md) と [ADR-005](/adr/ADR-005-property-based-testing.md) に再検討の結果を追記。ktlint を実際に試して採用せず、プロパティベーステストのライブラリも入れずに骨格をヘルパーへ切り出した（claude-code/claude-opus-5）
+* **Creation**: [Unit 5 の Bolt 終了報告](/development/bolt_report-5.md) と [開発ジャーナル Unit 5](/journal/20260927-unit5.md) を作成。Release v0.2.0 の達成を記録（claude-code/claude-opus-5）
+* **Update**: [バックエンドアーキテクチャ設計](/design/architecture_backend.md) と [ドメインモデル設計](/design/domain-model.md) に Unit 5 の実装（射影・CQRS・ContextReader・永続化）を反映（claude-code/claude-opus-5）
 * **Verification**: [iteration_plan-5](/development/iteration_plan-5.md) を human:kakimomokuri が検証
 * **Verification**: [iteration_plan-5](/development/iteration_plan-5.md) を human:kakimomokuri が検証
 * **Creation**: [Unit 5 の Bolt 計画](/development/iteration_plan-5.md) を作成（AI-DLC 準拠）。ゲート密度を密に戻す根拠、Unit 4 からの持ち込み 8 項目と学び 5 件の織り込み、モジュールを Unit の境界で切る判断、エントロピー評価 HIGH 3 軸とスパイクの再導入、ER 図の初回作成案、ADR-004・005 の再検討を定義（claude-code/claude-opus-5）

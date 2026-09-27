@@ -12,5 +12,8 @@
 | [ADR-004](ADR-004-static-analysis.md) | 静的解析を `check` に組み込まず、記事のコード例検査を優先する | 提案 |
 | [ADR-005](ADR-005-property-based-testing.md) | プロパティベーステストを自前で書き kotest-property を導入しない | 提案 |
 | [ADR-006](ADR-006-outcome-port-type.md) | 失敗を `Outcome` で表しポートの型を変える | 提案 |
+| [ADR-007](ADR-007-module-per-unit.md) | モジュールを Unit の境界で切る | 提案 |
+| [ADR-008](ADR-008-event-store-single-table.md) | イベントストアを 1 テーブルで持ち状態を保存しない | 提案 |
+| [ADR-009](ADR-009-integration-test-database.md) | 結合テストの DB を docker-compose と CI のサービスコンテナで用意する | 提案 |
 
 ADR の作成には `creating-adr` スキルを使用してください。

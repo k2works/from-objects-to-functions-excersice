@@ -79,15 +79,15 @@ apps/kotlin/zettai/
 └── zettai-stepN-<テーマ>/
 ```
 
-| モジュール | 章 | 状態 |
-| :--- | :--- | :--- |
-| `zettai-step1-http` | 1〜3 | 作成済み |
-| `zettai-step2-domain` | 4〜7 | **作成済み** |
-| `zettai-step3-events` | 5〜6 | 未作成 |
-| `zettai-step4-projections` | 7〜8 | 未作成 |
-| `zettai-step5-persistence` | 9〜10 | 未作成 |
-| `zettai-step6-validation` | 11 | 未作成 |
-| `zettai-step7-monitoring` | 12 | 未作成 |
+モジュールは **Unit の境界（= 2 章）** で切ります。原著の 7 段階には合わせません（[ADR-007](../adr/ADR-007-module-per-unit.md)）。
+
+| モジュール | 章 | Unit | 状態 |
+| :--- | :--- | :--- | :--- |
+| `zettai-step1-http` | 1〜3 | Unit 1〜2 | 作成済み |
+| `zettai-step2-domain` | 4〜7 | Unit 3〜4 | 作成済み |
+| `zettai-step3-persistence` | 8〜9 | Unit 5 | **作成済み** |
+| `zettai-step4-*` | 10〜11 | Unit 6 | 未作成 |
+| `zettai-step5-*` | 12〜13 | Unit 7 | 未作成 |
 
 ### 命名規約
 
@@ -114,6 +114,9 @@ src/test/kotlin/zettai/
 | :--- | :--- | :--- |
 | `domain/events/` | 5 | イベントと畳み込み（**作成済み**） |
 | `domain/commands/` | 6 | コマンドと関数型ステートマシン（**作成済み**） |
+| `domain/queries/` | 8 | 射影（クエリ側のモデル）（**作成済み**） |
+| `fp/` | 7・9 | `Outcome`・`ContextReader`（**作成済み**） |
+| `persistence/` | 9 | PostgreSQL のイベントストア（**作成済み**） |
 | `domain/commands/` | 6 | コマンドと関数型ステートマシン |
 | `fp/` | 7・9・10・11 | `Outcome`・`ContextReader`・`Validation` |
 | `domain/queries/` | 8 | 射影（CQRS のクエリ側） |
@@ -127,8 +130,11 @@ src/test/kotlin/zettai/
 | ポート | 型 | アダプタ | 章 |
 | :--- | :--- | :--- | :--- |
 | ToDo リストの取得 | `ToDoListFetcher = (User, ListName) -> Outcome<ZettaiError, ToDoList>` | `inMemoryFetcher`、またはイベントを畳み込んだ状態から引く実装 | 2（`Zettai` が直接）、4（ハブ経由）、**7（戻り値が `Outcome`）** |
-| 現在の状態の取得 | `StateFetcher = () -> ToDoListState` | イベントを畳み込む実装 | 6 |
-| 出来事の保存 | `EventPersister = (List<ToDoListEvent>) -> Unit` | インメモリのリスト。第 9 章で PostgreSQL | 6 |
+| 現在の状態の取得 | `StateFetcher = () -> ToDoListState` | イベントを畳み込む実装（コマンド側） | 6 |
+| 表示用の射影の取得 | `ProjectionFetcher = () -> ToDoListProjection` | イベントを射影に畳み込む実装（クエリ側） | 8 |
+| 出来事の保存 | `EventPersister = (List<ToDoListEvent>) -> Outcome<ZettaiError, Unit>` | インメモリのリスト、または PostgreSQL | 6（`Unit`）、9（`Outcome`） |
+
+第 8 章でハブをコマンド側とクエリ側に分けました（CQRS）。`ToDoListFetcher` は使わなくなり、クエリ側は射影を見ます。
 
 第 9 章で PostgreSQL 版のアダプタが加わります。
 
@@ -164,12 +170,15 @@ BDD / Gherkin（Cucumber）は採用していません。理由は [開発戦略
 | カバレッジ（Kover） | ドメイン層 80% 以上 |
 | 静的解析 | 導入しない（[ADR-004](../adr/ADR-004-static-analysis.md)。Unit 5 で再検討） |
 | ドメインの境界 | `DomainBoundaryTest` が green |
-| 代数的性質 | プロパティベーステストで検証（[ADR-005](../adr/ADR-005-property-based-testing.md)） |
+| 代数的性質 | プロパティベーステストで検証（モノイド・ファンクタ・モナド。[ADR-005](../adr/ADR-005-property-based-testing.md)） |
+| 結合テスト | `check` に含める。別ジョブに分けない（[ADR-009](../adr/ADR-009-integration-test-database.md)） |
+| コードの読みやすさ | 行長 120 以下・`import` の並び。汎用の静的解析は入れない（[ADR-004](../adr/ADR-004-static-analysis.md)） |
 | 記事のコード例検査 | CI の独立したジョブ。違反 0 件 |
 
 ## 関連ドキュメント
 
 - [ドメインモデル設計](domain-model.md)
+- [データモデル設計](data-model.md)
 - [UI 設計](ui_design.md)
 - [ADR-001 Kotlin 2.2 / JDK 21 の採用](../adr/ADR-001-kotlin-toolchain.md)
 - [ADR-003 http4k 6.x の採用](../adr/ADR-003-http4k-6.md)

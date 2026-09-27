@@ -4,7 +4,7 @@ title: "第 10 章 コンテキストを読み込み、コマンドを処理す�
 description: "Zettai 連載 Kotlin 版の第 10 章。複数の操作を 1 つのトランザクションにまとめる。ポートの戻り値を ContextReader にし、flatMap が同じ文脈を渡すことを利用する。文脈の型を決める過程で 2 回誤り、境界のテストが止めた記録を含む。"
 tags: [article, zettai, kotlin, chapter]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-27T03:01:23Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-27T05:06:57Z }
 ---
 
 # 第 10 章 コンテキストを読み込み、コマンドを処理する
@@ -296,7 +296,7 @@ fun <T> DbAction<T>.asHubAction(): HubAction<T> =
         val violations = domainSources.flatMap { file ->
             file.readLines()
                 .filter { it.trimStart().startsWith("import ") }
-                .filter { line -> frameworks.any { line.contains(it) } }
+                .filter { line -> (frameworks + adapters).any { line.contains(it) } }
                 .map { "${file.name}: ${it.trim()}" }
         }.toList()
 

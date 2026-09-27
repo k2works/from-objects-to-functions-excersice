@@ -4,7 +4,7 @@ title: "第 13 章 関数型アーキテクチャの設計"
 description: "Zettai 連載 Kotlin 版の最終章。13 章で積み上げた設計を総括する。5 つの代数構造をいつ選ぶかの判断基準、12 件の ADR に通底する判断の型、この連載が何をシンプルと呼んだか、そして扱わなかったこと 5 件を明示する。"
 tags: [article, zettai, kotlin, chapter]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-27T04:37:32Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-27T05:06:57Z }
 ---
 
 # 第 13 章 関数型アーキテクチャの設計
@@ -71,9 +71,7 @@ generated: { by: claude-code/claude-opus-5, at: 2026-09-27T04:37:32Z }
 
 一方で、**短く書こうとして失敗した回**もありました。
 
-第 4 章で `Zettai` のハンドラを `.let(fetchList)` で繋ごうとして、型推論が壊れました。素直に書き直したら通りました。
-
-> 教材コードで凝る理由はない。読者が読む前に自分が読めなくなる。
+この連載を書いている途中、`Zettai` のハンドラを `.let(fetchList)` で繋いで短く書こうとして、型推論が壊れたことがありました。素直に書き直したら通りました。**教材コードで凝る理由はありません。読者が読む前に、書いた本人が読めなくなります。**
 
 第 12 章の `Converter` も、出来事 ↔ 文字列を直接書けました。2 段（出来事 ↔ 並び ↔ 文字列）にしたのは、**それぞれを小さくするため**です。全体の行数は増えました。
 
@@ -161,13 +159,15 @@ end note
         val violations = domainSources.flatMap { file ->
             file.readLines()
                 .filter { it.trimStart().startsWith("import ") }
-                .filter { line -> frameworks.any { line.contains(it) } }
+                .filter { line -> (frameworks + adapters).any { line.contains(it) } }
                 .map { "${file.name}: ${it.trim()}" }
         }.toList()
 
         expectThat(violations).isEmpty()
     }
 ```
+
+禁止するのは 2 種類です。**フレームワーク**（http4k・JDBC）と、**自前のアダプタ**（`zettai.web`・`zettai.persistence`・`zettai.logger`・`zettai.json`・`zettai.ui`）です。後者を入れていないと、「ドメインがログを知らない」（第 12 章）が検査されません。
 
 **第 10 章でこのテストに止められました。** 文脈に `Connection` を持たせて、ドメインが JDBC を import していました。コンパイルは通り、他のテストも通り、動いていました。
 
@@ -343,7 +343,7 @@ ADR-004 だけ形が違います。**ktlint を実際に導入して動かして
 
 | 扱ったこと | 得られたもの |
 | :--- | :--- |
-| テストを先に書く | 設計が導かれた。13 章で 690 のテストが残った |
+| テストを先に書く | 設計が導かれた。13 章で 709 のテストが残った |
 | 受け入れテストを業務の言葉で書く | ドメインを 5 回作り替えてもシナリオが変わらなかった |
 | 依存を関数の型で表す | テスト用の実装クラスが要らなくなった。ただし**境界の位置のほうが効いた** |
 | 状態を出来事として残す | 「なぜ今この状態か」に答えられる。射影を後から足せた |
@@ -395,7 +395,7 @@ ADR-004 だけ形が違います。**ktlint を実際に導入して動かして
 
 ## 連載を終えて
 
-13 章、690 のテスト、12 件の ADR。
+13 章、709 のテスト、12 件の ADR。
 
 **5 つの代数構造に名前を与えました。** どれも「知っていたことに名前が付いた」形で導入しました。整数の足し算、`List.map`、`List.flatMap`、`List.zip`、`Comparator`。すべて既に使っていたものです。
 

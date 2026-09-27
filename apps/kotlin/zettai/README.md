@@ -52,8 +52,14 @@ apps/kotlin/zettai/
 | モジュール | 章 | 内容 |
 | :--- | :--- | :--- |
 | `zettai-step1-http` | 1〜2 | プロジェクトの雛形と、第 2 章の HTTP アダプタ |
+| `zettai-step2-domain` | 3〜4 | ドメインとインフラの分離、関数型の依存性注入 |
+| `zettai-step3-persistence` | 5〜9 | イベントの畳み込み・コマンド・`Outcome`・射影・PostgreSQL 永続化 |
+| `zettai-step4-context` | 10〜11 | `ContextReader` とトランザクション、アプリカティブによるバリデーション |
+| `zettai-step5-monitoring` | 12〜13 | 構造化ログ、双方向変換（`Converter`）、設計の総括 |
 
-章が進むごとにこの表に行を追加します。
+**連載は全 13 章で完結しています（13 / 13）。**
+
+> **これは教材の実装です。そのまま実務に出せません。** 認証・認可を実装していないため、URL を知っていれば誰でも他人のリストを操作できます。ほかに HTML エスケープ・CSRF 対策・JSON エスケープ・スナップショットを扱っていません。詳細は [第 13 章の「扱わなかったこと」](../../../docs/article/zettai/kotlin/chapter13.md) を参照してください。
 
 ## テストの書き方
 

@@ -4,7 +4,7 @@ title: "第 12 章 監視と関数型 JSON"
 description: "Zettai 連載 Kotlin 版の第 12 章。動いているアプリケーションを外から見る手段を作る。構造化ログを 1 行 1 JSON で出し、JSON の書き出しと読み込みを 1 つの型で対にする。出力側の map と入力側の contramap の両方を持つ構造を見つけ、最後にプロファンクタという名前を与える。"
 tags: [article, zettai, kotlin, chapter]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-27T03:55:01Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-27T05:06:57Z }
 ---
 
 # 第 12 章 監視と関数型 JSON
@@ -248,11 +248,11 @@ data class Converter<A, B>(
     fun roundTrip(value: A): Outcome<ZettaiError, A> = parse(render(value))
 ```
 
-この 1 行が効きます。**ランダムな出来事で往復を試せます。**
+この 1 行が効きます。**生成した出来事で往復を試せます。**
 
 ```kotlin
     @Test
-    fun `どんな出来事でも往復できる`() {
+    fun `生成した出来事が往復できる`() {
         forAllRandom { random ->
             EventGenerator.events(random, random.nextInt(1, 6)).forEach { event ->
                 expectThat(eventConverter.roundTrip(event)).isEqualTo(Success(event))
@@ -342,9 +342,9 @@ val eventConverter: Converter<ToDoListEvent, String> =
 
 **入力の位置にある型は、変換の向きが逆になります。**
 
-### 2 つの性質
+### 4 つの性質
 
-`map` と `contramap` には、それぞれ 2 つの性質があります。
+`map` と `contramap` に、それぞれ 2 つの性質があります。**合わせて 4 つ**です。
 
 **性質 1: 何もしない変換を渡したら、何も変わらない。**
 
@@ -388,7 +388,7 @@ val eventConverter: Converter<ToDoListEvent, String> =
 
 入力側も同じ 2 つを確かめます。**合計 4 つの法則**です。
 
-テストの形は第 5・7・9・11 章と同じ `forAllRandom` です。**5 回目です。**
+テストの形は第 5・7・9・11 章と同じ `forAllRandom` です。**5 回目です。**（第 7 章では `Outcome` 専用のラッパー `repeatWithRandomOutcomes` 越しに使っています。）
 
 ### 名前を与える
 
@@ -423,6 +423,10 @@ val eventConverter: Converter<ToDoListEvent, String> =
 
 **知っていたことに名前が付いた**のは、5 回目も同じです。
 
+ひとつ正確に書いておきます。**厳密なプロファンクタより、この `Converter` は制約が強いです。** 厳密には `dimap(f: (C) -> A, g: (B) -> D)` のように片方向の関数だけを要求します。一方 `Converter` の `map`・`contramap` は**両方向の関数を対で**要求します（`A` が `render` の入力と `parse` の出力の両方に現れるからです）。だから型としては「両方向の変換を持つもの」で、プロファンクタの形を借りていると読むのが正確です。
+
+**名前は当てはめる前に、どこまで当てはまるかを確かめる。** 4 つの法則を確かめたのはそのためでした。
+
 ### 5 つの構造を並べる
 
 これで 5 つ出揃いました。
@@ -454,18 +458,11 @@ val eventConverter: Converter<ToDoListEvent, String> =
 ログは**横断関心事**です。どの操作にも共通して足せるものなので、包むだけで入ります。
 
 ```kotlin
-/**
- * 文脈つきの計算にログを足す。
- *
- * **ポートの型を変えていない。** 包むだけなので、呼び出し側は変わらない。
- * 第 7 章と第 10 章ではポートの型を変えて 6 ファイル・10 ファイルが影響したが、
- * ログは横断関心事なので包むだけで済む。
- */
 fun <CTX, T> ContextReader<CTX, T>.logged(logger: Logger, context: LogContext): ContextReader<CTX, T> =
     ContextReader { ctx ->
         val result = runWith(ctx)
 
-        logger.log(LogSuccess(java.time.Instant.now(), "${context.operation} を実行しました", context))
+        logger.log(LogSuccess(Instant.now(), "${context.operation} を実行しました", context))
 
         result
     }
@@ -482,6 +479,35 @@ PostgresEventStore.readAll().logged(logger, context)   // ログあり
 
 **型が変わらないので、既存のコードは 1 行も変わりません。**
 
+### 包めるのは「結果を読まない」範囲まで
+
+ここで気をつけることがあります。**この `logged` は結果の中身を読めません。**
+
+書いているのは `LogSuccess`（「実行しました」）だけです。操作が失敗しても `LogSuccess` になります。
+
+理由は型に出ています。`T` が何なのかを知らないから、型を変えずに包めました。**知らないものは読めません。**
+
+成功と失敗を書き分けたいなら、`T` が `Outcome` であることを知る必要があります。
+
+```kotlin
+fun <CTX, E, T> ContextReader<CTX, Outcome<E, T>>.loggedOutcome(
+    logger: Logger,
+    context: LogContext
+): ContextReader<CTX, Outcome<E, T>> =
+    ContextReader { ctx -> logger.logging(context) { runWith(ctx) } }
+```
+
+**戻り値の型は変わっていません。** 変わったのは**要求する型**です。`ContextReader<CTX, T>` ではなく `ContextReader<CTX, Outcome<E, T>>` を要求します。
+
+だから「横断関心事は包める」は、次の範囲での話でした。
+
+| ログの内容 | 包めるか | 必要な知識 |
+| :--- | :--- | :--- |
+| 「実行した」 | 包める | なし（`logged`） |
+| 「成功した / 失敗した」 | 包めるが、**型を知る必要がある** | 中身が `Outcome` であること（`loggedOutcome`） |
+
+**横断関心事であっても、結果を読むなら型を知る必要があります。** この区別を書いておかないと、ログが全部「成功」として残ります。
+
 ### 横断関心事の見分け方
 
 「包むだけで済むか」は、次で見分けられます。
@@ -496,6 +522,31 @@ PostgresEventStore.readAll().logged(logger, context)   // ログあり
 ログは戻り値の意味を変えません。だから包めます。
 
 **設計を変えるとき、「これは横断関心事か」を先に問うと、波及の大きさが見積もれます。**
+
+### 扱わなかったこと
+
+第 11 章の HTML エスケープと同じ形の限界が、この章にもあります。
+
+| 扱わなかったこと | 何が起きるか | 実務では |
+| :--- | :--- | :--- |
+| **JSON のエスケープ** | 値に `"` や改行が入ると、壊れた JSON を書き出す。読み戻すと値が静かに欠ける | 既製のライブラリを使う。自前で持つなら書き出しと読み込みの両方でエスケープする |
+
+**この `Converter` をそのまま実務に持ち込めません。** 保存するのが自分のアプリだけなら今は壊れませんが、`"` を含む名前を付けた瞬間に壊れます。
+
+黙って壊れるのを避けるため、**テストに書いておきました**。
+
+```kotlin
+    @Test
+    fun `引用符を含む説明は往復できない（エスケープを扱っていない）`() {
+        val event = ItemAdded(User("uberto"), ListName("book"), ToDoItem("""say "hi""""))
+
+        expectThat(eventConverter.roundTrip(event)).isNotEqualTo(Success(event))
+    }
+```
+
+「まだできないこと」をテストに書くと、直したときにこのテストが落ちます。**限界の場所が、直す合図になります。**
+
+この判断は [ADR-012](../../../adr/ADR-012-own-json-converter.md) の「失うもの」に記録し、[第 13 章](chapter13.md) の「扱わなかったこと」にも挙げています。
 
 ## まとめ
 

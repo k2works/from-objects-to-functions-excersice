@@ -4,7 +4,7 @@ title: "執筆計画：関数型プログラミングで作る変更を楽に安
 description: "Uberto Barbini 著『From Objects to Functions』を下敷きにした Zettai 連載の執筆計画。多言語シリーズの対象一覧、記事と実装の対称ファイル構成、全 13 章と原著コンパニオンコードの対応、前提整備と実行環境の方針、リリース計画のストーリー・イテレーション・SP と対応づけた章別計画、フェーズ区切り、執筆規約を定義する。"
 tags: [article, plan, zettai]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-26T12:29:40Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-27T05:06:57Z }
 ---
 
 # 執筆計画：関数型プログラミングで作る変更を楽に安全にできるソフトウェア
@@ -71,7 +71,7 @@ apps/
 | 9 | モナドによる安全なデータ永続化 | `zettai_step5_persistence` | PostgreSQL 結合テストとモナド則 |
 | 10 | コンテキストを読み込み、コマンドを処理する | `zettai_step5_persistence` / `zettai_step6_validation` の `fp/ContextReader` | `ContextReader` によるコマンド処理 |
 | 11 | アプリカティブによるデータバリデーション | `zettai_step6_validation` | `fp/Validation` とテンプレートエンジン |
-| 12 | 監視と関数型 JSON | `zettai_step7_monitoring` | `logger/`、Kondor による JSON、プロファンクタ |
+| 12 | 監視と関数型 JSON | `zettai_step7_monitoring` | `logger/`、自前の `Converter` による JSON（ADR-012 で Kondor を採用せず）、プロファンクタ |
 | 13 | 関数型アーキテクチャの設計 | 全モジュール | アーキテクチャの総括（実装追加は最小） |
 
 ## 前提整備

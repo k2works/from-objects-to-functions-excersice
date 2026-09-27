@@ -4,7 +4,7 @@ title: "第 9 章 モナドによる安全なデータ永続化"
 description: "Zettai 連載 Kotlin 版の第 9 章。イベントを PostgreSQL に保存する。接続がある状態でしか実行できない計算を ContextReader として表し、flatMap で繋げてモナドに到達する。1 テーブルだけのイベントストア、結合テストの用意、JSONB の正規化で実際に踏んだ失敗を TDD で示す。"
 tags: [article, zettai, kotlin, chapter]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-27T04:37:32Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-27T05:06:57Z }
 ---
 
 # 第 9 章 モナドによる安全なデータ永続化
@@ -452,7 +452,7 @@ m.flatMap(f).flatMap(g)   は   m.flatMap { f(it).flatMap(g) } と同じ
 
 ### JSONB で踏んだこと
 
-JSON のシリアライズは手書きです（第 12 章で Kondor に置き換えます）。読む側の正規表現でつまずきました。
+JSON のシリアライズは手書きです（第 12 章で双方向変換の型 `Converter` に置き換えます）。読む側の正規表現でつまずきました。
 
 **PostgreSQL の `JSONB` は、保存時に JSON を正規化します。** 書き込んだ文字列とそのまま同じものは返ってきません。コロンの後に空白が入ります。
 

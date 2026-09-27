@@ -23,7 +23,7 @@ cd apps/kotlin/zettai
 | Web | http4k |
 | テスト | JUnit 5、Strikt、Pesticide（DDT） |
 | 永続化 | PostgreSQL、Exposed（第 9 章以降） |
-| JSON | Kondor（第 12 章） |
+| JSON | 自前の `Converter`（第 12 章。[ADR-012](../../../adr/ADR-012-own-json-converter.md) で Kondor を採用せず） |
 
 第 9 章以降の結合テストで使う PostgreSQL は、リポジトリ既存の `docker-compose.yml` のサービスを利用します。
 

@@ -5967,6 +5967,11 @@
 
 <h1 id="zettai-kotlin">Zettai — Kotlin 版<a class="headerlink" href="#zettai-kotlin" title="Permanent link">&para;</a></h1>
 <p>Kotlin で Zettai を実装しながら、関数型の設計手法を積み上げていきます。原著『From Objects to Functions』と同じ題材・章構成ですが、コードはすべて本リポジトリで書き起こした自作実装です。</p>
+<p><strong>想定読者</strong>: オブジェクト指向で設計・実装してきた開発者です。関数型プログラミングの経験は要りません。Kotlin を読めれば足ります（使う機能は各章で説明します）。</p>
+<p><strong>13 章を読み終えて得られるもの</strong>: 5 つの代数構造（モノイド・ファンクタ・モナド・アプリカティブ・プロファンクタ）を<strong>いつ選ぶかの判断軸</strong>と、設計の規則をテストで検査するという習慣です。用語の解説ではなく、1 つのアプリケーションを 13 章かけて作り替える過程として書いています。</p>
+<blockquote>
+<p><strong>これは教材です。そのまま実務に出せません。</strong> 認証・認可を実装していないため、URL を知っていれば誰でも他人のリストを操作できます。ほかに HTML エスケープ・CSRF 対策・JSON エスケープ・スナップショットを扱っていません（<a href="chapter13/">第 13 章の「扱わなかったこと」</a>）。</p>
+</blockquote>
 <ul>
 <li>シリーズ索引：<a href="../">Zettai シリーズ索引</a></li>
 <li>執筆計画：<a href="../../outline/">outline.md</a></li>
@@ -6021,82 +6026,84 @@
 </table>
 <p>第 9 章以降の結合テストで使う PostgreSQL は、リポジトリ既存の <code>docker-compose.yml</code> のサービスを利用します。</p>
 <h2 id="_2">章の目次<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p><strong>全 13 章が公開済みです（13 / 13）。</strong> 途中の章から入る場合は「この章の焦点」を目安にしてください。</p>
 <table>
 <thead>
 <tr>
 <th style="text-align: left;">章</th>
 <th style="text-align: left;">タイトル</th>
-<th style="text-align: left;">状態</th>
+<th style="text-align: left;">この章の焦点</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align: left;">1</td>
 <td style="text-align: left;"><a href="chapter01/">新しいアプリケーションを準備する</a></td>
-<td style="text-align: left;"><strong>公開済み</strong></td>
+<td style="text-align: left;">題材設定と、テストに開発をガイドさせるという前提</td>
 </tr>
 <tr>
 <td style="text-align: left;">2</td>
 <td style="text-align: left;"><a href="chapter02/">関数を使って HTTP を扱う</a></td>
-<td style="text-align: left;"><strong>公開済み</strong></td>
+<td style="text-align: left;">関数合成で HTTP を扱い、動く最小の縦串を通す</td>
 </tr>
 <tr>
 <td style="text-align: left;">3</td>
 <td style="text-align: left;"><a href="chapter03/">ドメインの定義とテスト</a></td>
-<td style="text-align: left;"><strong>公開済み</strong></td>
+<td style="text-align: left;">受け入れテストを高階関数で抽象化し、ドメインとインフラを分離する</td>
 </tr>
 <tr>
 <td style="text-align: left;">4</td>
 <td style="text-align: left;"><a href="chapter04/">ドメインとアダプタのモデリング</a></td>
-<td style="text-align: left;"><strong>公開済み</strong></td>
+<td style="text-align: left;">関数型の依存性注入で、アダプタを差し替え可能にする</td>
 </tr>
 <tr>
 <td style="text-align: left;">5</td>
 <td style="text-align: left;"><a href="chapter05/">イベントで状態を変更する</a></td>
-<td style="text-align: left;"><strong>公開済み</strong></td>
+<td style="text-align: left;">状態変更をイベントの畳み込みとして表し、<strong>モノイド</strong>を見出す</td>
 </tr>
 <tr>
 <td style="text-align: left;">6</td>
 <td style="text-align: left;"><a href="chapter06/">コマンドを実行してイベントを生成する</a></td>
-<td style="text-align: left;"><strong>公開済み</strong></td>
+<td style="text-align: left;">コマンドからイベントを生成する関数型ステートマシン</td>
 </tr>
 <tr>
 <td style="text-align: left;">7</td>
 <td style="text-align: left;"><a href="chapter07/">関数型手法によるエラーハンドリング</a></td>
-<td style="text-align: left;"><strong>公開済み</strong></td>
+<td style="text-align: left;">例外ではなく <code>Outcome</code> で失敗を型に載せ、<strong>ファンクタ</strong>を理解する</td>
 </tr>
 <tr>
 <td style="text-align: left;">8</td>
 <td style="text-align: left;"><a href="chapter08/">ファンクタを使ってイベントを射影する</a></td>
-<td style="text-align: left;"><strong>公開済み</strong></td>
+<td style="text-align: left;">射影でクエリ側を分離し、CQRS に到達する</td>
 </tr>
 <tr>
 <td style="text-align: left;">9</td>
 <td style="text-align: left;"><a href="chapter09/">モナドによる安全なデータ永続化</a></td>
-<td style="text-align: left;"><strong>公開済み</strong></td>
+<td style="text-align: left;">PostgreSQL への永続化を<strong>モナド</strong>で安全に組み立てる</td>
 </tr>
 <tr>
 <td style="text-align: left;">10</td>
 <td style="text-align: left;"><a href="chapter10/">コンテキストを読み込み、コマンドを処理する</a></td>
-<td style="text-align: left;"><strong>公開済み</strong></td>
+<td style="text-align: left;"><code>ContextReader</code> でトランザクション文脈をコマンド処理に渡す</td>
 </tr>
 <tr>
 <td style="text-align: left;">11</td>
 <td style="text-align: left;"><a href="chapter11/">アプリカティブによるデータバリデーション</a></td>
-<td style="text-align: left;"><strong>公開済み</strong></td>
+<td style="text-align: left;"><strong>アプリカティブ</strong>で複数パラメータのバリデーションを合成する</td>
 </tr>
 <tr>
 <td style="text-align: left;">12</td>
 <td style="text-align: left;"><a href="chapter12/">監視と関数型 JSON</a></td>
-<td style="text-align: left;"><strong>公開済み</strong></td>
+<td style="text-align: left;">構造化ロギングと関数型 JSON、<strong>プロファンクタ</strong></td>
 </tr>
 <tr>
 <td style="text-align: left;">13</td>
 <td style="text-align: left;"><a href="chapter13/">関数型アーキテクチャの設計</a></td>
-<td style="text-align: left;"><strong>公開済み</strong></td>
+<td style="text-align: left;">ここまでの設計判断を関数型アーキテクチャとして総括する</td>
 </tr>
 </tbody>
 </table>
+<p><strong>代数構造は第 5・7・9・11・12 章で 1 つずつ出てきます。</strong> いずれも「構造 → 性質 → 名前 → 身の回りの例」の順で、名前を最後に与えています。</p>
 
 
 

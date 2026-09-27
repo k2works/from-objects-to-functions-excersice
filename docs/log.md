@@ -1,6 +1,10 @@
 # Docs Update Log
 
 ## 2026-09-27
+* **Creation**: [第 6 章 コマンドを実行してイベントを生成する](/article/zettai/kotlin/chapter06.md)、[第 7 章 関数型手法によるエラーハンドリング](/article/zettai/kotlin/chapter07.md) を公開（claude-code/claude-opus-5）
+* **Creation**: [ADR-006 失敗を Outcome で表しポートの型を変える](/adr/ADR-006-outcome-port-type.md) を作成。波及が 6 ファイルだったこと、波及しなかった理由が境界の位置であることを記録（claude-code/claude-opus-5）
+* **Creation**: [Unit 4 の Bolt 終了報告](/development/bolt_report-4.md) と [開発ジャーナル Unit 4](/journal/20260927-unit4.md) を作成（claude-code/claude-opus-5）
+* **Update**: [ドメインモデル設計](/design/domain-model.md)・[バックエンドアーキテクチャ設計](/design/architecture_backend.md)・[UI 設計](/design/ui_design.md) に Unit 4 の実装（コマンド・遷移表・Outcome・404/400 の区別）を反映（claude-code/claude-opus-5）
 * **Update**: [開発戦略](/development/development_strategy.md) に「進捗管理の手段」の節を追加。GitHub に同期しない判断とユーザーマニュアルを作らない判断を、連載を通じての方針として確定（claude-code/claude-opus-5）
 * **Verification**: [iteration_plan-4](/development/iteration_plan-4.md) を human:kakimomokuri が検証
 * **Creation**: [Unit 4 の Bolt 計画](/development/iteration_plan-4.md) を作成（AI-DLC 準拠）。ポートの型が Outcome に変わる影響の見積もり、Unit 3 からの持ち込み 7 項目と学び 4 件の織り込み、ユーザーマニュアルを作らない判断の確定、遷移表 16 マス、疎いゲート密度に 1 つ足す判断を定義（claude-code/claude-opus-5）

@@ -56,9 +56,9 @@ end note
 
 境界の定義は 1 つだけです。
 
-> **`zettai.domain` パッケージのファイルは、フレームワークを import しない。**
+> **`zettai.domain` と `zettai.fp` パッケージのファイルは、フレームワークを import しない。**
 
-現時点では http4k が対象で、第 9 章以降は JDBC / Exposed が、第 12 章では Kondor が加わります。
+現時点では http4k が対象で、第 9 章以降は JDBC / Exposed が、第 12 章では Kondor が加わります。第 7 章で `zettai.fp` を新設し、検査対象に加えました。
 
 この定義を採る理由は、**破ろうとしたときに目に見える**ことです。コメントや命名規約と違い、import 文は書けば残ります。レビューで検出でき、将来は依存関係のテストで機械的に止められます。
 
@@ -82,7 +82,7 @@ apps/kotlin/zettai/
 | モジュール | 章 | 状態 |
 | :--- | :--- | :--- |
 | `zettai-step1-http` | 1〜3 | 作成済み |
-| `zettai-step2-domain` | 4〜5 | **作成済み** |
+| `zettai-step2-domain` | 4〜7 | **作成済み** |
 | `zettai-step3-events` | 5〜6 | 未作成 |
 | `zettai-step4-projections` | 7〜8 | 未作成 |
 | `zettai-step5-persistence` | 9〜10 | 未作成 |
@@ -113,6 +113,7 @@ src/test/kotlin/zettai/
 | パッケージ | 章 | 内容 |
 | :--- | :--- | :--- |
 | `domain/events/` | 5 | イベントと畳み込み（**作成済み**） |
+| `domain/commands/` | 6 | コマンドと関数型ステートマシン（**作成済み**） |
 | `domain/commands/` | 6 | コマンドと関数型ステートマシン |
 | `fp/` | 7・9・10・11 | `Outcome`・`ContextReader`・`Validation` |
 | `domain/queries/` | 8 | 射影（CQRS のクエリ側） |
@@ -125,9 +126,17 @@ src/test/kotlin/zettai/
 
 | ポート | 型 | アダプタ | 章 |
 | :--- | :--- | :--- | :--- |
-| ToDo リストの取得 | `ToDoListFetcher = (User, ListName) -> ToDoList?` | `inMemoryFetcher`、またはイベントを畳み込んだ状態から引く実装 | 2（`Zettai` が直接）、4（ハブ経由） |
+| ToDo リストの取得 | `ToDoListFetcher = (User, ListName) -> Outcome<ZettaiError, ToDoList>` | `inMemoryFetcher`、またはイベントを畳み込んだ状態から引く実装 | 2（`Zettai` が直接）、4（ハブ経由）、**7（戻り値が `Outcome`）** |
+| 現在の状態の取得 | `StateFetcher = () -> ToDoListState` | イベントを畳み込む実装 | 6 |
+| 出来事の保存 | `EventPersister = (List<ToDoListEvent>) -> Unit` | インメモリのリスト。第 9 章で PostgreSQL | 6 |
 
-第 6 章でコマンドの受け付けが加わり、ポートが 2 つになります。第 9 章で PostgreSQL 版のアダプタが加わります。**ポートの型が変わらなければ、ハブより上のコードは変わりません。**
+第 9 章で PostgreSQL 版のアダプタが加わります。
+
+**「ポートの型が変わらなければ、ハブより上のコードは変わらない」という説明は条件付きでした。** 第 7 章で `ToDoListFetcher` の戻り値を `Outcome` に変えたとき、6 ファイルが変わりました。正確にはこうです。
+
+> 型が変われば、**その型を触る場所だけ**が変わる。
+
+ドメインの型・イベントの畳み込み・コマンドとステートマシン・受け入れテストのシナリオには波及しませんでした。波及しなかったのは、**ドメインがポートを知らず、シナリオが実装を知らないから**です。詳細は [ADR-006](../adr/ADR-006-outcome-port-type.md)。
 
 `ToDoListFetcher` の定義は第 4 章で `zettai.web` から `zettai.domain` へ移しました。**ポートはドメインが決めるもの**だからです。
 

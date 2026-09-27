@@ -11,5 +11,6 @@
 | [ADR-003](ADR-003-http4k-6.md) | http4k 6.x を採用し、原著の 4.x との差分は章ごとに注記する | 提案 |
 | [ADR-004](ADR-004-static-analysis.md) | 静的解析を `check` に組み込まず、記事のコード例検査を優先する | 提案 |
 | [ADR-005](ADR-005-property-based-testing.md) | プロパティベーステストを自前で書き kotest-property を導入しない | 提案 |
+| [ADR-006](ADR-006-outcome-port-type.md) | 失敗を `Outcome` で表しポートの型を変える | 提案 |
 
 ADR の作成には `creating-adr` スキルを使用してください。

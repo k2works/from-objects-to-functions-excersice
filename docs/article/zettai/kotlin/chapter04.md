@@ -78,6 +78,8 @@ HTTP の層が知るのはハブだけです。アダプタが増えてもハブ
 
 ハブを書きます。テストからです。
 
+<!-- code-check: ignore 第 4 章時点のコード。第 6 章で引数が増え、第 7 章で戻り値が Outcome に変わった -->
+
 ```kotlin
     @Test
     fun `リストを取り出す`() {
@@ -113,6 +115,8 @@ class FakeToDoListRepository(private val data: Map<Pair<User, ListName>, ToDoLis
 
 ハブの定義はこうです。
 
+<!-- code-check: ignore 第 4 章時点のコード。第 6 章で引数が増え、第 7 章で戻り値が Outcome に変わった -->
+
 ```kotlin
 /** ToDo リストを取り出す。見つからなければ null。 */
 typealias ToDoListFetcher = (User, ListName) -> ToDoList?
@@ -133,6 +137,8 @@ class ToDoListHub(private val fetchList: ToDoListFetcher) {
 
 テストで別の振る舞いが欲しければ、その場でラムダを書きます。
 
+<!-- code-check: ignore 第 4 章時点のコード。第 6 章で引数が増え、第 7 章で戻り値が Outcome に変わった -->
+
 ```kotlin
     @Test
     fun `見つからなければ null`() {
@@ -143,6 +149,8 @@ class ToDoListHub(private val fetchList: ToDoListFetcher) {
 ```
 
 呼ばれた回数を数えたければ、変数を閉じ込めます。
+
+<!-- code-check: ignore 第 4 章時点のコード。第 6 章で引数が増え、第 7 章で戻り値が Outcome に変わった -->
 
 ```kotlin
     @Test
@@ -161,6 +169,8 @@ class ToDoListHub(private val fetchList: ToDoListFetcher) {
 ```
 
 モックライブラリの `verify(...)` に相当することが、`var calls = 0` で書けています。**新しい語彙を覚える必要がありません。** Kotlin を知っていれば読めます。
+
+> **第 6〜7 章で変わります。** この章のハブは引数が 1 つで、戻り値が `ToDoList?` です。第 6 章で引数が 3 つになり、第 7 章で戻り値が `Outcome` になります。この章のコードは「第 4 章時点のもの」として読んでください。
 
 ### 何が違うのか
 

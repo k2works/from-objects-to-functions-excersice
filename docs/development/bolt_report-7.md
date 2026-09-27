@@ -1,10 +1,10 @@
 ---
 type: Bolt Report
 title: "Unit 7 の Bolt 終了報告 - Zettai 連載（Kotlin 版）"
-description: "Zettai 連載 Kotlin 版の最終 Unit 7（監視とアーキテクチャ総括）の Bolt 終了報告。ポートの型を変えずにログを足せたこと（波及 0 ファイル）、全 13 章と ADR 12 件の整合確認で見つけた 3 件の矛盾と修正、持ち込み 9 項目の消化、連載全体（7 Unit・13 章・690 テスト）を通じた学びを記録する。"
+description: "Zettai 連載 Kotlin 版の最終 Unit 7（監視とアーキテクチャ総括）の Bolt 終了報告。ポートの型を変えずにログを足せたこと（波及 0 ファイル）、全 13 章と ADR 12 件の整合確認で見つけた 3 件の矛盾と修正、持ち込み 9 項目の消化、連載全体（7 Unit・13 章・709 テスト）を通じた学びを記録する。"
 tags: [development, report, ai-dlc, bolt, zettai, kotlin, unit-7]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-27T04:37:32Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-27T05:06:57Z }
 ---
 
 # Unit 7 の Bolt 終了報告 - Zettai 連載（Kotlin 版）
@@ -69,7 +69,7 @@ generated: { by: claude-code/claude-opus-5, at: 2026-09-27T04:37:32Z }
 | 承認ゲート通過数 | 5（表の行は 4、停止は 5 ステップ） | 5 |
 | 変更依頼数 | - | **0** |
 | リードタイム | 10 営業日 | 1 日 |
-| テスト本数 | - | **690**（Unit 6 は 476） |
+| テスト本数 | - | **709**（Unit 6 は 476）。うち 19 件はクローズのレビュー指摘で追加 |
 | カバレッジ（ドメイン層） | 80% 以上 | 80% 以上 |
 | 持ち込み項目の消化 | 9 / 9 | **9 / 9** |
 | 既存シナリオの回帰 | 0 件 | **0 件** |

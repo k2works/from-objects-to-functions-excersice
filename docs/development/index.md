@@ -21,7 +21,7 @@
 | Unit 4 コマンドとエラーハンドリング | [Unit 4 の Bolt 計画](iteration_plan-4.md) | - | [Bolt 終了報告](bolt_report-4.md) | **完了** |
 | Unit 5 射影と永続化 | [Unit 5 の Bolt 計画](iteration_plan-5.md) | - | [Bolt 終了報告](bolt_report-5.md) | **完了** |
 | Unit 6 文脈の受け渡しとバリデーション | [Unit 6 の Bolt 計画](iteration_plan-6.md) | - | [Bolt 終了報告](bolt_report-6.md) | **完了** |
-| Unit 7 監視とアーキテクチャ総括 | [Unit 7 の Bolt 計画](iteration_plan-7.md) | - | [Bolt 終了報告](bolt_report-7.md) | **完了** |
+| Unit 7 監視とアーキテクチャ総括 | [Unit 7 の Bolt 計画](iteration_plan-7.md) | [ふりかえり](retrospective-7.md) | [Bolt 終了報告](bolt_report-7.md) | **完了** |
 
 Unit（イテレーション）開始時に行を追加します。AI-DLC では 1 Unit = 2 Bolt（章 1 本ずつ）とし、Bolt のステップ計画と承認ゲートを各計画に書きます。
 

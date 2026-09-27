@@ -1,6 +1,29 @@
 # Docs Update Log
 
 ## 2026-09-27
+* **Update**: [unit7_review_20260927](/review/unit7_review_20260927.md) を更新（claude-code/claude-opus-5）
+* **Update**: [retrospective-7](/development/retrospective-7.md) を更新（claude-code/claude-opus-5）
+* **Update**: [20260927-unit7](/journal/20260927-unit7.md) を更新（claude-code/claude-opus-5）
+* **Update**: [release_report-1.0.0](/development/release_report-1.0.0.md) を更新（claude-code/claude-opus-5）
+* **Update**: [bolt_report-7](/development/bolt_report-7.md) を更新（claude-code/claude-opus-5）
+* **Update**: [chapter13](/article/zettai/kotlin/chapter13.md) を更新（claude-code/claude-opus-5）
+* **Update**: [chapter12](/article/zettai/kotlin/chapter12.md) を更新（claude-code/claude-opus-5）
+* **Update**: [chapter10](/article/zettai/kotlin/chapter10.md) を更新（claude-code/claude-opus-5）
+* **Update**: [chapter09](/article/zettai/kotlin/chapter09.md) を更新（claude-code/claude-opus-5）
+* **Update**: [outline](/article/outline.md) を更新（claude-code/claude-opus-5）
+* **Update**: [unit7_review_20260927](/review/unit7_review_20260927.md) を更新（claude-code/claude-opus-5）
+* **Update**: [retrospective-7](/development/retrospective-7.md) を更新（claude-code/claude-opus-5）
+* **Update**: [release_report-1.0.0](/development/release_report-1.0.0.md) を更新（claude-code/claude-opus-5）
+* **Update**: [chapter13](/article/zettai/kotlin/chapter13.md) を更新（claude-code/claude-opus-5）
+* **Update**: [chapter12](/article/zettai/kotlin/chapter12.md) を更新（claude-code/claude-opus-5）
+* **Update**: [chapter10](/article/zettai/kotlin/chapter10.md) を更新（claude-code/claude-opus-5）
+* **Update**: [chapter09](/article/zettai/kotlin/chapter09.md) を更新（claude-code/claude-opus-5）
+* **Update**: [outline](/article/outline.md) を更新（claude-code/claude-opus-5）
+* **Creation**: [Unit 7 開発成果物レビュー](/review/unit7_review_20260927.md) を作成。5 視点（programmer / tester / architect / technical-writer / user-representative）の並列レビューを統合し、高 9 件・中 7 件・低 6 件の指摘と対応方針を記録（claude-code/claude-opus-5）
+* **Creation**: [Unit 7 のふりかえり（KPT）](/development/retrospective-7.md) を作成。Keep 7 件・Problem 6 件・Try 6 件と次のリリースへの引き継ぎを記録（claude-code/claude-opus-5）
+* **Update**: レビュー指摘に基づき第 12 章を改訂。「包めるのは結果を読まない範囲まで」（loggedOutcome）と「扱わなかったこと」（JSON エスケープ）の節を新設し、プロファンクタの厳密さ・法則数の見出し・往復テストの名前を実装に合わせた（claude-code/claude-opus-5）
+* **Update**: [第 9 章](/article/zettai/kotlin/chapter09.md)・[第 10 章](/article/zettai/kotlin/chapter10.md)・[第 13 章](/article/zettai/kotlin/chapter13.md)・[執筆計画](/article/outline.md)・[Kotlin 版索引](/article/zettai/kotlin/index.md) の記述を実装に合わせた。第 4 章からの存在しない引用（捏造 3 例目）を地の文に直し、Kondor 採用前提の記述と境界テストの検査範囲を更新（claude-code/claude-opus-5）
+* **Update**: [リリース完了報告（v1.0.0）](/development/release_report-1.0.0.md) の誤りを修正。ADR 分類表の二重計上と ADR-006 の欠落、「ADR 全件に再検討の条件」の断言、次に足す検査の件数（引用の実在検査を追加）（claude-code/claude-opus-5）
 * **Update**: [20260927-unit7](/journal/20260927-unit7.md) を更新（claude-code/claude-opus-5）
 * **Update**: [release_report-1.0.0](/development/release_report-1.0.0.md) を更新（claude-code/claude-opus-5）
 * **Update**: [bolt_report-7](/development/bolt_report-7.md) を更新（claude-code/claude-opus-5）

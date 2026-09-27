@@ -99,6 +99,8 @@ nav:
           - Unit 5 射影と永続化: development/bolt_report-5.md
           - Unit 6 文脈の受け渡しとバリデーション: development/bolt_report-6.md
           - Unit 7 監視とアーキテクチャ総括: development/bolt_report-7.md
+      - ふりかえり:
+          - Unit 7 監視とアーキテクチャ総括: development/retrospective-7.md
       - リリース完了報告:
           - Release v1.0.0: development/release_report-1.0.0.md
   - 運用:
@@ -114,6 +116,7 @@ nav:
       - 2026-09-27 Unit 7: journal/20260927-unit7.md
   - レビュー:
       - 概要: review/index.md
+      - Unit 7 開発成果物レビュー: review/unit7_review_20260927.md
   - ADR:
       - 概要: adr/index.md
       - ADR-001 Kotlin 2.2 / JDK 21 の採用: adr/ADR-001-kotlin-toolchain.md

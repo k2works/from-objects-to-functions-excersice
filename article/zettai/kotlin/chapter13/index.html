@@ -1699,7 +1699,7 @@
   <span class="md-ellipsis">
     
   
-    リリース完了報告
+    ふりかえり
   
 
     
@@ -1712,6 +1712,101 @@
         
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ふりかえり
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../development/retrospective-7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unit 7 監視とアーキテクチャ総括
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_7" id="__nav_5_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    リリース完了報告
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_7">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2262,6 +2357,41 @@
     
   </span>
   
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../review/unit7_review_20260927/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unit 7 開発成果物レビュー
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
   
 
       </a>
@@ -6214,10 +6344,7 @@
 <p>そして「触る場所」が少ないのは、<strong>多くの場所がその型を知らないから</strong>です。</p>
 <h3 id="_4">短いコードはシンプルさの結果ではない<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <p>一方で、<strong>短く書こうとして失敗した回</strong>もありました。</p>
-<p>第 4 章で <code>Zettai</code> のハンドラを <code>.let(fetchList)</code> で繋ごうとして、型推論が壊れました。素直に書き直したら通りました。</p>
-<blockquote>
-<p>教材コードで凝る理由はない。読者が読む前に自分が読めなくなる。</p>
-</blockquote>
+<p>この連載を書いている途中、<code>Zettai</code> のハンドラを <code>.let(fetchList)</code> で繋いで短く書こうとして、型推論が壊れたことがありました。素直に書き直したら通りました。<strong>教材コードで凝る理由はありません。読者が読む前に、書いた本人が読めなくなります。</strong></p>
 <p>第 12 章の <code>Converter</code> も、出来事 ↔ 文字列を直接書けました。2 段（出来事 ↔ 並び ↔ 文字列）にしたのは、<strong>それぞれを小さくするため</strong>です。全体の行数は増えました。</p>
 <p><strong>シンプルさは短さではなく、1 つずつが小さいことでした。</strong></p>
 <h2 id="_5">システム全体の設計<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
@@ -6231,13 +6358,14 @@
 <span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">violations</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">domainSources</span><span class="p">.</span><span class="na">flatMap</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="o">-&gt;</span>
 <span class="w">            </span><span class="n">file</span><span class="p">.</span><span class="na">readLines</span><span class="p">()</span>
 <span class="w">                </span><span class="p">.</span><span class="na">filter</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">trimStart</span><span class="p">().</span><span class="na">startsWith</span><span class="p">(</span><span class="s">"import "</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
-<span class="w">                </span><span class="p">.</span><span class="na">filter</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">line</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">frameworks</span><span class="p">.</span><span class="na">any</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">line</span><span class="p">.</span><span class="na">contains</span><span class="p">(</span><span class="nb">it</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span>
+<span class="w">                </span><span class="p">.</span><span class="na">filter</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">line</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">frameworks</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">adapters</span><span class="p">).</span><span class="na">any</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">line</span><span class="p">.</span><span class="na">contains</span><span class="p">(</span><span class="nb">it</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span>
 <span class="w">                </span><span class="p">.</span><span class="na">map</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">"</span><span class="si">${</span><span class="n">file</span><span class="p">.</span><span class="na">name</span><span class="si">}</span><span class="s">: </span><span class="si">${</span><span class="nb">it</span><span class="p">.</span><span class="na">trim</span><span class="p">()</span><span class="si">}</span><span class="s">"</span><span class="w"> </span><span class="p">}</span>
 <span class="w">        </span><span class="p">}.</span><span class="na">toList</span><span class="p">()</span>
 
 <span class="w">        </span><span class="n">expectThat</span><span class="p">(</span><span class="n">violations</span><span class="p">).</span><span class="na">isEmpty</span><span class="p">()</span>
 <span class="w">    </span><span class="p">}</span>
 </code></pre></div>
+<p>禁止するのは 2 種類です。<strong>フレームワーク</strong>（http4k・JDBC）と、<strong>自前のアダプタ</strong>（<code>zettai.web</code>・<code>zettai.persistence</code>・<code>zettai.logger</code>・<code>zettai.json</code>・<code>zettai.ui</code>）です。後者を入れていないと、「ドメインがログを知らない」（第 12 章）が検査されません。</p>
 <p><strong>第 10 章でこのテストに止められました。</strong> 文脈に <code>Connection</code> を持たせて、ドメインが JDBC を import していました。コンパイルは通り、他のテストも通り、動いていました。</p>
 <p><strong>設計の規則は、気をつけるものではなく検査するものです。</strong></p>
 <h3 id="10">受け入れテストの入口が 10 章を支えた<a class="headerlink" href="#10" title="Permanent link">&para;</a></h3>
@@ -6534,7 +6662,7 @@
 <tbody>
 <tr>
 <td style="text-align: left;">テストを先に書く</td>
-<td style="text-align: left;">設計が導かれた。13 章で 690 のテストが残った</td>
+<td style="text-align: left;">設計が導かれた。13 章で 711 のテストが残った</td>
 </tr>
 <tr>
 <td style="text-align: left;">受け入れテストを業務の言葉で書く</td>
@@ -6612,7 +6740,7 @@
 <p>「なぜ入れなかったか」を残すと、条件が変わったときに判断を戻せます。再検討の条件も書いてください。</p>
 <hr />
 <h2 id="_15">連載を終えて<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h2>
-<p>13 章、690 のテスト、12 件の ADR。</p>
+<p>13 章、711 のテスト、12 件の ADR。</p>
 <p><strong>5 つの代数構造に名前を与えました。</strong> どれも「知っていたことに名前が付いた」形で導入しました。整数の足し算、<code>List.map</code>、<code>List.flatMap</code>、<code>List.zip</code>、<code>Comparator</code>。すべて既に使っていたものです。</p>
 <p><strong>そして 5 回とも、同じ形のテストで法則を確かめました。</strong> 新しい概念が出るたびに新しい道具を覚える必要はありませんでした。</p>
 <p>最後に、この連載でいちばん繰り返した言葉を置きます。</p>

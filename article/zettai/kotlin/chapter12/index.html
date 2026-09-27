@@ -1699,7 +1699,7 @@
   <span class="md-ellipsis">
     
   
-    リリース完了報告
+    ふりかえり
   
 
     
@@ -1712,6 +1712,101 @@
         
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ふりかえり
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../development/retrospective-7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unit 7 監視とアーキテクチャ総括
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_7" id="__nav_5_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    リリース完了報告
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_7">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2262,6 +2357,41 @@
     
   </span>
   
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../review/unit7_review_20260927/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unit 7 開発成果物レビュー
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
   
 
       </a>
@@ -3767,10 +3897,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#2" class="md-nav__link">
+  <a href="#4" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2 つの性質
+        4 つの性質
       
     </span>
   </a>
@@ -3842,7 +3972,29 @@
   <a href="#_16" class="md-nav__link">
     <span class="md-ellipsis">
       
+        包めるのは「結果を読まない」範囲まで
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
         横断関心事の見分け方
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        扱わなかったこと
       
     </span>
   </a>
@@ -3855,7 +4007,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_17" class="md-nav__link">
+  <a href="#_19" class="md-nav__link">
     <span class="md-ellipsis">
       
         まとめ
@@ -3866,7 +4018,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_18" class="md-nav__link">
+  <a href="#_20" class="md-nav__link">
     <span class="md-ellipsis">
       
         この章で書いたコード
@@ -3877,7 +4029,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_19" class="md-nav__link">
+  <a href="#_21" class="md-nav__link">
     <span class="md-ellipsis">
       
         参照
@@ -6338,9 +6490,9 @@
 <div class="highlight"><pre><span></span><code><span class="w">    </span><span class="cm">/** 書き出して読み込む。往復できることを確かめるのに使う。 */</span>
 <span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">roundTrip</span><span class="p">(</span><span class="n">value</span><span class="p">:</span><span class="w"> </span><span class="n">A</span><span class="p">):</span><span class="w"> </span><span class="n">Outcome</span><span class="o">&lt;</span><span class="n">ZettaiError</span><span class="p">,</span><span class="w"> </span><span class="n">A</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">parse</span><span class="p">(</span><span class="n">render</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
 </code></pre></div>
-<p>この 1 行が効きます。<strong>ランダムな出来事で往復を試せます。</strong></p>
+<p>この 1 行が効きます。<strong>生成した出来事で往復を試せます。</strong></p>
 <div class="highlight"><pre><span></span><code><span class="w">    </span><span class="nd">@Test</span>
-<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="err">`どんな出来事でも往復できる`() {</span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="err">`生成した出来事が往復できる`() {</span>
 <span class="w">        </span><span class="n">forAllRandom</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">random</span><span class="w"> </span><span class="o">-&gt;</span>
 <span class="w">            </span><span class="n">EventGenerator</span><span class="p">.</span><span class="na">events</span><span class="p">(</span><span class="n">random</span><span class="p">,</span><span class="w"> </span><span class="n">random</span><span class="p">.</span><span class="na">nextInt</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">6</span><span class="p">)).</span><span class="na">forEach</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">event</span><span class="w"> </span><span class="o">-&gt;</span>
 <span class="w">                </span><span class="n">expectThat</span><span class="p">(</span><span class="n">eventConverter</span><span class="p">.</span><span class="na">roundTrip</span><span class="p">(</span><span class="n">event</span><span class="p">)).</span><span class="na">isEqualTo</span><span class="p">(</span><span class="n">Success</span><span class="p">(</span><span class="n">event</span><span class="p">))</span>
@@ -6433,8 +6585,8 @@
 <p><code>map</code> は「<code>B</code> を受け取って <code>C</code> を返す関数」を渡します。<code>contramap</code> は「<strong><code>C</code> を受け取って <code>A</code> を返す関数</strong>」を渡します。逆です。</p>
 <p>理由は、<code>A</code> が<strong>入力の位置</strong>にあるからです。<code>render: (A) -&gt; B</code> の <code>A</code> は引数です。引数の型を <code>C</code> に変えるには、<code>C</code> から <code>A</code> を作る関数が必要です。</p>
 <p><strong>入力の位置にある型は、変換の向きが逆になります。</strong></p>
-<h3 id="2">2 つの性質<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
-<p><code>map</code> と <code>contramap</code> には、それぞれ 2 つの性質があります。</p>
+<h3 id="4">4 つの性質<a class="headerlink" href="#4" title="Permanent link">&para;</a></h3>
+<p><code>map</code> と <code>contramap</code> に、それぞれ 2 つの性質があります。<strong>合わせて 4 つ</strong>です。</p>
 <p><strong>性質 1: 何もしない変換を渡したら、何も変わらない。</strong></p>
 <div class="highlight"><pre><span></span><code><span class="w">    </span><span class="nd">@Test</span>
 <span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="err">`出力側の恒等則が成り立つ`() {</span>
@@ -6470,7 +6622,7 @@
 <span class="w">    </span><span class="p">}</span>
 </code></pre></div>
 <p>入力側も同じ 2 つを確かめます。<strong>合計 4 つの法則</strong>です。</p>
-<p>テストの形は第 5・7・9・11 章と同じ <code>forAllRandom</code> です。<strong>5 回目です。</strong></p>
+<p>テストの形は第 5・7・9・11 章と同じ <code>forAllRandom</code> です。<strong>5 回目です。</strong>（第 7 章では <code>Outcome</code> 専用のラッパー <code>repeatWithRandomOutcomes</code> 越しに使っています。）</p>
 <h3 id="_12">名前を与える<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
 <p>整理します。</p>
 <ol>
@@ -6514,6 +6666,8 @@
 </table>
 <p><code>Comparator</code> は分かりやすい例です。<code>Comparator&lt;Int&gt;</code> があれば、<code>contramap</code> で <code>Comparator&lt;String&gt;</code>（文字列の長さで比べる）が作れます。Kotlin の <code>compareBy { it.length }</code> が実質それです。</p>
 <p><strong>知っていたことに名前が付いた</strong>のは、5 回目も同じです。</p>
+<p>ひとつ正確に書いておきます。<strong>厳密なプロファンクタより、この <code>Converter</code> は制約が強いです。</strong> 厳密には <code>dimap(f: (C) -&gt; A, g: (B) -&gt; D)</code> のように片方向の関数だけを要求します。一方 <code>Converter</code> の <code>map</code>・<code>contramap</code> は<strong>両方向の関数を対で</strong>要求します（<code>A</code> が <code>render</code> の入力と <code>parse</code> の出力の両方に現れるからです）。だから型としては「両方向の変換を持つもの」で、プロファンクタの形を借りていると読むのが正確です。</p>
+<p><strong>名前は当てはめる前に、どこまで当てはまるかを確かめる。</strong> 4 つの法則を確かめたのはそのためでした。</p>
 <h3 id="5">5 つの構造を並べる<a class="headerlink" href="#5" title="Permanent link">&para;</a></h3>
 <p>これで 5 つ出揃いました。</p>
 <table>
@@ -6567,18 +6721,11 @@
 <p>第 7 章で <code>Outcome</code> を導入したとき、ポートの型を変えて 6 ファイルが変わりました。第 10 章で <code>HubAction</code> にしたとき、7 ファイル変更 + 3 ファイル新設でした。</p>
 <p><strong>2 回続けて型を変えたので、3 回目は変えずに済む方法を探しました。</strong></p>
 <p>ログは<strong>横断関心事</strong>です。どの操作にも共通して足せるものなので、包むだけで入ります。</p>
-<div class="highlight"><pre><span></span><code><span class="cm">/**</span>
-<span class="cm"> * 文脈つきの計算にログを足す。</span>
-<span class="cm"> *</span>
-<span class="cm"> * **ポートの型を変えていない。** 包むだけなので、呼び出し側は変わらない。</span>
-<span class="cm"> * 第 7 章と第 10 章ではポートの型を変えて 6 ファイル・10 ファイルが影響したが、</span>
-<span class="cm"> * ログは横断関心事なので包むだけで済む。</span>
-<span class="cm"> */</span>
-<span class="kd">fun</span><span class="w"> </span><span class="o">&lt;</span><span class="n">CTX</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">ContextReader</span><span class="o">&lt;</span><span class="n">CTX</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="o">&gt;</span><span class="p">.</span><span class="na">logged</span><span class="p">(</span><span class="n">logger</span><span class="p">:</span><span class="w"> </span><span class="n">Logger</span><span class="p">,</span><span class="w"> </span><span class="n">context</span><span class="p">:</span><span class="w"> </span><span class="n">LogContext</span><span class="p">):</span><span class="w"> </span><span class="n">ContextReader</span><span class="o">&lt;</span><span class="n">CTX</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span>
+<div class="highlight"><pre><span></span><code><span class="kd">fun</span><span class="w"> </span><span class="o">&lt;</span><span class="n">CTX</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">ContextReader</span><span class="o">&lt;</span><span class="n">CTX</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="o">&gt;</span><span class="p">.</span><span class="na">logged</span><span class="p">(</span><span class="n">logger</span><span class="p">:</span><span class="w"> </span><span class="n">Logger</span><span class="p">,</span><span class="w"> </span><span class="n">context</span><span class="p">:</span><span class="w"> </span><span class="n">LogContext</span><span class="p">):</span><span class="w"> </span><span class="n">ContextReader</span><span class="o">&lt;</span><span class="n">CTX</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span>
 <span class="w">    </span><span class="n">ContextReader</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">ctx</span><span class="w"> </span><span class="o">-&gt;</span>
 <span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">runWith</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
 
-<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="na">log</span><span class="p">(</span><span class="n">LogSuccess</span><span class="p">(</span><span class="n">java</span><span class="p">.</span><span class="na">time</span><span class="p">.</span><span class="na">Instant</span><span class="p">.</span><span class="na">now</span><span class="p">(),</span><span class="w"> </span><span class="s">"</span><span class="si">${</span><span class="n">context</span><span class="p">.</span><span class="na">operation</span><span class="si">}</span><span class="s"> を実行しました"</span><span class="p">,</span><span class="w"> </span><span class="n">context</span><span class="p">))</span>
+<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="na">log</span><span class="p">(</span><span class="n">LogSuccess</span><span class="p">(</span><span class="n">Instant</span><span class="p">.</span><span class="na">now</span><span class="p">(),</span><span class="w"> </span><span class="s">"</span><span class="si">${</span><span class="n">context</span><span class="p">.</span><span class="na">operation</span><span class="si">}</span><span class="s"> を実行しました"</span><span class="p">,</span><span class="w"> </span><span class="n">context</span><span class="p">))</span>
 
 <span class="w">        </span><span class="n">result</span>
 <span class="w">    </span><span class="p">}</span>
@@ -6589,7 +6736,42 @@
 PostgresEventStore.readAll().logged(logger, context)   // ログあり
 </code></pre></div>
 <p><strong>型が変わらないので、既存のコードは 1 行も変わりません。</strong></p>
-<h3 id="_16">横断関心事の見分け方<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h3>
+<h3 id="_16">包めるのは「結果を読まない」範囲まで<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h3>
+<p>ここで気をつけることがあります。<strong>この <code>logged</code> は結果の中身を読めません。</strong></p>
+<p>書いているのは <code>LogSuccess</code>（「実行しました」）だけです。操作が失敗しても <code>LogSuccess</code> になります。</p>
+<p>理由は型に出ています。<code>T</code> が何なのかを知らないから、型を変えずに包めました。<strong>知らないものは読めません。</strong></p>
+<p>成功と失敗を書き分けたいなら、<code>T</code> が <code>Outcome</code> であることを知る必要があります。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">fun</span><span class="w"> </span><span class="o">&lt;</span><span class="n">CTX</span><span class="p">,</span><span class="w"> </span><span class="n">E</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">ContextReader</span><span class="o">&lt;</span><span class="n">CTX</span><span class="p">,</span><span class="w"> </span><span class="n">Outcome</span><span class="o">&lt;</span><span class="n">E</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="o">&gt;&gt;</span><span class="p">.</span><span class="na">loggedOutcome</span><span class="p">(</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">:</span><span class="w"> </span><span class="n">Logger</span><span class="p">,</span>
+<span class="w">    </span><span class="n">context</span><span class="p">:</span><span class="w"> </span><span class="n">LogContext</span>
+<span class="p">):</span><span class="w"> </span><span class="n">ContextReader</span><span class="o">&lt;</span><span class="n">CTX</span><span class="p">,</span><span class="w"> </span><span class="n">Outcome</span><span class="o">&lt;</span><span class="n">E</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="n">ContextReader</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">ctx</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">logger</span><span class="p">.</span><span class="na">logging</span><span class="p">(</span><span class="n">context</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">runWith</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<p><strong>戻り値の型は変わっていません。</strong> 変わったのは<strong>要求する型</strong>です。<code>ContextReader&lt;CTX, T&gt;</code> ではなく <code>ContextReader&lt;CTX, Outcome&lt;E, T&gt;&gt;</code> を要求します。</p>
+<p>だから「横断関心事は包める」は、次の範囲での話でした。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">ログの内容</th>
+<th style="text-align: left;">包めるか</th>
+<th style="text-align: left;">必要な知識</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">「実行した」</td>
+<td style="text-align: left;">包める</td>
+<td style="text-align: left;">なし（<code>logged</code>）</td>
+</tr>
+<tr>
+<td style="text-align: left;">「成功した / 失敗した」</td>
+<td style="text-align: left;">包めるが、<strong>型を知る必要がある</strong></td>
+<td style="text-align: left;">中身が <code>Outcome</code> であること（<code>loggedOutcome</code>）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>横断関心事であっても、結果を読むなら型を知る必要があります。</strong> この区別を書いておかないと、ログが全部「成功」として残ります。</p>
+<h3 id="_17">横断関心事の見分け方<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h3>
 <p>「包むだけで済むか」は、次で見分けられます。</p>
 <table>
 <thead>
@@ -6615,7 +6797,36 @@ PostgresEventStore.readAll().logged(logger, context)   // ログあり
 <p>第 7 章の <code>Outcome</code> は、<strong>戻り値の意味が変わりました</strong>（「値」から「値か失敗」へ）。だから呼び出し側が <code>fold</code> を書く必要があり、型を変えるほかありませんでした。</p>
 <p>ログは戻り値の意味を変えません。だから包めます。</p>
 <p><strong>設計を変えるとき、「これは横断関心事か」を先に問うと、波及の大きさが見積もれます。</strong></p>
-<h2 id="_17">まとめ<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h2>
+<h3 id="_18">扱わなかったこと<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h3>
+<p>第 11 章の HTML エスケープと同じ形の限界が、この章にもあります。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">扱わなかったこと</th>
+<th style="text-align: left;">何が起きるか</th>
+<th style="text-align: left;">実務では</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>JSON のエスケープ</strong></td>
+<td style="text-align: left;">値に <code>"</code> や改行が入ると、壊れた JSON を書き出す。読み戻すと値が静かに欠ける</td>
+<td style="text-align: left;">既製のライブラリを使う。自前で持つなら書き出しと読み込みの両方でエスケープする</td>
+</tr>
+</tbody>
+</table>
+<p><strong>この <code>Converter</code> をそのまま実務に持ち込めません。</strong> 保存するのが自分のアプリだけなら今は壊れませんが、<code>"</code> を含む名前を付けた瞬間に壊れます。</p>
+<p>黙って壊れるのを避けるため、<strong>テストに書いておきました</strong>。</p>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="nd">@Test</span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="err">`引用符を含む説明は往復できない（エスケ</span><span class="nf">ー</span><span class="err">プを扱っていない）`</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">event</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ItemAdded</span><span class="p">(</span><span class="n">User</span><span class="p">(</span><span class="s">"uberto"</span><span class="p">),</span><span class="w"> </span><span class="n">ListName</span><span class="p">(</span><span class="s">"book"</span><span class="p">),</span><span class="w"> </span><span class="n">ToDoItem</span><span class="p">(</span><span class="s">"""say "hi""""))</span>
+
+<span class="s">        expectThat(eventConverter.roundTrip(event)).isNotEqualTo(Success(event))</span>
+<span class="s">    }</span>
+</code></pre></div>
+<p>「まだできないこと」をテストに書くと、直したときにこのテストが落ちます。<strong>限界の場所が、直す合図になります。</strong></p>
+<p>この判断は <a href="../../../../adr/ADR-012-own-json-converter/">ADR-012</a> の「失うもの」に記録し、<a href="../chapter13/">第 13 章</a> の「扱わなかったこと」にも挙げています。</p>
+<h2 id="_19">まとめ<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h2>
 <p>この章でやったことを振り返ります。</p>
 <ul>
 <li><strong>構造化ログを作りました。</strong> 1 行 1 JSON。成功と失敗を型で分けたので、集計に文字列の解析が要りません</li>
@@ -6627,7 +6838,7 @@ PostgresEventStore.readAll().logged(logger, context)   // ログあり
 </ul>
 <p>これで 5 つの構造が揃いました。次の章で、13 章で積み上げたものを総括します。<strong>そして扱わなかったことも書きます。</strong></p>
 <hr />
-<h2 id="_18">この章で書いたコード<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h2>
+<h2 id="_20">この章で書いたコード<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h2>
 <ul>
 <li>双方向変換: <code>apps/kotlin/zettai/zettai-step5-monitoring/src/main/kotlin/zettai/fp/Converter.kt</code></li>
 <li>JSON: <code>.../json/</code>（<code>JsonValue.kt</code>・<code>EventConverter.kt</code>）</li>
@@ -6635,7 +6846,7 @@ PostgresEventStore.readAll().logged(logger, context)   // ログあり
 <li>テスト: <code>.../test/kotlin/zettai/json/</code>（<code>EventConverterTest.kt</code>・<code>ConverterProfunctorTest.kt</code>）、<code>.../logger/LoggerTest.kt</code></li>
 </ul>
 <p>この章から <code>zettai-step5-monitoring</code> モジュールに移ります。</p>
-<h2 id="_19">参照<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h2>
+<h2 id="_21">参照<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Uberto Barbini『From Objects to Functions』第 12 章。構造化ロギングと双方向変換からプロファンクタに至る流れは本書に拠っています。本連載のコードはすべて書き起こした自作実装です</li>
 <li><a href="../../../../adr/ADR-012-own-json-converter/">ADR-012 JSON の変換を自前の <code>Converter</code> で書き Kondor を導入しない</a></li>

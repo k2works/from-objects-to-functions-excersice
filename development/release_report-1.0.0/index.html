@@ -13,7 +13,7 @@
       
       
       
-        <link rel="prev" href="../bolt_report-7/">
+        <link rel="prev" href="../retrospective-7/">
       
       
         <link rel="next" href="../../operation/">
@@ -1684,6 +1684,104 @@
                 
   
   
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_6" id="__nav_5_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ふりかえり
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ふりかえり
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../retrospective-7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unit 7 監視とアーキテクチャ総括
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -1705,10 +1803,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_6" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_7" checked>
         
           
-          <label class="md-nav__link" for="__nav_5_6" id="__nav_5_6_label" tabindex="">
+          <label class="md-nav__link" for="__nav_5_7" id="__nav_5_7_label" tabindex="">
             
   
   
@@ -1726,8 +1824,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_6_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_5_6">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5_7">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2152,10 +2250,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-1" class="md-nav__link">
+  <a href="#3-2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        提案 3: 検査を 1 つ足す
+        提案 3: 検査を 2 つ足す
       
     </span>
   </a>
@@ -2693,6 +2791,41 @@
     
   </span>
   
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../review/unit7_review_20260927/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unit 7 開発成果物レビュー
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
   
 
       </a>
@@ -6224,7 +6357,7 @@
 </tr>
 <tr>
 <td><strong>総テスト数</strong></td>
-<td><strong>690</strong></td>
+<td><strong>711</strong></td>
 </tr>
 <tr>
 <td><strong>Kotlin ファイル数</strong></td>
@@ -6535,7 +6668,7 @@
 <tr>
 <td style="text-align: left;">テスト数</td>
 <td style="text-align: left;">—</td>
-<td style="text-align: left;"><strong>690</strong></td>
+<td style="text-align: left;"><strong>711</strong></td>
 </tr>
 <tr>
 <td style="text-align: left;">カバレッジ（ドメイン層）</td>
@@ -6627,7 +6760,7 @@
 <tr>
 <td style="text-align: left;">設計の境界を決める</td>
 <td style="text-align: left;">3</td>
-<td style="text-align: left;">007・008・011</td>
+<td style="text-align: left;">006・007・011</td>
 </tr>
 <tr>
 <td style="text-align: left;">ツールチェーン</td>
@@ -6641,6 +6774,7 @@
 </tr>
 </tbody>
 </table>
+<p>ADR-008（イベントストアを 1 テーブルで持つ）は「既製品を使わない」に数えています。境界を決める判断も含みますが、二重に数えないため 1 分類に置きました。</p>
 <p><strong>半数が「既製品を使わない」判断で、全件、調べてから決めています。</strong></p>
 <p>これは自作志向ではなく、<strong>連載の要求が特殊</strong>だったためです。</p>
 <table>
@@ -6671,7 +6805,7 @@
 </table>
 <p><strong>実務なら逆の判断になります。</strong> 第 13 章にそう明記しました。</p>
 <h3 id="_12">再検討の予約が機能した<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
-<p>ADR 全件に再検討の条件を書きました。<strong>Unit 5 で ADR-004・005 の期限が来て、実際に見直しました。</strong></p>
+<p><strong>「入れない」と決めた 6 件（004・005・008・009・010・012）全件に、再検討の条件を書きました</strong>（時期ではなく「どの事象が起きたら入れるか」）。<strong>Unit 5 で ADR-004・005 の条件に当たり、実際に見直しました。</strong></p>
 <table>
 <thead>
 <tr>
@@ -6772,14 +6906,36 @@
 <p>Kotlin 版で 13 章の構成と検査の仕組みが固まったので、<strong>2 言語目は Unit あたりの検証負荷が下がる</strong>はずです。</p>
 <h3 id="2-5-1">提案 2: 扱わなかったこと 5 件のうち 1 件を扱う<a class="headerlink" href="#2-5-1" title="Permanent link">&para;</a></h3>
 <p>とくに<strong>認証・認可</strong>は、扱うと設計に影響します（<code>User</code> をパスから取るのをやめる）。「関数型で認証をどう設計するか」は独立した主題になります。</p>
-<h3 id="3-1">提案 3: 検査を 1 つ足す<a class="headerlink" href="#3-1" title="Permanent link">&para;</a></h3>
-<p>現在 4 つの検査があります。<strong>「記事の節構成がマインドマップと一致しているか」は、まだ人が目で確かめています。</strong> 機械化できます。</p>
+<h3 id="3-2">提案 3: 検査を 2 つ足す<a class="headerlink" href="#3-2" title="Permanent link">&para;</a></h3>
+<p>現在 4 つの検査があります。人が目で確かめている判断のうち、<strong>2 つは機械化できます</strong>。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">足す検査</th>
+<th style="text-align: left;">何を止めるか</th>
+<th style="text-align: left;">根拠</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>章をまたぐ引用が引用元に実在するか</strong></td>
+<td style="text-align: left;">要約を引用の形で書いてしまう誤り</td>
+<td style="text-align: left;">Unit 7 のクローズで実際に <strong>3 件</strong>見つかった（第 9・13 章）</td>
+</tr>
+<tr>
+<td style="text-align: left;">記事の節構成がマインドマップと一致しているか</td>
+<td style="text-align: left;">構成のドリフト</td>
+<td style="text-align: left;">7 Unit すべてで人が目で突合していた</td>
+</tr>
+</tbody>
+</table>
+<p><strong>引用の検査を優先します。</strong> 3 件見つかった実績があり、文字列の照合だけで書けます。</p>
 <hr />
 <h2 id="_16">関連ドキュメント<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="../release_plan/">リリース計画</a> / <a href="../development_strategy/">開発戦略</a></li>
 <li>Bolt 計画 7 件（<a href="../iteration_plan-1/">Unit 1</a>〜<a href="../iteration_plan-7/">Unit 7</a>）</li>
-<li>Bolt 終了報告 7 件（<a href="../bolt_report-1/">Unit 1</a>〜Unit 7）</li>
+<li>Bolt 終了報告 7 件（<a href="../bolt_report-1/">Unit 1</a>〜<a href="../bolt_report-7/">Unit 7</a>）</li>
 <li>ジャーナル 7 件（<a href="../../journal/">索引</a>）</li>
 <li>ADR 12 件（<a href="../../adr/">索引</a>）</li>
 <li>設計ドキュメント 4 本（<a href="../../design/">索引</a>）</li>

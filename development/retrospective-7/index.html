@@ -6,17 +6,17 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Zettai 連載 Kotlin 版のサンプル実装で、原著の Kotlin 1.8.20 / JDK 11 ではなく Kotlin 2.2（Gradle プラグイン）/ JDK 21 を採用し、ビルドの正を Gradle 側に置く決定と、devShell の kotlinc 2.3 との二重管理を許容する理由・影響・遵守確認方法を記録する。">
+        <meta name="description" content="Zettai 連載 Kotlin 版の最終 Unit 7（監視とアーキテクチャ総括）の KPT ふりかえり。連載 7 Unit を締めるにあたり、続けること・問題・次に試すことを整理し、レビュー指摘への対応方針と次のリリースへの引き継ぎを記録する。">
       
       
         <meta name="author" content="Project Team">
       
       
       
-        <link rel="prev" href="../">
+        <link rel="prev" href="../bolt_report-7/">
       
       
-        <link rel="next" href="../ADR-002-ddt-pesticide/">
+        <link rel="next" href="../release_report-1.0.0/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>ADR-001 サンプル実装に Kotlin 2.2 / JDK 21 を採用する - From Objects to Functions 演習</title>
+        <title>Unit 7 のふりかえり（KPT）- Zettai 連載（Kotlin 版） - From Objects to Functions 演習</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#adr-001-kotlin-22-jdk-21" class="md-skip">
+        <a href="#unit-7-kpt-zettai-kotlin" class="md-skip">
           Skip to content
         </a>
       
@@ -112,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              ADR-001 サンプル実装に Kotlin 2.2 / JDK 21 を採用する
+              Unit 7 のふりかえり（KPT）- Zettai 連載（Kotlin 版）
             
           </span>
         </div>
@@ -276,11 +276,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../development/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
           
   
   
@@ -356,13 +358,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../adr/" class="md-tabs__link">
           
   
   
@@ -913,26 +913,31 @@
       
   
   
+    
   
   
+  
     
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
         
           
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
             
   
   
@@ -950,7 +955,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -968,7 +973,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/" class="md-nav__link">
+      <a href="../" class="md-nav__link">
         
   
   
@@ -996,7 +1001,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/release_plan/" class="md-nav__link">
+      <a href="../release_plan/" class="md-nav__link">
         
   
   
@@ -1031,7 +1036,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/development_strategy/" class="md-nav__link">
+      <a href="../development_strategy/" class="md-nav__link">
         
   
   
@@ -1072,17 +1077,20 @@
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4" >
         
           
-          <label class="md-nav__link" for="__nav_5_4" id="__nav_5_4_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_4" id="__nav_5_4_label" tabindex="">
             
   
   
@@ -1118,7 +1126,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-1/" class="md-nav__link">
+      <a href="../iteration_plan-1/" class="md-nav__link">
         
   
   
@@ -1153,7 +1161,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-2/" class="md-nav__link">
+      <a href="../iteration_plan-2/" class="md-nav__link">
         
   
   
@@ -1188,7 +1196,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-3/" class="md-nav__link">
+      <a href="../iteration_plan-3/" class="md-nav__link">
         
   
   
@@ -1223,7 +1231,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-4/" class="md-nav__link">
+      <a href="../iteration_plan-4/" class="md-nav__link">
         
   
   
@@ -1258,7 +1266,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-5/" class="md-nav__link">
+      <a href="../iteration_plan-5/" class="md-nav__link">
         
   
   
@@ -1293,7 +1301,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-6/" class="md-nav__link">
+      <a href="../iteration_plan-6/" class="md-nav__link">
         
   
   
@@ -1328,7 +1336,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-7/" class="md-nav__link">
+      <a href="../iteration_plan-7/" class="md-nav__link">
         
   
   
@@ -1377,17 +1385,20 @@
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5" >
         
           
-          <label class="md-nav__link" for="__nav_5_5" id="__nav_5_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_5" id="__nav_5_5_label" tabindex="">
             
   
   
@@ -1423,7 +1434,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-1/" class="md-nav__link">
+      <a href="../bolt_report-1/" class="md-nav__link">
         
   
   
@@ -1458,7 +1469,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-2/" class="md-nav__link">
+      <a href="../bolt_report-2/" class="md-nav__link">
         
   
   
@@ -1493,7 +1504,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-3/" class="md-nav__link">
+      <a href="../bolt_report-3/" class="md-nav__link">
         
   
   
@@ -1528,7 +1539,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-4/" class="md-nav__link">
+      <a href="../bolt_report-4/" class="md-nav__link">
         
   
   
@@ -1563,7 +1574,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-5/" class="md-nav__link">
+      <a href="../bolt_report-5/" class="md-nav__link">
         
   
   
@@ -1598,7 +1609,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-6/" class="md-nav__link">
+      <a href="../bolt_report-6/" class="md-nav__link">
         
   
   
@@ -1633,7 +1644,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-7/" class="md-nav__link">
+      <a href="../bolt_report-7/" class="md-nav__link">
         
   
   
@@ -1673,26 +1684,31 @@
                 
   
   
+    
   
   
+  
     
     
     
     
       
       
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_6" >
         
           
-          <label class="md-nav__link" for="__nav_5_6" id="__nav_5_6_label" tabindex="0">
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5_6" id="__nav_5_6_label" tabindex="">
             
   
   
@@ -1710,7 +1726,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_6_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_6_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5_6">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1725,10 +1741,44 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../development/retrospective-7/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unit 7 監視とアーキテクチャ総括
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1751,6 +1801,103 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        対象
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#keep" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Keep（続けること）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem（問題）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#try" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Try（次に試すこと）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        レビュー指摘への対応方針
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        次のリリースへの引き継ぎ
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        関連ドキュメント
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1777,17 +1924,20 @@
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_7" >
         
           
-          <label class="md-nav__link" for="__nav_5_7" id="__nav_5_7_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_7" id="__nav_5_7_label" tabindex="">
             
   
   
@@ -1823,7 +1973,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/release_report-1.0.0/" class="md-nav__link">
+      <a href="../release_report-1.0.0/" class="md-nav__link">
         
   
   
@@ -2411,31 +2561,26 @@
       
   
   
-    
   
   
-  
     
     
     
     
-      
-        
-        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
         
           
-          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
             
   
   
@@ -2453,7 +2598,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_9">
             <span class="md-nav__icon md-icon"></span>
             
@@ -2471,7 +2616,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../" class="md-nav__link">
+      <a href="../../adr/" class="md-nav__link">
         
   
   
@@ -2496,44 +2641,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    ADR-001 Kotlin 2.2 / JDK 21 の採用
-  
-
-    
-  </span>
-  
-  
-    
-  
-  
-    <span class="md-status md-status--draft"></span>
-  
-
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../adr/ADR-001-kotlin-toolchain/" class="md-nav__link">
         
   
   
@@ -2556,109 +2667,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ステータス
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        コンテキスト
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        決定
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="決定">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        検討した代替案
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        影響
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        コンプライアンス
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        備考
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -2671,7 +2679,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ADR-002-ddt-pesticide/" class="md-nav__link">
+      <a href="../../adr/ADR-002-ddt-pesticide/" class="md-nav__link">
         
   
   
@@ -2706,7 +2714,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ADR-003-http4k-6/" class="md-nav__link">
+      <a href="../../adr/ADR-003-http4k-6/" class="md-nav__link">
         
   
   
@@ -2741,7 +2749,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ADR-004-static-analysis/" class="md-nav__link">
+      <a href="../../adr/ADR-004-static-analysis/" class="md-nav__link">
         
   
   
@@ -2776,7 +2784,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ADR-005-property-based-testing/" class="md-nav__link">
+      <a href="../../adr/ADR-005-property-based-testing/" class="md-nav__link">
         
   
   
@@ -2811,7 +2819,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ADR-006-outcome-port-type/" class="md-nav__link">
+      <a href="../../adr/ADR-006-outcome-port-type/" class="md-nav__link">
         
   
   
@@ -2846,7 +2854,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ADR-007-module-per-unit/" class="md-nav__link">
+      <a href="../../adr/ADR-007-module-per-unit/" class="md-nav__link">
         
   
   
@@ -2881,7 +2889,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ADR-008-event-store-single-table/" class="md-nav__link">
+      <a href="../../adr/ADR-008-event-store-single-table/" class="md-nav__link">
         
   
   
@@ -2916,7 +2924,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ADR-009-integration-test-database/" class="md-nav__link">
+      <a href="../../adr/ADR-009-integration-test-database/" class="md-nav__link">
         
   
   
@@ -2951,7 +2959,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ADR-010-own-template/" class="md-nav__link">
+      <a href="../../adr/ADR-010-own-template/" class="md-nav__link">
         
   
   
@@ -2986,7 +2994,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ADR-011-transaction-boundary/" class="md-nav__link">
+      <a href="../../adr/ADR-011-transaction-boundary/" class="md-nav__link">
         
   
   
@@ -3021,7 +3029,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ADR-012-own-json-converter/" class="md-nav__link">
+      <a href="../../adr/ADR-012-own-json-converter/" class="md-nav__link">
         
   
   
@@ -6026,103 +6034,229 @@
   
 
 
-<h1 id="adr-001-kotlin-22-jdk-21">ADR-001 サンプル実装に Kotlin 2.2 / JDK 21 を採用する<a class="headerlink" href="#adr-001-kotlin-22-jdk-21" title="Permanent link">&para;</a></h1>
-<p>Zettai 連載のサンプル実装が使う Kotlin と JDK のバージョンを決める。</p>
-<p>日付: 2026-09-26</p>
-<h2 id="_1">ステータス<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p>2026-09-26 提案されました</p>
-<h2 id="_2">コンテキスト<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<p>連載 <a href="../../article/zettai/">Zettai</a> は Uberto Barbini 著『From Objects to Functions』を下敷きにしている。原著のコンパニオンコード（<code>references/fotf/</code>）は <strong>Kotlin 1.8.20 / <code>jvmToolchain(11)</code></strong> でビルドされている。</p>
-<p>一方、本連載は 2026 年に公開する読者に向けたものであり、読者が手元で再現することが Intent の中核にある。原著の 2023 年時点のツールチェーンをそのまま使うと、読者が現在の Kotlin で書いたときに動かないコードを学ぶことになる。</p>
-<p>Unit 1 のスパイク（ステップ 1-1.0）で、リポジトリの nixpkgs（<code>nixos-unstable</code>）が提供するバージョンと Maven Central の最新安定版を調べた。</p>
+<h1 id="unit-7-kpt-zettai-kotlin">Unit 7 のふりかえり（KPT）- Zettai 連載（Kotlin 版）<a class="headerlink" href="#unit-7-kpt-zettai-kotlin" title="Permanent link">&para;</a></h1>
+<h2 id="_1">対象<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">対象</th>
-<th style="text-align: left;">調査結果</th>
+<th style="text-align: left;">項目</th>
+<th style="text-align: left;">内容</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">nixpkgs <code>kotlin</code></td>
-<td style="text-align: left;">2.3.0（CLI コンパイラ <code>kotlinc</code>）</td>
+<td style="text-align: left;">Unit</td>
+<td style="text-align: left;">Unit 7 監視とアーキテクチャ総括（<strong>最終</strong>）</td>
 </tr>
 <tr>
-<td style="text-align: left;">nixpkgs <code>jdk21</code></td>
-<td style="text-align: left;">21.0.8</td>
+<td style="text-align: left;">計画</td>
+<td style="text-align: left;"><a href="../iteration_plan-7/">Unit 7 の Bolt 計画</a></td>
 </tr>
 <tr>
-<td style="text-align: left;">nixpkgs <code>gradle</code></td>
-<td style="text-align: left;">8.14.3</td>
+<td style="text-align: left;">実績</td>
+<td style="text-align: left;"><a href="../bolt_report-7/">Bolt 終了報告</a> / <a href="../release_report-1.0.0/">リリース完了報告（v1.0.0）</a></td>
 </tr>
 <tr>
-<td style="text-align: left;">Maven Central <code>kotlin-gradle-plugin</code> の最新安定版</td>
-<td style="text-align: left;">2.2.0（2.3.0 は未公開）</td>
-</tr>
-<tr>
-<td style="text-align: left;">Maven Central <code>junit-bom</code> の最新安定版</td>
-<td style="text-align: left;">5.12.2</td>
-</tr>
-<tr>
-<td style="text-align: left;">Maven Central <code>strikt-core</code> の最新版</td>
-<td style="text-align: left;">0.35.1</td>
+<td style="text-align: left;">範囲</td>
+<td style="text-align: left;">Unit 7 と、連載 7 Unit 全体（最終 Unit なので両方を扱う）</td>
 </tr>
 </tbody>
 </table>
-<p>ここで問題になるのは、<strong>devShell が提供する CLI コンパイラ（2.3.0）と、Gradle がビルドに使う Kotlin コンパイラ（プラグイン 2.2.0）のバージョンが一致しない</strong>ことである。nixpkgs は unstable を追うため、Maven Central の安定版より先行することがある。</p>
-<h2 id="_3">決定<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
-<p>サンプル実装は <strong>Kotlin 2.2（Gradle プラグイン）/ JDK 21</strong> を採用する。原著の Kotlin 1.8.20 / JDK 11 は踏襲しない。</p>
-<p>あわせて次を決める。</p>
-<ol>
-<li><strong>ビルドの正は Gradle 側に置く。</strong> コンパイラのバージョンは <code>apps/kotlin/zettai/gradle/libs.versions.toml</code> の <code>kotlin</code> で決まる。devShell の <code>kotlinc</code> は単発のスクリプトを試すための CLI であり、ビルドには関与しない</li>
-<li><strong>devShell の <code>kotlin</code> のバージョンは固定しない。</strong> nixpkgs の更新に追従させる。CLI とビルドのバージョン差は許容する</li>
-<li><strong>JDK は <code>jvmToolchain(21)</code> で明示する。</strong> ホストの JAVA_HOME に依存させない</li>
-<li><strong>依存バージョンは <code>libs.versions.toml</code> に集中させる。</strong> <code>build.gradle.kts</code> にリテラルのバージョンを書かない</li>
-<li><strong>原著と挙動や API が異なる箇所は、該当する章の記事に注記する。</strong> 読者が原著と行き来できるようにするため</li>
-</ol>
-<h3 id="_4">検討した代替案<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>Unit 1〜6 では Bolt 終了報告に学びを書き、独立したふりかえり文書を作っていませんでした。本 Unit は連載の締めなので、<strong>次のリリースに渡すもの</strong>を KPT の形で分けて残します。</p>
+<hr />
+<h2 id="keep">Keep（続けること）<a class="headerlink" href="#keep" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">案</th>
-<th style="text-align: left;">採らなかった理由</th>
+<th style="text-align: left;">#</th>
+<th style="text-align: left;">Keep</th>
+<th style="text-align: left;">根拠</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">原著と同じ Kotlin 1.8.20 / JDK 11 を使う</td>
-<td style="text-align: left;">2026 年の読者が手元で再現したときに、現在の Kotlin と挙動が異なる。連載の価値が「今書けるコード」であることと矛盾する</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;"><strong>判断を機械の検査に落としてからゲートを外す</strong></td>
+<td style="text-align: left;">ゲート密度 8→11→5→4→8→6→5。減った回はいずれも判断が検査に移った回だった。記事の全文検証は移せず 7 回すべて残した</td>
 </tr>
 <tr>
-<td style="text-align: left;">devShell の <code>kotlin</code> を 2.2.0 にピン留めして CLI とビルドを揃える</td>
-<td style="text-align: left;">nixpkgs に該当バージョンが無ければオーバーレイを書くことになり、環境定義が他の 13 環境と構造がずれる。CLI はビルドに関与しないので揃える利益が小さい</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;"><strong>設計の規則をテストで検査する</strong></td>
+<td style="text-align: left;">20 行の <code>DomainBoundaryTest</code> が、コンパイルも他のテストも通る境界違反を止めた（第 10 章）</td>
 </tr>
 <tr>
-<td style="text-align: left;">Gradle プラグインを 2.3.0 にして CLI と揃える</td>
-<td style="text-align: left;">Maven Central に未公開で解決できない</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;"><strong>既製品は「試してから」入れないと決め、条件を事象で書く</strong></td>
+<td style="text-align: left;">ktlint は実際に導入して外した。「入れない」6 件すべてが時期ではなく事象で再検討条件を持った</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;"><strong>持ち込み項目を明示して次 Unit の計画に写す</strong></td>
+<td style="text-align: left;">7 Unit を通じて持ち込みを 1 件も落とさなかった（Unit 7 は 9 / 9 消化）</td>
+</tr>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;"><strong>抽象概念は「構造 → 性質 → 名前 → 身の回りの例」で導入する</strong></td>
+<td style="text-align: left;">5 回（モノイド・ファンクタ・モナド・アプリカティブ・プロファンクタ）同じ形で通った</td>
+</tr>
+<tr>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;"><strong>リスク欄に書いた懸念をエントロピー評価に反映する</strong></td>
+<td style="text-align: left;">Unit 6 で外した構造的不確実性を、Unit 7 では懸念どおり MED にして 5 軸すべて的中した</td>
+</tr>
+<tr>
+<td style="text-align: left;">7</td>
+<td style="text-align: left;"><strong>実装コミットと記事コミットを分ける</strong></td>
+<td style="text-align: left;">1 コミット 1 目的。Unit 7 で混ざった 1 件は <code>reset --soft</code> して分割した</td>
 </tr>
 </tbody>
 </table>
-<h2 id="_5">影響<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<hr />
+<h2 id="problem">Problem（問題）<a class="headerlink" href="#problem" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">#</th>
+<th style="text-align: left;">Problem</th>
+<th style="text-align: left;">何が起きたか</th>
+<th style="text-align: left;">原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;"><strong>引用を捏造していた（3 箇所）</strong></td>
+<td style="text-align: left;">第 9 章・第 13 章が第 3 章に無い文を引き、さらにクローズのレビューで第 13 章が第 4 章に無い文を引いているのが見つかった（出典はジャーナル）</td>
+<td style="text-align: left;">要約や別文書の文を引用の形で書いた。<strong>章をまたぐ引用に検査が無かった</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;"><strong>記事の約束が実物より先に出た</strong></td>
+<td style="text-align: left;">第 13 章が「ADR には全件、再検討の条件を書いた」と書いたが、実際は一部だった</td>
+<td style="text-align: left;">書いた時点で数えていない。数値の主張にも検査が無い</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;"><strong>計画の数値が Unit の途中で古くなった</strong></td>
+<td style="text-align: left;">計画は「ADR 11 件」「扱わなかったこと 4 件」。実績は 12 件・5 件</td>
+<td style="text-align: left;">計画は承認済み（<code>stable</code>）なので書き換えず、注記で追いついた。手順としては正しいが、<strong>計画の数値を本文に書くと必ず古くなる</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;"><strong>警告を黙らせる注釈で 2 回落ちた</strong>（Unit 4・6）</td>
+<td style="text-align: left;"><code>@UnsafeVariance</code> で ClassCastException、<code>@Suppress("UNCHECKED_CAST")</code> で NPE</td>
+<td style="text-align: left;">注釈を書いた行を実行するテストが無かった。Unit 6 で規律化した</td>
+</tr>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;"><strong>ふりかえり文書を 6 Unit 分作らなかった</strong></td>
+<td style="text-align: left;">学びは Bolt 終了報告に書いたが、KPT として独立していなかった</td>
+<td style="text-align: left;">AI-DLC の Bolt 終了報告で足りると判断した。結果として「次に試すこと」が報告書の中に埋もれた</td>
+</tr>
+<tr>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;"><strong>リードタイムが全 Unit「1 日」で見積もりに使えない</strong></td>
+<td style="text-align: left;">計画は 10 営業日、実績は 1 日</td>
+<td style="text-align: left;">AI が実装したため人の作業日数と対応しない。<strong>この数字を次の見積もりに再利用してはならない</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="try">Try（次に試すこと）<a class="headerlink" href="#try" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">#</th>
+<th style="text-align: left;">Try</th>
+<th style="text-align: left;">期待効果</th>
+<th style="text-align: left;">期限・契機</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;"><strong>章をまたぐ引用の検査をスクリプトにして CI に入れる</strong>（Problem 1）</td>
+<td style="text-align: left;">引用の捏造を機械で止める。Unit 7 では使い捨てのスクリプトで 3 件見つかった</td>
+<td style="text-align: left;">次の連載の Unit 1（記事が 2 章以上になった時点）</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;"><strong>節構成 ↔ 章構成マインドマップの一致を検査に入れる</strong>（Problem 2 の同類）</td>
+<td style="text-align: left;">記事の構成検証というゲートの一部を機械に移せる</td>
+<td style="text-align: left;">同上</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;"><strong>記事に書く数値（件数・テスト数）を検査対象にする</strong>（Problem 2）</td>
+<td style="text-align: left;">「全件」「N 件」の主張が実物とずれたら落ちる</td>
+<td style="text-align: left;">次の連載の Unit 2</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;"><strong>計画の本文には件数を書かず、索引へのリンクで示す</strong>（Problem 3）</td>
+<td style="text-align: left;">承認済みの計画が古くならない</td>
+<td style="text-align: left;">次のリリース計画の作成時</td>
+</tr>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;"><strong>各 Unit のクローズで KPT を独立した文書にする</strong>（Problem 5）</td>
+<td style="text-align: left;">Try が報告書に埋もれず、次 Unit の計画の入力になる</td>
+<td style="text-align: left;">次のリリースの Unit 1 から</td>
+</tr>
+<tr>
+<td style="text-align: left;">7</td>
+<td style="text-align: left;"><strong><code>forAllRandom</code> に境界値（<code>0</code>・最小・最大）を混ぜる</strong></td>
+<td style="text-align: left;">5 章分のプロパティテストが境界を踏んでいない。ヘルパーが 5 章のスニペットに載っているため、次の連載の第 1 章で作り直すときに入れる</td>
+<td style="text-align: left;">次の連載のヘルパー作成時</td>
+</tr>
+<tr>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;"><strong>リードタイムの代わりに「人が検証に使った時間」を測る</strong>（Problem 6）</td>
+<td style="text-align: left;">AI の実装速度に影響されない指標になる。検証負荷ポイントの妥当性も検証できる</td>
+<td style="text-align: left;">次のリリース計画の指標定義時</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_2">レビュー指摘への対応方針<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>本 Unit のクローズで実施した <a href="../../review/unit7_review_20260927/">マルチパースペクティブレビュー</a>（高 9 件・中 7 件・低 6 件）の指摘は、<a href="../bolt_report-7/">Unit 7 の完了報告</a> と本ふりかえりの Try に反映しました。連載は本 Unit で完結するため、<strong>記事本文・ADR・実装に関わる高優先度 9 件はこの Unit で修正し、検査の追加は次のリリースへの Try として残しています</strong>（連載が終わった後に常設の検査を足しても、守る対象が増えないため）。</p>
+<p>レビューで加わった Problem を 2 件、ここに残します。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">#</th>
+<th style="text-align: left;">Problem</th>
+<th style="text-align: left;">何が起きたか</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">7</td>
+<td style="text-align: left;"><strong>「波及 0 ファイル」を配線せずに主張していた</strong></td>
+<td style="text-align: left;"><code>logged</code> に呼び出し元もテストも無く、「波及 0」が「未配線」と同義だった。5 視点のうち 3 視点が独立に指摘した</td>
+</tr>
+<tr>
+<td style="text-align: left;">8</td>
+<td style="text-align: left;"><strong>型で約束したことを実装が破っていた</strong></td>
+<td style="text-align: left;"><code>Converter.parse</code> は <code>Outcome</code> を返すと宣言しながら、4 経路で例外を投げていた（第 7 章の主張と矛盾）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>どちらも「書いた主張を実装が裏づけていない」という同じ形です。</strong> Problem 1・2（引用と数値）と合わせると、本 Unit の欠陥は 4 件すべてこの形でした。Try 1・3 の検査はこの形を狙って足します。</p>
+<hr />
+<h2 id="_3">次のリリースへの引き継ぎ<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>読者は JDK 21 を前提にできる。</strong> <code>nix develop .#kotlin</code> で JDK 21 が入るため、ホストの JDK バージョンに左右されない</li>
-<li><strong>原著のコードをそのまま貼っても動かない箇所が出る。</strong> 特に第 5 章以降のコレクション API と、第 9 章の JDBC 周りで差が出る可能性がある。差が出たら該当章に注記する（決定 5）</li>
-<li><strong><code>kotlinc -version</code> と <code>./gradlew</code> のビルドログでバージョンが食い違って見える。</strong> 読者が混乱しうるため、<code>apps/kotlin/zettai/README.md</code> に「ビルドの正は Gradle 側」であることを明記した</li>
-<li><strong>nixpkgs の更新で devShell の Kotlin が上がっても、ビルドは壊れない。</strong> 逆に言えば、CLI で試したコードがビルドで通らないことはありうる</li>
+<li>Try 1・2・3（記事に対する 3 つの検査）— <a href="../release_report-1.0.0/">リリース完了報告</a> の提案にも記載</li>
+<li>Try 4・5・6（計画と指標の作り方）</li>
+<li>扱わなかったこと 5 件（認証・認可 / HTML エスケープ / CSRF / スナップショット・リードモデル / JSON エスケープ）のうち、どれを扱うかの判断</li>
 </ul>
-<h2 id="_6">コンプライアンス<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<hr />
+<h2 id="_4">関連ドキュメント<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <ul>
-<li><code>apps/kotlin/zettai/build.gradle.kts</code> に <code>jvmToolchain(21)</code> があること</li>
-<li><code>apps/kotlin/zettai/gradle/libs.versions.toml</code> に <code>kotlin</code> のバージョンがあり、<code>build.gradle.kts</code> にリテラルのバージョンが無いこと</li>
-<li><code>nix develop .#kotlin</code> で <code>javac -version</code> が 21 系を返すこと</li>
-<li><code>./gradlew check</code> が green であること</li>
-</ul>
-<p>上記は Unit 1 の Deployment Unit の完了条件に含まれている。</p>
-<h2 id="_7">備考<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
-<ul>
-<li>決定者: k2works</li>
-<li>起案: Unit 1 のスパイク（<a href="../../development/iteration_plan-1/">Unit 1 の Bolt 計画</a> ステップ 1-1.0）</li>
-<li>関連: <a href="../../development/release_plan/">リリース計画</a> 技術リスク 1、<a href="../../article/outline/">執筆計画</a> 実行環境の方針</li>
+<li><a href="../iteration_plan-7/">Unit 7 の Bolt 計画</a> / <a href="../bolt_report-7/">Bolt 終了報告</a></li>
+<li><a href="../release_report-1.0.0/">リリース完了報告（v1.0.0）</a></li>
+<li><a href="../../journal/20260927-unit7/">開発ジャーナル Unit 7</a></li>
+<li><a href="../release_plan/">リリース計画</a> / <a href="../development_strategy/">開発戦略</a></li>
 </ul>
 
 

@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Zettai 連載 Kotlin 版のサンプル実装で、原著の Kotlin 1.8.20 / JDK 11 ではなく Kotlin 2.2（Gradle プラグイン）/ JDK 21 を採用し、ビルドの正を Gradle 側に置く決定と、devShell の kotlinc 2.3 との二重管理を許容する理由・影響・遵守確認方法を記録する。">
+        <meta name="description" content="Zettai 連載 Kotlin 版 Unit 7（第 12〜13 章）の成果物を 5 つの XP 視点（programmer / tester / architect / technical-writer / user-representative）で並列レビューした統合レポート。高優先度 9 件・中 7 件・低 6 件の指摘と対応方針、修正内容、次のリリースへ回した項目を記録する。">
       
       
         <meta name="author" content="Project Team">
@@ -16,7 +16,7 @@
         <link rel="prev" href="../">
       
       
-        <link rel="next" href="../ADR-002-ddt-pesticide/">
+        <link rel="next" href="../../adr/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>ADR-001 サンプル実装に Kotlin 2.2 / JDK 21 を採用する - From Objects to Functions 演習</title>
+        <title>Unit 7 開発成果物レビュー（マルチパースペクティブ）- Zettai 連載（Kotlin 版） - From Objects to Functions 演習</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#adr-001-kotlin-22-jdk-21" class="md-skip">
+        <a href="#unit-7" class="md-skip">
           Skip to content
         </a>
       
@@ -112,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              ADR-001 サンプル実装に Kotlin 2.2 / JDK 21 を採用する
+              Unit 7 開発成果物レビュー（マルチパースペクティブ）- Zettai 連載（Kotlin 版）
             
           </span>
         </div>
@@ -336,11 +336,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../review/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
           
   
   
@@ -356,13 +358,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../adr/" class="md-tabs__link">
           
   
   
@@ -2289,128 +2289,6 @@
       
   
   
-  
-  
-    
-    
-    
-    
-      
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
-        
-          
-          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    レビュー
-  
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_8">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    レビュー
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../review/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    概要
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../review/unit7_review_20260927/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Unit 7 開発成果物レビュー
-  
-
-    
-  </span>
-  
-  
-    
-  
-  
-    <span class="md-status md-status--draft"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
     
   
   
@@ -2432,17 +2310,17 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
         
           
-          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
             
   
   
   <span class="md-ellipsis">
     
   
-    ADR
+    レビュー
   
 
     
@@ -2453,12 +2331,12 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_9">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_8">
             <span class="md-nav__icon md-icon"></span>
             
   
-    ADR
+    レビュー
   
 
           </label>
@@ -2515,7 +2393,7 @@
   <span class="md-ellipsis">
     
   
-    ADR-001 Kotlin 2.2 / JDK 21 の採用
+    Unit 7 開発成果物レビュー
   
 
     
@@ -2540,7 +2418,7 @@
   <span class="md-ellipsis">
     
   
-    ADR-001 Kotlin 2.2 / JDK 21 の採用
+    Unit 7 開発成果物レビュー
   
 
     
@@ -2576,7 +2454,7 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ステータス
+        レビュー対象
       
     </span>
   </a>
@@ -2587,7 +2465,7 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        コンテキスト
+        総合評価
       
     </span>
   </a>
@@ -2598,19 +2476,52 @@
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
       
-        決定
+        改善提案（重要度順）
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="決定">
+    <nav class="md-nav" aria-label="改善提案（重要度順）">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
       
-        検討した代替案
+        高（クローズ前に対応すべき）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        中（対応推奨）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        低（改善の余地あり）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        追加ラウンド（要約で届いた中・低）
       
     </span>
   </a>
@@ -2623,10 +2534,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
+  <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
       
-        影響
+        許容・保留とした指摘
       
     </span>
   </a>
@@ -2634,10 +2545,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
+  <a href="#_9" class="md-nav__link">
     <span class="md-ellipsis">
       
-        コンプライアンス
+        矛盾事項
       
     </span>
   </a>
@@ -2645,10 +2556,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
+  <a href="#_10" class="md-nav__link">
     <span class="md-ellipsis">
       
-        備考
+        検証（修正後）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        関連ドキュメント
       
     </span>
   </a>
@@ -2664,6 +2586,65 @@
 
               
             
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ADR
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
               
                 
   
@@ -2671,7 +2652,70 @@
   
   
     <li class="md-nav__item">
-      <a href="../ADR-002-ddt-pesticide/" class="md-nav__link">
+      <a href="../../adr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概要
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/ADR-001-kotlin-toolchain/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR-001 Kotlin 2.2 / JDK 21 の採用
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/ADR-002-ddt-pesticide/" class="md-nav__link">
         
   
   
@@ -2706,7 +2750,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ADR-003-http4k-6/" class="md-nav__link">
+      <a href="../../adr/ADR-003-http4k-6/" class="md-nav__link">
         
   
   
@@ -2741,7 +2785,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ADR-004-static-analysis/" class="md-nav__link">
+      <a href="../../adr/ADR-004-static-analysis/" class="md-nav__link">
         
   
   
@@ -2776,7 +2820,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ADR-005-property-based-testing/" class="md-nav__link">
+      <a href="../../adr/ADR-005-property-based-testing/" class="md-nav__link">
         
   
   
@@ -2811,7 +2855,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ADR-006-outcome-port-type/" class="md-nav__link">
+      <a href="../../adr/ADR-006-outcome-port-type/" class="md-nav__link">
         
   
   
@@ -2846,7 +2890,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ADR-007-module-per-unit/" class="md-nav__link">
+      <a href="../../adr/ADR-007-module-per-unit/" class="md-nav__link">
         
   
   
@@ -2881,7 +2925,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ADR-008-event-store-single-table/" class="md-nav__link">
+      <a href="../../adr/ADR-008-event-store-single-table/" class="md-nav__link">
         
   
   
@@ -2916,7 +2960,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ADR-009-integration-test-database/" class="md-nav__link">
+      <a href="../../adr/ADR-009-integration-test-database/" class="md-nav__link">
         
   
   
@@ -2951,7 +2995,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ADR-010-own-template/" class="md-nav__link">
+      <a href="../../adr/ADR-010-own-template/" class="md-nav__link">
         
   
   
@@ -2986,7 +3030,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ADR-011-transaction-boundary/" class="md-nav__link">
+      <a href="../../adr/ADR-011-transaction-boundary/" class="md-nav__link">
         
   
   
@@ -3021,7 +3065,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ADR-012-own-json-converter/" class="md-nav__link">
+      <a href="../../adr/ADR-012-own-json-converter/" class="md-nav__link">
         
   
   
@@ -6026,103 +6070,400 @@
   
 
 
-<h1 id="adr-001-kotlin-22-jdk-21">ADR-001 サンプル実装に Kotlin 2.2 / JDK 21 を採用する<a class="headerlink" href="#adr-001-kotlin-22-jdk-21" title="Permanent link">&para;</a></h1>
-<p>Zettai 連載のサンプル実装が使う Kotlin と JDK のバージョンを決める。</p>
-<p>日付: 2026-09-26</p>
-<h2 id="_1">ステータス<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p>2026-09-26 提案されました</p>
-<h2 id="_2">コンテキスト<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<p>連載 <a href="../../article/zettai/">Zettai</a> は Uberto Barbini 著『From Objects to Functions』を下敷きにしている。原著のコンパニオンコード（<code>references/fotf/</code>）は <strong>Kotlin 1.8.20 / <code>jvmToolchain(11)</code></strong> でビルドされている。</p>
-<p>一方、本連載は 2026 年に公開する読者に向けたものであり、読者が手元で再現することが Intent の中核にある。原著の 2023 年時点のツールチェーンをそのまま使うと、読者が現在の Kotlin で書いたときに動かないコードを学ぶことになる。</p>
-<p>Unit 1 のスパイク（ステップ 1-1.0）で、リポジトリの nixpkgs（<code>nixos-unstable</code>）が提供するバージョンと Maven Central の最新安定版を調べた。</p>
+<h1 id="unit-7">Unit 7 開発成果物レビュー（マルチパースペクティブ）<a class="headerlink" href="#unit-7" title="Permanent link">&para;</a></h1>
+<h2 id="_1">レビュー対象<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">対象</th>
-<th style="text-align: left;">調査結果</th>
+<th style="text-align: left;">項目</th>
+<th style="text-align: left;">内容</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">nixpkgs <code>kotlin</code></td>
-<td style="text-align: left;">2.3.0（CLI コンパイラ <code>kotlinc</code>）</td>
+<td style="text-align: left;">Unit</td>
+<td style="text-align: left;">Unit 7 監視とアーキテクチャ総括（最終）</td>
 </tr>
 <tr>
-<td style="text-align: left;">nixpkgs <code>jdk21</code></td>
-<td style="text-align: left;">21.0.8</td>
+<td style="text-align: left;">実装</td>
+<td style="text-align: left;"><code>apps/kotlin/zettai/zettai-step5-monitoring/</code>（<code>fp/Converter.kt</code>・<code>json/</code>・<code>logger/</code>）</td>
 </tr>
 <tr>
-<td style="text-align: left;">nixpkgs <code>gradle</code></td>
-<td style="text-align: left;">8.14.3</td>
+<td style="text-align: left;">記事</td>
+<td style="text-align: left;"><a href="../../article/zettai/kotlin/chapter12/">第 12 章</a>・<a href="../../article/zettai/kotlin/chapter13/">第 13 章</a></td>
 </tr>
 <tr>
-<td style="text-align: left;">Maven Central <code>kotlin-gradle-plugin</code> の最新安定版</td>
-<td style="text-align: left;">2.2.0（2.3.0 は未公開）</td>
+<td style="text-align: left;">報告</td>
+<td style="text-align: left;"><a href="../../development/bolt_report-7/">Bolt 終了報告</a>・<a href="../../development/release_report-1.0.0/">リリース完了報告 v1.0.0</a></td>
 </tr>
 <tr>
-<td style="text-align: left;">Maven Central <code>junit-bom</code> の最新安定版</td>
-<td style="text-align: left;">5.12.2</td>
+<td style="text-align: left;">差分</td>
+<td style="text-align: left;"><code>de2bde3..HEAD</code></td>
 </tr>
 <tr>
-<td style="text-align: left;">Maven Central <code>strikt-core</code> の最新版</td>
-<td style="text-align: left;">0.35.1</td>
+<td style="text-align: left;">視点</td>
+<td style="text-align: left;">xp-programmer / xp-tester / xp-architect / xp-technical-writer / xp-user-representative（並列実行）</td>
 </tr>
 </tbody>
 </table>
-<p>ここで問題になるのは、<strong>devShell が提供する CLI コンパイラ（2.3.0）と、Gradle がビルドに使う Kotlin コンパイラ（プラグイン 2.2.0）のバージョンが一致しない</strong>ことである。nixpkgs は unstable を追うため、Maven Central の安定版より先行することがある。</p>
-<h2 id="_3">決定<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
-<p>サンプル実装は <strong>Kotlin 2.2（Gradle プラグイン）/ JDK 21</strong> を採用する。原著の Kotlin 1.8.20 / JDK 11 は踏襲しない。</p>
-<p>あわせて次を決める。</p>
-<ol>
-<li><strong>ビルドの正は Gradle 側に置く。</strong> コンパイラのバージョンは <code>apps/kotlin/zettai/gradle/libs.versions.toml</code> の <code>kotlin</code> で決まる。devShell の <code>kotlinc</code> は単発のスクリプトを試すための CLI であり、ビルドには関与しない</li>
-<li><strong>devShell の <code>kotlin</code> のバージョンは固定しない。</strong> nixpkgs の更新に追従させる。CLI とビルドのバージョン差は許容する</li>
-<li><strong>JDK は <code>jvmToolchain(21)</code> で明示する。</strong> ホストの JAVA_HOME に依存させない</li>
-<li><strong>依存バージョンは <code>libs.versions.toml</code> に集中させる。</strong> <code>build.gradle.kts</code> にリテラルのバージョンを書かない</li>
-<li><strong>原著と挙動や API が異なる箇所は、該当する章の記事に注記する。</strong> 読者が原著と行き来できるようにするため</li>
-</ol>
-<h3 id="_4">検討した代替案<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<h2 id="_2">総合評価<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>5 視点の結論は一致しています。<strong>設計そのものは健全で、問題は「主張と実装の距離」に集中していました。</strong> 依存の向き（アダプタ → ドメイン）は実測で違反 0 件、<code>TxContext</code> を空にした判断と ADR-011 の記録は本 Unit で最も質が高い部分、第 13 章の判断フローは読者が実務に持ち帰れる形、節構成はマインドマップと完全一致、文体規約違反 0 件でした。</p>
+<p>一方で、本 Unit の看板だった「ログは横断関心事なので包むだけで足した（波及 0 ファイル）」は、<strong><code>logged</code> に呼び出し元もテストも 1 つも無く、検証されていませんでした</strong>（architect・programmer・tester が独立に同じ結論）。「波及 0」は「未配線」と同義になっていました。加えて <code>Converter.parse</code> が <code>Outcome</code> を返すと宣言しながら例外で落ちる経路があり、第 7 章の主張と矛盾していました。</p>
+<p><strong>Unit 7 が「検査は参照を守るが主張は守らない」と学んだその場所で、同じ形の欠陥が実装側にも残っていました。</strong></p>
+<h2 id="_3">改善提案（重要度順）<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h3 id="_4">高（クローズ前に対応すべき）<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">案</th>
-<th style="text-align: left;">採らなかった理由</th>
+<th style="text-align: left;">#</th>
+<th style="text-align: left;">提案</th>
+<th style="text-align: left;">箇所</th>
+<th style="text-align: left;">指摘元</th>
+<th style="text-align: left;">対応</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">原著と同じ Kotlin 1.8.20 / JDK 11 を使う</td>
-<td style="text-align: left;">2026 年の読者が手元で再現したときに、現在の Kotlin と挙動が異なる。連載の価値が「今書けるコード」であることと矛盾する</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;"><code>logged</code> に呼び出し元もテストも無く「波及 0 ファイル」が検証されていない</td>
+<td style="text-align: left;"><code>logger/LoggedAction.kt:12</code></td>
+<td style="text-align: left;">architect・programmer・tester</td>
+<td style="text-align: left;"><strong>修正</strong>。<code>PostgresActions.hub()</code> に配線し、シナリオが 1 文字も変わらないことで主張を実証。<code>LoggedActionTest</code> 8 件を追加</td>
 </tr>
 <tr>
-<td style="text-align: left;">devShell の <code>kotlin</code> を 2.2.0 にピン留めして CLI とビルドを揃える</td>
-<td style="text-align: left;">nixpkgs に該当バージョンが無ければオーバーレイを書くことになり、環境定義が他の 13 環境と構造がずれる。CLI はビルドに関与しないので揃える利益が小さい</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;"><code>logged</code> が結果を読まず常に <code>LogSuccess</code> を書くため、失敗が INFO で残る</td>
+<td style="text-align: left;"><code>logger/LoggedAction.kt:16</code></td>
+<td style="text-align: left;">architect・programmer・writer</td>
+<td style="text-align: left;"><strong>修正</strong>。<code>loggedOutcome</code>（<code>Outcome</code> を要求する版）を追加し、第 12 章に「包めるのは結果を読まない範囲まで」の節を新設</td>
 </tr>
 <tr>
-<td style="text-align: left;">Gradle プラグインを 2.3.0 にして CLI と揃える</td>
-<td style="text-align: left;">Maven Central に未公開で解決できない</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;"><code>Converter.parse</code> が例外で落ちる経路が 4 つあり、<code>Outcome</code> を返す契約を破る</td>
+<td style="text-align: left;"><code>json/EventConverter.kt:60-88</code></td>
+<td style="text-align: left;">programmer・architect</td>
+<td style="text-align: left;"><strong>修正</strong>。<code>fromJsonObject</code> を包んで <code>Failure</code> にし、<code>EventConverterFailureTest</code> 6 件を追加</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">プロファンクタ則の <code>contramap</code> 側で <code>parse</code> を検証していない（法則の半分が未検証）</td>
+<td style="text-align: left;"><code>json/ConverterProfunctorTest.kt:44,79</code></td>
+<td style="text-align: left;">tester・architect</td>
+<td style="text-align: left;"><strong>修正</strong>。恒等則・合成則に <code>parse</code> のアサートを追加し、合成則の変換を可逆な足し算に変更</td>
+</tr>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;"><code>DomainBoundaryTest</code> は検査対象が 0 件でも green（番人が黙る）</td>
+<td style="text-align: left;"><code>smoke/DomainBoundaryTest.kt:19</code></td>
+<td style="text-align: left;">tester</td>
+<td style="text-align: left;"><strong>修正</strong>。「検査対象のファイルが存在する」テストを 5 モジュールに追加</td>
+</tr>
+<tr>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">境界の検査がフレームワーク 4 件のみで、ドメインが <code>zettai.logger</code> を import しても通る</td>
+<td style="text-align: left;"><code>smoke/DomainBoundaryTest.kt:16</code></td>
+<td style="text-align: left;">architect</td>
+<td style="text-align: left;"><strong>修正</strong>。アダプタ 5 パッケージを検査対象に追加（5 モジュール）。第 10・13 章の記述も更新</td>
+</tr>
+<tr>
+<td style="text-align: left;">7</td>
+<td style="text-align: left;">第 13 章に第 4 章からの引用として、第 4 章に無い文があった（<strong>捏造 3 例目</strong>。出典はジャーナル）</td>
+<td style="text-align: left;"><code>chapter13.md:74-76</code></td>
+<td style="text-align: left;">writer</td>
+<td style="text-align: left;"><strong>修正</strong>。引用をやめて地の文にした</td>
+</tr>
+<tr>
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">リリース完了報告に「ADR 全件に再検討の条件」が残っていた（第 13 章では 6 件に修正済み）</td>
+<td style="text-align: left;"><code>release_report-1.0.0.md:178</code></td>
+<td style="text-align: left;">writer</td>
+<td style="text-align: left;"><strong>修正</strong>。「入れない」と決めた 6 件に限定</td>
+</tr>
+<tr>
+<td style="text-align: left;">9</td>
+<td style="text-align: left;">JSON エスケープ不在が第 13 章の一覧にしか無く、第 12 章だけ読む読者に届かない</td>
+<td style="text-align: left;"><code>chapter12.md</code>・<code>json/JsonValue.kt</code></td>
+<td style="text-align: left;">writer・user</td>
+<td style="text-align: left;"><strong>修正</strong>。第 11 章と同じ「扱わなかったこと」節を第 12 章に新設し、<code>JsonValue.kt</code> の KDoc にも明記。<strong>限界をテストに書いた</strong>（<code>引用符を含む説明は往復できない</code>）</td>
 </tr>
 </tbody>
 </table>
-<h2 id="_5">影響<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h3 id="_5">中（対応推奨）<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">#</th>
+<th style="text-align: left;">提案</th>
+<th style="text-align: left;">箇所</th>
+<th style="text-align: left;">指摘元</th>
+<th style="text-align: left;">対応</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">10</td>
+<td style="text-align: left;">「どんな出来事でも往復できる」が実態より強い（生成は 2 種類のみ・<code>dueDate</code> は常に null）</td>
+<td style="text-align: left;"><code>EventGenerator.kt:26</code>・<code>chapter12.md:255</code></td>
+<td style="text-align: left;">tester・programmer・user</td>
+<td style="text-align: left;"><strong>修正</strong>。4 種類すべてを生成し <code>dueDate</code>・<code>status</code> も振るようにし、テスト名を「生成した出来事が往復できる」に改めた</td>
+</tr>
+<tr>
+<td style="text-align: left;">11</td>
+<td style="text-align: left;">見出し「2 つの性質」に対し本文は「合計 4 つの法則」（章間の規約とずれる）</td>
+<td style="text-align: left;"><code>chapter12.md:345</code></td>
+<td style="text-align: left;">writer</td>
+<td style="text-align: left;"><strong>修正</strong>。「4 つの性質」に改めた</td>
+</tr>
+<tr>
+<td style="text-align: left;">12</td>
+<td style="text-align: left;"><code>Converter</code> は厳密なプロファンクタより制約が強い（<code>map</code>・<code>contramap</code> が両方向を要求＝不変）</td>
+<td style="text-align: left;"><code>fp/Converter.kt:17</code>・<code>chapter12.md</code></td>
+<td style="text-align: left;">architect・programmer</td>
+<td style="text-align: left;"><strong>修正</strong>。第 12 章に「名前は当てはめる前に、どこまで当てはまるかを確かめる」として 1 段落追記</td>
+</tr>
+<tr>
+<td style="text-align: left;">13</td>
+<td style="text-align: left;">ADR 分類表が ADR-008 を二重計上し ADR-006 が漏れて実体 11 件</td>
+<td style="text-align: left;"><code>release_report-1.0.0.md:161</code></td>
+<td style="text-align: left;">writer</td>
+<td style="text-align: left;"><strong>修正</strong>。006 を「設計の境界を決める」に入れ、008 の数え方を注記</td>
+</tr>
+<tr>
+<td style="text-align: left;">14</td>
+<td style="text-align: left;">提案 3 が「節構成の検査」のみで、本 Unit 最大の学び（引用の実在検査）が落ちていた</td>
+<td style="text-align: left;"><code>release_report-1.0.0.md:273</code></td>
+<td style="text-align: left;">writer</td>
+<td style="text-align: left;"><strong>修正</strong>。検査 2 つに改め、引用検査を優先と明記</td>
+</tr>
+<tr>
+<td style="text-align: left;">15</td>
+<td style="text-align: left;"><code>Instant.now()</code> が埋め込まれ、クロックを注入できないため <code>at</code> を検証できない</td>
+<td style="text-align: left;"><code>logger/Logger.kt:24</code>・<code>LoggedAction.kt</code></td>
+<td style="text-align: left;">architect</td>
+<td style="text-align: left;"><strong>保留</strong>。記事のスニペットに波及するため次のリリースの Try に回す（<a href="../../development/retrospective-7/">ふりかえり</a>）</td>
+</tr>
+<tr>
+<td style="text-align: left;">16</td>
+<td style="text-align: left;">README のモジュール一覧が step1 の 1 行のままで step2〜5 が未反映</td>
+<td style="text-align: left;"><code>apps/kotlin/zettai/README.md</code></td>
+<td style="text-align: left;">user</td>
+<td style="text-align: left;"><strong>修正</strong>。5 モジュールに揃え、連載完結と<strong>教材であり実務投入不可（認証不在）</strong>の警告を追加</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_6">低（改善の余地あり）<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">#</th>
+<th style="text-align: left;">提案</th>
+<th style="text-align: left;">箇所</th>
+<th style="text-align: left;">指摘元</th>
+<th style="text-align: left;">対応</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">17</td>
+<td style="text-align: left;">入口の技術一覧が「JSON | Kondor」（ADR-012 で不採用）</td>
+<td style="text-align: left;"><code>article/zettai/kotlin/index.md:26</code></td>
+<td style="text-align: left;">user・writer</td>
+<td style="text-align: left;"><strong>修正</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">18</td>
+<td style="text-align: left;">執筆計画の第 12 章の要素が「Kondor による JSON」のまま</td>
+<td style="text-align: left;"><code>article/outline.md:74</code></td>
+<td style="text-align: left;">writer</td>
+<td style="text-align: left;"><strong>修正</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">19</td>
+<td style="text-align: left;">第 9 章の前方参照「第 12 章で Kondor に置き換えます」が事実と異なる</td>
+<td style="text-align: left;"><code>chapter09.md:455</code></td>
+<td style="text-align: left;">本レビューで併せて検出</td>
+<td style="text-align: left;"><strong>修正</strong>。「双方向変換の型 <code>Converter</code> に置き換えます」</td>
+</tr>
+<tr>
+<td style="text-align: left;">20</td>
+<td style="text-align: left;">第 7 章のヘルパー名は <code>repeatWithRandomOutcomes</code> で <code>forAllRandom</code> は登場しない</td>
+<td style="text-align: left;"><code>chapter12.md:391</code></td>
+<td style="text-align: left;">writer</td>
+<td style="text-align: left;"><strong>修正</strong>。括弧で補足</td>
+</tr>
+<tr>
+<td style="text-align: left;">21</td>
+<td style="text-align: left;">Bolt 終了報告 7 件の Unit 7 だけリンクが無い</td>
+<td style="text-align: left;"><code>release_report-1.0.0.md:282</code></td>
+<td style="text-align: left;">writer</td>
+<td style="text-align: left;"><strong>修正</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">22</td>
+<td style="text-align: left;">読者が「自分向けか」を判断する 2 行（想定読者・読了後に得るもの）が入口に無い</td>
+<td style="text-align: left;"><code>article/zettai/kotlin/index.md</code></td>
+<td style="text-align: left;">user</td>
+<td style="text-align: left;"><strong>保留</strong>。次のリリースで入口を作り直すときに扱う</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_7">追加ラウンド（要約で届いた中・低）<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">#</th>
+<th style="text-align: left;">提案</th>
+<th style="text-align: left;">箇所</th>
+<th style="text-align: left;">指摘元</th>
+<th style="text-align: left;">対応</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">23</td>
+<td style="text-align: left;"><code>TestDatabase.reset()</code> が <code>Outcome</code> を捨て、スキーマ作成の失敗を黙って通す</td>
+<td style="text-align: left;"><code>TestDatabase.kt:21</code>（3 モジュール）</td>
+<td style="text-align: left;">tester</td>
+<td style="text-align: left;"><strong>修正</strong>。失敗したら <code>error()</code> で落とす（「skip にしない」方針と一貫させた）</td>
+</tr>
+<tr>
+<td style="text-align: left;">24</td>
+<td style="text-align: left;"><code>eventType</code> をクラス名から作るため、改名すると保存済みデータが読めなくなる（往復テストは green のまま）</td>
+<td style="text-align: left;"><code>json/EventConverter.kt:54</code></td>
+<td style="text-align: left;">tester</td>
+<td style="text-align: left;"><strong>修正</strong>。保存する文字列を固定するテストと、保存済みの 4 種類を読み戻すテストを追加</td>
+</tr>
+<tr>
+<td style="text-align: left;">25</td>
+<td style="text-align: left;"><code>forAllRandom</code> が試行ごとに <code>Random(seed)</code> を作り、境界値（<code>0</code>・<code>Int.MIN_VALUE</code>・<code>Int.MAX_VALUE</code>）を踏まない</td>
+<td style="text-align: left;"><code>property/PropertyTest.kt:18</code></td>
+<td style="text-align: left;">tester</td>
+<td style="text-align: left;"><strong>保留</strong>。このヘルパーは第 5・7・9・11・12 章のスニペットに載っているため、変更は 5 章に波及する。次のリリースの Try に回す</td>
+</tr>
+<tr>
+<td style="text-align: left;">26</td>
+<td style="text-align: left;"><code>zettai.fp.Failure</code> が完全修飾で <code>Success</code> と揃わない</td>
+<td style="text-align: left;"><code>json/EventConverter.kt:94</code></td>
+<td style="text-align: left;">tester</td>
+<td style="text-align: left;"><strong>修正</strong>。import に揃えた</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_8">許容・保留とした指摘<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">指摘</th>
+<th style="text-align: left;">判断</th>
+<th style="text-align: left;">理由</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">JSON エスケープを実装していない（<code>"</code> で壊れた JSON を JSONB に書き込む）</td>
+<td style="text-align: left;"><strong>許容（記録済み）</strong></td>
+<td style="text-align: left;"><a href="../../adr/ADR-012-own-json-converter/">ADR-012</a> の「失うもの」と第 13 章の「扱わなかったこと」に記録済み。今回さらに第 12 章・KDoc・テストの 3 箇所に限界を明示した。実装すると「扱わなかったこと」の記録と齟齬が出るため、次のリリースの候補（提案 2）として残す</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>fun main</code> と <code>./gradlew run</code> が無く、アプリを起動してログを見られない</td>
+<td style="text-align: left;"><strong>保留（要判断）</strong></td>
+<td style="text-align: left;">モジュール構成の変更（application プラグイン・新規ファイル）にあたり<strong>承認ゲートの対象</strong>。第 12 章の価値は「動かして見る」ことで伝わるという指摘は妥当なので、ユーザーの判断を仰ぐ</td>
+</tr>
+<tr>
+<td style="text-align: left;">ログに利用者名・リスト名を載せる例があり、実務で PII が流れうる</td>
+<td style="text-align: left;"><strong>保留</strong></td>
+<td style="text-align: left;">第 13 章の「扱わなかったこと」6 件目にするか、第 12 章に 1 段落置くかの判断が必要。次のリリースの候補に記録</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>logger/JsonLogger.kt</code> で <code>context.detail</code> が <code>level</code>・<code>message</code> を上書きできる</td>
+<td style="text-align: left;"><strong>許容</strong></td>
+<td style="text-align: left;">教材の範囲。予約キーの分離は次のリリースの候補</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>check_adr_references.py:62</code> の <code>filename[:7]</code> 決め打ち</td>
+<td style="text-align: left;"><strong>許容</strong></td>
+<td style="text-align: left;">ADR のファイル名規約が変わったときに気づく想定。正規表現化は次の連載で</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>zettai-step1-http/build/test-results/</code> の残存</td>
+<td style="text-align: left;"><strong>確認済み</strong></td>
+<td style="text-align: left;"><code>.gitignore</code> 対象で追跡されていない</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_9">矛盾事項<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">#</th>
+<th style="text-align: left;">視点 A</th>
+<th style="text-align: left;">視点 B</th>
+<th style="text-align: left;">論点</th>
+<th style="text-align: left;">判断</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">tester・programmer: JSON エスケープは「壊れた JSON を書かない」までは守るべき（実装で直す）</td>
+<td style="text-align: left;">第 13 章・ADR-012: 扱わないことを記録した限界</td>
+<td style="text-align: left;">実装するか、限界として記録するか</td>
+<td style="text-align: left;"><strong>記録したうえで、限界をテストで可視化する</strong>。黙って壊れる状態（roundTrip が Success を返す）は解消し、実装は次のリリースの判断に委ねた</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">architect: 「波及 0 ファイル」は配線されるまで比較表から外すべき</td>
+<td style="text-align: left;">記事・ADR・報告の 4 箇所に転記済み</td>
+<td style="text-align: left;">記述を弱めるか、実装を追いつかせるか</td>
+<td style="text-align: left;"><strong>実装を追いつかせた</strong>（配線とテスト）。記述を弱めるより安い</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_10">検証（修正後）<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">項目</th>
+<th style="text-align: left;">結果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>./gradlew clean check</code>（5 モジュール）</td>
+<td style="text-align: left;"><strong>BUILD SUCCESSFUL</strong>（テスト 711 件。修正前は 690 件）</td>
+</tr>
+<tr>
+<td style="text-align: left;">追加したテスト</td>
+<td style="text-align: left;"><code>LoggedActionTest</code> 8 件・<code>EventConverterFailureTest</code> 8 件・<code>DomainBoundaryTest</code> の検査対象アサート 5 件</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>check_article_code.py</code></td>
+<td style="text-align: left;">違反 0 件</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>check_code_style.py</code></td>
+<td style="text-align: left;">190 ファイル / 違反 0 件</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>check_adr_references.py</code></td>
+<td style="text-align: left;">ADR 12 件 / 章 13 件 / 違反 0 件</td>
+</tr>
+<tr>
+<td style="text-align: left;">章をまたぐ引用の実在（使い捨てスクリプト）</td>
+<td style="text-align: left;">実在しない引用 <strong>0 件</strong>（クローズ前は 1 件）</td>
+</tr>
+<tr>
+<td style="text-align: left;">DDT シナリオの変更</td>
+<td style="text-align: left;"><strong>0 行</strong>（<code>logged</code> の配線は組み立て側のみ）</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_11">関連ドキュメント<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>読者は JDK 21 を前提にできる。</strong> <code>nix develop .#kotlin</code> で JDK 21 が入るため、ホストの JDK バージョンに左右されない</li>
-<li><strong>原著のコードをそのまま貼っても動かない箇所が出る。</strong> 特に第 5 章以降のコレクション API と、第 9 章の JDBC 周りで差が出る可能性がある。差が出たら該当章に注記する（決定 5）</li>
-<li><strong><code>kotlinc -version</code> と <code>./gradlew</code> のビルドログでバージョンが食い違って見える。</strong> 読者が混乱しうるため、<code>apps/kotlin/zettai/README.md</code> に「ビルドの正は Gradle 側」であることを明記した</li>
-<li><strong>nixpkgs の更新で devShell の Kotlin が上がっても、ビルドは壊れない。</strong> 逆に言えば、CLI で試したコードがビルドで通らないことはありうる</li>
-</ul>
-<h2 id="_6">コンプライアンス<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
-<ul>
-<li><code>apps/kotlin/zettai/build.gradle.kts</code> に <code>jvmToolchain(21)</code> があること</li>
-<li><code>apps/kotlin/zettai/gradle/libs.versions.toml</code> に <code>kotlin</code> のバージョンがあり、<code>build.gradle.kts</code> にリテラルのバージョンが無いこと</li>
-<li><code>nix develop .#kotlin</code> で <code>javac -version</code> が 21 系を返すこと</li>
-<li><code>./gradlew check</code> が green であること</li>
-</ul>
-<p>上記は Unit 1 の Deployment Unit の完了条件に含まれている。</p>
-<h2 id="_7">備考<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
-<ul>
-<li>決定者: k2works</li>
-<li>起案: Unit 1 のスパイク（<a href="../../development/iteration_plan-1/">Unit 1 の Bolt 計画</a> ステップ 1-1.0）</li>
-<li>関連: <a href="../../development/release_plan/">リリース計画</a> 技術リスク 1、<a href="../../article/outline/">執筆計画</a> 実行環境の方針</li>
+<li><a href="../../development/iteration_plan-7/">Unit 7 の Bolt 計画</a> / <a href="../../development/bolt_report-7/">Bolt 終了報告</a></li>
+<li><a href="../../development/retrospective-7/">Unit 7 のふりかえり（KPT）</a></li>
+<li><a href="../../development/release_report-1.0.0/">リリース完了報告 v1.0.0</a></li>
+<li><a href="../../adr/ADR-012-own-json-converter/">ADR-012 自前の JSON Converter</a></li>
 </ul>
 
 

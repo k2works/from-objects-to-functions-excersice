@@ -1699,7 +1699,7 @@
   <span class="md-ellipsis">
     
   
-    リリース完了報告
+    ふりかえり
   
 
     
@@ -1712,6 +1712,101 @@
         
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ふりかえり
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../development/retrospective-7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unit 7 監視とアーキテクチャ総括
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_7" id="__nav_5_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    リリース完了報告
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_7">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2262,6 +2357,41 @@
     
   </span>
   
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../review/unit7_review_20260927/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unit 7 開発成果物レビュー
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
   
 
       </a>
@@ -6467,8 +6597,12 @@
 <p>しかし <code>map</code> では書けないことがあります。</p>
 <p><strong>「前の結果を使って、次に実行する計算を決める」</strong>場合です。</p>
 <p>たとえばテスト用の初期化で、「テーブルを作ってから、中身を空にする」をやりたい。</p>
-<div class="highlight"><pre><span></span><code><span class="w">        </span><span class="n">PostgresEventStore</span><span class="p">.</span><span class="na">createSchema</span><span class="p">().</span><span class="na">flatMap</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">PostgresEventStore</span><span class="p">.</span><span class="na">truncate</span><span class="p">()</span><span class="w"> </span><span class="p">}.</span><span class="na">runOn</span><span class="p">(</span><span class="o">::</span><span class="n">connect</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="w">        </span><span class="n">PostgresEventStore</span><span class="p">.</span><span class="na">createSchema</span><span class="p">()</span>
+<span class="w">            </span><span class="p">.</span><span class="na">flatMap</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">PostgresEventStore</span><span class="p">.</span><span class="na">truncate</span><span class="p">()</span><span class="w"> </span><span class="p">}</span>
+<span class="w">            </span><span class="p">.</span><span class="na">runOn</span><span class="p">(</span><span class="o">::</span><span class="n">connect</span><span class="p">)</span>
+<span class="w">            </span><span class="p">.</span><span class="na">fold</span><span class="p">({</span><span class="w"> </span><span class="n">error</span><span class="p">(</span><span class="s">"テスト用データベースを初期化できません: </span><span class="si">$</span><span class="n">it</span><span class="s">"</span><span class="p">)</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">})</span>
 </code></pre></div>
+<p>最後の <code>fold</code> は、<strong>初期化の失敗を捨てないため</strong>です。捨てるとスキーマが作れていないままテストが通ってしまい、「接続できないなら失敗させる」という方針と矛盾します。</p>
 <p><code>truncate()</code> は <code>DbAction&lt;Unit&gt;</code> です。<code>map</code> で繋ぐと、結果が <code>DbAction&lt;DbAction&lt;Unit&gt;&gt;</code> になります。<strong>箱が二重になります。</strong></p>
 <h3 id="flatmap">flatMap で繋ぐ<a class="headerlink" href="#flatmap" title="Permanent link">&para;</a></h3>
 <p>二重の箱を潰しながら繋ぐ操作が要ります。</p>
@@ -6616,7 +6750,7 @@
 </code></pre></div>
 <p><strong>第 5 章の <code>replayFrom</code> をそのまま使っています。</strong> 出来事がメモリから来るかデータベースから来るかを、<code>replayFrom</code> は知りません。</p>
 <h3 id="jsonb">JSONB で踏んだこと<a class="headerlink" href="#jsonb" title="Permanent link">&para;</a></h3>
-<p>JSON のシリアライズは手書きです（第 12 章で Kondor に置き換えます）。読む側の正規表現でつまずきました。</p>
+<p>JSON のシリアライズは手書きです（第 12 章で双方向変換の型 <code>Converter</code> に置き換えます）。読む側の正規表現でつまずきました。</p>
 <p><strong>PostgreSQL の <code>JSONB</code> は、保存時に JSON を正規化します。</strong> 書き込んだ文字列とそのまま同じものは返ってきません。コロンの後に空白が入ります。</p>
 <div class="highlight"><pre><span></span><code>書き込み: {"user":"uberto","listName":"book"}
 読み出し: {"user": "uberto", "listName": "book"}

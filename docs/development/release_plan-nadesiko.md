@@ -4,7 +4,7 @@ title: "リリース計画 - Zettai 連載（なでしこ3 版）"
 description: "『From Objects to Functions』を下敷きにした Zettai 連載なでしこ3 版の AI-DLC 準拠 Level 1 計画。型システムを持たない日本語プログラミング言語で同じ 13 章を辿るという Intent、7 Unit・14 ストーリーへの分解、依存 DAG、5 軸のエントロピー評価、cnako3 の採用根拠と言語制約に対するリスク台帳、契約テストを全 Bolt 共通のゲート項目に加えた承認ゲート方針、完了 Unit 数と承認ゲート通過数による進捗管理を定義する。"
 tags: [development, plan, zettai, nadesiko]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-28T03:10:58Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-28T03:34:34Z }
 ---
 
 # リリース計画 - Zettai 連載（なでしこ3 版）
@@ -236,7 +236,7 @@ Unit の順序は章順に固定されるため、優先順位は「各ストー
 各ストーリーに付けた数値は、**人が検証に費やす時間の相対的な大きさ**です。AI が実装する量ではありません。
 
 - Kotlin 版の実績（全 Unit リードタイム 1 日・ゲート通過 47 / 47・変更依頼 2 件）を基準にした推測値です
-- Unit 2 の完了時点で 2 Unit 分の実績が揃うので、そこで以降の Unit の評価と割り当てを再調整します。Kotlin 版（Unit 3 時点）より早く見直すのは、言語基盤の自作という未知が Unit 1 に集中しているためです
+- Unit 2 の完了時点で 2 Unit 分の実績が揃うので、そこで以降の Unit の評価と割り当てを再調整します。Kotlin 版（Unit 3 時点）より早く見直すのは、言語基盤の自作という未知が Unit 1 に集中しているためです。**ゲート密度の見直しも Unit 2 完了時に行います**（Unit 1 でゲートが同期的に機能せず、判断の材料が得られなかったため）
 - 「実装は終わったが記事が書けていない」状態を完了に数えません。記事を公開し、[シリーズ索引](../article/zettai/index.md) の全章構成表と進捗管理表を更新した時点で Unit 完了とします
 
 ---
@@ -438,7 +438,7 @@ Kotlin 版の実績（Unit 3 以降は変更依頼 0 件）を踏まえ、ゲー
 | Unit | 計画検証負荷 | ゲート通過数 | 変更依頼数 | 人の検証時間 | 状態 |
 |------|---------|---------|--------|------|------|
 | Unit 1 | 11 | 0 / 10 | 未確定 | 未計測 | **完了** |
-| Unit 2 | 11 | - | - | - | 未着手 |
+| Unit 2 | 11 | - | - | - | 計画済み（[Bolt 計画](iteration_plan-nadesiko-2.md)） |
 | Unit 3 | 11 | - | - | - | 未着手 |
 | Unit 4 | 11 | - | - | - | 未着手 |
 | Unit 5 | 13 | - | - | - | 未着手 |
@@ -466,7 +466,7 @@ xychart-beta
 1. [開発戦略](development_strategy.md) に「なでしこ3 版の局面別アプローチ」を追記した（局面割り当ては Kotlin 版と同一、契約テストを全 Bolt 共通のゲート項目に設定、ゲート密度の見直しを Unit 1 完了時に前倒し）
 2. [Unit 1 の Bolt 計画](iteration_plan-nadesiko-1.md) を作成した（21 ステップ・承認ゲート 10 箇所）
 3. Unit 1 を完了した（[Bolt 終了報告](bolt_report-nadesiko-1.md) / [ふりかえり](retrospective-nadesiko-1.md)）。第 1 章を公開し、実行環境とテスト基盤を自作した
-4. Unit 2 の Bolt 計画を作る。ふりかえりの Try 1・4（計画に確定値を書かない／承認ゲートの運用形態を明記する）を計画の書き方に反映する
+4. [Unit 2 の Bolt 計画](iteration_plan-nadesiko-2.md) を作成した（23 ステップ・承認ゲート 11 箇所）。ふりかえりの Try 1・4 を計画の書き方に反映し、上流設計との突合で第 3 章 第 5 節の節名の不整合を検出した
 5. `syncing-github-project` で **Unit を Milestone、Bolt のステップを Issue** として同期する
 
 ---

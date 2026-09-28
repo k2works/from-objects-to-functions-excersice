@@ -1,6 +1,6 @@
 !「./helper.nako3」を取り込む
-!「../../src/step4/commands.nako3」を取り込む
-!「../../src/step4/outcome.nako3」を取り込む
+!「../../src/step5/commands.nako3」を取り込む
+!「../../src/step5/outcome.nako3」を取り込む
 
 # --- コマンドの契約テスト ---
 作成=「uberto」と「book」でリスト作成コマンド

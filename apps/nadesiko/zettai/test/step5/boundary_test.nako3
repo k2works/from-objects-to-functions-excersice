@@ -3,10 +3,12 @@
 # ドメインの境界を検査する。
 # 1. 簡易 HTTP サーバのプラグインを取り込まない（第 2 章）
 # 2. ファイルの入出力をしない（第 10 章）
+# 3. 文脈の中身を読まない（第 10 章）
+# 4. 記録の手段を知らない（第 12 章）
 #
 # ドメインのファイルは増える。1 ファイル決め打ちにすると、
 # 増えたファイルが検査から漏れる（第 4 章で実際に漏れかけた）。
-ドメイン一覧=["src/step4/domain.nako3","src/step4/events.nako3","src/step4/outcome.nako3","src/step4/commands.nako3","src/step4/projection.nako3","src/step4/validation.nako3","src/step4/template.nako3"]
+ドメイン一覧=["src/step5/domain.nako3","src/step5/events.nako3","src/step5/outcome.nako3","src/step5/commands.nako3","src/step5/projection.nako3","src/step5/validation.nako3","src/step5/template.nako3"]
 
 Iを0から(ドメイン一覧の要素数)-1まで繰り返す
     道=ドメイン一覧[I]
@@ -25,6 +27,15 @@ Jを0から(ドメイン一覧の要素数)-1まで繰り返す
     中身2=道2を開く
     参照数=中身2で「保管先」の出現回数
     「{道2} は文脈の中身を読まない」と参照数と0で検証
+ここまで
+
+# 記録の手段をドメインが知らないこと（第 12 章）
+# ドメインは「何が起きたか」を返すだけで、それを誰がどこに書くかを知らない。
+Kを0から(ドメイン一覧の要素数)-1まで繰り返す
+    道3=ドメイン一覧[K]
+    中身3=道3を開く
+    記録数=中身3で「記録」の出現回数
+    「{道3} は記録の手段を知らない」と記録数と0で検証
 ここまで
 
 テスト結果報告

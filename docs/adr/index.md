@@ -28,5 +28,6 @@
 | [ADR-020](ADR-020-third-route.md) | 受け入れシナリオに永続化を通す 3 経路目を足す | 提案 |
 | [ADR-021](ADR-021-context-as-path.md) | 文脈を保存先の指し先として表し、組み立てない | 提案 |
 | [ADR-022](ADR-022-template-with-unfilled-check.md) | テンプレートを自前で書き、埋めそこねを実行時に止める | 提案 |
+| [ADR-023](ADR-023-builtin-json-with-converter.md) | 組み込みの JSON を使い、その上に双方向変換を置く | 提案 |
 
 ADR の作成には `creating-adr` スキルを使用してください。

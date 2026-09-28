@@ -94,7 +94,7 @@ doctest: ## doctest/stepN/ の受け入れシナリオを段階ごとに実行�
 	for s in $(TARGET_STEPS); do \
 	  scenarios=$$(ls doctest/$$s/*.nako3 2>/dev/null); \
 	  if [ -z "$$scenarios" ]; then continue; fi; \
-	  rm -f .zettai_events.log; \
+	  rm -f .zettai_events.log .zettai_log.jsonl; \
 	  $(CNAKO) src/$$s/main.nako3 > /dev/null 2>&1 & \
 	  pid=$$!; \
 	  n=0; \
@@ -109,7 +109,7 @@ doctest: ## doctest/stepN/ の受け入れシナリオを段階ごとに実行�
 	    fi; \
 	  done; \
 	  kill $$pid 2>/dev/null; \
-	  rm -f .zettai_events.log; \
+	  rm -f .zettai_events.log .zettai_log.jsonl; \
 	  sleep 1; \
 	done; \
 	if [ $$fail -ne 0 ]; then echo "失敗したシナリオがあります（$(FAILLOG) に記録）"; exit 1; fi; \

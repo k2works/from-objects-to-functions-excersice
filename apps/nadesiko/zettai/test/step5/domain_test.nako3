@@ -1,5 +1,5 @@
 !「./helper.nako3」を取り込む
-!「../../src/step4/domain.nako3」を取り込む
+!「../../src/step5/domain.nako3」を取り込む
 
 # 契約テスト。型が無いので、辞書のキーの有無と値の型をテストが守る。
 項目=「write chapter」でToDo項目作成

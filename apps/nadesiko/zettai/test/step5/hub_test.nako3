@@ -1,6 +1,6 @@
 !「./helper.nako3」を取り込む
-!「../../src/step4/commands.nako3」を取り込む
-!「../../src/step4/outcome.nako3」を取り込む
+!「../../src/step5/commands.nako3」を取り込む
+!「../../src/step5/outcome.nako3」を取り込む
 
 # ハブはドメインの入口。アダプタを関数値で受け取る。
 # テストから差し替えられることが、この章の到達点。

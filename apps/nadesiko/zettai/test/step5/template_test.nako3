@@ -1,5 +1,5 @@
 !「./helper.nako3」を取り込む
-!「../../src/step4/template.nako3」を取り込む
+!「../../src/step5/template.nako3」を取り込む
 
 雛形=『<html><body><h1>{{題名}}</h1><p>{{本文}}</p></body></html>』
 

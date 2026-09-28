@@ -1,5 +1,5 @@
 !「./helper.nako3」を取り込む
-!「../../src/step4/projection.nako3」を取り込む
+!「../../src/step5/projection.nako3」を取り込む
 
 # 射影の map もファンクタ。第 7 章の結果マップと同じ法則を確かめる。
 # 検出率の低い法則があるので、壊して測るところまでを 1 組にする（ADR-017）。

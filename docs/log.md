@@ -1,6 +1,14 @@
 # Docs Update Log
 
 ## 2026-09-28
+* **Update**: [ADR-023-builtin-json-with-converter](/adr/ADR-023-builtin-json-with-converter.md) を更新（claude-code/claude-opus-5）
+* **Update**: [domain-model](/design/domain-model.md) を更新（claude-code/claude-opus-5）
+* **Update**: [architecture_backend](/design/architecture_backend.md) を更新（claude-code/claude-opus-5）
+* **Update**: [draft](/article/draft.md) を更新（claude-code/claude-opus-5）
+* **Update**: [ADR-023-builtin-json-with-converter](/adr/ADR-023-builtin-json-with-converter.md) を更新（claude-code/claude-opus-5）
+* **Update**: [domain-model](/design/domain-model.md) を更新（claude-code/claude-opus-5）
+* **Update**: [architecture_backend](/design/architecture_backend.md) を更新（claude-code/claude-opus-5）
+* **Update**: [draft](/article/draft.md) を更新（claude-code/claude-opus-5）
 * **Update**: [iteration_plan-nadesiko-7](/development/iteration_plan-nadesiko-7.md) を更新（claude-code/claude-opus-5）
 * **Update**: [chapter11](/article/zettai/nadesiko/chapter11.md) を更新（claude-code/claude-opus-5）
 * **Update**: [ADR-015-step-directories](/adr/ADR-015-step-directories.md) を更新（claude-code/claude-opus-5）

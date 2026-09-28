@@ -1,5 +1,5 @@
 # 実行経路その 2: HTTP 経由。起動中のサーバを叩く。
-!「../../../src/step4/validation.nako3」を取り込む
+!「../../../src/step5/validation.nako3」を取り込む
 #
 # サーバの起動と停止は Makefile が持つ。cnako3 ではテストの中から
 # サーバを起こすと親プロセスが返らないため。

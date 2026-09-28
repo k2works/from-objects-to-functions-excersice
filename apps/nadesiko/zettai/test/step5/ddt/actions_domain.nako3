@@ -1,9 +1,9 @@
 # 実行経路その 1: ドメイン直接。HTTP を通さない。
 
-!「../../../src/step4/web.nako3」を取り込む
-!「../../../src/step4/outcome.nako3」を取り込む
-!「../../../src/step4/validation.nako3」を取り込む
-!「../../../src/step4/commands.nako3」を取り込む
+!「../../../src/step5/web.nako3」を取り込む
+!「../../../src/step5/outcome.nako3」を取り込む
+!「../../../src/step5/validation.nako3」を取り込む
+!「../../../src/step5/commands.nako3」を取り込む
 
 ●(利用者名とリスト名で)ドメイン直接_リスト参照
     # 第 8 章から、読む側は射影を見る（CQRS）。

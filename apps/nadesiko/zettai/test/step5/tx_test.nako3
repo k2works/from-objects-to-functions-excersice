@@ -1,5 +1,5 @@
 !「./helper.nako3」を取り込む
-!「../../src/step4/tx.nako3」を取り込む
+!「../../src/step5/tx.nako3」を取り込む
 
 保存先=「/tmp/zettai_tx_test.log」
 保存先を保管消去

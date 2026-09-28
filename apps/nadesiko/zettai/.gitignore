@@ -4,3 +4,4 @@ package-lock.json
 .zettai_events.log
 .ddt_rename.html
 .ddt_status.txt
+.check_failures.log

@@ -1,0 +1,20 @@
+!「./helper.nako3」を取り込む
+!「../../src/step4/template.nako3」を取り込む
+
+雛形=『<html><body><h1>{{題名}}</h1><p>{{本文}}</p></body></html>』
+
+埋め=雛形に{"題名":"book","本文":"3 件"}をテンプレート適用
+「全部埋まれば成功」と(埋めの成功判定)と真で検証
+「値が差し込まれる」と埋め["値"]と「<html><body><h1>book</h1><p>3 件</p></body></html>」で検証
+
+欠け=雛形に{"題名":"book"}をテンプレート適用
+「渡し忘れは失敗になる」と(欠けの成功判定)と偽で検証
+「理由は TemplateNotFilled」と欠け["理由"]と「TemplateNotFilled」で検証
+一覧=失敗理由一覧
+位置=一覧から「TemplateNotFilled」を配列検索
+「TemplateNotFilled は一覧にある」と(位置>=0)と真で検証
+
+危険=雛形に{"題名":"<script>","本文":"x"}をテンプレート適用
+「値のタグは無害化される」と危険["値"]と「<html><body><h1>&lt;script&gt;</h1><p>x</p></body></html>」で検証
+
+テスト結果報告

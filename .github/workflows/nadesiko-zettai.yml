@@ -35,6 +35,12 @@ jobs:
       - name: Install cnako3
         run: npm install --no-audit --no-fund
 
+      # lint は make check から外してある（Unit 7 / ADR-015）。
+      # test と doctest が取り込んだファイルをすべて構文解析するので
+      # 二重だが、CI では早く明確なエラーのために先に 1 回だけ回す。
+      - name: Run lint (all steps)
+        run: make lint STEP=all
+
       # ローカルの make check は最新の段階だけを対象にする（書いている間の
       # 待ち時間を短く保つため）。CI は全段階を毎回確かめる（ADR-015）。
       - name: Run check (all steps)

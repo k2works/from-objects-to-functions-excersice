@@ -10,6 +10,7 @@
 CNAKO := ./node_modules/.bin/cnako3
 # 並列数。ファイルごとにプロセスを起こすので、段階が増えるほど効く。
 JOBS  ?= 8
+FAILLOG := .check_failures.log
 STEPS := $(notdir $(wildcard src/step*))
 # STEP を指定しなければ「最新の段階だけ」を対象にする。
 # 書いている間の待ち時間を短く保つため（ADR-015）。
@@ -34,12 +35,20 @@ steps: ## 段階の一覧を表示する
 	@echo "段階: $(STEPS)（最新: $(LATEST)）"
 	@echo "make check は $(TARGET_STEPS) を対象にする。全段階は make check-all"
 
-check: lint test doctest ## 最新の段階だけを検査する（書いている間はこれ）
+check: test doctest ## 最新の段階だけを検査する（書いている間はこれ）
 
 check-all: ## 全段階を検査する（CI が毎回回す）
 	@$(MAKE) --no-print-directory check STEP=all
 
-lint: ## 全 .nako3 を構文解析だけして文法エラーを見つける
+lint: ## 構文解析だけして文法エラーを見つける（check には含めない。CI が回す）
+	@# **check からは外してある（Unit 7 / ADR-015）。**
+	@# test と doctest はテストそのものが入口で、取り込んだファイルを
+	@# すべて構文解析する。main.nako3 は doctest がサーバとして起動する。
+	@# 全 4 段階 107 ファイルを調べて、実行で解析されないファイルは 0 件だった。
+	@# つまり lint が単独で守っているものは無く、検査の速さだけを奪っていた
+	@# （5 段階で lint 35 秒 / test 14 秒 / doctest 14 秒）。
+	@# 早く明確なエラーが要るときのために、単独のタスクとしては残す。
+	@#
 	@# cnako3 は文法エラーでも終了コードが 0 なので、-A（AST 出力）の
 	@# 標準エラー出力が空かどうかで判定する。
 	@# ファイル 1 つごとにプロセスを起こすため、段階が増えると遅くなる。
@@ -58,11 +67,19 @@ test: ## test/stepN/*_test.nako3 を 1 本ずつ実行する
 	@# cnako3 が終了コード 0 のまま出力に「…エラー]」と書くことで検出する。
 	@# [エラー] だけを見ていたときは [実行時エラー] を取りこぼした。
 	@# テストも段階が増えると本数で効いてくる。互いに独立なので並列で回す。
+	@# 落ちたテストの名前を $(FAILLOG) にも残す（Unit 7 / Try 3）。
+	@# Unit 6 で make check が 1 度だけ落ちたとき、出力を捨てていたため
+	@# どのテストが落ちたか分からず、原因を追えなかった。
+	@# 画面に出すだけでは、パイプの先で消える。
+	@rm -f $(FAILLOG)
 	@echo "$(TESTS)" | tr ' ' '\n' | xargs -P $(JOBS) -n 1 sh -c \
 	  'out=$$($(CNAKO) "$$0" 2>&1); code=$$?; \
 	   echo "--- $$0"; echo "$$out"; \
-	   if [ $$code -ne 0 ] || echo "$$out" | grep -qE "エラー\]"; then echo "  -> FAILED $$0"; exit 1; fi' \
-	  || { echo "失敗したテストがあります"; exit 1; }
+	   if [ $$code -ne 0 ] || echo "$$out" | grep -qE "エラー\]"; then \
+	     echo "  -> FAILED $$0"; \
+	     { echo "FAILED $$0"; echo "$$out" | grep -E "FAIL |エラー\]" | head -5; } >> $(FAILLOG); \
+	     exit 1; fi' \
+	  || { echo "失敗したテストがあります（$(FAILLOG) に記録）"; cat $(FAILLOG); exit 1; }
 	@echo "テスト green" 
 
 doctest: ## doctest/stepN/ の受け入れシナリオを段階ごとに実行する
@@ -70,6 +87,9 @@ doctest: ## doctest/stepN/ の受け入れシナリオを段階ごとに実行�
 	@# サーバの起動と停止をここに置く。段階ごとにサーバを立て直す。
 	@# 第 9 章から、起動したサーバがイベントログを作る。
 	@# テストが作ったものを残さない。段階ごとに前後で消す。
+	@# 前の実行が中断されるとサーバが 8080 を掴んだまま残り、次の実行が
+	@# 別のサーバを見て落ちる（Unit 7 で踏んだ）。始める前に必ず空ける。
+	@lsof -ti:8080 2>/dev/null | xargs kill -9 2>/dev/null || true
 	@fail=0; \
 	for s in $(TARGET_STEPS); do \
 	  scenarios=$$(ls doctest/$$s/*.nako3 2>/dev/null); \
@@ -83,13 +103,16 @@ doctest: ## doctest/stepN/ の受け入れシナリオを段階ごとに実行�
 	    echo "--- $$t"; \
 	    out=$$($(CNAKO) "$$t" 2>&1); code=$$?; \
 	    echo "$$out"; \
-	    if [ $$code -ne 0 ] || echo "$$out" | grep -qE 'エラー\]'; then fail=1; echo "  -> FAILED"; fi; \
+	    if [ $$code -ne 0 ] || echo "$$out" | grep -qE 'エラー\]'; then \
+	      fail=1; echo "  -> FAILED $$t"; \
+	      { echo "FAILED $$t"; echo "$$out" | grep -E 'FAIL |エラー\]' | head -5; } >> $(FAILLOG); \
+	    fi; \
 	  done; \
 	  kill $$pid 2>/dev/null; \
 	  rm -f .zettai_events.log; \
 	  sleep 1; \
 	done; \
-	if [ $$fail -ne 0 ]; then exit 1; fi; \
+	if [ $$fail -ne 0 ]; then echo "失敗したシナリオがあります（$(FAILLOG) に記録）"; exit 1; fi; \
 	echo "受け入れシナリオ green"
 
 run: ## 最新の段階のアプリケーションを実行する

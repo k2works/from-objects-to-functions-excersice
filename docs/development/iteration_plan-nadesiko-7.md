@@ -3,8 +3,10 @@ type: Bolt Plan
 title: "Unit 7 の Bolt 計画（イテレーション 7）- Zettai 連載（なでしこ3 版）"
 description: "Zettai 連載なでしこ3 版の Unit 7（監視とアーキテクチャ総括）の Bolt 計画。超えたまま持ち越した NFR を構造で直し、組み込みの JSON の上に双方向変換（プロファンクタ）を置き、第 13 章で Kotlin 版と対比して連載を完結させる。Unit 6 のふりかえり Try を反映し、ゲート密度を疎に下げる。"
 tags: [development, plan, ai-dlc, bolt, zettai, nadesiko, unit-7]
-status: draft
+status: stable
 generated: { by: claude-code/claude-opus-5, at: 2026-09-28T10:43:33Z }
+verified:
+  - { by: human:kakimomokuri, at: 2026-09-28T10:52:25Z }
 ---
 
 # Unit 7 の Bolt 計画（イテレーション 7）- Zettai 連載（なでしこ3 版）

@@ -32,7 +32,7 @@
 | Unit 2 ウォーキングスケルトンとドメイン分離 | [Unit 2 の Bolt 計画](iteration_plan-nadesiko-2.md) | [ふりかえり](retrospective-nadesiko-2.md) | [Bolt 終了報告](bolt_report-nadesiko-2.md) | **完了** |
 | Unit 3 関数型 DI とイベント | [Unit 3 の Bolt 計画](iteration_plan-nadesiko-3.md) | [ふりかえり](retrospective-nadesiko-3.md) | [Bolt 終了報告](bolt_report-nadesiko-3.md) | **完了** |
 | Unit 4 コマンドとエラーハンドリング | [Unit 4 の Bolt 計画](iteration_plan-nadesiko-4.md) | [ふりかえり](retrospective-nadesiko-4.md) | [Bolt 終了報告](bolt_report-nadesiko-4.md) | **完了** |
-| Unit 5 射影と永続化 | [Unit 5 の Bolt 計画](iteration_plan-nadesiko-5.md) | - | - | 計画済み |
+| Unit 5 射影と永続化 | [Unit 5 の Bolt 計画](iteration_plan-nadesiko-5.md) | [ふりかえり](retrospective-nadesiko-5.md) | [Bolt 終了報告](bolt_report-nadesiko-5.md) | **完了** |
 
 Unit（イテレーション）開始時に行を追加します。AI-DLC では 1 Unit = 2 Bolt（章 1 本ずつ）とし、Bolt のステップ計画と承認ゲートを各計画に書きます。
 

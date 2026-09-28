@@ -60,10 +60,13 @@ test: ## test/stepN/*_test.nako3 を 1 本ずつ実行する
 doctest: ## doctest/stepN/ の受け入れシナリオを段階ごとに実行する
 	@# cnako3 ではテストの中からサーバを起こすと親プロセスが返らないので、
 	@# サーバの起動と停止をここに置く。段階ごとにサーバを立て直す。
+	@# 第 9 章から、起動したサーバがイベントログを作る。
+	@# テストが作ったものを残さない。段階ごとに前後で消す。
 	@fail=0; \
 	for s in $(TARGET_STEPS); do \
 	  scenarios=$$(ls doctest/$$s/*.nako3 2>/dev/null); \
 	  if [ -z "$$scenarios" ]; then continue; fi; \
+	  rm -f .zettai_events.log; \
 	  $(CNAKO) src/$$s/main.nako3 > /dev/null 2>&1 & \
 	  pid=$$!; \
 	  n=0; \
@@ -75,6 +78,7 @@ doctest: ## doctest/stepN/ の受け入れシナリオを段階ごとに実行�
 	    if [ $$code -ne 0 ] || echo "$$out" | grep -qE 'エラー\]'; then fail=1; echo "  -> FAILED"; fi; \
 	  done; \
 	  kill $$pid 2>/dev/null; \
+	  rm -f .zettai_events.log; \
 	  sleep 1; \
 	done; \
 	if [ $$fail -ne 0 ]; then exit 1; fi; \

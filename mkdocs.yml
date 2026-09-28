@@ -94,6 +94,7 @@ nav:
           - Unit 7 監視とアーキテクチャ総括: development/iteration_plan-7.md
           - 「なでしこ3」Unit 1 実行環境・テスト基盤と第 1 章: development/iteration_plan-nadesiko-1.md
           - 「なでしこ3」Unit 2 ウォーキングスケルトンとドメイン分離: development/iteration_plan-nadesiko-2.md
+          - 「なでしこ3」Unit 3 関数型 DI とイベント: development/iteration_plan-nadesiko-3.md
       - Bolt 終了報告:
           - Unit 1 実行環境と第 1 章: development/bolt_report-1.md
           - Unit 2 ウォーキングスケルトンとドメイン分離: development/bolt_report-2.md

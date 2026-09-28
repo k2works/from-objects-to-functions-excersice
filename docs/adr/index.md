@@ -1,6 +1,6 @@
 # ADR (Architecture Decision Records)
 
-技術的意思決定を記録した ADR です。
+技術的意思決定を記録した ADR です。ADR-001〜012 は Kotlin 版、ADR-013 以降はなでしこ3 版の判断です。
 
 ## ADR 一覧
 
@@ -18,5 +18,7 @@
 | [ADR-010](ADR-010-own-template.md) | テンプレート機構を自前で書き既製のテンプレートエンジンを使わない | 提案 |
 | [ADR-011](ADR-011-transaction-boundary.md) | トランザクションの境界をコマンド 1 つの処理に置き文脈を不透明な型にする | 提案 |
 | [ADR-012](ADR-012-own-json-converter.md) | JSON の変換を自前の `Converter` で書き Kondor を導入しない | 提案 |
+| [ADR-013](ADR-013-cnako3-runtime.md) | なでしこ3 版の処理系に cnako3 を採用する | 提案 |
+| [ADR-014](ADR-014-own-test-framework.md) | なでしこ3 版のテスト基盤を自作し、静的解析は文法検査だけにする | 提案 |
 
 ADR の作成には `creating-adr` スキルを使用してください。

@@ -4,7 +4,7 @@ title: "執筆計画：関数型プログラミングで作る変更を楽に安
 description: "Uberto Barbini 著『From Objects to Functions』を下敷きにした Zettai 連載の執筆計画。多言語シリーズ（Kotlin / なでしこ3）の対象一覧、記事と実装の対称ファイル構成、全 13 章と原著コンパニオンコードの対応、前提整備と実行環境の方針、リリース計画のストーリー・イテレーション・SP と対応づけた章別計画、フェーズ区切り、なでしこ3 追加執筆計画、執筆規約を定義する。"
 tags: [article, plan, zettai]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-28T02:42:56Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-28T03:10:58Z }
 ---
 
 # 執筆計画：関数型プログラミングで作る変更を楽に安全にできるソフトウェア
@@ -24,7 +24,7 @@ generated: { by: claude-code/claude-opus-5, at: 2026-09-28T02:42:56Z }
 | 対象 | 実行環境 | 章数 | 記事 | サンプル実装 | 状態 |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | Kotlin | Nix devShell `kotlin`（JDK 21 / Gradle） | 13 | `docs/article/zettai/kotlin/` | `apps/kotlin/zettai/` | **完結**（13 / 13 章公開） |
-| なでしこ3 | Nix devShell `nadesiko`（Node 20 / cnako3 3.8.7） | 13 | `docs/article/zettai/nadesiko/` | `apps/nadesiko/zettai/` | 計画中（0 / 13 章公開） |
+| なでしこ3 | Nix devShell `nadesiko`（Node 22 / cnako3 3.8.7） | 13 | `docs/article/zettai/nadesiko/` | `apps/nadesiko/zettai/` | 進行中（1 / 13 章公開） |
 
 横断比較コンテンツ `docs/article/zettai/comparison/` は、なでしこ3 版が Phase 1（第 3 章）を終えた時点で新設します。それまでは比較コンテンツを作りません。比較軸は「**型で保証する**（Kotlin）」と「**約束とテストで保証する**（なでしこ3）」に置きます。
 
@@ -172,16 +172,16 @@ apps/
 
 章の執筆に入る前に、次を完了させます。リリース計画では冒頭 4 項目を US-000（Unit 1 / Bolt 1-1）、CI の 1 項目を US-002（Unit 2 / Bolt 2-1）に含めています。
 
-- [ ] `ops/nix/environments/nadesiko/shell.nix` を新設（既存 `node/shell.nix` を雛形に Node 20 と npm を載せ、`apps/nadesiko/zettai` で `nadesiko3` をローカル導入する）
-- [ ] `flake.nix` の `devShells` に `nadesiko` を登録し、`nix flake show` で認識されることを確認
-- [ ] `apps/nadesiko/zettai/` に雛形を作成（`package.json` で cnako3 のバージョンを固定、`Makefile`、`src/`、`test/helper.nako3`、`doctest/`）
-- [ ] 最小の検証 1 本が `make check` で通ることを確認
+- [x] `ops/nix/environments/nadesiko/shell.nix` を新設（既存 `node/shell.nix` を雛形に **Node 22** と npm を載せ、`apps/nadesiko/zettai` で `nadesiko3` をローカル導入する。Node 20 を想定していたが `nadesiko3` の `engines` が Node 22 以上を要求する）
+- [x] `flake.nix` の `devShells` に `nadesiko` を登録し、`nix flake show` で認識されることを確認
+- [x] `apps/nadesiko/zettai/` に雛形を作成（`package.json` で cnako3 のバージョンを固定、`Makefile`、`src/`、`test/helper.nako3`、`doctest/`）
+- [x] 最小の検証 1 本が `make check` で通ることを確認
 - [ ] `.github/workflows/nadesiko-zettai.yml` を新設（第 2 章の実装が入った直後。Unit 2 で実施）
-- [ ] `ops/scripts/article/check_article_code.py` の `SOURCE_GLOBS` に `apps/**/*.nako3`、`CHECKED_LANGUAGES` に `nako3` を追加し、既存の記事・実装同期検査をなでしこ3 の記事にも効かせる（第 1 章の時点で `nako3` のコードブロックが出るため **Unit 1 / Bolt 1-2** で実施する）
+- [x] `ops/scripts/article/check_article_code.py` の `SOURCE_GLOBS` に `apps/**/*.nako3`、`CHECKED_LANGUAGES` に `nako3` を追加し、既存の記事・実装同期検査をなでしこ3 の記事にも効かせる（Unit 1 / Bolt 1-2 で実施）
 
 #### 実行環境の方針
 
-- テストフレームワークが存在しないため、組み込みの `【A】と【B】がASSERT等` を土台に検証関数とテストランナーを自作します。値を比べる前に `変数型確認` 同士を比べ、`=` が型を区別しないことによる見逃しを防ぎます。参考実装の `references/getting-started-tdd/apps/nadesiko/test/helper.nako3` と `Makefile` を手本にします。
+- テストフレームワークが存在しないため、組み込みの `【A】と【B】がASSERT等` を土台に検証関数とテストランナーを自作します。値を比べる前に `変数型確認` 同士を比べ、`=` が型を区別しないことによる見逃しを防ぎます。**cnako3 は実行時エラーでも終了コードが 0 を返す**ので、`テスト結果報告` が失敗時に `1でプロセス終` を呼び、ランナー側は出力に `[エラー]` が含まれるかも併せて見ます（Unit 1 で判明）。
 - 受け入れテストは `doctest/` に期待出力を書く形式で置き、`make check` から実行します。
 - 第 9 章の永続化は、PostgreSQL ではなく**追記型イベントログのファイル保存**とします。イベントソーシングとは相性がよく、`docker-compose.yml` への追加も不要です。
 - `ops/scripts/` に独自の一時スクリプトを追加しません。運用タスクが必要になったら `operating-script` スキルで正式な Gulp タスクとして追加します。
@@ -223,9 +223,9 @@ Unit・Bolt・ストーリーの割り当ては Kotlin 版と同一（1 Unit = 2
 | 制約 | 影響 | 対策 |
 | :--- | :--- | :--- |
 | 型システム・ユーザー定義型・クラス構文がない | 代数的データ型と `Outcome` の型安全が成立しない | 辞書のキーを契約とし、契約テストと `変数型確認` による厳密比較で担保する。第 13 章で Kotlin 版と対比する |
-| テストフレームワークがない | 前提整備の負荷が Kotlin 版より高い | 参考実装の `test/helper.nako3` と `Makefile` のランナーを手本に Unit 1 で作る |
+| テストフレームワークがない | 前提整備の負荷が Kotlin 版より高い | Unit 1 で自作した（[ADR-014](../adr/ADR-014-own-test-framework.md)）。参考実装は `gonako` 向けで、**cnako3 は実行時エラーでも終了コードが 0** のため流用できなかった。`テスト結果報告` が `1でプロセス終` を呼び、ランナーは出力の `[エラー]` も併せて見る |
 | DB プラグインがない | 第 9 章の PostgreSQL 永続化が成立しない | 追記型イベントログのファイル永続化に置き換える |
-| cnako3 の lint / format の有無が未確認 | 静的解析の扱いが決まらない | Unit 1 の承認ゲートで実機確認し、無ければ「入れない」判断を ADR に記録する（Kotlin 版 ADR-004 と同じ形） |
+| ~~cnako3 の lint / format の有無が未確認~~ → **確認済み。どちらも無い** | 静的解析の手段が無い | `cnako3 -A`（構文解析のみ）の標準エラー出力で文法検査を代替し、フォーマッタは入れない（[ADR-014](../adr/ADR-014-own-test-framework.md)） |
 | カバレッジを計測できない | Kotlin 版の kover 80% 下限に相当する定量ゲートがない | `doctest/` の受け入れシナリオで代替し、Unit ごとにシナリオ数を記録する |
 | パーサの罠（辞書からの取り出しと即時呼び出し、ひらがなを含む識別子、`空` の実体が空文字列、型を区別しない `=`） | 実装が文法エラーで止まる、比較が意図せず真になる | 参考連載 07・10・11・12 章の実例を各章の「つまずき」節として先回りで書く |
 

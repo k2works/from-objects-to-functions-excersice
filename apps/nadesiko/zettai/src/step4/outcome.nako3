@@ -5,15 +5,15 @@
 # このファイルもプラグインを取り込まない（ドメイン）。
 
 # --- 失敗の理由 ---
-# 4 種類。列挙型が無いので一覧に集め、契約テストが網羅を守る。
+# 6 種類。列挙型が無いので一覧に集め、契約テストが網羅を守る。
 
 ●失敗理由一覧
-    ["ListNotFound","ItemNotFound","ListAlreadyExists","InvalidTransition","PersistenceError"]で戻る
+    ["ListNotFound","ItemNotFound","ListAlreadyExists","InvalidTransition","PersistenceError","TemplateNotFilled"]で戻る
 ここまで
 
 ●(理由の)失敗状態コード
     # HTTP の層はこの対応表だけを見る。ドメインは HTTP を知らない。
-    表={"ListNotFound":404,"ItemNotFound":404,"ListAlreadyExists":400,"InvalidTransition":400,"PersistenceError":500}
+    表={"ListNotFound":404,"ItemNotFound":404,"ListAlreadyExists":400,"InvalidTransition":400,"PersistenceError":500,"TemplateNotFilled":500}
     もし、(表に理由が辞書キー存在)=偽ならば
         500で戻る
     ここまで

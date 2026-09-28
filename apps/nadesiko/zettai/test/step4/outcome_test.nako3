@@ -11,19 +11,21 @@
 
 # 失敗の理由は 4 種類
 一覧=失敗理由一覧
-「失敗の理由は 5 種類」と(一覧の要素数)と5で検証
+「失敗の理由は 6 種類」と(一覧の要素数)と6で検証
 「ListNotFound がある」と(一覧で「ListNotFound」の出現回数)と1で検証
 「ItemNotFound がある」と(一覧で「ItemNotFound」の出現回数)と1で検証
 「ListAlreadyExists がある」と(一覧で「ListAlreadyExists」の出現回数)と1で検証
 「InvalidTransition がある」と(一覧で「InvalidTransition」の出現回数)と1で検証
 「PersistenceError がある」と(一覧で「PersistenceError」の出現回数)と1で検証
+「TemplateNotFilled がある」と(一覧で「TemplateNotFilled」の出現回数)と1で検証
 
-# 理由からステータスコードが決まる（4 種類すべて）
+# 理由からステータスコードが決まる（6 種類すべて）
 「ListNotFound は 404」と(「ListNotFound」の失敗状態コード)と404で検証
 「ItemNotFound は 404」と(「ItemNotFound」の失敗状態コード)と404で検証
 「ListAlreadyExists は 400」と(「ListAlreadyExists」の失敗状態コード)と400で検証
 「InvalidTransition は 400」と(「InvalidTransition」の失敗状態コード)と400で検証
 「PersistenceError は 500」と(「PersistenceError」の失敗状態コード)と500で検証
+「TemplateNotFilled は 500」と(「TemplateNotFilled」の失敗状態コード)と500で検証
 
 # map
 ●(Xで)値二倍

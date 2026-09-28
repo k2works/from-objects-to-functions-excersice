@@ -2,3 +2,5 @@ node_modules/
 package-lock.json
 .ddt_response.html
 .zettai_events.log
+.ddt_rename.html
+.ddt_status.txt

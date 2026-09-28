@@ -6,7 +6,7 @@
 #
 # ドメインのファイルは増える。1 ファイル決め打ちにすると、
 # 増えたファイルが検査から漏れる（第 4 章で実際に漏れかけた）。
-ドメイン一覧=["src/step4/domain.nako3","src/step4/events.nako3","src/step4/outcome.nako3","src/step4/commands.nako3","src/step4/projection.nako3"]
+ドメイン一覧=["src/step4/domain.nako3","src/step4/events.nako3","src/step4/outcome.nako3","src/step4/commands.nako3","src/step4/projection.nako3","src/step4/validation.nako3","src/step4/template.nako3"]
 
 Iを0から(ドメイン一覧の要素数)-1まで繰り返す
     道=ドメイン一覧[I]

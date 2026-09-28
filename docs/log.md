@@ -1,6 +1,10 @@
 # Docs Update Log
 
 ## 2026-09-28
+* **Update**: [retrospective-nadesiko-6](/development/retrospective-nadesiko-6.md) を更新（claude-code/claude-opus-5）
+* **Update**: [bolt_report-nadesiko-6](/development/bolt_report-nadesiko-6.md) を更新（claude-code/claude-opus-5）
+* **Update**: [release_plan-nadesiko](/development/release_plan-nadesiko.md) を更新（claude-code/claude-opus-5）
+* **Update**: [development_strategy](/development/development_strategy.md) を更新（claude-code/claude-opus-5）
 * **Update**: [chapter11](/article/zettai/nadesiko/chapter11.md) を更新（claude-code/claude-opus-5）
 * **Update**: [ADR-022-template-with-unfilled-check](/adr/ADR-022-template-with-unfilled-check.md) を更新（claude-code/claude-opus-5）
 * **Update**: [ADR-021-context-as-path](/adr/ADR-021-context-as-path.md) を更新（claude-code/claude-opus-5）

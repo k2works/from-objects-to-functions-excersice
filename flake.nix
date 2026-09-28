@@ -15,6 +15,7 @@
         devShells = {
           default = import ./ops/nix/shells/shell.nix { inherit packages; };
           node = import ./ops/nix/environments/node/shell.nix { inherit packages; };
+          nadesiko = import ./ops/nix/environments/nadesiko/shell.nix { inherit packages; };
           python = import ./ops/nix/environments/python/shell.nix { inherit packages; };
           go = import ./ops/nix/environments/go/shell.nix { inherit packages; };
           rust = import ./ops/nix/environments/rust/shell.nix { inherit packages; };

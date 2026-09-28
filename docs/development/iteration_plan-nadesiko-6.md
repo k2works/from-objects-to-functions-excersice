@@ -3,8 +3,10 @@ type: Bolt Plan
 title: "Unit 6 の Bolt 計画（イテレーション 6）- Zettai 連載（なでしこ3 版）"
 description: "Zettai 連載なでしこ3 版の Unit 6（文脈の受け渡しとバリデーション）の Bolt 計画。持ち回る文脈が無い言語で第 10 章の ContextReader をどう書くかを決め、第 11 章で複数のエラーを集約するアプリカティブと、画面からコマンドを送る初めての経路を作る。Unit 5 のふりかえり Try を反映し、既知の制約を 1 箇所に集めてから設計を始める。"
 tags: [development, plan, ai-dlc, bolt, zettai, nadesiko, unit-6]
-status: draft
+status: stable
 generated: { by: claude-code/claude-opus-5, at: 2026-09-28T06:56:35Z }
+verified:
+  - { by: human:kakimomokuri, at: 2026-09-28T06:59:41Z }
 ---
 
 # Unit 6 の Bolt 計画（イテレーション 6）- Zettai 連載（なでしこ3 版）

@@ -24,7 +24,7 @@ generated: { by: claude-code/claude-opus-5, at: 2026-09-28T03:10:58Z }
 | 対象 | 実行環境 | 章数 | 記事 | サンプル実装 | 状態 |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | Kotlin | Nix devShell `kotlin`（JDK 21 / Gradle） | 13 | `docs/article/zettai/kotlin/` | `apps/kotlin/zettai/` | **完結**（13 / 13 章公開） |
-| なでしこ3 | Nix devShell `nadesiko`（Node 22 / cnako3 3.8.7） | 13 | `docs/article/zettai/nadesiko/` | `apps/nadesiko/zettai/` | 進行中（1 / 13 章公開） |
+| なでしこ3 | Nix devShell `nadesiko`（Node 22 / cnako3 3.8.7） | 13 | `docs/article/zettai/nadesiko/` | `apps/nadesiko/zettai/` | 進行中（2 / 13 章公開） |
 
 横断比較コンテンツ `docs/article/zettai/comparison/` は、なでしこ3 版が Phase 1（第 3 章）を終えた時点で新設します。それまでは比較コンテンツを作りません。比較軸は「**型で保証する**（Kotlin）」と「**約束とテストで保証する**（なでしこ3）」に置きます。
 
@@ -176,7 +176,7 @@ apps/
 - [x] `flake.nix` の `devShells` に `nadesiko` を登録し、`nix flake show` で認識されることを確認
 - [x] `apps/nadesiko/zettai/` に雛形を作成（`package.json` で cnako3 のバージョンを固定、`Makefile`、`src/`、`test/helper.nako3`、`doctest/`）
 - [x] 最小の検証 1 本が `make check` で通ることを確認
-- [ ] `.github/workflows/nadesiko-zettai.yml` を新設（第 2 章の実装が入った直後。Unit 2 で実施）
+- [x] `.github/workflows/nadesiko-zettai.yml` を新設（第 2 章の実装が入った直後。Unit 2 で実施）
 - [x] `ops/scripts/article/check_article_code.py` の `SOURCE_GLOBS` に `apps/**/*.nako3`、`CHECKED_LANGUAGES` に `nako3` を追加し、既存の記事・実装同期検査をなでしこ3 の記事にも効かせる（Unit 1 / Bolt 1-2 で実施）
 
 #### 実行環境の方針

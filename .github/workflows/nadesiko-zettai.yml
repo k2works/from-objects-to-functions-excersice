@@ -1,0 +1,60 @@
+name: Nadesiko3 Zettai
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'apps/nadesiko/zettai/**'
+      - 'docs/article/zettai/**'
+      - 'ops/scripts/article/**'
+      - '.github/workflows/nadesiko-zettai.yml'
+  pull_request:
+    paths:
+      - 'apps/nadesiko/zettai/**'
+      - 'docs/article/zettai/**'
+      - 'ops/scripts/article/**'
+      - '.github/workflows/nadesiko-zettai.yml'
+  workflow_dispatch:
+
+jobs:
+  check:
+    name: lint, test, acceptance
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/nadesiko/zettai
+    steps:
+      - uses: actions/checkout@v4
+
+      # devShell と同じ Node 22 を使う。cnako3 の engines が node >= 22 を要求する。
+      - name: Set up Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install cnako3
+        run: npm install --no-audit --no-fund
+
+      # check に文法検査・テスト・受け入れテストが集約されている。
+      # ローカルの make check と CI で同じコマンドを実行し、判定を一致させる。
+      - name: Run check
+        run: make check
+
+  article-code:
+    name: article code examples
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # 記事のコード例が実装に存在することを確かめる。
+      # 逐語でない抜粋は記事側の code-check: ignore マーカーで除外する。
+      - name: Check article code examples
+        run: python3 ops/scripts/article/check_article_code.py
+
+      # 記事と ADR の相互参照が切れていないかを見る。
+      - name: Check ADR references
+        run: python3 ops/scripts/article/check_adr_references.py

@@ -26,14 +26,15 @@ lint: ## 全 .nako3 を構文解析だけして文法エラーを見つける
 
 test: ## test/*_test.nako3 を 1 本ずつ実行する
 	@# 判定を 2 つ重ねる。テストの失敗は helper.nako3 のテスト結果報告が
-	@# 終了コード 1 を返すことで、文法エラーと取り込みエラーは cnako3 が
-	@# 終了コード 0 のまま標準出力に [エラー] と書くことで検出する。
+	@# 終了コード 1 を返すことで、文法エラー・取り込みエラー・実行時エラーは
+	@# cnako3 が終了コード 0 のまま出力に「…エラー]」と書くことで検出する。
+	@# [エラー] だけを見ていたときは [実行時エラー] を取りこぼした。
 	@pass=0; fail=0; \
 	for t in $(TESTS); do \
 	  echo "--- $$t"; \
 	  out=$$($(CNAKO) "$$t" 2>&1); code=$$?; \
 	  echo "$$out"; \
-	  if [ $$code -ne 0 ] || echo "$$out" | grep -q '\[エラー\]'; then \
+	  if [ $$code -ne 0 ] || echo "$$out" | grep -qE 'エラー\]'; then \
 	    fail=$$((fail+1)); echo "  -> FAILED"; \
 	  else pass=$$((pass+1)); fi; \
 	done; \

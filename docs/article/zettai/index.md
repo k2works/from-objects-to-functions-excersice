@@ -12,7 +12,7 @@ ToDo リストアプリケーション **Zettai** を TDD で一から作りな�
 | 対象 | 記事 | サンプル実装 | 実行環境 | 状態 |
 | :--- | :--- | :--- | :--- | :--- |
 | Kotlin | [Kotlin 版](kotlin/index.md) | `apps/kotlin/zettai/` | Nix devShell `kotlin`（JDK 21 / Gradle） | **完結（13 / 13 章）** |
-| なでしこ3 | [なでしこ3 版](nadesiko/index.md) | `apps/nadesiko/zettai/` | Nix devShell `nadesiko`（Node 22 / cnako3 3.8.7） | 進行中（1 / 13 章） |
+| なでしこ3 | [なでしこ3 版](nadesiko/index.md) | `apps/nadesiko/zettai/` | Nix devShell `nadesiko`（Node 22 / cnako3 3.8.7） | 進行中（2 / 13 章） |
 
 現在の対象は 2 言語です。横断比較コンテンツ `comparison/` は、なでしこ3 版が Phase 1（第 3 章）を終えた時点で新設します。比較軸は「型で保証する（Kotlin）」と「約束とテストで保証する（なでしこ3）」に置きます。
 
@@ -21,7 +21,7 @@ ToDo リストアプリケーション **Zettai** を TDD で一から作りな�
 | 章 | タイトル | Kotlin | なでしこ3 |
 | :--- | :--- | :--- | :--- |
 | 1 | 新しいアプリケーションを準備する | [公開済み](kotlin/chapter01.md) | [公開済み](nadesiko/chapter01.md) |
-| 2 | 関数を使って HTTP を扱う | [公開済み](kotlin/chapter02.md) | 計画中 |
+| 2 | 関数を使って HTTP を扱う | [公開済み](kotlin/chapter02.md) | [公開済み](nadesiko/chapter02.md) |
 | 3 | ドメインの定義とテスト | [公開済み](kotlin/chapter03.md) | 計画中 |
 | 4 | ドメインとアダプタのモデリング | [公開済み](kotlin/chapter04.md) | 計画中 |
 | 5 | イベントで状態を変更する | [公開済み](kotlin/chapter05.md) | 計画中 |
@@ -42,8 +42,8 @@ ToDo リストアプリケーション **Zettai** を TDD で一から作りな�
 | :--- | :--- | :--- |
 | 実行環境（Nix devShell） | **完了** | **完了** |
 | サンプル実装の雛形 | **完了** | **完了** |
-| CI | **完了** | 未着手 |
-| 公開済みの章 | **13 / 13（完結）** | 1 / 13 |
+| CI | **完了** | **完了** |
+| 公開済みの章 | **13 / 13（完結）** | 2 / 13 |
 
 ## 実行環境一覧
 

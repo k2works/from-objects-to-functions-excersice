@@ -4,7 +4,7 @@ title: "リリース計画 - Zettai 連載（Rust 版）"
 description: "『From Objects to Functions』を下敷きにした Zettai 連載 Rust 版の AI-DLC 準拠 Level 1 計画。言語が Result と enum を与える側で同じ 13 章を辿るという Intent、7 Unit・14 ストーリーへの分解、依存 DAG、5 軸のエントロピー評価、所有権と async の伝播に対するリスク台帳、2 対象の学びを反映した承認ゲート方針と指標を定義する。"
 tags: [development, plan, ai-dlc, zettai, rust]
 status: stable
-generated: { by: claude-code/claude-opus-5, at: 2026-09-28T12:14:15Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-28T12:32:48Z }
 verified:
   - { by: human:kakimomokuri, at: 2026-09-28T12:24:16Z }
 ---
@@ -370,7 +370,7 @@ US-001 第 1 章 ──→ US-002 第 2 章 ──→ US-003 第 3 章
 
 | Unit | 計画検証負荷 | ゲート通過数 | 変更依頼数 | 人が修正を入れた箇所数 | 状態 |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| Unit 1 | 7 | - | - | - | 未着手 |
+| Unit 1 | 7 | - | - | - | 計画済み（[Bolt 計画](iteration_plan-rust-1.md)） |
 | Unit 2 | 10 | - | - | - | 未着手 |
 | Unit 3 | 14 | - | - | - | 未着手 |
 | Unit 4 | 7 | - | - | - | 未着手 |

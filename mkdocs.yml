@@ -99,6 +99,7 @@ nav:
           - 「なでしこ3」Unit 5 射影と永続化: development/iteration_plan-nadesiko-5.md
           - 「なでしこ3」Unit 6 文脈の受け渡しとバリデーション: development/iteration_plan-nadesiko-6.md
           - 「なでしこ3」Unit 7 監視とアーキテクチャ総括: development/iteration_plan-nadesiko-7.md
+          - 「Rust」Unit 1 器と第 1 章: development/iteration_plan-rust-1.md
       - Bolt 終了報告:
           - Unit 1 実行環境と第 1 章: development/bolt_report-1.md
           - Unit 2 ウォーキングスケルトンとドメイン分離: development/bolt_report-2.md

@@ -10,6 +10,7 @@
 |-------------|------|
 | [リリース計画（Kotlin 版）](release_plan.md) | AI-DLC の Level 1 計画。Intent、Unit 分解（7 Unit）、依存 DAG、エントロピー評価、スコープ／検証バッファ、リスク台帳、進捗指標 |
 | [リリース計画（なでしこ3 版）](release_plan-nadesiko.md) | シリーズ 2 言語目の Level 1 計画。cnako3 の採用根拠、7 Unit・14 ストーリーへの分解、型・テストフレームワーク・DB プラグインの不在に対するリスク台帳、契約テストを加えた承認ゲート方針 |
+| [リリース計画（Rust 版）](release_plan-rust.md) | シリーズ 3 言語目の Level 1 計画。言語が `Result` と `enum` を与える側で同じ 13 章を辿る Intent、所有権と async の伝播に対するリスク台帳、ゲートの書き方そのものを規約にした承認ゲート方針 |
 | [開発戦略](development_strategy.md) | 局面別 TDD アプローチ（序盤・終盤アウトサイドイン／中盤インサイドアウト）、承認ゲートとゲート密度、デモ項目を受け入れ基準とする方針 |
 
 ### Bolt 計画（イテレーション計画）
@@ -35,6 +36,12 @@
 | Unit 5 射影と永続化 | [Unit 5 の Bolt 計画](iteration_plan-nadesiko-5.md) | [ふりかえり](retrospective-nadesiko-5.md) | [Bolt 終了報告](bolt_report-nadesiko-5.md) | **完了** |
 | Unit 6 文脈の受け渡しとバリデーション | [Unit 6 の Bolt 計画](iteration_plan-nadesiko-6.md) | [ふりかえり](retrospective-nadesiko-6.md) | [Bolt 終了報告](bolt_report-nadesiko-6.md) | **完了** |
 | Unit 7 監視とアーキテクチャ総括 | [Unit 7 の Bolt 計画](iteration_plan-nadesiko-7.md) | [ふりかえり](retrospective-nadesiko-7.md) | [Bolt 終了報告](bolt_report-nadesiko-7.md) | **完了** |
+
+#### Rust 版
+
+| Unit | Bolt 計画 | ふりかえり | Bolt 終了報告 | 状態 |
+|---------------|------|-----------|-----------|------|
+| Unit 1 器と第 1 章 | [Unit 1 の Bolt 計画](iteration_plan-rust-1.md) | - | - | 計画済み |
 
 Unit（イテレーション）開始時に行を追加します。AI-DLC では 1 Unit = 2 Bolt（章 1 本ずつ）とし、Bolt のステップ計画と承認ゲートを各計画に書きます。
 

@@ -4,7 +4,7 @@ title: "UI 設計 - Zettai"
 description: "Zettai（Kotlin 版）の UI 設計。画面一覧、ワイヤーフレーム、画面遷移図、URL 規約、HTML の組み立て方針を記述する。現時点の画面は ToDo リスト表示の 1 つで、章の進行にあわせて追加する。"
 tags: [design, ui, zettai, kotlin]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-28T05:54:20Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-28T09:11:20Z }
 ---
 
 # UI 設計 - Zettai
@@ -160,7 +160,14 @@ Kotlin 版は Kotlin の文字列テンプレートで組み立てます。な�
 「<html><body><h1>{ToDoリスト["リスト名"]}</h1><ul>{項目行}</ul></body></html>」
 ```
 
-段階も同じです。第 2〜10 章は文字列の組み立て、第 11 章以降は自前の小さなテンプレート機構（[ADR-010](../adr/ADR-010-own-template.md) に相当する判断を改めて行う）。
+段階も同じです。第 2〜10 章は文字列の組み立て、第 11 章から自前の小さなテンプレート機構（[ADR-022](../adr/ADR-022-template-with-unfilled-check.md)）。
+
+第 11 章の雛形には 2 点の差分があります。
+
+- **雛形は `『』` で書きます。** `「」` は中の `{...}` を式として展開するので、`{{名前}}` を書くと字句解析エラーになります
+- **埋めそこねを実行時に止めます。** 型が無いので渡し忘れをコンパイラが教えません。置換後に `{{` が残っていれば `TemplateNotFilled` で失敗を返し、画面は 500 になります
+
+値は骨組みに入る前に無害化します（`&`・`<`・`>`・`"`）。ただし項目の並び（`<li>`）は骨組みなので無害化を通しません。
 
 ### URL とルーティング
 
@@ -170,6 +177,29 @@ URL 規約（`/todo/{user}/{listname}`、利用者はパスに含める、一覧
 
 生のパスは `GETデータ["?URL"]`、クエリの値は `GETデータ["x"]`、フォームの値は `POSTデータ["name"]` で取れます。
 
+### 名前を変える画面（第 11 章）
+
+画面から書く経路が初めて入ります。
+
+| メソッド | URL | 役割 | 応答 |
+| :--- | :--- | :--- | :--- |
+| `GET` | `/todo/{user}/{listname}/rename` | フォームを出す | 200 |
+| `POST` | `/todo/{user}/{listname}/rename` | 名前を変える | 成功なら 302、検証に落ちたら 400、業務のルールで断ったら理由に応じたコード |
+
+遷移は次のとおりです。リストの画面に「名前を変える」導線が付きます。
+
+```text
+/todo/uberto/book  --「名前を変える」-->  /todo/uberto/book/rename
+/todo/uberto/book/rename  --POST 成功-->  302  -->  /todo/uberto/reading
+/todo/uberto/book/rename  --POST 失敗-->  400（同じ画面に理由を並べて再表示）
+```
+
+**成功したら新しい名前の画面へ送ります（PRG）。** 再読み込みで同じ POST が飛ばないようにするためです。
+
+**検証に落ちたときは理由を全部並べます。** 利用者名とリスト名を独立に確かめ、両方だめなら 2 件とも表示します（第 11 章のアプリカティブ）。1 件ずつ返すと利用者が 2 往復することになります。
+
+ルーティングには注意点があります。前方一致でしか振り分けられないため、**`/rename` で終わるパスかどうかを自前で判定**しないと、`/todo/{user}/{listname}` への POST まで名前変更として処理してしまいます（Unit 6 で実際に踏みました）。
+
 ### 失敗の理由とステータスコード
 
 第 7 章から、失敗の理由がそのまま画面に出ます。
@@ -178,6 +208,8 @@ URL 規約（`/todo/{user}/{listname}`、利用者はパスに含める、一覧
 | :--- | :--- | :--- |
 | `ListNotFound` / `ItemNotFound` | 404 | `<h1>404</h1><p>ListNotFound</p>` |
 | `ListAlreadyExists` / `InvalidTransition` | 400 | 同じ形 |
+| `TemplateNotFilled` | 500 | 同じ形（第 11 章。`{{...}}` を利用者に見せない） |
+| 検証の理由（`EmptyUser` / `EmptyName` / `NameTooLong`） | 400 | 入力画面を理由の一覧つきで再表示（第 11 章） |
 
 対応表は `src/stepN/outcome.nako3` にあり、**ドメインは HTTP を知りません**。HTTP の層が対応表だけを見ます。
 

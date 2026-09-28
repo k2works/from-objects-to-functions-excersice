@@ -26,5 +26,7 @@
 | [ADR-018](ADR-018-outcome-dict-port.md) | 失敗を結果辞書で表し、ポートの契約を変える | 提案 |
 | [ADR-019](ADR-019-file-event-log.md) | イベントログを 1 ファイルに追記し、状態を保存しない | 提案 |
 | [ADR-020](ADR-020-third-route.md) | 受け入れシナリオに永続化を通す 3 経路目を足す | 提案 |
+| [ADR-021](ADR-021-context-as-path.md) | 文脈を保存先の指し先として表し、組み立てない | 提案 |
+| [ADR-022](ADR-022-template-with-unfilled-check.md) | テンプレートを自前で書き、埋めそこねを実行時に止める | 提案 |
 
 ADR の作成には `creating-adr` スキルを使用してください。

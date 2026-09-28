@@ -182,6 +182,7 @@ nav:
               - 第 8 章 ファンクタを使ってイベントを射影する: article/zettai/nadesiko/chapter08.md
               - 第 9 章 モナドによる安全なデータ永続化: article/zettai/nadesiko/chapter09.md
               - 第 10 章 コンテキストを読み込み、コマンドを処理する: article/zettai/nadesiko/chapter10.md
+              - 第 11 章 アプリカティブによるデータバリデーション: article/zettai/nadesiko/chapter11.md
   - リファレンス:
       - 概要: reference/index.md
       - よいソフトウェアとは: reference/よいソフトウェアとは.md

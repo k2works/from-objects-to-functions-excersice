@@ -3,8 +3,10 @@ type: Bolt Plan
 title: "Unit 4 の Bolt 計画（イテレーション 4）- Zettai 連載（なでしこ3 版）"
 description: "Zettai 連載なでしこ3 版の Unit 4（コマンドとエラーハンドリング）の Bolt 計画。コマンドからイベントを生成する関数型ステートマシンを書き、例外をやめて結果辞書で失敗を運ぶ。Unit 3 のふりかえり Try を反映し、段階ごとのコードの残し方を決め、Kotlin 版 ADR の移植漏れ 3 件を回収する。"
 tags: [development, plan, ai-dlc, bolt, zettai, nadesiko, unit-4]
-status: draft
+status: stable
 generated: { by: claude-code/claude-opus-5, at: 2026-09-28T05:10:36Z }
+verified:
+  - { by: human:kakimomokuri, at: 2026-09-28T05:14:33Z }
 ---
 
 # Unit 4 の Bolt 計画（イテレーション 4）- Zettai 連載（なでしこ3 版）

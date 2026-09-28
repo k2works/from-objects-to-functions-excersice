@@ -187,6 +187,7 @@ nav:
               - 第 10 章 コンテキストを読み込み、コマンドを処理する: article/zettai/nadesiko/chapter10.md
               - 第 11 章 アプリカティブによるデータバリデーション: article/zettai/nadesiko/chapter11.md
               - 第 12 章 監視と関数型 JSON: article/zettai/nadesiko/chapter12.md
+              - 第 13 章 関数型アーキテクチャの設計: article/zettai/nadesiko/chapter13.md
   - リファレンス:
       - 概要: reference/index.md
       - よいソフトウェアとは: reference/よいソフトウェアとは.md

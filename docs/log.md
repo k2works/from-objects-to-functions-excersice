@@ -1,6 +1,12 @@
 # Docs Update Log
 
 ## 2026-09-28
+* **Update**: [chapter13](/article/zettai/nadesiko/chapter13.md) を更新（claude-code/claude-opus-5）
+* **Update**: [iteration_plan-nadesiko-7](/development/iteration_plan-nadesiko-7.md) を更新（claude-code/claude-opus-5）
+* **Update**: [outline](/article/outline.md) を更新（claude-code/claude-opus-5）
+* **Update**: [chapter13](/article/zettai/nadesiko/chapter13.md) を更新（claude-code/claude-opus-5）
+* **Update**: [iteration_plan-nadesiko-7](/development/iteration_plan-nadesiko-7.md) を更新（claude-code/claude-opus-5）
+* **Update**: [outline](/article/outline.md) を更新（claude-code/claude-opus-5）
 * **Update**: [chapter12](/article/zettai/nadesiko/chapter12.md) を更新（claude-code/claude-opus-5）
 * **Update**: [outline](/article/outline.md) を更新（claude-code/claude-opus-5）
 * **Update**: [ADR-023-builtin-json-with-converter](/adr/ADR-023-builtin-json-with-converter.md) を更新（claude-code/claude-opus-5）

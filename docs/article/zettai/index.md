@@ -12,7 +12,7 @@ ToDo リストアプリケーション **Zettai** を TDD で一から作りな�
 | 対象 | 記事 | サンプル実装 | 実行環境 | 状態 |
 | :--- | :--- | :--- | :--- | :--- |
 | Kotlin | [Kotlin 版](kotlin/index.md) | `apps/kotlin/zettai/` | Nix devShell `kotlin`（JDK 21 / Gradle） | **完結（13 / 13 章）** |
-| なでしこ3 | [なでしこ3 版](nadesiko/index.md) | `apps/nadesiko/zettai/` | Nix devShell `nadesiko`（Node 22 / cnako3 3.8.7） | 進行中（12 / 13 章） |
+| なでしこ3 | [なでしこ3 版](nadesiko/index.md) | `apps/nadesiko/zettai/` | Nix devShell `nadesiko`（Node 22 / cnako3 3.8.7） | **完結（13 / 13 章）** |
 
 現在の対象は 2 言語です。横断比較は [対象言語の横断比較](comparison/index.md) にまとめています（なでしこ3 版の Phase 1 完了時に新設）。比較軸は「型で保証する（Kotlin）」と「約束とテストで保証する（なでしこ3）」です。章を閉じるたびに観点を 1 つずつ足します。
 
@@ -32,7 +32,7 @@ ToDo リストアプリケーション **Zettai** を TDD で一から作りな�
 | 10 | コンテキストを読み込み、コマンドを処理する | [公開済み](kotlin/chapter10.md) | [公開済み](nadesiko/chapter10.md) |
 | 11 | アプリカティブによるデータバリデーション | [公開済み](kotlin/chapter11.md) | [公開済み](nadesiko/chapter11.md) |
 | 12 | 監視と関数型 JSON | [公開済み](kotlin/chapter12.md) | [公開済み](nadesiko/chapter12.md) |
-| 13 | 関数型アーキテクチャの設計 | [公開済み](kotlin/chapter13.md) | 計画中 |
+| 13 | 関数型アーキテクチャの設計 | [公開済み](kotlin/chapter13.md) | [公開済み](nadesiko/chapter13.md) |
 
 章の番号とタイトルは対象言語をまたいで共通です。章を公開したら、この表の状態を記事へのリンクに置き換え、`mkdocs.yml` の nav にも追加します。
 
@@ -43,7 +43,7 @@ ToDo リストアプリケーション **Zettai** を TDD で一から作りな�
 | 実行環境（Nix devShell） | **完了** | **完了** |
 | サンプル実装の雛形 | **完了** | **完了** |
 | CI | **完了** | **完了** |
-| 公開済みの章 | **13 / 13（完結）** | 12 / 13 |
+| 公開済みの章 | **13 / 13（完結）** | **13 / 13（完結）** |
 
 ## 実行環境一覧
 

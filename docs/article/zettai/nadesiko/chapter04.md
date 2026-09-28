@@ -4,7 +4,7 @@ title: "第 4 章 ドメインとアダプタのモデリング"
 description: "Zettai 連載なでしこ3 版の第 4 章。データの取得元を実装から切り離し、ハブが関数値でアダプタを受け取る形にする。ToDo 項目に期限と状態を足すにあたり、既定引数が無いこと、列挙型が無いことにどう対処するかを扱う。型の無い言語でのデバッグの仕方と、契約テストがデバッグを減らすことも扱う。"
 tags: [article, zettai, nadesiko, chapter]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-28T05:01:34Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-28T05:27:58Z }
 ---
 
 # 第 4 章 ドメインとアダプタのモデリング
@@ -108,16 +108,16 @@ generated: { by: claude-code/claude-opus-5, at: 2026-09-28T05:01:34Z }
 
 アダプタ側も整えます。保管庫の作り方を知っているのは 1 箇所だけにします。
 
-<!-- code-check: ignore 第 4 章時点の実装。第 5 章で保管庫がイベントの畳み込みになる -->
-
 ```nako3
 ●(利用者とリスト名で)インメモリ取得
     # ハブに渡すアダプタ。保管庫の作り方を知っているのはここだけ。
-    保管庫=保管庫作成
-    対象=保管庫で利用者とリスト名のリスト取得
+    状態=保管庫作成
+    対象=状態で利用者とリスト名の状態内リスト取得
     対象で戻る
 ここまで
 ```
+
+> この章を書いた時点では `保管庫作成` が辞書を直接返していました。第 5 章でイベントの畳み込みに置き換わり、取り出し方も変わります。**上のコードは置き換え後の形です。** 章ごとのコードは `src/stepN/` に残っているので、第 2〜3 章の形は `src/step1/` で読めます（[ADR-015](../../../adr/ADR-015-step-directories.md)）。
 
 ```nako3
     # HTTP の層はハブしか知らない。保管庫の存在を知らない。
@@ -256,8 +256,8 @@ Kotlin 版は `enum class` で、取りうる値の網羅をコンパイラが�
 
 ## この章で書いたコード
 
-- 実装: `apps/nadesiko/zettai/src/domain.nako3`、`apps/nadesiko/zettai/src/web.nako3`
-- テスト: `apps/nadesiko/zettai/test/domain_test.nako3`、`apps/nadesiko/zettai/test/hub_test.nako3`
+- 実装: `apps/nadesiko/zettai/src/step2/domain.nako3`、`apps/nadesiko/zettai/src/step2/web.nako3`
+- テスト: `apps/nadesiko/zettai/test/step2/domain_test.nako3`、`apps/nadesiko/zettai/test/step2/hub_test.nako3`
 
 本文のコードは、上のファイルからの転記です。次の 3 種類だけは逐語の転記ではありません。
 

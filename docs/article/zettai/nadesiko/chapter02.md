@@ -4,7 +4,7 @@ title: "第 2 章 関数を使って HTTP を扱う"
 description: "Zettai 連載なでしこ3 版の第 2 章。簡易 HTTP サーバのプラグインで、リクエストから ToDo リストの HTML までの縦串（ウォーキングスケルトン）を最小の厚みで通す。型の無い言語でドメインを辞書として表し、キーの契約を契約テストで守る。助詞が契約の一部であること、変数型確認が配列と辞書を区別しないこと、辞書に無いキーが空ではないことという 3 つのつまずきを扱う。"
 tags: [article, zettai, nadesiko, chapter]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-28T05:01:34Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-28T05:27:58Z }
 ---
 
 # 第 2 章 関数を使って HTTP を扱う
@@ -33,7 +33,7 @@ generated: { by: claude-code/claude-opus-5, at: 2026-09-28T05:01:34Z }
 なでしこ3 で HTTP サーバを書くには、簡易 HTTP サーバのプラグインを取り込みます。
 
 ```nako3
-!「../node_modules/nadesiko3/src/plugin_httpserver.mjs」を取り込む
+!「../../node_modules/nadesiko3/src/plugin_httpserver.mjs」を取り込む
 ```
 
 パッケージ名だけでは解決しません。**相対パスで書く**必要があります。パスはこのファイルからの相対です。
@@ -94,8 +94,6 @@ $ make test
 Kotlin 版ではドメインを型で表しました。`data class ToDoItem(val description: String)` と書けば、コンパイラが「説明を持つ何か」を保証します。
 
 なでしこ3 には型がありません。**辞書で表します。**
-
-<!-- code-check: ignore 第 2 章時点の実装。第 4 章で期限と状態が加わる -->
 
 ```nako3
 ●(説明で)ToDo項目作成
@@ -162,8 +160,6 @@ $ make test
 
 データはメモリの中に置きます。辞書の入れ子で、利用者 → リスト名 → ToDo リストと辿ります。
 
-<!-- code-check: ignore 第 2 章時点の実装。第 5 章でイベントの畳み込みに置き換わる -->
-
 ```nako3
 ●保管庫作成
     本=「write chapter」でToDo項目作成
@@ -194,8 +190,6 @@ $ make test
 **辞書に無いキーを引くと `undefined` が返り、`空` との比較では捕まえられません。** なでしこ3 の `空` の実体は空文字列で、`undefined` はそれとも違う値です。
 
 `辞書キー存在` で先に確かめます。
-
-<!-- code-check: ignore 第 2 章時点の実装。第 5 章で状態内リスト取得に置き換わる -->
 
 ```nako3
 ●(保管庫で利用者とリスト名の)リスト取得
@@ -280,12 +274,10 @@ $ curl -s -o /dev/null -w "%{http_code}\n" http://localhost:8080/todo/uberto/non
 
 「ドメインはプラグインを取り込まない」という約束を、テストで守ります。
 
-<!-- code-check: ignore 第 2 章時点の実装。第 5 章でドメインのファイルが増え、一覧を回す形になる -->
-
 ```nako3
 # ドメインの境界を検査する。ドメインは簡易 HTTP サーバのプラグインを取り込まない。
 # 取り込みの不在が境界なので、不在を機械で確かめる。
-中身=「src/domain.nako3」を開く
+中身=「src/step1/domain.nako3」を開く
 回数=中身で「plugin_httpserver」の出現回数
 「ドメインは簡易HTTPサーバのプラグインを取り込まない」と回数と0で検証
 ```
@@ -325,8 +317,8 @@ $ curl -s -o /dev/null -w "%{http_code}\n" http://localhost:8080/todo/uberto/non
 
 ## この章で書いたコード
 
-- 実装: `apps/nadesiko/zettai/src/domain.nako3`、`apps/nadesiko/zettai/src/web.nako3`、`apps/nadesiko/zettai/src/main.nako3`
-- テスト: `apps/nadesiko/zettai/test/domain_test.nako3`、`apps/nadesiko/zettai/test/web_test.nako3`、`apps/nadesiko/zettai/test/boundary_test.nako3`
+- 実装: `apps/nadesiko/zettai/src/step1/domain.nako3`、`apps/nadesiko/zettai/src/step1/web.nako3`、`apps/nadesiko/zettai/src/step1/main.nako3`
+- テスト: `apps/nadesiko/zettai/test/step1/domain_test.nako3`、`apps/nadesiko/zettai/test/step1/web_test.nako3`、`apps/nadesiko/zettai/test/step1/boundary_test.nako3`
 - 環境: `apps/nadesiko/zettai/Makefile`、`.github/workflows/nadesiko-zettai.yml`
 
 本文のコードは、上のファイルからの転記です。次の 2 種類だけは逐語の転記ではありません。

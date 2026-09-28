@@ -1,5 +1,5 @@
 !「./helper.nako3」を取り込む
-!「../src/bowling_oo.nako3」を取り込む
+!「../../src/step1/bowling_oo.nako3」を取り込む
 
 ゲーム=ゲーム作成
 ゲームに5を投球

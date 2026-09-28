@@ -20,5 +20,6 @@
 | [ADR-012](ADR-012-own-json-converter.md) | JSON の変換を自前の `Converter` で書き Kondor を導入しない | 提案 |
 | [ADR-013](ADR-013-cnako3-runtime.md) | なでしこ3 版の処理系に cnako3 を採用する | 提案 |
 | [ADR-014](ADR-014-own-test-framework.md) | なでしこ3 版のテスト基盤を自作し、静的解析は文法検査だけにする | 提案 |
+| [ADR-015](ADR-015-step-directories.md) | 章の段階ごとにディレクトリを切り、過去の章のコードを残す | 提案 |
 
 ADR の作成には `creating-adr` スキルを使用してください。

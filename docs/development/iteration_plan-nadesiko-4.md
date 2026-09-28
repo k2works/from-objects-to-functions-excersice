@@ -4,7 +4,7 @@ title: "Unit 4 の Bolt 計画（イテレーション 4）- Zettai 連載（な
 description: "Zettai 連載なでしこ3 版の Unit 4（コマンドとエラーハンドリング）の Bolt 計画。コマンドからイベントを生成する関数型ステートマシンを書き、例外をやめて結果辞書で失敗を運ぶ。Unit 3 のふりかえり Try を反映し、段階ごとのコードの残し方を決め、Kotlin 版 ADR の移植漏れ 3 件を回収する。"
 tags: [development, plan, ai-dlc, bolt, zettai, nadesiko, unit-4]
 status: stable
-generated: { by: claude-code/claude-opus-5, at: 2026-09-28T05:10:36Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-28T05:27:58Z }
 verified:
   - { by: human:kakimomokuri, at: 2026-09-28T05:14:33Z }
 ---
@@ -110,6 +110,26 @@ Unit 3 のふりかえりで「箇所はこれ以上減らさない」と決め�
 | 3 | 関数値を辞書に詰めて「失敗の理由ごとの分岐」を書けるか | 書ける | 失敗の表し方が変わる |
 
 **1 番は push が要ります。** 人の判断を待ちます。
+
+### スパイクの結果（2026-09-28）
+
+| # | 結果 |
+| :--- | :--- |
+| 1 | **green。** push して `Nadesiko3 Zettai`・`Kotlin Zettai`・`Deploy MkDocs` がすべて success。**Release v0.1.0 を達成した** |
+| 2 | **破綻しない。** 取り込みは相対パスなので 1 段深くなるだけ（`../node_modules` → `../../node_modules`）。`test/stepN/` から `../../src/stepN/` で届く |
+| 3 | 4-2.2 で確かめる（第 7 章の実装時） |
+
+### 4-1.1 の判断（2026-09-28）
+
+**選択肢 (a) 段階ごとのディレクトリを切る**を採りました。[ADR-015](../adr/ADR-015-step-directories.md) に記録しています。
+
+| 項目 | 前 | 後 |
+| :--- | :--- | :--- |
+| `code-check: ignore` の件数 | 7 | **3**（残りは「わざと壊したコード」で本来の用途） |
+| 検証（ok）の数 | 55 | **76** |
+| `make check` の実行時間 | 約 15 秒 | **約 25 秒** |
+
+NFR の「ignore の件数を増やさない」は、**減らす**形で満たしました。実行時間は 30 秒に近づいたので、段階が 4 つ以上になった時点で対処を決めます（ADR-015 の再検討条件 1）。
 
 ---
 

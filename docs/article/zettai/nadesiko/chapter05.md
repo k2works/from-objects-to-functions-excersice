@@ -4,7 +4,7 @@ title: "第 5 章 イベントで状態を変更する"
 description: "Zettai 連載なでしこ3 版の第 5 章。状態を書き換えるのをやめ、起きたことの並びを畳み込んで今の状態を作る。状態変換を関数値として合成し、その合成に単位元と結合律があることを乱数で作った入力の性質テストで確かめてモノイドと名づける。再帰が書けない形があること、辞書を複製する命令が無いことを扱う。"
 tags: [article, zettai, nadesiko, chapter]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-28T05:01:34Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-28T05:27:58Z }
 ---
 
 # 第 5 章 イベントで状態を変更する
@@ -361,8 +361,8 @@ Kotlin 版は型パラメータで `StateTransition` を表し、プロパティ
 
 ## この章で書いたコード
 
-- 実装: `apps/nadesiko/zettai/src/events.nako3`、`apps/nadesiko/zettai/src/web.nako3`
-- テスト: `apps/nadesiko/zettai/test/events_test.nako3`、`apps/nadesiko/zettai/test/monoid_test.nako3`、`apps/nadesiko/zettai/test/helper.nako3`、`apps/nadesiko/zettai/test/boundary_test.nako3`
+- 実装: `apps/nadesiko/zettai/src/step2/events.nako3`、`apps/nadesiko/zettai/src/step2/web.nako3`
+- テスト: `apps/nadesiko/zettai/test/step2/events_test.nako3`、`apps/nadesiko/zettai/test/step2/monoid_test.nako3`、`apps/nadesiko/zettai/test/step2/helper.nako3`、`apps/nadesiko/zettai/test/step2/boundary_test.nako3`
 
 本文のコードは、上のファイルからの転記です。次の 3 種類だけは逐語の転記ではありません。
 

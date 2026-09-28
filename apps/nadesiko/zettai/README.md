@@ -22,25 +22,31 @@ make check
 
 | コマンド | 内容 |
 | :--- | :--- |
-| `make check` | `lint` と `test` をまとめて実行する |
+| `make check` | `lint`・`test`・`doctest` をまとめて実行する（全段階） |
 | `make lint` | 全 `.nako3` を構文解析だけして文法エラーを見つける |
-| `make test` | `test/*_test.nako3` を 1 本ずつ実行する |
-| `make doctest` | `doctest/` の受け入れシナリオを実行する（第 2 章から） |
-| `make run` | `src/main.nako3` を実行する |
+| `make test` | `test/stepN/*_test.nako3` を 1 本ずつ実行する |
+| `make doctest` | `doctest/stepN/` の受け入れシナリオを段階ごとに実行する |
+| `make run` | 最新の段階のアプリケーションを実行する |
 | `make clean` | 生成物を削除する |
 
 ## ディレクトリ
 
+**章の段階ごとにディレクトリを分けています**（[ADR-015](../../../docs/adr/ADR-015-step-directories.md)）。過去の章のコードがその場に残るので、記事のコード例が実装から消えません。
+
 ```text
 apps/nadesiko/zettai/
-├── package.json      cnako3 のバージョンを固定する
-├── Makefile          タスクランナー兼テストランナー
-├── src/*.nako3       実装
-├── test/
-│   ├── helper.nako3  検証関数とテスト結果報告
-│   └── *_test.nako3  テスト
-└── doctest/          受け入れシナリオ（第 2 章から）
+├── package.json         cnako3 のバージョンを固定する
+├── Makefile             タスクランナー兼テストランナー
+├── src/step1/*.nako3    第 1〜3 章（Unit 1〜2）
+├── src/step2/*.nako3    第 4〜7 章（Unit 3〜4）
+├── test/stepN/
+│   ├── helper.nako3     検証関数とテスト結果報告
+│   ├── ddt/             受け入れテストの入口と実行経路
+│   └── *_test.nako3     テスト
+└── doctest/stepN/       受け入れシナリオ（HTTP 経由）
 ```
+
+段階の区切りは Kotlin 版のモジュール（`zettai-stepN-*`）と揃えています。**過去の段階は凍結します。** `make check` は全段階を対象にし、過去の段階も動き続けることを確かめます。1 段階だけ扱うときは `make check STEP=step1` とします。
 
 ## この実装の約束
 
@@ -49,6 +55,7 @@ apps/nadesiko/zettai/
 1. **値を比べる前に型を比べる。** `test/helper.nako3` の `検証` は、`変数型確認` 同士を先に比べます。なでしこ3 の `=` は型を区別せず、`3` と `「3」` が等しくなるためです
 2. **辞書を返す関数には契約テストを 1 本置く。** キーの有無と値の型を確かめます（第 4 章以降）
 3. **識別子にひらがなを使わない。** ひらがなは助詞として切られ、文法エラーになります
+4. **過去の段階は凍結する。** `src/step1/` は第 1〜3 章の記事が説明しているコードです
 
 ## 注意
 

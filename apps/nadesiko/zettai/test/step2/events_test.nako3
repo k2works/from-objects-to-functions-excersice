@@ -1,5 +1,5 @@
 !「./helper.nako3」を取り込む
-!「../src/events.nako3」を取り込む
+!「../../src/step2/events.nako3」を取り込む
 
 # 契約テスト
 作成=「uberto」と「book」でリスト作成イベント

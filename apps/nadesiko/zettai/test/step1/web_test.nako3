@@ -1,0 +1,17 @@
+!「./helper.nako3」を取り込む
+!「../../src/step1/web.nako3」を取り込む
+
+応答=「/todo/uberto/book」のZettai処理
+「ToDo リストの項目が HTML に含まれる」と(応答["本文"]で「write chapter」の出現回数)と1で検証
+「リストがあれば 200」と(応答["状態"])と200で検証
+
+無=「/todo/uberto/unknown」のZettai処理
+「存在しないリストは 404」と(無["状態"])と404で検証
+
+別=「/todo/nobody/book」のZettai処理
+「存在しない利用者も 404」と(別["状態"])と404で検証
+
+短=「/todo」のZettai処理
+「パスが短ければ 404」と(短["状態"])と404で検証
+
+テスト結果報告

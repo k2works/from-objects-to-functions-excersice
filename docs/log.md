@@ -1,6 +1,15 @@
 # Docs Update Log
 
 ## 2026-09-28
+* **Update**: [ADR-015-step-directories](/adr/ADR-015-step-directories.md) を更新（claude-code/claude-opus-5）
+* **Update**: [release_plan-nadesiko](/development/release_plan-nadesiko.md) を更新（claude-code/claude-opus-5）
+* **Update**: [iteration_plan-nadesiko-4](/development/iteration_plan-nadesiko-4.md) を更新（claude-code/claude-opus-5）
+* **Update**: [chapter05](/article/zettai/nadesiko/chapter05.md) を更新（claude-code/claude-opus-5）
+* **Update**: [chapter04](/article/zettai/nadesiko/chapter04.md) を更新（claude-code/claude-opus-5）
+* **Update**: [chapter03](/article/zettai/nadesiko/chapter03.md) を更新（claude-code/claude-opus-5）
+* **Update**: [chapter02](/article/zettai/nadesiko/chapter02.md) を更新（claude-code/claude-opus-5）
+* **Update**: [chapter01](/article/zettai/nadesiko/chapter01.md) を更新（claude-code/claude-opus-5）
+* **Verification**: [iteration_plan-nadesiko-4](/development/iteration_plan-nadesiko-4.md) を human:kakimomokuri が検証
 * **Update**: [iteration_plan-nadesiko-4](/development/iteration_plan-nadesiko-4.md) を更新（claude-code/claude-opus-5）
 * **Update**: [release_plan-nadesiko](/development/release_plan-nadesiko.md) を更新（claude-code/claude-opus-5）
 * **Update**: [development_strategy](/development/development_strategy.md) を更新（claude-code/claude-opus-5）

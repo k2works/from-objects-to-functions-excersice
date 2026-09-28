@@ -4,7 +4,7 @@ title: "第 3 章 ドメインの定義とテスト"
 description: "Zettai 連載なでしこ3 版の第 3 章。第 2 章の受け入れテストが実装を知りすぎている問題を特定し、高階関数で実行経路を外に出す。同じシナリオをドメイン直接と HTTP 経由の 2 経路で走らせて、ドメインとインフラストラクチャが分離できたことを確かめる。関数値ごしに非同期の命令が待てないこと、繰り返すが逆向きに回ることという 2 つのつまずきを扱う。"
 tags: [article, zettai, nadesiko, chapter]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-28T05:01:34Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-28T05:27:58Z }
 ---
 
 # 第 3 章 ドメインの定義とテスト
@@ -103,8 +103,6 @@ generated: { by: claude-code/claude-opus-5, at: 2026-09-28T05:01:34Z }
 
 HTTP を通さず、ドメインを直接呼びます。
 
-<!-- code-check: ignore 第 3 章時点の実装。第 5 章で保管庫がイベントの畳み込みになる -->
-
 ```nako3
 ●(利用者名とリスト名で)ドメイン直接_リスト参照
     保管庫=保管庫作成
@@ -194,10 +192,9 @@ R=[object Promise] 型=object
 サーバの起動と停止も、テストの外に出しました。テストの中からサーバを起こすと親プロセスが返らないためです。`Makefile` が持ちます。
 
 ```makefile
-	@$(CNAKO) src/main.nako3 > /dev/null 2>&1 & \
-	pid=$$!; \
-	trap "kill $$pid 2>/dev/null" EXIT; \
-	sleep 3; \
+	  $(CNAKO) src/$$s/main.nako3 > /dev/null 2>&1 & \
+	  pid=$$!; \
+	  sleep 2; \
 ```
 
 ### つまずき 3: `繰り返す` は逆向きに回る
@@ -284,8 +281,8 @@ Kotlin 版はここで、手作りした受け入れテストの構造を Pestic
 
 ## この章で書いたコード
 
-- テスト: `apps/nadesiko/zettai/test/ddt/scenario.nako3`、`apps/nadesiko/zettai/test/ddt/actions_domain.nako3`、`apps/nadesiko/zettai/test/ddt/actions_http.nako3`、`apps/nadesiko/zettai/test/see_a_todo_list_test.nako3`
-- 受け入れシナリオ: `apps/nadesiko/zettai/doctest/see_a_todo_list_http.nako3`
+- テスト: `apps/nadesiko/zettai/test/step1/ddt/scenario.nako3`、`apps/nadesiko/zettai/test/step1/ddt/actions_domain.nako3`、`apps/nadesiko/zettai/test/step1/ddt/actions_http.nako3`、`apps/nadesiko/zettai/test/step1/see_a_todo_list_test.nako3`
+- 受け入れシナリオ: `apps/nadesiko/zettai/doctest/step1/see_a_todo_list_http.nako3`
 - 環境: `apps/nadesiko/zettai/Makefile`
 
 本文のコードは、上のファイルからの転記です。次の 2 種類だけは逐語の転記ではありません。

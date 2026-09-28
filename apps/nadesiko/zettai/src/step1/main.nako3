@@ -3,7 +3,7 @@
 # 「何を返すか」は web.nako3 の Zettai処理 が決め、ここは配線だけを持つ。
 
 # 取り込みのパスは、このファイルからの相対で書く。
-!「../node_modules/nadesiko3/src/plugin_httpserver.mjs」を取り込む
+!「../../node_modules/nadesiko3/src/plugin_httpserver.mjs」を取り込む
 !「./web.nako3」を取り込む
 
 8080で簡易HTTPサーバ起動時には

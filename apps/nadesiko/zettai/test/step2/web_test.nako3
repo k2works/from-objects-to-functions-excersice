@@ -1,5 +1,5 @@
 !「./helper.nako3」を取り込む
-!「../src/web.nako3」を取り込む
+!「../../src/step2/web.nako3」を取り込む
 
 応答=「/todo/uberto/book」のZettai処理
 「ToDo リストの項目が HTML に含まれる」と(応答["本文"]で「write chapter」の出現回数)と1で検証

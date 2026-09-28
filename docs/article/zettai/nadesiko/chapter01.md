@@ -4,7 +4,7 @@ title: "第 1 章 新しいアプリケーションを準備する"
 description: "Zettai 連載なでしこ3 版の第 1 章。題材となる ToDo リストアプリケーション Zettai を定義し、テストフレームワークの存在しない言語で TDD を始めるための検証関数とテストランナーを自作する。ボウリングの得点計算を題材に、状態を書き換える形のテストと入力から出力への関数として書くテストを比べ、型を区別しない比較・終了コードが常に 0・組み込み命令名との衝突という 3 つのつまずきを扱う。"
 tags: [article, zettai, nadesiko, chapter]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-28T03:10:58Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-28T05:27:58Z }
 ---
 
 # 第 1 章 新しいアプリケーションを準備する
@@ -363,8 +363,8 @@ $ make check
 
 ## この章で書いたコード
 
-- 実装: `apps/nadesiko/zettai/src/bowling.nako3`、`apps/nadesiko/zettai/src/bowling_oo.nako3`
-- テスト: `apps/nadesiko/zettai/test/helper.nako3`、`apps/nadesiko/zettai/test/helper_test.nako3`、`apps/nadesiko/zettai/test/bowling_test.nako3`、`apps/nadesiko/zettai/test/bowling_oo_test.nako3`
+- 実装: `apps/nadesiko/zettai/src/step1/bowling.nako3`、`apps/nadesiko/zettai/src/step1/bowling_oo.nako3`
+- テスト: `apps/nadesiko/zettai/test/step1/helper.nako3`、`apps/nadesiko/zettai/test/step1/helper_test.nako3`、`apps/nadesiko/zettai/test/step1/bowling_test.nako3`、`apps/nadesiko/zettai/test/step1/bowling_oo_test.nako3`
 - 環境: `ops/nix/environments/nadesiko/shell.nix`、`apps/nadesiko/zettai/package.json`、`apps/nadesiko/zettai/Makefile`
 
 本文のコードは、上のファイルからの転記です。次の 2 種類だけは逐語の転記ではありません。

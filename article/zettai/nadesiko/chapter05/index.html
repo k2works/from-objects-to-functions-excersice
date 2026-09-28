@@ -16,7 +16,7 @@
         <link rel="prev" href="../chapter04/">
       
       
-        <link rel="next" href="../../../../reference/">
+        <link rel="next" href="../chapter06/">
       
       
         
@@ -1531,6 +1531,41 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../development/iteration_plan-nadesiko-5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「なでしこ3」Unit 5 射影と永続化
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1941,6 +1976,76 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../development/bolt_report-nadesiko-4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「なでしこ3」Unit 4 コマンドとエラーハンドリング
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../development/bolt_report-nadesiko-5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「なでしこ3」Unit 5 射影と永続化
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -2121,6 +2226,76 @@
     
   
     「なでしこ3」Unit 3 関数型 DI とイベント
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../development/retrospective-nadesiko-4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「なでしこ3」Unit 4 コマンドとエラーハンドリング
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../development/retrospective-nadesiko-5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「なでしこ3」Unit 5 射影と永続化
   
 
     
@@ -4671,6 +4846,146 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 6 章 コマンドを実行してイベントを生成する
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 7 章 関数型手法によるエラーハンドリング
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 8 章 ファンクタを使ってイベントを射影する
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 9 章 モナドによる安全なデータ永続化
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -7014,13 +7329,13 @@
 <p>写さないとどうなるか。状態変換が元の状態を書き換えてしまい、<strong>畳み込みの途中の状態が全部同じものを指すことになります。</strong> Kotlin 版の <code>data class</code> は不変なので、この問題自体が起きません。</p>
 <p>だからテストで確かめます。</p>
 <div class="highlight"><pre><span></span><code># 元の状態を書き換えていないこと
-リスト1再=一件で「uberto」と「book」の状態内リスト取得
+リスト1再=(一件で「uberto」と「book」の状態内リスト取得)["値"]
 「畳み込みは元の状態を書き換えない」と(リスト1再["項目"]の要素数)と0で検証
 </code></pre></div>
 <p><strong>不変性は言語ではなく約束が守ります。</strong> 約束はテストに書きます。</p>
 <h3 id="_8">動かす<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>二件=[作成,項目追加]を畳込
-リスト2=二件で「uberto」と「book」の状態内リスト取得
+リスト2=(二件で「uberto」と「book」の状態内リスト取得)["値"]
 「追加すると項目が 1 件」と(リスト2["項目"]の要素数)と1で検証
 </code></pre></div>
 <p>初期データも、イベントの並びから作るようにしました。</p>
@@ -7133,8 +7448,8 @@
 <hr />
 <h2 id="_15">この章で書いたコード<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h2>
 <ul>
-<li>実装: <code>apps/nadesiko/zettai/src/events.nako3</code>、<code>apps/nadesiko/zettai/src/web.nako3</code></li>
-<li>テスト: <code>apps/nadesiko/zettai/test/events_test.nako3</code>、<code>apps/nadesiko/zettai/test/monoid_test.nako3</code>、<code>apps/nadesiko/zettai/test/helper.nako3</code>、<code>apps/nadesiko/zettai/test/boundary_test.nako3</code></li>
+<li>実装: <code>apps/nadesiko/zettai/src/step2/events.nako3</code>、<code>apps/nadesiko/zettai/src/step2/web.nako3</code></li>
+<li>テスト: <code>apps/nadesiko/zettai/test/step2/events_test.nako3</code>、<code>apps/nadesiko/zettai/test/step2/monoid_test.nako3</code>、<code>apps/nadesiko/zettai/test/step2/helper.nako3</code>、<code>apps/nadesiko/zettai/test/step2/boundary_test.nako3</code></li>
 </ul>
 <p>本文のコードは、上のファイルからの転記です。次の 3 種類だけは逐語の転記ではありません。</p>
 <ul>

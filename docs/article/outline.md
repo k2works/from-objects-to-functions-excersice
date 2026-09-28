@@ -24,7 +24,7 @@ generated: { by: claude-code/claude-opus-5, at: 2026-09-28T05:54:20Z }
 | 対象 | 実行環境 | 章数 | 記事 | サンプル実装 | 状態 |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | Kotlin | Nix devShell `kotlin`（JDK 21 / Gradle） | 13 | `docs/article/zettai/kotlin/` | `apps/kotlin/zettai/` | **完結**（13 / 13 章公開） |
-| なでしこ3 | Nix devShell `nadesiko`（Node 22 / cnako3 3.8.7） | 13 | `docs/article/zettai/nadesiko/` | `apps/nadesiko/zettai/` | 進行中（7 / 13 章公開） |
+| なでしこ3 | Nix devShell `nadesiko`（Node 22 / cnako3 3.8.7） | 13 | `docs/article/zettai/nadesiko/` | `apps/nadesiko/zettai/` | 進行中（8 / 13 章公開） |
 
 横断比較コンテンツ [`docs/article/zettai/comparison/`](zettai/comparison/index.md) は、なでしこ3 版が Phase 1（第 3 章）を終えた 2026-09-28 に新設しました。比較軸は「**型で保証する**（Kotlin）」と「**約束とテストで保証する**（なでしこ3）」です。章を閉じるたびに観点を 1 つずつ足します。
 

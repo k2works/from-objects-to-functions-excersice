@@ -191,6 +191,8 @@ R=[object Promise] 型=object
 
 サーバの起動と停止も、テストの外に出しました。テストの中からサーバを起こすと親プロセスが返らないためです。`Makefile` が持ちます。
 
+<!-- code-check: ignore 第 3 章時点の Makefile。第 8 章で起動待ちを到達確認に変える -->
+
 ```makefile
 	  $(CNAKO) src/$$s/main.nako3 > /dev/null 2>&1 & \
 	  pid=$$!; \

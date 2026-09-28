@@ -296,6 +296,8 @@ $ curl -s -o /dev/null -w "%{http_code}\n" http://localhost:8080/todo/uberto/non
 
 第 1 章でランナーは終了コードと出力のエラー表示の 2 つを見るようにしました。ところが出力を見る側の条件が狭すぎました。`[エラー]` という表示だけを探していたのです。実行時エラーは `[実行時エラー]` と出るので、**ひっかかりませんでした。**
 
+<!-- code-check: ignore 第 2 章時点の Makefile。第 8 章で並列化する（Makefile は段階をまたぐ 1 ファイル） -->
+
 ```makefile
 	  if [ $$code -ne 0 ] || echo "$$out" | grep -qE 'エラー\]'; then \
 ```

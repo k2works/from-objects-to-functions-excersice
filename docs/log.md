@@ -1,6 +1,9 @@
 # Docs Update Log
 
 ## 2026-09-28
+* **Update**: [chapter10](/article/zettai/nadesiko/chapter10.md) を更新（claude-code/claude-opus-5）
+* **Update**: [outline](/article/outline.md) を更新（claude-code/claude-opus-5）
+* **Update**: [draft](/article/draft.md) を更新（claude-code/claude-opus-5）
 * **Verification**: [iteration_plan-nadesiko-6](/development/iteration_plan-nadesiko-6.md) を human:kakimomokuri が検証
 * **Update**: [iteration_plan-nadesiko-6](/development/iteration_plan-nadesiko-6.md) を更新（claude-code/claude-opus-5）
 * **Update**: [release_plan-nadesiko](/development/release_plan-nadesiko.md) を更新（claude-code/claude-opus-5）

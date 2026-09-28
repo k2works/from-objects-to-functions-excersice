@@ -2221,6 +2221,41 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/bolt_report-rust-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「Rust」Unit 1 器と第 1 章
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -2541,6 +2576,41 @@
     
   
     「なでしこ3」Unit 7 監視とアーキテクチャ総括
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/retrospective-rust-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「Rust」Unit 1 器と第 1 章
   
 
     
@@ -5527,6 +5597,129 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_4_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_10_4_5" id="__nav_10_4_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rust 版
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_10_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Rust 版
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../zettai/rust/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概要
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../zettai/rust/chapter01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 1 章 新しいアプリケーションを準備する
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -7769,7 +7962,7 @@
 <td style="text-align: left;">13</td>
 <td style="text-align: left;"><code>docs/article/zettai/rust/</code></td>
 <td style="text-align: left;"><code>apps/rust/zettai/</code></td>
-<td style="text-align: left;">計画中（0 / 13 章）</td>
+<td style="text-align: left;">進行中（1 / 13 章公開）</td>
 </tr>
 </tbody>
 </table>
@@ -8674,7 +8867,7 @@ apps/
 <p>なでしこ3 版と違い、<strong>環境はすでにあります。</strong> 整えるのは実装の器だけです。</p>
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>apps/rust/zettai/</code> に cargo workspace を作る（<code>Cargo.toml</code> とメンバー 1 つ）</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>Makefile</code> を置き、<code>make check</code> を <code>cargo fmt --check &amp;&amp; cargo clippy -- -D warnings &amp;&amp; cargo test</code> にする</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>justfile</code> を置き、<code>just check</code> を <code>fmt</code> + <code>clippy</code> + <code>test</code> にする（カバレッジを含む <code>just check-all</code> も）</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>docs/article/zettai/rust/index.md</code> を作る</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>.github/workflows/rust-zettai.yml</code> を新設する（第 2 章の実装直後）</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>ops/scripts/article/check_article_code.py</code> の <code>SOURCE_GLOBS</code> に <code>apps/**/*.rs</code>、<code>CHECKED_LANGUAGES</code> に <code>rust</code> を追加する</li>
@@ -8702,7 +8895,7 @@ apps/
 <td style="text-align: left;">Unit 1</td>
 <td style="text-align: left;">1-1</td>
 <td style="text-align: left;">5</td>
-<td style="text-align: left;">cargo workspace と <code>make check</code>。<strong>自作する道具は無い</strong></td>
+<td style="text-align: left;">cargo workspace と <code>just check</code>。<strong>自作する道具は無い</strong></td>
 </tr>
 <tr>
 <td style="text-align: left;">1</td>
@@ -8989,7 +9182,7 @@ apps/
 <tr>
 <td style="text-align: left;"><strong>コンパイル時間が NFR に効く</strong></td>
 <td style="text-align: left;">なでしこ3 版は Unit 4・5・6 と 3 回 NFR を超えた。Rust はコンパイルが入るぶん、段階を増やすと伸びやすい</td>
-<td style="text-align: left;"><strong>段階を切る前に見積もり、切った直後に測る</strong>（なでしこ3 版 Unit 5 Try 2）。あわせて「<code>make check</code> が何を守っているか」を先に数える（Unit 7 の学び）</td>
+<td style="text-align: left;"><strong>段階を切る前に見積もり、切った直後に測る</strong>（なでしこ3 版 Unit 5 Try 2）。あわせて「<code>just check</code> が何を守っているか」を先に数える（Unit 7 の学び）</td>
 <td style="text-align: left;">各 Unit の冒頭</td>
 </tr>
 <tr>
@@ -9048,7 +9241,7 @@ apps/
 </table>
 <h3 id="_16">進め方<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h3>
 <ol>
-<li>Unit 1 で cargo workspace と <code>make check</code> を整え、<strong>同期で最後まで行けるか</strong>と <strong>HTTP クレートの選定</strong>をスパイクで確かめ、第 1 章を書く</li>
+<li>Unit 1 で cargo workspace と <code>just check</code> を整え、<strong>同期で最後まで行けるか</strong>と <strong>HTTP クレートの選定</strong>をスパイクで確かめ、第 1 章を書く</li>
 <li>以降は 2 対象と同じく「実装 → 記事執筆 → サイト反映 → コミット」を 1 Bolt として、章 2 本で 1 Unit を閉じる</li>
 <li>Phase 1 の完了時に <code>comparison/</code> に Rust の列を足す</li>
 </ol>

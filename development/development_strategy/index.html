@@ -3168,6 +3168,41 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bolt_report-rust-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「Rust」Unit 1 器と第 1 章
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -3491,6 +3526,41 @@
     
   
     「なでしこ3」Unit 7 監視とアーキテクチャ総括
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../retrospective-rust-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「Rust」Unit 1 器と第 1 章
   
 
     
@@ -6023,6 +6093,129 @@
     
   
     第 13 章 関数型アーキテクチャの設計
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_4_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_10_4_5" id="__nav_10_4_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rust 版
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_10_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Rust 版
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/rust/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概要
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/rust/chapter01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 1 章 新しいアプリケーションを準備する
   
 
     
@@ -9160,9 +9353,9 @@
 </table>
 <p><strong>境界の守り方が 2 対象と違います。</strong> Kotlin 版は import の検査、なでしこ3 版はファイルの中身の文字列検査でした。Rust 版は<strong>クレートを分ければコンパイラが守ります</strong>。検査を書く必要がありません。</p>
 <h4 id="_47">品質チェック<a class="headerlink" href="#_47" title="Permanent link">&para;</a></h4>
-<p><code>make check</code> に <code>cargo fmt --check</code>・<code>cargo clippy -- -D warnings</code>・<code>cargo test</code> を集約します。</p>
+<p><code>justfile</code> にタスクを置き、<strong>2 段構え</strong>にします。<code>just check</code>（<code>fmt</code> + <code>clippy</code> + <code>test</code>）は書いている間に、<code>just check-all</code>（+ カバレッジ）はリリース前と CI に使います（<a href="../../adr/ADR-026-just-and-coverage/">ADR-026</a>）。</p>
 <p><strong><code>clippy -- -D warnings</code> は設計判断に混ざります。</strong> 押された箇所を記録し、第 13 章で「設計の改善」と「clippy の好み」に仕分けます。</p>
-<p>なでしこ3 版 Unit 7 の学びを先に適用します。<strong><code>make check</code> の各段が何を守っているかを、段を足すときに数えます。</strong> 守っているものが無い段は入れません。</p>
+<p>なでしこ3 版 Unit 7 の学びを先に適用します。<strong><code>just check</code> の各段が何を守っているかを、段を足すときに数えます。</strong> 守っているものが無い段は入れません。</p>
 <h4 id="_48">コミット規約<a class="headerlink" href="#_48" title="Permanent link">&para;</a></h4>
 <p>実装は <code>feat(rust): ...</code>、記事は <code>docs(rust): ...</code> とし、コミットを分けます。</p>
 <h3 id="_49">承認ゲートとゲート密度（差分）<a class="headerlink" href="#_49" title="Permanent link">&para;</a></h3>

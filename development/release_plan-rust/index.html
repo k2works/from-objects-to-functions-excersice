@@ -2215,6 +2215,41 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bolt_report-rust-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「Rust」Unit 1 器と第 1 章
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -2535,6 +2570,41 @@
     
   
     「なでしこ3」Unit 7 監視とアーキテクチャ総括
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../retrospective-rust-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「Rust」Unit 1 器と第 1 章
   
 
     
@@ -5092,6 +5162,129 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_4_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_10_4_5" id="__nav_10_4_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rust 版
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_10_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Rust 版
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/rust/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概要
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/rust/chapter01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 1 章 新しいアプリケーションを準備する
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -7394,7 +7587,7 @@
 </tr>
 <tr>
 <td style="text-align: left;">3</td>
-<td style="text-align: left;"><code>make check</code> が通る検査（<code>cargo fmt --check</code> / <code>cargo clippy -- -D warnings</code> / <code>cargo test</code>）</td>
+<td style="text-align: left;"><code>just check</code> が通る検査（<code>just check</code>（<code>fmt</code> + <code>clippy</code> + <code>test</code>））</td>
 </tr>
 <tr>
 <td style="text-align: left;">4</td>
@@ -7816,7 +8009,7 @@ US-001 第 1 章 ──→ US-002 第 2 章 ──→ US-003 第 3 章
 </tr>
 <tr>
 <td style="text-align: left;">変更依頼数</td>
-<td style="text-align: left;"><strong>ゲートで「やり直し」と判断された回数</strong>（着手前に定義した）</td>
+<td style="text-align: left;"><strong>ゲートで「やり直し」と判断された回数。</strong> 人がゲートで提示物を見て、作り直し・方針変更を求めた回数を数える。誤字の指摘や表現の調整は含めない（それは「人が修正を入れた箇所数」で数える）。</td>
 <td style="text-align: left;">Unit ごとに記録</td>
 </tr>
 <tr>
@@ -7838,7 +8031,7 @@ US-001 第 1 章 ──→ US-002 第 2 章 ──→ US-003 第 3 章
 <hr />
 <h2 id="_13">段階的リリース戦略<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>
 <h3 id="release-v010phase-1">Release v0.1.0（Phase 1 完了）: 動く縦串<a class="headerlink" href="#release-v010phase-1" title="Permanent link">&para;</a></h3>
-<p><strong>目標</strong>: cargo workspace・<code>make check</code>・CI が整い、第 1〜3 章が公開され、ToDo リストが HTTP で見える。</p>
+<p><strong>目標</strong>: cargo workspace・<code>just check</code>・CI が整い、第 1〜3 章が公開され、ToDo リストが HTTP で見える。</p>
 <table>
 <thead>
 <tr>
@@ -7852,8 +8045,8 @@ US-001 第 1 章 ──→ US-002 第 2 章 ──→ US-003 第 3 章
 <td style="text-align: left;">記事 4 本</td>
 </tr>
 <tr>
-<td style="text-align: left;"><code>make check</code> が通る</td>
-<td style="text-align: left;"><code>cargo fmt --check</code> / <code>cargo clippy -- -D warnings</code> / <code>cargo test</code></td>
+<td style="text-align: left;"><code>just check</code> が通る</td>
+<td style="text-align: left;"><code>just check</code>（<code>fmt</code> + <code>clippy</code> + <code>test</code>）</td>
 </tr>
 <tr>
 <td style="text-align: left;">受け入れテストが 2 経路（ドメイン直接・HTTP 経由）で green</td>
@@ -8034,7 +8227,7 @@ US-001 第 1 章 ──→ US-002 第 2 章 ──→ US-003 第 3 章
 <td style="text-align: left;">コンパイル時間が NFR を超える</td>
 <td style="text-align: left;">中</td>
 <td style="text-align: left;">中</td>
-<td style="text-align: left;">段階を切る前に見積もり、切った直後に測る。<strong>あわせて <code>make check</code> の各段が何を守っているかを数える</strong>（なでしこ3 版 Unit 7 の学び）</td>
+<td style="text-align: left;">段階を切る前に見積もり、切った直後に測る。<strong>あわせて <code>just check</code> の各段が何を守っているかを数える</strong>（なでしこ3 版 Unit 7 の学び）</td>
 <td style="text-align: left;">各 Unit の冒頭</td>
 </tr>
 <tr>
@@ -8166,15 +8359,15 @@ US-001 第 1 章 ──→ US-002 第 2 章 ──→ US-003 第 3 章
 <h2 id="unit-bolt">Unit ごとの Bolt 計画概要<a class="headerlink" href="#unit-bolt" title="Permanent link">&para;</a></h2>
 <p>各 Unit の詳細な Bolt 計画は、着手時に <code>opening-iteration</code> で <code>iteration_plan-rust-N.md</code> として作成します。</p>
 <h3 id="unit-1week-1-2-1">Unit 1（Week 1-2）器と第 1 章<a class="headerlink" href="#unit-1week-1-2-1" title="Permanent link">&para;</a></h3>
-<p><strong>ゴール</strong>: cargo workspace と <code>make check</code> を整え、<strong>後戻りの効かない 2 つの判断</strong>（async・HTTP クレート）をスパイクで確かめて決める。第 1 章を書く。</p>
-<p><strong>検証負荷</strong>: 7　<strong>Bolt</strong>: 2　<strong>ゲート</strong>: 3（async の決定・HTTP クレートの選定・<code>make check</code> の構成）</p>
+<p><strong>ゴール</strong>: cargo workspace と <code>just check</code> を整え、<strong>後戻りの効かない 2 つの判断</strong>（async・HTTP クレート）をスパイクで確かめて決める。第 1 章を書く。</p>
+<p><strong>検証負荷</strong>: 7　<strong>Bolt</strong>: 2　<strong>ゲート</strong>: 3（async の決定・HTTP クレートの選定・<code>just check</code> の構成）</p>
 <p><strong>スパイクで確かめること</strong>:</p>
 <ol>
 <li>同期の HTTP クレートだけで、第 2 章の縦串が書けるか</li>
 <li>同期の PostgreSQL クレートで、第 9 章の題材が書けるか（<strong>async を第 9 章まで遅らせられるか</strong>）</li>
 <li><code>cargo test</code> の並列実行で、テストごとに接続先・出力先を分ける手段があるか（なでしこ3 版 Unit 7 Try 4）</li>
 <li><code>cargo-llvm-cov</code> が Nix の devShell で動くか</li>
-<li>空の workspace で <code>make check</code> が何秒かかるか（<strong>段階を増やす前の基準値</strong>）</li>
+<li>空の workspace で <code>just check</code> が何秒かかるか（<strong>段階を増やす前の基準値</strong>）</li>
 </ol>
 <h3 id="unit-2week-3-4">Unit 2（Week 3-4）ウォーキングスケルトンとドメイン分離<a class="headerlink" href="#unit-2week-3-4" title="Permanent link">&para;</a></h3>
 <p><strong>ゴール</strong>: HTTP の縦串を通し、ドメインとアダプタをモジュールで分離する（第 2〜3 章）。<strong>確認したい仮説</strong>: 所有権は縦串の段階では邪魔にならない。</p>
@@ -8212,10 +8405,10 @@ US-001 第 1 章 ──→ US-002 第 2 章 ──→ US-003 第 3 章
 <tr>
 <td style="text-align: left;">Unit 1</td>
 <td style="text-align: left;">7</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">計画済み（<a href="../iteration_plan-rust-1/">Bolt 計画</a>）</td>
+<td style="text-align: left;"><strong>3 / 3</strong></td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;"><strong>完了</strong></td>
 </tr>
 <tr>
 <td style="text-align: left;">Unit 2</td>
@@ -8268,10 +8461,10 @@ US-001 第 1 章 ──→ US-002 第 2 章 ──→ US-003 第 3 章
 <tr>
 <td style="text-align: left;"><strong>合計</strong></td>
 <td style="text-align: left;"><strong>68</strong></td>
-<td style="text-align: left;"><strong>-</strong></td>
-<td style="text-align: left;"><strong>-</strong></td>
-<td style="text-align: left;"><strong>-</strong></td>
-<td style="text-align: left;">完了 Unit 数 <strong>0 / 7</strong></td>
+<td style="text-align: left;"><strong>3 / 3</strong></td>
+<td style="text-align: left;"><strong>0</strong></td>
+<td style="text-align: left;"><strong>1</strong></td>
+<td style="text-align: left;">完了 Unit 数 <strong>1 / 7</strong></td>
 </tr>
 </tbody>
 </table>
@@ -8286,6 +8479,11 @@ US-001 第 1 章 ──→ US-002 第 2 章 ──→ US-003 第 3 章
 </tr>
 </thead>
 <tbody>
+<tr>
+<td style="text-align: left;">2026-09-28</td>
+<td style="text-align: left;">Unit 1 完了を反映。<strong>承認ゲートが 3 / 3 で同期停止</strong>（目標 50%）。2 対象は 41 箇所で 1 回だった。ADR-024〜026 を記録し、タスクランナーを Make から Just に変更した</td>
+<td style="text-align: left;">claude-code/claude-opus-5</td>
+</tr>
 <tr>
 <td style="text-align: left;">2026-09-28</td>
 <td style="text-align: left;">初版作成。3 言語目として Rust を採用。<strong>2 対象の学び</strong>（ゲートに選択肢と数字を添える／測れない指標を置かない／変更依頼数の定義を先に決める／既知の制約の一覧を Unit 1 から作る／しきい値に分布の計算を添える／共有する書き込み先をテストごとに分ける）を着手前に反映した</td>

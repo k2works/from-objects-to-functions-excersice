@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Zettai 連載 Rust 版の Unit 1（器と第 1 章）の Bolt 計画。後戻りの効かない 2 つの判断（async の採否と HTTP クレートの選定）をスパイクで確かめてから決め、cargo workspace と make check を整えて第 1 章を書く。2 対象の学びを着手前に反映し、ゲートには必ず選択肢と数字を添える。">
+        <meta name="description" content="Zettai 連載 Rust 版の Unit 1（器と第 1 章）の Bolt 計画。後戻りの効かない 2 つの判断（async の採否と HTTP クレートの選定）をスパイクで確かめてから決め、cargo workspace と just check を整えて第 1 章を書く。2 対象の学びを着手前に反映し、ゲートには必ず選択肢と数字を添える。">
       
       
         <meta name="author" content="Project Team">
@@ -2710,6 +2710,41 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bolt_report-rust-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「Rust」Unit 1 器と第 1 章
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -3033,6 +3068,41 @@
     
   
     「なでしこ3」Unit 7 監視とアーキテクチャ総括
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../retrospective-rust-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「Rust」Unit 1 器と第 1 章
   
 
     
@@ -5593,6 +5663,129 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_4_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_10_4_5" id="__nav_10_4_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rust 版
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_10_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Rust 版
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/rust/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概要
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/rust/chapter01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 1 章 新しいアプリケーションを準備する
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -7859,7 +8052,7 @@
 </tr>
 <tr>
 <td style="text-align: left;">3</td>
-<td style="text-align: left;"><strong><code>make check</code> の構成</strong></td>
+<td style="text-align: left;"><strong><code>just check</code> の構成</strong></td>
 <td style="text-align: left;">1-1.5</td>
 <td style="text-align: left;">各段が何を守っているか、それぞれの秒数</td>
 </tr>
@@ -7932,7 +8125,7 @@
 </tr>
 <tr>
 <td style="text-align: left;">9</td>
-<td style="text-align: left;"><strong><code>make check</code> の各段が何を守っているかを数える</strong></td>
+<td style="text-align: left;"><strong><code>just check</code> の各段が何を守っているかを数える</strong></td>
 <td style="text-align: left;">なでしこ3 版 Unit 7 の学び</td>
 <td style="text-align: left;">1-1.5（<strong>段を入れる前に</strong>数える）</td>
 </tr>
@@ -7942,11 +8135,11 @@
 <hr />
 <h2 id="_4">ゴール<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <blockquote>
-<p>後戻りの効かない 2 つの判断（async の採否・HTTP クレートの選定）を実測してから決め、cargo workspace と <code>make check</code> を整えて第 1 章を書く。<strong>確認したい仮説</strong>: 環境とテストが既にある言語では、Unit 1 の重さは「作る量」ではなく「決める重さ」で決まる。</p>
+<p>後戻りの効かない 2 つの判断（async の採否・HTTP クレートの選定）を実測してから決め、cargo workspace と <code>just check</code> を整えて第 1 章を書く。<strong>確認したい仮説</strong>: 環境とテストが既にある言語では、Unit 1 の重さは「作る量」ではなく「決める重さ」で決まる。</p>
 </blockquote>
 <h3 id="unit">Unit 完了時の達成状態<a class="headerlink" href="#unit" title="Permanent link">&para;</a></h3>
 <ul>
-<li><code>apps/rust/zettai/</code> に cargo workspace があり、<code>make check</code> が通る</li>
+<li><code>apps/rust/zettai/</code> に cargo workspace があり、<code>just check</code> が通る</li>
 <li><strong>async を採るかどうかが ADR に記録されている</strong>（理由と、選ばなかった案の代償つき）</li>
 <li><strong>HTTP クレートが選定され、ADR に記録されている</strong></li>
 <li><code>apps/rust/zettai/README.md</code> に<strong>既知の制約の一覧</strong>がある（空でもよい。器を作る）</li>
@@ -7967,7 +8160,7 @@
 <tbody>
 <tr>
 <td style="text-align: left;">1</td>
-<td style="text-align: left;"><code>make check</code> が通る</td>
+<td style="text-align: left;"><code>just check</code> が通る</td>
 <td style="text-align: left;">3 回連続で exit 0</td>
 <td style="text-align: left;">—</td>
 </tr>
@@ -8042,13 +8235,13 @@
 </tr>
 <tr>
 <td style="text-align: left;">5</td>
-<td style="text-align: left;">空の workspace で <code>make check</code> が何秒かかるか</td>
+<td style="text-align: left;">空の workspace で <code>just check</code> が何秒かかるか</td>
 <td style="text-align: left;">— （基準値の取得。段階を増やす前の起点）</td>
 <td style="text-align: left;">3</td>
 </tr>
 </tbody>
 </table>
-<p><strong>スパイク 1 と 2 の結果だけが、後戻りの効かない判断に効きます。</strong> 3〜5 は <code>make check</code> の構成に効きます。</p>
+<p><strong>スパイク 1 と 2 の結果だけが、後戻りの効かない判断に効きます。</strong> 3〜5 は <code>just check</code> の構成に効きます。</p>
 <hr />
 <h2 id="_7">局面とアプローチ<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
 <p><strong>序盤（アウトサイドイン）です。ただし Bolt 1-1 は対象外です。</strong></p>
@@ -8085,7 +8278,7 @@
 <h3 id="_8">ユーザーストーリー<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
 <h4 id="us-000">US-000: 前提を整える<a class="headerlink" href="#us-000" title="Permanent link">&para;</a></h4>
 <blockquote>
-<p><strong>執筆者</strong>として、<strong>cargo workspace と <code>make check</code> と、後戻りの効かない判断の記録</strong>が欲しい。<strong>第 2 章以降でコードの形が変わらないようにする</strong>ため。</p>
+<p><strong>執筆者</strong>として、<strong>cargo workspace と <code>just check</code> と、後戻りの効かない判断の記録</strong>が欲しい。<strong>第 2 章以降でコードの形が変わらないようにする</strong>ため。</p>
 </blockquote>
 <table>
 <thead>
@@ -8098,7 +8291,7 @@
 <tbody>
 <tr>
 <td style="text-align: left;">1</td>
-<td style="text-align: left;"><code>apps/rust/zettai/</code> で <code>make check</code> が通る</td>
+<td style="text-align: left;"><code>apps/rust/zettai/</code> で <code>just check</code> が通る</td>
 <td style="text-align: left;"><code>cargo fmt --check &amp;&amp; cargo clippy -- -D warnings &amp;&amp; cargo test</code> が exit 0</td>
 </tr>
 <tr>
@@ -8181,13 +8374,13 @@
 <tbody>
 <tr>
 <td style="text-align: left;">1</td>
-<td style="text-align: left;"><code>make check</code>（workspace メンバー 1 つ）</td>
+<td style="text-align: left;"><code>just check</code>（workspace メンバー 1 つ）</td>
 <td style="text-align: left;"><strong>20 秒以内</strong></td>
 <td style="text-align: left;">3 回測る</td>
 </tr>
 <tr>
 <td style="text-align: left;">2</td>
-<td style="text-align: left;"><code>make check</code> の内訳</td>
+<td style="text-align: left;"><code>just check</code> の内訳</td>
 <td style="text-align: left;">各段の秒数を記録する</td>
 <td style="text-align: left;"><code>fmt</code> / <code>clippy</code> / <code>test</code> を個別に測る</td>
 </tr>
@@ -8244,40 +8437,161 @@
 <h2 id="bolt-1-1-2">Bolt 1-1: 器と 2 つの判断<a class="headerlink" href="#bolt-1-1-2" title="Permanent link">&para;</a></h2>
 <h3 id="bolt">Bolt ゴール<a class="headerlink" href="#bolt" title="Permanent link">&para;</a></h3>
 <blockquote>
-<p>後戻りの効かない 2 つの判断を実測してから決め、cargo workspace と <code>make check</code> を整える。<strong>確認したい仮説</strong>: 同期のクレートだけで第 9 章まで行ける。</p>
+<p>後戻りの効かない 2 つの判断を実測してから決め、cargo workspace と <code>just check</code> を整える。<strong>確認したい仮説</strong>: 同期のクレートだけで第 9 章まで行ける。</p>
 </blockquote>
 <h3 id="_10">ステップ計画<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
 <ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>1-1.0 指標の定義を決める</strong>（持ち込み 4）</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>1-1.0 指標の定義を決める</strong>（持ち込み 4）</li>
 <li>「変更依頼数」を定義し、本計画と <a href="../release_plan-rust/">リリース計画</a> に書く</li>
 <li>完了判定: 定義が 1 文で書かれており、数え方が一意に決まる</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>1-1.1 既知の制約の一覧の器を作る</strong>（持ち込み 1）</li>
+<li><strong>実績（2026-09-28）</strong>: 次のとおり定義した</li>
+</ul>
+<blockquote>
+<p><strong>変更依頼数</strong>: <strong>ゲートで「やり直し」と判断された回数。</strong> 人がゲートで提示物を見て、作り直し・方針変更を求めた回数を数える。誤字の指摘や表現の調整は含めない（それは「人が修正を入れた箇所数」で数える）。</p>
+</blockquote>
+<ul class="task-list">
+<li><strong>「人が修正を入れた箇所数」との境界</strong>: ゲートで止めて方針を変えたら変更依頼、コミット後に人が手直ししたら修正。<strong>同じ事象を二重に数えない</strong></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>1-1.1 既知の制約の一覧の器を作る</strong>（持ち込み 1）</li>
 <li><code>apps/rust/zettai/README.md</code> に見出しと表を置く。<strong>空のまま始める</strong></li>
 <li>なでしこ3 版は Unit 6 で作り、遅すぎた。<strong>踏んだその場で足せる器を先に用意する</strong></li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>1-1.2 スパイク: 同期で第 9 章まで行けるか</strong>（スパイク 1・2）</li>
+<li><strong>実績（2026-09-28）</strong>: 表を 3 つ置いた。「言語・処理系」「<strong>設計に効くもの</strong>（所有権に押された箇所）」「<strong>clippy に押されたもの</strong>」。後ろ 2 つは 2 対象に無い枠で、第 13 章の仕分けの材料にする</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>1-1.2 スパイク: 同期で第 9 章まで行けるか</strong>（スパイク 1・2）</li>
 <li>同期の HTTP クレートで最小のハンドラを 1 本書く</li>
 <li>同期の PostgreSQL クレートで 1 テーブルへの <code>INSERT</code> と <code>SELECT</code> を書く</li>
 <li><strong>★人の確認が必要（ゲート 1: async の採否）</strong></li>
 <li>添えるもの: 両方書けたか／書けなかった場合に何が足りないか／async を採ったときに第 2〜8 章がどう変わるか</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>1-1.3 スパイク: HTTP クレートの選定</strong>（スパイク 1）</li>
+<li><strong>実績（2026-09-28。ゲート 1 は同期停止した）</strong>: 同期の <code>postgres</code> 0.19.14 で、実 DB に対して <code>INSERT</code> / <code>SELECT</code> / <strong>トランザクション（rollback）</strong>まで書けた。人は「<strong>async を採らない</strong>」を選択。第 1〜8 章の書き換えリスクが 0 になり、関数の形が 2 対象と揃う</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>1-1.3 スパイク: HTTP クレートの選定</strong>（スパイク 1）</li>
 <li>候補を 3 つ挙げ、それぞれで「ToDo リストを 1 つ返す」ハンドラを書く</li>
 <li><strong>★人の確認が必要（ゲート 2: HTTP クレートの選定）</strong></li>
 <li>添えるもの: 候補ごとの tokio 必須の有無・縦串の行数・依存クレート数・ビルド時間</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>1-1.4 スパイク: テストの分離とカバレッジ</strong>（スパイク 3・4）</li>
+<li><strong>実績（2026-09-28。ゲート 2 は同期停止した）</strong>: 3 候補とも縦串が通り、実際に応答した</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">候補</th>
+<th style="text-align: left;">tokio 必須</th>
+<th style="text-align: left;">依存クレート数</th>
+<th style="text-align: left;">行数</th>
+<th style="text-align: left;">ビルド時間</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong><code>tiny_http</code>（採用）</strong></td>
+<td style="text-align: left;">不要</td>
+<td style="text-align: left;"><strong>5</strong></td>
+<td style="text-align: left;">15</td>
+<td style="text-align: left;"><strong>7 秒</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>rouille</code></td>
+<td style="text-align: left;">不要</td>
+<td style="text-align: left;">123</td>
+<td style="text-align: left;">14</td>
+<td style="text-align: left;">58 秒</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>axum</code></td>
+<td style="text-align: left;">必須</td>
+<td style="text-align: left;">61</td>
+<td style="text-align: left;">13</td>
+<td style="text-align: left;">70 秒</td>
+</tr>
+</tbody>
+</table>
+<ul class="task-list">
+<li>行数はほぼ同じで、差が出たのは<strong>依存クレート数とビルド時間</strong>だった。ビルド時間は <code>just check</code> の NFR（20 秒）に直接効く</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>1-1.4 スパイク: テストの分離とカバレッジ</strong>（スパイク 3・4）</li>
 <li><code>cargo test</code> の並列実行で、テストごとに接続先・出力先を分ける手段を確かめる（持ち込み 6）</li>
 <li><code>cargo-llvm-cov</code> が devShell で動くか確かめる</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>1-1.5 cargo workspace と <code>make check</code> を作る</strong>（持ち込み 8・9。スパイク 5）</li>
+<li><strong>実績（2026-09-28）</strong>:<ul>
+<li><strong>テストの分離は依存クレート 0 で書けた。</strong> <code>AtomicUsize</code> の連番と <code>std::process::id()</code> で <code>unique_path</code> を作り、並列に走る 3 テストが衝突しないことを確認した</li>
+<li><strong><code>cargo-llvm-cov</code> は devShell に無かった。</strong> 動いたのはホストの <code>~/.cargo/bin</code> のもので、<strong>CI には来ない</strong>。<code>just</code> も同じだった。両方 <code>shell.nix</code> に足した</li>
+<li><code>cargo-llvm-cov</code> は rustup の <code>llvm-tools-preview</code> を探すが Nix に無い。<strong>rustc の LLVM（21.1.7）と <code>llvmPackages.bintools</code> が一致していた</strong>ので、<code>LLVM_COV</code> / <code>LLVM_PROFDATA</code> を <code>shellHook</code> で指した</li>
+</ul>
+</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>1-1.5 cargo workspace と <code>just check</code> を作る</strong>（持ち込み 8・9。スパイク 5）</li>
 <li><strong>段を入れる前に、各段が何を守るかを書き出す</strong></li>
 <li>空の workspace で基準値を測り、段を足すたびに測る</li>
-<li><strong>★人の確認が必要（ゲート 3: <code>make check</code> の構成）</strong></li>
+<li><strong>★人の確認が必要（ゲート 3: <code>just check</code> の構成）</strong></li>
 <li>添えるもの: 各段が守るもの・各段の秒数・合計</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>1-1.6 記事検査を Rust に対応させる</strong></li>
+<li><strong>実績（2026-09-28。ゲート 3 は同期停止した）</strong>: 段を入れる前に「何を守るか」を書き出した</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">段</th>
+<th style="text-align: left;">何を守るか</th>
+<th style="text-align: left;"><code>test</code> と重複するか</th>
+<th style="text-align: left;">秒数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>fmt</code></td>
+<td style="text-align: left;">体裁</td>
+<td style="text-align: left;">しない</td>
+<td style="text-align: left;">1 秒</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>clippy</code></td>
+<td style="text-align: left;">慣用から外れた書き方</td>
+<td style="text-align: left;">しない</td>
+<td style="text-align: left;">3 秒</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>test</code></td>
+<td style="text-align: left;">振る舞い（＋型・所有権）</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">3 秒</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>cov</code></td>
+<td style="text-align: left;"><strong>テストが見ていないコード</strong></td>
+<td style="text-align: left;">しない</td>
+<td style="text-align: left;">3 秒</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>4 段とも守るものが違うので 4 段とも入れた。</strong> 人は「カバレッジを入れる」を選択</li>
+<li>検査を 2 段構えにした（<a href="../../adr/ADR-026-just-and-coverage/">ADR-026</a>）</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">コマンド</th>
+<th style="text-align: left;">内容</th>
+<th style="text-align: left;">実測</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>just check</code></td>
+<td style="text-align: left;"><code>fmt</code> + <code>lint</code> + <code>test</code></td>
+<td style="text-align: left;"><strong>2〜3 秒</strong>（冷えた状態 5 秒）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>just check-all</code></td>
+<td style="text-align: left;">上 + <code>cov</code></td>
+<td style="text-align: left;"><strong>5〜8 秒</strong>（冷えた状態 11 秒）</td>
+</tr>
+</tbody>
+</table>
+<ul class="task-list">
+<li>上限 20 秒に対して余裕がある</li>
+<li><strong>タスクランナーを Make から Just に変えた</strong>（作業中に人から指示）。<code>just --list</code> がタスク一覧になる</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>1-1.6 記事検査を Rust に対応させる</strong></li>
 <li><code>check_article_code.py</code> の <code>SOURCE_GLOBS</code> に <code>apps/**/*.rs</code>、<code>CHECKED_LANGUAGES</code> に <code>rust</code></li>
 <li>完了判定: 6 本とも 0 件で通る</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>1-1.7 ADR を書く</strong></li>
-<li>ADR-024（async の採否）、ADR-025（HTTP クレートの選定）、ADR-026（<code>make check</code> の構成とカバレッジの採否）</li>
+<li><strong>実績（2026-09-28）</strong>: <code>check_article_code.py</code> に <code>apps/**/*.rs</code>・<code>apps/**/justfile</code> と言語タグ <code>rust</code>・<code>just</code> を追加。あわせて <strong><code>check_sections.py</code> の対象名</strong>（<code>rust</code> → <code>Rust</code>）と <strong><code>check_numbers.py</code> の試行回数の宣言形式</strong>（<code>const TRIALS: usize = 200</code>）も足した。6 本とも 0 件</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>1-1.7 ADR を書く</strong></li>
+<li>ADR-024（async の採否）、ADR-025（HTTP クレートの選定）、ADR-026（<code>just check</code> の構成とカバレッジの採否）</li>
 <li><strong>選ばなかった案と、その代償を必ず書く</strong></li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>1-1.8 <code>docs/article/zettai/rust/index.md</code> を作る</strong></li>
+<li><strong>実績（2026-09-28）</strong>: 3 件とも作成し索引に登録した。ADR-026 はタスクランナーの選定（Make → Just）も含む</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>1-1.8 <code>docs/article/zettai/rust/index.md</code> を作る</strong></li>
 </ul>
 <hr />
 <h2 id="bolt-1-2-1">Bolt 1-2: 第 1 章<a class="headerlink" href="#bolt-1-2-1" title="Permanent link">&para;</a></h2>
@@ -8287,18 +8601,19 @@
 </blockquote>
 <h3 id="_11">ステップ計画<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
 <ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>1-2.1 第 1 章の骨子</strong></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>1-2.1 第 1 章の骨子</strong></li>
 <li>節構成は <a href="../../article/draft/">draft.md</a> のマインドマップに一致させる（読み替えは 0 件の見込み）</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>1-2.2 最小のテストを 1 本書く（Red → Green）</strong></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>1-2.2 最小のテストを 1 本書く（Red → Green）</strong></li>
 <li>第 1 章のコード例になるもの。<strong>実装から転記できる形にする</strong></li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>1-2.3 第 1 章の執筆</strong></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>1-2.3 第 1 章の執筆</strong></li>
 <li><strong>2 対象に無い内容を 1 つ以上含める</strong>（無ければ未完了）</li>
 <li>候補: テストフレームワークを作らなくてよいこと／<code>cargo</code> が最初から何を与えるか／<code>clippy -- -D warnings</code> を最初から入れる判断</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>1-2.4 サイト反映と OKF 適用</strong></li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>1-2.5 CI の準備の判断</strong></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>1-2.4 サイト反映と OKF 適用</strong></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>1-2.5 CI の準備の判断</strong></li>
 <li><code>.github/workflows/rust-zettai.yml</code> は<strong>第 2 章の実装直後（Unit 2）</strong>に作る（2 対象と同じ）</li>
-<li><strong>不要と判断する条件</strong>: 本 Unit ではアプリケーションが動かないので、CI で守るものが <code>make check</code> しかない。Unit 2 で HTTP の縦串が通ってから入れる</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>1-2.6 Bolt 終了報告とふりかえり</strong></li>
+<li><strong>不要と判断する条件</strong>: 本 Unit ではアプリケーションが動かないので、CI で守るものが <code>just check</code> しかない。Unit 2 で HTTP の縦串が通ってから入れる</li>
+<li><strong>実績（2026-09-28）</strong>: 条件に照らして <strong>Unit 2 へ送った</strong></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>1-2.6 Bolt 終了報告とふりかえり</strong></li>
 <li><strong>ゲートの同期停止率を数える</strong>。50% を下回ったら Unit 2 で箇所を減らす</li>
 </ul>
 <hr />
@@ -8335,7 +8650,7 @@
 <h3 id="_13">依存の構造（決めること）<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>apps/rust/zettai/
 ├── Cargo.toml          workspace
-├── Makefile            make check
+├── Makefile            just check
 ├── README.md           既知の制約の一覧（器を先に作る）
 └── zettai-step1-http/  最初のメンバー
     ├── Cargo.toml
@@ -8368,7 +8683,7 @@
 </tr>
 <tr>
 <td style="text-align: left;">ADR-026（予定）</td>
-<td style="text-align: left;"><code>make check</code> の構成とカバレッジの採否</td>
+<td style="text-align: left;"><code>just check</code> の構成とカバレッジの採否</td>
 <td style="text-align: left;">1-1.5・1-1.7</td>
 </tr>
 </tbody>
@@ -8427,9 +8742,9 @@
 <h2 id="deployment-unit">Deployment Unit としての完了条件<a class="headerlink" href="#deployment-unit" title="Permanent link">&para;</a></h2>
 <h3 id="definition-of-done">Definition of Done<a class="headerlink" href="#definition-of-done" title="Permanent link">&para;</a></h3>
 <ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>apps/rust/zettai/</code> で <code>make check</code> が 3 回連続で通る</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>make check</code> が <strong>20 秒以内</strong>（内訳も記録）</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> ADR 3 件（async・HTTP クレート・<code>make check</code>）があり、<strong>選ばなかった案と代償が書かれている</strong></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>apps/rust/zettai/</code> で <code>just check</code> が 3 回連続で通る</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>just check</code> が <strong>20 秒以内</strong>（内訳も記録）</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> ADR 3 件（async・HTTP クレート・<code>just check</code>）があり、<strong>選ばなかった案と代償が書かれている</strong></li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>README.md</code> に既知の制約の一覧があり、Unit 1 で踏んだものが 1 件以上入っている</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 変更依頼数の定義が書かれている</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 第 1 章が公開され、<strong>2 対象に無い内容が 1 つ以上ある</strong></li>
@@ -8489,7 +8804,7 @@
 <tbody>
 <tr>
 <td style="text-align: left;">1</td>
-<td style="text-align: left;"><code>make check</code> を走らせる</td>
+<td style="text-align: left;"><code>just check</code> を走らせる</td>
 <td style="text-align: left;">3 回とも通り、20 秒以内</td>
 </tr>
 <tr>
@@ -8548,7 +8863,7 @@
 <td style="text-align: left;">3</td>
 </tr>
 <tr>
-<td style="text-align: left;"><code>make check</code></td>
+<td style="text-align: left;"><code>just check</code></td>
 <td style="text-align: left;">20 秒以内（内訳も）</td>
 </tr>
 </tbody>

@@ -3,8 +3,10 @@ type: Bolt Plan
 title: "Unit 1 の Bolt 計画（イテレーション 1）- Zettai 連載（なでしこ3 版）"
 description: "Zettai 連載なでしこ3 版の Unit 1（実行環境・テスト基盤と第 1 章）の Bolt 計画。AI-DLC の Intent → Unit → Bolt の階層に従い、Unit 1 の満足条件（ストーリー・受入条件・NFR・測定基準）、5 軸のエントロピー評価、スコープと深さとテスト戦略の選択、Bolt 1-1 と Bolt 1-2 のステップ計画と承認ゲート 10 箇所、Kotlin 版 Unit 7 のふりかえり Try の反映、Deployment Unit の完了条件を定義する。"
 tags: [development, plan, ai-dlc, bolt, zettai, nadesiko, unit-1]
-status: draft
+status: stable
 generated: { by: claude-code/claude-opus-5, at: 2026-09-28T02:42:56Z }
+verified:
+  - { by: human:kakimomokuri, at: 2026-09-28T02:45:49Z }
 ---
 
 # Unit 1 の Bolt 計画（イテレーション 1）- Zettai 連載（なでしこ3 版）

@@ -1595,6 +1595,41 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/iteration_plan-nadesiko-7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「なでしこ3」Unit 7 監視とアーキテクチャ総括
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -4839,6 +4874,76 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/nadesiko/chapter12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 12 章 監視と関数型 JSON
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/nadesiko/chapter13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 13 章 関数型アーキテクチャの設計
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -7231,6 +7336,66 @@
 </table>
 <p>見積もり（50 秒）より実測（35.6 秒）が良かったのは、並列化が効いて伸びが頭打ちに近づくためです。<strong>見積もりはファイル数への単純な比例で置いたので、保守的でした。</strong></p>
 <p><strong>全段階の時間の上限は外します。</strong> inner loop ではないので、「CI が green であること」を条件にします。</p>
+<h3 id="lint-check-2026-09-28-5"><code>lint</code> を <code>check</code> から外した（2026-09-28 追記・段階 5 つ）<a class="headerlink" href="#lint-check-2026-09-28-5" title="Permanent link">&para;</a></h3>
+<p>Unit 6 の末に、両方の上限を超えました（<code>make check</code> 16〜17 秒 / <code>make check-all</code> 41〜42 秒）。段階を 5 つにすると <strong>17 秒 / 57 秒</strong>になることを、<code>src/step5/</code> を仮に作って実測しました。</p>
+<p>これまでは「測って対処」で凌いできました。今回は<strong>何が時間を使っているか</strong>を分けて測りました。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">検査</th>
+<th style="text-align: left;">段階 4 つ</th>
+<th style="text-align: left;">段階 5 つ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>lint</code></td>
+<td style="text-align: left;">21 秒</td>
+<td style="text-align: left;"><strong>35 秒</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>test</code></td>
+<td style="text-align: left;">8 秒</td>
+<td style="text-align: left;">14 秒</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>doctest</code></td>
+<td style="text-align: left;">9 秒</td>
+<td style="text-align: left;">14 秒</td>
+</tr>
+</tbody>
+</table>
+<p><strong><code>lint</code> が半分以上でした。</strong> そこで <code>lint</code> が何を守っているかを数えました。</p>
+<p><code>test</code> と <code>doctest</code> は、テストそのものが入口で、取り込んだファイルをすべて構文解析します。<code>src/stepN/main.nako3</code> は <code>doctest</code> がサーバとして起動します。<strong>全 4 段階 107 ファイルを調べて、実行で解析されないファイルは 0 件でした。</strong></p>
+<p><strong><code>lint</code> が単独で守っているものは何もありません。</strong> 速さだけを奪っていました。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">コマンド</th>
+<th style="text-align: left;">内容</th>
+<th style="text-align: left;">実測（段階 5 つ）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>make check</code></td>
+<td style="text-align: left;"><code>test</code> + <code>doctest</code>（最新の段階）</td>
+<td style="text-align: left;"><strong>6〜7 秒</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>make check-all</code></td>
+<td style="text-align: left;"><code>test</code> + <code>doctest</code>（全段階）</td>
+<td style="text-align: left;"><strong>25 秒前後</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>make lint</code></td>
+<td style="text-align: left;">単独のタスクとして残す。CI が <code>check-all</code> の前に 1 回回す</td>
+<td style="text-align: left;">—</td>
+</tr>
+</tbody>
+</table>
+<p><strong>上限は上げていません。</strong> 上限を上げるのではなく、何を速く保つかを決め直す（Unit 5 の Keep）という方針のままです。</p>
+<p><code>lint</code> を残す理由は 1 つだけです。<strong>文法エラーだけを早く明確に知りたいとき</strong>に使えます。テストからも同じエラーは出ますが、他の出力に埋もれます。</p>
 <h2 id="_9">備考<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
 <ul>
 <li>起案: Unit 3 のふりかえり Problem 2、Unit 4 / ステップ 4-1.1</li>

@@ -987,6 +987,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        入出力をする場所（第 12 章時点）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#_12" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1828,6 +1839,41 @@
     
   
     「なでしこ3」Unit 6 文脈の受け渡しとバリデーション
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/iteration_plan-nadesiko-7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「なでしこ3」Unit 7 監視とアーキテクチャ総括
   
 
     
@@ -5092,6 +5138,76 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/nadesiko/chapter12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 12 章 監視と関数型 JSON
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/nadesiko/chapter13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 13 章 関数型アーキテクチャの設計
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -7633,7 +7749,70 @@ src/test/kotlin/zettai/
 <blockquote>
 <p><strong><code>src/domain.nako3</code> は簡易 HTTP サーバのプラグインを取り込まない。</strong></p>
 </blockquote>
-<p>依存の向きは<strong>取り込みの向き</strong>で表します。<code>web.nako3</code> は <code>domain.nako3</code> を取り込み、逆はありません。<strong>取り込みの不在が境界</strong>なので、不在を機械で検査します（<code>test/boundary_test.nako3</code>）。ファイルの中身を読んで <code>plugin_httpserver</code> の出現回数が 0 であることを確かめるだけの素朴な検査ですが、わざと取り込みを足すと落ちます。</p>
+<p>依存の向きは<strong>取り込みの向き</strong>で表します。<code>web.nako3</code> は <code>domain.nako3</code> を取り込み、逆はありません。<strong>取り込みの不在が境界</strong>なので、不在を機械で検査します（<code>test/stepN/boundary_test.nako3</code>）。ファイルの中身を読んで <code>plugin_httpserver</code> の出現回数が 0 であることを確かめるだけの素朴な検査ですが、わざと取り込みを足すと落ちます。</p>
+<p>検査の項目は章とともに増え、第 12 章で 5 つになりました。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">#</th>
+<th style="text-align: left;">確かめること</th>
+<th style="text-align: left;">章</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">簡易 HTTP サーバのプラグインを取り込まない</td>
+<td style="text-align: left;">2</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">ファイルに書かない（<code>へ保存</code>）</td>
+<td style="text-align: left;">10</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">ファイルを読まない（<code>を開く</code>）</td>
+<td style="text-align: left;">10</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">文脈の中身（<code>保管先</code>）を読まない</td>
+<td style="text-align: left;">10</td>
+</tr>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;"><strong>記録の手段を知らない</strong>（<code>記録</code>）</td>
+<td style="text-align: left;">12</td>
+</tr>
+</tbody>
+</table>
+<p>対象はドメインの 7 ファイル（<code>domain</code>・<code>events</code>・<code>outcome</code>・<code>commands</code>・<code>projection</code>・<code>validation</code>・<code>template</code>）です。<strong>1 ファイル決め打ちにすると、増えたファイルが検査から漏れます</strong>（第 4 章で実際に漏れかけました）。</p>
+<h3 id="12">入出力をする場所（第 12 章時点）<a class="headerlink" href="#12" title="Permanent link">&para;</a></h3>
+<p>入出力をするファイルは 2 つだけです。どちらも<strong>関数値で注入せず、呼び出しの順序で使います</strong>。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">ファイル</th>
+<th style="text-align: left;">役割</th>
+<th style="text-align: left;">呼ぶ側</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>store.nako3</code></td>
+<td style="text-align: left;">イベントログの読み書き</td>
+<td style="text-align: left;"><code>tx.nako3</code>（文脈経由）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>log_sink.nako3</code></td>
+<td style="text-align: left;">記録の書き出し</td>
+<td style="text-align: left;"><code>tx.nako3</code>（アダプタ層）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>記録を <code>store.nako3</code> の中に置くことはできませんでした。</strong> 読み出しを関数値ごしに呼ぶ経路（受け入れテストの保管経由）があり、中に書き出し（非同期）が入った瞬間に Promise が返ります（既知の制約 1 の 5 度目）。</p>
+<p><strong>関数値ごしに呼べるかどうかは「中で何を呼ぶか」で決まります。</strong> 純粋な関数は注入できます（双方向変換は関数値を 2 つ持ちますが、中で入出力をしないので問題ありません）。入出力をする関数は注入できません。この線引きが、この版のポートの形をすべて決めています。</p>
 <h3 id="_12">品質ゲート<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
 <table>
 <thead>

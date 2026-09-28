@@ -1138,6 +1138,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        記録はドメインの外（第 12 章）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#_20" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1922,6 +1933,41 @@
     
   
     「なでしこ3」Unit 6 文脈の受け渡しとバリデーション
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/iteration_plan-nadesiko-7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「なでしこ3」Unit 7 監視とアーキテクチャ総括
   
 
     
@@ -5186,6 +5232,76 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/nadesiko/chapter12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 12 章 監視と関数型 JSON
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/nadesiko/chapter13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 13 章 関数型アーキテクチャの設計
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -8107,6 +8223,20 @@
 <td style="text-align: left;"><code>テンプレート適用</code> / <code>HTML安全化</code></td>
 <td style="text-align: left;">11</td>
 </tr>
+<tr>
+<td style="text-align: left;">記録</td>
+<td style="text-align: left;">構造化ログ</td>
+<td style="text-align: left;"><code>時刻</code>・<code>水準</code>（3 種）・<code>事象</code> + 付帯情報。1 行 1 レコードの JSON</td>
+<td style="text-align: left;"><code>記録作成</code> / <code>記録整形</code> / <code>記録出力</code></td>
+<td style="text-align: left;">12</td>
+</tr>
+<tr>
+<td style="text-align: left;">双方向変換</td>
+<td style="text-align: left;"><code>Converter</code>（プロファンクタ）</td>
+<td style="text-align: left;"><code>書出</code>（値 → 文字列）と <code>読込</code>（文字列 → 結果）を <strong>1 つの辞書</strong>に入れる。組み込みの JSON の上に置く（<a href="../../adr/ADR-023-builtin-json-with-converter/">ADR-023</a>）</td>
+<td style="text-align: left;"><code>変換作成</code> / <code>変換出力写像</code> / <code>変換入力写像</code></td>
+<td style="text-align: left;">12</td>
+</tr>
 </tbody>
 </table>
 <p><strong>直和型を表す手段がありません。</strong> イベントの種類は <code>種別</code> キーの文字列で区別します。Kotlin 版の <code>sealed interface ToDoListEvent</code> が持つ「これで全部」という保証はありません。</p>
@@ -8192,10 +8322,21 @@
 <td style="text-align: left;">右側を見ず左だけで決める</td>
 <td style="text-align: left;">115</td>
 </tr>
+<tr>
+<td style="text-align: left;">プロファンクタ（第 12 章）</td>
+<td style="text-align: left;">出力側と入力側を取り違える</td>
+<td style="text-align: left;"><strong>200</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">プロファンクタ（第 12 章）</td>
+<td style="text-align: left;">出力側の合成順を入れ替える</td>
+<td style="text-align: left;"><strong>0</strong></td>
+</tr>
 </tbody>
 </table>
 <p><strong>法則が複数あるのは飾りではありません。</strong> モナドの「失敗も連鎖する」は、3 つのうち右単位元でしか見つかりません。</p>
 <p>アプリカティブの 115 / 200 も全部ではありません。<strong>左が失敗していれば、右を見なくても結果は同じ</strong>になる入力があるためです。</p>
+<p>プロファンクタの 200 / 200 は、法則が強いからではありません。取り違えると<strong>文字列用の関数を結果辞書に当てる</strong>ことになり、必ず食い違うためです。同じプロファンクタでも、可換な 2 つの写像の順序を入れ替える壊し方は <strong>1 回も検出しません</strong>。</p>
 <h3 id="3_1">なでしこ3 版でモナドの題材が違う理由<a class="headerlink" href="#3_1" title="Permanent link">&para;</a></h3>
 <p>Kotlin 版は第 9 章のモナドを <code>ContextReader</code>（文脈つきの計算）にしています。データベースの接続という文脈を持ち回るためです。</p>
 <p><strong>なでしこ3 版には持ち回る文脈がありません。</strong> ファイルに追記するだけで、接続もトランザクションもありません。そこで<strong>題材を <code>結果連鎖</code>（失敗しうる処理をつなぐ操作）にしました。</strong> <code>ContextReader</code> 相当は第 10 章で扱いました（<a href="../../adr/ADR-011-transaction-boundary/">ADR-011</a> の移植判断は <a href="../../adr/ADR-021-context-as-path/">ADR-021</a>）。</p>
@@ -8240,6 +8381,29 @@
 </table>
 <p><strong>成功側のキー（<code>成功</code>・<code>値</code>）は揃えました。</strong> 第 7 章の <code>成功判定</code> がそのまま使えます。境界で片方に落とすときは <code>検証結果変換</code> を使い、理由が 1 つに減ることを承知で使います。</p>
 <p>計測した違いは次のとおりです。両方だめな入力を乱数で作ったところ、<strong>連鎖は 69 回中 69 回（100%）で理由を 1 件しか返しませんでした。</strong> 欠陥ではなく、連鎖が「前の値に依存できる」ことの代償です。</p>
+<h3 id="12">記録はドメインの外（第 12 章）<a class="headerlink" href="#12" title="Permanent link">&para;</a></h3>
+<p>ドメインは「何が起きたか」を返すだけで、それを誰がどこに書くかを知りません。境界検査がドメイン 7 ファイル × 5 項目で守ります。</p>
+<p>記録の置き場所は 2 度動きました。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">置いた場所</th>
+<th style="text-align: left;">結果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>store.nako3</code>（保管の読み書きの中）</td>
+<td style="text-align: left;"><strong>受け入れテストが落ちた。</strong> 読み出しを関数値ごしに呼ぶ経路があり、中に書き出し（非同期）が入った瞬間に Promise が返る（既知の制約 1 の 5 度目）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>tx.nako3</code>（アダプタ層。呼び出しの順序）</td>
+<td style="text-align: left;">通った。<strong>記録するかどうかは呼び出し側が決める</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>関数値ごしに呼べるかどうかは「中で何を呼ぶか」で決まります。</strong> 既存の関数に書き出しを足すと、それまで注入できていた経路が壊れます。</p>
+<p>記録先は<strong>文脈が持ちます</strong>（<a href="../../adr/ADR-021-context-as-path/">ADR-021</a> の「どこを読み書きするか」に、記録の行き先も同じ資格で入る）。テストが自分の記録先を持てるので、並列に走らせても件数が混ざりません。</p>
 <h3 id="_20">不変性<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h3>
 <p>Kotlin 版の <code>data class</code> は不変です。なでしこ3 の辞書と配列は<strong>参照で、破壊的に書き換えられます</strong>。状態変換は変換のたびに辞書と配列を写してから足します（<code>辞書写し</code>・<code>配列複製</code>）。<strong>不変性は言語ではなく約束が守ります。</strong></p>
 <hr />

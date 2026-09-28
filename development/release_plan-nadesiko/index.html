@@ -2273,6 +2273,41 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iteration_plan-nadesiko-7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「なでしこ3」Unit 7 監視とアーキテクチャ総括
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -5526,6 +5561,76 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/nadesiko/chapter12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 12 章 監視と関数型 JSON
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/nadesiko/chapter13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 13 章 関数型アーキテクチャの設計
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -8090,7 +8195,7 @@
 <td style="text-align: left;">LOW</td>
 <td style="text-align: left;">LOW</td>
 <td style="text-align: left;">LOW</td>
-<td style="text-align: left;"><strong>疎（2 箇所。各 Bolt の記事の全文検証のみ）</strong></td>
+<td style="text-align: left;"><strong>疎（3 箇所 + 条件付き 1）。記事の全文検証 2・NFR の判断 1・永続化フォーマットに触れる場合 1</strong></td>
 </tr>
 </tbody>
 </table>
@@ -8871,7 +8976,7 @@
 <td>-</td>
 <td>-</td>
 <td>-</td>
-<td>未着手</td>
+<td>計画済み（<a href="../iteration_plan-nadesiko-7/">Bolt 計画</a>）</td>
 </tr>
 <tr>
 <td><strong>合計</strong></td>
@@ -8920,6 +9025,11 @@
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>2026-09-28</td>
+<td>Unit 7 の Bolt 計画作成時の整合性検証で、ゲート箇所を 2 → <strong>3 + 条件付き 1</strong> に修正。Unit 6 のふりかえり Try 1 が NFR の判断に人の確認を求めており、双方向変換が永続化フォーマット（必ず停止する操作）に触れうるため。<strong>密度は「疎」のまま</strong></td>
+<td>claude-code/claude-opus-5</td>
+</tr>
 <tr>
 <td>2026-09-28</td>
 <td>Unit 6 完了を反映。進捗状況に実績を記録。<strong>Unit 7 のゲート密度を「疎・2 箇所」に変更</strong>（6 Unit・38 箇所で 1 度も同期停止していないため）。指標「人が検証に使った時間」を外し「人が修正を入れた箇所数」に置き換える</td>

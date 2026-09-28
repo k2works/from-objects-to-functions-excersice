@@ -16,7 +16,7 @@
         <link rel="prev" href="../chapter10/">
       
       
-        <link rel="next" href="../../../../reference/">
+        <link rel="next" href="../chapter12/">
       
       
         
@@ -1581,6 +1581,41 @@
     
   
     「なでしこ3」Unit 6 文脈の受け渡しとバリデーション
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../development/iteration_plan-nadesiko-7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「なでしこ3」Unit 7 監視とアーキテクチャ総括
   
 
     
@@ -4998,6 +5033,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        しきい値そのものが不安定だった（第 12 章で直しました）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -5111,6 +5157,76 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 12 章 監視と関数型 JSON
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 13 章 関数型アーキテクチャの設計
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
     </li>
   
 
@@ -7463,10 +7579,15 @@
 <p>左右のどちらが失敗しても、その理由は必ず結果に残ります。落とすことがあれば赤になります。</p>
 <h3 id="_3">壊してから信じる<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <p><a href="../../../../adr/ADR-017-own-property-testing/">ADR-017</a> に従い、法則を壊して検出率を測ります。壊し方は「右側を見ない」です。</p>
-<div class="highlight"><pre><span></span><code><span class="w">  </span>ok<span class="w"> </span>壊した結合は<span class="w"> </span><span class="m">200</span><span class="w"> </span>回中<span class="w"> </span><span class="m">100</span><span class="w"> </span>回以上で検出される
-検出率（左だけを見る壊し方）:<span class="w"> </span><span class="m">115</span><span class="w"> </span>/<span class="w"> </span><span class="m">200</span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span>ok<span class="w"> </span>壊した結合は<span class="w"> </span><span class="m">200</span><span class="w"> </span>回中<span class="w"> </span><span class="m">70</span><span class="w"> </span>回以上で検出される
+検出率（左だけを見る壊し方）:<span class="w"> </span><span class="m">115</span><span class="w"> </span>/<span class="w"> </span><span class="m">200</span>（理論値は<span class="w"> </span><span class="m">5</span>/9<span class="w"> </span>≒<span class="w"> </span><span class="m">111</span>）
 </code></pre></div>
 <p>200 回中 115 回。全部ではありません。<strong>左が失敗していれば、右を見なくても結果は同じ</strong>だからです。壊れているのに気づけない入力が理屈のうえで存在し、実測もそのとおりでした。</p>
+<h3 id="12">しきい値そのものが不安定だった（第 12 章で直しました）<a class="headerlink" href="#12" title="Permanent link">&para;</a></h3>
+<p>最初、しきい値を <code>100</code> に置きました。<strong>これが間違いでした。</strong></p>
+<p>検出されるのは「両方成功」と「両方失敗」のときだけなので、理論値は <strong>5 / 9 ≒ 111 / 200</strong>、標準偏差は約 7 です。しきい値 100 は期待値から <strong>1.58 標準偏差</strong>しか離れておらず、<strong>正しい実装でも 1 回あたり約 6% の確率で落ちます。</strong></p>
+<p>実際、Unit 6 の途中で <code>make check</code> が 1 度だけ落ちて再現しませんでした。原因はこれでした。第 12 章の冒頭で気づき、しきい値を 5 標準偏差より遠い <code>70</code> に置き直しています。</p>
+<p><strong>測るのは検出率そのもので、しきい値は「検出できていない実装を止める」ためだけにあります。</strong> 期待値の近くに置く理由はありませんでした。</p>
 <h3 id="_4">モナドとの違いを数字で出す<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <p>この章でいちばん出したかった数字です。同じ検証を結果連鎖（モナド）で書きます。</p>
 <div class="highlight"><pre><span></span><code>●(利用者候補と候補で)名前変更検査_連鎖版

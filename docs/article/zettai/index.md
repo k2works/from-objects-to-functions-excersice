@@ -14,7 +14,7 @@ ToDo リストアプリケーション **Zettai** を TDD で一から作りな�
 | Kotlin | [Kotlin 版](kotlin/index.md) | `apps/kotlin/zettai/` | Nix devShell `kotlin`（JDK 21 / Gradle） | **完結（13 / 13 章）** |
 | なでしこ3 | [なでしこ3 版](nadesiko/index.md) | `apps/nadesiko/zettai/` | Nix devShell `nadesiko`（Node 22 / cnako3 3.8.7） | 進行中（3 / 13 章） |
 
-現在の対象は 2 言語です。横断比較コンテンツ `comparison/` は、なでしこ3 版が Phase 1（第 3 章）を終えた時点で新設します。比較軸は「型で保証する（Kotlin）」と「約束とテストで保証する（なでしこ3）」に置きます。
+現在の対象は 2 言語です。横断比較は [対象言語の横断比較](comparison/index.md) にまとめています（なでしこ3 版の Phase 1 完了時に新設）。比較軸は「型で保証する（Kotlin）」と「約束とテストで保証する（なでしこ3）」です。章を閉じるたびに観点を 1 つずつ足します。
 
 ## 全章構成
 

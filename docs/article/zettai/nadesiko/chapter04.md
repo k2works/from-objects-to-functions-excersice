@@ -4,7 +4,7 @@ title: "第 4 章 ドメインとアダプタのモデリング"
 description: "Zettai 連載なでしこ3 版の第 4 章。データの取得元を実装から切り離し、ハブが関数値でアダプタを受け取る形にする。ToDo 項目に期限と状態を足すにあたり、既定引数が無いこと、列挙型が無いことにどう対処するかを扱う。型の無い言語でのデバッグの仕方と、契約テストがデバッグを減らすことも扱う。"
 tags: [article, zettai, nadesiko, chapter]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-28T10:00:00Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-28T05:01:34Z }
 ---
 
 # 第 4 章 ドメインとアダプタのモデリング
@@ -107,6 +107,8 @@ generated: { by: claude-code/claude-opus-5, at: 2026-09-28T10:00:00Z }
 ### HTTP の層をハブ経由にする
 
 アダプタ側も整えます。保管庫の作り方を知っているのは 1 箇所だけにします。
+
+<!-- code-check: ignore 第 4 章時点の実装。第 5 章で保管庫がイベントの畳み込みになる -->
 
 ```nako3
 ●(利用者とリスト名で)インメモリ取得

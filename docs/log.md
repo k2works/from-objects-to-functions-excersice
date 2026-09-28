@@ -1,6 +1,12 @@
 # Docs Update Log
 
 ## 2026-09-28
+* **Update**: [chapter05](/article/zettai/nadesiko/chapter05.md) を更新（claude-code/claude-opus-5）
+* **Update**: [domain-model](/design/domain-model.md) を更新（claude-code/claude-opus-5）
+* **Update**: [chapter04](/article/zettai/nadesiko/chapter04.md) を更新（claude-code/claude-opus-5）
+* **Update**: [chapter03](/article/zettai/nadesiko/chapter03.md) を更新（claude-code/claude-opus-5）
+* **Update**: [chapter02](/article/zettai/nadesiko/chapter02.md) を更新（claude-code/claude-opus-5）
+* **Update**: [outline](/article/outline.md) を更新（claude-code/claude-opus-5）
 * **Verification**: [iteration_plan-nadesiko-3](/development/iteration_plan-nadesiko-3.md) を human:kakimomokuri が検証
 * **Update**: [iteration_plan-nadesiko-3](/development/iteration_plan-nadesiko-3.md) を更新（claude-code/claude-opus-5）
 * **Update**: [release_plan-nadesiko](/development/release_plan-nadesiko.md) を更新（claude-code/claude-opus-5）

@@ -4,7 +4,7 @@ title: "第 2 章 関数を使って HTTP を扱う"
 description: "Zettai 連載なでしこ3 版の第 2 章。簡易 HTTP サーバのプラグインで、リクエストから ToDo リストの HTML までの縦串（ウォーキングスケルトン）を最小の厚みで通す。型の無い言語でドメインを辞書として表し、キーの契約を契約テストで守る。助詞が契約の一部であること、変数型確認が配列と辞書を区別しないこと、辞書に無いキーが空ではないことという 3 つのつまずきを扱う。"
 tags: [article, zettai, nadesiko, chapter]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-28T06:00:00Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-28T05:01:34Z }
 ---
 
 # 第 2 章 関数を使って HTTP を扱う
@@ -162,6 +162,8 @@ $ make test
 
 データはメモリの中に置きます。辞書の入れ子で、利用者 → リスト名 → ToDo リストと辿ります。
 
+<!-- code-check: ignore 第 2 章時点の実装。第 5 章でイベントの畳み込みに置き換わる -->
+
 ```nako3
 ●保管庫作成
     本=「write chapter」でToDo項目作成
@@ -192,6 +194,8 @@ $ make test
 **辞書に無いキーを引くと `undefined` が返り、`空` との比較では捕まえられません。** なでしこ3 の `空` の実体は空文字列で、`undefined` はそれとも違う値です。
 
 `辞書キー存在` で先に確かめます。
+
+<!-- code-check: ignore 第 2 章時点の実装。第 5 章で状態内リスト取得に置き換わる -->
 
 ```nako3
 ●(保管庫で利用者とリスト名の)リスト取得
@@ -275,6 +279,8 @@ $ curl -s -o /dev/null -w "%{http_code}\n" http://localhost:8080/todo/uberto/non
 ### 境界を検査する
 
 「ドメインはプラグインを取り込まない」という約束を、テストで守ります。
+
+<!-- code-check: ignore 第 2 章時点の実装。第 5 章でドメインのファイルが増え、一覧を回す形になる -->
 
 ```nako3
 # ドメインの境界を検査する。ドメインは簡易 HTTP サーバのプラグインを取り込まない。

@@ -4,7 +4,7 @@ title: "第 3 章 ドメインの定義とテスト"
 description: "Zettai 連載なでしこ3 版の第 3 章。第 2 章の受け入れテストが実装を知りすぎている問題を特定し、高階関数で実行経路を外に出す。同じシナリオをドメイン直接と HTTP 経由の 2 経路で走らせて、ドメインとインフラストラクチャが分離できたことを確かめる。関数値ごしに非同期の命令が待てないこと、繰り返すが逆向きに回ることという 2 つのつまずきを扱う。"
 tags: [article, zettai, nadesiko, chapter]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-28T04:19:37Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-28T05:01:34Z }
 ---
 
 # 第 3 章 ドメインの定義とテスト
@@ -102,6 +102,8 @@ generated: { by: claude-code/claude-opus-5, at: 2026-09-28T04:19:37Z }
 ### 経路 1: ドメイン直接
 
 HTTP を通さず、ドメインを直接呼びます。
+
+<!-- code-check: ignore 第 3 章時点の実装。第 5 章で保管庫がイベントの畳み込みになる -->
 
 ```nako3
 ●(利用者名とリスト名で)ドメイン直接_リスト参照

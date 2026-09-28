@@ -9,6 +9,7 @@ Kotlin 版 Unit 7 で、第 13 章が「ADR には全件、再検討の条件を
 
 1. 「ADR N 件」
 2. 「全 N 章」
+3. 「N 回とも」「試行回数は N 回」— 性質テストの試行回数。実装の宣言と突き合わせる
 
 それ以外の数値（テスト数など）は対象にしない。数え方が一意に決まらず、
 誤検知で運用できなくなるため。
@@ -30,13 +31,25 @@ CHAPTER_TOTAL = 13
 
 ADR_COUNT = re.compile(r"ADR\s*([0-9０-９]+)\s*件")
 CHAPTER_COUNT = re.compile(r"全\s*([0-9０-９]+)\s*章")
+TRIAL_COUNT = re.compile(r"(?:試行回数は\s*)?([0-9０-９]+)\s*回とも|試行回数は\s*([0-9０-９]+)\s*回")
+# 実装が宣言する試行回数。言語ごとに書き方が違うので、対象ごとに探す。
+TRIAL_DECL = re.compile(r"試行回数\s*=\s*([0-9]+)")
+
+
+def declared_trials(root: Path, target: str) -> set[int]:
+    """その対象の実装が宣言している試行回数を集める。"""
+    found: set[int] = set()
+    for path in (root / "apps" / target).rglob("*"):
+        if path.is_file() and path.suffix in {".nako3", ".kt", ".kts"}:
+            found.update(int(m) for m in TRIAL_DECL.findall(path.read_text(encoding="utf-8")))
+    return found
 
 
 def to_int(text: str) -> int:
     return int(unicodedata.normalize("NFKC", text))
 
 
-def check(article: Path, adr_total: int) -> list[str]:
+def check(article: Path, adr_total: int, trials: set[int]) -> list[str]:
     violations: list[str] = []
     body = article.read_text(encoding="utf-8")
 
@@ -53,6 +66,14 @@ def check(article: Path, adr_total: int) -> list[str]:
             violations.append(
                 f"{article.parent.name}/{article.name}: 「全 {claimed} 章」と書いてあるが構成は {CHAPTER_TOTAL} 章"
             )
+    for match in TRIAL_COUNT.finditer(body):
+        claimed = to_int(match.group(1) or match.group(2))
+        if trials and claimed not in trials:
+            violations.append(
+                f"{article.parent.name}/{article.name}: 「{claimed} 回」と書いてあるが"
+                f"実装が宣言する試行回数は {sorted(trials)}"
+            )
+
     return violations
 
 
@@ -60,9 +81,13 @@ def main(argv: list[str]) -> int:
     adr_total = len(list((ROOT / "docs/adr").glob("ADR-*.md")))
     targets = [Path(a) for a in argv[1:]] or sorted(ARTICLE_DIR.glob("*/chapter*.md"))
     violations: list[str] = []
+    trials_cache: dict[str, set[int]] = {}
 
     for article in targets:
-        violations.extend(check(article, adr_total))
+        target = article.parent.name
+        if target not in trials_cache:
+            trials_cache[target] = declared_trials(ROOT, target)
+        violations.extend(check(article, adr_total, trials_cache[target]))
 
     for violation in violations:
         print(f"NG {violation}")

@@ -4,7 +4,7 @@ title: "データモデル設計 - Zettai"
 description: "Zettai（Kotlin 版）のデータモデル設計。イベントソーシングのため状態を保存せず、追記のみの単一テーブルでイベントストアを構成する判断、ER 図、テーブル定義、インデックス方針、正規化を論じない理由、章の進行にあわせた変化を記述する。"
 tags: [design, data-model, zettai, kotlin]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-27T01:36:36Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-28T06:40:42Z }
 ---
 
 # データモデル設計 - Zettai
@@ -108,6 +108,35 @@ CREATE INDEX IF NOT EXISTS idx_todo_list_event_entity
 | 12 | `payload` の JSON を Kondor で扱う |
 
 第 8 章までのデータはインメモリで、テーブルはありません。
+
+## なでしこ3 版での差分
+
+**データベースを使いません。** 判断（状態を保存せず出来事だけを追記する）は同じで、保存先だけが違います（[ADR-019](../adr/ADR-019-file-event-log.md)）。
+
+| 観点 | Kotlin 版 | なでしこ3 版 |
+| :--- | :--- | :--- |
+| 保存先 | PostgreSQL の `todo_list_event` テーブル | **1 ファイル**（`.zettai_events.log`） |
+| 1 件の形 | `entity_id` / `event_type` / `payload`（JSONB） | **1 行 1 JSON**（イベントの辞書をそのままエンコード） |
+| 順序の根拠 | `id BIGSERIAL` | **行の並び** |
+| 追記 | `INSERT` | 読んで足して書き戻す（追記の命令が無い） |
+| 検索 | インデックス `(entity_id, id)` | **無い。全行を走査する** |
+| 無いとき | テーブルが空 | ファイルが無い = まだ何も起きていない（失敗ではない） |
+| 結合テストの用意 | docker-compose と CI のサービスコンテナ（[ADR-009](../adr/ADR-009-integration-test-database.md)） | **不要。** 一時ファイルを作って消すだけ |
+
+### 1 行の例
+
+```text
+{"種別":"ListCreated","利用者":"uberto","リスト名":"book"}
+{"種別":"ItemAdded","利用者":"uberto","リスト名":"book","項目":{"説明":"write chapter","期限":"","状態":"Todo"}}
+```
+
+**キーを改名しません。** 改名すると過去の行が読めなくなります。キーの追加には強い形です。
+
+### 扱わないこと
+
+同時書き込み、途中で落ちたときの整合、件数が増えたときの性能は扱いません。理由と再検討の条件は [ADR-019](../adr/ADR-019-file-event-log.md) にあります。
+
+---
 
 ## 関連ドキュメント
 

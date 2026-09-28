@@ -4,7 +4,7 @@ title: "執筆計画：関数型プログラミングで作る変更を楽に安
 description: "Uberto Barbini 著『From Objects to Functions』を下敷きにした Zettai 連載の執筆計画。多言語シリーズ（Kotlin / なでしこ3）の対象一覧、記事と実装の対称ファイル構成、全 13 章と原著コンパニオンコードの対応、前提整備と実行環境の方針、リリース計画のストーリー・イテレーション・SP と対応づけた章別計画、フェーズ区切り、なでしこ3 追加執筆計画、執筆規約を定義する。"
 tags: [article, plan, zettai]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-28T05:54:20Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-28T06:40:42Z }
 ---
 
 # 執筆計画：関数型プログラミングで作る変更を楽に安全にできるソフトウェア
@@ -24,7 +24,7 @@ generated: { by: claude-code/claude-opus-5, at: 2026-09-28T05:54:20Z }
 | 対象 | 実行環境 | 章数 | 記事 | サンプル実装 | 状態 |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | Kotlin | Nix devShell `kotlin`（JDK 21 / Gradle） | 13 | `docs/article/zettai/kotlin/` | `apps/kotlin/zettai/` | **完結**（13 / 13 章公開） |
-| なでしこ3 | Nix devShell `nadesiko`（Node 22 / cnako3 3.8.7） | 13 | `docs/article/zettai/nadesiko/` | `apps/nadesiko/zettai/` | 進行中（8 / 13 章公開） |
+| なでしこ3 | Nix devShell `nadesiko`（Node 22 / cnako3 3.8.7） | 13 | `docs/article/zettai/nadesiko/` | `apps/nadesiko/zettai/` | 進行中（9 / 13 章公開） |
 
 横断比較コンテンツ [`docs/article/zettai/comparison/`](zettai/comparison/index.md) は、なでしこ3 版が Phase 1（第 3 章）を終えた 2026-09-28 に新設しました。比較軸は「**型で保証する**（Kotlin）」と「**約束とテストで保証する**（なでしこ3）」です。章を閉じるたびに観点を 1 つずつ足します。
 
@@ -247,5 +247,5 @@ Unit・Bolt・ストーリーの割り当ては Kotlin 版と同一（1 Unit = 2
 - 章を追加したら `mkdocs.yml` の nav、[シリーズ索引](zettai/index.md) の全章構成表と進捗管理表、本ファイルの対象一覧を必ず揃える
 - なでしこ3 版では、コードブロックの言語タグを `nako3` とし、識別子にひらがなを使わない（助詞として分割されるため）。Red の直後には実際のエラー出力を `bash` ブロックで貼る
 - 同じ章を複数の対象で書くときも、章の番号・タイトル・焦点は変えない。変えるのは実現手段だけとし、言語固有の制約は章内の「つまずき」節にまとめる
-- **節名が特定言語のライブラリ名を含む場合は、対象言語での対応物に読み替える。** マインドマップ本体は 1 言語目の記事が参照しているため変えず、[draft.md](draft.md) の「言語別の読み替え」表に登録してから記事を書く。節の位置と役割は変えない
+- **節名が特定の対象に固有の語（ライブラリ名・言語名・製品名）を含む場合は、対象言語での対応物に読み替える。** マインドマップ本体は 1 言語目の記事が参照しているため変えず、[draft.md](draft.md) の「言語別の読み替え」表に登録してから記事を書く。節の位置と役割は変えない（規則は Unit 5 で「ライブラリ名」から「対象に固有の語」に広げた。第 9 章に `PostgreSQL`・`Kotlin` が入っていたため）
 - 章の割り当て・検証負荷・Unit / Bolt の構成を変えたら、本ファイルの章別計画と対象のリリース計画（[Kotlin 版](../development/release_plan.md) / [なでしこ3 版](../development/release_plan-nadesiko.md)）の Unit 分解・ストーリー一覧・進捗状況を同じコミットで揃える

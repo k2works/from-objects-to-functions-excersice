@@ -1,6 +1,14 @@
 # Docs Update Log
 
 ## 2026-09-28
+* **Update**: [chapter09](/article/zettai/nadesiko/chapter09.md) を更新（claude-code/claude-opus-5）
+* **Update**: [ADR-020-third-route](/adr/ADR-020-third-route.md) を更新（claude-code/claude-opus-5）
+* **Update**: [ADR-019-file-event-log](/adr/ADR-019-file-event-log.md) を更新（claude-code/claude-opus-5）
+* **Update**: [domain-model](/design/domain-model.md) を更新（claude-code/claude-opus-5）
+* **Update**: [data-model](/design/data-model.md) を更新（claude-code/claude-opus-5）
+* **Update**: [architecture_backend](/design/architecture_backend.md) を更新（claude-code/claude-opus-5）
+* **Update**: [outline](/article/outline.md) を更新（claude-code/claude-opus-5）
+* **Update**: [draft](/article/draft.md) を更新（claude-code/claude-opus-5）
 * **Verification**: [iteration_plan-nadesiko-5](/development/iteration_plan-nadesiko-5.md) を human:kakimomokuri が検証
 * **Update**: [iteration_plan-nadesiko-5](/development/iteration_plan-nadesiko-5.md) を更新（claude-code/claude-opus-5）
 * **Update**: [release_plan-nadesiko](/development/release_plan-nadesiko.md) を更新（claude-code/claude-opus-5）

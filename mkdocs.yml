@@ -177,6 +177,7 @@ nav:
               - 第 6 章 コマンドを実行してイベントを生成する: article/zettai/nadesiko/chapter06.md
               - 第 7 章 関数型手法によるエラーハンドリング: article/zettai/nadesiko/chapter07.md
               - 第 8 章 ファンクタを使ってイベントを射影する: article/zettai/nadesiko/chapter08.md
+              - 第 9 章 モナドによる安全なデータ永続化: article/zettai/nadesiko/chapter09.md
   - リファレンス:
       - 概要: reference/index.md
       - よいソフトウェアとは: reference/よいソフトウェアとは.md

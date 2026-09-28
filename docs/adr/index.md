@@ -24,5 +24,7 @@
 | [ADR-016](ADR-016-own-acceptance-entry.md) | 受け入れテストの入口を自作し、ライブラリに寄せない | 提案 |
 | [ADR-017](ADR-017-own-property-testing.md) | 性質テストを自作し、検出率を測ってから信用する | 提案 |
 | [ADR-018](ADR-018-outcome-dict-port.md) | 失敗を結果辞書で表し、ポートの契約を変える | 提案 |
+| [ADR-019](ADR-019-file-event-log.md) | イベントログを 1 ファイルに追記し、状態を保存しない | 提案 |
+| [ADR-020](ADR-020-third-route.md) | 受け入れシナリオに永続化を通す 3 経路目を足す | 提案 |
 
 ADR の作成には `creating-adr` スキルを使用してください。

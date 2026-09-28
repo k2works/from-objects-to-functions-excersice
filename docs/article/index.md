@@ -23,3 +23,4 @@
 | [関数型デザイン - 原則、パターン、実践](https://k2works.github.io/functional-desgin-ppp/) | 関数型デザインパターン | OOP のデザインパターンを関数型パラダイムでどう表現するかを実践的に学べます。 |
 | [実践データベース設計：基幹業務システム編](https://k2works.github.io/practical-database-design/) | データベース設計 | 販売管理・財務会計・生産管理の基幹業務システムを題材に、業務フローとデータモデルを体系的に学べます。 |
 | [Docker/Kubernetes 実践コンテナ解説](https://k2works.github.io/getting-started-docker-kubernetes/) | コンテナ・オーケストレーション | コンテナの基礎から複数コンテナ構成、Kubernetes、継続的デリバリー、ケーススタディまで実践的に学べます。 |
+* [章構成マインドマップ：関数型プログラミングで作る変更を楽に安全にできるソフトウェア](./draft.md) - Zettai 連載の全 13 章とその節構成を PlantUML マインドマップで示した一次情報。記事の節見出しはこのマインドマップに一致させる。

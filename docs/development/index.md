@@ -73,3 +73,4 @@ AI-DLC ではベロシティの代わりに完了 Unit 数・承認ゲート通�
 - 本プロジェクトは AI-DLC で開発します。計画の用語と進め方は [リリース・イテレーション計画ガイド（AI-DLC 版）](../reference/リリース・イテレーション計画ガイド_AI-DLC版.md) を正とします。
 - テンプレートは [template/リリース計画.md](../template/リリース計画.md)、[template/イテレーション計画.md](../template/イテレーション計画.md)、[template/イテレーション完了報告書.md](../template/イテレーション完了報告書.md)、[template/リリース完了報告書.md](../template/リリース完了報告書.md) を利用できます。
 * [リリース完了報告書 v1.0.0 - Zettai 連載（なでしこ3 版）](./release_report-nadesiko-1.0.0.md) - Zettai 連載なでしこ3 版 v1.0.0 のリリース完了報告書。全 7 Unit・14 ストーリー・13 章を完了した実績、AI-DLC の指標、承認ゲートが 41 箇所中 1 回しか止まらなかったこと、ADR 11 件と既知の制約 25 件の傾向、Kotlin 版との比較、扱わなかったこと、次の言語への提案を記録する。
+* [リリース計画 - Zettai 連載（Rust 版）](./release_plan-rust.md) - 『From Objects to Functions』を下敷きにした Zettai 連載 Rust 版の AI-DLC 準拠 Level 1 計画。言語が Result と enum を与える側で同じ 13 章を辿るという Intent、7 Unit・14 ストーリーへの分解、依存 DAG、5 軸のエントロピー評価、所有権と async の伝播に対するリスク台帳、2 対象の学びを反映した承認ゲート方針と指標を定義する。

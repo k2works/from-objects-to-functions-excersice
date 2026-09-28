@@ -1,6 +1,8 @@
 # Docs Update Log
 
 ## 2026-09-28
+* **Update**: [release_plan-rust](/development/release_plan-rust.md) を更新（claude-code/claude-opus-5）
+* **Update**: [outline](/article/outline.md) を更新（claude-code/claude-opus-5）
 * **Update**: [retrospective-nadesiko-7](/development/retrospective-nadesiko-7.md) を更新（claude-code/claude-opus-5）
 * **Update**: [release_report-nadesiko-1.0.0](/development/release_report-nadesiko-1.0.0.md) を更新（claude-code/claude-opus-5）
 * **Update**: [bolt_report-nadesiko-7](/development/bolt_report-nadesiko-7.md) を更新（claude-code/claude-opus-5）

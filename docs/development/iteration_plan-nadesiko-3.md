@@ -3,8 +3,10 @@ type: Bolt Plan
 title: "Unit 3 の Bolt 計画（イテレーション 3）- Zettai 連載（なでしこ3 版）"
 description: "Zettai 連載なでしこ3 版の Unit 3（関数型 DI とイベント）の Bolt 計画。中盤のインサイドアウトで、ハブを辞書で表してアダプタを関数値で注入し、状態変更をイベントの畳み込みとして表してモノイドを見出す。Unit 2 のふりかえり Try を反映し、承認ゲートを必ず止まる 3 種類に絞り、運用形態の切り替えは人だけが行うと定める。"
 tags: [development, plan, ai-dlc, bolt, zettai, nadesiko, unit-3]
-status: draft
+status: stable
 generated: { by: claude-code/claude-opus-5, at: 2026-09-28T04:39:45Z }
+verified:
+  - { by: human:kakimomokuri, at: 2026-09-28T04:41:01Z }
 ---
 
 # Unit 3 の Bolt 計画（イテレーション 3）- Zettai 連載（なでしこ3 版）

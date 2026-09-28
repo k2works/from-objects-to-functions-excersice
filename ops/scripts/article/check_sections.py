@@ -28,6 +28,9 @@ ARTICLE_DIR = ROOT / "docs/article/zettai"
 # 章末の定型。マインドマップには無い。
 TRAILING = {"この章で書いたコード", "参照", "連載を終えて"}
 
+# 記事のディレクトリ名と、draft.md の読み替え表の「対象」列の対応。
+TARGET_NAMES = {"kotlin": "Kotlin", "nadesiko": "なでしこ3"}
+
 CHAPTER_LINE = re.compile(r"^\*\* 第([０-９0-9]+)章[　 ]*(.*)$")
 SECTION_LINE = re.compile(r"^\*\*\* (.+)$")
 HEADING = re.compile(r"^## (.+)$", re.M)
@@ -58,13 +61,8 @@ def read_mindmap() -> tuple[dict[int, list[str]], dict[tuple[int, int, str], str
         if section and current is not None:
             chapters[current].append(section.group(1).strip())
 
-    # 言語別の読み替え表。キーは (章, 節番号, 対象)
-    mapping = {
-        (int(m.group(1)), int(m.group(2)), m.group(3).strip()): m.group(4).strip()
-        for m in MAPPING_ROW.finditer(body)
-    }
-    # 3 列目はマインドマップの節名、4 列目が対象、5 列目が読み替え後
-    mapping = {}
+    # 言語別の読み替え表。3 列目がマインドマップの節名、4 列目が対象、5 列目が読み替え後。
+    mapping: dict[tuple[int, int, str], str] = {}
     for m in MAPPING_ROW.finditer(body):
         chapter, index, _original, target, replaced = m.groups()
         mapping[(int(chapter), int(index), target.strip())] = replaced.strip()
@@ -81,7 +79,7 @@ def expected_sections(chapter: int, target: str, chapters, mapping) -> list[str]
 
 def check(article: Path, chapters, mapping) -> list[str]:
     chapter = int(article.stem.removeprefix("chapter"))
-    target = article.parent.name
+    target = TARGET_NAMES.get(article.parent.name, article.parent.name)
     expected = [normalize(s) for s in expected_sections(chapter, target, chapters, mapping)]
     actual = [
         normalize(h) for h in HEADING.findall(article.read_text(encoding="utf-8"))
@@ -105,7 +103,7 @@ def main(argv: list[str]) -> int:
     for article in targets:
         found = check(article, chapters, mapping)
         violations.extend(found)
-        print(("NG " if found else "OK ") + str(article.relative_to(ROOT)))
+        print(("NG " if found else "OK ") + str(article.resolve().relative_to(ROOT)))
 
     for violation in violations:
         print(f"NG {violation}")

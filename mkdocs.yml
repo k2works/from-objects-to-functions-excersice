@@ -161,6 +161,7 @@ nav:
               - 概要: article/zettai/nadesiko/index.md
               - 第 1 章 新しいアプリケーションを準備する: article/zettai/nadesiko/chapter01.md
               - 第 2 章 関数を使って HTTP を扱う: article/zettai/nadesiko/chapter02.md
+              - 第 3 章 ドメインの定義とテスト: article/zettai/nadesiko/chapter03.md
   - リファレンス:
       - 概要: reference/index.md
       - よいソフトウェアとは: reference/よいソフトウェアとは.md

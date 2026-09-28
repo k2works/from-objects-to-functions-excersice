@@ -4,7 +4,7 @@ title: "執筆計画：関数型プログラミングで作る変更を楽に安
 description: "Uberto Barbini 著『From Objects to Functions』を下敷きにした Zettai 連載の執筆計画。多言語シリーズ（Kotlin / なでしこ3）の対象一覧、記事と実装の対称ファイル構成、全 13 章と原著コンパニオンコードの対応、前提整備と実行環境の方針、リリース計画のストーリー・イテレーション・SP と対応づけた章別計画、フェーズ区切り、なでしこ3 追加執筆計画、執筆規約を定義する。"
 tags: [article, plan, zettai]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-28T03:10:58Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-28T04:19:37Z }
 ---
 
 # 執筆計画：関数型プログラミングで作る変更を楽に安全にできるソフトウェア
@@ -24,7 +24,7 @@ generated: { by: claude-code/claude-opus-5, at: 2026-09-28T03:10:58Z }
 | 対象 | 実行環境 | 章数 | 記事 | サンプル実装 | 状態 |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | Kotlin | Nix devShell `kotlin`（JDK 21 / Gradle） | 13 | `docs/article/zettai/kotlin/` | `apps/kotlin/zettai/` | **完結**（13 / 13 章公開） |
-| なでしこ3 | Nix devShell `nadesiko`（Node 22 / cnako3 3.8.7） | 13 | `docs/article/zettai/nadesiko/` | `apps/nadesiko/zettai/` | 進行中（2 / 13 章公開） |
+| なでしこ3 | Nix devShell `nadesiko`（Node 22 / cnako3 3.8.7） | 13 | `docs/article/zettai/nadesiko/` | `apps/nadesiko/zettai/` | 進行中（3 / 13 章公開） |
 
 横断比較コンテンツ `docs/article/zettai/comparison/` は、なでしこ3 版が Phase 1（第 3 章）を終えた時点で新設します。それまでは比較コンテンツを作りません。比較軸は「**型で保証する**（Kotlin）」と「**約束とテストで保証する**（なでしこ3）」に置きます。
 

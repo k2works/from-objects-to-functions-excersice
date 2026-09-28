@@ -34,7 +34,7 @@
 | Unit 4 コマンドとエラーハンドリング | [Unit 4 の Bolt 計画](iteration_plan-nadesiko-4.md) | [ふりかえり](retrospective-nadesiko-4.md) | [Bolt 終了報告](bolt_report-nadesiko-4.md) | **完了** |
 | Unit 5 射影と永続化 | [Unit 5 の Bolt 計画](iteration_plan-nadesiko-5.md) | [ふりかえり](retrospective-nadesiko-5.md) | [Bolt 終了報告](bolt_report-nadesiko-5.md) | **完了** |
 | Unit 6 文脈の受け渡しとバリデーション | [Unit 6 の Bolt 計画](iteration_plan-nadesiko-6.md) | [ふりかえり](retrospective-nadesiko-6.md) | [Bolt 終了報告](bolt_report-nadesiko-6.md) | **完了** |
-| Unit 7 監視とアーキテクチャ総括 | [Unit 7 の Bolt 計画](iteration_plan-nadesiko-7.md) | - | - | 計画済み |
+| Unit 7 監視とアーキテクチャ総括 | [Unit 7 の Bolt 計画](iteration_plan-nadesiko-7.md) | [ふりかえり](retrospective-nadesiko-7.md) | [Bolt 終了報告](bolt_report-nadesiko-7.md) | **完了** |
 
 Unit（イテレーション）開始時に行を追加します。AI-DLC では 1 Unit = 2 Bolt（章 1 本ずつ）とし、Bolt のステップ計画と承認ゲートを各計画に書きます。
 
@@ -72,3 +72,4 @@ AI-DLC ではベロシティの代わりに完了 Unit 数・承認ゲート通�
 - **全 7 Unit が完了し、Release v1.0.0（全 13 章公開）に到達しました。** 実績は [リリース完了報告](release_report-1.0.0.md) にまとめています。
 - 本プロジェクトは AI-DLC で開発します。計画の用語と進め方は [リリース・イテレーション計画ガイド（AI-DLC 版）](../reference/リリース・イテレーション計画ガイド_AI-DLC版.md) を正とします。
 - テンプレートは [template/リリース計画.md](../template/リリース計画.md)、[template/イテレーション計画.md](../template/イテレーション計画.md)、[template/イテレーション完了報告書.md](../template/イテレーション完了報告書.md)、[template/リリース完了報告書.md](../template/リリース完了報告書.md) を利用できます。
+* [リリース完了報告書 v1.0.0 - Zettai 連載（なでしこ3 版）](./release_report-nadesiko-1.0.0.md) - Zettai 連載なでしこ3 版 v1.0.0 のリリース完了報告書。全 7 Unit・14 ストーリー・13 章を完了した実績、AI-DLC の指標、承認ゲートが 41 箇所中 1 回しか止まらなかったこと、ADR 11 件と既知の制約 25 件の傾向、Kotlin 版との比較、扱わなかったこと、次の言語への提案を記録する。

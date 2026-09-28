@@ -4,7 +4,7 @@ title: "リリース計画 - Zettai 連載（なでしこ3 版）"
 description: "『From Objects to Functions』を下敷きにした Zettai 連載なでしこ3 版の AI-DLC 準拠 Level 1 計画。型システムを持たない日本語プログラミング言語で同じ 13 章を辿るという Intent、7 Unit・14 ストーリーへの分解、依存 DAG、5 軸のエントロピー評価、cnako3 の採用根拠と言語制約に対するリスク台帳、契約テストを全 Bolt 共通のゲート項目に加えた承認ゲート方針、完了 Unit 数と承認ゲート通過数による進捗管理を定義する。"
 tags: [development, plan, zettai, nadesiko]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-28T02:42:56Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-28T03:10:58Z }
 ---
 
 # リリース計画 - Zettai 連載（なでしこ3 版）
@@ -437,14 +437,14 @@ Kotlin 版の実績（Unit 3 以降は変更依頼 0 件）を踏まえ、ゲー
 
 | Unit | 計画検証負荷 | ゲート通過数 | 変更依頼数 | 人の検証時間 | 状態 |
 |------|---------|---------|--------|------|------|
-| Unit 1 | 11 | - | - | - | 未着手 |
+| Unit 1 | 11 | 0 / 10 | 未確定 | 未計測 | **完了** |
 | Unit 2 | 11 | - | - | - | 未着手 |
 | Unit 3 | 11 | - | - | - | 未着手 |
 | Unit 4 | 11 | - | - | - | 未着手 |
 | Unit 5 | 13 | - | - | - | 未着手 |
 | Unit 6 | 9 | - | - | - | 未着手 |
 | Unit 7 | 4 | - | - | - | 未着手 |
-| **合計** | **70** | **-** | **-** | **-** | 完了 Unit 数 **0 / 7** |
+| **合計** | **70** | **0 / 10** | **-** | **-** | 完了 Unit 数 **1 / 7** |
 
 ### バーンダウンチャート
 
@@ -454,6 +454,7 @@ xychart-beta
     x-axis ["開始", "U1", "U2", "U3", "U4", "U5", "U6", "U7"]
     y-axis "残検証負荷" 0 --> 80
     line "計画" [70, 59, 48, 37, 26, 13, 4, 0]
+    line "実績" [70, 59]
 ```
 
 実績の折れ線は Unit 完了ごとに追記します。一次指標は完了 Unit 数で、バーンダウンは補助指標です。
@@ -464,8 +465,8 @@ xychart-beta
 
 1. [開発戦略](development_strategy.md) に「なでしこ3 版の局面別アプローチ」を追記した（局面割り当ては Kotlin 版と同一、契約テストを全 Bolt 共通のゲート項目に設定、ゲート密度の見直しを Unit 1 完了時に前倒し）
 2. [Unit 1 の Bolt 計画](iteration_plan-nadesiko-1.md) を作成した（21 ステップ・承認ゲート 10 箇所）
-3. `validating-iteration-plan` と `validating-design` で計画と設計の整合性を検証する
-4. Unit 1 / Bolt 1-1 で実行環境とテスト基盤を作り、cnako3 の lint / format の有無と簡易 HTTP サーバの実挙動を確認する
+3. Unit 1 を完了した（[Bolt 終了報告](bolt_report-nadesiko-1.md) / [ふりかえり](retrospective-nadesiko-1.md)）。第 1 章を公開し、実行環境とテスト基盤を自作した
+4. Unit 2 の Bolt 計画を作る。ふりかえりの Try 1・4（計画に確定値を書かない／承認ゲートの運用形態を明記する）を計画の書き方に反映する
 5. `syncing-github-project` で **Unit を Milestone、Bolt のステップを Issue** として同期する
 
 ---
@@ -474,6 +475,7 @@ xychart-beta
 
 | 日付 | 更新内容 | 更新者 |
 |------|---------|--------|
+| 2026-09-28 | Unit 1 完了を反映。進捗状況とバーンダウンに実績を記録。承認ゲートが同期的に機能しなかったことを実績として残した | claude-code/claude-opus-5 |
 | 2026-09-28 | Unit 1 の Bolt 計画を作成。[Unit 7 のふりかえり](retrospective-7.md) Try 6 を反映し、主指標をリードタイムから「人が検証に使った時間」に変更（リードタイムは参考値に降格） | claude-code/claude-opus-5 |
 | 2026-09-28 | [開発戦略](development_strategy.md) への局面別アプローチ追記にあわせ、Unit 5 のゲート密度を「密」から「中」に修正（ファイル永続化への置き換えでリスクが MED に下がったため） | claude-code/claude-opus-5 |
 | 2026-09-28 | 初版作成。シリーズ 2 言語目としてなでしこ3 版を 7 Unit・14 ストーリー・14 Bolt に分解し、処理系に cnako3 を採用。型・テストフレームワーク・DB プラグインの不在をリスク台帳に登録し、契約テストを全 Bolt 共通の承認ゲート項目に追加 | claude-code/claude-opus-5 |

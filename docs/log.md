@@ -1,6 +1,15 @@
 # Docs Update Log
 
 ## 2026-09-28
+* **Update**: [retrospective-nadesiko-1](/development/retrospective-nadesiko-1.md) を更新（claude-code/claude-opus-5）
+* **Update**: [bolt_report-nadesiko-1](/development/bolt_report-nadesiko-1.md) を更新（claude-code/claude-opus-5）
+* **Update**: [release_plan-nadesiko](/development/release_plan-nadesiko.md) を更新（claude-code/claude-opus-5）
+* **Update**: [iteration_plan-nadesiko-1](/development/iteration_plan-nadesiko-1.md) を更新（claude-code/claude-opus-5）
+* **Update**: [chapter01](/article/zettai/nadesiko/chapter01.md) を更新（claude-code/claude-opus-5）
+* **Update**: [outline](/article/outline.md) を更新（claude-code/claude-opus-5）
+* **Update**: [ADR-014-own-test-framework](/adr/ADR-014-own-test-framework.md) を更新（claude-code/claude-opus-5）
+* **Update**: [ADR-013-cnako3-runtime](/adr/ADR-013-cnako3-runtime.md) を更新（claude-code/claude-opus-5）
+* **Verification**: [iteration_plan-nadesiko-1](/development/iteration_plan-nadesiko-1.md) を human:kakimomokuri が検証
 * **Update**: [iteration_plan-nadesiko-1](/development/iteration_plan-nadesiko-1.md) を更新（claude-code/claude-opus-5）
 * **Update**: [release_plan-nadesiko](/development/release_plan-nadesiko.md) を更新（claude-code/claude-opus-5）
 * **Update**: [outline](/article/outline.md) を更新（claude-code/claude-opus-5）

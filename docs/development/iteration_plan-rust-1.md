@@ -4,7 +4,7 @@ title: "Unit 1 の Bolt 計画（イテレーション 1）- Zettai 連載（Rus
 description: "Zettai 連載 Rust 版の Unit 1（器と第 1 章）の Bolt 計画。後戻りの効かない 2 つの判断（async の採否と HTTP クレートの選定）をスパイクで確かめてから決め、cargo workspace と just check を整えて第 1 章を書く。2 対象の学びを着手前に反映し、ゲートには必ず選択肢と数字を添える。"
 tags: [development, plan, ai-dlc, bolt, zettai, rust, unit-1]
 status: stable
-generated: { by: claude-code/claude-opus-5, at: 2026-09-28T13:11:33Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-28T13:21:01Z }
 verified:
   - { by: human:kakimomokuri, at: 2026-09-28T12:44:41Z }
 ---
@@ -270,18 +270,19 @@ Rust 版で違うのは、**作る量が最も少ないのに決める重さが�
 
 ### ステップ計画
 
-- [ ] **1-2.1 第 1 章の骨子**
+- [x] **1-2.1 第 1 章の骨子**
   - 節構成は [draft.md](../article/draft.md) のマインドマップに一致させる（読み替えは 0 件の見込み）
-- [ ] **1-2.2 最小のテストを 1 本書く（Red → Green）**
+- [x] **1-2.2 最小のテストを 1 本書く（Red → Green）**
   - 第 1 章のコード例になるもの。**実装から転記できる形にする**
-- [ ] **1-2.3 第 1 章の執筆**
+- [x] **1-2.3 第 1 章の執筆**
   - **2 対象に無い内容を 1 つ以上含める**（無ければ未完了）
   - 候補: テストフレームワークを作らなくてよいこと／`cargo` が最初から何を与えるか／`clippy -- -D warnings` を最初から入れる判断
-- [ ] **1-2.4 サイト反映と OKF 適用**
-- [ ] **1-2.5 CI の準備の判断**
+- [x] **1-2.4 サイト反映と OKF 適用**
+- [x] **1-2.5 CI の準備の判断**
   - `.github/workflows/rust-zettai.yml` は**第 2 章の実装直後（Unit 2）**に作る（2 対象と同じ）
   - **不要と判断する条件**: 本 Unit ではアプリケーションが動かないので、CI で守るものが `just check` しかない。Unit 2 で HTTP の縦串が通ってから入れる
-- [ ] **1-2.6 Bolt 終了報告とふりかえり**
+  - **実績（2026-09-28）**: 条件に照らして **Unit 2 へ送った**
+- [x] **1-2.6 Bolt 終了報告とふりかえり**
   - **ゲートの同期停止率を数える**。50% を下回ったら Unit 2 で箇所を減らす
 
 ---

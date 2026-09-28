@@ -3,6 +3,9 @@
 //! 第 1 章ではドメインをまだ作らない。テストに開発をガイドさせるという
 //! 前提を置き、そのための道具が言語に揃っていることを確かめるだけにする。
 
+pub mod bowling;
+pub mod bowling_oo;
+
 use std::path::PathBuf;
 use std::sync::atomic::{AtomicUsize, Ordering};
 

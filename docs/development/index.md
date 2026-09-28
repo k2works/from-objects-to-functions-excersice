@@ -41,7 +41,7 @@
 
 | Unit | Bolt 計画 | ふりかえり | Bolt 終了報告 | 状態 |
 |---------------|------|-----------|-----------|------|
-| Unit 1 器と第 1 章 | [Unit 1 の Bolt 計画](iteration_plan-rust-1.md) | - | - | 計画済み |
+| Unit 1 器と第 1 章 | [Unit 1 の Bolt 計画](iteration_plan-rust-1.md) | [ふりかえり](retrospective-rust-1.md) | [Bolt 終了報告](bolt_report-rust-1.md) | **完了** |
 
 Unit（イテレーション）開始時に行を追加します。AI-DLC では 1 Unit = 2 Bolt（章 1 本ずつ）とし、Bolt のステップ計画と承認ゲートを各計画に書きます。
 

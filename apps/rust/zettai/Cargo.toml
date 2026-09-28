@@ -4,6 +4,9 @@
 [workspace]
 resolver = "2"
 members = ["zettai-step1-http"]
+# スパイクは判断の記録として残すが、検査の対象外にする。
+# sync-postgres は DB が要り、HTTP の 3 つは同じポートを使う。
+exclude = ["spikes"]
 
 [workspace.package]
 edition = "2021"

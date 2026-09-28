@@ -115,6 +115,7 @@ nav:
           - 「なでしこ3」Unit 5 射影と永続化: development/bolt_report-nadesiko-5.md
           - 「なでしこ3」Unit 6 文脈の受け渡しとバリデーション: development/bolt_report-nadesiko-6.md
           - 「なでしこ3」Unit 7 監視とアーキテクチャ総括: development/bolt_report-nadesiko-7.md
+          - 「Rust」Unit 1 器と第 1 章: development/bolt_report-rust-1.md
       - ふりかえり:
           - Unit 7 監視とアーキテクチャ総括: development/retrospective-7.md
           - 「なでしこ3」Unit 1 実行環境・テスト基盤と第 1 章: development/retrospective-nadesiko-1.md
@@ -124,6 +125,7 @@ nav:
           - 「なでしこ3」Unit 5 射影と永続化: development/retrospective-nadesiko-5.md
           - 「なでしこ3」Unit 6 文脈の受け渡しとバリデーション: development/retrospective-nadesiko-6.md
           - 「なでしこ3」Unit 7 監視とアーキテクチャ総括: development/retrospective-nadesiko-7.md
+          - 「Rust」Unit 1 器と第 1 章: development/retrospective-rust-1.md
       - リリース完了報告:
           - Release v1.0.0: development/release_report-1.0.0.md
           - 「なでしこ3」Release v1.0.0: development/release_report-nadesiko-1.0.0.md
@@ -192,6 +194,9 @@ nav:
               - 第 11 章 アプリカティブによるデータバリデーション: article/zettai/nadesiko/chapter11.md
               - 第 12 章 監視と関数型 JSON: article/zettai/nadesiko/chapter12.md
               - 第 13 章 関数型アーキテクチャの設計: article/zettai/nadesiko/chapter13.md
+          - Rust 版:
+              - 概要: article/zettai/rust/index.md
+              - 第 1 章 新しいアプリケーションを準備する: article/zettai/rust/chapter01.md
   - リファレンス:
       - 概要: reference/index.md
       - よいソフトウェアとは: reference/よいソフトウェアとは.md

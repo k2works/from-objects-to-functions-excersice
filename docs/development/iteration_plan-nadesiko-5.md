@@ -3,8 +3,10 @@ type: Bolt Plan
 title: "Unit 5 の Bolt 計画（イテレーション 5）- Zettai 連載（なでしこ3 版）"
 description: "Zettai 連載なでしこ3 版の Unit 5（射影と永続化）の Bolt 計画。イベントを表示用のモデルに射影して CQRS に到達し、追記型イベントログのファイル永続化をモナドで安全に組み立てる。Unit 4 のふりかえり Try を反映し、構造を変える判断で解かないことを先に書き、変えた直後に NFR を測る。第 9 章の節名 3 件の読み替えと、Kotlin 版 ADR 008・009 の移植判断を含む。"
 tags: [development, plan, ai-dlc, bolt, zettai, nadesiko, unit-5]
-status: draft
+status: stable
 generated: { by: claude-code/claude-opus-5, at: 2026-09-28T06:06:19Z }
+verified:
+  - { by: human:kakimomokuri, at: 2026-09-28T06:08:36Z }
 ---
 
 # Unit 5 の Bolt 計画（イテレーション 5）- Zettai 連載（なでしこ3 版）

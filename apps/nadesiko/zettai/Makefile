@@ -32,14 +32,15 @@ check: lint test doctest ## 文法検査・テスト・受け入れシナリオ�
 lint: ## 全 .nako3 を構文解析だけして文法エラーを見つける
 	@# cnako3 は文法エラーでも終了コードが 0 なので、-A（AST 出力）の
 	@# 標準エラー出力が空かどうかで判定する。
-	@fail=0; \
-	for f in $(SRCS); do \
-	  err=$$($(CNAKO) -A "$$f" 2>&1 >/dev/null); \
-	  if [ -n "$$err" ]; then echo "NG $$f"; echo "$$err" | head -3; fail=1; \
-	  else echo "ok $$f"; fi; \
-	done; \
-	if [ $$fail -ne 0 ]; then echo "文法エラーがあります"; exit 1; fi; \
-	echo "文法エラーなし"
+	@# ファイル 1 つごとにプロセスを起こすため、段階が増えると遅くなる。
+	@# 並列で回す（-P 8）。1 ファイルの検査は互いに独立している。
+	@# -I{} は BSD xargs で行長の上限に当たるので、-n 1 でファイルを $$0 に渡す。
+	@echo "$(SRCS)" | tr ' ' '\n' | xargs -P 8 -n 1 sh -c \
+	  'err=$$($(CNAKO) -A "$$0" 2>&1 >/dev/null); \
+	   if [ -n "$$err" ]; then echo "NG $$0"; echo "$$err" | head -3; exit 1; \
+	   else echo "ok $$0"; fi' \
+	  || { echo "文法エラーがあります"; exit 1; }
+	@echo "文法エラーなし"
 
 test: ## test/stepN/*_test.nako3 を 1 本ずつ実行する
 	@# 判定を 2 つ重ねる。テストの失敗は helper.nako3 のテスト結果報告が

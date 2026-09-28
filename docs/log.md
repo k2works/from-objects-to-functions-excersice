@@ -1,6 +1,26 @@
 # Docs Update Log
 
 ## 2026-09-28
+* **Update**: [chapter07](/article/zettai/nadesiko/chapter07.md) を更新（claude-code/claude-opus-5）
+* **Update**: [ADR-018-outcome-dict-port](/adr/ADR-018-outcome-dict-port.md) を更新（claude-code/claude-opus-5）
+* **Update**: [ADR-017-own-property-testing](/adr/ADR-017-own-property-testing.md) を更新（claude-code/claude-opus-5）
+* **Update**: [ADR-016-own-acceptance-entry](/adr/ADR-016-own-acceptance-entry.md) を更新（claude-code/claude-opus-5）
+* **Update**: [ui_design](/design/ui_design.md) を更新（claude-code/claude-opus-5）
+* **Update**: [domain-model](/design/domain-model.md) を更新（claude-code/claude-opus-5）
+* **Update**: [architecture_backend](/design/architecture_backend.md) を更新（claude-code/claude-opus-5）
+* **Update**: [chapter06](/article/zettai/nadesiko/chapter06.md) を更新（claude-code/claude-opus-5）
+* **Update**: [chapter05](/article/zettai/nadesiko/chapter05.md) を更新（claude-code/claude-opus-5）
+* **Update**: [chapter04](/article/zettai/nadesiko/chapter04.md) を更新（claude-code/claude-opus-5）
+* **Update**: [outline](/article/outline.md) を更新（claude-code/claude-opus-5）
+* **Update**: [ADR-015-step-directories](/adr/ADR-015-step-directories.md) を更新（claude-code/claude-opus-5）
+* **Update**: [chapter07](/article/zettai/nadesiko/chapter07.md) を更新（claude-code/claude-opus-5）
+* **Update**: [ADR-018-outcome-dict-port](/adr/ADR-018-outcome-dict-port.md) を更新（claude-code/claude-opus-5）
+* **Update**: [ADR-017-own-property-testing](/adr/ADR-017-own-property-testing.md) を更新（claude-code/claude-opus-5）
+* **Update**: [ADR-016-own-acceptance-entry](/adr/ADR-016-own-acceptance-entry.md) を更新（claude-code/claude-opus-5）
+* **Update**: [chapter06](/article/zettai/nadesiko/chapter06.md) を更新（claude-code/claude-opus-5）
+* **Update**: [chapter05](/article/zettai/nadesiko/chapter05.md) を更新（claude-code/claude-opus-5）
+* **Update**: [chapter04](/article/zettai/nadesiko/chapter04.md) を更新（claude-code/claude-opus-5）
+* **Update**: [ADR-015-step-directories](/adr/ADR-015-step-directories.md) を更新（claude-code/claude-opus-5）
 * **Update**: [ADR-015-step-directories](/adr/ADR-015-step-directories.md) を更新（claude-code/claude-opus-5）
 * **Update**: [release_plan-nadesiko](/development/release_plan-nadesiko.md) を更新（claude-code/claude-opus-5）
 * **Update**: [iteration_plan-nadesiko-4](/development/iteration_plan-nadesiko-4.md) を更新（claude-code/claude-opus-5）

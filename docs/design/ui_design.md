@@ -4,7 +4,7 @@ title: "UI 設計 - Zettai"
 description: "Zettai（Kotlin 版）の UI 設計。画面一覧、ワイヤーフレーム、画面遷移図、URL 規約、HTML の組み立て方針を記述する。現時点の画面は ToDo リスト表示の 1 つで、章の進行にあわせて追加する。"
 tags: [design, ui, zettai, kotlin]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-28T04:19:37Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-28T05:54:20Z }
 ---
 
 # UI 設計 - Zettai
@@ -169,6 +169,17 @@ URL 規約（`/todo/{user}/{listname}`、利用者はパスに含める、一覧
 ただし**ルーティングの仕組みが違います。** 簡易 HTTP サーバのプラグインは URL の**前方一致**でしか振り分けられません。`/todo` に登録すると `/todo/uberto/book` も届くので、**パスの分解は自前で書きます**。パスパラメータを取り出す仕組みはありません。
 
 生のパスは `GETデータ["?URL"]`、クエリの値は `GETデータ["x"]`、フォームの値は `POSTデータ["name"]` で取れます。
+
+### 失敗の理由とステータスコード
+
+第 7 章から、失敗の理由がそのまま画面に出ます。
+
+| 理由 | ステータス | 本文 |
+| :--- | :--- | :--- |
+| `ListNotFound` / `ItemNotFound` | 404 | `<h1>404</h1><p>ListNotFound</p>` |
+| `ListAlreadyExists` / `InvalidTransition` | 400 | 同じ形 |
+
+対応表は `src/stepN/outcome.nako3` にあり、**ドメインは HTTP を知りません**。HTTP の層が対応表だけを見ます。
 
 ### ステータスコード
 

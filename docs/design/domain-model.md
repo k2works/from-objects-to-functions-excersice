@@ -4,7 +4,7 @@ title: "ドメインモデル設計 - Zettai"
 description: "Zettai（Kotlin 版）のドメインモデル設計。ユビキタス言語の対訳表、集約・エンティティ・値オブジェクト・列挙型の要素表、イベントと状態の関係、ToDo 項目の状態遷移、状態変換がモノイドであること、章の進行にあわせたモデルの成長を記述する。"
 tags: [design, domain-model, zettai, kotlin]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-28T05:01:34Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-28T05:54:20Z }
 ---
 
 # ドメインモデル設計 - Zettai
@@ -308,6 +308,12 @@ Kotlin 版の型定義に相当するのが、次の表です。**辞書を返�
 | イベント（追加） | `ItemAdded(user, listName, item)` | `種別`=`"ItemAdded"`・`利用者`・`リスト名`・`項目` | `項目追加イベント` | 5 |
 | 全体の状態 | `ToDoListState` | `リスト表`（辞書。鍵は `利用者/リスト名`） | `空状態` / `畳込` | 5 |
 | 状態変換 | `StateTransition = (ToDoListState) -> ToDoListState` | 関数値 | `状態変換作成` / `恒等変換` / `変換合成` | 5 |
+| コマンド（作成） | `CreateToDoList(user, listName)` | `種別`=`"CreateToDoList"`・`利用者`・`リスト名` | `リスト作成コマンド` | 6 |
+| コマンド（追加） | `AddToDoItem(user, listName, item)` | `種別`=`"AddToDoItem"`・`利用者`・`リスト名`・`項目` | `項目追加コマンド` | 6 |
+| コマンド（状態変更） | `ChangeItemStatus(user, listName, description, newStatus)` | `種別`=`"ChangeItemStatus"`・`利用者`・`リスト名`・`説明`・`新状態` | `状態変更コマンド` | 6 |
+| イベント（状態変更） | `ItemStatusChanged` | `種別`=`"ItemStatusChanged"`・`利用者`・`リスト名`・`説明`・`新状態` | `項目状態変更イベント` | 6 |
+| 結果 | `Outcome<E, T>` | `成功`（真偽）・`値` または `理由` | `成功` / `失敗` / `結果マップ` | 7 |
+| 失敗の理由 | `ZettaiError`（`sealed`） | 文字列 4 種類。`失敗理由一覧` に集める | — | 7 |
 
 **直和型を表す手段がありません。** イベントの種類は `種別` キーの文字列で区別します。Kotlin 版の `sealed interface ToDoListEvent` が持つ「これで全部」という保証はありません。
 
@@ -316,6 +322,8 @@ Kotlin 版の型定義に相当するのが、次の表です。**辞書を返�
 `ToDoStatus` の 4 値（`Todo`・`InProgress`・`Done`・`Blocked`）は文字列です。取りうる値を `状態一覧` という関数 1 つに集め、**契約テストが 4 値の網羅を守ります**。
 
 第 6 章の状態遷移では、Kotlin 版は `when` の網羅がコンパイラに守られます。なでしこ3 版は**遷移表の 16 マスすべてをテストする**ことで代えます（Kotlin 版も 16 マス全件をテストしているので、結果として同じ検査になります）。
+
+`ZettaiError` の 4 種類も同じ形です。`sealed` の代わりに `失敗理由一覧` に集め、契約テストが網羅を守ります。理由と HTTP のステータスコードの対応表は `outcome.nako3` に置き、**ドメインは HTTP を知らないまま**、HTTP の層が対応表だけを見ます（[ADR-018](../adr/ADR-018-outcome-dict-port.md)）。
 
 ### 満たす法則の確かめ方
 
@@ -326,7 +334,9 @@ Kotlin 版の型定義に相当するのが、次の表です。**辞書を返�
 | 枠組み | 自前のプロパティベーステスト（[ADR-005](../adr/ADR-005-property-based-testing.md)） | 自作。`乱整数` と `比較用文字列` を `test/helper.nako3` に置く |
 | 状態の比較 | `equals` | **JSON にして文字列で比べる。** 辞書どうしを比べる手段が無い |
 | 試行回数 | 200 回 | 200 回（`make check` が 30 秒に収まる範囲で決めた） |
-| 検査の妥当性 | — | **法則を破る実装を入れて落ちることを確かめている**（200 回中 13 件で検出） |
+| 検査の妥当性 | — | **法則を破る実装を入れて落ちることを確かめている**（[ADR-017](../adr/ADR-017-own-property-testing.md)） |
+
+検出率は法則によって大きく違います。モノイドの結合律は 200 回中 13 件、ファンクタ則は 100 件前後でした。**検出率の低い法則ほど、入力の多様性に気を配る必要があります。**
 
 ### 不変性
 

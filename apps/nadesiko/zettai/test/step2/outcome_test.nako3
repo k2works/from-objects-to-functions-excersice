@@ -1,0 +1,37 @@
+!「./helper.nako3」を取り込む
+!「../../src/step2/outcome.nako3」を取り込む
+
+# 契約テスト
+成=5で成功
+「成功は成功キーを持つ」と(成["成功"])と真で検証
+「成功は値を持つ」と(成["値"])と5で検証
+敗=「ListNotFound」で失敗
+「失敗は成功キーが偽」と(敗["成功"])と偽で検証
+「失敗は理由を持つ」と(敗["理由"])と「ListNotFound」で検証
+
+# 失敗の理由は 4 種類
+一覧=失敗理由一覧
+「失敗の理由は 4 種類」と(一覧の要素数)と4で検証
+「ListNotFound がある」と(一覧で「ListNotFound」の出現回数)と1で検証
+「ItemNotFound がある」と(一覧で「ItemNotFound」の出現回数)と1で検証
+「ListAlreadyExists がある」と(一覧で「ListAlreadyExists」の出現回数)と1で検証
+「InvalidTransition がある」と(一覧で「InvalidTransition」の出現回数)と1で検証
+
+# 理由からステータスコードが決まる（4 種類すべて）
+「ListNotFound は 404」と(「ListNotFound」の失敗状態コード)と404で検証
+「ItemNotFound は 404」と(「ItemNotFound」の失敗状態コード)と404で検証
+「ListAlreadyExists は 400」と(「ListAlreadyExists」の失敗状態コード)と400で検証
+「InvalidTransition は 400」と(「InvalidTransition」の失敗状態コード)と400で検証
+
+# map
+●(Xで)値二倍
+    X*2で戻る
+ここまで
+# 関数値は一度変数に受けてから渡す。式の中に {関数} を書くと呼び出しになる。
+倍F={関数}値二倍
+写=成に倍Fを結果マップ
+「成功に map すると値が変わる」と(写["値"])と10で検証
+写2=敗に倍Fを結果マップ
+「失敗に map しても素通しする」と(写2["理由"])と「ListNotFound」で検証
+
+テスト結果報告

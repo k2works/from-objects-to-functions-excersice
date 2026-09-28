@@ -21,5 +21,8 @@
 | [ADR-013](ADR-013-cnako3-runtime.md) | なでしこ3 版の処理系に cnako3 を採用する | 提案 |
 | [ADR-014](ADR-014-own-test-framework.md) | なでしこ3 版のテスト基盤を自作し、静的解析は文法検査だけにする | 提案 |
 | [ADR-015](ADR-015-step-directories.md) | 章の段階ごとにディレクトリを切り、過去の章のコードを残す | 提案 |
+| [ADR-016](ADR-016-own-acceptance-entry.md) | 受け入れテストの入口を自作し、ライブラリに寄せない | 提案 |
+| [ADR-017](ADR-017-own-property-testing.md) | 性質テストを自作し、検出率を測ってから信用する | 提案 |
+| [ADR-018](ADR-018-outcome-dict-port.md) | 失敗を結果辞書で表し、ポートの契約を変える | 提案 |
 
 ADR の作成には `creating-adr` スキルを使用してください。

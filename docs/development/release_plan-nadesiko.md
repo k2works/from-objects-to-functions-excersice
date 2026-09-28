@@ -4,7 +4,7 @@ title: "リリース計画 - Zettai 連載（なでしこ3 版）"
 description: "『From Objects to Functions』を下敷きにした Zettai 連載なでしこ3 版の AI-DLC 準拠 Level 1 計画。型システムを持たない日本語プログラミング言語で同じ 13 章を辿るという Intent、7 Unit・14 ストーリーへの分解、依存 DAG、5 軸のエントロピー評価、cnako3 の採用根拠と言語制約に対するリスク台帳、契約テストを全 Bolt 共通のゲート項目に加えた承認ゲート方針、完了 Unit 数と承認ゲート通過数による進捗管理を定義する。"
 tags: [development, plan, zettai, nadesiko]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-28T05:04:19Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-28T05:10:36Z }
 ---
 
 # リリース計画 - Zettai 連載（なでしこ3 版）
@@ -151,7 +151,7 @@ end note
 | Unit 1 | LOW | **HIGH** | **HIGH** | MED | **HIGH** | 密（各ステップ） |
 | Unit 2 | LOW | MED | MED | MED | MED | 密（縦串の品質と HTTP プラグインの挙動を見る） |
 | Unit 3 | LOW | MED | MED | LOW | MED | 密（4 箇所に絞る） |
-| Unit 4 | LOW | LOW | MED | LOW | LOW | 同上 |
+| Unit 4 | LOW | MED | MED | MED | LOW | 密（5 箇所。契約が変わる箇所が 2 つ） |
 | Unit 5 | LOW | MED | MED | MED | MED | 中（Bolt 末と永続化の設計判断時） |
 | Unit 6 | LOW | LOW | MED | LOW | LOW | 同上 |
 | Unit 7 | MED | LOW | LOW | LOW | LOW | 疎（実装追加が最小） |
@@ -440,7 +440,7 @@ Kotlin 版の実績（Unit 3 以降は変更依頼 0 件）を踏まえ、ゲー
 | Unit 1 | 11 | 0 / 10 | 未確定 | 未計測 | **完了** |
 | Unit 2 | 11 | 0 / 11 | 未確定 | 未計測 | **完了** |
 | Unit 3 | 11 | 0 / 4 | 未確定 | 未計測 | **完了** |
-| Unit 4 | 11 | - | - | - | 未着手 |
+| Unit 4 | 11 | - | - | - | 計画済み（[Bolt 計画](iteration_plan-nadesiko-4.md)） |
 | Unit 5 | 13 | - | - | - | 未着手 |
 | Unit 6 | 9 | - | - | - | 未着手 |
 | Unit 7 | 4 | - | - | - | 未着手 |
@@ -469,7 +469,8 @@ xychart-beta
 4. Unit 2 を完了した（[Bolt 終了報告](bolt_report-nadesiko-2.md) / [ふりかえり](retrospective-nadesiko-2.md)）。第 2〜3 章を公開し、記事に対する 3 つの検査を入れた
 5. [Unit 3 の Bolt 計画](iteration_plan-nadesiko-3.md) を作成した（18 ステップ・承認ゲート 4 箇所）。ゲートを 11 から 4 に絞り、運用形態の切り替えを人の作業と定めた
 6. Unit 3 を完了した（[Bolt 終了報告](bolt_report-nadesiko-3.md) / [ふりかえり](retrospective-nadesiko-3.md)）。第 4〜5 章を公開し、合成がモノイドであることを性質テストで示した
-7. Release v0.1.0 の残件（CI の実行確認）は push が要るため未消化。Unit 4 に持ち越す
+7. [Unit 4 の Bolt 計画](iteration_plan-nadesiko-4.md) を作成した（17 ステップ・承認ゲート 5 箇所）。Kotlin 版 ADR 12 件を 1 件ずつ見て移植漏れ 3 件を特定した
+8. Release v0.1.0 の残件（CI の実行確認）は push が要るため未消化。Unit 4 / Bolt 4-1 で人の判断を待つ
 5. `syncing-github-project` で **Unit を Milestone、Bolt のステップを Issue** として同期する
 
 ---
@@ -479,6 +480,7 @@ xychart-beta
 | 日付 | 更新内容 | 更新者 |
 |------|---------|--------|
 | 2026-09-28 | Unit 3 の着手前に、Level 1 のエントロピー評価を Bolt 計画の実態に合わせて更新（構造的不確実性と未解決の仮定を LOW から MED へ）。型の無い言語でハブと状態変換をどう表すかが未確定で、再帰・関数合成・乱数の 3 件が未確認のため | claude-code/claude-opus-5 |
+| 2026-09-28 | Unit 4 の着手前に、Level 1 のエントロピー評価を Bolt 計画の実態に合わせて更新（構造的不確実性・リスクを LOW から MED へ）。第 7 章でポートの契約が変わり、型が無いぶん波及が静かなため | claude-code/claude-opus-5 |
 | 2026-09-28 | Unit 3 完了を反映。進捗状況とバーンダウンに実績を記録。Unit 4 のゲート密度は「密・4 箇所」を維持する判断を記録 | claude-code/claude-opus-5 |
 | 2026-09-28 | Unit 2 完了を反映。進捗状況とバーンダウンに実績を記録。ゲート密度は「密」を維持する判断を記録（見直しの前提である実績が 2 Unit 続けて得られていないため） | claude-code/claude-opus-5 |
 | 2026-09-28 | Unit 1 完了を反映。進捗状況とバーンダウンに実績を記録。承認ゲートが同期的に機能しなかったことを実績として残した | claude-code/claude-opus-5 |

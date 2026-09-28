@@ -4,7 +4,7 @@ title: "リリース計画 - Zettai 連載（なでしこ3 版）"
 description: "『From Objects to Functions』を下敷きにした Zettai 連載なでしこ3 版の AI-DLC 準拠 Level 1 計画。型システムを持たない日本語プログラミング言語で同じ 13 章を辿るという Intent、7 Unit・14 ストーリーへの分解、依存 DAG、5 軸のエントロピー評価、cnako3 の採用根拠と言語制約に対するリスク台帳、契約テストを全 Bolt 共通のゲート項目に加えた承認ゲート方針、完了 Unit 数と承認ゲート通過数による進捗管理を定義する。"
 tags: [development, plan, zettai, nadesiko]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-28T05:27:58Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-28T05:56:20Z }
 ---
 
 # リリース計画 - Zettai 連載（なでしこ3 版）
@@ -451,11 +451,11 @@ Kotlin 版の実績（Unit 3 以降は変更依頼 0 件）を踏まえ、ゲー
 | Unit 1 | 11 | 0 / 10 | 未確定 | 未計測 | **完了** |
 | Unit 2 | 11 | 0 / 11 | 未確定 | 未計測 | **完了** |
 | Unit 3 | 11 | 0 / 4 | 未確定 | 未計測 | **完了** |
-| Unit 4 | 11 | - | - | - | 計画済み（[Bolt 計画](iteration_plan-nadesiko-4.md)） |
+| Unit 4 | 11 | 0 / 5 | 未確定 | 未計測 | **完了** |
 | Unit 5 | 13 | - | - | - | 未着手 |
 | Unit 6 | 9 | - | - | - | 未着手 |
 | Unit 7 | 4 | - | - | - | 未着手 |
-| **合計** | **70** | **0 / 25** | **-** | **-** | 完了 Unit 数 **3 / 7** |
+| **合計** | **70** | **0 / 30** | **-** | **-** | 完了 Unit 数 **4 / 7** |
 
 ### バーンダウンチャート
 
@@ -465,7 +465,7 @@ xychart-beta
     x-axis ["開始", "U1", "U2", "U3", "U4", "U5", "U6", "U7"]
     y-axis "残検証負荷" 0 --> 80
     line "計画" [70, 59, 48, 37, 26, 13, 4, 0]
-    line "実績" [70, 59, 48, 37]
+    line "実績" [70, 59, 48, 37, 26]
 ```
 
 実績の折れ線は Unit 完了ごとに追記します。一次指標は完了 Unit 数で、バーンダウンは補助指標です。
@@ -482,6 +482,7 @@ xychart-beta
 6. Unit 3 を完了した（[Bolt 終了報告](bolt_report-nadesiko-3.md) / [ふりかえり](retrospective-nadesiko-3.md)）。第 4〜5 章を公開し、合成がモノイドであることを性質テストで示した
 7. [Unit 4 の Bolt 計画](iteration_plan-nadesiko-4.md) を作成した（17 ステップ・承認ゲート 5 箇所）。Kotlin 版 ADR 12 件を 1 件ずつ見て移植漏れ 3 件を特定した
 8. **Release v0.1.0 を達成した（2026-09-28）。** push して CI の green を確認した
+9. Unit 4 を完了した（[Bolt 終了報告](bolt_report-nadesiko-4.md) / [ふりかえり](retrospective-nadesiko-4.md)）。第 6〜7 章を公開し、Kotlin 版 ADR の移植漏れ 3 件を回収した
 5. `syncing-github-project` で **Unit を Milestone、Bolt のステップを Issue** として同期する
 
 ---
@@ -491,6 +492,7 @@ xychart-beta
 | 日付 | 更新内容 | 更新者 |
 |------|---------|--------|
 | 2026-09-28 | Unit 3 の着手前に、Level 1 のエントロピー評価を Bolt 計画の実態に合わせて更新（構造的不確実性と未解決の仮定を LOW から MED へ）。型の無い言語でハブと状態変換をどう表すかが未確定で、再帰・関数合成・乱数の 3 件が未確認のため | claude-code/claude-opus-5 |
+| 2026-09-28 | Unit 4 完了を反映。進捗状況とバーンダウンに実績を記録。Unit 5 のゲート密度は「密・4 箇所」（Unit 4 の 5 から戻す） | claude-code/claude-opus-5 |
 | 2026-09-28 | **Release v0.1.0 達成。** CI（`Nadesiko3 Zettai`・`Kotlin Zettai`・`Deploy MkDocs`）が すべて success であることを確認し、Phase 1 の条件を満たした | claude-code/claude-opus-5 |
 | 2026-09-28 | Unit 4 の着手前に、Level 1 のエントロピー評価を Bolt 計画の実態に合わせて更新（構造的不確実性・リスクを LOW から MED へ）。第 7 章でポートの契約が変わり、型が無いぶん波及が静かなため | claude-code/claude-opus-5 |
 | 2026-09-28 | Unit 3 完了を反映。進捗状況とバーンダウンに実績を記録。Unit 4 のゲート密度は「密・4 箇所」を維持する判断を記録 | claude-code/claude-opus-5 |

@@ -1,6 +1,10 @@
 # Docs Update Log
 
 ## 2026-09-28
+* **Update**: [retrospective-nadesiko-4](/development/retrospective-nadesiko-4.md) を更新（claude-code/claude-opus-5）
+* **Update**: [bolt_report-nadesiko-4](/development/bolt_report-nadesiko-4.md) を更新（claude-code/claude-opus-5）
+* **Update**: [release_plan-nadesiko](/development/release_plan-nadesiko.md) を更新（claude-code/claude-opus-5）
+* **Update**: [iteration_plan-nadesiko-4](/development/iteration_plan-nadesiko-4.md) を更新（claude-code/claude-opus-5）
 * **Update**: [chapter07](/article/zettai/nadesiko/chapter07.md) を更新（claude-code/claude-opus-5）
 * **Update**: [ADR-018-outcome-dict-port](/adr/ADR-018-outcome-dict-port.md) を更新（claude-code/claude-opus-5）
 * **Update**: [ADR-017-own-property-testing](/adr/ADR-017-own-property-testing.md) を更新（claude-code/claude-opus-5）

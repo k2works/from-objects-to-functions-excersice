@@ -1,6 +1,10 @@
 # Docs Update Log
 
 ## 2026-09-28
+* **Update**: [retrospective-nadesiko-3](/development/retrospective-nadesiko-3.md) を更新（claude-code/claude-opus-5）
+* **Update**: [bolt_report-nadesiko-3](/development/bolt_report-nadesiko-3.md) を更新（claude-code/claude-opus-5）
+* **Update**: [release_plan-nadesiko](/development/release_plan-nadesiko.md) を更新（claude-code/claude-opus-5）
+* **Update**: [iteration_plan-nadesiko-3](/development/iteration_plan-nadesiko-3.md) を更新（claude-code/claude-opus-5）
 * **Update**: [chapter05](/article/zettai/nadesiko/chapter05.md) を更新（claude-code/claude-opus-5）
 * **Update**: [domain-model](/design/domain-model.md) を更新（claude-code/claude-opus-5）
 * **Update**: [chapter04](/article/zettai/nadesiko/chapter04.md) を更新（claude-code/claude-opus-5）

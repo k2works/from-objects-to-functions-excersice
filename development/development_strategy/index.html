@@ -6,14 +6,14 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Zettai 連載 Kotlin 版の開発戦略。7 イテレーションを序盤・中盤・終盤の 3 局面に分け、序盤と終盤はアウトサイドイン、中盤はインサイドアウトを採る根拠、共通の TDD サイクルと品質チェック、デモ項目を受け入れ基準とする方針（BDD 不採用と DDT / Pesticide 採用の理由）、ウォーキングスケルトンの基盤化、設計ドキュメント整合、局面移行時の一貫性維持を定義する。">
+        <meta name="description" content="Zettai 連載の開発戦略。Kotlin 版となでしこ3 版のそれぞれについて、7 イテレーションを序盤・中盤・終盤の 3 局面に分け、序盤と終盤はアウトサイドイン、中盤はインサイドアウトを採る根拠、共通の TDD サイクルと品質チェック、デモ項目を受け入れ基準とする方針（BDD 不採用と DDT / Pesticide 採用の理由）、ウォーキングスケルトンの基盤化、設計ドキュメント整合、局面移行時の一貫性維持を定義する。なでしこ3 版では型検査の不在を契約テストで補う方針と、局面割り当てを Kotlin 版と同一に保つ根拠を加える。">
       
       
         <meta name="author" content="Project Team">
       
       
       
-        <link rel="prev" href="../release_plan/">
+        <link rel="prev" href="../release_plan-nadesiko/">
       
       
         <link rel="next" href="../iteration_plan-1/">
@@ -27,7 +27,7 @@
     
     
       
-        <title>開発戦略 - Zettai 連載（Kotlin 版） - From Objects to Functions 演習</title>
+        <title>開発戦略 - Zettai 連載（Kotlin 版 / なでしこ3 版） - From Objects to Functions 演習</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#-zettai-kotlin" class="md-skip">
+        <a href="#-zettai-kotlin-3" class="md-skip">
           Skip to content
         </a>
       
@@ -112,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              開発戦略 - Zettai 連載（Kotlin 版）
+              開発戦略 - Zettai 連載（Kotlin 版 / なでしこ3 版）
             
           </span>
         </div>
@@ -1008,7 +1008,42 @@
   <span class="md-ellipsis">
     
   
-    リリース計画
+    リリース計画（Kotlin 版）
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release_plan-nadesiko/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    リリース計画（なでしこ3 版）
   
 
     
@@ -1615,7 +1650,190 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#3_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        なでしこ3 版の局面別アプローチ
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="なでしこ3 版の局面別アプローチ">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#_32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        この対象固有の事情
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        戦略の全体像
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_34" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        アプローチ選択の根拠（差分）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tdd_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        共通の TDD サイクル（差分）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="共通の TDD サイクル（差分）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#red" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Red の確認の仕方
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_35" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        テスト種別とレイヤーの対応
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_36" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        品質チェック
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_37" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        コミット規約
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_38" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        承認ゲートとゲート密度（差分）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="承認ゲートとゲート密度（差分）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bolt_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        全 Bolt 共通のゲート項目
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_39" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        局面によらず必ず停止する操作
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_40" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        デモ項目を受け入れ基準とする（差分）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_41" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        設計ドキュメント整合（差分）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_42" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        局面移行時の一貫性維持（差分）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_43" class="md-nav__link">
     <span class="md-ellipsis">
       
         更新履歴
@@ -1626,7 +1844,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_33" class="md-nav__link">
+  <a href="#_44" class="md-nav__link">
     <span class="md-ellipsis">
       
         関連ドキュメント
@@ -1668,10 +1886,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5" >
         
           
-          <label class="md-nav__link" for="__nav_5_4" id="__nav_5_4_label" tabindex="">
+          <label class="md-nav__link" for="__nav_5_5" id="__nav_5_5_label" tabindex="">
             
   
   
@@ -1689,8 +1907,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_4">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_5">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1945,6 +2163,146 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iteration_plan-nadesiko-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「なでしこ3」Unit 1 実行環境・テスト基盤と第 1 章
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iteration_plan-nadesiko-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「なでしこ3」Unit 2 ウォーキングスケルトンとドメイン分離
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iteration_plan-nadesiko-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「なでしこ3」Unit 3 関数型 DI とイベント
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iteration_plan-nadesiko-4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「なでしこ3」Unit 4 コマンドとエラーハンドリング
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1976,10 +2334,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_6" >
         
           
-          <label class="md-nav__link" for="__nav_5_5" id="__nav_5_5_label" tabindex="">
+          <label class="md-nav__link" for="__nav_5_6" id="__nav_5_6_label" tabindex="">
             
   
   
@@ -1997,8 +2355,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_5">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_6">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2253,9 +2611,36 @@
 
               
             
-          </ul>
-        </nav>
-      
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bolt_report-nadesiko-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「なでしこ3」Unit 1 実行環境・テスト基盤と第 1 章
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
     </li>
   
 
@@ -2267,54 +2652,34 @@
   
   
   
-    
-    
-    
-    
-      
-      
+    <li class="md-nav__item">
+      <a href="../bolt_report-nadesiko-2/" class="md-nav__link">
         
-          
-          
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_6" >
-        
-          
-          <label class="md-nav__link" for="__nav_5_6" id="__nav_5_6_label" tabindex="">
-            
   
   
   <span class="md-ellipsis">
     
   
-    ふりかえり
+    「なでしこ3」Unit 2 ウォーキングスケルトンとドメイン分離
   
 
     
   </span>
   
   
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_6_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_6">
-            <span class="md-nav__icon md-icon"></span>
-            
+    
   
-    ふりかえり
+  
+    <span class="md-status md-status--draft"></span>
   
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -2323,14 +2688,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../retrospective-7/" class="md-nav__link">
+      <a href="../bolt_report-nadesiko-3/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Unit 7 監視とアーキテクチャ総括
+    「なでしこ3」Unit 3 関数型 DI とイベント
   
 
     
@@ -2392,7 +2757,7 @@
   <span class="md-ellipsis">
     
   
-    リリース完了報告
+    ふりかえり
   
 
     
@@ -2405,6 +2770,209 @@
         
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_7_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ふりかえり
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../retrospective-7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unit 7 監視とアーキテクチャ総括
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../retrospective-nadesiko-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「なでしこ3」Unit 1 実行環境・テスト基盤と第 1 章
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../retrospective-nadesiko-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「なでしこ3」Unit 2 ウォーキングスケルトンとドメイン分離
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../retrospective-nadesiko-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「なでしこ3」Unit 3 関数型 DI とイベント
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_8" id="__nav_5_8_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    リリース完了報告
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_8">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -4257,6 +4825,297 @@
     
   
     第 13 章 関数型アーキテクチャの設計
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    横断比較
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_10_4_4" id="__nav_10_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    なでしこ3 版
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_10_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    なでしこ3 版
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/nadesiko/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概要
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/nadesiko/chapter01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 1 章 新しいアプリケーションを準備する
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/nadesiko/chapter02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 2 章 関数を使って HTTP を扱う
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/nadesiko/chapter03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 3 章 ドメインの定義とテスト
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/nadesiko/chapter04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 4 章 ドメインとアダプタのモデリング
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/nadesiko/chapter05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 5 章 イベントで状態を変更する
   
 
     
@@ -6482,9 +7341,9 @@
   
 
 
-<h1 id="-zettai-kotlin">開発戦略 - Zettai 連載（Kotlin 版）<a class="headerlink" href="#-zettai-kotlin" title="Permanent link">&para;</a></h1>
+<h1 id="-zettai-kotlin-3">開発戦略 - Zettai 連載（Kotlin 版 / なでしこ3 版）<a class="headerlink" href="#-zettai-kotlin-3" title="Permanent link">&para;</a></h1>
 <h2 id="_1">概要<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p>本ドキュメントは、<a href="../release_plan/">リリース計画</a> で定義した 7 つの Unit を <strong>序盤・中盤・終盤</strong> の 3 局面に分け、各局面で採用する TDD アプローチと横断的な進め方を定義します。個々の Bolt 計画（<code>iteration_plan-N.md</code>）の上位に位置し、「どの Unit でどちらのアプローチを採るか」「Unit の完了をどう受け入れ判定するか」「承認ゲートをどの密度で置くか」という戦略レイヤーを担います。</p>
+<p>本ドキュメントは、リリース計画で定義した 7 つの Unit を <strong>序盤・中盤・終盤</strong> の 3 局面に分け、各局面で採用する TDD アプローチと横断的な進め方を定義します。個々の Bolt 計画（<code>iteration_plan-N.md</code>）の上位に位置し、「どの Unit でどちらのアプローチを採るか」「Unit の完了をどう受け入れ判定するか」「承認ゲートをどの密度で置くか」という戦略レイヤーを担います。</p>
 <p>本プロジェクトは AI-DLC で開発するため、本戦略は <a href="../../reference/%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E3%83%BB%E3%82%A4%E3%83%86%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E8%A8%88%E7%94%BB%E3%82%AC%E3%82%A4%E3%83%89_AI-DLC%E7%89%88/">リリース・イテレーション計画ガイド（AI-DLC 版）</a> の読み替え表に従い、<strong>最初の Bolt をウォーキングスケルトンとし、以降のゲート密度をここで決める</strong> 役割も担います。</p>
 <p>参照元と Single Source of Truth は次のとおりです。</p>
 <table>
@@ -6497,7 +7356,7 @@
 <tbody>
 <tr>
 <td style="text-align: left;">Intent・Unit 分解・依存 DAG・エントロピー評価</td>
-<td style="text-align: left;"><a href="../release_plan/">リリース計画</a>（Level 1 計画）</td>
+<td style="text-align: left;"><a href="../release_plan/">リリース計画（Kotlin 版）</a> / <a href="../release_plan-nadesiko/">同（なでしこ3 版）</a>（Level 1 計画）</td>
 </tr>
 <tr>
 <td style="text-align: left;">各 Unit の満足条件・Bolt のステップ計画・承認ゲート</td>
@@ -6526,6 +7385,7 @@
 </tbody>
 </table>
 <p>本戦略は Bolt 計画を前提とします。現時点で確定しているのは Unit 1（完了）と Unit 2 です。Unit 3 以降の局面割り当ては<strong>暫定案</strong>であり、各 Bolt 計画が確定した時点で、対象ストーリーとデモ項目を本ドキュメントに追従させます。</p>
+<p><strong>本ドキュメントは 2 つの対象を扱います。</strong> 「## 戦略の全体像」から「## 局面移行時の一貫性維持」までは <strong>Kotlin 版</strong>（完結済み）の戦略です。シリーズ 2 言語目の <strong>なでしこ3 版</strong> の戦略は「<a href="#なでしこ3-版の局面別アプローチ">なでしこ3 版の局面別アプローチ</a>」の節にまとめ、Kotlin 版との差分だけを書きます。差分に書いていない事項は Kotlin 版の記述をそのまま適用します。</p>
 <h3 id="_2">この連載固有の事情<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
 <p>通常の開発では「動くソフトウェア」が成果物ですが、本プロジェクトの成果物は <strong>記事とサンプル実装の対</strong> です。そのため戦略に次の制約が加わります。</p>
 <ul>
@@ -7050,7 +7910,244 @@
 </ol>
 <p>3 番目が重要です。本戦略の局面割り当ては計画時点の想定であり、実装が進んで前提が変われば戦略ごと見直します。戦略を守るために不自然な進め方をするのは本末転倒です。</p>
 <hr />
-<h2 id="_32">更新履歴<a class="headerlink" href="#_32" title="Permanent link">&para;</a></h2>
+<h2 id="3_1">なでしこ3 版の局面別アプローチ<a class="headerlink" href="#3_1" title="Permanent link">&para;</a></h2>
+<p>シリーズ 2 言語目の <strong>なでしこ3 版</strong>（<a href="../release_plan-nadesiko/">リリース計画</a>）の戦略です。ここに書いていない事項は、上の Kotlin 版の記述をそのまま適用します。</p>
+<h3 id="_32">この対象固有の事情<a class="headerlink" href="#_32" title="Permanent link">&para;</a></h3>
+<p>Kotlin 版の 3 つの事情（章順の固定・リファクタリングが題材・記事に載せないコードを書かない）に加えて、次が乗ります。</p>
+<ul>
+<li><strong>型検査という網が無い。</strong> 型システム・ユーザー定義型・代数的データ型が存在しないため、Kotlin 版でコンパイラが担っていた保証をテストが肩代わりします。戦略上の帰結は 1 つで、<strong>契約テスト（辞書のキーの有無と値の型を確かめるテスト）を全 Bolt 共通の承認ゲート項目に置く</strong>ことです</li>
+<li><strong>テストフレームワークが無い。</strong> 検証関数・型比較・結果集計・テストランナーを Unit 1 で自作します。序盤のウォーキングスケルトンより前に「テストの土台そのもの」を作る段階が挟まります</li>
+<li><strong>1 言語目の設計が既知である。</strong> 各章の到達点は Kotlin 版で確定済みです。構造的不確実性が下がるぶん、中盤以降のゲートを Kotlin 版より早く緩められます。逆に、既知であることが「Kotlin 版の焼き直し」を生むリスクにもなります</li>
+</ul>
+<h3 id="_33">戦略の全体像<a class="headerlink" href="#_33" title="Permanent link">&para;</a></h3>
+<p>局面の割り当ては <strong>Kotlin 版と同一</strong>にします。章の位置を対象間で比べられることが、このシリーズで比較コンテンツを成立させる前提だからです。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">局面</th>
+<th style="text-align: left;">Unit</th>
+<th style="text-align: left;">章</th>
+<th style="text-align: left;">主アプローチ</th>
+<th style="text-align: left;">ゲート密度</th>
+<th style="text-align: left;">Kotlin 版との差</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">序盤</td>
+<td style="text-align: left;">Unit 1〜2</td>
+<td style="text-align: left;">前提整備・1〜3</td>
+<td style="text-align: left;">アウトサイドイン</td>
+<td style="text-align: left;"><strong>密</strong></td>
+<td style="text-align: left;">Unit 1 の内訳が「環境＋雛形」から「環境＋<strong>テスト基盤の自作</strong>＋雛形」に変わる</td>
+</tr>
+<tr>
+<td style="text-align: left;">中盤</td>
+<td style="text-align: left;">Unit 3〜5</td>
+<td style="text-align: left;">4〜9</td>
+<td style="text-align: left;">インサイドアウト</td>
+<td style="text-align: left;">Unit 3-4 は実績次第で疎。Unit 5 は<strong>中</strong>（密には戻さない）</td>
+<td style="text-align: left;">Unit 5 が DB ではなくファイル永続化になり、リスクが HIGH から MED に下がる</td>
+</tr>
+<tr>
+<td style="text-align: left;">終盤</td>
+<td style="text-align: left;">Unit 6〜7</td>
+<td style="text-align: left;">10〜13</td>
+<td style="text-align: left;">アウトサイドイン</td>
+<td style="text-align: left;">疎</td>
+<td style="text-align: left;">第 13 章に Kotlin 版との対比という主題が加わる</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_34">アプローチ選択の根拠（差分）<a class="headerlink" href="#_34" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>序盤（アウトサイドイン）</strong>: Kotlin 版と同じく API 未実装からの出発です。ただし Unit 1 / Bolt 1-1 は縦串ではなく「テストの土台を作る」段階で、アウトサイドインの対象外です。<strong>ウォーキングスケルトンは Kotlin 版と同じく第 2 章</strong>（簡易 HTTP サーバとハンドラ関数の合成）に置きます</li>
+<li><strong>中盤（インサイドアウト）</strong>: 型が無いぶん、外側から入ると「辞書がどんなキーを持つか」が誰にも分からないまま HTTP ハンドラまで伝播します。<strong>インサイドアウトの必要性は Kotlin 版より高い</strong>と判断します。ドメイン層で辞書の契約を確定させ、契約テストで固定してから上位へ展開します</li>
+<li><strong>終盤（アウトサイドイン）</strong>: Kotlin 版と同じ根拠です。加えて第 13 章では 2 言語を並べて「型で保証する」と「約束とテストで保証する」を対比するため、外から全体を眺める視点がいっそう要ります</li>
+</ul>
+<h3 id="tdd_2">共通の TDD サイクル（差分）<a class="headerlink" href="#tdd_2" title="Permanent link">&para;</a></h3>
+<p>TDD の三原則と Red-Green-Refactor のサイクルは不変です。変わるのは次の 4 点です。</p>
+<h4 id="red">Red の確認の仕方<a class="headerlink" href="#red" title="Permanent link">&para;</a></h4>
+<p>なでしこ3 は動的型付けで、綴りの誤りや未定義の単語も<strong>実行するまで分かりません</strong>。Red の確認では、テストが失敗したことに加えて<strong>失敗の理由が意図どおりか</strong>（文法エラーではなく表明の失敗か）を毎回目で確かめます。記事にも実際のエラー出力をそのまま貼ります。</p>
+<h4 id="_35">テスト種別とレイヤーの対応<a class="headerlink" href="#_35" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">テスト種別</th>
+<th style="text-align: left;">対象レイヤー</th>
+<th style="text-align: left;">主に書く局面</th>
+<th style="text-align: left;">なでしこ3 版での具体</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">受け入れテスト</td>
+<td style="text-align: left;">システム全体（HTTP 越し）</td>
+<td style="text-align: left;">序盤・終盤</td>
+<td style="text-align: left;">第 3 章で高階関数によるシナリオ記述を自作する（Kotlin 版の DDT / Pesticide に相当するライブラリが無いため）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>契約テスト</strong></td>
+<td style="text-align: left;">辞書を返す関数</td>
+<td style="text-align: left;"><strong>全局面（全 Bolt 必須）</strong></td>
+<td style="text-align: left;">キーの有無と値の型を <code>変数型確認</code> で確かめる。Kotlin 版のコンパイラに相当する</td>
+</tr>
+<tr>
+<td style="text-align: left;">結合テスト</td>
+<td style="text-align: left;">アダプタ + 外部リソース</td>
+<td style="text-align: left;">中盤（Unit 5）</td>
+<td style="text-align: left;">第 9 章の追記型イベントログ（ファイル I/O）</td>
+</tr>
+<tr>
+<td style="text-align: left;">ユニットテスト</td>
+<td style="text-align: left;">ドメイン層・関数</td>
+<td style="text-align: left;">全局面（中盤が主）</td>
+<td style="text-align: left;">イベントの畳み込み、結果辞書、射影、検証の合成</td>
+</tr>
+<tr>
+<td style="text-align: left;">性質テスト</td>
+<td style="text-align: left;">ドメイン層の代数的性質</td>
+<td style="text-align: left;">中盤</td>
+<td style="text-align: left;">モノイド則（第 5 章）、ファンクタ則（第 7・8 章）、モナド則（第 9 章）。プロパティベーステストのライブラリが無いため、乱数で入力を生成して法則を確かめる簡易な性質テストを <code>test/helper.nako3</code> に自作する</td>
+</tr>
+</tbody>
+</table>
+<p>契約テストがこの対象の要です。Kotlin 版で <code>sealed class Outcome&lt;E, T&gt;</code> が型として保証していたことを、なでしこ3 では「その辞書が <code>"成功"</code> キーを持ち、値が真偽値である」というテストが保証します。<strong>契約テストの無い辞書を Bolt の成果物に含めません。</strong></p>
+<h4 id="_36">品質チェック<a class="headerlink" href="#_36" title="Permanent link">&para;</a></h4>
+<p>コミット前に <code>apps/nadesiko/zettai/</code> で次を通します。</p>
+<div class="highlight"><pre><span></span><code>make check
+</code></pre></div>
+<p><code>check</code> に lint・format 検査・テスト・受け入れテスト（<code>doctest/</code>）を集約し、コマンドを 1 本に保ちます。cnako3 に lint / format があるかは未確認で、<strong>Unit 1 の承認ゲートで実機確認し、無ければ「入れない」判断を ADR に記録します</strong>（Kotlin 版で ADR-004 として残したのと同じ形）。CI（<code>.github/workflows/nadesiko-zettai.yml</code>、Unit 2 で新設）でも同じコマンドを実行します。</p>
+<p>カバレッジは計測できません（計測機能が無い）。Kotlin 版の kover 80% 下限の代わりに、<strong><code>doctest/</code> の受け入れシナリオ数を Unit ごとに記録</strong>し、増えていることを完了条件に含めます。</p>
+<h4 id="_37">コミット規約<a class="headerlink" href="#_37" title="Permanent link">&para;</a></h4>
+<p>スコープを <code>nadesiko</code> にします。<code>feat(nadesiko):</code> / <code>test(nadesiko):</code> / <code>refactor(nadesiko):</code> / <code>docs(nadesiko):</code>。分ける理由は Kotlin 版と同じです。</p>
+<h3 id="_38">承認ゲートとゲート密度（差分）<a class="headerlink" href="#_38" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">局面</th>
+<th style="text-align: left;">Unit</th>
+<th style="text-align: left;">ゲート密度</th>
+<th style="text-align: left;">根拠</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">序盤</td>
+<td style="text-align: left;">Unit 1</td>
+<td style="text-align: left;"><strong>密</strong>（各ステップ）</td>
+<td style="text-align: left;">未解決の仮定・構造的不確実性・検証の不確実性がいずれも HIGH。テスト基盤を自作するため、ここが崩れると以降すべてが崩れる</td>
+</tr>
+<tr>
+<td style="text-align: left;">序盤</td>
+<td style="text-align: left;">Unit 2</td>
+<td style="text-align: left;"><strong>密</strong></td>
+<td style="text-align: left;">ウォーキングスケルトン。加えて簡易 HTTP サーバが Zettai のルーティングと POST に足りるかの検証を含む</td>
+</tr>
+<tr>
+<td style="text-align: left;">中盤</td>
+<td style="text-align: left;">Unit 3〜4</td>
+<td style="text-align: left;"><strong>密。ただし止まる箇所を絞る</strong></td>
+<td style="text-align: left;">Unit 1-2 でゲートが 1 度も同期的に機能せず、自律実行に寄せる判断の材料が得られなかった。密を維持したうえで、Unit 3 では止まる箇所を 11 から 4 に絞った。Unit 4 は 5（第 7 章でポートの契約が変わるため 1 つ増やす）（<a href="../retrospective-nadesiko-2/">Unit 2 のふりかえり</a> Try 1）</td>
+</tr>
+<tr>
+<td style="text-align: left;">中盤</td>
+<td style="text-align: left;">Unit 5</td>
+<td style="text-align: left;"><strong>中</strong>（Bolt 末と永続化の設計判断時）</td>
+<td style="text-align: left;">Kotlin 版は DB 導入のため密だったが、ファイル永続化に置き換わりリスクが MED に下がる。ただし「置き換えても第 9 章の主題を保てるか」は人が判断する</td>
+</tr>
+<tr>
+<td style="text-align: left;">終盤</td>
+<td style="text-align: left;">Unit 6〜7</td>
+<td style="text-align: left;"><strong>疎</strong>（失敗時と最終ステップ）</td>
+<td style="text-align: left;">Kotlin 版と同じ</td>
+</tr>
+</tbody>
+</table>
+<p>ゲート密度の見直しは、Kotlin 版（Unit 2 完了時）より 1 段階早く、<strong>Unit 1 の完了時に 1 回</strong>行う予定でした。</p>
+<p><strong>運用形態を定める節は、人だけが書き換えます。</strong> Unit 2 で AI が自分を縛るルールを書き換えようとしてツールに止められました。運用形態を変えるなら人が Bolt 計画の該当節を書き換えてから実行し、AI は切り替えを求められたら書き換えずに判断を仰ぎます（<a href="../retrospective-nadesiko-2/">Unit 2 のふりかえり</a> Try 2）。</p>
+<p><strong>実際には Unit 2 の完了時に繰り延べました。</strong> Unit 1 では計画した 10 箇所のゲートが 1 つも同期的に機能せず（<a href="../retrospective-nadesiko-1/">ふりかえり</a> Problem 4）、見直しの前提である「AI の出力品質を人が見た実績」が得られなかったためです。Unit 2 ではゲートの運用形態を Bolt 計画に明記し（同期停止）、そこで得た実績で Unit 3 以降を決めます。</p>
+<h4 id="bolt_1">全 Bolt 共通のゲート項目<a class="headerlink" href="#bolt_1" title="Permanent link">&para;</a></h4>
+<p>局面やゲート密度によらず、Bolt を閉じる前に必ず次の 4 点を人が確認します（<a href="../release_plan-nadesiko/">リリース計画</a> の承認ゲート方針と同一）。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">項目</th>
+<th style="text-align: left;">確認すること</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">契約テストがあるか</td>
+<td style="text-align: left;">辞書を返す関数ごとに、キーの有無と値の型を確かめるテストが 1 本あるか</td>
+</tr>
+<tr>
+<td style="text-align: left;">厳密比較になっているか</td>
+<td style="text-align: left;">値の比較の前に <code>変数型確認</code> 同士を比較しているか（<code>=</code> は型を区別せず、<code>3</code> と <code>「3」</code> が等しくなる）</td>
+</tr>
+<tr>
+<td style="text-align: left;">記事のコード例が実装からの転記か</td>
+<td style="text-align: left;"><code>check_article_code.py</code> が green か。逐語でないブロックに <code>&lt;!-- code-check: ignore 理由 --&gt;</code> があるか</td>
+</tr>
+<tr>
+<td style="text-align: left;">つまずき節があるか</td>
+<td style="text-align: left;">その章に、なでしこ3 固有の制約とその回避策が書かれているか</td>
+</tr>
+</tbody>
+</table>
+<p>最後の項目は「Kotlin 版の焼き直しにしない」ためのゲートです。<strong>つまずき節に書くことが無い章は、まだ書けていない</strong>と判断します。</p>
+<h4 id="_39">局面によらず必ず停止する操作<a class="headerlink" href="#_39" title="Permanent link">&para;</a></h4>
+<p>Kotlin 版の一覧から「データベース（<code>docker-compose.yml</code> への PostgreSQL 追加、スキーマ変更）」が外れ、代わりに次が入ります。</p>
+<ul>
+<li><strong>永続化フォーマットの決定・変更</strong>（追記型イベントログの 1 行の形式。後方互換が壊れると過去のログが読めなくなる）</li>
+<li><strong>辞書の契約の変更</strong>（キー名・値の型。型検査が無いため、変更しても静かに壊れる）</li>
+</ul>
+<h3 id="_40">デモ項目を受け入れ基準とする（差分）<a class="headerlink" href="#_40" title="Permanent link">&para;</a></h3>
+<p>Kotlin 版と同じく、各 Bolt 計画のデモ項目を受け入れ基準とします。BDD / Gherkin を採らない判断も引き継ぎます（処理系が無く、第 3 章の主題である受け入れテストの自作とぶつかるため。Kotlin 版より不採用の根拠は強くなります）。</p>
+<p>異なるのは入口です。Kotlin 版は第 3 章で DDT を Pesticide に変換しますが、なでしこ3 には相当するライブラリがありません。<strong>第 3 章で高階関数によるシナリオ記述を自作</strong>し、これを以降の受け入れテストの土台にします。シナリオの語彙は Kotlin 版と揃えますが、<strong>識別子にひらがなを使えない</strong>（助詞として分割される）ため、漢字・カタカナ・英数字で組みます。</p>
+<h3 id="_41">設計ドキュメント整合（差分）<a class="headerlink" href="#_41" title="Permanent link">&para;</a></h3>
+<p><code>docs/design/</code> の 4 本（アーキテクチャ・ドメインモデル・データモデル・UI）は Kotlin 版で作成済みです。なでしこ3 版では<strong>新しい設計ドキュメントを作らず、既存の 4 本に「なでしこ3 版での差分」節を足します</strong>。設計そのものは対象間で共通で、変わるのは実現手段だけだからです。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">設計ドキュメント</th>
+<th style="text-align: left;">なでしこ3 版で追記する Unit</th>
+<th style="text-align: left;">追記する内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">アーキテクチャ設計</td>
+<td style="text-align: left;">Unit 2</td>
+<td style="text-align: left;">ファイル単位のモジュール分割と取り込みの向きで依存を表す方法</td>
+</tr>
+<tr>
+<td style="text-align: left;">ドメインモデル設計</td>
+<td style="text-align: left;">Unit 3〜4</td>
+<td style="text-align: left;">型ではなく辞書のキーで表した契約の一覧</td>
+</tr>
+<tr>
+<td style="text-align: left;">データモデル設計</td>
+<td style="text-align: left;">Unit 5</td>
+<td style="text-align: left;">追記型イベントログの 1 行の形式</td>
+</tr>
+<tr>
+<td style="text-align: left;">UI 設計</td>
+<td style="text-align: left;">Unit 2・6</td>
+<td style="text-align: left;">Kotlin 版との差分のみ（HTML は共通）</td>
+</tr>
+</tbody>
+</table>
+<p>ADR は Kotlin 版からの連番を継続し（ADR-013 以降）、フロントマターの <code>tags</code> に <code>nadesiko</code> を入れて対象を区別します。判断が Kotlin 版の ADR と対になる場合は、両方から相互に参照します。</p>
+<h3 id="_42">局面移行時の一貫性維持（差分）<a class="headerlink" href="#_42" title="Permanent link">&para;</a></h3>
+<p>Kotlin 版の 5 つの不変（TDD の三原則・1 コミット 1 変更・品質基準・ユビキタス言語・記事とコードの一致）はそのまま適用し、次を加えます。</p>
+<ul>
+<li><strong>辞書の契約を章をまたいで改名しない。</strong> 型が無いため、改名しても壊れたことに気づけません。改名が必要なら契約テストを先に直し、Red を確認してから実装を追います</li>
+<li><strong>ユビキタス言語は Kotlin 版と同じ語彙を使う。</strong> ただし識別子にひらがなを使えないため、<code>ToDoList</code> は <code>ToDoリスト</code> のようにカタカナと英数字で組み、記事側で Kotlin 版の識別子との対応を示します</li>
+</ul>
+<p>局面が移るとき（Unit 2 → Unit 3、Unit 5 → Unit 6）の 3 つの確認に、<strong>「Kotlin 版の同じ局面と比べて、変更依頼数が同数以下か」</strong>を加えます。上回っていれば、1 言語目のガードレールが効いていないということなので、原因を特定してから次の局面へ進みます。</p>
+<hr />
+<h2 id="_43">更新履歴<a class="headerlink" href="#_43" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
@@ -7060,6 +8157,11 @@
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>2026-09-28</td>
+<td>なでしこ3 版の局面別アプローチを追記。局面割り当ては Kotlin 版と同一に保ちつつ、型検査の不在を補う契約テストを全 Bolt 共通のゲート項目に置き、テスト基盤の自作・ファイル永続化・ゲート密度見直しの前倒し（Unit 1 完了時）・設計ドキュメントへの差分追記の方針を定義</td>
+<td>claude-code/claude-opus-5</td>
+</tr>
 <tr>
 <td>2026-09-27</td>
 <td>進捗管理の手段の節を追加。GitHub に同期しない判断とユーザーマニュアルを作らない判断を、連載を通じての方針として確定した（計画のたびに確認しない）</td>
@@ -7078,9 +8180,9 @@
 </tbody>
 </table>
 <hr />
-<h2 id="_33">関連ドキュメント<a class="headerlink" href="#_33" title="Permanent link">&para;</a></h2>
+<h2 id="_44">関連ドキュメント<a class="headerlink" href="#_44" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="../release_plan/">リリース計画</a></li>
+<li><a href="../release_plan/">リリース計画（Kotlin 版）</a> / <a href="../release_plan-nadesiko/">リリース計画（なでしこ3 版）</a></li>
 <li><a href="../iteration_plan-1/">Unit 1 の Bolt 計画</a></li>
 <li><a href="../../reference/%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E3%83%BB%E3%82%A4%E3%83%86%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E8%A8%88%E7%94%BB%E3%82%AC%E3%82%A4%E3%83%89_AI-DLC%E7%89%88/">リリース・イテレーション計画ガイド（AI-DLC 版）</a></li>
 <li><a href="../../article/outline/">執筆計画</a></li>

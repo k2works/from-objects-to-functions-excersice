@@ -1,0 +1,15 @@
+# HTTP 経由の受け入れシナリオ。
+# ドメイン直接と同じシナリオを、経路だけ差し替えて走らせる。
+!「../test/helper.nako3」を取り込む
+!「../test/ddt/scenario.nako3」を取り込む
+!「../test/ddt/actions_http.nako3」を取り込む
+
+# 応答の記録はここで済ませる。シナリオに渡す関数は入出力をしない。
+「uberto」と「book」でHTTP経由_応答記録
+「uberto」と「unknown」でHTTP経由_応答記録
+
+操作=HTTP経由_操作作成
+操作でシナリオ_ToDoリスト参照
+操作でシナリオ_無リスト参照
+
+テスト結果報告

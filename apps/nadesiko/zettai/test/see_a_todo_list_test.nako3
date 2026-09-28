@@ -1,0 +1,9 @@
+!「./helper.nako3」を取り込む
+!「./ddt/scenario.nako3」を取り込む
+!「./ddt/actions_domain.nako3」を取り込む
+
+操作=ドメイン直接_操作作成
+操作でシナリオ_ToDoリスト参照
+操作でシナリオ_無リスト参照
+
+テスト結果報告

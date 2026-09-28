@@ -3,8 +3,10 @@ type: Bolt Plan
 title: "Unit 1 の Bolt 計画（イテレーション 1）- Zettai 連載（Rust 版）"
 description: "Zettai 連載 Rust 版の Unit 1（器と第 1 章）の Bolt 計画。後戻りの効かない 2 つの判断（async の採否と HTTP クレートの選定）をスパイクで確かめてから決め、cargo workspace と make check を整えて第 1 章を書く。2 対象の学びを着手前に反映し、ゲートには必ず選択肢と数字を添える。"
 tags: [development, plan, ai-dlc, bolt, zettai, rust, unit-1]
-status: draft
+status: stable
 generated: { by: claude-code/claude-opus-5, at: 2026-09-28T12:32:48Z }
+verified:
+  - { by: human:kakimomokuri, at: 2026-09-28T12:44:41Z }
 ---
 
 # Unit 1 の Bolt 計画（イテレーション 1）- Zettai 連載（Rust 版）

@@ -4,7 +4,7 @@ title: "リリース計画 - Zettai 連載（なでしこ3 版）"
 description: "『From Objects to Functions』を下敷きにした Zettai 連載なでしこ3 版の AI-DLC 準拠 Level 1 計画。型システムを持たない日本語プログラミング言語で同じ 13 章を辿るという Intent、7 Unit・14 ストーリーへの分解、依存 DAG、5 軸のエントロピー評価、cnako3 の採用根拠と言語制約に対するリスク台帳、契約テストを全 Bolt 共通のゲート項目に加えた承認ゲート方針、完了 Unit 数と承認ゲート通過数による進捗管理を定義する。"
 tags: [development, plan, zettai, nadesiko]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-28T09:22:23Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-28T10:43:33Z }
 ---
 
 # リリース計画 - Zettai 連載（なでしこ3 版）
@@ -154,7 +154,7 @@ end note
 | Unit 4 | LOW | MED | MED | MED | LOW | 密（5 箇所。契約が変わる箇所が 2 つ） |
 | Unit 5 | LOW | MED | MED | MED | MED | 中（Bolt 末と永続化の設計判断時） |
 | Unit 6 | MED | **HIGH** | MED | MED | MED | 密（4 箇所。何を文脈と呼ぶかが未確定） |
-| Unit 7 | MED | LOW | LOW | LOW | LOW | **疎（2 箇所。各 Bolt の記事の全文検証のみ）** |
+| Unit 7 | MED | LOW | LOW | LOW | LOW | **疎（3 箇所 + 条件付き 1）。記事の全文検証 2・NFR の判断 1・永続化フォーマットに触れる場合 1** |
 
 Kotlin 版との違いは 2 つです。
 
@@ -464,7 +464,7 @@ Kotlin 版の実績（Unit 3 以降は変更依頼 0 件）を踏まえ、ゲー
 | Unit 4 | 11 | 0 / 5 | 未確定 | 未計測 | **完了** |
 | Unit 5 | 13 | 0 / 4 | 未確定 | 未計測 | **完了** |
 | Unit 6 | 9 | 0 / 4 | 未確定 | 未計測 | **完了** |
-| Unit 7 | 4 | - | - | - | 未着手 |
+| Unit 7 | 4 | - | - | - | 計画済み（[Bolt 計画](iteration_plan-nadesiko-7.md)） |
 | **合計** | **70** | **0 / 38** | **-** | **-** | 完了 Unit 数 **6 / 7** |
 
 ### バーンダウンチャート
@@ -505,6 +505,7 @@ xychart-beta
 
 | 日付 | 更新内容 | 更新者 |
 |------|---------|--------|
+| 2026-09-28 | Unit 7 の Bolt 計画作成時の整合性検証で、ゲート箇所を 2 → **3 + 条件付き 1** に修正。Unit 6 のふりかえり Try 1 が NFR の判断に人の確認を求めており、双方向変換が永続化フォーマット（必ず停止する操作）に触れうるため。**密度は「疎」のまま** | claude-code/claude-opus-5 |
 | 2026-09-28 | Unit 6 完了を反映。進捗状況に実績を記録。**Unit 7 のゲート密度を「疎・2 箇所」に変更**（6 Unit・38 箇所で 1 度も同期停止していないため）。指標「人が検証に使った時間」を外し「人が修正を入れた箇所数」に置き換える | claude-code/claude-opus-5 |
 | 2026-09-28 | Unit 3 の着手前に、Level 1 のエントロピー評価を Bolt 計画の実態に合わせて更新（構造的不確実性と未解決の仮定を LOW から MED へ）。型の無い言語でハブと状態変換をどう表すかが未確定で、再帰・関数合成・乱数の 3 件が未確認のため | claude-code/claude-opus-5 |
 | 2026-09-29 | Unit 6 の着手前に、Level 1 のエントロピー評価を Bolt 計画の実態に合わせて更新（意図の曖昧さ・構造的不確実性・リスク・未解決の仮定を上げた）。**持ち回る文脈が無い言語で `ContextReader` の章を書く**という難所で、何を文脈と呼ぶかが決まっていないため | claude-code/claude-opus-5 |

@@ -24,6 +24,12 @@
 | Unit 6 文脈の受け渡しとバリデーション | [Unit 6 の Bolt 計画](iteration_plan-6.md) | - | [Bolt 終了報告](bolt_report-6.md) | **完了** |
 | Unit 7 監視とアーキテクチャ総括 | [Unit 7 の Bolt 計画](iteration_plan-7.md) | [ふりかえり](retrospective-7.md) | [Bolt 終了報告](bolt_report-7.md) | **完了** |
 
+### Bolt 計画（なでしこ3 版）
+
+| Unit | Bolt 計画 | ふりかえり | Bolt 終了報告 | 状態 |
+|---------------|------|-----------|-----------|------|
+| Unit 1 実行環境・テスト基盤と第 1 章 | [Unit 1 の Bolt 計画](iteration_plan-nadesiko-1.md) | - | - | 計画済み |
+
 Unit（イテレーション）開始時に行を追加します。AI-DLC では 1 Unit = 2 Bolt（章 1 本ずつ）とし、Bolt のステップ計画と承認ゲートを各計画に書きます。
 
 ### 進捗サマリー

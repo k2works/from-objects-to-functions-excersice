@@ -4,7 +4,7 @@ title: "リリース計画 - Zettai 連載（なでしこ3 版）"
 description: "『From Objects to Functions』を下敷きにした Zettai 連載なでしこ3 版の AI-DLC 準拠 Level 1 計画。型システムを持たない日本語プログラミング言語で同じ 13 章を辿るという Intent、7 Unit・14 ストーリーへの分解、依存 DAG、5 軸のエントロピー評価、cnako3 の採用根拠と言語制約に対するリスク台帳、契約テストを全 Bolt 共通のゲート項目に加えた承認ゲート方針、完了 Unit 数と承認ゲート通過数による進捗管理を定義する。"
 tags: [development, plan, zettai, nadesiko]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-28T00:00:00Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-28T02:42:56Z }
 ---
 
 # リリース計画 - Zettai 連載（なでしこ3 版）
@@ -228,7 +228,8 @@ Unit の順序は章順に固定されるため、優先順位は「各ストー
 | 完了 Unit 数 | Deployment Unit として検証済みの Unit 数。**部分完了は 0** | 1 Unit / イテレーション（計 7） |
 | 承認ゲート通過数 | 人が検証して承認したステップ数 | Unit 1 は 10 箇所。以降は評価に応じて減らす |
 | 変更依頼数 | AI の成果物に人が修正を求めた回数 | **Kotlin 版の同じ Unit 以下**（1 言語目のガードレールが効いているかの検証） |
-| リードタイム | Unit 着手から Deployment Unit 完成まで | 10 営業日 / Unit |
+| **人が検証に使った時間** | 承認ゲートでの検証に人が費やした実時間。Kotlin 版でリードタイムが全 Unit「1 日」になり見積もりに使えなかったため、本リリースから主指標にする（[Unit 7 のふりかえり](retrospective-7.md) Try 6） | Unit ごとに計測し、検証負荷ポイントの妥当性を検証する |
+| リードタイム | Unit 着手から Deployment Unit 完成まで | 10 営業日 / Unit（**参考値**。AI の実装速度に支配されるため見積もりには再利用しない） |
 
 ### 検証負荷ポイントの扱い
 
@@ -426,14 +427,15 @@ Kotlin 版の実績（Unit 3 以降は変更依頼 0 件）を踏まえ、ゲー
 | 完了 Unit 数 | 1 Unit / イテレーション（計 7） |
 | 承認ゲート通過数 | Unit 1 は 10。以降はエントロピー評価に応じて減らす |
 | 変更依頼数 | Kotlin 版の同じ Unit 以下 |
-| リードタイム | 10 営業日 / Unit |
+| 人が検証に使った時間 | Unit ごとに計測（主指標） |
+| リードタイム | 10 営業日 / Unit（参考値） |
 | 受け入れシナリオ数 | Unit ごとに増加（カバレッジ計測の代替） |
 | 公開済みの章 | 13 / 13（リリース時） |
 | 記事とサンプル実装の一致 | 100%（`check_article_code.py` が green） |
 
 ### 進捗状況
 
-| Unit | 計画検証負荷 | ゲート通過数 | 変更依頼数 | リードタイム | 状態 |
+| Unit | 計画検証負荷 | ゲート通過数 | 変更依頼数 | 人の検証時間 | 状態 |
 |------|---------|---------|--------|------|------|
 | Unit 1 | 11 | - | - | - | 未着手 |
 | Unit 2 | 11 | - | - | - | 未着手 |
@@ -461,7 +463,7 @@ xychart-beta
 ## 次のステップ
 
 1. [開発戦略](development_strategy.md) に「なでしこ3 版の局面別アプローチ」を追記した（局面割り当ては Kotlin 版と同一、契約テストを全 Bolt 共通のゲート項目に設定、ゲート密度の見直しを Unit 1 完了時に前倒し）
-2. `opening-iteration` で Unit 1 の Bolt 計画（`iteration_plan-nadesiko-1.md`）を作成する
+2. [Unit 1 の Bolt 計画](iteration_plan-nadesiko-1.md) を作成した（21 ステップ・承認ゲート 10 箇所）
 3. `validating-iteration-plan` と `validating-design` で計画と設計の整合性を検証する
 4. Unit 1 / Bolt 1-1 で実行環境とテスト基盤を作り、cnako3 の lint / format の有無と簡易 HTTP サーバの実挙動を確認する
 5. `syncing-github-project` で **Unit を Milestone、Bolt のステップを Issue** として同期する
@@ -472,5 +474,6 @@ xychart-beta
 
 | 日付 | 更新内容 | 更新者 |
 |------|---------|--------|
+| 2026-09-28 | Unit 1 の Bolt 計画を作成。[Unit 7 のふりかえり](retrospective-7.md) Try 6 を反映し、主指標をリードタイムから「人が検証に使った時間」に変更（リードタイムは参考値に降格） | claude-code/claude-opus-5 |
 | 2026-09-28 | [開発戦略](development_strategy.md) への局面別アプローチ追記にあわせ、Unit 5 のゲート密度を「密」から「中」に修正（ファイル永続化への置き換えでリスクが MED に下がったため） | claude-code/claude-opus-5 |
 | 2026-09-28 | 初版作成。シリーズ 2 言語目としてなでしこ3 版を 7 Unit・14 ストーリー・14 Bolt に分解し、処理系に cnako3 を採用。型・テストフレームワーク・DB プラグインの不在をリスク台帳に登録し、契約テストを全 Bolt 共通の承認ゲート項目に追加 | claude-code/claude-opus-5 |

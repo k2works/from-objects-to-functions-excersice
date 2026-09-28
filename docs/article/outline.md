@@ -4,7 +4,7 @@ title: "執筆計画：関数型プログラミングで作る変更を楽に安
 description: "Uberto Barbini 著『From Objects to Functions』を下敷きにした Zettai 連載の執筆計画。多言語シリーズ（Kotlin / なでしこ3）の対象一覧、記事と実装の対称ファイル構成、全 13 章と原著コンパニオンコードの対応、前提整備と実行環境の方針、リリース計画のストーリー・イテレーション・SP と対応づけた章別計画、フェーズ区切り、なでしこ3 追加執筆計画、執筆規約を定義する。"
 tags: [article, plan, zettai]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-27T05:06:57Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-28T02:42:56Z }
 ---
 
 # 執筆計画：関数型プログラミングで作る変更を楽に安全にできるソフトウェア
@@ -177,7 +177,7 @@ apps/
 - [ ] `apps/nadesiko/zettai/` に雛形を作成（`package.json` で cnako3 のバージョンを固定、`Makefile`、`src/`、`test/helper.nako3`、`doctest/`）
 - [ ] 最小の検証 1 本が `make check` で通ることを確認
 - [ ] `.github/workflows/nadesiko-zettai.yml` を新設（第 2 章の実装が入った直後。Unit 2 で実施）
-- [ ] `ops/scripts/article/check_article_code.py` の `SOURCE_GLOBS` に `apps/**/*.nako3`、`CHECKED_LANGUAGES` に `nako3` を追加し、既存の記事・実装同期検査をなでしこ3 の記事にも効かせる
+- [ ] `ops/scripts/article/check_article_code.py` の `SOURCE_GLOBS` に `apps/**/*.nako3`、`CHECKED_LANGUAGES` に `nako3` を追加し、既存の記事・実装同期検査をなでしこ3 の記事にも効かせる（第 1 章の時点で `nako3` のコードブロックが出るため **Unit 1 / Bolt 1-2** で実施する）
 
 #### 実行環境の方針
 

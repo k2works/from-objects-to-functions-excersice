@@ -1,0 +1,16 @@
+# Zettai の起動。
+# ハンドラは関数値として扱い、ルーティングに渡すだけにする。
+# 「何を返すか」は web.nako3 の Zettai処理 が決め、ここは配線だけを持つ。
+
+# 取り込みのパスは、このファイルからの相対で書く。
+!「../../node_modules/nadesiko3/src/plugin_httpserver.mjs」を取り込む
+!「./web.nako3」を取り込む
+
+8080で簡易HTTPサーバ起動時には
+    「/todo」に簡易HTTPサーバ受信時には
+        要求=GETデータ
+        応答=要求["?URL"]のZettai処理
+        応答["状態"]で{"Content-Type":"text/html; charset=utf-8"}を簡易HTTPサーバヘッダ出力
+        応答["本文"]を簡易HTTPサーバ出力
+    ここまで
+ここまで

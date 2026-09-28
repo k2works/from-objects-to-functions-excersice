@@ -8,6 +8,8 @@
 # STEP=step1 のように指定すると 1 つの段階だけを扱える。
 
 CNAKO := ./node_modules/.bin/cnako3
+# 並列数。ファイルごとにプロセスを起こすので、段階が増えるほど効く。
+JOBS  ?= 8
 STEPS := $(notdir $(wildcard src/step*))
 STEP  ?=
 TARGET_STEPS := $(if $(STEP),$(STEP),$(STEPS))
@@ -35,7 +37,7 @@ lint: ## 全 .nako3 を構文解析だけして文法エラーを見つける
 	@# ファイル 1 つごとにプロセスを起こすため、段階が増えると遅くなる。
 	@# 並列で回す（-P 8）。1 ファイルの検査は互いに独立している。
 	@# -I{} は BSD xargs で行長の上限に当たるので、-n 1 でファイルを $$0 に渡す。
-	@echo "$(SRCS)" | tr ' ' '\n' | xargs -P 8 -n 1 sh -c \
+	@echo "$(SRCS)" | tr ' ' '\n' | xargs -P $(JOBS) -n 1 sh -c \
 	  'err=$$($(CNAKO) -A "$$0" 2>&1 >/dev/null); \
 	   if [ -n "$$err" ]; then echo "NG $$0"; echo "$$err" | head -3; exit 1; \
 	   else echo "ok $$0"; fi' \
@@ -47,17 +49,13 @@ test: ## test/stepN/*_test.nako3 を 1 本ずつ実行する
 	@# 終了コード 1 を返すことで、文法エラー・取り込みエラー・実行時エラーは
 	@# cnako3 が終了コード 0 のまま出力に「…エラー]」と書くことで検出する。
 	@# [エラー] だけを見ていたときは [実行時エラー] を取りこぼした。
-	@pass=0; fail=0; \
-	for t in $(TESTS); do \
-	  echo "--- $$t"; \
-	  out=$$($(CNAKO) "$$t" 2>&1); code=$$?; \
-	  echo "$$out"; \
-	  if [ $$code -ne 0 ] || echo "$$out" | grep -qE 'エラー\]'; then \
-	    fail=$$((fail+1)); echo "  -> FAILED"; \
-	  else pass=$$((pass+1)); fi; \
-	done; \
-	echo "テスト $$pass 本成功 / $$fail 本失敗"; \
-	if [ $$fail -ne 0 ]; then exit 1; fi
+	@# テストも段階が増えると本数で効いてくる。互いに独立なので並列で回す。
+	@echo "$(TESTS)" | tr ' ' '\n' | xargs -P $(JOBS) -n 1 sh -c \
+	  'out=$$($(CNAKO) "$$0" 2>&1); code=$$?; \
+	   echo "--- $$0"; echo "$$out"; \
+	   if [ $$code -ne 0 ] || echo "$$out" | grep -qE "エラー\]"; then echo "  -> FAILED $$0"; exit 1; fi' \
+	  || { echo "失敗したテストがあります"; exit 1; }
+	@echo "テスト green" 
 
 doctest: ## doctest/stepN/ の受け入れシナリオを段階ごとに実行する
 	@# cnako3 ではテストの中からサーバを起こすと親プロセスが返らないので、
@@ -68,7 +66,8 @@ doctest: ## doctest/stepN/ の受け入れシナリオを段階ごとに実行�
 	  if [ -z "$$scenarios" ]; then continue; fi; \
 	  $(CNAKO) src/$$s/main.nako3 > /dev/null 2>&1 & \
 	  pid=$$!; \
-	  sleep 2; \
+	  n=0; \
+	  until curl -s -o /dev/null -m 1 http://localhost:8080/ || [ $$n -ge 40 ]; do sleep 0.25; n=$$((n+1)); done; \
 	  for t in $$scenarios; do \
 	    echo "--- $$t"; \
 	    out=$$($(CNAKO) "$$t" 2>&1); code=$$?; \

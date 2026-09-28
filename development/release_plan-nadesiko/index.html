@@ -2756,6 +2756,41 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bolt_report-nadesiko-6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「なでしこ3」Unit 6 文脈の受け渡しとバリデーション
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -3009,6 +3044,41 @@
     
   
     「なでしこ3」Unit 5 射影と永続化
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../retrospective-nadesiko-6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「なでしこ3」Unit 6 文脈の受け渡しとバリデーション
   
 
     
@@ -5401,6 +5471,41 @@
     
   
     第 10 章 コンテキストを読み込み、コマンドを処理する
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/nadesiko/chapter11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 11 章 アプリカティブによるデータバリデーション
   
 
     
@@ -7985,7 +8090,7 @@
 <td style="text-align: left;">LOW</td>
 <td style="text-align: left;">LOW</td>
 <td style="text-align: left;">LOW</td>
-<td style="text-align: left;">疎（実装追加が最小）</td>
+<td style="text-align: left;"><strong>疎（2 箇所。各 Bolt の記事の全文検証のみ）</strong></td>
 </tr>
 </tbody>
 </table>
@@ -8755,10 +8860,10 @@
 <tr>
 <td>Unit 6</td>
 <td>9</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>計画済み（<a href="../iteration_plan-nadesiko-6/">Bolt 計画</a>）</td>
+<td>0 / 4</td>
+<td>未確定</td>
+<td>未計測</td>
+<td><strong>完了</strong></td>
 </tr>
 <tr>
 <td>Unit 7</td>
@@ -8771,10 +8876,10 @@
 <tr>
 <td><strong>合計</strong></td>
 <td><strong>70</strong></td>
-<td><strong>0 / 34</strong></td>
+<td><strong>0 / 38</strong></td>
 <td><strong>-</strong></td>
 <td><strong>-</strong></td>
-<td>完了 Unit 数 <strong>5 / 7</strong></td>
+<td>完了 Unit 数 <strong>6 / 7</strong></td>
 </tr>
 </tbody>
 </table>
@@ -8801,6 +8906,7 @@
 <li><a href="../iteration_plan-nadesiko-5/">Unit 5 の Bolt 計画</a> を作成した（17 ステップ・承認ゲート 4 箇所）。Kotlin 版 ADR 008〜012 の移植要否を着手前に判断し、第 9 章の節名の読み替え 3 件とモナドの題材の差分を計画に入れた</li>
 <li>Unit 5 を完了した（<a href="../bolt_report-nadesiko-5/">Bolt 終了報告</a> / <a href="../retrospective-nadesiko-5/">ふりかえり</a>）。第 8〜9 章を公開した</li>
 <li><strong>Release v0.2.0 を達成した（2026-09-29）。</strong> push して CI の green を確認し、Phase 2 を完了した</li>
+<li>Unit 6 を完了した（<a href="../bolt_report-nadesiko-6/">Bolt 終了報告</a> / <a href="../retrospective-nadesiko-6/">ふりかえり</a>）。第 10〜11 章を公開し、ADR-021・022 を記録した。<strong>NFR（<code>make check</code> 15 秒 / <code>make check-all</code> 35 秒）を超えたまま閉じた</strong>（16〜17 秒 / 41〜42 秒）。Unit 7 の冒頭で扱う</li>
 <li><code>syncing-github-project</code> で <strong>Unit を Milestone、Bolt のステップを Issue</strong> として同期する</li>
 </ol>
 <hr />
@@ -8814,6 +8920,11 @@
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>2026-09-28</td>
+<td>Unit 6 完了を反映。進捗状況に実績を記録。<strong>Unit 7 のゲート密度を「疎・2 箇所」に変更</strong>（6 Unit・38 箇所で 1 度も同期停止していないため）。指標「人が検証に使った時間」を外し「人が修正を入れた箇所数」に置き換える</td>
+<td>claude-code/claude-opus-5</td>
+</tr>
 <tr>
 <td>2026-09-28</td>
 <td>Unit 3 の着手前に、Level 1 のエントロピー評価を Bolt 計画の実態に合わせて更新（構造的不確実性と未解決の仮定を LOW から MED へ）。型の無い言語でハブと状態変換をどう表すかが未確定で、再帰・関数合成・乱数の 3 件が未確認のため</td>

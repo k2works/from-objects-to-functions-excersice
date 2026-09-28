@@ -1070,6 +1070,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        名前を変える画面（第 11 章）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2306,6 +2317,41 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/bolt_report-nadesiko-6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「なでしこ3」Unit 6 文脈の受け渡しとバリデーション
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -2556,6 +2602,41 @@
     
   
     「なでしこ3」Unit 5 射影と永続化
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/retrospective-nadesiko-6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「なでしこ3」Unit 6 文脈の受け渡しとバリデーション
   
 
     
@@ -4965,6 +5046,41 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/nadesiko/chapter11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 11 章 アプリカティブによるデータバリデーション
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -7297,11 +7413,51 @@
 <p>Kotlin 版は Kotlin の文字列テンプレートで組み立てます。なでしこ3 も同じ考え方で、文字列の <code>{}</code> 展開と <code>&amp;</code> 連結を使います。テンプレートエンジンは使いません。</p>
 <div class="highlight"><pre><span></span><code>「&lt;html&gt;&lt;body&gt;&lt;h1&gt;{ToDoリスト["リスト名"]}&lt;/h1&gt;&lt;ul&gt;{項目行}&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;」
 </code></pre></div>
-<p>段階も同じです。第 2〜10 章は文字列の組み立て、第 11 章以降は自前の小さなテンプレート機構（<a href="../../adr/ADR-010-own-template/">ADR-010</a> に相当する判断を改めて行う）。</p>
+<p>段階も同じです。第 2〜10 章は文字列の組み立て、第 11 章から自前の小さなテンプレート機構（<a href="../../adr/ADR-022-template-with-unfilled-check/">ADR-022</a>）。</p>
+<p>第 11 章の雛形には 2 点の差分があります。</p>
+<ul>
+<li><strong>雛形は <code>『』</code> で書きます。</strong> <code>「」</code> は中の <code>{...}</code> を式として展開するので、<code>{{名前}}</code> を書くと字句解析エラーになります</li>
+<li><strong>埋めそこねを実行時に止めます。</strong> 型が無いので渡し忘れをコンパイラが教えません。置換後に <code>{{</code> が残っていれば <code>TemplateNotFilled</code> で失敗を返し、画面は 500 になります</li>
+</ul>
+<p>値は骨組みに入る前に無害化します（<code>&amp;</code>・<code>&lt;</code>・<code>&gt;</code>・<code>"</code>）。ただし項目の並び（<code>&lt;li&gt;</code>）は骨組みなので無害化を通しません。</p>
 <h3 id="url_1">URL とルーティング<a class="headerlink" href="#url_1" title="Permanent link">&para;</a></h3>
 <p>URL 規約（<code>/todo/{user}/{listname}</code>、利用者はパスに含める、一覧は複数形にしない）は共通です。</p>
 <p>ただし<strong>ルーティングの仕組みが違います。</strong> 簡易 HTTP サーバのプラグインは URL の<strong>前方一致</strong>でしか振り分けられません。<code>/todo</code> に登録すると <code>/todo/uberto/book</code> も届くので、<strong>パスの分解は自前で書きます</strong>。パスパラメータを取り出す仕組みはありません。</p>
 <p>生のパスは <code>GETデータ["?URL"]</code>、クエリの値は <code>GETデータ["x"]</code>、フォームの値は <code>POSTデータ["name"]</code> で取れます。</p>
+<h3 id="11">名前を変える画面（第 11 章）<a class="headerlink" href="#11" title="Permanent link">&para;</a></h3>
+<p>画面から書く経路が初めて入ります。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">メソッド</th>
+<th style="text-align: left;">URL</th>
+<th style="text-align: left;">役割</th>
+<th style="text-align: left;">応答</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>GET</code></td>
+<td style="text-align: left;"><code>/todo/{user}/{listname}/rename</code></td>
+<td style="text-align: left;">フォームを出す</td>
+<td style="text-align: left;">200</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>POST</code></td>
+<td style="text-align: left;"><code>/todo/{user}/{listname}/rename</code></td>
+<td style="text-align: left;">名前を変える</td>
+<td style="text-align: left;">成功なら 302、検証に落ちたら 400、業務のルールで断ったら理由に応じたコード</td>
+</tr>
+</tbody>
+</table>
+<p>遷移は次のとおりです。リストの画面に「名前を変える」導線が付きます。</p>
+<div class="highlight"><pre><span></span><code>/todo/uberto/book  --「名前を変える」--&gt;  /todo/uberto/book/rename
+/todo/uberto/book/rename  --POST 成功--&gt;  302  --&gt;  /todo/uberto/reading
+/todo/uberto/book/rename  --POST 失敗--&gt;  400（同じ画面に理由を並べて再表示）
+</code></pre></div>
+<p><strong>成功したら新しい名前の画面へ送ります（PRG）。</strong> 再読み込みで同じ POST が飛ばないようにするためです。</p>
+<p><strong>検証に落ちたときは理由を全部並べます。</strong> 利用者名とリスト名を独立に確かめ、両方だめなら 2 件とも表示します（第 11 章のアプリカティブ）。1 件ずつ返すと利用者が 2 往復することになります。</p>
+<p>ルーティングには注意点があります。前方一致でしか振り分けられないため、<strong><code>/rename</code> で終わるパスかどうかを自前で判定</strong>しないと、<code>/todo/{user}/{listname}</code> への POST まで名前変更として処理してしまいます（Unit 6 で実際に踏みました）。</p>
 <h3 id="_5">失敗の理由とステータスコード<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
 <p>第 7 章から、失敗の理由がそのまま画面に出ます。</p>
 <table>
@@ -7322,6 +7478,16 @@
 <td style="text-align: left;"><code>ListAlreadyExists</code> / <code>InvalidTransition</code></td>
 <td style="text-align: left;">400</td>
 <td style="text-align: left;">同じ形</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>TemplateNotFilled</code></td>
+<td style="text-align: left;">500</td>
+<td style="text-align: left;">同じ形（第 11 章。<code>{{...}}</code> を利用者に見せない）</td>
+</tr>
+<tr>
+<td style="text-align: left;">検証の理由（<code>EmptyUser</code> / <code>EmptyName</code> / <code>NameTooLong</code>）</td>
+<td style="text-align: left;">400</td>
+<td style="text-align: left;">入力画面を理由の一覧つきで再表示（第 11 章）</td>
 </tr>
 </tbody>
 </table>

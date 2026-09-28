@@ -1127,6 +1127,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#1-11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        失敗が 1 つか、並びか（第 11 章）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#_20" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2411,6 +2422,41 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/bolt_report-nadesiko-6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「なでしこ3」Unit 6 文脈の受け渡しとバリデーション
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -2661,6 +2707,41 @@
     
   
     「なでしこ3」Unit 5 射影と永続化
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/retrospective-nadesiko-6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「なでしこ3」Unit 6 文脈の受け渡しとバリデーション
   
 
     
@@ -5050,6 +5131,41 @@
     
   
     第 10 章 コンテキストを読み込み、コマンドを処理する
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/nadesiko/chapter11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 11 章 アプリカティブによるデータバリデーション
   
 
     
@@ -7924,9 +8040,9 @@
 <tr>
 <td style="text-align: left;">失敗の理由</td>
 <td style="text-align: left;"><code>ZettaiError</code>（<code>sealed</code>）</td>
-<td style="text-align: left;">文字列 <strong>5 種類</strong>（第 9 章で <code>PersistenceError</code> を追加）。<code>失敗理由一覧</code> に集める</td>
+<td style="text-align: left;">文字列 <strong>6 種類</strong>（第 9 章で <code>PersistenceError</code>、第 11 章で <code>TemplateNotFilled</code> を追加）。<code>失敗理由一覧</code> に集める</td>
 <td style="text-align: left;">—</td>
-<td style="text-align: left;">7・9</td>
+<td style="text-align: left;">7・9・11</td>
 </tr>
 <tr>
 <td style="text-align: left;">射影</td>
@@ -7948,6 +8064,48 @@
 <td style="text-align: left;"><strong><code>結果連鎖</code></strong>（結果をつなぐ操作）。文脈を持ち回らないため題材が違う</td>
 <td style="text-align: left;"><code>結果連鎖</code></td>
 <td style="text-align: left;">9</td>
+</tr>
+<tr>
+<td style="text-align: left;">文脈</td>
+<td style="text-align: left;"><code>TxContext</code>（不透明な型）</td>
+<td style="text-align: left;"><code>保管先</code>（文字列）。<strong>接続ではなく「どこを読み書きするか」</strong>（<a href="../../adr/ADR-021-context-as-path/">ADR-021</a>）</td>
+<td style="text-align: left;"><code>文脈作成</code> / <code>文脈内読出</code> / <code>文脈内追記</code></td>
+<td style="text-align: left;">10</td>
+</tr>
+<tr>
+<td style="text-align: left;">境界</td>
+<td style="text-align: left;"><code>ContextReader</code> の実行</td>
+<td style="text-align: left;">読む → 判断 → 書くを 1 つの関数に閉じ込める</td>
+<td style="text-align: left;"><code>文脈内コマンド実行</code> / <code>射影問合</code></td>
+<td style="text-align: left;">10</td>
+</tr>
+<tr>
+<td style="text-align: left;">コマンド（名前変更）</td>
+<td style="text-align: left;"><code>RenameToDoList(user, listName, newName)</code></td>
+<td style="text-align: left;"><code>種別</code>=<code>"RenameToDoList"</code>・<code>利用者</code>・<code>リスト名</code>・<code>新リスト名</code></td>
+<td style="text-align: left;"><code>リスト名変更コマンド</code></td>
+<td style="text-align: left;">11</td>
+</tr>
+<tr>
+<td style="text-align: left;">イベント（名前変更）</td>
+<td style="text-align: left;"><code>ListRenamed</code></td>
+<td style="text-align: left;"><code>種別</code>=<code>"ListRenamed"</code>・<code>利用者</code>・<code>リスト名</code>・<code>新リスト名</code></td>
+<td style="text-align: left;"><code>リスト名変更イベント</code></td>
+<td style="text-align: left;">11</td>
+</tr>
+<tr>
+<td style="text-align: left;">検証結果</td>
+<td style="text-align: left;"><code>Validated&lt;E, T&gt;</code></td>
+<td style="text-align: left;"><code>成功</code>（真偽）・<code>値</code> または <strong><code>理由列</code>（配列）</strong>。失敗を並びで持つ</td>
+<td style="text-align: left;"><code>検証結果成功</code> / <code>検証結果失敗</code> / <code>検証結果マップ</code> / <code>検証結果結合</code></td>
+<td style="text-align: left;">11</td>
+</tr>
+<tr>
+<td style="text-align: left;">テンプレート</td>
+<td style="text-align: left;"><code>HtmlPage</code> のテンプレート</td>
+<td style="text-align: left;">雛形は <code>『』</code> の文字列、埋め込みは <code>{{名前}}</code>。<strong>未適用のタグが残れば失敗</strong>（<a href="../../adr/ADR-022-template-with-unfilled-check/">ADR-022</a>）</td>
+<td style="text-align: left;"><code>テンプレート適用</code> / <code>HTML安全化</code></td>
+<td style="text-align: left;">11</td>
 </tr>
 </tbody>
 </table>
@@ -8029,12 +8187,59 @@
 <td style="text-align: left;">値を 1 足す</td>
 <td style="text-align: left;">左単位元 200 / 右単位元 135 / 結合律 138</td>
 </tr>
+<tr>
+<td style="text-align: left;">アプリカティブ（第 11 章）</td>
+<td style="text-align: left;">右側を見ず左だけで決める</td>
+<td style="text-align: left;">115</td>
+</tr>
 </tbody>
 </table>
 <p><strong>法則が複数あるのは飾りではありません。</strong> モナドの「失敗も連鎖する」は、3 つのうち右単位元でしか見つかりません。</p>
+<p>アプリカティブの 115 / 200 も全部ではありません。<strong>左が失敗していれば、右を見なくても結果は同じ</strong>になる入力があるためです。</p>
 <h3 id="3_1">なでしこ3 版でモナドの題材が違う理由<a class="headerlink" href="#3_1" title="Permanent link">&para;</a></h3>
 <p>Kotlin 版は第 9 章のモナドを <code>ContextReader</code>（文脈つきの計算）にしています。データベースの接続という文脈を持ち回るためです。</p>
-<p><strong>なでしこ3 版には持ち回る文脈がありません。</strong> ファイルに追記するだけで、接続もトランザクションもありません。そこで<strong>題材を <code>結果連鎖</code>（失敗しうる処理をつなぐ操作）にしました。</strong> <code>ContextReader</code> 相当は第 10 章で扱います（<a href="../../adr/ADR-011-transaction-boundary/">ADR-011</a> の移植判断は Unit 6）。</p>
+<p><strong>なでしこ3 版には持ち回る文脈がありません。</strong> ファイルに追記するだけで、接続もトランザクションもありません。そこで<strong>題材を <code>結果連鎖</code>（失敗しうる処理をつなぐ操作）にしました。</strong> <code>ContextReader</code> 相当は第 10 章で扱いました（<a href="../../adr/ADR-011-transaction-boundary/">ADR-011</a> の移植判断は <a href="../../adr/ADR-021-context-as-path/">ADR-021</a>）。</p>
+<h3 id="1-11">失敗が 1 つか、並びか（第 11 章）<a class="headerlink" href="#1-11" title="Permanent link">&para;</a></h3>
+<p>第 7 章の結果は失敗の理由を<strong>1 つ</strong>しか持ちません。連鎖（モナド）は最初の失敗で止まるので、それで足りていました。</p>
+<p>画面の入力を確かめるときは、だめな箇所を<strong>全部</strong>返したい。そこで理由を並びで持つ別の形（<code>検証結果</code>）を用意しました。2 つの形が混ざらないよう、契約テストが両方の形を守ります。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">観点</th>
+<th style="text-align: left;">結果（第 7 章）</th>
+<th style="text-align: left;">検証結果（第 11 章）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">失敗のキー</td>
+<td style="text-align: left;"><code>理由</code>（文字列 1 つ）</td>
+<td style="text-align: left;"><code>理由列</code>（配列）</td>
+</tr>
+<tr>
+<td style="text-align: left;">つなぐ操作</td>
+<td style="text-align: left;"><code>結果連鎖</code>（モナド）</td>
+<td style="text-align: left;"><code>検証結果結合</code>（アプリカティブ）</td>
+</tr>
+<tr>
+<td style="text-align: left;">次の処理</td>
+<td style="text-align: left;">前の値に依存できる</td>
+<td style="text-align: left;">依存できない</td>
+</tr>
+<tr>
+<td style="text-align: left;">失敗したとき</td>
+<td style="text-align: left;">そこで止まる</td>
+<td style="text-align: left;">最後まで走る</td>
+</tr>
+<tr>
+<td style="text-align: left;">向くもの</td>
+<td style="text-align: left;">読む → 判断 → 書く（第 10 章）</td>
+<td style="text-align: left;">画面の入力の検証（第 11 章）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>成功側のキー（<code>成功</code>・<code>値</code>）は揃えました。</strong> 第 7 章の <code>成功判定</code> がそのまま使えます。境界で片方に落とすときは <code>検証結果変換</code> を使い、理由が 1 つに減ることを承知で使います。</p>
+<p>計測した違いは次のとおりです。両方だめな入力を乱数で作ったところ、<strong>連鎖は 69 回中 69 回（100%）で理由を 1 件しか返しませんでした。</strong> 欠陥ではなく、連鎖が「前の値に依存できる」ことの代償です。</p>
 <h3 id="_20">不変性<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h3>
 <p>Kotlin 版の <code>data class</code> は不変です。なでしこ3 の辞書と配列は<strong>参照で、破壊的に書き換えられます</strong>。状態変換は変換のたびに辞書と配列を写してから足します（<code>辞書写し</code>・<code>配列複製</code>）。<strong>不変性は言語ではなく約束が守ります。</strong></p>
 <hr />

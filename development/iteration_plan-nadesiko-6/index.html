@@ -2676,6 +2676,41 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bolt_report-nadesiko-6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「なでしこ3」Unit 6 文脈の受け渡しとバリデーション
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -2929,6 +2964,41 @@
     
   
     「なでしこ3」Unit 5 射影と永続化
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../retrospective-nadesiko-6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「なでしこ3」Unit 6 文脈の受け渡しとバリデーション
   
 
     
@@ -5321,6 +5391,41 @@
     
   
     第 10 章 コンテキストを読み込み、コマンドを処理する
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/nadesiko/chapter11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 11 章 アプリカティブによるデータバリデーション
   
 
     
@@ -8097,20 +8202,20 @@
 </blockquote>
 <h3 id="_12">ステップ計画<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
 <ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>6-1.0 スパイクと ADR の棚卸し</strong>: 4 件を確かめ、Kotlin 版 ADR-010・011 の移植方針を確定する（持ち込み 1・3）</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>6-1.1 既知の制約を 1 箇所に集め、<code>src/step4/</code> を切る</strong>（持ち込み 2・6・7。Try 1・2）</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>6-1.0 スパイクと ADR の棚卸し</strong>: 4 件を確かめ、Kotlin 版 ADR-010・011 の移植方針を確定する（持ち込み 1・3）</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>6-1.1 既知の制約を 1 箇所に集め、<code>src/step4/</code> を切る</strong>（持ち込み 2・6・7。Try 1・2）</li>
 <li><code>README.md</code>（または設計）に<strong>確定した制約の一覧</strong>を作る。3 度繰り返した「関数値ごしに非同期を呼べない」を筆頭に置く</li>
 <li><strong><code>src/step4/</code> を切る前に、全段階の実行時間を見積もる。</strong> 切った直後に測って突き合わせる</li>
 <li>完了判定: 制約の一覧がある。見積もりと実測の両方が記録されている</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>6-1.2 文脈の契約を決める</strong>: 何を文脈と呼ぶか、コマンド 1 つの処理をどう包むかを提示する</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>6-1.2 文脈の契約を決める</strong>: 何を文脈と呼ぶか、コマンド 1 つの処理をどう包むかを提示する</li>
 <li>入力: <a href="../../adr/ADR-011-transaction-boundary/">ADR-011</a>、<a href="../../design/domain-model/">ドメインモデル設計</a> の <code>TxContext</code>・<code>ContextReader</code></li>
 <li><strong>★人の確認が必要</strong>（残り 2 章を縛る。設計ドキュメントと形が違う）</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>6-1.3 文脈を実装する（Red → Green）</strong>: 契約テストを同時に書く</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>6-1.4 コマンド 1 つの処理を文脈で包む</strong>: 読む → 判断 → 書くが 1 つの単位になる</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>6-1.5 射影のクエリも同じ形にする</strong>: 読む側も文脈を通す</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>6-1.6 第 10 章の骨子と執筆</strong></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>6-1.3 文脈を実装する（Red → Green）</strong>: 契約テストを同時に書く</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>6-1.4 コマンド 1 つの処理を文脈で包む</strong>: 読む → 判断 → 書くが 1 つの単位になる</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>6-1.5 射影のクエリも同じ形にする</strong>: 読む側も文脈を通す</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>6-1.6 第 10 章の骨子と執筆</strong></li>
 <li><strong>★人の確認が必要</strong>（記事の全文検証）</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>6-1.7 サイト反映</strong></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>6-1.7 サイト反映</strong></li>
 </ul>
 <hr />
 <h2 id="bolt-6-2-11">Bolt 6-2: アプリカティブと画面からの操作（第 11 章）<a class="headerlink" href="#bolt-6-2-11" title="Permanent link">&para;</a></h2>
@@ -8120,24 +8225,24 @@
 </blockquote>
 <h3 id="_13">ステップ計画<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
 <ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>6-2.1 受け入れシナリオを Red にする</strong>: 「リスト名を変えられる」「空の名前は断られる」を業務の言葉で書く（アウトサイドイン）</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>6-2.2 検証結果を実装する（Red → Green）</strong>: 失敗を<strong>並び</strong>で持つ。契約テストを同時に書く</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>6-2.3 2 つの条件を独立に確かめる</strong>: 空でない・40 文字以内。両方だめなら両方返す</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>6-2.4 アプリカティブの法則と、モナドとの違い</strong>（持ち込み 5。Try 3）</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>6-2.1 受け入れシナリオを Red にする</strong>: 「リスト名を変えられる」「空の名前は断られる」を業務の言葉で書く（アウトサイドイン）</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>6-2.2 検証結果を実装する（Red → Green）</strong>: 失敗を<strong>並び</strong>で持つ。契約テストを同時に書く</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>6-2.3 2 つの条件を独立に確かめる</strong>: 空でない・40 文字以内。両方だめなら両方返す</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>6-2.4 アプリカティブの法則と、モナドとの違い</strong>（持ち込み 5。Try 3）</li>
 <li>法則を性質テストで確かめ、<strong>壊して検出率を測る</strong></li>
 <li><strong>モナド（結果連鎖）で同じ検証を書くと 1 つしか返らないことをテストで示す</strong></li>
 <li>完了判定: 違いが数字で出ている</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>6-2.5 テンプレートと画面</strong>: <code>GET</code> / <code>POST /todo/{user}/{listname}/rename</code>。未適用のタグが残ったら失敗</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>6-2.6 設計ドキュメント・節名の読み替え・ADR</strong></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>6-2.5 テンプレートと画面</strong>: <code>GET</code> / <code>POST /todo/{user}/{listname}/rename</code>。未適用のタグが残ったら失敗</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>6-2.6 設計ドキュメント・節名の読み替え・ADR</strong></li>
 <li><code>draft.md</code> に第 10 章の読み替え 2 件</li>
 <li><code>domain-model.md</code> に検証結果・テンプレート・<code>ListRenamed</code>・<code>RenameToDoList</code> を追加</li>
 <li><code>ui_design.md</code> に rename の画面と遷移</li>
 <li>ADR-021（文脈の表し方）、ADR-022（テンプレート機構）</li>
 <li><strong>★人の確認が必要</strong></li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>6-2.7 第 11 章の骨子と執筆</strong></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>6-2.7 第 11 章の骨子と執筆</strong></li>
 <li><strong>★人の確認が必要</strong>（記事の全文検証）</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>6-2.8 サイト反映と OKF 適用</strong></li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>6-2.9 Bolt 終了報告とふりかえり</strong>: <strong>Unit 7 のゲート密度をここで決める</strong></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>6-2.8 サイト反映と OKF 適用</strong></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>6-2.9 Bolt 終了報告とふりかえり</strong>: <strong>Unit 7 のゲート密度をここで決める</strong></li>
 </ul>
 <hr />
 <h2 id="_14">設計<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h2>

@@ -27,6 +27,8 @@ SOURCE_GLOBS = [
     "apps/**/*.kts",
     "apps/**/*.toml",
     "apps/**/*.nako3",
+    "apps/**/*.rs",
+    "apps/**/justfile",
     "apps/**/Makefile",
     "apps/**/package.json",
     "ops/nix/environments/**/*.nix",
@@ -36,7 +38,7 @@ SOURCE_GLOBS = [
 ]
 
 # 検査対象の言語。出力例やシェルの実行例は対象外。
-CHECKED_LANGUAGES = {"kotlin", "nix", "toml", "yaml", "python", "nako3", "makefile", "json"}
+CHECKED_LANGUAGES = {"kotlin", "nix", "toml", "yaml", "python", "nako3", "makefile", "json", "rust", "just"}
 
 IGNORE_MARKER = re.compile(r"<!--\s*code-check:\s*ignore(.*?)-->", re.I)
 BLOCK = re.compile(r"^```(\w+)\n(.*?)^```", re.M | re.S)

@@ -4,7 +4,7 @@ title: "リリース計画 - Zettai 連載（Rust 版）"
 description: "『From Objects to Functions』を下敷きにした Zettai 連載 Rust 版の AI-DLC 準拠 Level 1 計画。言語が Result と enum を与える側で同じ 13 章を辿るという Intent、7 Unit・14 ストーリーへの分解、依存 DAG、5 軸のエントロピー評価、所有権と async の伝播に対するリスク台帳、2 対象の学びを反映した承認ゲート方針と指標を定義する。"
 tags: [development, plan, ai-dlc, zettai, rust]
 status: stable
-generated: { by: claude-code/claude-opus-5, at: 2026-09-28T12:32:48Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-28T13:11:33Z }
 verified:
   - { by: human:kakimomokuri, at: 2026-09-28T12:24:16Z }
 ---
@@ -55,7 +55,7 @@ verified:
 | :--- | :--- |
 | 1 | 全 13 章の記事（`docs/article/zettai/rust/chapter01.md` 〜 `chapter13.md`） |
 | 2 | 動作するサンプル実装（`apps/rust/zettai/`。cargo workspace） |
-| 3 | `make check` が通る検査（`cargo fmt --check` / `cargo clippy -- -D warnings` / `cargo test`） |
+| 3 | `just check` が通る検査（`just check`（`fmt` + `clippy` + `test`）） |
 | 4 | CI（`.github/workflows/rust-zettai.yml`） |
 | 5 | ADR（章ごとの設計判断。**「既製品を入れない」判断も「入れる」判断も残す**） |
 | 6 | `comparison/index.md` への Rust 列の追加 |
@@ -172,7 +172,7 @@ US-001 第 1 章 ──→ US-002 第 2 章 ──→ US-003 第 3 章
 | 完了 Unit 数 | DoD を満たした Unit | 1 Unit / イテレーション（計 7） |
 | 承認ゲート通過数 | **人が同期的に停止して判断した箇所** | 計画した箇所の **50% 以上**（2 対象は 41 箇所中 1 回） |
 | **人が修正を入れた箇所数** | コミット後に人が手直しした箇所 | Unit ごとに記録（**新指標**） |
-| 変更依頼数 | **ゲートで「やり直し」と判断された回数**（着手前に定義した） | Unit ごとに記録 |
+| 変更依頼数 | **ゲートで「やり直し」と判断された回数。** 人がゲートで提示物を見て、作り直し・方針変更を求めた回数を数える。誤字の指摘や表現の調整は含めない（それは「人が修正を入れた箇所数」で数える）。 | Unit ごとに記録 |
 | 公開済みの章 | | 13 / 13 |
 | 記事とサンプル実装の一致 | `check_article_code.py` | 100% |
 
@@ -190,12 +190,12 @@ US-001 第 1 章 ──→ US-002 第 2 章 ──→ US-003 第 3 章
 
 ### Release v0.1.0（Phase 1 完了）: 動く縦串
 
-**目標**: cargo workspace・`make check`・CI が整い、第 1〜3 章が公開され、ToDo リストが HTTP で見える。
+**目標**: cargo workspace・`just check`・CI が整い、第 1〜3 章が公開され、ToDo リストが HTTP で見える。
 
 | 条件 | 判定 |
 | :--- | :--- |
 | 前提整備と第 1〜3 章が公開されている | 記事 4 本 |
-| `make check` が通る | `cargo fmt --check` / `cargo clippy -- -D warnings` / `cargo test` |
+| `just check` が通る | `just check`（`fmt` + `clippy` + `test`） |
 | 受け入れテストが 2 経路（ドメイン直接・HTTP 経由）で green | — |
 | **async を第 9 章まで遅らせられるかの判断が ADR にある** | — |
 | CI が green | — |
@@ -253,7 +253,7 @@ US-001 第 1 章 ──→ US-002 第 2 章 ──→ US-003 第 3 章
 | **所有権が関数型 DI の形を決められない** | 高 | 中 | Unit 3 のスパイクで `impl Fn` / `Box<dyn Fn>` / ジェネリクスの 3 案を試し、**それぞれで第 5 章のクロージャ合成まで書けるか**を確かめてから決める | 3-1 |
 | **ライフタイムが第 10 章の境界を書けなくする** | 中 | 中 | なでしこ3 版第 10 章と同じ手を使う。**書けないなら「書けないこと」を章の主題にする** | 6-1 |
 | 既製品が多く、理由のない自作をする | 中 | **高** | **各章で「既製品を先に調べる」を手順にする**（なでしこ3 版 Unit 7 Try 5）。入れない判断も ADR に残す | 各章 |
-| コンパイル時間が NFR を超える | 中 | 中 | 段階を切る前に見積もり、切った直後に測る。**あわせて `make check` の各段が何を守っているかを数える**（なでしこ3 版 Unit 7 の学び） | 各 Unit の冒頭 |
+| コンパイル時間が NFR を超える | 中 | 中 | 段階を切る前に見積もり、切った直後に測る。**あわせて `just check` の各段が何を守っているかを数える**（なでしこ3 版 Unit 7 の学び） | 各 Unit の冒頭 |
 | `clippy -- -D warnings` が設計判断に混ざる | 低 | 中 | 押された箇所を記録し、第 13 章で「設計の改善」と「clippy の好み」に仕分ける | 1-1 で方針 |
 | 第 7 章が薄くなる（`Result` が言語にある） | 中 | 中 | 主題を「作らない判断」に置き換える。**何を確かめて使うのか**を書く | 4-2 |
 
@@ -314,9 +314,9 @@ US-001 第 1 章 ──→ US-002 第 2 章 ──→ US-003 第 3 章
 
 ### Unit 1（Week 1-2）器と第 1 章
 
-**ゴール**: cargo workspace と `make check` を整え、**後戻りの効かない 2 つの判断**（async・HTTP クレート）をスパイクで確かめて決める。第 1 章を書く。
+**ゴール**: cargo workspace と `just check` を整え、**後戻りの効かない 2 つの判断**（async・HTTP クレート）をスパイクで確かめて決める。第 1 章を書く。
 
-**検証負荷**: 7　**Bolt**: 2　**ゲート**: 3（async の決定・HTTP クレートの選定・`make check` の構成）
+**検証負荷**: 7　**Bolt**: 2　**ゲート**: 3（async の決定・HTTP クレートの選定・`just check` の構成）
 
 **スパイクで確かめること**:
 
@@ -324,7 +324,7 @@ US-001 第 1 章 ──→ US-002 第 2 章 ──→ US-003 第 3 章
 2. 同期の PostgreSQL クレートで、第 9 章の題材が書けるか（**async を第 9 章まで遅らせられるか**）
 3. `cargo test` の並列実行で、テストごとに接続先・出力先を分ける手段があるか（なでしこ3 版 Unit 7 Try 4）
 4. `cargo-llvm-cov` が Nix の devShell で動くか
-5. 空の workspace で `make check` が何秒かかるか（**段階を増やす前の基準値**）
+5. 空の workspace で `just check` が何秒かかるか（**段階を増やす前の基準値**）
 
 ### Unit 2（Week 3-4）ウォーキングスケルトンとドメイン分離
 

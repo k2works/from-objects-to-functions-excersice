@@ -1,0 +1,10 @@
+# 段階ごとにメンバーを増やす。
+# Kotlin 版の Gradle モジュール、なでしこ3 版の src/stepN/ に対応する（ADR-015）。
+# 過去の章のコードをそのまま残し、記事が指すコードが変化しないようにする。
+[workspace]
+resolver = "2"
+members = ["zettai-step1-http"]
+
+[workspace.package]
+edition = "2021"
+version = "0.1.0"

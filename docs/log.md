@@ -1,6 +1,13 @@
 # Docs Update Log
 
 ## 2026-09-28
+* **Update**: [ADR-026-just-and-coverage](/adr/ADR-026-just-and-coverage.md) を更新（claude-code/claude-opus-5）
+* **Update**: [ADR-025-tiny-http](/adr/ADR-025-tiny-http.md) を更新（claude-code/claude-opus-5）
+* **Update**: [ADR-024-no-async](/adr/ADR-024-no-async.md) を更新（claude-code/claude-opus-5）
+* **Update**: [release_plan-rust](/development/release_plan-rust.md) を更新（claude-code/claude-opus-5）
+* **Update**: [iteration_plan-rust-1](/development/iteration_plan-rust-1.md) を更新（claude-code/claude-opus-5）
+* **Update**: [development_strategy](/development/development_strategy.md) を更新（claude-code/claude-opus-5）
+* **Update**: [outline](/article/outline.md) を更新（claude-code/claude-opus-5）
 * **Verification**: [iteration_plan-rust-1](/development/iteration_plan-rust-1.md) を human:kakimomokuri が検証
 * **Update**: [iteration_plan-rust-1](/development/iteration_plan-rust-1.md) を更新（claude-code/claude-opus-5）
 * **Update**: [release_plan-rust](/development/release_plan-rust.md) を更新（claude-code/claude-opus-5）

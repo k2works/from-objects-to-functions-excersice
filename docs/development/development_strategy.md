@@ -4,7 +4,7 @@ title: "開発戦略 - Zettai 連載（Kotlin 版 / なでしこ3 版）"
 description: "Zettai 連載の開発戦略。Kotlin 版となでしこ3 版のそれぞれについて、7 イテレーションを序盤・中盤・終盤の 3 局面に分け、序盤と終盤はアウトサイドイン、中盤はインサイドアウトを採る根拠、共通の TDD サイクルと品質チェック、デモ項目を受け入れ基準とする方針（BDD 不採用と DDT / Pesticide 採用の理由）、ウォーキングスケルトンの基盤化、設計ドキュメント整合、局面移行時の一貫性維持を定義する。なでしこ3 版では型検査の不在を契約テストで補う方針と、局面割り当てを Kotlin 版と同一に保つ根拠を加える。"
 tags: [development, strategy, zettai, kotlin, nadesiko]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-28T12:32:48Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-28T13:11:33Z }
 ---
 
 # 開発戦略 - Zettai 連載（Kotlin 版 / なでしこ3 版）
@@ -662,11 +662,11 @@ TDD の三原則と Red-Green-Refactor は不変です。変わるのは次の 4
 
 #### 品質チェック
 
-`make check` に `cargo fmt --check`・`cargo clippy -- -D warnings`・`cargo test` を集約します。
+`justfile` にタスクを置き、**2 段構え**にします。`just check`（`fmt` + `clippy` + `test`）は書いている間に、`just check-all`（+ カバレッジ）はリリース前と CI に使います（[ADR-026](../adr/ADR-026-just-and-coverage.md)）。
 
 **`clippy -- -D warnings` は設計判断に混ざります。** 押された箇所を記録し、第 13 章で「設計の改善」と「clippy の好み」に仕分けます。
 
-なでしこ3 版 Unit 7 の学びを先に適用します。**`make check` の各段が何を守っているかを、段を足すときに数えます。** 守っているものが無い段は入れません。
+なでしこ3 版 Unit 7 の学びを先に適用します。**`just check` の各段が何を守っているかを、段を足すときに数えます。** 守っているものが無い段は入れません。
 
 #### コミット規約
 

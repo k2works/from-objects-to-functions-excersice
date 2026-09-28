@@ -29,5 +29,8 @@
 | [ADR-021](ADR-021-context-as-path.md) | 文脈を保存先の指し先として表し、組み立てない | 提案 |
 | [ADR-022](ADR-022-template-with-unfilled-check.md) | テンプレートを自前で書き、埋めそこねを実行時に止める | 提案 |
 | [ADR-023](ADR-023-builtin-json-with-converter.md) | 組み込みの JSON を使い、その上に双方向変換を置く | 提案 |
+| [ADR-024](ADR-024-no-async.md) | async を採らず、同期のクレートで 13 章を通す | 提案 |
+| [ADR-025](ADR-025-tiny-http.md) | HTTP クレートに tiny_http を採用する | 提案 |
+| [ADR-026](ADR-026-just-and-coverage.md) | タスクランナーに Just を使い、カバレッジを検査に入れる | 提案 |
 
 ADR の作成には `creating-adr` スキルを使用してください。

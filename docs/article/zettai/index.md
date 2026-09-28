@@ -62,4 +62,4 @@ Rust 版の列は、Phase 1（第 3 章）を終えた時点で比較ページ�
 | :--- | :--- | :--- |
 | Kotlin | `nix develop .#kotlin` | Kotlin 2.x、JDK 21、Gradle。第 9 章以降は `docker-compose.yml` の PostgreSQL を併用 |
 | なでしこ3 | `nix develop .#nadesiko` | Node 22、cnako3 3.8.7（npm の `nadesiko3`）、自作のテストヘルパとランナー（`make check`）。第 9 章の永続化は追記型イベントログのファイル保存 |
-| Rust | `nix develop .#rust` | rustc 1.91.1、cargo 1.91.0、clippy 0.1.91、rustfmt 1.8.0。テストは組み込みの `#[test]`。第 9 章の永続化は PostgreSQL（同期か async かは Unit 1 で判断） |
+| Rust | `nix develop .#rust` | rustc 1.91.1、cargo 1.91.0、clippy 0.1.91、rustfmt 1.8.0、just 1.45.0、cargo-llvm-cov 0.6.20。タスクは `just check`。テストは組み込みの `#[test]`。**async は採らず同期で通す**（[ADR-024](../../adr/ADR-024-no-async.md)）。第 9 章の永続化は PostgreSQL |

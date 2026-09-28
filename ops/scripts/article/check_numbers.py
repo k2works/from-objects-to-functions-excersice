@@ -33,16 +33,18 @@ ADR_COUNT = re.compile(r"ADR\s*([0-9０-９]+)\s*件")
 CHAPTER_COUNT = re.compile(r"全\s*([0-9０-９]+)\s*章")
 # 「2 回とも起きました」のような回数一般ではなく、性質テストの言い回しだけを対象にする。
 TRIAL_COUNT = re.compile(r"([0-9０-９]+)\s*回とも成り立つ|試行回数は\s*([0-9０-９]+)\s*回")
-# 実装が宣言する試行回数。言語ごとに書き方が違うので、対象ごとに探す。
-TRIAL_DECL = re.compile(r"試行回数\s*=\s*([0-9]+)")
+# 実装が宣言する試行回数。言語ごとに書き方が違うので 2 通り見る。
+# なでしこ3: 試行回数=200 / Rust: const TRIALS: usize = 200;
+TRIAL_DECL = re.compile(r"試行回数\s*=\s*([0-9]+)|TRIALS:\s*usize\s*=\s*([0-9_]+)")
 
 
 def declared_trials(root: Path, target: str) -> set[int]:
     """その対象の実装が宣言している試行回数を集める。"""
     found: set[int] = set()
     for path in (root / "apps" / target).rglob("*"):
-        if path.is_file() and path.suffix in {".nako3", ".kt", ".kts"}:
-            found.update(int(m) for m in TRIAL_DECL.findall(path.read_text(encoding="utf-8")))
+        if path.is_file() and path.suffix in {".nako3", ".kt", ".kts", ".rs"}:
+            for a, b in TRIAL_DECL.findall(path.read_text(encoding="utf-8")):
+                found.add(int((a or b).replace("_", "")))
     return found
 
 

@@ -4,7 +4,7 @@ title: "執筆計画：関数型プログラミングで作る変更を楽に安
 description: "Uberto Barbini 著『From Objects to Functions』を下敷きにした Zettai 連載の執筆計画。多言語シリーズ（Kotlin / なでしこ3）の対象一覧、記事と実装の対称ファイル構成、全 13 章と原著コンパニオンコードの対応、前提整備と実行環境の方針、リリース計画のストーリー・イテレーション・SP と対応づけた章別計画、フェーズ区切り、なでしこ3 追加執筆計画、執筆規約を定義する。"
 tags: [article, plan, zettai]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-28T12:14:15Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-28T13:11:33Z }
 ---
 
 # 執筆計画：関数型プログラミングで作る変更を楽に安全にできるソフトウェア
@@ -294,7 +294,7 @@ Unit・Bolt・ストーリーの割り当ては Kotlin 版と同一（1 Unit = 2
 なでしこ3 版と違い、**環境はすでにあります。** 整えるのは実装の器だけです。
 
 - [ ] `apps/rust/zettai/` に cargo workspace を作る（`Cargo.toml` とメンバー 1 つ）
-- [ ] `Makefile` を置き、`make check` を `cargo fmt --check && cargo clippy -- -D warnings && cargo test` にする
+- [ ] `justfile` を置き、`just check` を `fmt` + `clippy` + `test` にする（カバレッジを含む `just check-all` も）
 - [ ] `docs/article/zettai/rust/index.md` を作る
 - [ ] `.github/workflows/rust-zettai.yml` を新設する（第 2 章の実装直後）
 - [ ] `ops/scripts/article/check_article_code.py` の `SOURCE_GLOBS` に `apps/**/*.rs`、`CHECKED_LANGUAGES` に `rust` を追加する
@@ -306,7 +306,7 @@ Unit・Bolt・ストーリーの割り当ては 2 対象と同一（1 Unit = 2 �
 
 | 章 | ファイル | ストーリー | Unit | Bolt | 検証負荷 | その章の焦点 |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| — | （前提整備） | US-000 | Unit 1 | 1-1 | 5 | cargo workspace と `make check`。**自作する道具は無い** |
+| — | （前提整備） | US-000 | Unit 1 | 1-1 | 5 | cargo workspace と `just check`。**自作する道具は無い** |
 | 1 | `chapter01.md` | US-001 | Unit 1 | 1-2 | 2 | 題材設定と、組み込みのテストで開発をガイドする前提 |
 | 2 | `chapter02.md` | US-002 | Unit 2 | 2-1 | 6 | HTTP クレートを 1 つ選び、縦串を通す |
 | 3 | `chapter03.md` | US-003 | Unit 2 | 2-2 | 4 | 受け入れテストを抽象化し、ドメインとインフラを分離する |
@@ -353,7 +353,7 @@ Unit・Bolt・ストーリーの割り当ては 2 対象と同一（1 Unit = 2 �
 | **async が全体に伝播する** | 第 9 章で async な DB クレートを選ぶと、そこから上のすべてが `async fn` になる。第 1〜8 章のコードが書き換わる | **Unit 1 のスパイクで、同期クレートで最後まで行けるかを確かめる。** 行けるなら同期を選ぶ | 1-1 |
 | **HTTP クレートの選定** | tokio 必須のものを選ぶと、上の async 問題が第 2 章の時点で確定する | 同期・async の両方の候補を Unit 1 で試し、ADR に記録する。**選定理由に「async を第 9 章まで遅らせられるか」を入れる** | 1-1 |
 | **既製品が多く、「自前で書く」の惰性が効かない** | テスト・性質テスト・JSON・ログ・HTTP のすべてに既製品がある。Kotlin 版・なでしこ3 版の「自前で書く」をそのまま持ち込むと、理由のない自作になる | **各章で「既製品を先に調べる」を手順にする**（なでしこ3 版 Unit 7 Try 5）。入れない判断も ADR に残す（Kotlin 版 ADR-004 と同じ形） | 各章 |
-| **コンパイル時間が NFR に効く** | なでしこ3 版は Unit 4・5・6 と 3 回 NFR を超えた。Rust はコンパイルが入るぶん、段階を増やすと伸びやすい | **段階を切る前に見積もり、切った直後に測る**（なでしこ3 版 Unit 5 Try 2）。あわせて「`make check` が何を守っているか」を先に数える（Unit 7 の学び） | 各 Unit の冒頭 |
+| **コンパイル時間が NFR に効く** | なでしこ3 版は Unit 4・5・6 と 3 回 NFR を超えた。Rust はコンパイルが入るぶん、段階を増やすと伸びやすい | **段階を切る前に見積もり、切った直後に測る**（なでしこ3 版 Unit 5 Try 2）。あわせて「`just check` が何を守っているか」を先に数える（Unit 7 の学び） | 各 Unit の冒頭 |
 | **`Result` があることで第 7 章が薄くなる** | 「自前で `Outcome` を作る」という Kotlin 版の主題が消える | **主題を「作らない判断」に置き換える。** 言語が与えるものをそのまま使うとき、何を確かめて使うのかを書く | 4-2 |
 | **`clippy` の指摘が設計を押す** | `-D warnings` にすると、clippy の好みが設計判断に混ざる | 押された箇所を記録し、**どれが設計の改善でどれが好みだったか**を第 13 章で仕分ける | 1-1 で方針、13 章で総括 |
 
@@ -373,7 +373,7 @@ Unit・Bolt・ストーリーの割り当ては 2 対象と同一（1 Unit = 2 �
 
 ### 進め方
 
-1. Unit 1 で cargo workspace と `make check` を整え、**同期で最後まで行けるか**と **HTTP クレートの選定**をスパイクで確かめ、第 1 章を書く
+1. Unit 1 で cargo workspace と `just check` を整え、**同期で最後まで行けるか**と **HTTP クレートの選定**をスパイクで確かめ、第 1 章を書く
 2. 以降は 2 対象と同じく「実装 → 記事執筆 → サイト反映 → コミット」を 1 Bolt として、章 2 本で 1 Unit を閉じる
 3. Phase 1 の完了時に `comparison/` に Rust の列を足す
 

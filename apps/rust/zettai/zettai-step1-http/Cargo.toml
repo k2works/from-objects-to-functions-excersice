@@ -1,0 +1,6 @@
+[package]
+name = "zettai-step1-http"
+edition.workspace = true
+version.workspace = true
+
+[dependencies]

@@ -4,7 +4,7 @@ title: "リリース計画 - Zettai 連載（なでしこ3 版）"
 description: "『From Objects to Functions』を下敷きにした Zettai 連載なでしこ3 版の AI-DLC 準拠 Level 1 計画。型システムを持たない日本語プログラミング言語で同じ 13 章を辿るという Intent、7 Unit・14 ストーリーへの分解、依存 DAG、5 軸のエントロピー評価、cnako3 の採用根拠と言語制約に対するリスク台帳、契約テストを全 Bolt 共通のゲート項目に加えた承認ゲート方針、完了 Unit 数と承認ゲート通過数による進捗管理を定義する。"
 tags: [development, plan, zettai, nadesiko]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-28T06:43:22Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-28T06:56:35Z }
 ---
 
 # リリース計画 - Zettai 連載（なでしこ3 版）
@@ -153,7 +153,7 @@ end note
 | Unit 3 | LOW | MED | MED | LOW | MED | 密（4 箇所に絞る） |
 | Unit 4 | LOW | MED | MED | MED | LOW | 密（5 箇所。契約が変わる箇所が 2 つ） |
 | Unit 5 | LOW | MED | MED | MED | MED | 中（Bolt 末と永続化の設計判断時） |
-| Unit 6 | LOW | LOW | MED | LOW | LOW | 同上 |
+| Unit 6 | MED | **HIGH** | MED | MED | MED | 密（4 箇所。何を文脈と呼ぶかが未確定） |
 | Unit 7 | MED | LOW | LOW | LOW | LOW | 疎（実装追加が最小） |
 
 Kotlin 版との違いは 2 つです。
@@ -283,7 +283,7 @@ gantt
 
 CI の確認だけが Unit 2・3 を通じて保留でした。**Unit 4 の着手時に push して green を確認し、v0.1.0 を達成しました。** 本リポジトリはタグや CHANGELOG を使わず、リリースの記録は本計画と報告書で行います（Kotlin 版と同じ運用）。
 
-#### Release v0.2.0（Phase 2 完了）: 型を使わずにドメインを組み立てる — **CI の確認待ち**
+#### Release v0.2.0（Phase 2 完了）: 型を使わずにドメインを組み立てる — **達成（2026-09-29）**
 
 **目標**: イベント・コマンド・結果辞書・射影・ファイル永続化までを、辞書のキーの約束と契約テストで組み立てきる。
 
@@ -293,7 +293,9 @@ CI の確認だけが Unit 2・3 を通じて保留でした。**Unit 4 の着�
 | 関数型 DI・イベント・コマンド・結果辞書・射影・永続化が揃っている | 達成 |
 | 3 経路の受け入れシナリオが green | 達成 |
 | 代数構造 3 つ（モノイド・ファンクタ・モナド）を性質テストで確かめた | 達成 |
-| CI が green | **未確認**（push が要る。Unit 6 の冒頭で消化） |
+| CI が green | **達成**（`Nadesiko3 Zettai` / `Kotlin Zettai` / `Deploy MkDocs` すべて success） |
+
+**Phase 2 が完了しました。** 全 13 章のうち 9 章を公開し、代数構造 3 つ（モノイド・ファンクタ・モナド）を性質テストで確かめています。残るは Phase 3（第 10〜13 章）です。
 
 #### Release v1.0.0（Phase 3 完了）: 約束とテストで支える関数型アーキテクチャ
 
@@ -461,7 +463,7 @@ Kotlin 版の実績（Unit 3 以降は変更依頼 0 件）を踏まえ、ゲー
 | Unit 3 | 11 | 0 / 4 | 未確定 | 未計測 | **完了** |
 | Unit 4 | 11 | 0 / 5 | 未確定 | 未計測 | **完了** |
 | Unit 5 | 13 | 0 / 4 | 未確定 | 未計測 | **完了** |
-| Unit 6 | 9 | - | - | - | 未着手 |
+| Unit 6 | 9 | - | - | - | 計画済み（[Bolt 計画](iteration_plan-nadesiko-6.md)） |
 | Unit 7 | 4 | - | - | - | 未着手 |
 | **合計** | **70** | **0 / 34** | **-** | **-** | 完了 Unit 数 **5 / 7** |
 
@@ -492,7 +494,8 @@ xychart-beta
 8. **Release v0.1.0 を達成した（2026-09-28）。** push して CI の green を確認した
 9. Unit 4 を完了した（[Bolt 終了報告](bolt_report-nadesiko-4.md) / [ふりかえり](retrospective-nadesiko-4.md)）。第 6〜7 章を公開し、Kotlin 版 ADR の移植漏れ 3 件を回収した
 10. [Unit 5 の Bolt 計画](iteration_plan-nadesiko-5.md) を作成した（17 ステップ・承認ゲート 4 箇所）。Kotlin 版 ADR 008〜012 の移植要否を着手前に判断し、第 9 章の節名の読み替え 3 件とモナドの題材の差分を計画に入れた
-11. Unit 5 を完了した（[Bolt 終了報告](bolt_report-nadesiko-5.md) / [ふりかえり](retrospective-nadesiko-5.md)）。第 8〜9 章を公開し、**Phase 2 の条件は CI の確認を除いて揃った**
+11. Unit 5 を完了した（[Bolt 終了報告](bolt_report-nadesiko-5.md) / [ふりかえり](retrospective-nadesiko-5.md)）。第 8〜9 章を公開した
+12. **Release v0.2.0 を達成した（2026-09-29）。** push して CI の green を確認し、Phase 2 を完了した
 5. `syncing-github-project` で **Unit を Milestone、Bolt のステップを Issue** として同期する
 
 ---
@@ -502,6 +505,8 @@ xychart-beta
 | 日付 | 更新内容 | 更新者 |
 |------|---------|--------|
 | 2026-09-28 | Unit 3 の着手前に、Level 1 のエントロピー評価を Bolt 計画の実態に合わせて更新（構造的不確実性と未解決の仮定を LOW から MED へ）。型の無い言語でハブと状態変換をどう表すかが未確定で、再帰・関数合成・乱数の 3 件が未確認のため | claude-code/claude-opus-5 |
+| 2026-09-29 | Unit 6 の着手前に、Level 1 のエントロピー評価を Bolt 計画の実態に合わせて更新（意図の曖昧さ・構造的不確実性・リスク・未解決の仮定を上げた）。**持ち回る文脈が無い言語で `ContextReader` の章を書く**という難所で、何を文脈と呼ぶかが決まっていないため | claude-code/claude-opus-5 |
+| 2026-09-29 | **Release v0.2.0 達成。** CI（`Nadesiko3 Zettai`・`Kotlin Zettai`・`Deploy MkDocs`）が すべて success であることを確認し、Phase 2 の条件を満たした | claude-code/claude-opus-5 |
 | 2026-09-28 | Unit 5 完了を反映。進捗状況とバーンダウンに実績を記録。Release v0.2.0 は CI の確認待ち。Unit 6 のゲート密度は「密・4 箇所」を維持 | claude-code/claude-opus-5 |
 | 2026-09-28 | Unit 5 の着手前の検証で、第 9 章のモナドの題材が設計（`ContextReader`）と実態（`結果連鎖`）でずれることを検出。文脈を持ち回らないファイル永続化では `ContextReader` が成立しないため、題材を差し替えて `ContextReader` 相当は第 10 章に送る判断を計画に記録 | claude-code/claude-opus-5 |
 | 2026-09-28 | Unit 4 完了を反映。進捗状況とバーンダウンに実績を記録。Unit 5 のゲート密度は「密・4 箇所」（Unit 4 の 5 から戻す） | claude-code/claude-opus-5 |

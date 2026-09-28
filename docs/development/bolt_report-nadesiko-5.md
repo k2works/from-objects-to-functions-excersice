@@ -4,7 +4,7 @@ title: "Unit 5 の Bolt 終了報告 - Zettai 連載（なでしこ3 版）"
 description: "Zettai 連載なでしこ3 版 Unit 5（射影と永続化）の終了報告。射影による CQRS、ファイル永続化、モナド則の検出率、関数値ごしにファイル I/O を呼べない制約でポートの表し方を変えたこと、NFR の立て方を改訂したこと、Release v0.2.0 の判定を記録する。"
 tags: [development, report, ai-dlc, bolt, zettai, nadesiko, unit-5]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-28T06:43:22Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-28T06:56:35Z }
 ---
 
 # Unit 5 の Bolt 終了報告 - Zettai 連載（なでしこ3 版）
@@ -38,9 +38,9 @@ generated: { by: claude-code/claude-opus-5, at: 2026-09-28T06:43:22Z }
 | 関数型 DI・イベント・コマンド・結果辞書・射影・永続化が揃っている | **満たす** |
 | 3 経路の受け入れシナリオが green | **満たす** |
 | 代数構造 3 つ（モノイド・ファンクタ・モナド）が性質テストで確かめられている | **満たす** |
-| CI が green | **未確認**（push が要る） |
+| CI が green | **達成（2026-09-29）**。push して 3 ワークフローとも success |
 
-**CI の確認を除き、v0.2.0 の条件は揃いました。** push は外向きの操作なので実施していません。Unit 6 の冒頭で消化します（v0.1.0 と同じ形）。
+**Release v0.2.0 を達成しました（2026-09-29）。** Unit 6 の開始準備と同時に push し、CI の green を確認しました。
 
 ## 判断と学び
 

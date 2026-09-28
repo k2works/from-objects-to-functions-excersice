@@ -1422,10 +1422,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#release-v020phase-2-ci" class="md-nav__link">
+  <a href="#release-v020phase-2-2026-09-29" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Release v0.2.0（Phase 2 完了）: 型を使わずにドメインを組み立てる — CI の確認待ち
+        Release v0.2.0（Phase 2 完了）: 型を使わずにドメインを組み立てる — 達成（2026-09-29）
       
     </span>
   </a>
@@ -2218,6 +2218,41 @@
     
   
     「なでしこ3」Unit 5 射影と永続化
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iteration_plan-nadesiko-6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「なでしこ3」Unit 6 文脈の受け渡しとバリデーション
   
 
     
@@ -5351,6 +5386,41 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/nadesiko/chapter10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 10 章 コンテキストを読み込み、コマンドを処理する
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -7901,12 +7971,12 @@
 </tr>
 <tr>
 <td style="text-align: left;">Unit 6</td>
-<td style="text-align: left;">LOW</td>
-<td style="text-align: left;">LOW</td>
 <td style="text-align: left;">MED</td>
-<td style="text-align: left;">LOW</td>
-<td style="text-align: left;">LOW</td>
-<td style="text-align: left;">同上</td>
+<td style="text-align: left;"><strong>HIGH</strong></td>
+<td style="text-align: left;">MED</td>
+<td style="text-align: left;">MED</td>
+<td style="text-align: left;">MED</td>
+<td style="text-align: left;">密（4 箇所。何を文脈と呼ぶかが未確定）</td>
 </tr>
 <tr>
 <td style="text-align: left;">Unit 7</td>
@@ -8326,7 +8396,7 @@
 </tbody>
 </table>
 <p>CI の確認だけが Unit 2・3 を通じて保留でした。<strong>Unit 4 の着手時に push して green を確認し、v0.1.0 を達成しました。</strong> 本リポジトリはタグや CHANGELOG を使わず、リリースの記録は本計画と報告書で行います（Kotlin 版と同じ運用）。</p>
-<h4 id="release-v020phase-2-ci">Release v0.2.0（Phase 2 完了）: 型を使わずにドメインを組み立てる — <strong>CI の確認待ち</strong><a class="headerlink" href="#release-v020phase-2-ci" title="Permanent link">&para;</a></h4>
+<h4 id="release-v020phase-2-2026-09-29">Release v0.2.0（Phase 2 完了）: 型を使わずにドメインを組み立てる — <strong>達成（2026-09-29）</strong><a class="headerlink" href="#release-v020phase-2-2026-09-29" title="Permanent link">&para;</a></h4>
 <p><strong>目標</strong>: イベント・コマンド・結果辞書・射影・ファイル永続化までを、辞書のキーの約束と契約テストで組み立てきる。</p>
 <table>
 <thead>
@@ -8354,10 +8424,11 @@
 </tr>
 <tr>
 <td style="text-align: left;">CI が green</td>
-<td style="text-align: left;"><strong>未確認</strong>（push が要る。Unit 6 の冒頭で消化）</td>
+<td style="text-align: left;"><strong>達成</strong>（<code>Nadesiko3 Zettai</code> / <code>Kotlin Zettai</code> / <code>Deploy MkDocs</code> すべて success）</td>
 </tr>
 </tbody>
 </table>
+<p><strong>Phase 2 が完了しました。</strong> 全 13 章のうち 9 章を公開し、代数構造 3 つ（モノイド・ファンクタ・モナド）を性質テストで確かめています。残るは Phase 3（第 10〜13 章）です。</p>
 <h4 id="release-v100phase-3">Release v1.0.0（Phase 3 完了）: 約束とテストで支える関数型アーキテクチャ<a class="headerlink" href="#release-v100phase-3" title="Permanent link">&para;</a></h4>
 <p><strong>目標</strong>: 全 13 章を公開し、第 13 章で Kotlin 版と対比して「型で保証する」と「約束とテストで保証する」の違いを言語化する。</p>
 <hr />
@@ -8687,7 +8758,7 @@
 <td>-</td>
 <td>-</td>
 <td>-</td>
-<td>未着手</td>
+<td>計画済み（<a href="../iteration_plan-nadesiko-6/">Bolt 計画</a>）</td>
 </tr>
 <tr>
 <td>Unit 7</td>
@@ -8728,7 +8799,8 @@
 <li><strong>Release v0.1.0 を達成した（2026-09-28）。</strong> push して CI の green を確認した</li>
 <li>Unit 4 を完了した（<a href="../bolt_report-nadesiko-4/">Bolt 終了報告</a> / <a href="../retrospective-nadesiko-4/">ふりかえり</a>）。第 6〜7 章を公開し、Kotlin 版 ADR の移植漏れ 3 件を回収した</li>
 <li><a href="../iteration_plan-nadesiko-5/">Unit 5 の Bolt 計画</a> を作成した（17 ステップ・承認ゲート 4 箇所）。Kotlin 版 ADR 008〜012 の移植要否を着手前に判断し、第 9 章の節名の読み替え 3 件とモナドの題材の差分を計画に入れた</li>
-<li>Unit 5 を完了した（<a href="../bolt_report-nadesiko-5/">Bolt 終了報告</a> / <a href="../retrospective-nadesiko-5/">ふりかえり</a>）。第 8〜9 章を公開し、<strong>Phase 2 の条件は CI の確認を除いて揃った</strong></li>
+<li>Unit 5 を完了した（<a href="../bolt_report-nadesiko-5/">Bolt 終了報告</a> / <a href="../retrospective-nadesiko-5/">ふりかえり</a>）。第 8〜9 章を公開した</li>
+<li><strong>Release v0.2.0 を達成した（2026-09-29）。</strong> push して CI の green を確認し、Phase 2 を完了した</li>
 <li><code>syncing-github-project</code> で <strong>Unit を Milestone、Bolt のステップを Issue</strong> として同期する</li>
 </ol>
 <hr />
@@ -8745,6 +8817,16 @@
 <tr>
 <td>2026-09-28</td>
 <td>Unit 3 の着手前に、Level 1 のエントロピー評価を Bolt 計画の実態に合わせて更新（構造的不確実性と未解決の仮定を LOW から MED へ）。型の無い言語でハブと状態変換をどう表すかが未確定で、再帰・関数合成・乱数の 3 件が未確認のため</td>
+<td>claude-code/claude-opus-5</td>
+</tr>
+<tr>
+<td>2026-09-29</td>
+<td>Unit 6 の着手前に、Level 1 のエントロピー評価を Bolt 計画の実態に合わせて更新（意図の曖昧さ・構造的不確実性・リスク・未解決の仮定を上げた）。<strong>持ち回る文脈が無い言語で <code>ContextReader</code> の章を書く</strong>という難所で、何を文脈と呼ぶかが決まっていないため</td>
+<td>claude-code/claude-opus-5</td>
+</tr>
+<tr>
+<td>2026-09-29</td>
+<td><strong>Release v0.2.0 達成。</strong> CI（<code>Nadesiko3 Zettai</code>・<code>Kotlin Zettai</code>・<code>Deploy MkDocs</code>）が すべて success であることを確認し、Phase 2 の条件を満たした</td>
 <td>claude-code/claude-opus-5</td>
 </tr>
 <tr>

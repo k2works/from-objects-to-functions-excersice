@@ -6,17 +6,17 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Zettai 連載 Kotlin 版の Unit 2（ウォーキングスケルトンとドメイン分離）の Bolt 終了報告。Bolt 2-1 / 2-2 の成果、持ち込み 8 項目の消化状況、指標の実績、エントロピー評価の的中度、記事のコード例検査が実際にドリフトを検出した事実、判断と学び、Unit 3 のゲート密度の決定を記録する。">
+        <meta name="description" content="Zettai 連載なでしこ3 版の Unit 6（文脈の受け渡しとバリデーション）の Bolt 計画。持ち回る文脈が無い言語で第 10 章の ContextReader をどう書くかを決め、第 11 章で複数のエラーを集約するアプリカティブと、画面からコマンドを送る初めての経路を作る。Unit 5 のふりかえり Try を反映し、既知の制約を 1 箇所に集めてから設計を始める。">
       
       
         <meta name="author" content="Project Team">
       
       
       
-        <link rel="prev" href="../bolt_report-1/">
+        <link rel="prev" href="../iteration_plan-nadesiko-5/">
       
       
-        <link rel="next" href="../bolt_report-3/">
+        <link rel="next" href="../bolt_report-1/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>Unit 2 の Bolt 終了報告 - Zettai 連載（Kotlin 版） - From Objects to Functions 演習</title>
+        <title>Unit 6 の Bolt 計画（イテレーション 6）- Zettai 連載（なでしこ3 版） - From Objects to Functions 演習</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#unit-2-bolt-zettai-kotlin" class="md-skip">
+        <a href="#unit-6-bolt-6-zettai-3" class="md-skip">
           Skip to content
         </a>
       
@@ -112,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Unit 2 の Bolt 終了報告 - Zettai 連載（Kotlin 版）
+              Unit 6 の Bolt 計画（イテレーション 6）- Zettai 連載（なでしこ3 版）
             
           </span>
         </div>
@@ -1103,6 +1103,8 @@
                 
   
   
+    
+  
   
   
     
@@ -1118,11 +1120,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5" checked>
         
           
           <label class="md-nav__link" for="__nav_5_5" id="__nav_5_5_label" tabindex="">
@@ -1143,7 +1145,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1578,10 +1580,44 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../iteration_plan-nadesiko-6/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「なでしこ3」Unit 6 文脈の受け渡しとバリデーション
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1604,6 +1640,554 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        概要
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="概要">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        承認ゲートの運用形態
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unit-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unit 5 からの持ち込み
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Unit 5 からの持ち込み">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kotlin-adr-010011-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kotlin 版 ADR 010・011 の移植判断（持ち込み 3）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ゴール
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ゴール">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#unit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unit 完了時の達成状態
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        成功基準
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 10 章の節名の読み替え
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        スパイクで確かめる項目
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="スパイクで確かめる項目">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2026-09-29" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        スパイクの結果（2026-09-29）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#srcstep4-try-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        src/step4/ を切る前の見積もり（Try 2）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        対処（6-1.1 で実施）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2026-09-29_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        見積もりと実測（2026-09-29）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        局面とアプローチ
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="局面とアプローチ">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        切り替える根拠
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        手順
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unit-6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unit 6 の満足条件
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Unit 6 の満足条件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ユーザーストーリー
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ユーザーストーリー">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#us-010-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        US-010: 第 10 章を公開する
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#us-011-11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        US-011: 第 11 章を公開する
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-unit-6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR 定義（Unit 6 固有）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        エントロピー評価
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        スコープ・深さ・テスト戦略
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bolt-6-1-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bolt 6-1: 文脈とトランザクションの境界（第 10 章）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bolt 6-1: 文脈とトランザクションの境界（第 10 章）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bolt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bolt ゴール
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ステップ計画
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bolt-6-2-11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bolt 6-2: アプリカティブと画面からの操作（第 11 章）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bolt 6-2: アプリカティブと画面からの操作（第 11 章）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bolt_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bolt ゴール
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ステップ計画
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        設計
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="設計">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#unit-6-1011" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unit 6 のドメインモデル（第 10〜11 章のスコープ）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unit_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        画面遷移図（本 Unit で掲載）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#er" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        状態遷移図・ER 図
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ユーザーマニュアル
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADR
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        リスクと対策
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deployment-unit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deployment Unit としての完了条件
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Deployment Unit としての完了条件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definition-of-done" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Definition of Done
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        デモ項目
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bolt_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        指標（Bolt 終了報告へ引き継ぐ）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        更新履歴
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        関連ドキュメント
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1621,8 +2205,6 @@
                 
   
   
-    
-  
   
   
     
@@ -1638,11 +2220,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_6" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_6" >
         
           
           <label class="md-nav__link" for="__nav_5_6" id="__nav_5_6_label" tabindex="">
@@ -1663,7 +2245,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_6_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5_6">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1713,44 +2295,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Unit 2 ウォーキングスケルトンとドメイン分離
-  
-
-    
-  </span>
-  
-  
-    
-  
-  
-    <span class="md-status md-status--draft"></span>
-  
-
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../bolt_report-2/" class="md-nav__link">
         
   
   
@@ -1773,226 +2321,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        基本情報
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        成果
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="成果">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#bolt-2-1-2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Bolt 2-1: ウォーキングスケルトン（第 2 章）
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#bolt-2-2-ddt-3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Bolt 2-2: ドメイン分離と DDT（第 3 章）
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        持ち込み項目の消化
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        指標
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="指標">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        エントロピー評価の的中度
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        判断と学び（ジャーナルへ転記）
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="判断と学び（ジャーナルへ転記）">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. 記事のコード例検査が、作った当日に仕事をした
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. 「やめるときに何を捨てるか」でライブラリを判断した
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. 状態の漏れを実際に踏んだ
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. 静的解析を入れない判断は、実際に起きた問題から導いた
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#bolt" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        次の Bolt
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="次の Bolt">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#unit-3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Unit 3 のゲート密度: 疎にする（自律実行に寄せる）
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#unit-3_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Unit 3 に持ち込む項目
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        関連ドキュメント
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -7218,121 +7546,761 @@
   
 
 
-<h1 id="unit-2-bolt-zettai-kotlin">Unit 2 の Bolt 終了報告 - Zettai 連載（Kotlin 版）<a class="headerlink" href="#unit-2-bolt-zettai-kotlin" title="Permanent link">&para;</a></h1>
-<h2 id="_1">基本情報<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h1 id="unit-6-bolt-6-zettai-3">Unit 6 の Bolt 計画（イテレーション 6）- Zettai 連載（なでしこ3 版）<a class="headerlink" href="#unit-6-bolt-6-zettai-3" title="Permanent link">&para;</a></h1>
+<h2 id="_1">概要<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">項目</th>
-<th style="text-align: left;">内容</th>
+<th>項目</th>
+<th>内容</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">Unit</td>
-<td style="text-align: left;">Unit 2 ウォーキングスケルトンとドメイン分離</td>
+<td><strong>イテレーション</strong></td>
+<td>6（なでしこ3 版）</td>
 </tr>
 <tr>
-<td style="text-align: left;">Bolt</td>
-<td style="text-align: left;">Bolt 2-1（第 2 章・ウォーキングスケルトン）、Bolt 2-2（第 3 章・ドメイン分離と DDT）</td>
+<td><strong>Unit</strong></td>
+<td>Unit 6 文脈の受け渡しとバリデーション</td>
 </tr>
 <tr>
-<td style="text-align: left;">期間</td>
-<td style="text-align: left;">2026-09-26（計画は 2026-10-12 〜 10-23 の 2 週間）</td>
+<td><strong>期間</strong></td>
+<td>2026-12-08 〜 2026-12-19（2 週間）</td>
 </tr>
 <tr>
-<td style="text-align: left;">計画</td>
-<td style="text-align: left;"><a href="../iteration_plan-2/">Unit 2 の Bolt 計画</a></td>
+<td><strong>Bolt 数</strong></td>
+<td>2（Bolt 6-1 第 10 章 / Bolt 6-2 第 11 章）</td>
 </tr>
 <tr>
-<td style="text-align: left;">状態</td>
-<td style="text-align: left;"><strong>完了</strong>（Deployment Unit として検証済み）</td>
+<td><strong>局面</strong></td>
+<td><strong>終盤（アウトサイドイン）</strong>。中盤から切り替わる。<a href="../development_strategy/">開発戦略</a></td>
+</tr>
+<tr>
+<td><strong>人の検証負荷</strong></td>
+<td>9 ポイント</td>
+</tr>
+<tr>
+<td><strong>承認ゲート</strong></td>
+<td><strong>4 箇所（3 種類）</strong></td>
 </tr>
 </tbody>
 </table>
-<h2 id="_2">成果<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<h3 id="bolt-2-1-2">Bolt 2-1: ウォーキングスケルトン（第 2 章）<a class="headerlink" href="#bolt-2-1-2" title="Permanent link">&para;</a></h3>
-<p><strong>確認したい仮説</strong>: http4k 6.x で原著（4.x）の設計がそのまま書けるか。</p>
-<p><strong>結果</strong>: 書けた。第 2 章で使う範囲で <strong>API の差分が 1 件も無かった</strong>。</p>
-<ul>
-<li><code>routes</code> / <code>bind</code> / <code>Request</code> / <code>Response</code> / <code>Status</code> / <code>Request.path</code> / <code>asServer(Jetty(...))</code> がすべて 4.x と同じ記法で動作</li>
-<li>とくに <code>HttpHandler</code> が <code>(Request) -&gt; Response</code> であることが変わっていないため、<strong>第 2 章の主題「矢印で設計する」がそのまま成立した</strong></li>
-<li>判断を <a href="../../adr/ADR-003-http4k-6/">ADR-003</a> に記録した</li>
-</ul>
-<p>実装面では、<code>GET /todo/{user}/{listname}</code> が ToDo リストの HTML を返し、存在しないリストは 404 を返す縦串を通した。ドメイン（<code>zettai.domain</code>）とアダプタ（<code>zettai.web</code>）を分け、リストの取り出しを <code>ToDoListFetcher = (User, ListName) -&gt; ToDoList?</code> に委ねた。</p>
-<h3 id="bolt-2-2-ddt-3">Bolt 2-2: ドメイン分離と DDT（第 3 章）<a class="headerlink" href="#bolt-2-2-ddt-3" title="Permanent link">&para;</a></h3>
-<p><strong>確認したい仮説</strong>: 同じシナリオを「HTTP 経由」と「ドメイン直接」の 2 通りで実行できる形にしたとき、テストの記述が実装の詳細から本当に切り離せるか。</p>
-<p><strong>結果</strong>: 切り離せた。そして<strong>切り離せていないときにテストが教えてくれる</strong>ことも確かめられた。</p>
-<ul>
-<li>受け入れテストを <code>ZettaiActions</code>（操作の一覧）・<code>DomainOnlyActions</code> / <code>HttpActions</code>（実行経路）・<code>ToDoListOwner</code>（アクター）・<code>SeeATodoListDdt</code>（シナリオ）に分解した</li>
-<li>シナリオに HTTP の語彙が 1 つも出てこない状態にした</li>
-<li>Pesticide 1.6.6 に載せ替え、同じシナリオが 2 経路で green になった</li>
-<li>判断を <a href="../../adr/ADR-002-ddt-pesticide/">ADR-002</a> に記録した</li>
-</ul>
-<h2 id="_3">持ち込み項目の消化<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h3 id="_2">承認ゲートの運用形態<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p><strong>本 Unit のゲートは「同期停止」で運用します。</strong></p>
+<blockquote>
+<p><strong>本節は人だけが書き換えます。</strong> AI は書き換えません。運用形態を変えるなら人が本節を書き換えてから実行し、AI は切り替えを求められたら書き換えずに判断を仰ぎます（Unit 2 Try 2）。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">種類</th>
+<th style="text-align: left;">箇所</th>
+<th style="text-align: left;">理由</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">辞書の契約の変更</td>
+<td style="text-align: left;">6-1.2（文脈とトランザクション境界）</td>
+<td style="text-align: left;">既存のポートの呼び出し順序が変わる。残り 2 章を縛る</td>
+</tr>
+<tr>
+<td style="text-align: left;">設計ドキュメントと ADR</td>
+<td style="text-align: left;">6-2.6</td>
+<td style="text-align: left;">節名の読み替え、ADR 2〜3 件、UI 設計の画面追加</td>
+</tr>
+<tr>
+<td style="text-align: left;">記事の全文検証</td>
+<td style="text-align: left;">6-1.6・6-2.7</td>
+<td style="text-align: left;">自動判定できない</td>
+</tr>
+</tbody>
+</table>
+<p>第 11 章の検証結果とテンプレートは<strong>新しく足すもの</strong>で既存の契約を変えないため、6-2.6 の設計ゲートでまとめて見ます。</p>
+<hr />
+<h2 id="unit-5">Unit 5 からの持ち込み<a class="headerlink" href="#unit-5" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
 <th style="text-align: left;">#</th>
-<th style="text-align: left;">項目</th>
-<th style="text-align: left;">状態</th>
-<th style="text-align: left;">備考</th>
+<th style="text-align: left;">持ち込み</th>
+<th style="text-align: left;">出典</th>
+<th style="text-align: left;">消化するステップ</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align: left;">1</td>
-<td style="text-align: left;">CI の新設</td>
-<td style="text-align: left;"><strong>完了</strong></td>
-<td style="text-align: left;"><code>.github/workflows/kotlin-zettai.yml</code>。<code>check</code> とコード例検査の 2 ジョブ</td>
+<td style="text-align: left;">CI の実行確認と <strong>Release v0.2.0</strong></td>
+<td style="text-align: left;">終了報告 1</td>
+<td style="text-align: left;">6-1.0</td>
 </tr>
 <tr>
 <td style="text-align: left;">2</td>
-<td style="text-align: left;">記事のコード例検査を CI に入れる</td>
-<td style="text-align: left;"><strong>完了</strong></td>
-<td style="text-align: left;"><code>ops/scripts/article/check_article_code.py</code></td>
+<td style="text-align: left;"><code>src/step4/</code> を切り、<strong>直後に NFR を測る</strong></td>
+<td style="text-align: left;">終了報告 2 / Try 2</td>
+<td style="text-align: left;">6-1.1</td>
 </tr>
 <tr>
 <td style="text-align: left;">3</td>
-<td style="text-align: left;">テストカバレッジの計測開始</td>
-<td style="text-align: left;"><strong>完了</strong></td>
-<td style="text-align: left;">Kover を <code>check</code> に組み込み、ドメイン層 80% を下限に（実績 100%）</td>
+<td style="text-align: left;">Kotlin 版 <a href="../../adr/ADR-010-own-template/">ADR-010</a>・<a href="../../adr/ADR-011-transaction-boundary/">ADR-011</a> の移植判断</td>
+<td style="text-align: left;">終了報告 3</td>
+<td style="text-align: left;">6-1.0（下の表）</td>
 </tr>
 <tr>
 <td style="text-align: left;">4</td>
-<td style="text-align: left;"><code>docs/design/architecture_backend.md</code> の作成</td>
-<td style="text-align: left;"><strong>完了</strong></td>
-<td style="text-align: left;">境界の定義・モジュール分割・ポートの一覧・品質ゲート</td>
+<td style="text-align: left;"><code>ContextReader</code> 相当を第 10 章で扱う</td>
+<td style="text-align: left;">終了報告 4 / Try 4</td>
+<td style="text-align: left;">6-1.2</td>
 </tr>
 <tr>
 <td style="text-align: left;">5</td>
-<td style="text-align: left;"><code>BuildSmokeTest</code> の削除</td>
-<td style="text-align: left;"><strong>完了</strong></td>
-<td style="text-align: left;">縦串の受け入れテストが役割を引き継いだ</td>
+<td style="text-align: left;">アプリカティブの検出率を測る</td>
+<td style="text-align: left;">終了報告 5 / Try 3</td>
+<td style="text-align: left;">6-2.4</td>
 </tr>
 <tr>
 <td style="text-align: left;">6</td>
-<td style="text-align: left;">Unit 1 のデモ項目をスモークテスト化</td>
-<td style="text-align: left;"><strong>完了</strong></td>
-<td style="text-align: left;"><code>BuildEnvironmentSmokeTest</code></td>
+<td style="text-align: left;"><strong>既知の制約を 1 箇所に集め、設計を始める前に読む</strong></td>
+<td style="text-align: left;">Try 1</td>
+<td style="text-align: left;">6-1.1</td>
 </tr>
 <tr>
 <td style="text-align: left;">7</td>
-<td style="text-align: left;">静的解析の判断</td>
-<td style="text-align: left;"><strong>完了</strong></td>
-<td style="text-align: left;">入れない。<a href="../../adr/ADR-004-static-analysis/">ADR-004</a></td>
-</tr>
-<tr>
-<td style="text-align: left;">8</td>
-<td style="text-align: left;"><code>docs/design/ui_design.md</code> の作成</td>
-<td style="text-align: left;"><strong>完了</strong></td>
-<td style="text-align: left;">画面一覧・ワイヤーフレーム・画面遷移</td>
+<td style="text-align: left;">構造を変える判断では NFR への影響を見積もりに入れる</td>
+<td style="text-align: left;">Try 2</td>
+<td style="text-align: left;">6-1.1 の完了判定</td>
 </tr>
 </tbody>
 </table>
-<p><strong>8 / 8 消化。</strong> 繰り越しはありません。</p>
-<p>計画外で 1 件追加しました。<code>DomainBoundaryTest</code> です。DoD の「ドメイン層が http4k に依存しない」を人の目視で確かめていたのを、import を検査するテストに置き換えました。<a href="../../adr/ADR-004-static-analysis/">ADR-004</a> では「import の機械的検査は Unit 5 で検討」としていましたが、数十行で書けたため前倒ししました。</p>
-<h2 id="_4">指標<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h3 id="kotlin-adr-010011-3">Kotlin 版 ADR 010・011 の移植判断（持ち込み 3）<a class="headerlink" href="#kotlin-adr-010011-3" title="Permanent link">&para;</a></h3>
+<p><strong>着手前に判断します。</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Kotlin 版 ADR</th>
+<th style="text-align: left;">対象章</th>
+<th style="text-align: left;">なでしこ3 版での判断（案）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><a href="../../adr/ADR-011-transaction-boundary/">ADR-011</a> トランザクションの境界をコマンド 1 つの処理に置き、文脈を不透明な型にする</td>
+<td style="text-align: left;">10</td>
+<td style="text-align: left;"><strong>境界の考え方は残す。文脈の中身が変わる。</strong> ファイルにトランザクションが無いので、<code>TxContext</code>（DB 接続）に相当するものが無い。<strong>「何を文脈と呼ぶか」を 6-1.2 で決める</strong>。ADR-021 として記録</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="../../adr/ADR-010-own-template/">ADR-010</a> テンプレート機構を自前で書き、既製のテンプレートエンジンを使わない</td>
+<td style="text-align: left;">11</td>
+<td style="text-align: left;"><strong>対応が要る。</strong> なでしこ3 にもテンプレートエンジンが無いので、結論は同じになる見込み。ただし「未適用のタグが残ったら失敗」を結果辞書でどう表すかは決める。ADR-022 として記録</td>
+</tr>
+</tbody>
+</table>
+<p>残る <a href="../../adr/ADR-012-own-json-converter/">ADR-012</a>（JSON の変換）は第 12 章（Unit 7）です。<strong>なでしこ3 には <code>JSONエンコード</code> があるので、判断の中身が変わります。</strong></p>
+<hr />
+<h2 id="_3">ゴール<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h3 id="unit">Unit 完了時の達成状態<a class="headerlink" href="#unit" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>文脈を持ち回る形が決まっている</strong>: 何を文脈と呼ぶかが決まり、コマンド 1 つの処理がその文脈の中で完結する</li>
+<li><strong>失敗を集約できる</strong>: 複数の検証を独立に行い、両方だめなら両方の理由を返す</li>
+<li><strong>アプリカティブとモナドの違いが見えている</strong>: モナドは最初の失敗で止まり、アプリカティブは止まらない。<strong>その違いを検出率で示す</strong></li>
+<li><strong>画面からコマンドを送れる</strong>: リスト名の変更フォーム。<strong>第 6 章で見送った「画面から書く経路」を初めて通す</strong></li>
+<li><strong>既知の制約が 1 箇所にある</strong>: 3 度繰り返したつまずきを止める</li>
+<li><strong>第 10〜11 章が公開されている</strong></li>
+</ol>
+<p>3 番目が本 Unit の山です。<strong>アプリカティブはモナドの「弱い」版で、弱いからこそできることがある</strong>という話を、数字で示せるかどうかが焦点です。</p>
+<h3 id="_4">成功基準<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 文脈の中身が決まり、ADR に記録されている</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> コマンド 1 つの処理が文脈の中で完結する（読む → 判断 → 書く）</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 検証が複数の失敗を集約して返す</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> アプリカティブの法則を性質テストで確かめ、<strong>壊して検出率を測った</strong></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>モナドとの違い（止まる／止まらない）をテストで示した</strong></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>GET</code> / <code>POST /todo/{user}/{listname}/rename</code> が動く（<a href="../../design/ui_design/">UI 設計</a>）</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> テンプレート機構があり、未適用のタグが残ったら失敗になる</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>src/step4/</code> が切られ、<strong>見積もりと実測の両方が記録されている</strong>（見積もり 50 秒 / 実測 35.6 秒）</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>既知の制約の一覧が 1 箇所にある</strong></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 第 10 章の節名の読み替え 2 件が登録されている</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> ADR 2 件（021・022）を作成済み</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 4 経路（ドメイン直接・HTTP 経由・保管経由・<strong>画面から書く</strong>）の受け入れシナリオが green</li>
+</ul>
+<hr />
+<h2 id="10">第 10 章の節名の読み替え<a class="headerlink" href="#10" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">節</th>
+<th style="text-align: left;">マインドマップ</th>
+<th style="text-align: left;">読み替え案</th>
+<th style="text-align: left;">理由</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">モナドでデータベースにアクセスする</td>
+<td style="text-align: left;"><strong>モナドで保管にアクセスする</strong></td>
+<td style="text-align: left;">データベースを使わない（<a href="../../adr/ADR-019-file-event-log/">ADR-019</a>）</td>
+</tr>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">データベースに対する射影のクエリ</td>
+<td style="text-align: left;"><strong>保管に対する射影のクエリ</strong></td>
+<td style="text-align: left;">同上</td>
+</tr>
+</tbody>
+</table>
+<p><strong><code>ContextReader</code> は読み替えません。</strong> <a href="../../design/domain-model/">ドメインモデル設計</a> の対訳表に載るユビキタス言語で、ライブラリ名ではないためです（第 7 章の <code>Outcome</code> と同じ判断）。</p>
+<p>「設計を２回間違えた」も読み替えません。<strong>Kotlin 版の経験談ですが、この版でも自分が間違えたことを書きます。</strong> 間違えなければ、そのことを書きます。</p>
+<hr />
+<h2 id="_5">スパイクで確かめる項目<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">#</th>
+<th style="text-align: left;">確かめること</th>
+<th style="text-align: left;">現時点の想定</th>
+<th style="text-align: left;">外れたときの影響</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">~~CI が green か（v0.2.0 の残件）~~ → <strong>確認済み（2026-09-29）。green。Release v0.2.0 を達成した</strong></td>
+<td style="text-align: left;">green</td>
+<td style="text-align: left;">—</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;"><code>POSTデータ</code> でフォームの値が取れるか（Unit 2 のスパイクで一度確認済み。<strong>画面から使うのは初めて</strong>）</td>
+<td style="text-align: left;">取れる</td>
+<td style="text-align: left;">第 11 章のフォームが成立しない</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;"><code>簡易HTTPサーバ移動</code>（302 リダイレクト）が使えるか</td>
+<td style="text-align: left;">使える。POST 後の遷移に使う</td>
+<td style="text-align: left;">フォーム送信後の遷移が変わる</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;"><code>src/step4/</code> を切ったとき全段階が 35 秒に収まるか</td>
+<td style="text-align: left;"><strong>収まらない見込み。見積もり済み（下記）</strong></td>
+<td style="text-align: left;">NFR に触れる。<strong>決める前に見積もる</strong>（Try 2）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2026-09-29">スパイクの結果（2026-09-29）<a class="headerlink" href="#2026-09-29" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">#</th>
+<th style="text-align: left;">結果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;"><strong>green。Release v0.2.0 を達成した</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;"><strong>取れる。</strong> <code>POSTデータ["newname"]</code> でフォームの値が取れる</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;"><strong>使える。</strong> <code>「/form」に簡易HTTPサーバ移動</code> で 302 とロケーションが返る。POST の後の遷移に使える</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;"><strong>収まらない見込み。</strong> 下の見積もりを参照</td>
+</tr>
+</tbody>
+</table>
+<p><strong>追加で分かったこと</strong>: 文字列の中で <code>\"</code> はエスケープされず、そのまま出力されます。HTML の属性はシングルクォートで書くか、<code>"</code> を直接書きます。</p>
+<h3 id="srcstep4-try-2"><code>src/step4/</code> を切る前の見積もり（Try 2）<a class="headerlink" href="#srcstep4-try-2" title="Permanent link">&para;</a></h3>
+<p>段階 3 つ（70 ファイル / 35 テスト）の実測から、段階 4 つを見積もります。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">対象</th>
+<th style="text-align: left;">段階 3 つ（実測）</th>
+<th style="text-align: left;">段階 4 つ（見積もり）</th>
+<th style="text-align: left;">根拠</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">lint</td>
+<td style="text-align: left;">約 22 秒（70 ファイル）</td>
+<td style="text-align: left;"><strong>約 29 秒</strong>（93 ファイル）</td>
+<td style="text-align: left;">ファイル数に比例。1 ファイルにつき cnako3 のプロセスが 1 つ</td>
+</tr>
+<tr>
+<td style="text-align: left;">test</td>
+<td style="text-align: left;">約 7 秒（35 本）</td>
+<td style="text-align: left;">約 9 秒（46 本）</td>
+<td style="text-align: left;">本数に比例</td>
+</tr>
+<tr>
+<td style="text-align: left;">doctest</td>
+<td style="text-align: left;">約 9 秒（3 サーバ）</td>
+<td style="text-align: left;">約 12 秒（4 サーバ）</td>
+<td style="text-align: left;">サーバの起動と停止に比例</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>合計</strong></td>
+<td style="text-align: left;"><strong>約 38 秒</strong></td>
+<td style="text-align: left;"><strong>約 50 秒</strong></td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+<p><strong>NFR（全段階 35 秒以内）を超えます。</strong> 切ってから直すのではなく、<strong>切る前に対処を決めます</strong>。</p>
+<h3 id="6-11">対処（6-1.1 で実施）<a class="headerlink" href="#6-11" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">案</th>
+<th style="text-align: left;">判断</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">並列数を上げる</td>
+<td style="text-align: left;"><strong>不可。</strong> 8 コアで頭打ち。Unit 5 で <code>JOBS=16</code> にしたら遅くなった</td>
+</tr>
+<tr>
+<td style="text-align: left;">過去の段階を検査しない</td>
+<td style="text-align: left;"><strong>不可。</strong> <a href="../../adr/ADR-015-step-directories/">ADR-015</a> の目的（過去の章のコードが動き続ける）が失われる</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>make check</code> の既定を最新段階だけにし、全段階は <code>make check-all</code>（CI が回す）に分ける</strong></td>
+<td style="text-align: left;"><strong>採る。</strong> Unit 5 で決めた「速さが要るのは書いている間で、全段階は CI の仕事」を、既定値にまで反映する</td>
+</tr>
+</tbody>
+</table>
+<p><strong>上限を上げるのではなく、既定を変えます。</strong> Unit 5 では NFR の立て方を分けましたが、コマンドは全段階のままでした。書いている間に打つコマンドが遅ければ、分けた意味が薄れます。</p>
+<h3 id="2026-09-29_1">見積もりと実測（2026-09-29）<a class="headerlink" href="#2026-09-29_1" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">対象</th>
+<th style="text-align: left;">見積もり</th>
+<th style="text-align: left;">実測</th>
+<th style="text-align: left;">差</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>make check</code>（最新段階のみ）</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;"><strong>13.3 秒</strong></td>
+<td style="text-align: left;">NFR（15 秒）内</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>make check-all</code>（全段階・100 ファイル / 51 テスト / 4 段階）</td>
+<td style="text-align: left;">約 50 秒</td>
+<td style="text-align: left;"><strong>35.6 秒</strong></td>
+<td style="text-align: left;"><strong>見積もりが 14 秒保守的だった</strong></td>
+</tr>
+</tbody>
+</table>
+<p>見積もりはファイル数への単純な比例で置きました。実際は<strong>並列化が効いて頭打ちに近づく</strong>ぶん、伸びが緩やかでした。</p>
+<p>全段階は 35 秒をわずかに超えています。<strong>上限を外し、「CI が green であること」を条件にします</strong>（下記の NFR 改訂）。全段階はもう書いている間に打つコマンドではありません。</p>
+<hr />
+<h2 id="_6">局面とアプローチ<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<p><strong>中盤（インサイドアウト）から終盤（アウトサイドイン）に切り替わります。</strong></p>
+<h3 id="_7">切り替える根拠<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<p><a href="../development_strategy/">開発戦略</a> の根拠がそのまま当てはまります。<strong><code>ContextReader</code> によるトランザクション文脈の受け渡しとアプリカティブなバリデーションは、単体で意味を持ちません。</strong> 複数の要素を業務シナリオとして束ねたときに効く設計です。</p>
+<p>第 11 章は画面からコマンドを送る経路を初めて通します。<strong>外側（フォームの操作）から駆動するのが素直です。</strong></p>
+<h3 id="_8">手順<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<ol>
+<li>デモ項目を受け入れシナリオに翻訳し、Red にする</li>
+<li>シナリオから呼ぶ入口を決める。ここで設計が駆動される</li>
+<li>内側へ下りて（HTTP アダプタ → ハブ → ドメイン → 保管）各層を TDD で Green にする</li>
+<li>リファクタリングする。シナリオは業務の言葉のまま変えない</li>
+<li>既存の 3 経路が引き続き green であることを確かめる</li>
+</ol>
+<hr />
+<h2 id="unit-6">Unit 6 の満足条件<a class="headerlink" href="#unit-6" title="Permanent link">&para;</a></h2>
+<h3 id="_9">ユーザーストーリー<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>ユーザーストーリー</th>
+<th>検証負荷</th>
+<th>優先度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>US-010</td>
+<td>第 10 章「コンテキストを読み込み、コマンドを処理する」を公開する</td>
+<td>5</td>
+<td>必須</td>
+</tr>
+<tr>
+<td>US-011</td>
+<td>第 11 章「アプリカティブによるデータバリデーション」を公開する</td>
+<td>4</td>
+<td>必須</td>
+</tr>
+<tr>
+<td><strong>合計</strong></td>
+<td></td>
+<td><strong>9</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="us-010-10">US-010: 第 10 章を公開する<a class="headerlink" href="#us-010-10" title="Permanent link">&para;</a></h4>
+<p><strong>ストーリー</strong>:</p>
+<blockquote>
+<p>読者として、1 つのコマンドの処理が途中で壊れないようにしたい。なぜなら、状態を読んで判断したあとに保存が失敗すると、判断だけが宙に浮くからだ。</p>
+</blockquote>
+<p><strong>受入条件</strong>:</p>
+<ol>
+<li><strong>何を文脈と呼ぶかが決まっている</strong>（Kotlin 版の <code>TxContext</code> に相当するもの）</li>
+<li>コマンド 1 つの処理が文脈の中で完結する（<a href="../../adr/ADR-011-transaction-boundary/">ADR-011</a> の境界の考え方を踏襲）</li>
+<li>ドメインは文脈の中身を知らない</li>
+<li>射影のクエリも同じ文脈の形を使う</li>
+<li>節構成がマインドマップの第 10 章と一致している（<strong>読み替え後</strong>）</li>
+</ol>
+<h4 id="us-011-11">US-011: 第 11 章を公開する<a class="headerlink" href="#us-011-11" title="Permanent link">&para;</a></h4>
+<p><strong>ストーリー</strong>:</p>
+<blockquote>
+<p>読者として、入力が 2 つとも間違っているなら 2 つとも教えてほしい。なぜなら、1 つ直して送り直したらもう 1 つが出てくるのは、二度手間だからだ。</p>
+</blockquote>
+<p><strong>受入条件</strong>:</p>
+<ol>
+<li>リスト名の検証が<strong>独立に 2 つの条件</strong>を確かめる（空でない・40 文字以内。<a href="../../design/domain-model/">ドメインモデル設計</a> の <code>validateListName</code>）</li>
+<li>両方だめなら<strong>両方の理由</strong>を返す</li>
+<li><code>GET /todo/{user}/{listname}/rename</code> でフォームが出る</li>
+<li><code>POST /todo/{user}/{listname}/rename</code> で名前が変わり、<code>ListRenamed</code> イベントが記録される</li>
+<li>検証に失敗したらフォームに理由が出る</li>
+<li>テンプレート機構があり、<strong>未適用のタグが残ったら失敗</strong>になる</li>
+<li>節構成がマインドマップの第 11 章と一致している</li>
+</ol>
+<h3 id="nfr-unit-6">NFR 定義（Unit 6 固有）<a class="headerlink" href="#nfr-unit-6" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">NFR</th>
+<th style="text-align: left;">内容</th>
+<th style="text-align: left;">判定方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">テスト実行時間（<strong>再改訂</strong>）</td>
+<td style="text-align: left;"><code>make check</code>（最新段階）が <strong>15 秒以内</strong>。全段階（<code>make check-all</code>）は<strong>時間の上限を設けず、CI が green であること</strong></td>
+<td style="text-align: left;">切る前に見積もり、切った直後に測った（Try 2）。実測 13.3 秒 / 35.6 秒。<strong>全段階は inner loop ではないので、上限より「CI が回っていること」を条件にする</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">文脈の不透明性</td>
+<td style="text-align: left;">ドメインが文脈の中身を読まない</td>
+<td style="text-align: left;">人の検証。ドメインのファイルに文脈のキーが出てこないこと</td>
+</tr>
+<tr>
+<td style="text-align: left;">テンプレートの安全性</td>
+<td style="text-align: left;">未適用のタグが残ったら失敗</td>
+<td style="text-align: left;">わざとタグを残して落ちることを確かめる</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>ignore</code> の件数</td>
+<td style="text-align: left;">段階ごとに 4 件以下</td>
+<td style="text-align: left;"><a href="../../adr/ADR-015-step-directories/">ADR-015</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_10">エントロピー評価<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">評価軸</th>
+<th style="text-align: left;">評価</th>
+<th style="text-align: left;">根拠</th>
+<th style="text-align: left;">高いときの対応</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">意図の曖昧さ</td>
+<td style="text-align: left;"><strong>MED</strong></td>
+<td style="text-align: left;"><strong>「何を文脈と呼ぶか」が決まっていない。</strong> 設計ドキュメントは <code>TxContext</code>（DB 接続）としているが、この版には該当するものが無い</td>
+<td style="text-align: left;">6-1.2 で案を出して人に提示する</td>
+</tr>
+<tr>
+<td style="text-align: left;">構造的不確実性</td>
+<td style="text-align: left;"><strong>HIGH</strong></td>
+<td style="text-align: left;">文脈の形が未確定で、既存のポートの呼び出し順序が変わる。第 11 章では画面から書く経路が初めて入る</td>
+<td style="text-align: left;">6-1.2 で停止。第 11 章は外側から駆動して形を決める</td>
+</tr>
+<tr>
+<td style="text-align: left;">検証の不確実性</td>
+<td style="text-align: left;"><strong>MED</strong></td>
+<td style="text-align: left;">アプリカティブとモナドの違いを検出率で示せるかが未知</td>
+<td style="text-align: left;">6-2.4 で 3 通りに壊して測る</td>
+</tr>
+<tr>
+<td style="text-align: left;">リスク</td>
+<td style="text-align: left;"><strong>MED</strong></td>
+<td style="text-align: left;">画面から書く経路が入る。POST とリダイレクトが未検証</td>
+<td style="text-align: left;">6-1.0 のスパイクで潰す</td>
+</tr>
+<tr>
+<td style="text-align: left;">未解決の仮定</td>
+<td style="text-align: left;"><strong>MED</strong></td>
+<td style="text-align: left;">POST・リダイレクト・段階 4 つの実行時間</td>
+<td style="text-align: left;">スパイクで潰す</td>
+</tr>
+</tbody>
+</table>
+<p><strong>総合</strong>: HIGH が 1 軸、MED が 4 軸。<strong>Unit 5（MED 4 軸）より上がりました。</strong> ゲート密度は<strong>密</strong>を維持します。</p>
+<hr />
+<h2 id="_11">スコープ・深さ・テスト戦略<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">軸</th>
+<th style="text-align: left;">選択</th>
+<th style="text-align: left;">理由</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">スコープ</td>
+<td style="text-align: left;">全ステージ</td>
+<td style="text-align: left;">実装・テスト・記事・設計ドキュメント・ADR・UI</td>
+</tr>
+<tr>
+<td style="text-align: left;">深さ</td>
+<td style="text-align: left;">Standard</td>
+<td style="text-align: left;">記事として公開する</td>
+</tr>
+<tr>
+<td style="text-align: left;">テスト戦略</td>
+<td style="text-align: left;"><strong>Standard</strong>（性質テストが 4 種類目、経路が 4 つ目）</td>
+<td style="text-align: left;">本番機能に相当する</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="bolt-6-1-10">Bolt 6-1: 文脈とトランザクションの境界（第 10 章）<a class="headerlink" href="#bolt-6-1-10" title="Permanent link">&para;</a></h2>
+<h3 id="bolt">Bolt ゴール<a class="headerlink" href="#bolt" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>何を文脈と呼ぶかを決め、コマンド 1 つの処理がその中で完結する形にして第 10 章として公開する。<strong>確認したい仮説</strong>: 持ち回る文脈が無い言語でも、<code>ContextReader</code> が解いていた問題（処理の途中で壊れない）は表せる。</p>
+</blockquote>
+<h3 id="_12">ステップ計画<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>6-1.0 スパイクと ADR の棚卸し</strong>: 4 件を確かめ、Kotlin 版 ADR-010・011 の移植方針を確定する（持ち込み 1・3）</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>6-1.1 既知の制約を 1 箇所に集め、<code>src/step4/</code> を切る</strong>（持ち込み 2・6・7。Try 1・2）</li>
+<li><code>README.md</code>（または設計）に<strong>確定した制約の一覧</strong>を作る。3 度繰り返した「関数値ごしに非同期を呼べない」を筆頭に置く</li>
+<li><strong><code>src/step4/</code> を切る前に、全段階の実行時間を見積もる。</strong> 切った直後に測って突き合わせる</li>
+<li>完了判定: 制約の一覧がある。見積もりと実測の両方が記録されている</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>6-1.2 文脈の契約を決める</strong>: 何を文脈と呼ぶか、コマンド 1 つの処理をどう包むかを提示する</li>
+<li>入力: <a href="../../adr/ADR-011-transaction-boundary/">ADR-011</a>、<a href="../../design/domain-model/">ドメインモデル設計</a> の <code>TxContext</code>・<code>ContextReader</code></li>
+<li><strong>★人の確認が必要</strong>（残り 2 章を縛る。設計ドキュメントと形が違う）</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>6-1.3 文脈を実装する（Red → Green）</strong>: 契約テストを同時に書く</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>6-1.4 コマンド 1 つの処理を文脈で包む</strong>: 読む → 判断 → 書くが 1 つの単位になる</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>6-1.5 射影のクエリも同じ形にする</strong>: 読む側も文脈を通す</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>6-1.6 第 10 章の骨子と執筆</strong></li>
+<li><strong>★人の確認が必要</strong>（記事の全文検証）</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>6-1.7 サイト反映</strong></li>
+</ul>
+<hr />
+<h2 id="bolt-6-2-11">Bolt 6-2: アプリカティブと画面からの操作（第 11 章）<a class="headerlink" href="#bolt-6-2-11" title="Permanent link">&para;</a></h2>
+<h3 id="bolt_1">Bolt ゴール<a class="headerlink" href="#bolt_1" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>複数の検証を独立に行い、失敗を集約して返す。画面からコマンドを送る経路を初めて通して第 11 章として公開する。<strong>確認したい仮説</strong>: モナドとアプリカティブの違い（止まる／止まらない）を、テストの検出率で示せる。</p>
+</blockquote>
+<h3 id="_13">ステップ計画<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>6-2.1 受け入れシナリオを Red にする</strong>: 「リスト名を変えられる」「空の名前は断られる」を業務の言葉で書く（アウトサイドイン）</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>6-2.2 検証結果を実装する（Red → Green）</strong>: 失敗を<strong>並び</strong>で持つ。契約テストを同時に書く</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>6-2.3 2 つの条件を独立に確かめる</strong>: 空でない・40 文字以内。両方だめなら両方返す</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>6-2.4 アプリカティブの法則と、モナドとの違い</strong>（持ち込み 5。Try 3）</li>
+<li>法則を性質テストで確かめ、<strong>壊して検出率を測る</strong></li>
+<li><strong>モナド（結果連鎖）で同じ検証を書くと 1 つしか返らないことをテストで示す</strong></li>
+<li>完了判定: 違いが数字で出ている</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>6-2.5 テンプレートと画面</strong>: <code>GET</code> / <code>POST /todo/{user}/{listname}/rename</code>。未適用のタグが残ったら失敗</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>6-2.6 設計ドキュメント・節名の読み替え・ADR</strong></li>
+<li><code>draft.md</code> に第 10 章の読み替え 2 件</li>
+<li><code>domain-model.md</code> に検証結果・テンプレート・<code>ListRenamed</code>・<code>RenameToDoList</code> を追加</li>
+<li><code>ui_design.md</code> に rename の画面と遷移</li>
+<li>ADR-021（文脈の表し方）、ADR-022（テンプレート機構）</li>
+<li><strong>★人の確認が必要</strong></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>6-2.7 第 11 章の骨子と執筆</strong></li>
+<li><strong>★人の確認が必要</strong>（記事の全文検証）</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>6-2.8 サイト反映と OKF 適用</strong></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>6-2.9 Bolt 終了報告とふりかえり</strong>: <strong>Unit 7 のゲート密度をここで決める</strong></li>
+</ul>
+<hr />
+<h2 id="_14">設計<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h2>
+<h3 id="unit-6-1011">Unit 6 のドメインモデル（第 10〜11 章のスコープ）<a class="headerlink" href="#unit-6-1011" title="Permanent link">&para;</a></h3>
+<p><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIGRhdGEtZGlhZ3JhbS10eXBlPSJDTEFTUyIgc3R5bGU9IndpZHRoOjcwMnB4O2hlaWdodDo0ODZweDtiYWNrZ3JvdW5kOiNGRkZGRkY7IiB3aWR0aD0iNzAycHgiIGhlaWdodD0iNDg2cHgiIHZpZXdCb3g9IjAgMCA3MDIgNDg2IiB6b29tQW5kUGFuPSJtYWduaWZ5IiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBjb250ZW50U3R5bGVUeXBlPSJ0ZXh0L2NzcyI+PD9wbGFudHVtbCAxLjIwMjYuOD8+PGRlZnMvPjxnIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciPjxnIGNsYXNzPSJ0aXRsZSIgZGF0YS1zb3VyY2UtbGluZT0iMSI+PHRleHQgeD0iMTI2LjEzNCIgeT0iMjIuOTk1IiBmaWxsPSIjMDAwIiBmb250LXNpemU9IjE0IiB0ZXh0TGVuZ3RoPSI0NDMuNDUzIiBmb250LXdlaWdodD0iNzAwIj5Vbml0IDYg44Gu44OJ44Oh44Kk44Oz44Oi44OH44Or77yI56ysIDEwLTExIOeroOOBruOCueOCs+ODvOODl+ODu+OBquOBp+OBl+OBkzMg54mI77yJPC90ZXh0PjwvZz48ZyBjbGFzcz0iZW50aXR5IiBkYXRhLXF1YWxpZmllZC1uYW1lPSJjdHgiIGlkPSJlbnQwMDAxIiBkYXRhLXNvdXJjZS1saW5lPSIzIj48cmVjdCB4PSIxNjMuNzIiIHk9IjE2NS44ODciIHdpZHRoPSIxNjUuOTk5IiBoZWlnaHQ9IjYwLjg5MSIgZmlsbD0iI0YxRjFGMSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDowLjU7IiByeD0iMi41IiByeT0iMi41Ii8+PHRleHQgeD0iMjMyLjcyIiB5PSIxODAuODgyIiBmaWxsPSIjMDAwIiBmb250LXNpemU9IjE0IiB0ZXh0TGVuZ3RoPSIyOCI+5paH6ISIPC90ZXh0PjxsaW5lIHgxPSIxNjQuNzIiIHkxPSIxODYuMTg0IiB4Mj0iMzI4LjcxOSIgeTI9IjE4Ni4xODQiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MC41OyIvPjx0ZXh0IHg9IjE2OS43MiIgeT0iMjAzLjE3OSIgZmlsbD0iIzAwMCIgZm9udC1zaXplPSIxNCIgdGV4dExlbmd0aD0iMTUzLjk5OSI+5Lit6Lqr44Gv44Ki44OA44OX44K/44GM5rG644KB44KLPC90ZXh0Pjx0ZXh0IHg9IjE2OS43MiIgeT0iMjE5LjQ3NiIgZmlsbD0iIzAwMCIgZm9udC1zaXplPSIxNCIgdGV4dExlbmd0aD0iMTI1Ljk5OSI+44OJ44Oh44Kk44Oz44Gv6Kqt44G+44Gq44GEPC90ZXh0PjwvZz48ZyBjbGFzcz0iZW50aXR5IiBkYXRhLXF1YWxpZmllZC1uYW1lPSJjb21tYW5kIiBpZD0iZW50MDAwMiIgZGF0YS1zb3VyY2UtbGluZT0iNyI+PHJlY3QgeD0iMzE0LjcyIiB5PSIzMTMuMzM3IiB3aWR0aD0iNzAiIGhlaWdodD0iMzYuMjk3IiBmaWxsPSIjRjFGMUYxIiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjAuNTsiIHJ4PSIyLjUiIHJ5PSIyLjUiLz48dGV4dCB4PSIzMjEuNzIiIHk9IjMyOC4zMzIiIGZpbGw9IiMwMDAiIGZvbnQtc2l6ZT0iMTQiIHRleHRMZW5ndGg9IjU2Ij7jgrPjg57jg7Pjg4k8L3RleHQ+PGxpbmUgeDE9IjMxNS43MiIgeTE9IjMzMy42MzQiIHgyPSIzODMuNzIiIHkyPSIzMzMuNjM0IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjAuNTsiLz48L2c+PGcgY2xhc3M9ImVudGl0eSIgZGF0YS1xdWFsaWZpZWQtbmFtZT0iZXZlbnQiIGlkPSJlbnQwMDAzIiBkYXRhLXNvdXJjZS1saW5lPSI4Ij48cmVjdCB4PSIzMTQuNzIiIHk9IjQzNi4xNzciIHdpZHRoPSI3MCIgaGVpZ2h0PSIzNi4yOTciIGZpbGw9IiNGMUYxRjEiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MC41OyIgcng9IjIuNSIgcnk9IjIuNSIvPjx0ZXh0IHg9IjMyMS43MiIgeT0iNDUxLjE3MiIgZmlsbD0iIzAwMCIgZm9udC1zaXplPSIxNCIgdGV4dExlbmd0aD0iNTYiPuOCpOODmeODs+ODiDwvdGV4dD48bGluZSB4MT0iMzE1LjcyIiB5MT0iNDU2LjQ3NCIgeDI9IjM4My43MiIgeTI9IjQ1Ni40NzQiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MC41OyIvPjwvZz48ZyBjbGFzcz0iZW50aXR5IiBkYXRhLXF1YWxpZmllZC1uYW1lPSJ2YWxpZGF0aW9uIiBpZD0iZW50MDAwNCIgZGF0YS1zb3VyY2UtbGluZT0iOSI+PHJlY3QgeD0iMzcyLjI3IiB5PSIxNjUuODg3IiB3aWR0aD0iMTQ2LjkiIGhlaWdodD0iNjAuODkxIiBmaWxsPSIjRjFGMUYxIiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjAuNTsiIHJ4PSIyLjUiIHJ5PSIyLjUiLz48dGV4dCB4PSI0MTcuNzIiIHk9IjE4MC44ODIiIGZpbGw9IiMwMDAiIGZvbnQtc2l6ZT0iMTQiIHRleHRMZW5ndGg9IjU2Ij7mpJzoqLzntZDmnpw8L3RleHQ+PGxpbmUgeDE9IjM3My4yNyIgeTE9IjE4Ni4xODQiIHgyPSI1MTguMTciIHkyPSIxODYuMTg0IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjAuNTsiLz48dGV4dCB4PSIzNzguMjciIHk9IjIwMy4xNzkiIGZpbGw9IiMwMDAiIGZvbnQtc2l6ZT0iMTQiIHRleHRMZW5ndGg9IjgzLjYxNyI+5pyJ5Yq5IDog55yf5YG95YCkPC90ZXh0Pjx0ZXh0IHg9IjM3OC4yNyIgeT0iMjE5LjQ3NiIgZmlsbD0iIzAwMCIgZm9udC1zaXplPSIxNCIgdGV4dExlbmd0aD0iMTM0LjkiPuWApCDjgb7jgZ/jga8g55CG55Sx44Gu5Lim44GzPC90ZXh0PjwvZz48ZyBjbGFzcz0iZW50aXR5IiBkYXRhLXF1YWxpZmllZC1uYW1lPSJ0ZW1wbGF0ZSIgaWQ9ImVudDAwMDUiIGRhdGEtc291cmNlLWxpbmU9IjEzIj48cmVjdCB4PSIzOTYuNzIiIHk9IjQ0LjI5NyIgd2lkdGg9Ijk4IiBoZWlnaHQ9IjQ0LjU5NCIgZmlsbD0iI0YxRjFGMSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDowLjU7IiByeD0iMi41IiByeT0iMi41Ii8+PHRleHQgeD0iNDAzLjcyIiB5PSI1OS4yOTIiIGZpbGw9IiMwMDAiIGZvbnQtc2l6ZT0iMTQiIHRleHRMZW5ndGg9Ijg0Ij7jg4bjg7Pjg5fjg6zjg7zjg4g8L3RleHQ+PGxpbmUgeDE9IjM5Ny43MiIgeTE9IjY0LjU5NCIgeDI9IjQ5My43MiIgeTI9IjY0LjU5NCIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDowLjU7Ii8+PHRleHQgeD0iNDAyLjcyIiB5PSI4MS41ODkiIGZpbGw9IiMwMDAiIGZvbnQtc2l6ZT0iMTQiIHRleHRMZW5ndGg9Ijg0Ij7pm5vlvaLjga7mloflrZfliJc8L3RleHQ+PC9nPjxnIGNsYXNzPSJlbnRpdHkiIGRhdGEtcXVhbGlmaWVkLW5hbWU9IkdNTjEwIiBpZD0iZW50MDAxMSIgZGF0YS1zb3VyY2UtbGluZT0iMjMiPjxwYXRoIGQ9Ik02LDMwMy43NzcgTDYsMzU5LjE3NSBBMCwwIDAgMCAwIDYsMzU5LjE3NSBMMjc5LjQ0LDM1OS4xNzUgQTAsMCAwIDAgMCAyNzkuNDQsMzU5LjE3NSBMMjc5LjQ0LDMxMy43NzcgTDI2OS40NCwzMDMuNzc3IEwxNjcuODYsMzAzLjc3NyBMMjIzLjM4LDIyNy4yMTcgTDE1OS44NiwzMDMuNzc3IEw2LDMwMy43NzcgQTAsMCAwIDAgMCA2LDMwMy43NzciIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MC41OyIgZmlsbD0iI0ZFRkZERCIvPjxwYXRoIGQ9Ik0yNjkuNDQsMzAzLjc3NyBMMjY5LjQ0LDMxMy43NzcgTDI3OS40NCwzMTMuNzc3IEwyNjkuNDQsMzAzLjc3NyIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDowLjU7IiBmaWxsPSIjRkVGRkREIi8+PHRleHQgeD0iMTIiIHk9IjMyMC44NDQiIGZpbGw9IiMwMDAiIGZvbnQtc2l6ZT0iMTMiIHRleHRMZW5ndGg9IjIyNi4xNTQiPktvdGxpbiDniYjjga8gREIg5o6l57aa77yIVHhDb250ZXh077yJ44CCPC90ZXh0Pjx0ZXh0IHg9IjEyIiB5PSIzMzUuOTc3IiBmaWxsPSIjMDAwIiBmb250LXNpemU9IjEzIiB0ZXh0TGVuZ3RoPSIyMjEiPuOBk+OBrueJiOOBq+OBr+aMgeOBoeWbnuOCi+aWh+iEiOOBjOeEoeOBhOOBruOBp+OAgTwvdGV4dD48dGV4dCB4PSIxMiIgeT0iMzUxLjEwOSIgZmlsbD0iIzAwMCIgZm9udC1zaXplPSIxMyIgdGV4dExlbmd0aD0iMjUyLjQ0Ij7kvZXjgpLmlofohIjjgajlkbzjgbbjgYvjgYvjgonmsbrjgoHjgovvvIhBRFItMDIx77yJPC90ZXh0PjwvZz48ZyBjbGFzcz0iZW50aXR5IiBkYXRhLXF1YWxpZmllZC1uYW1lPSJHTU4xMyIgaWQ9ImVudDAwMTQiIGRhdGEtc291cmNlLWxpbmU9IjI5Ij48cGF0aCBkPSJNNDE5LjcyLDMwMy43NzcgTDQxOS43MiwzNTkuMTc1IEEwLDAgMCAwIDAgNDE5LjcyLDM1OS4xNzUgTDY4Ny43MiwzNTkuMTc1IEEwLDAgMCAwIDAgNjg3LjcyLDM1OS4xNzUgTDY4Ny43MiwzMTMuNzc3IEw2NzcuNzIsMzAzLjc3NyBMNTM1Ljc3LDMwMy43NzcgTDQ2OS45NiwyMjcuMjE3IEw1MjcuNzcsMzAzLjc3NyBMNDE5LjcyLDMwMy43NzcgQTAsMCAwIDAgMCA0MTkuNzIsMzAzLjc3NyIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDowLjU7IiBmaWxsPSIjRkVGRkREIi8+PHBhdGggZD0iTTY3Ny43MiwzMDMuNzc3IEw2NzcuNzIsMzEzLjc3NyBMNjg3LjcyLDMxMy43NzcgTDY3Ny43MiwzMDMuNzc3IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjAuNTsiIGZpbGw9IiNGRUZGREQiLz48dGV4dCB4PSI0MjUuNzIiIHk9IjMyMC44NDQiIGZpbGw9IiMwMDAiIGZvbnQtc2l6ZT0iMTMiIHRleHRMZW5ndGg9IjIzNCI+57WQ5p6c77yI44Oi44OK44OJ77yJ44Gv5pyA5Yid44Gu5aSx5pWX44Gn5q2i44G+44KL44CCPC90ZXh0Pjx0ZXh0IHg9IjQyNS43MiIgeT0iMzM1Ljk3NyIgZmlsbD0iIzAwMCIgZm9udC1zaXplPSIxMyIgdGV4dExlbmd0aD0iMjQ3Ij7mpJzoqLzntZDmnpzvvIjjgqLjg5fjg6rjgqvjg4bjgqPjg5bvvInjga/mraLjgb7jgonjgZrjgIE8L3RleHQ+PHRleHQgeD0iNDI1LjcyIiB5PSIzNTEuMTA5IiBmaWxsPSIjMDAwIiBmb250LXNpemU9IjEzIiB0ZXh0TGVuZ3RoPSIxMDQiPuWkseaVl+OCkuWFqOmDqOmbhuOCgeOCizwvdGV4dD48L2c+PCEtLWxpbmsgY3R4IHRvIGNvbW1hbmQtLT48ZyBjbGFzcz0ibGluayIgZGF0YS1lbnRpdHktMT0iZW50MDAwMSIgZGF0YS1lbnRpdHktMj0iZW50MDAwMiIgaWQ9ImxuazYiIGRhdGEtc291cmNlLWxpbmU9IjE3IiBkYXRhLWxpbmstdHlwZT0iZGVwZW5kZW5jeSI+PHBhdGggZD0iTTI1NC44LDIyNy4xMzcgQzI1OS44MSwyNDIuMDk3IDI2Ny4zMSwyNTkuOTI3IDI3Ny43MiwyNzMuNzc3IEMyODkuMzgsMjg5LjI5NyAzMDIuMTYzLDMwMC4wNyAzMTYuNjYzLDMxMC4wNiIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIgZmlsbD0ibm9uZSIgaWQ9ImN0eC10by1jb21tYW5kIiBjb2RlTGluZT0iMTciLz48cG9seWdvbiBwb2ludHM9IjMyMC43OCwzMTIuODk3LDMxNS42MzgsMzA0LjQ5NywzMTYuNjYzLDMxMC4wNiwzMTEuMDk5LDMxMS4wODUsMzIwLjc4LDMxMi44OTciIGZpbGw9IiMxODE4MTgiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW1pdGVybGltaXQ6MTA7Ii8+PHRleHQgeD0iMjc4LjcyIiB5PSIyNjkuODQ0IiBmaWxsPSIjMDAwIiBmb250LXNpemU9IjEzIiB0ZXh0TGVuZ3RoPSIxMDQiPuOBk+OBruS4reOBp+WHpueQhuOBmeOCizwvdGV4dD48L2c+PCEtLWxpbmsgY29tbWFuZCB0byBldmVudC0tPjxnIGNsYXNzPSJsaW5rIiBkYXRhLWVudGl0eS0xPSJlbnQwMDAyIiBkYXRhLWVudGl0eS0yPSJlbnQwMDAzIiBpZD0ibG5rNyIgZGF0YS1zb3VyY2UtbGluZT0iMTgiIGRhdGEtbGluay10eXBlPSJkZXBlbmRlbmN5Ij48cGF0aCBkPSJNMzQ5LjcyLDM1MC4wNTcgQzM0OS43MiwzNzIuOTY3IDM0OS43Miw0MDcuODE3IDM0OS43Miw0MzAuNzM3IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7IiBmaWxsPSJub25lIiBpZD0iY29tbWFuZC10by1ldmVudCIgY29kZUxpbmU9IjE4Ii8+PHBvbHlnb24gcG9pbnRzPSIzNDkuNzIsNDM1LjczNywzNTMuNzIsNDI2LjczNywzNDkuNzIsNDMwLjczNywzNDUuNzIsNDI2LjczNywzNDkuNzIsNDM1LjczNyIgZmlsbD0iIzE4MTgxOCIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxO3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2UtbWl0ZXJsaW1pdDoxMDsiLz48dGV4dCB4PSIzNTAuNzIiIHk9IjQwMi4yNDQiIGZpbGw9IiMwMDAiIGZvbnQtc2l6ZT0iMTMiIHRleHRMZW5ndGg9IjI2Ij7nlJ/jgoA8L3RleHQ+PC9nPjwhLS1saW5rIHZhbGlkYXRpb24gdG8gY29tbWFuZC0tPjxnIGNsYXNzPSJsaW5rIiBkYXRhLWVudGl0eS0xPSJlbnQwMDA0IiBkYXRhLWVudGl0eS0yPSJlbnQwMDAyIiBpZD0ibG5rOCIgZGF0YS1zb3VyY2UtbGluZT0iMTkiIGRhdGEtbGluay10eXBlPSJkZXBlbmRlbmN5Ij48cGF0aCBkPSJNNDI0LjE4LDIyNy4yMTcgQzQwNS4xNiwyNTMuNTg3IDM4MS4wMTQsMjg3LjA4MSAzNjUuMjk0LDMwOC44ODEiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiIGZpbGw9Im5vbmUiIGlkPSJ2YWxpZGF0aW9uLXRvLWNvbW1hbmQiIGNvZGVMaW5lPSIxOSIvPjxwb2x5Z29uIHBvaW50cz0iMzYyLjM3LDMxMi45MzcsMzcwLjg3OCwzMDcuOTc2LDM2NS4yOTQsMzA4Ljg4MSwzNjQuMzksMzAzLjI5NywzNjIuMzcsMzEyLjkzNyIgZmlsbD0iIzE4MTgxOCIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxO3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2UtbWl0ZXJsaW1pdDoxMDsiLz48dGV4dCB4PSI0MDEuNiIgeT0iMjY5Ljg0NCIgZmlsbD0iIzAwMCIgZm9udC1zaXplPSIxMyIgdGV4dExlbmd0aD0iMzkiPumAmuOCjOOBsDwvdGV4dD48L2c+PCEtLWxpbmsgdGVtcGxhdGUgdG8gdmFsaWRhdGlvbi0tPjxnIGNsYXNzPSJsaW5rIiBkYXRhLWVudGl0eS0xPSJlbnQwMDA1IiBkYXRhLWVudGl0eS0yPSJlbnQwMDA0IiBpZD0ibG5rOSIgZGF0YS1zb3VyY2UtbGluZT0iMjAiIGRhdGEtbGluay10eXBlPSJkZXBlbmRlbmN5Ij48cGF0aCBkPSJNNDQ1LjcyLDg5LjI2NyBDNDQ1LjcyLDExMC4xODcgNDQ1LjcyLDEzNy4wNTcgNDQ1LjcyLDE2MC40MDciIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiIGZpbGw9Im5vbmUiIGlkPSJ0ZW1wbGF0ZS10by12YWxpZGF0aW9uIiBjb2RlTGluZT0iMjAiLz48cG9seWdvbiBwb2ludHM9IjQ0NS43MiwxNjUuNDA3LDQ0OS43MiwxNTYuNDA3LDQ0NS43MiwxNjAuNDA3LDQ0MS43MiwxNTYuNDA3LDQ0NS43MiwxNjUuNDA3IiBmaWxsPSIjMTgxODE4IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1taXRlcmxpbWl0OjEwOyIvPjx0ZXh0IHg9IjQ0Ni43MiIgeT0iMTMxLjk1NCIgZmlsbD0iIzAwMCIgZm9udC1zaXplPSIxMyIgdGV4dExlbmd0aD0iMTA0Ij7lpLHmlZfjga7nkIbnlLHjgpLmj4/jgY88L3RleHQ+PC9nPjw/cGxhbnR1bWwtc3JjIFBMOVRRbmYxNTdzVk5wN2FOT1dqejI0RlhSUHZ3cmpmVnUxOWpjM0h0S0E3ODlKMnBnbkxEcWZEcW9HSWpMZ2paVTk3S1dhRElRaGpaeGRFaFp4YkJfSkV4NmVzNTdQWE9TLXp2dm54M2Frb2I0NVZjS2I2N3I3V1AtMnV1QkgwVEMydjBBU0RKWHdTbVVzYXUwLTdEQnVVWXlVZkZfWWNTRThRMTI4Y3U1SjAtR3N5M3htQmwwQnlvcUZna3VOUllLazhqVk42czZQcXBKbEVweEU1RFBmdUh4VFBYaHVkaXdsSF82TzBfMW00S2pYZ1hfV0JsRUlEUnExbTQ0TG9KbVNfZF9UN21GemViWXB2aTVnaTlKSXFMM1RPUndOSjJOQ2QwaTA1OW5lR3kxa3hYaWRrWDdOZ3l6eDRfeE5sRFVod3pzdVliVG45aUFIYmVhZ2x4aWd6UXhmMV9OZkp5Z2NxRW1IVmdlS3FLSEpyenRGLXVIWWxDUml3MU51SDVVUmFEMmRVUGdZRjVCMHA4X3FzYk0wNkJiX0tRZEJRbmJheVpYbkxQQTYydXFJVDluUHhsRkkxdDdYR0pPMy1rcDlfWWZKMEp6STViWDA1cnd3S3FDQ2MyOWo0TkRuVmpoMmg4NGgwVnZBTDRXTTh1M1VleDhvejh5cG5CN0dkM2hubzZOWVA0REQyXzlSNWM5TWNyY2lMOU5ia2lMSklMODZoVXNtLWZUd2Q3X3ZiNUdscENsRkNDZmNIT1RXNGkwSzlWNllXMmp1aFNVMGpNTWtXYlEwVTZCLVZSTTYtZ2J0TzlQa0pzVkg4cU9VX1VfQnAxRldieUE5d1hCaWcyeDh6c05tSE10eUdMd3FwcUFiSS1mX1VFdlNhSTFwZFRDTnRpM3JBOVFnZ3N4Qm01R0tpWnozckhjc0xqb1dnM3o2d2c2NUxOYW91M3NBVzBYVlZtSmFFNXVMWi01ckxKaTl6dWExLXgyc1N0Z0FNMnRrLUxGaUY/PjwvZz48L3N2Zz4=" class="uml" alt="uml diagram" title="" /></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">ドメインモデル設計</th>
+<th style="text-align: left;">なでしこ3 版のコード上の名前（案）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>TxContext</code></td>
+<td style="text-align: left;"><code>文脈</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>ContextReader</code></td>
+<td style="text-align: left;"><code>文脈読取</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Validation</code></td>
+<td style="text-align: left;"><code>検証結果</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Template</code></td>
+<td style="text-align: left;"><code>雛形</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>ListRenamed</code></td>
+<td style="text-align: left;"><code>リスト名変更イベント</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>RenameToDoList</code></td>
+<td style="text-align: left;"><code>リスト名変更コマンド</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>validateListName</code></td>
+<td style="text-align: left;"><code>リスト名検証</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>名前は 6-1.2・6-2.2 で確定します。</strong> 上は案です。</p>
+<h3 id="unit_1">画面遷移図（本 Unit で掲載）<a class="headerlink" href="#unit_1" title="Permanent link">&para;</a></h3>
+<p><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIGRhdGEtZGlhZ3JhbS10eXBlPSJTVEFURSIgc3R5bGU9IndpZHRoOjQ5M3B4O2hlaWdodDo1NjhweDtiYWNrZ3JvdW5kOiNGRkZGRkY7IiB3aWR0aD0iNDkzcHgiIGhlaWdodD0iNTY4cHgiIHZpZXdCb3g9IjAgMCA0OTMgNTY4IiB6b29tQW5kUGFuPSJtYWduaWZ5IiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBjb250ZW50U3R5bGVUeXBlPSJ0ZXh0L2NzcyI+PD9wbGFudHVtbCAxLjIwMjYuOD8+PGRlZnMvPjxnIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciPjxnIGNsYXNzPSJ0aXRsZSIgZGF0YS1zb3VyY2UtbGluZT0iMSI+PHRleHQgeD0iMTE4LjQ2MSIgeT0iMjIuOTk1IiBmaWxsPSIjMDAwIiBmb250LXNpemU9IjE0IiB0ZXh0TGVuZ3RoPSIyNDkuNTQ1IiBmb250LXdlaWdodD0iNzAwIj5Vbml0IDYg44Gu55S76Z2i6YG356e777yI56ysIDExIOeroOOBp+i/veWKoO+8iTwvdGV4dD48L2c+PGcgY2xhc3M9ImVudGl0eSIgZGF0YS1xdWFsaWZpZWQtbmFtZT0iVG9Eby4uLi4uIiBpZD0iZW50MDAwMSIgZGF0YS1zb3VyY2UtbGluZT0iNCI+PHJlY3QgeD0iNjUuOTQiIHk9IjE0MC4yOTciIHdpZHRoPSIyMTUuOTk5IiBoZWlnaHQ9IjUyLjU5NCIgZmlsbD0iI0YxRjFGMSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDowLjU7IiByeD0iMTIuNSIgcnk9IjEyLjUiLz48bGluZSB4MT0iNjUuOTQiIHkxPSIxNjYuNTk0IiB4Mj0iMjgxLjkzOSIgeTI9IjE2Ni41OTQiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MC41OyIvPjx0ZXh0IHg9IjEyMC43MDgiIHk9IjE1OC4yOTIiIGZpbGw9IiMwMDAiIGZvbnQtc2l6ZT0iMTQiIHRleHRMZW5ndGg9IjEwNi40NjMiPlRvRG/jg6rjgrnjg4jooajnpLo8L3RleHQ+PHRleHQgeD0iNzAuOTQiIHk9IjE4NC41ODkiIGZpbGw9IiMwMDAiIGZvbnQtc2l6ZT0iMTQiIHRleHRMZW5ndGg9IjE5NS45OTkiPuODquOCueODiOOBruWQjeWJjeOBqOmgheebruOCkuihqOekuuOBmeOCizwvdGV4dD48L2c+PGcgY2xhc3M9ImVudGl0eSIgZGF0YS1xdWFsaWZpZWQtbmFtZT0iLi4uLi4uLi4uLiIgaWQ9ImVudDAwMDIiIGRhdGEtc291cmNlLWxpbmU9IjUiPjxyZWN0IHg9IjkzLjk0IiB5PSIyNjkuODk3IiB3aWR0aD0iMTU5Ljk5OSIgaGVpZ2h0PSI1Mi41OTQiIGZpbGw9IiNGMUYxRjEiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MC41OyIgcng9IjEyLjUiIHJ5PSIxMi41Ii8+PGxpbmUgeDE9IjkzLjk0IiB5MT0iMjk2LjE5NCIgeDI9IjI1My45MzkiIHkyPSIyOTYuMTk0IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjAuNTsiLz48dGV4dCB4PSIxMDMuOTQiIHk9IjI4Ny44OTIiIGZpbGw9IiMwMDAiIGZvbnQtc2l6ZT0iMTQiIHRleHRMZW5ndGg9IjEzOS45OTkiPuODquOCueODiOWQjeWkieabtOODleOCqeODvOODoDwvdGV4dD48dGV4dCB4PSI5OC45NCIgeT0iMzE0LjE4OSIgZmlsbD0iIzAwMCIgZm9udC1zaXplPSIxNCIgdGV4dExlbmd0aD0iMTM5Ljk5OSI+5paw44GX44GE5ZCN5YmN44KS5YWl5Yqb44GZ44KLPC90ZXh0PjwvZz48ZyBjbGFzcz0iZW50aXR5IiBkYXRhLXF1YWxpZmllZC1uYW1lPSJCYWRSZXF1ZXN0IiBpZD0iZW50MDAwMyIgZGF0YS1zb3VyY2UtbGluZT0iNiI+PHJlY3QgeD0iNjYuNTciIHk9IjM5OS40ODciIHdpZHRoPSIyMTQuNzIxIiBoZWlnaHQ9IjUyLjU5NCIgZmlsbD0iI0YxRjFGMSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDowLjU7IiByeD0iMTIuNSIgcnk9IjEyLjUiLz48bGluZSB4MT0iNjYuNTciIHkxPSI0MjUuNzg0IiB4Mj0iMjgxLjI5MSIgeTI9IjQyNS43ODQiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MC41OyIvPjx0ZXh0IHg9IjEzMS42NDciIHk9IjQxNy40ODIiIGZpbGw9IiMwMDAiIGZvbnQtc2l6ZT0iMTQiIHRleHRMZW5ndGg9Ijg0LjU2NyI+QmFkUmVxdWVzdDwvdGV4dD48dGV4dCB4PSI3MS41NyIgeT0iNDQzLjc3OSIgZmlsbD0iIzAwMCIgZm9udC1zaXplPSIxNCIgdGV4dExlbmd0aD0iMTk0LjcyMSI+NDAw77yI5qSc6Ki844Gu5aSx5pWX44KS6KGo56S644GZ44KL77yJPC90ZXh0PjwvZz48ZyBjbGFzcz0ic3RhcnRfZW50aXR5IiBkYXRhLXF1YWxpZmllZC1uYW1lPSIuc3RhcnQuIiBpZD0iZW50MDAwNCIgZGF0YS1zb3VyY2UtbGluZT0iMyI+PGVsbGlwc2UgY3g9IjE3My45MyIgY3k9IjUzLjI5NyIgcng9IjEwIiByeT0iMTAiIGZpbGw9IiMyMjIiIHN0eWxlPSJzdHJva2U6IzIyMjtzdHJva2Utd2lkdGg6MTsiLz48L2c+PGcgY2xhc3M9ImVudGl0eSIgZGF0YS1xdWFsaWZpZWQtbmFtZT0iR01OOSIgaWQ9ImVudDAwMTAiIGRhdGEtc291cmNlLWxpbmU9IjEzIj48cGF0aCBkPSJNMjUuMTcsNTEzLjA3NyBMMjUuMTcsNTUzLjM0MyBBMCwwIDAgMCAwIDI1LjE3LDU1My4zNDMgTDMyMi43MDYsNTUzLjM0MyBBMCwwIDAgMCAwIDMyMi43MDYsNTUzLjM0MyBMMzIyLjcwNiw1MjMuMDc3IEwzMTIuNzA2LDUxMy4wNzcgTDE3Ny45Myw1MTMuMDc3IEwxNzMuOTMsNDUyLjU3NyBMMTY5LjkzLDUxMy4wNzcgTDI1LjE3LDUxMy4wNzcgQTAsMCAwIDAgMCAyNS4xNyw1MTMuMDc3IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjAuNTsiIGZpbGw9IiNGRUZGREQiLz48cGF0aCBkPSJNMzEyLjcwNiw1MTMuMDc3IEwzMTIuNzA2LDUyMy4wNzcgTDMyMi43MDYsNTIzLjA3NyBMMzEyLjcwNiw1MTMuMDc3IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjAuNTsiIGZpbGw9IiNGRUZGREQiLz48dGV4dCB4PSIzMS4xNyIgeT0iNTMwLjE0NCIgZmlsbD0iIzAwMCIgZm9udC1zaXplPSIxMyIgdGV4dExlbmd0aD0iMjQ1LjgwNyI+56ysIDExIOeroOOBp+eUu+mdouOBi+OCieOCs+ODnuODs+ODieOCkumAgeOCi+e1jOi3r+OCkjwvdGV4dD48dGV4dCB4PSIzMS4xNyIgeT0iNTQ1LjI3NyIgZmlsbD0iIzAwMCIgZm9udC1zaXplPSIxMyIgdGV4dExlbmd0aD0iMjc2LjUzNiI+5Yid44KB44Gm6YCa44GZ44CC56ysIDYg56ug44Gn44Gv44OJ44Oh44Kk44Oz44G+44Gn44Gn5q2i44KB44GfPC90ZXh0PjwvZz48IS0tbGluayAqc3RhcnQqIHRvIFRvRG/jg6rjgrnjg4jooajnpLotLT48ZyBjbGFzcz0ibGluayIgZGF0YS1lbnRpdHktMT0iZW50MDAwNCIgZGF0YS1lbnRpdHktMj0iZW50MDAwMSIgaWQ9ImxuazUiIGRhdGEtc291cmNlLWxpbmU9IjMiIGRhdGEtbGluay10eXBlPSJkZXBlbmRlbmN5Ij48cGF0aCBkPSJNMTczLjkzLDYzLjc4NyBDMTczLjkzLDgwLjUwNyAxNzMuOTMsMTEwLjcyNyAxNzMuOTMsMTM1LjAyNyIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIgZmlsbD0ibm9uZSIgaWQ9IipzdGFydCotdG8tVG9Eb+ODquOCueODiOihqOekuiIvPjxwb2x5Z29uIHBvaW50cz0iMTczLjkzLDE0MC4wMjcsMTc3LjkzLDEzMS4wMjcsMTczLjkzLDEzNS4wMjcsMTY5LjkzLDEzMS4wMjcsMTczLjkzLDE0MC4wMjciIGZpbGw9IiMxODE4MTgiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW1pdGVybGltaXQ6MTA7Ii8+PHRleHQgeD0iMTc0LjkzIiB5PSIxMDYuMzY0IiBmaWxsPSIjMDAwIiBmb250LXNpemU9IjEzIiB0ZXh0TGVuZ3RoPSIxOTAuMTU3Ij5HRVQgL3RvZG8ve3VzZXJ9L3tsaXN0bmFtZX08L3RleHQ+PC9nPjwhLS1saW5rIFRvRG/jg6rjgrnjg4jooajnpLogdG8g44Oq44K544OI5ZCN5aSJ5pu044OV44Kp44O844OgLS0+PGcgY2xhc3M9ImxpbmsiIGRhdGEtZW50aXR5LTE9ImVudDAwMDEiIGRhdGEtZW50aXR5LTI9ImVudDAwMDIiIGlkPSJsbms2IiBkYXRhLXNvdXJjZS1saW5lPSI4IiBkYXRhLWxpbmstdHlwZT0iZGVwZW5kZW5jeSI+PHBhdGggZD0iTTY1LjU3LDE5MS4wOTcgQzUwLjc1LDE5OC44NTcgMzcuNDEsMjA5LjE3NyAyNy45MywyMjIuODk3IEM2LDI1NC42NjcgNDQuMDg3LDI3MS45ODkgODguOTc3LDI4Mi4yODkiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiIGZpbGw9Im5vbmUiIGlkPSJUb0Rv44Oq44K544OI6KGo56S6LXRvLeODquOCueODiOWQjeWkieabtOODleOCqeODvOODoCIvPjxwb2x5Z29uIHBvaW50cz0iOTMuODUsMjgzLjQwNyw4NS45NzMsMjc3LjQ5NSw4OC45NzcsMjgyLjI4OSw4NC4xODMsMjg1LjI5Myw5My44NSwyODMuNDA3IiBmaWxsPSIjMTgxODE4IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1taXRlcmxpbWl0OjEwOyIvPjx0ZXh0IHg9IjI4LjkzIiB5PSIyMzUuOTY0IiBmaWxsPSIjMDAwIiBmb250LXNpemU9IjEzIiB0ZXh0TGVuZ3RoPSIyNDQuNzQ3Ij5HRVQgL3RvZG8ve3VzZXJ9L3tsaXN0bmFtZX0vcmVuYW1lPC90ZXh0PjwvZz48IS0tbGluayDjg6rjgrnjg4jlkI3lpInmm7Tjg5Xjgqnjg7zjg6AgdG8gVG9Eb+ODquOCueODiOihqOekui0tPjxnIGNsYXNzPSJsaW5rIiBkYXRhLWVudGl0eS0xPSJlbnQwMDAyIiBkYXRhLWVudGl0eS0yPSJlbnQwMDAxIiBpZD0ibG5rNyIgZGF0YS1zb3VyY2UtbGluZT0iOSIgZGF0YS1saW5rLXR5cGU9ImRlcGVuZGVuY3kiPjxwYXRoIGQ9Ik0yNTMuMTYsMjY5LjU1NyBDMjc0LjksMjU3Ljk1NyAyODkuNjYsMjQyLjQwNyAyNzcuOTMsMjIyLjg5NyBDMjcwLjU2LDIxMC42MjcgMjYzLjY5OSwyMDMuNTYyIDI1MS40MjksMTk1Ljk1MiIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIgZmlsbD0ibm9uZSIgaWQ9IuODquOCueODiOWQjeWkieabtOODleOCqeODvOODoC10by1Ub0Rv44Oq44K544OI6KGo56S6Ii8+PHBvbHlnb24gcG9pbnRzPSIyNDcuMTgsMTkzLjMxNywyNTIuNzIsMjAxLjQ2LDI1MS40MjksMTk1Ljk1MiwyNTYuOTM3LDE5NC42NjEsMjQ3LjE4LDE5My4zMTciIGZpbGw9IiMxODE4MTgiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW1pdGVybGltaXQ6MTA7Ii8+PHRleHQgeD0iMjgzLjA3IiB5PSIyMzUuOTY0IiBmaWxsPSIjMDAwIiBmb250LXNpemU9IjEzIiB0ZXh0TGVuZ3RoPSIxOTQuMzk3Ij5QT1NUIOaIkOWKn++8iOaWsOOBl+OBhOWQjeWJjeOBp+ihqOekuu+8iTwvdGV4dD48L2c+PCEtLWxpbmsg44Oq44K544OI5ZCN5aSJ5pu044OV44Kp44O844OgIHRvIEJhZFJlcXVlc3QtLT48ZyBjbGFzcz0ibGluayIgZGF0YS1lbnRpdHktMT0iZW50MDAwMiIgZGF0YS1lbnRpdHktMj0iZW50MDAwMyIgaWQ9ImxuazgiIGRhdGEtc291cmNlLWxpbmU9IjEwIiBkYXRhLWxpbmstdHlwZT0iZGVwZW5kZW5jeSI+PHBhdGggZD0iTTE3My45MywzMjIuNzA3IEMxNzMuOTMsMzQ0Ljk1NyAxNzMuOTMsMzcyLjA3NyAxNzMuOTMsMzk0LjMxNyIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIgZmlsbD0ibm9uZSIgaWQ9IuODquOCueODiOWQjeWkieabtOODleOCqeODvOODoC10by1CYWRSZXF1ZXN0Ii8+PHBvbHlnb24gcG9pbnRzPSIxNzMuOTMsMzk5LjMxNywxNzcuOTMsMzkwLjMxNywxNzMuOTMsMzk0LjMxNywxNjkuOTMsMzkwLjMxNywxNzMuOTMsMzk5LjMxNyIgZmlsbD0iIzE4MTgxOCIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxO3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2UtbWl0ZXJsaW1pdDoxMDsiLz48dGV4dCB4PSIxNzQuOTMiIHk9IjM2NS41NTQiIGZpbGw9IiMwMDAiIGZvbnQtc2l6ZT0iMTMiIHRleHRMZW5ndGg9IjE4MiI+5qSc6Ki844Gr5aSx5pWX77yI55CG55Sx44KS5YWo6YOo5Ye644GZ77yJPC90ZXh0PjwvZz48P3BsYW50dW1sLXNyYyBaUDlESW05MTZDVmwtb2RjNzhXNXFRNTNYb1d3NWNNZHc2MnUxdzVTb2w0YVdaRkpZd2k5OGJRS2NNamlrUU16S0k3YkxYX2NPTlJUS3ItWGNUSzRleFZCcGl4bV9GX3BWdHhwdTJYVUxUNVlCOGhINjA5b3hQUlFOa05LOG9zdHRkd3RDc3dwWUtQNmFEaW1XREd4Um95eVF4cFJrZzhpM0lzWkc2MDJYUkdmM1RXYnEyVFdjS3hEU2lyZEQ4dmNmYUNlWUJNODVhbWN1a2Y2QWZYU1pTUG5CQm9jZmZHdTNjRnIxcnRfSDBKWFhKcE55cTBpcHpYb296VDBZenFvODhUMFNwc1JsYTFNY3hmSlZXMnMxX0cyYzB0QzQ4eEVfWXNHMG8yUkZKalF2NWpkRjVpVVM5YUNILVJMek9HUW5xOG5FWm1pLWRSQ3V1dmJvblpjZFJEdHlFTHM3eTV0QktXYVZzUndYS3ZtR3ZNaHllVjdwLUpkUFhUMm9DYUtVQk9na19aSWxOWDJscjNjX3lTTDBybS1ZSkl3SEVIaTVCUlRxZnNGckZBT25OU2E3SHpESjFES0xwSUNqSkxiTzhBd3FtS2Exckc3VVdfaTE5WnVZbC1ZYm9RMmhGa3Vzc2RUWUF0MkNuTVcxQ1l2YnB3SXJEREtFZXRyWjgzU0kxY2gwSk1iMU5kcjMtbEVyUWNsZ1lmZ0I4OWFaV3kwPz48L2c+PC9zdmc+" class="uml" alt="uml diagram" title="" /></p>
+<p><a href="../../design/ui_design/">UI 設計</a> の「リスト名の変更フォーム（第 11 章）」に対応します。</p>
+<h3 id="er">状態遷移図・ER 図<a class="headerlink" href="#er" title="Permanent link">&para;</a></h3>
+<p><strong>どちらも省略します。</strong> 状態遷移は第 6 章で実装済み。永続化の形は第 9 章から変わりません（<code>ListRenamed</code> が 1 種類増えるだけ）。</p>
+<h3 id="_15">ユーザーマニュアル<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
+<p><strong>対象外です。</strong> 画面が 1 つ増えますが、Zettai にエンドユーザーはいません（<a href="../development_strategy/">開発戦略</a>）。第 11 章の記事が操作の説明を兼ねます。</p>
+<h3 id="adr">ADR<a class="headerlink" href="#adr" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>ADR</th>
+<th>タイトル（予定）</th>
+<th>対応する Kotlin 版</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ADR-021</td>
+<td>何を文脈と呼ぶか（トランザクションの無い保管での境界）</td>
+<td><a href="../../adr/ADR-011-transaction-boundary/">ADR-011</a></td>
+</tr>
+<tr>
+<td>ADR-022</td>
+<td>テンプレート機構を自前で書く</td>
+<td><a href="../../adr/ADR-010-own-template/">ADR-010</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong>どちらも「この決定が解かないこと」を先に書きます</strong>（Unit 4 Try 1 の定着）。</p>
+<hr />
+<h2 id="_16">リスクと対策<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">リスク</th>
+<th style="text-align: left;">影響度</th>
+<th style="text-align: left;">対策</th>
+<th style="text-align: left;">承認ゲート</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">「何を文脈と呼ぶか」が決まらず、第 10 章が書けない</td>
+<td style="text-align: left;">高</td>
+<td style="text-align: left;">案を 6-1.2 で人に提示する。<strong>決まらなければ「文脈が無い言語で ContextReader の章をどう書くか」自体を章の主題にする</strong></td>
+<td style="text-align: left;">6-1.2 で停止</td>
+</tr>
+<tr>
+<td style="text-align: left;">ファイルにトランザクションが無く、途中で落ちると壊れる</td>
+<td style="text-align: left;">中</td>
+<td style="text-align: left;"><a href="../../adr/ADR-019-file-event-log/">ADR-019</a> で「解かないこと」に挙げた項目。<strong>本 Unit で扱うか、扱わないと決めるかを 6-1.2 で判断する</strong></td>
+<td style="text-align: left;">6-1.2 で停止</td>
+</tr>
+<tr>
+<td style="text-align: left;">画面から書く経路が初めてで、想定より時間がかかる</td>
+<td style="text-align: left;">中</td>
+<td style="text-align: left;">スパイクで POST とリダイレクトを先に確かめる。第 11 章は節が 6 つで、検証負荷 4 と軽く見積もっている</td>
+<td style="text-align: left;">6-1.0</td>
+</tr>
+<tr>
+<td style="text-align: left;">段階が 4 つになり全段階が 35 秒を超える</td>
+<td style="text-align: left;">中</td>
+<td style="text-align: left;"><strong>切る前に見積もる</strong>（Try 2 の強化）。超える見込みなら、切る前に対処を決める</td>
+<td style="text-align: left;">—</td>
+</tr>
+<tr>
+<td style="text-align: left;">アプリカティブとモナドの違いを検出率で示せない</td>
+<td style="text-align: left;">中</td>
+<td style="text-align: left;">示せなければ、<strong>示せなかったことを書く</strong>。第 9 章で「再帰が書けなかった」を書いたのと同じ</td>
+<td style="text-align: left;">—</td>
+</tr>
+<tr>
+<td style="text-align: left;">6 Unit 続けてゲートが機能しない</td>
+<td style="text-align: left;">高</td>
+<td style="text-align: left;">運用形態の切り替えは人だけが行う（本計画の冒頭）</td>
+<td style="text-align: left;">—</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="deployment-unit">Deployment Unit としての完了条件<a class="headerlink" href="#deployment-unit" title="Permanent link">&para;</a></h2>
+<h3 id="definition-of-done">Definition of Done<a class="headerlink" href="#definition-of-done" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 何を文脈と呼ぶかが決まり、ADR-021 に記録されている</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> コマンド 1 つの処理が文脈の中で完結する</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> ドメインが文脈の中身を読まない</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 検証が複数の失敗を集約して返す</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> アプリカティブの法則を性質テストで確かめ、<strong>壊して検出率を測った</strong></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>モナドとの違い（止まる／止まらない）をテストで示した</strong></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>GET</code> / <code>POST /todo/{user}/{listname}/rename</code> が動く</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> テンプレートで未適用のタグが残ったら失敗になる</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 4 経路の受け入れシナリオが green</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>src/step4/</code> が切られ、<strong>見積もりと実測の両方が記録されている</strong></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>既知の制約の一覧が 1 箇所にある</strong></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 第 10 章の節名の読み替え 2 件が登録されている</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> ADR 2 件（021・022）を作成済み</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 設計ドキュメント 3 本に差分が反映されている</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 記事の検査が違反 0 件</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 第 10〜11 章が公開され、それぞれにつまずき節がある</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>gulp okf:check</code> が ERROR 0</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>承認ゲート 4 箇所を通過した</strong></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Bolt 終了報告とふりかえり（KPT）を作成した</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Unit 7 のゲート密度が決まっている</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> デモ項目がすべて実演できる</li>
+</ul>
+<h3 id="_17">デモ項目<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h3>
+<ol>
+<li>ブラウザでリスト名の変更フォームを開き、名前を変えて、表示が変わることを示す</li>
+<li><strong>空の名前を送り、理由が出ることを示す</strong></li>
+<li><strong>空で 41 文字の名前を送り、理由が 2 つとも出ることを示す</strong>（アプリカティブの効果）</li>
+<li><strong>同じ検証をモナドで書いた版を走らせ、理由が 1 つしか出ないことを示す</strong></li>
+<li>テンプレートのタグを 1 つ消し、未適用のタグが残って失敗することを示す</li>
+<li>4 経路の受け入れシナリオが green であることを示す</li>
+<li><code>make check</code>（最新段階）が 15 秒以内であることと、CI が <code>make check-all</code> で green であることを示す</li>
+</ol>
+<p>デモ項目 3・4 が本 Unit の中心です。<strong>「両方出る」と「1 つしか出ない」を並べて見せるのが、アプリカティブを説明する一番速い方法</strong>です。</p>
+<hr />
+<h2 id="bolt_2">指標（Bolt 終了報告へ引き継ぐ）<a class="headerlink" href="#bolt_2" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
@@ -7344,154 +8312,77 @@
 <tbody>
 <tr>
 <td style="text-align: left;">完了 Unit 数</td>
-<td style="text-align: left;">1（累計 2 / 7）</td>
-<td style="text-align: left;">1（累計 <strong>2 / 7</strong>）</td>
+<td style="text-align: left;">1（累計 6 / 7）</td>
+<td style="text-align: left;">-</td>
 </tr>
 <tr>
 <td style="text-align: left;">承認ゲート通過数</td>
-<td style="text-align: left;">11</td>
-<td style="text-align: left;">11</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">-</td>
 </tr>
 <tr>
 <td style="text-align: left;">変更依頼数</td>
+<td style="text-align: left;">Kotlin 版 Unit 6（<a href="../bolt_report-6/">Bolt 終了報告</a>）以下</td>
 <td style="text-align: left;">-</td>
-<td style="text-align: left;">1</td>
 </tr>
 <tr>
-<td style="text-align: left;">リードタイム</td>
-<td style="text-align: left;">10 営業日</td>
-<td style="text-align: left;">1 日</td>
-</tr>
-<tr>
-<td style="text-align: left;">テスト本数</td>
+<td style="text-align: left;"><strong>人が検証に使った時間</strong></td>
+<td style="text-align: left;">ゲートごとに記録する</td>
 <td style="text-align: left;">-</td>
-<td style="text-align: left;">22（Unit 1 は 7）</td>
 </tr>
 <tr>
-<td style="text-align: left;">カバレッジ（ドメイン層）</td>
-<td style="text-align: left;">80% 以上</td>
-<td style="text-align: left;"><strong>100%</strong></td>
+<td style="text-align: left;">アプリカティブの検出率</td>
+<td style="text-align: left;">記録する。<strong>モナドとの違いも</strong></td>
+<td style="text-align: left;">-</td>
+</tr>
+<tr>
+<td style="text-align: left;">テスト実行時間</td>
+<td style="text-align: left;"><code>make check</code>（最新段階）15 秒以内 / 全段階は CI が green</td>
+<td style="text-align: left;">-</td>
+</tr>
+<tr>
+<td style="text-align: left;">全段階の実行時間の見積もりと実測</td>
+<td style="text-align: left;"><strong>両方を記録する</strong>（Try 2）</td>
+<td style="text-align: left;">-</td>
+</tr>
+<tr>
+<td style="text-align: left;">受け入れシナリオの経路数</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">-</td>
 </tr>
 <tr>
 <td style="text-align: left;">持ち込み項目の消化</td>
-<td style="text-align: left;">8 / 8</td>
-<td style="text-align: left;"><strong>8 / 8</strong></td>
+<td style="text-align: left;">7 / 7</td>
+<td style="text-align: left;">-</td>
 </tr>
 </tbody>
 </table>
-<h3 id="_5">エントロピー評価の的中度<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<hr />
+<h2 id="_18">更新履歴<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">評価軸</th>
-<th style="text-align: left;">事前評価</th>
-<th style="text-align: left;">実績</th>
-<th style="text-align: left;">的中</th>
+<th>日付</th>
+<th>更新内容</th>
+<th>更新者</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">意図の曖昧さ</td>
-<td style="text-align: left;">LOW</td>
-<td style="text-align: left;">受入条件がテストで判定でき、迷いがなかった</td>
-<td style="text-align: left;">○</td>
-</tr>
-<tr>
-<td style="text-align: left;">構造的不確実性</td>
-<td style="text-align: left;">MED</td>
-<td style="text-align: left;">ドメインとアダプタの境界は 1 回で決まった。パッケージ名も変更なし</td>
-<td style="text-align: left;">○（やや過大）</td>
-</tr>
-<tr>
-<td style="text-align: left;">検証の不確実性</td>
-<td style="text-align: left;">MED</td>
-<td style="text-align: left;"><strong>記事のコード例検査が実際にドリフトを検出した</strong>（後述）。想定どおりこの領域で問題が起きた</td>
-<td style="text-align: left;">◎</td>
-</tr>
-<tr>
-<td style="text-align: left;">リスク</td>
-<td style="text-align: left;">MED</td>
-<td style="text-align: left;">新規ライブラリ 3 件はいずれもスパイクで先に確認でき、本実装で問題なし</td>
-<td style="text-align: left;">○（やや過大）</td>
-</tr>
-<tr>
-<td style="text-align: left;">未解決の仮定</td>
-<td style="text-align: left;"><strong>HIGH</strong></td>
-<td style="text-align: left;"><strong>Pesticide が動くかどうかが最大の不確実性だった。動いたため第 3 章の構成を変えずに済んだ</strong></td>
-<td style="text-align: left;">◎</td>
+<td>2026-09-29</td>
+<td>初版作成（AI-DLC 準拠）。Unit 6 の満足条件・エントロピー評価・Bolt 6-1 と 6-2 のステップ計画（16 ステップ・承認ゲート 4 箇所）・画面遷移図・Deployment Unit の完了条件を定義。Unit 5 のふりかえり Try 4 件と持ち込み 7 件を反映し、Kotlin 版 ADR-010・011 の移植方針と第 10 章の節名の読み替え 2 件を計画に入れた</td>
+<td>claude-code/claude-opus-5</td>
 </tr>
 </tbody>
 </table>
-<p>Unit 1 と同じく、未解決の仮定を HIGH と評価してスパイクを先頭に置いた判断が効きました。もし Pesticide が動かなければ、第 3 章の後半（DDT を Pesticide に変換する）を「DDT を自前で組む」に差し替える必要があり、影響は記事の構成にまで及んでいました。</p>
-<h2 id="_6">判断と学び（ジャーナルへ転記）<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
-<h3 id="1">1. 記事のコード例検査が、作った当日に仕事をした<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
-<p>持ち込み 2 で作った検査が、<strong>2 回</strong>ドリフトを検出しました。</p>
-<p>1 回目は第 1 章に対して実行したとき。Unit 1 で人が見つけた 4 行（使用例とリファクタリング前のコード）をそのまま検出しました。仕組みが人と同じ判断をできることの確認になりました。</p>
-<p>2 回目が本題です。<strong>第 3 章を書き終えた時点で、第 2 章の記事が壊れていました。</strong> 第 3 章で受け入れテストを DDT に置き換えたため、第 2 章が載せていた <code>SeeATodoListTest</code> がリポジトリから消えていたのです。13 行の違反として検出されました。</p>
-<p>これは<strong>連載形式の記事に固有のドリフト</strong>です。各章は前章のコードを意図的に作り替えるので、前の章の記事は放っておくと嘘になります。人の目で全章を見直し続けるのは無理があります。</p>
-<p>対処として、第 2 章のコードブロックに「第 3 章で置き換えたため現在のファイルには存在しない」というマーカーと、読者への注記を入れました。</p>
-<h3 id="2">2. 「やめるときに何を捨てるか」でライブラリを判断した<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
-<p>Pesticide は原著者の個人プロジェクトで、更新が止まるリスクがあります。それでも採用したのは、<strong>依存が浅いところに留まる</strong>と確かめられたからです。</p>
-<p>シナリオとアクターが使っているのは <code>ddtScenario</code>・<code>play</code>・<code>step</code> だけで、自前でも数十行で書けます。Pesticide が使えなくなっても、置き換えるのは基盤部分だけでシナリオの記述は残ります。</p>
-<p><strong>採用の判断基準として「やめるときのコスト」を見る</strong>のは、他のライブラリ選定にも使えます。</p>
-<h3 id="3">3. 状態の漏れを実際に踏んだ<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
-<p>Pesticide の経路オブジェクトはシナリオ間で使い回されます。<code>prepare()</code> で状態を初期化していなかったため、先に走ったシナリオが登録した空のリストが残り、後のシナリオが失敗しました。</p>
-<p>第 1 章で「テストの中に可変のフィールドを持たない」と書いたのに、経路の中に状態を持たせていました。<strong>持つなら、いつ消えるかを明示する</strong>必要があります。記事にもこの経験を書きました。</p>
-<h3 id="4">4. 静的解析を入れない判断は、実際に起きた問題から導いた<a class="headerlink" href="#4" title="Permanent link">&para;</a></h3>
-<p>Unit 1 で起きた品質問題は 1 件で、それは「記事に載せたコードの実装が存在しなかった」ことでした。静的解析では検出できません。</p>
-<p>一般論として「静的解析はあったほうがいい」ではなく、<strong>このプロジェクトで実際に起きた問題に効く検査を選ぶ</strong>という形で判断しました（<a href="../../adr/ADR-004-static-analysis/">ADR-004</a>）。結果として、その検査が同じ日に 2 回仕事をしました。</p>
-<h2 id="bolt">次の Bolt<a class="headerlink" href="#bolt" title="Permanent link">&para;</a></h2>
-<h3 id="unit-3">Unit 3 のゲート密度: 疎にする（自律実行に寄せる）<a class="headerlink" href="#unit-3" title="Permanent link">&para;</a></h3>
-<p><a href="../development_strategy/">開発戦略</a> の「ウォーキングスケルトンのゲートを通過した時点で 1 回だけ決める」に従い、ここで判断します。</p>
-<p><strong>判断: Unit 3〜4 は自律実行に寄せます。</strong> 根拠は次のとおりです。</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">観点</th>
-<th style="text-align: left;">実績</th>
-<th style="text-align: left;">判断への影響</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">変更依頼数</td>
-<td style="text-align: left;">Unit 1 が 1 件、Unit 2 が 1 件</td>
-<td style="text-align: left;">少ない。しかも<strong>両方とも同じ領域</strong>（記事と実装の乖離）</td>
-</tr>
-<tr>
-<td style="text-align: left;">自動判定の範囲</td>
-<td style="text-align: left;"><code>check</code>（テスト・カバレッジ・境界）と記事のコード例検査が CI で回る</td>
-<td style="text-align: left;">以前は人が見ていた領域が機械で止まるようになった</td>
-</tr>
-<tr>
-<td style="text-align: left;">エントロピー評価</td>
-<td style="text-align: left;">Unit 3 は 5 軸すべて LOW（<a href="../release_plan/">リリース計画</a>）</td>
-<td style="text-align: left;">新規ライブラリなし、永続化なし、既存の型を太くする作業</td>
-</tr>
-</tbody>
-</table>
-<p>ただし<strong>次の 2 種類のステップは引き続き停止します</strong>。</p>
-<ol>
-<li><strong>記事の構成と全文検証。</strong> 変更依頼が出た領域であり、自動判定できない。CI の検査は「実装に存在するか」しか見ておらず、「読者に伝わるか」は見ていない</li>
-<li><code>CLAUDE.md</code> の確認必須（新規ファイル・構造変更・外部ライブラリ・データベース）</li>
-</ol>
-<p>Unit 5（第 9 章）では密に戻します。PostgreSQL の導入で検証の不確実性とリスクが HIGH になるためです（<a href="../release_plan/">リリース計画</a> のエントロピー評価）。</p>
-<h3 id="unit-3_1">Unit 3 に持ち込む項目<a class="headerlink" href="#unit-3_1" title="Permanent link">&para;</a></h3>
-<ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>zettai-step2-domain</code> モジュールを新設する（第 4 章。モジュールは章の進行で増やす方針）</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>ToDoItem</code> に期限（<code>dueDate</code>）と状態（<code>status</code>）を追加する（第 4 章で必要になる）</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>docs/design/domain-model.md</code> を作成する（<a href="../development_strategy/">開発戦略</a> が Unit 3 を初回作成としている）</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 状態遷移図を作成する（<code>status</code> が入るため。Unit 2 では省略した）</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>null</code> によるエラー表現の問題を第 7 章まで持ち越すことを、第 4 章の記事でも読者に再確認する</li>
-</ul>
-<h2 id="_7">関連ドキュメント<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<hr />
+<h2 id="_19">関連ドキュメント<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="../iteration_plan-2/">Unit 2 の Bolt 計画</a></li>
-<li><a href="../bolt_report-1/">Unit 1 の Bolt 終了報告</a></li>
-<li><a href="../release_plan/">リリース計画</a></li>
-<li><a href="../development_strategy/">開発戦略</a></li>
-<li><a href="../../design/architecture_backend/">バックエンドアーキテクチャ設計</a></li>
-<li><a href="../../adr/ADR-002-ddt-pesticide/">ADR-002</a> / <a href="../../adr/ADR-003-http4k-6/">ADR-003</a> / <a href="../../adr/ADR-004-static-analysis/">ADR-004</a></li>
+<li><a href="../release_plan-nadesiko/">リリース計画（なでしこ3 版）</a> / <a href="../development_strategy/">開発戦略</a></li>
+<li><a href="../iteration_plan-nadesiko-5/">Unit 5 の Bolt 計画</a> / <a href="../bolt_report-nadesiko-5/">Bolt 終了報告</a> / <a href="../retrospective-nadesiko-5/">ふりかえり</a></li>
+<li><a href="../iteration_plan-6/">Unit 6 の Bolt 計画（Kotlin 版）</a></li>
+<li><a href="../../design/domain-model/">ドメインモデル設計</a> / <a href="../../design/ui_design/">UI 設計</a> / <a href="../../design/architecture_backend/">バックエンドアーキテクチャ</a></li>
+<li><a href="../../article/outline/">執筆計画</a> / <a href="../../article/draft/">章構成マインドマップ</a></li>
 </ul>
 
 

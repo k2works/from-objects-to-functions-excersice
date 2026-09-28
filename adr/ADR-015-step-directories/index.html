@@ -1560,6 +1560,41 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/iteration_plan-nadesiko-6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「なでしこ3」Unit 6 文脈の受け渡しとバリデーション
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -4664,6 +4699,41 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/nadesiko/chapter10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 10 章 コンテキストを読み込み、コマンドを処理する
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -6993,7 +7063,7 @@
 <h2 id="_8">再検討の条件<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
 <p>時期では区切りません。次のいずれかが起きたら再検討します。</p>
 <ol>
-<li>~~<code>make check</code> が 30 秒を超える（段階が 4 つ以上になったとき）~~ → <strong>段階 3 つで起きた（2026-09-28）。</strong> 下の「実行時間の扱い（追記）」で対処済み。次は<strong>全段階が 35 秒を超えたとき</strong></li>
+<li>~~<code>make check</code> が 30 秒を超える（段階が 4 つ以上になったとき）~~ → <strong>段階 3 つで起きた（2026-09-28）。</strong> 下の「実行時間の扱い（追記）」で対処済み。~~次は全段階が 35 秒を超えたとき~~ → <strong>段階 4 つで超えた（2026-09-29）。既定を最新段階に変え、全段階の上限を外した。</strong> 次は <strong><code>make check</code>（最新段階）が 15 秒を超えたとき</strong></li>
 <li>過去の段階に修正が必要な欠陥が見つかり、<strong>凍結の方針が守れなくなる</strong></li>
 <li>重複が原因で、同じ修正を複数の段階に入れる場面が実際に起きる</li>
 <li>理由 3（段階の中のドリフト）の <code>ignore</code> が、1 つの段階で 4 件を超える</li>
@@ -7025,6 +7095,37 @@
 </tbody>
 </table>
 <p><strong>速さが要るのは書いている間で、全段階は CI の仕事です。</strong> 段階を増やす構造を選んだ以上、全段階の実行が伸びるのは避けられません。避けるのではなく、どこを速く保つかを決めました。</p>
+<h3 id="2026-09-29-4">既定のコマンドも変えた（2026-09-29 追記・段階 4 つ）<a class="headerlink" href="#2026-09-29-4" title="Permanent link">&para;</a></h3>
+<p>Unit 5 では<strong>上限の立て方</strong>を分けましたが、<strong>コマンドは全段階のまま</strong>でした。書いている間に打つ <code>make check</code> が遅ければ、分けた意味が薄れます。</p>
+<p>段階 4 つを切る<strong>前</strong>に見積もったところ、全段階が約 50 秒になる見込みでした（Unit 5 のふりかえり Try 2）。切ってから直すのをやめ、<strong>切る前に既定を変えました。</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">コマンド</th>
+<th style="text-align: left;">対象</th>
+<th style="text-align: left;">実測（段階 4 つ）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>make check</code></td>
+<td style="text-align: left;"><strong>最新の段階だけ</strong>（既定）</td>
+<td style="text-align: left;"><strong>13.3 秒</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>make check STEP=step1</code></td>
+<td style="text-align: left;">指定した段階だけ</td>
+<td style="text-align: left;">—</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>make check-all</code></td>
+<td style="text-align: left;">全段階。<strong>CI が push のたびに回す</strong></td>
+<td style="text-align: left;"><strong>35.6 秒</strong></td>
+</tr>
+</tbody>
+</table>
+<p>見積もり（50 秒）より実測（35.6 秒）が良かったのは、並列化が効いて伸びが頭打ちに近づくためです。<strong>見積もりはファイル数への単純な比例で置いたので、保守的でした。</strong></p>
+<p><strong>全段階の時間の上限は外します。</strong> inner loop ではないので、「CI が green であること」を条件にします。</p>
 <h2 id="_9">備考<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
 <ul>
 <li>起案: Unit 3 のふりかえり Problem 2、Unit 4 / ステップ 4-1.1</li>

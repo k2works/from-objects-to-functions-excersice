@@ -58,3 +58,15 @@ jobs:
       # 記事と ADR の相互参照が切れていないかを見る。
       - name: Check ADR references
         run: python3 ops/scripts/article/check_adr_references.py
+
+      # 節構成が章構成マインドマップと一致するかを見る（Unit 7 Try 2）。
+      - name: Check section structure
+        run: python3 ops/scripts/article/check_sections.py
+
+      # 章をまたぐ引用が引用元に実在するかを見る（Unit 7 Try 1）。
+      - name: Check cross-chapter quotes
+        run: python3 ops/scripts/article/check_quotes.py
+
+      # 記事に書いた件数の主張が実物と合っているかを見る（Unit 7 Try 3）。
+      - name: Check claimed numbers
+        run: python3 ops/scripts/article/check_numbers.py

@@ -185,7 +185,7 @@ $ make test
 [実行時エラー]src/web.nako3(23行目): TypeError: Cannot read properties of undefined (reading '項目')
 ```
 
-**辞書に無いキーを引くと `undefined` が返り、`空` との比較では捕まえられません。** 第 1 章で「`空` の実体は空文字列」と書きましたが、`undefined` はそれとも違います。
+**辞書に無いキーを引くと `undefined` が返り、`空` との比較では捕まえられません。** なでしこ3 の `空` の実体は空文字列で、`undefined` はそれとも違う値です。
 
 `辞書キー存在` で先に確かめます。
 

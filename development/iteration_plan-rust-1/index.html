@@ -6,17 +6,17 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Zettai 連載なでしこ3 版 Unit 5 の KPT ふりかえり。Try が 2 つとも効いたこと、NFR の立て方を変えた判断、制約が 3 度目に同じことを言ってきたこと、承認ゲートが 5 Unit 続けて機能しなかったことを整理し、Unit 6 で試すことを決める。">
+        <meta name="description" content="Zettai 連載 Rust 版の Unit 1（器と第 1 章）の Bolt 計画。後戻りの効かない 2 つの判断（async の採否と HTTP クレートの選定）をスパイクで確かめてから決め、cargo workspace と make check を整えて第 1 章を書く。2 対象の学びを着手前に反映し、ゲートには必ず選択肢と数字を添える。">
       
       
         <meta name="author" content="Project Team">
       
       
       
-        <link rel="prev" href="../retrospective-nadesiko-4/">
+        <link rel="prev" href="../iteration_plan-nadesiko-7/">
       
       
-        <link rel="next" href="../retrospective-nadesiko-6/">
+        <link rel="next" href="../bolt_report-1/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>Unit 5 のふりかえり（KPT）- Zettai 連載（なでしこ3 版） - From Objects to Functions 演習</title>
+        <title>Unit 1 の Bolt 計画（イテレーション 1）- Zettai 連載（Rust 版） - From Objects to Functions 演習</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#unit-5-kpt-zettai-3" class="md-skip">
+        <a href="#unit-1-bolt-1-zettai-rust" class="md-skip">
           Skip to content
         </a>
       
@@ -112,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Unit 5 のふりかえり（KPT）- Zettai 連載（なでしこ3 版）
+              Unit 1 の Bolt 計画（イテレーション 1）- Zettai 連載（Rust 版）
             
           </span>
         </div>
@@ -1103,6 +1103,8 @@
                 
   
   
+    
+  
   
   
     
@@ -1118,11 +1120,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5" checked>
         
           
           <label class="md-nav__link" for="__nav_5_5" id="__nav_5_5_label" tabindex="">
@@ -1143,7 +1145,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1648,10 +1650,44 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../iteration_plan-rust-1/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「Rust」Unit 1 器と第 1 章
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1674,6 +1710,448 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        概要
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="概要">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        承認ゲートの運用形態
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        目標
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2 対象からの持ち込み
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ゴール
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ゴール">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#unit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unit 完了時の達成状態
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        成功基準
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        スパイクで確かめる項目
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        局面とアプローチ
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unit-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unit 1 の満足条件
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Unit 1 の満足条件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ユーザーストーリー
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ユーザーストーリー">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#us-000" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        US-000: 前提を整える
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#us-001-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        US-001: 第 1 章を公開する
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-unit-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR 定義（Unit 1 固有）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        エントロピー評価
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bolt-1-1-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bolt 1-1: 器と 2 つの判断
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bolt 1-1: 器と 2 つの判断">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bolt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bolt ゴール
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ステップ計画
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bolt-1-2-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bolt 1-2: 第 1 章
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bolt 1-2: 第 1 章">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bolt_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bolt ゴール
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ステップ計画
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        設計
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="設計">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#unit_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        本 Unit のスコープでの設計図
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        依存の構造（決めること）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ユーザーマニュアル
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADR
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        リスクと対策
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deployment-unit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deployment Unit としての完了条件
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Deployment Unit としての完了条件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definition-of-done" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Definition of Done
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bolt-dod" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        全 Bolt 共通のゲート項目（DoD）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        デモ項目
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bolt_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        指標（Bolt 終了報告へ引き継ぐ）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        更新履歴
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        関連ドキュメント
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2244,8 +2722,6 @@
                 
   
   
-    
-  
   
   
     
@@ -2261,11 +2737,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_7" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_7" >
         
           
           <label class="md-nav__link" for="__nav_5_7" id="__nav_5_7_label" tabindex="">
@@ -2286,7 +2762,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_7_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_7_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5_7">
             <span class="md-nav__icon md-icon"></span>
             
@@ -2476,44 +2952,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    「なでしこ3」Unit 5 射影と永続化
-  
-
-    
-  </span>
-  
-  
-    
-  
-  
-    <span class="md-status md-status--draft"></span>
-  
-
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../retrospective-nadesiko-5/" class="md-nav__link">
         
   
   
@@ -2536,92 +2978,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        対象
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#keep" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Keep（続けること）
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#problem" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Problem（問題）
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#try" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Try（次に試すこと）
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#unit-6" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Unit 6 への引き継ぎ
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        関連ドキュメント
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -7434,159 +7790,795 @@
   
 
 
-<h1 id="unit-5-kpt-zettai-3">Unit 5 のふりかえり（KPT）- Zettai 連載（なでしこ3 版）<a class="headerlink" href="#unit-5-kpt-zettai-3" title="Permanent link">&para;</a></h1>
-<h2 id="_1">対象<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h1 id="unit-1-bolt-1-zettai-rust">Unit 1 の Bolt 計画（イテレーション 1）- Zettai 連載（Rust 版）<a class="headerlink" href="#unit-1-bolt-1-zettai-rust" title="Permanent link">&para;</a></h1>
+<h2 id="_1">概要<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>イテレーション</strong></td>
+<td>1（Rust 版・<strong>初回</strong>）</td>
+</tr>
+<tr>
+<td><strong>Unit</strong></td>
+<td>Unit 1 器と第 1 章</td>
+</tr>
+<tr>
+<td><strong>期間</strong></td>
+<td>2 週間</td>
+</tr>
+<tr>
+<td><strong>Bolt 数</strong></td>
+<td>2（Bolt 1-1 前提整備 / Bolt 1-2 第 1 章）</td>
+</tr>
+<tr>
+<td><strong>局面</strong></td>
+<td><strong>序盤（アウトサイドイン）</strong>。ただし Bolt 1-1 は対象外（下記）。<a href="../development_strategy/">開発戦略</a></td>
+</tr>
+<tr>
+<td><strong>人の検証負荷</strong></td>
+<td>7 ポイント（3 対象で最小）</td>
+</tr>
+<tr>
+<td><strong>承認ゲート</strong></td>
+<td><strong>3 箇所</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="_2">承認ゲートの運用形態<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p><strong>本 Unit のゲートは「同期停止」で運用します。</strong></p>
+<blockquote>
+<p><strong>本節は人だけが書き換えます。</strong> AI は書き換えません。運用形態を変えるなら人が本節を書き換えてから実行し、AI は切り替えを求められたら書き換えずに判断を仰ぎます。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">#</th>
+<th style="text-align: left;">ゲート</th>
+<th style="text-align: left;">ステップ</th>
+<th style="text-align: left;">添えるもの</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;"><strong>async を採るかどうか</strong></td>
+<td style="text-align: left;">1-1.2</td>
+<td style="text-align: left;">同期クレートで第 9 章まで行けるかの実測、選択肢 2〜3 個、それぞれで第 2〜8 章がどう変わるか</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;"><strong>HTTP クレートの選定</strong></td>
+<td style="text-align: left;">1-1.3</td>
+<td style="text-align: left;">候補ごとの「tokio 必須か」「縦串が何行で書けるか」「依存クレート数」</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;"><strong><code>make check</code> の構成</strong></td>
+<td style="text-align: left;">1-1.5</td>
+<td style="text-align: left;">各段が何を守っているか、それぞれの秒数</td>
+</tr>
+</tbody>
+</table>
+<p><strong>ゲートの書き方を規約にしました。</strong> 2 対象は 41 箇所計画して同期停止 1 回でした。<strong>選択肢と数字を添えられないものはゲートにせず、DoD のチェック項目に置きます</strong>（<a href="../development_strategy/">開発戦略</a> の Rust 版の節）。</p>
+<p>したがって、2 対象で 14 箇所計画して 1 度も止まらなかった「<strong>記事の全文検証</strong>」は、本 Unit ではゲートにしません。DoD に入れます。</p>
+<h3 id="_3">目標<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p><strong>計画した 3 箇所のうち 2 箇所以上が同期停止すること</strong>（<a href="../release_plan-rust/">リリース計画</a> の目標 50% 以上）。下回ったら Unit 2 で箇所を減らします。</p>
+<hr />
+<h2 id="2">2 対象からの持ち込み<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<p>初回イテレーションなので前 Unit のふりかえりはありません。代わりに、<strong>2 対象（Kotlin 版・なでしこ3 版）の完了報告とふりかえりの提案</strong>を入力にします。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">#</th>
+<th style="text-align: left;">持ち込み</th>
+<th style="text-align: left;">出典</th>
+<th style="text-align: left;">消化するステップ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;"><strong>既知の制約の一覧を Unit 1 から置く</strong></td>
+<td style="text-align: left;">なでしこ3 版 Unit 7 ふりかえり（Unit 6 で作り遅すぎた）</td>
+<td style="text-align: left;">1-1.1</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;"><strong>ゲートには選択肢と数字を添える</strong></td>
+<td style="text-align: left;">同 Keep 1</td>
+<td style="text-align: left;">本計画のゲート節・1-1.2・1-1.3・1-1.5</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;"><strong>測れない指標を置かない</strong></td>
+<td style="text-align: left;">同 Problem（6 Unit 連続で空欄）</td>
+<td style="text-align: left;">本計画の指標節</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;"><strong>変更依頼数の定義を先に決める</strong></td>
+<td style="text-align: left;">なでしこ3 版リリース完了報告書</td>
+<td style="text-align: left;">1-1.0</td>
+</tr>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;"><strong>しきい値には分布の計算を添える</strong></td>
+<td style="text-align: left;">同 Try 1</td>
+<td style="text-align: left;">本 Unit では性質テストを書かないため Unit 3 へ送る</td>
+</tr>
+<tr>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;"><strong>共有する書き込み先は最初からテストごとに分ける</strong></td>
+<td style="text-align: left;">同 Try 4</td>
+<td style="text-align: left;">1-1.4（スパイク 3 で手段を確かめる）</td>
+</tr>
+<tr>
+<td style="text-align: left;">7</td>
+<td style="text-align: left;"><strong>段階を切る手順を書く</strong></td>
+<td style="text-align: left;">同 Try 2</td>
+<td style="text-align: left;">本 Unit では段階が 1 つなので Unit 2 へ送る</td>
+</tr>
+<tr>
+<td style="text-align: left;">8</td>
+<td style="text-align: left;"><strong>構造を変える前に NFR を見積もり、直後に測る</strong></td>
+<td style="text-align: left;">なでしこ3 版 Unit 5 Try 2</td>
+<td style="text-align: left;">1-1.5</td>
+</tr>
+<tr>
+<td style="text-align: left;">9</td>
+<td style="text-align: left;"><strong><code>make check</code> の各段が何を守っているかを数える</strong></td>
+<td style="text-align: left;">なでしこ3 版 Unit 7 の学び</td>
+<td style="text-align: left;">1-1.5（<strong>段を入れる前に</strong>数える）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>持ち込み 5 と 7 は本 Unit では消化できません。</strong> 該当する作業が無いためで、送り先を明記しました（「見直す」に不要と判断する条件を添える＝なでしこ3 版 Unit 7 Try 5）。</p>
+<hr />
+<h2 id="_4">ゴール<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>後戻りの効かない 2 つの判断（async の採否・HTTP クレートの選定）を実測してから決め、cargo workspace と <code>make check</code> を整えて第 1 章を書く。<strong>確認したい仮説</strong>: 環境とテストが既にある言語では、Unit 1 の重さは「作る量」ではなく「決める重さ」で決まる。</p>
+</blockquote>
+<h3 id="unit">Unit 完了時の達成状態<a class="headerlink" href="#unit" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>apps/rust/zettai/</code> に cargo workspace があり、<code>make check</code> が通る</li>
+<li><strong>async を採るかどうかが ADR に記録されている</strong>（理由と、選ばなかった案の代償つき）</li>
+<li><strong>HTTP クレートが選定され、ADR に記録されている</strong></li>
+<li><code>apps/rust/zettai/README.md</code> に<strong>既知の制約の一覧</strong>がある（空でもよい。器を作る）</li>
+<li>第 1 章が公開されている（1 / 13 章）</li>
+<li><code>docs/article/zettai/rust/index.md</code> がある</li>
+<li>記事検査が Rust を対象に含み、6 本とも 0 件</li>
+</ul>
+<h3 id="_5">成功基準<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">#</th>
+<th style="text-align: left;">基準</th>
+<th style="text-align: left;">判定方法</th>
+<th style="text-align: left;">具体例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;"><code>make check</code> が通る</td>
+<td style="text-align: left;">3 回連続で exit 0</td>
+<td style="text-align: left;">—</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">判断が数字つきで記録されている</td>
+<td style="text-align: left;">ADR を読む</td>
+<td style="text-align: left;">「同期の <code>postgres</code> クレートで第 9 章の題材が書ける（スパイクで確認）／axum を選ぶと tokio が入り第 2 章から async になる」</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">変更依頼数の定義が書かれている</td>
+<td style="text-align: left;">本計画とリリース計画</td>
+<td style="text-align: left;">「ゲートで『やり直し』と判断された回数」</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">制約の一覧の器がある</td>
+<td style="text-align: left;"><code>README.md</code></td>
+<td style="text-align: left;">見出しと表の枠があり、Unit 1 で踏んだものが入っている</td>
+</tr>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">記事検査が Rust を見る</td>
+<td style="text-align: left;"><code>check_article_code.py</code></td>
+<td style="text-align: left;"><code>apps/**/*.rs</code> と <code>rust</code> が設定に入っている</td>
+</tr>
+<tr>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;"><strong>ゲートの 50% 以上が同期停止した</strong></td>
+<td style="text-align: left;">実績を数える</td>
+<td style="text-align: left;">3 箇所中 2 箇所以上</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_6">スパイクで確かめる項目<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<p><strong>本 Unit の中心はここです。</strong> 検証負荷 7 のうち 5 が Bolt 1-1 にあり、その大半がスパイクです。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">#</th>
+<th style="text-align: left;">確かめること</th>
+<th style="text-align: left;">成立しなかったときの代替</th>
+<th style="text-align: left;">対応するゲート</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">同期の HTTP クレートだけで、第 2 章の縦串が書けるか</td>
+<td style="text-align: left;">async を第 2 章から入れる。<strong>その判断を第 2 章の主題に含める</strong></td>
+<td style="text-align: left;">1・2</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">同期の PostgreSQL クレートで、第 9 章の題材（イベントストア 1 テーブル）が書けるか</td>
+<td style="text-align: left;">第 9 章で async に切り替える。<strong>第 1〜8 章の書き換えが発生することを承知で計画に入れる</strong></td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;"><code>cargo test</code> の並列実行で、テストごとに接続先・出力先を分ける手段があるか</td>
+<td style="text-align: left;">テストを直列実行する（<code>--test-threads=1</code>）。<strong>NFR への影響を測る</strong></td>
+<td style="text-align: left;">3</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;"><code>cargo-llvm-cov</code> が Nix の devShell で動くか</td>
+<td style="text-align: left;">カバレッジを入れない。<strong>Kotlin 版 ADR-004 と同じ形で「入れない」を記録する</strong></td>
+<td style="text-align: left;">3</td>
+</tr>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">空の workspace で <code>make check</code> が何秒かかるか</td>
+<td style="text-align: left;">— （基準値の取得。段階を増やす前の起点）</td>
+<td style="text-align: left;">3</td>
+</tr>
+</tbody>
+</table>
+<p><strong>スパイク 1 と 2 の結果だけが、後戻りの効かない判断に効きます。</strong> 3〜5 は <code>make check</code> の構成に効きます。</p>
+<hr />
+<h2 id="_7">局面とアプローチ<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<p><strong>序盤（アウトサイドイン）です。ただし Bolt 1-1 は対象外です。</strong></p>
+<p>Bolt 1-1 は縦串を作る段階ではなく、<strong>「判断とその根拠を作る」段階</strong>です。2 対象でも Unit 1 / Bolt 1-1 はアウトサイドインの対象外でした（Kotlin 版は環境と雛形、なでしこ3 版はテスト基盤の自作）。</p>
+<p>Rust 版で違うのは、<strong>作る量が最も少ないのに決める重さが最も大きい</strong>ことです。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">対象</th>
+<th style="text-align: left;">Bolt 1-1 の中身</th>
+<th style="text-align: left;">検証負荷</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Kotlin</td>
+<td style="text-align: left;">環境 + Gradle の雛形</td>
+<td style="text-align: left;">8</td>
+</tr>
+<tr>
+<td style="text-align: left;">なでしこ3</td>
+<td style="text-align: left;">環境 + <strong>テスト基盤の自作</strong> + 雛形</td>
+<td style="text-align: left;">11</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Rust</strong></td>
+<td style="text-align: left;"><strong>後戻りの効かない 2 つの判断</strong> + 雛形（環境も cargo もテストも既にある）</td>
+<td style="text-align: left;"><strong>5</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="unit-1">Unit 1 の満足条件<a class="headerlink" href="#unit-1" title="Permanent link">&para;</a></h2>
+<h3 id="_8">ユーザーストーリー<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<h4 id="us-000">US-000: 前提を整える<a class="headerlink" href="#us-000" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p><strong>執筆者</strong>として、<strong>cargo workspace と <code>make check</code> と、後戻りの効かない判断の記録</strong>が欲しい。<strong>第 2 章以降でコードの形が変わらないようにする</strong>ため。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">#</th>
+<th style="text-align: left;">受入条件</th>
+<th style="text-align: left;">具体例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;"><code>apps/rust/zettai/</code> で <code>make check</code> が通る</td>
+<td style="text-align: left;"><code>cargo fmt --check &amp;&amp; cargo clippy -- -D warnings &amp;&amp; cargo test</code> が exit 0</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;"><strong>async の採否が ADR にある</strong></td>
+<td style="text-align: left;">「同期の <code>postgres</code> クレートで第 9 章まで行けるので、async を入れない。代償は同時接続数が制限されること」</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;"><strong>HTTP クレートの選定が ADR にある</strong></td>
+<td style="text-align: left;">候補 3 つの比較表（tokio 必須か／縦串の行数／依存クレート数）と、選んだ理由</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">既知の制約の一覧の器がある</td>
+<td style="text-align: left;"><code>README.md</code> に見出しと表。Unit 1 で踏んだものが 1 件以上入っている</td>
+</tr>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">記事検査が Rust を対象に含む</td>
+<td style="text-align: left;"><code>check_article_code.py</code> に <code>apps/**/*.rs</code> と <code>rust</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">変更依頼数の定義が書かれている</td>
+<td style="text-align: left;">「ゲートで『やり直し』と判断された回数」</td>
+</tr>
+</tbody>
+</table>
+<h4 id="us-001-1">US-001: 第 1 章を公開する<a class="headerlink" href="#us-001-1" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p><strong>読者</strong>として、<strong>言語がテストの土台を与える場合に、第 1 章で何をするのか</strong>を知りたい。<strong>なでしこ3 版との違いを最初の章で掴む</strong>ため。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">#</th>
+<th style="text-align: left;">受入条件</th>
+<th style="text-align: left;">具体例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">第 1 章が公開されている</td>
+<td style="text-align: left;"><code>docs/article/zettai/rust/chapter01.md</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">節構成がマインドマップと一致する</td>
+<td style="text-align: left;"><code>check_sections.py</code> が 0 件</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">コード例が実装からの転記である</td>
+<td style="text-align: left;"><code>check_article_code.py</code> が 0 件</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;"><strong>2 対象に無い内容が 1 つ以上ある</strong></td>
+<td style="text-align: left;">「テストフレームワークを作らなくてよい」ことが、なでしこ3 版第 1 章の裏返しとして書かれている</td>
+</tr>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">サイトに反映されている</td>
+<td style="text-align: left;"><code>mkdocs.yml</code> の nav、<code>zettai/index.md</code>、<code>rust/index.md</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="nfr-unit-1">NFR 定義（Unit 1 固有）<a class="headerlink" href="#nfr-unit-1" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">#</th>
+<th style="text-align: left;">項目</th>
+<th style="text-align: left;">目標</th>
+<th style="text-align: left;">測り方</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;"><code>make check</code>（workspace メンバー 1 つ）</td>
+<td style="text-align: left;"><strong>20 秒以内</strong></td>
+<td style="text-align: left;">3 回測る</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;"><code>make check</code> の内訳</td>
+<td style="text-align: left;">各段の秒数を記録する</td>
+<td style="text-align: left;"><code>fmt</code> / <code>clippy</code> / <code>test</code> を個別に測る</td>
+</tr>
+</tbody>
+</table>
+<p><strong>上限を 20 秒にした根拠</strong>: なでしこ3 版の「作業中の段階は 15 秒」を起点に、<strong>Rust はコンパイルが入る</strong>ぶんを見て 20 秒に置きます。Unit 1 の実測で妥当性を判断し、外れていれば Unit 2 で立て直します。</p>
+<p><strong>「守っているものが無い段は入れない」</strong> を最初から適用します（なでしこ3 版 Unit 7 の学び）。<code>fmt</code> と <code>clippy</code> と <code>test</code> それぞれが何を守るかを 1-1.5 で書き出してから入れます。</p>
+<hr />
+<h2 id="_9">エントロピー評価<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">軸</th>
+<th style="text-align: left;">水準</th>
+<th style="text-align: left;">根拠</th>
+<th style="text-align: left;">対処</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">意図の曖昧さ</td>
+<td style="text-align: left;">LOW</td>
+<td style="text-align: left;">第 1 章の主題は 2 対象で確定済み</td>
+<td style="text-align: left;">—</td>
+</tr>
+<tr>
+<td style="text-align: left;">構造的不確実性</td>
+<td style="text-align: left;">MED</td>
+<td style="text-align: left;">cargo workspace の切り方は Kotlin 版のモジュールに対応づけられる</td>
+<td style="text-align: left;">—</td>
+</tr>
+<tr>
+<td style="text-align: left;">検証の不確実性</td>
+<td style="text-align: left;">LOW</td>
+<td style="text-align: left;"><code>cargo test</code> がある。自作するものが無い</td>
+<td style="text-align: left;">—</td>
+</tr>
+<tr>
+<td style="text-align: left;">リスク</td>
+<td style="text-align: left;"><strong>HIGH</strong></td>
+<td style="text-align: left;"><strong>async の採否が第 2〜8 章のコードの形を決める。後戻りが効かない</strong></td>
+<td style="text-align: left;">スパイク 1・2 → ゲート 1</td>
+</tr>
+<tr>
+<td style="text-align: left;">未解決の仮定</td>
+<td style="text-align: left;"><strong>HIGH</strong></td>
+<td style="text-align: left;">同期クレートで第 9 章まで行けるかが未確認。HTTP クレートも未選定</td>
+<td style="text-align: left;">同上</td>
+</tr>
+</tbody>
+</table>
+<p><strong>構造的不確実性が MED なのにゲートが密</strong>という、2 対象に無い形です。<strong>作るものは決まっているが、決めることが重い</strong>Unit です。</p>
+<hr />
+<h2 id="bolt-1-1-2">Bolt 1-1: 器と 2 つの判断<a class="headerlink" href="#bolt-1-1-2" title="Permanent link">&para;</a></h2>
+<h3 id="bolt">Bolt ゴール<a class="headerlink" href="#bolt" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>後戻りの効かない 2 つの判断を実測してから決め、cargo workspace と <code>make check</code> を整える。<strong>確認したい仮説</strong>: 同期のクレートだけで第 9 章まで行ける。</p>
+</blockquote>
+<h3 id="_10">ステップ計画<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>1-1.0 指標の定義を決める</strong>（持ち込み 4）</li>
+<li>「変更依頼数」を定義し、本計画と <a href="../release_plan-rust/">リリース計画</a> に書く</li>
+<li>完了判定: 定義が 1 文で書かれており、数え方が一意に決まる</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>1-1.1 既知の制約の一覧の器を作る</strong>（持ち込み 1）</li>
+<li><code>apps/rust/zettai/README.md</code> に見出しと表を置く。<strong>空のまま始める</strong></li>
+<li>なでしこ3 版は Unit 6 で作り、遅すぎた。<strong>踏んだその場で足せる器を先に用意する</strong></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>1-1.2 スパイク: 同期で第 9 章まで行けるか</strong>（スパイク 1・2）</li>
+<li>同期の HTTP クレートで最小のハンドラを 1 本書く</li>
+<li>同期の PostgreSQL クレートで 1 テーブルへの <code>INSERT</code> と <code>SELECT</code> を書く</li>
+<li><strong>★人の確認が必要（ゲート 1: async の採否）</strong></li>
+<li>添えるもの: 両方書けたか／書けなかった場合に何が足りないか／async を採ったときに第 2〜8 章がどう変わるか</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>1-1.3 スパイク: HTTP クレートの選定</strong>（スパイク 1）</li>
+<li>候補を 3 つ挙げ、それぞれで「ToDo リストを 1 つ返す」ハンドラを書く</li>
+<li><strong>★人の確認が必要（ゲート 2: HTTP クレートの選定）</strong></li>
+<li>添えるもの: 候補ごとの tokio 必須の有無・縦串の行数・依存クレート数・ビルド時間</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>1-1.4 スパイク: テストの分離とカバレッジ</strong>（スパイク 3・4）</li>
+<li><code>cargo test</code> の並列実行で、テストごとに接続先・出力先を分ける手段を確かめる（持ち込み 6）</li>
+<li><code>cargo-llvm-cov</code> が devShell で動くか確かめる</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>1-1.5 cargo workspace と <code>make check</code> を作る</strong>（持ち込み 8・9。スパイク 5）</li>
+<li><strong>段を入れる前に、各段が何を守るかを書き出す</strong></li>
+<li>空の workspace で基準値を測り、段を足すたびに測る</li>
+<li><strong>★人の確認が必要（ゲート 3: <code>make check</code> の構成）</strong></li>
+<li>添えるもの: 各段が守るもの・各段の秒数・合計</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>1-1.6 記事検査を Rust に対応させる</strong></li>
+<li><code>check_article_code.py</code> の <code>SOURCE_GLOBS</code> に <code>apps/**/*.rs</code>、<code>CHECKED_LANGUAGES</code> に <code>rust</code></li>
+<li>完了判定: 6 本とも 0 件で通る</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>1-1.7 ADR を書く</strong></li>
+<li>ADR-024（async の採否）、ADR-025（HTTP クレートの選定）、ADR-026（<code>make check</code> の構成とカバレッジの採否）</li>
+<li><strong>選ばなかった案と、その代償を必ず書く</strong></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>1-1.8 <code>docs/article/zettai/rust/index.md</code> を作る</strong></li>
+</ul>
+<hr />
+<h2 id="bolt-1-2-1">Bolt 1-2: 第 1 章<a class="headerlink" href="#bolt-1-2-1" title="Permanent link">&para;</a></h2>
+<h3 id="bolt_1">Bolt ゴール<a class="headerlink" href="#bolt_1" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>テストの土台が言語にある場合の第 1 章を書く。<strong>確認したい仮説</strong>: 「作らなくてよい」ことが、なでしこ3 版の裏返しとして章になる。</p>
+</blockquote>
+<h3 id="_11">ステップ計画<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>1-2.1 第 1 章の骨子</strong></li>
+<li>節構成は <a href="../../article/draft/">draft.md</a> のマインドマップに一致させる（読み替えは 0 件の見込み）</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>1-2.2 最小のテストを 1 本書く（Red → Green）</strong></li>
+<li>第 1 章のコード例になるもの。<strong>実装から転記できる形にする</strong></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>1-2.3 第 1 章の執筆</strong></li>
+<li><strong>2 対象に無い内容を 1 つ以上含める</strong>（無ければ未完了）</li>
+<li>候補: テストフレームワークを作らなくてよいこと／<code>cargo</code> が最初から何を与えるか／<code>clippy -- -D warnings</code> を最初から入れる判断</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>1-2.4 サイト反映と OKF 適用</strong></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>1-2.5 CI の準備の判断</strong></li>
+<li><code>.github/workflows/rust-zettai.yml</code> は<strong>第 2 章の実装直後（Unit 2）</strong>に作る（2 対象と同じ）</li>
+<li><strong>不要と判断する条件</strong>: 本 Unit ではアプリケーションが動かないので、CI で守るものが <code>make check</code> しかない。Unit 2 で HTTP の縦串が通ってから入れる</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>1-2.6 Bolt 終了報告とふりかえり</strong></li>
+<li><strong>ゲートの同期停止率を数える</strong>。50% を下回ったら Unit 2 で箇所を減らす</li>
+</ul>
+<hr />
+<h2 id="_12">設計<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
+<h3 id="unit_1">本 Unit のスコープでの設計図<a class="headerlink" href="#unit_1" title="Permanent link">&para;</a></h3>
+<p><strong>4 図とも掲載しません。</strong> 理由を明記します。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">図</th>
+<th style="text-align: left;">掲載しない理由</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">ドメインモデル図</td>
+<td style="text-align: left;">本 Unit ではドメインを作らない。第 2 章（Unit 2）で最初の型が出る</td>
+</tr>
+<tr>
+<td style="text-align: left;">状態遷移図</td>
+<td style="text-align: left;">ToDo 項目の状態は第 4 章（Unit 3）から。既存の <a href="../../design/domain-model/">ドメインモデル設計</a> にある</td>
+</tr>
+<tr>
+<td style="text-align: left;">ER 図</td>
+<td style="text-align: left;">永続化は第 9 章（Unit 5）から。既存の <a href="../../design/data-model/">データモデル設計</a> にある</td>
+</tr>
+<tr>
+<td style="text-align: left;">画面遷移図</td>
+<td style="text-align: left;">画面は第 2 章から。既存の <a href="../../design/ui_design/">UI 設計</a> にある</td>
+</tr>
+</tbody>
+</table>
+<p><strong>本 Unit で決めるのは設計ではなく、設計を書く前提（async・HTTP クレート・検査）です。</strong></p>
+<h3 id="_13">依存の構造（決めること）<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>apps/rust/zettai/
+├── Cargo.toml          workspace
+├── Makefile            make check
+├── README.md           既知の制約の一覧（器を先に作る）
+└── zettai-step1-http/  最初のメンバー
+    ├── Cargo.toml
+    ├── src/
+    └── tests/
+</code></pre></div>
+<p><strong>cargo workspace のメンバーが、Kotlin 版のモジュール・なでしこ3 版の <code>stepN/</code> に対応します。</strong> メンバーを増やす手順は、2 つめを切るとき（Unit 2）に ADR へ書きます（なでしこ3 版 Unit 7 Try 2）。</p>
+<p><strong>境界はクレートの分割そのものが守ります。</strong> <code>Cargo.toml</code> の <code>dependencies</code> に無ければ、使おうとした時点でコンパイルが通りません。2 対象のような境界検査を書く必要がありません。<strong>これは第 3 章（Unit 2）で扱います。</strong></p>
+<h3 id="_14">ユーザーマニュアル<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
+<p><strong>本 Unit では作りません。</strong> 本連載の成果物は記事であり、利用者向けマニュアルを持ちません（2 対象と同じ）。画面もありません。</p>
+<h3 id="adr">ADR<a class="headerlink" href="#adr" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">ADR</th>
+<th style="text-align: left;">内容</th>
+<th style="text-align: left;">ステップ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">ADR-024（予定）</td>
+<td style="text-align: left;">async を採るかどうか</td>
+<td style="text-align: left;">1-1.2・1-1.7</td>
+</tr>
+<tr>
+<td style="text-align: left;">ADR-025（予定）</td>
+<td style="text-align: left;">HTTP クレートの選定</td>
+<td style="text-align: left;">1-1.3・1-1.7</td>
+</tr>
+<tr>
+<td style="text-align: left;">ADR-026（予定）</td>
+<td style="text-align: left;"><code>make check</code> の構成とカバレッジの採否</td>
+<td style="text-align: left;">1-1.5・1-1.7</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_15">リスクと対策<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">リスク</th>
+<th style="text-align: left;">影響</th>
+<th style="text-align: left;">対策</th>
+<th style="text-align: left;">検知</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>同期クレートで第 9 章まで行けず、async が第 2 章から必要になる</strong></td>
+<td style="text-align: left;">高</td>
+<td style="text-align: left;">スパイク 2 で先に確かめる。<strong>必要なら第 2 章の主題に「async をいつ入れるか」を加える</strong>（隠さない）</td>
+<td style="text-align: left;">1-1.2</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>HTTP クレートの選定を誤り、第 2 章で書き直す</strong></td>
+<td style="text-align: left;">中</td>
+<td style="text-align: left;">候補 3 つで同じハンドラを書いてから決める。<strong>書いた 3 つは捨てずにスパイクの記録として残す</strong></td>
+<td style="text-align: left;">1-1.3</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>clippy -- -D warnings</code> が厳しすぎて進まない</td>
+<td style="text-align: left;">中</td>
+<td style="text-align: left;">止まった箇所を制約の一覧に記録する。<strong>それでも <code>-D warnings</code> は外さない</strong>（外すなら ADR に理由を書く）</td>
+<td style="text-align: left;">1-1.5</td>
+</tr>
+<tr>
+<td style="text-align: left;">ゲートがまた止まらない</td>
+<td style="text-align: left;"><strong>高</strong></td>
+<td style="text-align: left;">選択肢と数字を必ず添える。<strong>3 箇所中 2 箇所を下回ったら Unit 2 で箇所を減らす</strong>（増やさない）</td>
+<td style="text-align: left;">1-2.6</td>
+</tr>
+<tr>
+<td style="text-align: left;">第 1 章が 2 対象の焼き直しになる</td>
+<td style="text-align: left;">中</td>
+<td style="text-align: left;">受入条件 4 で「2 対象に無い内容を 1 つ以上」を要求する。無ければ未完了</td>
+<td style="text-align: left;">1-2.3</td>
+</tr>
+<tr>
+<td style="text-align: left;">Nix の devShell に <code>cargo-llvm-cov</code> が無い</td>
+<td style="text-align: left;">低</td>
+<td style="text-align: left;">入れない判断を ADR に記録する（Kotlin 版 ADR-004 と同じ形）</td>
+<td style="text-align: left;">1-1.4</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="deployment-unit">Deployment Unit としての完了条件<a class="headerlink" href="#deployment-unit" title="Permanent link">&para;</a></h2>
+<h3 id="definition-of-done">Definition of Done<a class="headerlink" href="#definition-of-done" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>apps/rust/zettai/</code> で <code>make check</code> が 3 回連続で通る</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>make check</code> が <strong>20 秒以内</strong>（内訳も記録）</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> ADR 3 件（async・HTTP クレート・<code>make check</code>）があり、<strong>選ばなかった案と代償が書かれている</strong></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>README.md</code> に既知の制約の一覧があり、Unit 1 で踏んだものが 1 件以上入っている</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 変更依頼数の定義が書かれている</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 第 1 章が公開され、<strong>2 対象に無い内容が 1 つ以上ある</strong></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>docs/article/zettai/rust/index.md</code> がある</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 記事検査 6 本が違反 0 件（<strong>Rust を対象に含めた状態で</strong>）</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>mkdocs.yml</code>・<code>zettai/index.md</code>・<code>outline.md</code> が同期されている</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>gulp okf:check</code> が ERROR 0</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Bolt 終了報告とふりかえりがある</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>ゲートの同期停止率を数えた</strong></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> CI: <strong>対象外</strong>（Unit 2 で作る。理由は 1-2.5）</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> ユーザーマニュアル: <strong>対象外</strong></li>
+</ul>
+<h3 id="bolt-dod">全 Bolt 共通のゲート項目（DoD）<a class="headerlink" href="#bolt-dod" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
 <th style="text-align: left;">項目</th>
-<th style="text-align: left;">内容</th>
+<th style="text-align: left;">本 Unit での扱い</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">Unit</td>
-<td style="text-align: left;">Unit 5 射影と永続化</td>
+<td style="text-align: left;">既製品を先に調べたか</td>
+<td style="text-align: left;"><strong>本 Unit はほぼ全部が既製品の調査</strong>。自前で書くのは <code>Makefile</code> だけ</td>
 </tr>
 <tr>
-<td style="text-align: left;">計画</td>
-<td style="text-align: left;"><a href="../iteration_plan-nadesiko-5/">Unit 5 の Bolt 計画</a></td>
+<td style="text-align: left;">記事のコード例が実装からの転記か</td>
+<td style="text-align: left;"><code>check_article_code.py</code> が green</td>
 </tr>
 <tr>
-<td style="text-align: left;">実績</td>
-<td style="text-align: left;"><a href="../bolt_report-nadesiko-5/">Bolt 終了報告</a></td>
+<td style="text-align: left;">つまずき節があるか</td>
+<td style="text-align: left;">第 1 章に Rust 固有の内容が 1 つ以上</td>
+</tr>
+<tr>
+<td style="text-align: left;">既知の制約の一覧が更新されているか</td>
+<td style="text-align: left;">器を作り、踏んだものを入れる</td>
+</tr>
+<tr>
+<td style="text-align: left;">性質テストのしきい値に根拠があるか</td>
+<td style="text-align: left;"><strong>本 Unit では性質テストを書かない</strong>（Unit 3 から）</td>
+</tr>
+<tr>
+<td style="text-align: left;">記事の全文検証</td>
+<td style="text-align: left;"><strong>ゲートではなく DoD。</strong> 2 対象で 14 箇所計画して 0 回だったため</td>
 </tr>
 </tbody>
 </table>
-<hr />
-<h2 id="keep">Keep（続けること）<a class="headerlink" href="#keep" title="Permanent link">&para;</a></h2>
+<h3 id="_16">デモ項目<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
 <th style="text-align: left;">#</th>
-<th style="text-align: left;">Keep</th>
-<th style="text-align: left;">根拠</th>
+<th style="text-align: left;">デモ</th>
+<th style="text-align: left;">確認すること</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align: left;">1</td>
-<td style="text-align: left;"><strong>構造を変えた直後に NFR を測る</strong>（Unit 4 Try 2）</td>
-<td style="text-align: left;"><code>src/step3/</code> を切った直後に 33.4 秒と分かった。Unit 4 は超えてから気づいた。<strong>その場で対処でき、記事を書く前に片づいた</strong></td>
+<td style="text-align: left;"><code>make check</code> を走らせる</td>
+<td style="text-align: left;">3 回とも通り、20 秒以内</td>
 </tr>
 <tr>
 <td style="text-align: left;">2</td>
-<td style="text-align: left;"><strong>ADR に「解かないこと」を先に書く</strong>（Unit 4 Try 1）</td>
-<td style="text-align: left;">ADR-019 で 4 件を先に書けた。Unit 4 は決めた後に気づいた</td>
+<td style="text-align: left;">各段を個別に走らせる</td>
+<td style="text-align: left;">それぞれが何を守るかを言える</td>
 </tr>
 <tr>
 <td style="text-align: left;">3</td>
-<td style="text-align: left;"><strong>移植要否を該当章の着手前に判断する</strong>（Unit 4 Try 3）</td>
-<td style="text-align: left;">ADR-008 は対応、ADR-009 は不要と着手前に決めた。<strong>「不要」も記録したので、後から「移植しそこねた」ように見えない</strong></td>
+<td style="text-align: left;">ADR 3 件を読む</td>
+<td style="text-align: left;">選ばなかった案と代償が書いてある</td>
 </tr>
 <tr>
 <td style="text-align: left;">4</td>
-<td style="text-align: left;"><strong>法則を破って検出率を測る</strong></td>
-<td style="text-align: left;">5 構造で測り終えた。<strong>モナドの「失敗も連鎖する」が 3 法則のうち 1 つでしか見つからない</strong>ことが分かった</td>
-</tr>
-<tr>
-<td style="text-align: left;">5</td>
-<td style="text-align: left;"><strong>上限を上げるのではなく、何を速く保つかを決め直す</strong></td>
-<td style="text-align: left;"><code>make check</code> が伸びたとき、NFR を緩めるのではなく「作業中の段階」と「全段階」に分けた</td>
+<td style="text-align: left;">第 1 章を読む</td>
+<td style="text-align: left;">2 対象に無い内容がある</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h2 id="problem">Problem（問題）<a class="headerlink" href="#problem" title="Permanent link">&para;</a></h2>
+<h2 id="bolt_2">指標（Bolt 終了報告へ引き継ぐ）<a class="headerlink" href="#bolt_2" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">#</th>
-<th style="text-align: left;">Problem</th>
-<th style="text-align: left;">何が起きたか</th>
-<th style="text-align: left;">原因</th>
+<th style="text-align: left;">指標</th>
+<th style="text-align: left;">計画</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">1</td>
-<td style="text-align: left;"><strong>承認ゲートが 5 Unit 続けて機能しなかった</strong></td>
-<td style="text-align: left;">4 箇所を計画して実績 0 箇所。累計 34 箇所</td>
-<td style="text-align: left;">連続実行の指示。<strong>永続化の形式（後方互換）という、人が見るべき判断が通り過ぎた</strong></td>
+<td style="text-align: left;">ステップ</td>
+<td style="text-align: left;"><strong>15</strong>（Bolt 1-1: 9 / Bolt 1-2: 6）</td>
 </tr>
 <tr>
-<td style="text-align: left;">2</td>
-<td style="text-align: left;"><strong>人が検証に使った時間を 5 Unit 続けて計測できなかった</strong></td>
-<td style="text-align: left;">主指標が 5 回連続で空欄</td>
-<td style="text-align: left;">Problem 1 の結果</td>
+<td style="text-align: left;">承認ゲート</td>
+<td style="text-align: left;">3 箇所（同期停止）。<strong>目標は 2 箇所以上が実際に停止すること</strong></td>
 </tr>
 <tr>
+<td style="text-align: left;">検証負荷</td>
+<td style="text-align: left;">7</td>
+</tr>
+<tr>
+<td style="text-align: left;">変更依頼数</td>
+<td style="text-align: left;">1-1.0 で定義してから数える</td>
+</tr>
+<tr>
+<td style="text-align: left;">人が修正を入れた箇所数</td>
+<td style="text-align: left;">記録する</td>
+</tr>
+<tr>
+<td style="text-align: left;">公開する章</td>
+<td style="text-align: left;">1（第 1 章）</td>
+</tr>
+<tr>
+<td style="text-align: left;">ADR</td>
 <td style="text-align: left;">3</td>
-<td style="text-align: left;"><strong>同じ制約に 3 度目でぶつかった</strong></td>
-<td style="text-align: left;">関数値ごしに非同期の命令が待てない。第 3・7・9 章</td>
-<td style="text-align: left;"><strong>制約をチェックリストに残していたのに、設計の前に見ていない。</strong> 「スパイクで確かめる項目」に毎回書いてはいるが、既知の制約として設計の入力にしていない</td>
 </tr>
 <tr>
-<td style="text-align: left;">4</td>
-<td style="text-align: left;"><strong>NFR の立て方が最初から粗かった</strong></td>
-<td style="text-align: left;">「<code>make check</code> 30 秒以内」は段階が 1 つのときの数字。段階を増やす構造を選んだ時点で維持できないと分かったはず</td>
-<td style="text-align: left;">Unit 4 で ADR-015 を決めたとき、<strong>NFR への影響を見積もっていなかった</strong>（Unit 4 Problem 4 と同じ）</td>
+<td style="text-align: left;"><code>make check</code></td>
+<td style="text-align: left;">20 秒以内（内訳も）</td>
 </tr>
 </tbody>
 </table>
-<p>Problem 3 が本 Unit で一番重い問題です。<strong>制約は記録しているのに、設計を始める前に読み返していません。</strong> スパイクで「確かめる項目」として毎回書き直しており、そのたびに発見しています。</p>
+<p><strong>「人が検証に使った時間」は測りません。</strong> なでしこ3 版で 6 Unit 連続で空欄になり、計測手段が無いことが分かっています。</p>
 <hr />
-<h2 id="try">Try（次に試すこと）<a class="headerlink" href="#try" title="Permanent link">&para;</a></h2>
+<h2 id="_17">更新履歴<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">#</th>
-<th style="text-align: left;">Try</th>
-<th style="text-align: left;">期待効果</th>
-<th style="text-align: left;">期限・契機</th>
+<th>日付</th>
+<th>更新内容</th>
+<th>更新者</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">1</td>
-<td style="text-align: left;"><strong>既知の制約を 1 箇所に集め、設計を始める前に読む</strong>（Problem 3）</td>
-<td style="text-align: left;">「スパイクで確かめる項目」とは別に、<strong>確定した制約の一覧</strong>を実装のドキュメント（<code>README.md</code> か設計）に置く。3 度目の同じつまずきを止める</td>
-<td style="text-align: left;">Unit 6 の冒頭</td>
-</tr>
-<tr>
-<td style="text-align: left;">2</td>
-<td style="text-align: left;"><strong>構造を変える判断では NFR への影響を見積もりに入れる</strong>（Problem 4。Unit 4 Try 2 の強化）</td>
-<td style="text-align: left;">Unit 4・5 とも「測って対処」で済ませたが、<strong>決める時点で「段階が N 個になったらどうなるか」を書く</strong>。ADR の「解かないこと」と同じ枠で扱う</td>
-<td style="text-align: left;">Unit 6（<code>src/step4/</code> を切るとき）</td>
-</tr>
-<tr>
-<td style="text-align: left;">3</td>
-<td style="text-align: left;"><strong>アプリカティブは「モナドとの違い」を検出率で示す</strong>（Keep 4 の発展）</td>
-<td style="text-align: left;">第 11 章はアプリカティブ。モナドは最初の失敗で止まり、アプリカティブは止まらない。<strong>その違いを性質テストで出せるか試す</strong></td>
-<td style="text-align: left;">Unit 6</td>
-</tr>
-<tr>
-<td style="text-align: left;">4</td>
-<td style="text-align: left;"><strong>第 10 章は「何を文脈と呼ぶか」を最初に決める</strong></td>
-<td style="text-align: left;">Kotlin 版は DB 接続が文脈。この版には持ち回る文脈が無い。<strong>文脈が無い言語で <code>ContextReader</code> の章を書く</strong>という難所なので、題材を先に決める</td>
-<td style="text-align: left;">Unit 6 の冒頭</td>
+<td>2026-09-28</td>
+<td>初版作成。2 対象の完了報告とふりかえりから持ち込み 9 件を反映。<strong>ゲートを 3 箇所に絞り、それぞれに添えるものを事前に書いた</strong>。「記事の全文検証」はゲートから外し DoD に置いた。設計 4 図は本 Unit のスコープ外として理由つきで省略した</td>
+<td>claude-code/claude-opus-5</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h2 id="unit-6">Unit 6 への引き継ぎ<a class="headerlink" href="#unit-6" title="Permanent link">&para;</a></h2>
+<h2 id="_18">関連ドキュメント<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Try 1・2・4 は Unit 6 の冒頭で扱う（着手前に反映する）</li>
-<li>Try 3 は Unit 6 の実装ステップに入れる</li>
-<li><a href="../bolt_report-nadesiko-5/">Bolt 終了報告</a> の持ち込み 5 件（CI の実行確認と <strong>Release v0.2.0</strong> を含む）</li>
-<li><strong>ゲート密度は「密」を維持し、箇所は 4 のまま。</strong> 第 10 章は構造的不確実性が高い</li>
-</ul>
-<hr />
-<h2 id="_2">関連ドキュメント<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<ul>
-<li><a href="../iteration_plan-nadesiko-5/">Unit 5 の Bolt 計画</a> / <a href="../bolt_report-nadesiko-5/">Bolt 終了報告</a></li>
-<li><a href="../retrospective-nadesiko-4/">Unit 4 のふりかえり</a></li>
-<li><a href="../release_plan-nadesiko/">リリース計画（なでしこ3 版）</a> / <a href="../development_strategy/">開発戦略</a></li>
+<li><a href="../release_plan-rust/">リリース計画（Rust 版）</a> / <a href="../development_strategy/">開発戦略</a></li>
+<li><a href="../../article/outline/">執筆計画</a> / <a href="../../article/draft/">章構成マインドマップ</a></li>
+<li><a href="../release_report-nadesiko-1.0.0/">リリース完了報告書 v1.0.0（なでしこ3 版）</a> / <a href="../retrospective-nadesiko-7/">なでしこ3 版 Unit 7 のふりかえり</a></li>
+<li><a href="../iteration_plan-1/">Kotlin 版 Unit 1 の Bolt 計画</a> / <a href="../iteration_plan-nadesiko-1/">なでしこ3 版 Unit 1 の Bolt 計画</a></li>
 </ul>
 
 

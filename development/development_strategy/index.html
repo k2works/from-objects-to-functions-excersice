@@ -1833,7 +1833,179 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#rust" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rust 版の局面別アプローチ
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rust 版の局面別アプローチ">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#_43" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        この対象固有の事情
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_44" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        戦略の全体像
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_45" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        アプローチ選択の根拠（差分）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tdd_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        共通の TDD サイクル（差分）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="共通の TDD サイクル（差分）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#red_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Red の確認の仕方
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_46" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        テスト種別とレイヤーの対応
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_47" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        品質チェック
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_48" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        コミット規約
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_49" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        承認ゲートとゲート密度（差分）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="承認ゲートとゲート密度（差分）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bolt_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        全 Bolt 共通のゲート項目
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_50" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        局面によらず必ず停止する操作
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_51" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        設計ドキュメント整合（差分）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_52" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        局面移行時の一貫性維持（差分）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_53" class="md-nav__link">
     <span class="md-ellipsis">
       
         更新履歴
@@ -1844,7 +2016,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_44" class="md-nav__link">
+  <a href="#_54" class="md-nav__link">
     <span class="md-ellipsis">
       
         関連ドキュメント
@@ -2388,6 +2560,41 @@
     
   
     「なでしこ3」Unit 7 監視とアーキテクチャ総括
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iteration_plan-rust-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「Rust」Unit 1 器と第 1 章
   
 
     
@@ -8853,7 +9060,184 @@
 </ul>
 <p>局面が移るとき（Unit 2 → Unit 3、Unit 5 → Unit 6）の 3 つの確認に、<strong>「Kotlin 版の同じ局面と比べて、変更依頼数が同数以下か」</strong>を加えます。上回っていれば、1 言語目のガードレールが効いていないということなので、原因を特定してから次の局面へ進みます。</p>
 <hr />
-<h2 id="_43">更新履歴<a class="headerlink" href="#_43" title="Permanent link">&para;</a></h2>
+<h2 id="rust">Rust 版の局面別アプローチ<a class="headerlink" href="#rust" title="Permanent link">&para;</a></h2>
+<p>シリーズ 3 言語目の <strong>Rust 版</strong>（<a href="../release_plan-rust/">リリース計画</a>）の戦略です。ここに書いていない事項は、Kotlin 版の記述をそのまま適用します。</p>
+<h3 id="_43">この対象固有の事情<a class="headerlink" href="#_43" title="Permanent link">&para;</a></h3>
+<p>なでしこ3 版が「型検査という網が無い」側だったのに対し、Rust 版は<strong>反対側</strong>です。</p>
+<ul>
+<li><strong>言語が与えるものが多い。</strong> Kotlin 版が第 7 章で自前実装した <code>Outcome</code> は <code>Result</code> として、代数的データ型は <code>enum</code> として言語にあります。テストフレームワークも <code>#[test]</code> として組み込みです。戦略上の帰結は 1 つで、<strong>「既製品を先に調べる」を全 Bolt 共通のゲート項目に置く</strong>ことです。2 対象の「自前で書く」をそのまま持ち込むと、理由のない自作になります</li>
+<li><strong>所有権・借用・ライフタイムという制約が入る。</strong> Kotlin 版にもなでしこ3 版にも無かった軸です。関数型 DI（第 4 章）・クロージャの合成（第 5 章）・文脈の持ち回り（第 10 章）が、2 対象と同じ形では書けません。<strong>この制約が設計をどこへ押すかが、この対象の主題の 1 つ</strong>です</li>
+<li><strong>後戻りの効かない判断が Unit 1 に集まる。</strong> 第 9 章で async な DB クレートを選ぶと、第 1〜8 章のコードが <code>async fn</code> に書き換わります。依存 DAG に現れない前倒しの依存で、<strong>Unit 1 で決めなければなりません</strong></li>
+<li><strong>2 対象の設計が既知である。</strong> 構造的不確実性は最も低い一方、「2 対象の焼き直し」を生むリスクが最も高くなります</li>
+</ul>
+<h3 id="_44">戦略の全体像<a class="headerlink" href="#_44" title="Permanent link">&para;</a></h3>
+<p>局面の割り当ては <strong>Kotlin 版・なでしこ3 版と同一</strong>にします。章の位置を対象間で比べられることが、比較コンテンツの前提です。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">局面</th>
+<th style="text-align: left;">Unit</th>
+<th style="text-align: left;">章</th>
+<th style="text-align: left;">主アプローチ</th>
+<th style="text-align: left;">ゲート密度</th>
+<th style="text-align: left;">2 対象との差</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">序盤</td>
+<td style="text-align: left;">Unit 1〜2</td>
+<td style="text-align: left;">前提整備・1〜3</td>
+<td style="text-align: left;">アウトサイドイン</td>
+<td style="text-align: left;"><strong>密（Unit 1 は 3 箇所）</strong></td>
+<td style="text-align: left;">Unit 1 の内訳が「環境＋雛形」から「<strong>後戻りの効かない 2 つの判断</strong>＋雛形」に変わる。環境と cargo は既にある</td>
+</tr>
+<tr>
+<td style="text-align: left;">中盤</td>
+<td style="text-align: left;">Unit 3〜5</td>
+<td style="text-align: left;">4〜9</td>
+<td style="text-align: left;">インサイドアウト</td>
+<td style="text-align: left;">Unit 3 は<strong>密</strong>、Unit 4 は<strong>疎</strong>、Unit 5 は中</td>
+<td style="text-align: left;"><strong>Unit 4 が疎になるのは 3 対象で初めて</strong>。<code>enum</code> と <code>Result</code> が言語にあり、書くものが少ない</td>
+</tr>
+<tr>
+<td style="text-align: left;">終盤</td>
+<td style="text-align: left;">Unit 6〜7</td>
+<td style="text-align: left;">10〜13</td>
+<td style="text-align: left;">アウトサイドイン</td>
+<td style="text-align: left;">Unit 6 は<strong>密</strong>、Unit 7 は疎</td>
+<td style="text-align: left;">Unit 6 が密。ライフタイムが境界の設計に直接効く</td>
+</tr>
+</tbody>
+</table>
+<p><strong>ゲート密度が局面と一致しません。</strong> 2 対象は「序盤は密、終盤は疎」でしたが、Rust 版は<strong>所有権が効く Unit（3・6）が密</strong>になります。局面ではなく<strong>制約の効き方</strong>で密度を決めます。</p>
+<h3 id="_45">アプローチ選択の根拠（差分）<a class="headerlink" href="#_45" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>序盤（アウトサイドイン）</strong>: 2 対象と同じく API 未実装からの出発です。Unit 1 / Bolt 1-1 は縦串ではなく「<strong>判断とその根拠を作る</strong>」段階で、アウトサイドインの対象外です。ウォーキングスケルトンは 2 対象と同じく第 2 章に置きます</li>
+<li><strong>中盤（インサイドアウト）</strong>: 型があるので、なでしこ3 版ほどの必然性はありません。ただし<strong>所有権はドメイン層で決まった形が外側を縛る</strong>ため、内側から確定させる必要は Kotlin 版と同程度にあります</li>
+<li><strong>終盤（アウトサイドイン）</strong>: 2 対象と同じ根拠です。第 13 章では<strong>3 言語</strong>を並べます</li>
+</ul>
+<h3 id="tdd_3">共通の TDD サイクル（差分）<a class="headerlink" href="#tdd_3" title="Permanent link">&para;</a></h3>
+<p>TDD の三原則と Red-Green-Refactor は不変です。変わるのは次の 4 点です。</p>
+<h4 id="red_1">Red の確認の仕方<a class="headerlink" href="#red_1" title="Permanent link">&para;</a></h4>
+<p><code>cargo test</code> が失敗することで Red を確認します。<strong>ただし「コンパイルが通らない」も Red の一種</strong>です。2 対象には無かった状態なので、記事では両者を書き分けます。</p>
+<ul>
+<li><strong>テストが失敗する Red</strong>: 振る舞いが足りない</li>
+<li><strong>コンパイルが通らない Red</strong>: 型・所有権・ライフタイムが合っていない</li>
+</ul>
+<p><strong>後者は「設計がまだ決まっていない」ことの表れ</strong>として扱い、無理に通さず設計に戻ります。</p>
+<h4 id="_46">テスト種別とレイヤーの対応<a class="headerlink" href="#_46" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">テスト種別</th>
+<th style="text-align: left;">対象</th>
+<th style="text-align: left;">置き場所</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">単体テスト</td>
+<td style="text-align: left;">ドメインの関数</td>
+<td style="text-align: left;">各モジュール内の <code>#[cfg(test)] mod tests</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">性質テスト</td>
+<td style="text-align: left;">代数構造の法則</td>
+<td style="text-align: left;">同上。<strong>既製品（proptest / quickcheck）の採否は Unit 3 で判断する</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">境界テスト</td>
+<td style="text-align: left;">依存の向き</td>
+<td style="text-align: left;">クレートの分割そのものが境界。<strong><code>Cargo.toml</code> の <code>dependencies</code> に無いことで守る</strong>（2 対象の文字列検査より強い）</td>
+</tr>
+<tr>
+<td style="text-align: left;">受け入れテスト</td>
+<td style="text-align: left;">業務シナリオ</td>
+<td style="text-align: left;"><code>tests/</code> ディレクトリ。経路を差し替えて同じシナリオを走らせる</td>
+</tr>
+</tbody>
+</table>
+<p><strong>境界の守り方が 2 対象と違います。</strong> Kotlin 版は import の検査、なでしこ3 版はファイルの中身の文字列検査でした。Rust 版は<strong>クレートを分ければコンパイラが守ります</strong>。検査を書く必要がありません。</p>
+<h4 id="_47">品質チェック<a class="headerlink" href="#_47" title="Permanent link">&para;</a></h4>
+<p><code>make check</code> に <code>cargo fmt --check</code>・<code>cargo clippy -- -D warnings</code>・<code>cargo test</code> を集約します。</p>
+<p><strong><code>clippy -- -D warnings</code> は設計判断に混ざります。</strong> 押された箇所を記録し、第 13 章で「設計の改善」と「clippy の好み」に仕分けます。</p>
+<p>なでしこ3 版 Unit 7 の学びを先に適用します。<strong><code>make check</code> の各段が何を守っているかを、段を足すときに数えます。</strong> 守っているものが無い段は入れません。</p>
+<h4 id="_48">コミット規約<a class="headerlink" href="#_48" title="Permanent link">&para;</a></h4>
+<p>実装は <code>feat(rust): ...</code>、記事は <code>docs(rust): ...</code> とし、コミットを分けます。</p>
+<h3 id="_49">承認ゲートとゲート密度（差分）<a class="headerlink" href="#_49" title="Permanent link">&para;</a></h3>
+<p><strong>2 対象の最大の失敗はここでした。</strong> 41 箇所計画して同期停止は 1 回です。この対象では<strong>ゲートの書き方そのものを規約</strong>にします（<a href="../release_plan-rust/">リリース計画</a>）。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">規約</th>
+<th style="text-align: left;">内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;"><strong>選択肢と数字を添えられないものは、ゲートにしない。</strong> DoD のチェック項目に書く</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">ゲートには「選択肢」「それぞれの結果（数字）」「調べた事実」を添える</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">計画したゲートの <strong>50% 以上</strong>が同期停止することを目標にする。下回ったら次の Unit で箇所を減らす</td>
+</tr>
+</tbody>
+</table>
+<h4 id="bolt_2">全 Bolt 共通のゲート項目<a class="headerlink" href="#bolt_2" title="Permanent link">&para;</a></h4>
+<p>局面やゲート密度によらず、Bolt を閉じる前に次を人が確認します。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">項目</th>
+<th style="text-align: left;">確認すること</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>既製品を先に調べたか</strong></td>
+<td style="text-align: left;">自前で書いた箇所それぞれに、既製品を調べた記録があるか</td>
+</tr>
+<tr>
+<td style="text-align: left;">記事のコード例が実装からの転記か</td>
+<td style="text-align: left;"><code>check_article_code.py</code> が green か</td>
+</tr>
+<tr>
+<td style="text-align: left;">つまずき節があるか</td>
+<td style="text-align: left;">その章に、<strong>2 対象に無い</strong> Rust 固有の内容が 1 つ以上あるか</td>
+</tr>
+<tr>
+<td style="text-align: left;">既知の制約の一覧が更新されているか</td>
+<td style="text-align: left;"><code>apps/rust/zettai/README.md</code>（<strong>Unit 1 から置く</strong>）</td>
+</tr>
+<tr>
+<td style="text-align: left;">性質テストのしきい値に根拠があるか</td>
+<td style="text-align: left;">期待値と標準偏差の計算が添えてあるか</td>
+</tr>
+</tbody>
+</table>
+<p><strong>「記事の全文検証」はゲートに置きません。</strong> 2 対象で 14 箇所計画して 1 度も止まっていないので、DoD のチェック項目にします。</p>
+<h4 id="_50">局面によらず必ず停止する操作<a class="headerlink" href="#_50" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>async を採るかどうかの決定</strong>（第 2 章から全体に伝播する。後戻りが効かない）</li>
+<li><strong>HTTP クレートの選定</strong>（上と連動する）</li>
+<li>永続化フォーマットの決定・変更</li>
+<li>データベースのスキーマ変更</li>
+</ul>
+<h3 id="_51">設計ドキュメント整合（差分）<a class="headerlink" href="#_51" title="Permanent link">&para;</a></h3>
+<p>2 対象と同じく、既存の設計ドキュメント（<a href="../../design/domain-model/">ドメインモデル</a>・<a href="../../design/architecture_backend/">バックエンドアーキテクチャ</a>・<a href="../../design/ui_design/">UI 設計</a>・<a href="../../design/data-model/">データモデル</a>）に <strong>「Rust 版での差分」節</strong>を足す形で反映します。設計そのものは対象をまたいで共通で、変わるのは実現手段だけです。</p>
+<h3 id="_52">局面移行時の一貫性維持（差分）<a class="headerlink" href="#_52" title="Permanent link">&para;</a></h3>
+<p>局面が移るとき（Unit 2 → Unit 3、Unit 5 → Unit 6）の確認に、次を加えます。</p>
+<ul>
+<li><strong>2 対象の同じ局面と比べて、記事に「2 対象に無い内容」があるか。</strong> 無ければ焼き直しになっています</li>
+<li><strong>所有権に押された箇所を記録できているか。</strong> 第 13 章の材料になります</li>
+</ul>
+<h2 id="_53">更新履歴<a class="headerlink" href="#_53" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
@@ -8866,6 +9250,11 @@
 <tr>
 <td>2026-09-28</td>
 <td>Unit 7 の Bolt 計画作成時の整合性検証で、ゲート箇所を 3 + 条件付き 1 に修正（下記の決定からの変更。理由はゲート密度表に記載）</td>
+<td>claude-code/claude-opus-5</td>
+</tr>
+<tr>
+<td>2026-09-28</td>
+<td><strong>Rust 版（3 言語目）の局面別アプローチを追記。</strong> 局面割り当ては 2 対象と同一に保ちつつ、ゲート密度を局面ではなく「制約（所有権）の効き方」で決める方針とし、「既製品を先に調べる」を全 Bolt 共通のゲート項目に置いた。ゲートの書き方そのものを規約化した</td>
 <td>claude-code/claude-opus-5</td>
 </tr>
 <tr>
@@ -8896,7 +9285,7 @@
 </tbody>
 </table>
 <hr />
-<h2 id="_44">関連ドキュメント<a class="headerlink" href="#_44" title="Permanent link">&para;</a></h2>
+<h2 id="_54">関連ドキュメント<a class="headerlink" href="#_54" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="../release_plan/">リリース計画（Kotlin 版）</a> / <a href="../release_plan-nadesiko/">リリース計画（なでしこ3 版）</a></li>
 <li><a href="../iteration_plan-1/">Unit 1 の Bolt 計画</a></li>

@@ -7365,7 +7365,7 @@
 <p>ToDo リストアプリケーション <strong>Zettai</strong> を TDD で一から作りながら、オブジェクト指向から関数型へ設計を移していく連載シリーズです。題材と章構成は Uberto Barbini 著『From Objects to Functions』に拠っています。</p>
 <ul>
 <li>執筆計画：<a href="../outline/">outline.md</a></li>
-<li>リリース計画（イテレーション・ストーリー・進捗）：<a href="../../development/release_plan/">Kotlin 版</a> / <a href="../../development/release_plan-nadesiko/">なでしこ3 版</a></li>
+<li>リリース計画（イテレーション・ストーリー・進捗）：<a href="../../development/release_plan/">Kotlin 版</a> / <a href="../../development/release_plan-nadesiko/">なでしこ3 版</a> / <a href="../../development/release_plan-rust/">Rust 版</a></li>
 <li>章構成マインドマップ：<a href="../draft/">draft.md</a></li>
 <li>参照元の原著コンパニオンコード：<code>references/fotf/</code>（読み取り専用）</li>
 </ul>
@@ -7395,9 +7395,52 @@
 <td style="text-align: left;">Nix devShell <code>nadesiko</code>（Node 22 / cnako3 3.8.7）</td>
 <td style="text-align: left;"><strong>完結（13 / 13 章）</strong></td>
 </tr>
+<tr>
+<td style="text-align: left;">Rust</td>
+<td style="text-align: left;">（準備中）</td>
+<td style="text-align: left;"><code>apps/rust/zettai/</code></td>
+<td style="text-align: left;">Nix devShell <code>rust</code>（rustc 1.91.1 / cargo 1.91.0）</td>
+<td style="text-align: left;">計画中（0 / 13 章）</td>
+</tr>
 </tbody>
 </table>
-<p>現在の対象は 2 言語です。横断比較は <a href="comparison/">対象言語の横断比較</a> にまとめています（なでしこ3 版の Phase 1 完了時に新設）。比較軸は「型で保証する（Kotlin）」と「約束とテストで保証する（なでしこ3）」です。章を閉じるたびに観点を 1 つずつ足します。</p>
+<p>現在の対象は <strong>3 言語</strong>です。横断比較は <a href="comparison/">対象言語の横断比較</a> にまとめています（なでしこ3 版の Phase 1 完了時に新設）。</p>
+<p>当初の比較軸は「型で保証する（Kotlin）」と「約束とテストで保証する（なでしこ3）」の 2 点でした。<strong>Rust 版で軸が「言語がどこまで与えるか」に広がります。</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">対象</th>
+<th style="text-align: left;">型</th>
+<th style="text-align: left;">関数型の道具</th>
+<th style="text-align: left;"><code>Outcome</code> 相当</th>
+<th style="text-align: left;">代数的データ型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Kotlin</td>
+<td style="text-align: left;">あり</td>
+<td style="text-align: left;">あり</td>
+<td style="text-align: left;"><strong>自前で作る</strong></td>
+<td style="text-align: left;"><code>sealed interface</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">なでしこ3</td>
+<td style="text-align: left;">なし</td>
+<td style="text-align: left;">なし</td>
+<td style="text-align: left;"><strong>辞書で作る</strong></td>
+<td style="text-align: left;">無い</td>
+</tr>
+<tr>
+<td style="text-align: left;">Rust</td>
+<td style="text-align: left;">あり</td>
+<td style="text-align: left;">あり</td>
+<td style="text-align: left;"><strong><code>Result</code> が言語にある</strong></td>
+<td style="text-align: left;"><code>enum</code></td>
+</tr>
+</tbody>
+</table>
+<p>Rust 版の列は、Phase 1（第 3 章）を終えた時点で比較ページに足します（新設ではありません）。</p>
 <h2 id="_2">全章構成<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -7406,6 +7449,7 @@
 <th style="text-align: left;">タイトル</th>
 <th style="text-align: left;">Kotlin</th>
 <th style="text-align: left;">なでしこ3</th>
+<th style="text-align: left;">Rust</th>
 </tr>
 </thead>
 <tbody>
@@ -7414,78 +7458,91 @@
 <td style="text-align: left;">新しいアプリケーションを準備する</td>
 <td style="text-align: left;"><a href="kotlin/chapter01/">公開済み</a></td>
 <td style="text-align: left;"><a href="nadesiko/chapter01/">公開済み</a></td>
+<td style="text-align: left;">計画中</td>
 </tr>
 <tr>
 <td style="text-align: left;">2</td>
 <td style="text-align: left;">関数を使って HTTP を扱う</td>
 <td style="text-align: left;"><a href="kotlin/chapter02/">公開済み</a></td>
 <td style="text-align: left;"><a href="nadesiko/chapter02/">公開済み</a></td>
+<td style="text-align: left;">計画中</td>
 </tr>
 <tr>
 <td style="text-align: left;">3</td>
 <td style="text-align: left;">ドメインの定義とテスト</td>
 <td style="text-align: left;"><a href="kotlin/chapter03/">公開済み</a></td>
 <td style="text-align: left;"><a href="nadesiko/chapter03/">公開済み</a></td>
+<td style="text-align: left;">計画中</td>
 </tr>
 <tr>
 <td style="text-align: left;">4</td>
 <td style="text-align: left;">ドメインとアダプタのモデリング</td>
 <td style="text-align: left;"><a href="kotlin/chapter04/">公開済み</a></td>
 <td style="text-align: left;"><a href="nadesiko/chapter04/">公開済み</a></td>
+<td style="text-align: left;">計画中</td>
 </tr>
 <tr>
 <td style="text-align: left;">5</td>
 <td style="text-align: left;">イベントで状態を変更する</td>
 <td style="text-align: left;"><a href="kotlin/chapter05/">公開済み</a></td>
 <td style="text-align: left;"><a href="nadesiko/chapter05/">公開済み</a></td>
+<td style="text-align: left;">計画中</td>
 </tr>
 <tr>
 <td style="text-align: left;">6</td>
 <td style="text-align: left;">コマンドを実行してイベントを生成する</td>
 <td style="text-align: left;"><a href="kotlin/chapter06/">公開済み</a></td>
 <td style="text-align: left;"><a href="nadesiko/chapter06/">公開済み</a></td>
+<td style="text-align: left;">計画中</td>
 </tr>
 <tr>
 <td style="text-align: left;">7</td>
 <td style="text-align: left;">関数型手法によるエラーハンドリング</td>
 <td style="text-align: left;"><a href="kotlin/chapter07/">公開済み</a></td>
 <td style="text-align: left;"><a href="nadesiko/chapter07/">公開済み</a></td>
+<td style="text-align: left;">計画中</td>
 </tr>
 <tr>
 <td style="text-align: left;">8</td>
 <td style="text-align: left;">ファンクタを使ってイベントを射影する</td>
 <td style="text-align: left;"><a href="kotlin/chapter08/">公開済み</a></td>
 <td style="text-align: left;"><a href="nadesiko/chapter08/">公開済み</a></td>
+<td style="text-align: left;">計画中</td>
 </tr>
 <tr>
 <td style="text-align: left;">9</td>
 <td style="text-align: left;">モナドによる安全なデータ永続化</td>
 <td style="text-align: left;"><a href="kotlin/chapter09/">公開済み</a></td>
 <td style="text-align: left;"><a href="nadesiko/chapter09/">公開済み</a></td>
+<td style="text-align: left;">計画中</td>
 </tr>
 <tr>
 <td style="text-align: left;">10</td>
 <td style="text-align: left;">コンテキストを読み込み、コマンドを処理する</td>
 <td style="text-align: left;"><a href="kotlin/chapter10/">公開済み</a></td>
 <td style="text-align: left;"><a href="nadesiko/chapter10/">公開済み</a></td>
+<td style="text-align: left;">計画中</td>
 </tr>
 <tr>
 <td style="text-align: left;">11</td>
 <td style="text-align: left;">アプリカティブによるデータバリデーション</td>
 <td style="text-align: left;"><a href="kotlin/chapter11/">公開済み</a></td>
 <td style="text-align: left;"><a href="nadesiko/chapter11/">公開済み</a></td>
+<td style="text-align: left;">計画中</td>
 </tr>
 <tr>
 <td style="text-align: left;">12</td>
 <td style="text-align: left;">監視と関数型 JSON</td>
 <td style="text-align: left;"><a href="kotlin/chapter12/">公開済み</a></td>
 <td style="text-align: left;"><a href="nadesiko/chapter12/">公開済み</a></td>
+<td style="text-align: left;">計画中</td>
 </tr>
 <tr>
 <td style="text-align: left;">13</td>
 <td style="text-align: left;">関数型アーキテクチャの設計</td>
 <td style="text-align: left;"><a href="kotlin/chapter13/">公開済み</a></td>
 <td style="text-align: left;"><a href="nadesiko/chapter13/">公開済み</a></td>
+<td style="text-align: left;">計画中</td>
 </tr>
 </tbody>
 </table>
@@ -7497,6 +7554,7 @@
 <th style="text-align: left;">項目</th>
 <th style="text-align: left;">Kotlin</th>
 <th style="text-align: left;">なでしこ3</th>
+<th style="text-align: left;">Rust</th>
 </tr>
 </thead>
 <tbody>
@@ -7504,21 +7562,25 @@
 <td style="text-align: left;">実行環境（Nix devShell）</td>
 <td style="text-align: left;"><strong>完了</strong></td>
 <td style="text-align: left;"><strong>完了</strong></td>
+<td style="text-align: left;"><strong>完了</strong>（既存）</td>
 </tr>
 <tr>
 <td style="text-align: left;">サンプル実装の雛形</td>
 <td style="text-align: left;"><strong>完了</strong></td>
 <td style="text-align: left;"><strong>完了</strong></td>
+<td style="text-align: left;">未着手</td>
 </tr>
 <tr>
 <td style="text-align: left;">CI</td>
 <td style="text-align: left;"><strong>完了</strong></td>
 <td style="text-align: left;"><strong>完了</strong></td>
+<td style="text-align: left;">未着手</td>
 </tr>
 <tr>
 <td style="text-align: left;">公開済みの章</td>
 <td style="text-align: left;"><strong>13 / 13（完結）</strong></td>
 <td style="text-align: left;"><strong>13 / 13（完結）</strong></td>
+<td style="text-align: left;">0 / 13</td>
 </tr>
 </tbody>
 </table>
@@ -7541,6 +7603,11 @@
 <td style="text-align: left;">なでしこ3</td>
 <td style="text-align: left;"><code>nix develop .#nadesiko</code></td>
 <td style="text-align: left;">Node 22、cnako3 3.8.7（npm の <code>nadesiko3</code>）、自作のテストヘルパとランナー（<code>make check</code>）。第 9 章の永続化は追記型イベントログのファイル保存</td>
+</tr>
+<tr>
+<td style="text-align: left;">Rust</td>
+<td style="text-align: left;"><code>nix develop .#rust</code></td>
+<td style="text-align: left;">rustc 1.91.1、cargo 1.91.0、clippy 0.1.91、rustfmt 1.8.0。テストは組み込みの <code>#[test]</code>。第 9 章の永続化は PostgreSQL（同期か async かは Unit 1 で判断）</td>
 </tr>
 </tbody>
 </table>

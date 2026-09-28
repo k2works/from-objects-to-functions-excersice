@@ -186,6 +186,7 @@ nav:
               - 第 9 章 モナドによる安全なデータ永続化: article/zettai/nadesiko/chapter09.md
               - 第 10 章 コンテキストを読み込み、コマンドを処理する: article/zettai/nadesiko/chapter10.md
               - 第 11 章 アプリカティブによるデータバリデーション: article/zettai/nadesiko/chapter11.md
+              - 第 12 章 監視と関数型 JSON: article/zettai/nadesiko/chapter12.md
   - リファレンス:
       - 概要: reference/index.md
       - よいソフトウェアとは: reference/よいソフトウェアとは.md

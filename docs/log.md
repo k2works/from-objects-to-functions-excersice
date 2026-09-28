@@ -1,6 +1,8 @@
 # Docs Update Log
 
 ## 2026-09-28
+* **Update**: [chapter12](/article/zettai/nadesiko/chapter12.md) を更新（claude-code/claude-opus-5）
+* **Update**: [outline](/article/outline.md) を更新（claude-code/claude-opus-5）
 * **Update**: [ADR-023-builtin-json-with-converter](/adr/ADR-023-builtin-json-with-converter.md) を更新（claude-code/claude-opus-5）
 * **Update**: [domain-model](/design/domain-model.md) を更新（claude-code/claude-opus-5）
 * **Update**: [architecture_backend](/design/architecture_backend.md) を更新（claude-code/claude-opus-5）

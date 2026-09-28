@@ -81,7 +81,8 @@ nav:
       - UI 設計: design/ui_design.md
   - 開発:
       - 概要: development/index.md
-      - リリース計画: development/release_plan.md
+      - リリース計画（Kotlin 版）: development/release_plan.md
+      - リリース計画（なでしこ3 版）: development/release_plan-nadesiko.md
       - 開発戦略: development/development_strategy.md
       - Bolt 計画:
           - Unit 1 実行環境と第 1 章: development/iteration_plan-1.md

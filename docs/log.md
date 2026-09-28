@@ -1,6 +1,7 @@
 # Docs Update Log
 
 ## 2026-09-28
+* **Verification**: [release_plan-rust](/development/release_plan-rust.md) を human:kakimomokuri が検証
 * **Update**: [release_plan-rust](/development/release_plan-rust.md) を更新（claude-code/claude-opus-5）
 * **Update**: [outline](/article/outline.md) を更新（claude-code/claude-opus-5）
 * **Update**: [retrospective-nadesiko-7](/development/retrospective-nadesiko-7.md) を更新（claude-code/claude-opus-5）

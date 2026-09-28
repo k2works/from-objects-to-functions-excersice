@@ -3,8 +3,10 @@ type: Bolt Plan
 title: "Unit 2 の Bolt 計画（イテレーション 2）- Zettai 連載（なでしこ3 版）"
 description: "Zettai 連載なでしこ3 版の Unit 2（ウォーキングスケルトンとドメイン分離）の Bolt 計画。簡易 HTTP サーバで縦串を通し、受け入れテストを高階関数で抽象化する。Unit 1 のふりかえり Try を反映し、環境の値はスパイク項目として書き、承認ゲートの運用形態を明記する。Unit 2 のドメインモデル図と画面遷移図、辞書の契約、CI の新設、記事に対する 3 つの検査の追加、第 3 章の節名の読み替えを定義する。"
 tags: [development, plan, ai-dlc, bolt, zettai, nadesiko, unit-2]
-status: draft
+status: stable
 generated: { by: claude-code/claude-opus-5, at: 2026-09-28T03:34:34Z }
+verified:
+  - { by: human:kakimomokuri, at: 2026-09-28T03:46:57Z }
 ---
 
 # Unit 2 の Bolt 計画（イテレーション 2）- Zettai 連載（なでしこ3 版）

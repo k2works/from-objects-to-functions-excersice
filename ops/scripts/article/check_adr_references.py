@@ -26,24 +26,25 @@ import sys
 from pathlib import Path
 
 ADR_LINK = re.compile(r"\]\((?:[./]*)(?:adr/)?(ADR-\d{3}[\w.-]*\.md)\)")
-CHAPTER_LINK = re.compile(r"\]\((?:[./]*)(?:article/zettai/kotlin/)?(chapter\d{2}\.md)\)")
+CHAPTER_LINK = re.compile(r"\]\((?:[./]*)(?:article/zettai/\w+/)?(chapter\d{2}\.md)\)")
 INDEX_ROW = re.compile(r"\|\s*\[(ADR-\d{3})\]\(([\w.-]+\.md)\)")
 
 
 def main() -> int:
     root = Path(__file__).resolve().parents[3]
     adr_dir = root / "docs/adr"
-    chapter_dir = root / "docs/article/zettai/kotlin"
+    # 対象言語のディレクトリをすべて見る。章のファイル名は言語をまたいで共通。
+    chapters = sorted(root.glob("docs/article/zettai/*/chapter*.md"))
 
     adr_files = {p.name for p in adr_dir.glob("ADR-*.md")}
-    chapter_files = {p.name for p in chapter_dir.glob("chapter*.md")}
+    chapter_files = {p.name for p in chapters}
     violations: list[str] = []
 
     # 1. 記事が参照する ADR が存在するか
-    for article in sorted(chapter_dir.glob("chapter*.md")):
+    for article in chapters:
         for name in ADR_LINK.findall(article.read_text(encoding="utf-8")):
             if name not in adr_files:
-                violations.append(f"{article.name} が参照する {name} が存在しない")
+                violations.append(f"{article.parent.name}/{article.name} が参照する {name} が存在しない")
 
     # 2. ADR が参照する章が存在するか
     for adr in sorted(adr_dir.glob("ADR-*.md")):
@@ -66,7 +67,7 @@ def main() -> int:
     for violation in violations:
         print(f"NG {violation}")
 
-    print(f"\nADR {len(adr_files)} 件 / 章 {len(chapter_files)} 件 / 違反 {len(violations)} 件")
+    print(f"\nADR {len(adr_files)} 件 / 章 {len(chapters)} ファイル / 違反 {len(violations)} 件")
     return 1 if violations else 0
 
 

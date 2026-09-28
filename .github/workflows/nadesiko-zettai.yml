@@ -35,10 +35,10 @@ jobs:
       - name: Install cnako3
         run: npm install --no-audit --no-fund
 
-      # check に文法検査・テスト・受け入れテストが集約されている。
-      # ローカルの make check と CI で同じコマンドを実行し、判定を一致させる。
-      - name: Run check
-        run: make check
+      # ローカルの make check は最新の段階だけを対象にする（書いている間の
+      # 待ち時間を短く保つため）。CI は全段階を毎回確かめる（ADR-015）。
+      - name: Run check (all steps)
+        run: make check-all
 
   article-code:
     name: article code examples

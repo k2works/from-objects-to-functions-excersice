@@ -11,8 +11,12 @@ CNAKO := ./node_modules/.bin/cnako3
 # 並列数。ファイルごとにプロセスを起こすので、段階が増えるほど効く。
 JOBS  ?= 8
 STEPS := $(notdir $(wildcard src/step*))
+# STEP を指定しなければ「最新の段階だけ」を対象にする。
+# 書いている間の待ち時間を短く保つため（ADR-015）。
+# 全段階は make check-all（CI が毎回回す）。
 STEP  ?=
-TARGET_STEPS := $(if $(STEP),$(STEP),$(STEPS))
+LATEST_STEP := $(lastword $(sort $(STEPS)))
+TARGET_STEPS := $(if $(STEP),$(if $(filter all,$(STEP)),$(STEPS),$(STEP)),$(LATEST_STEP))
 
 SRCS  := $(foreach s,$(TARGET_STEPS),$(wildcard src/$(s)/*.nako3) $(wildcard test/$(s)/*.nako3) $(wildcard test/$(s)/ddt/*.nako3) $(wildcard doctest/$(s)/*.nako3))
 TESTS := $(foreach s,$(TARGET_STEPS),$(wildcard test/$(s)/*_test.nako3))
@@ -21,15 +25,19 @@ SCENARIOS := $(foreach s,$(TARGET_STEPS),$(wildcard doctest/$(s)/*.nako3))
 # 最後の段階が「今の Zettai」。make run はこれを起動する。
 LATEST := $(lastword $(sort $(STEPS)))
 
-.PHONY: help check lint test doctest run clean steps
+.PHONY: help check check-all lint test doctest run clean steps
 
 help: ## タスク一覧を表示する
 	@grep -E '^[a-z-]+:.*?## ' $(MAKEFILE_LIST) | awk 'BEGIN{FS=":.*?## "}{printf "  %-10s %s\n", $$1, $$2}'
 
 steps: ## 段階の一覧を表示する
 	@echo "段階: $(STEPS)（最新: $(LATEST)）"
+	@echo "make check は $(TARGET_STEPS) を対象にする。全段階は make check-all"
 
-check: lint test doctest ## 文法検査・テスト・受け入れシナリオをまとめて実行する
+check: lint test doctest ## 最新の段階だけを検査する（書いている間はこれ）
+
+check-all: ## 全段階を検査する（CI が毎回回す）
+	@$(MAKE) --no-print-directory check STEP=all
 
 lint: ## 全 .nako3 を構文解析だけして文法エラーを見つける
 	@# cnako3 は文法エラーでも終了コードが 0 なので、-A（AST 出力）の

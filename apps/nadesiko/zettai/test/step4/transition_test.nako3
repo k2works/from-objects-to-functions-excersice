@@ -1,0 +1,44 @@
+!「./helper.nako3」を取り込む
+!「../../src/step4/commands.nako3」を取り込む
+
+# 遷移表の 16 マスを全件テストする。
+# 列挙型が無いので、Kotlin 版の when の網羅に相当する保証がない。
+# 許す遷移だけを確かめると「常に許す」実装でも green になるため、
+# 許さない 12 マスも明示して確かめる。
+
+一覧=状態一覧
+「遷移表は 16 マス」と(遷移表の辞書キー列挙の要素数)と16で検証
+
+# 許す 4 マス
+「Todo から InProgress は許す」と(「Todo」から「InProgress」に遷移可否)と真で検証
+「Todo から Done は許す」と(「Todo」から「Done」に遷移可否)と真で検証
+「InProgress から Done は許す」と(「InProgress」から「Done」に遷移可否)と真で検証
+「InProgress から Blocked は許す」と(「InProgress」から「Blocked」に遷移可否)と真で検証
+「Blocked から InProgress は許す」と(「Blocked」から「InProgress」に遷移可否)と真で検証
+
+# 許さない 11 マス（同じ状態への遷移 4 マスを含む）
+「Todo から Todo は許さない」と(「Todo」から「Todo」に遷移可否)と偽で検証
+「Todo から Blocked は許さない」と(「Todo」から「Blocked」に遷移可否)と偽で検証
+「InProgress から Todo は許さない」と(「InProgress」から「Todo」に遷移可否)と偽で検証
+「InProgress から InProgress は許さない」と(「InProgress」から「InProgress」に遷移可否)と偽で検証
+「Done から Todo は許さない」と(「Done」から「Todo」に遷移可否)と偽で検証
+「Done から InProgress は許さない」と(「Done」から「InProgress」に遷移可否)と偽で検証
+「Done から Done は許さない」と(「Done」から「Done」に遷移可否)と偽で検証
+「Done から Blocked は許さない」と(「Done」から「Blocked」に遷移可否)と偽で検証
+「Blocked から Todo は許さない」と(「Blocked」から「Todo」に遷移可否)と偽で検証
+「Blocked から Done は許さない」と(「Blocked」から「Done」に遷移可否)と偽で検証
+「Blocked から Blocked は許さない」と(「Blocked」から「Blocked」に遷移可否)と偽で検証
+
+# 4 値のすべての組み合わせが表にあること（書き忘れを検出する）
+欠け=0
+Iを0から(一覧の要素数)-1まで繰り返す
+    Jを0から(一覧の要素数)-1まで繰り返す
+        鍵=「{一覧[I]}/{一覧[J]}」
+        もし、(遷移表に鍵が辞書キー存在)=偽ならば
+            欠け=欠け+1
+        ここまで
+    ここまで
+ここまで
+「4 値の全組み合わせが表にある」と欠けと0で検証
+
+テスト結果報告

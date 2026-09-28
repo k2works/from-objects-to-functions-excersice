@@ -2826,6 +2826,41 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bolt_report-nadesiko-7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「なでしこ3」Unit 7 監視とアーキテクチャ総括
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -3134,6 +3169,41 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../retrospective-nadesiko-7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「なでしこ3」Unit 7 監視とアーキテクチャ総括
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -3212,6 +3282,41 @@
     
   
     Release v1.0.0
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release_report-nadesiko-1.0.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「なでしこ3」Release v1.0.0
   
 
     
@@ -8973,18 +9078,18 @@
 <tr>
 <td>Unit 7</td>
 <td>4</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>計画済み（<a href="../iteration_plan-nadesiko-7/">Bolt 計画</a>）</td>
+<td><strong>1 / 3</strong></td>
+<td>未計測</td>
+<td>未計測</td>
+<td><strong>完了</strong></td>
 </tr>
 <tr>
 <td><strong>合計</strong></td>
 <td><strong>70</strong></td>
-<td><strong>0 / 38</strong></td>
+<td><strong>1 / 41</strong></td>
 <td><strong>-</strong></td>
 <td><strong>-</strong></td>
-<td>完了 Unit 数 <strong>6 / 7</strong></td>
+<td>完了 Unit 数 <strong>7 / 7（完結）</strong></td>
 </tr>
 </tbody>
 </table>
@@ -9011,6 +9116,7 @@
 <li><a href="../iteration_plan-nadesiko-5/">Unit 5 の Bolt 計画</a> を作成した（17 ステップ・承認ゲート 4 箇所）。Kotlin 版 ADR 008〜012 の移植要否を着手前に判断し、第 9 章の節名の読み替え 3 件とモナドの題材の差分を計画に入れた</li>
 <li>Unit 5 を完了した（<a href="../bolt_report-nadesiko-5/">Bolt 終了報告</a> / <a href="../retrospective-nadesiko-5/">ふりかえり</a>）。第 8〜9 章を公開した</li>
 <li><strong>Release v0.2.0 を達成した（2026-09-29）。</strong> push して CI の green を確認し、Phase 2 を完了した</li>
+<li>Unit 7 を完了し、<strong>Release v1.0.0 を達成した（2026-09-28）。</strong> 全 13 章を公開し、CI の 3 ワークフローが green であることを確認した（<a href="../release_report-nadesiko-1.0.0/">リリース完了報告書</a>）。<strong>承認ゲートは 41 箇所中 1 回だけ同期停止した</strong></li>
 <li>Unit 6 を完了した（<a href="../bolt_report-nadesiko-6/">Bolt 終了報告</a> / <a href="../retrospective-nadesiko-6/">ふりかえり</a>）。第 10〜11 章を公開し、ADR-021・022 を記録した。<strong>NFR（<code>make check</code> 15 秒 / <code>make check-all</code> 35 秒）を超えたまま閉じた</strong>（16〜17 秒 / 41〜42 秒）。Unit 7 の冒頭で扱う</li>
 <li><code>syncing-github-project</code> で <strong>Unit を Milestone、Bolt のステップを Issue</strong> として同期する</li>
 </ol>
@@ -9025,6 +9131,11 @@
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>2026-09-28</td>
+<td><strong>Release v1.0.0 達成。連載完結。</strong> Unit 7 完了を反映し、進捗表を 7 / 7 に更新。承認ゲートの累計を 1 / 41 とした</td>
+<td>claude-code/claude-opus-5</td>
+</tr>
 <tr>
 <td>2026-09-28</td>
 <td>Unit 7 の Bolt 計画作成時の整合性検証で、ゲート箇所を 2 → <strong>3 + 条件付き 1</strong> に修正。Unit 6 のふりかえり Try 1 が NFR の判断に人の確認を求めており、双方向変換が永続化フォーマット（必ず停止する操作）に触れうるため。<strong>密度は「疎」のまま</strong></td>

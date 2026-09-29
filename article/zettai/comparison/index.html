@@ -1846,6 +1846,41 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/iteration_plan-rust-7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「Rust」Unit 7 監視と 3 言語の総括
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -5377,6 +5412,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3 対象で「既製品を入れるか」の答えが分かれた
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#_13" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -5404,7 +5450,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3" class="md-nav__link">
+  <a href="#3_1" class="md-nav__link">
     <span class="md-ellipsis">
       
         第 3 の要素: 言語の癖
@@ -5415,13 +5461,63 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#rust" class="md-nav__link">
+  <a href="#3_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Rust 版で増える比較
+        3 対象を通して見えたこと
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="3 対象を通して見えたこと">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#3_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        同じ要求に、3 通りの答えが出た
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        制約が設計を押した回数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        代数構造は 3 対象で同じだった
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        しきい値には分布の計算が要る
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -6422,6 +6518,76 @@
     
   
     第 11 章 アプリカティブによるデータバリデーション
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rust/chapter12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 12 章 監視と関数型 JSON
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rust/chapter13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 13 章 関数型アーキテクチャの設計
   
 
     
@@ -8692,7 +8858,7 @@
 </ul>
 <h2 id="phase-1-13">Phase 1（第 1〜3 章）で見えた違い<a class="headerlink" href="#phase-1-13" title="Permanent link">&para;</a></h2>
 <blockquote>
-<p><strong>Rust 版の列を 2026-09-29 に足しました。</strong> 以下の表は当初 2 対象で書いたもので、Rust 版の行を追記しています。</p>
+<p><strong>Rust 版の列を 2026-09-29 に足しました。</strong> 以下の表は当初 2 対象で書いたもので、Rust 版を追記しています。<strong>全 13 章・3 対象が揃いました。</strong></p>
 </blockquote>
 <h3 id="_2">テストの土台<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
 <table>
@@ -8956,6 +9122,57 @@
 </table>
 <p>最後の行がこの版の設計をほぼ決めています。<strong>関数値ごしに呼ぶと、中の非同期な組み込み命令が待たれず Promise が返ります。</strong> 連載を通して <strong>5 度</strong>踏みました（第 3・7・9・10・12 章）。</p>
 <p>そのたびに<strong>副作用を関数の外へ押し出して</strong>います。5 回とも、関数型の設計としては素直な方向でした。</p>
+<p><strong>Rust は「形が 3 つある」側でした。</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">観点</th>
+<th style="text-align: left;">Rust</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">ポートの宣言</td>
+<td style="text-align: left;"><code>impl Fn</code> の型引数（<code>ToDoListHub&lt;F, S&gt;</code>）</td>
+</tr>
+<tr>
+<td style="text-align: left;">注入</td>
+<td style="text-align: left;">関数値を型引数で受ける（静的）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>形の使い分け</strong></td>
+<td style="text-align: left;"><strong>3 つ</strong>（<a href="../../../adr/ADR-030-functional-di-shape/">ADR-030</a>・<a href="../../../adr/ADR-034-transaction-as-scope/">ADR-034</a>）</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">その関数値は</th>
+<th style="text-align: left;">形</th>
+<th style="text-align: left;">出た章</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">配線で 1 つ決まるだけ</td>
+<td style="text-align: left;"><code>impl Fn</code></td>
+<td style="text-align: left;">4</td>
+</tr>
+<tr>
+<td style="text-align: left;">並びに入れて畳み込む</td>
+<td style="text-align: left;"><code>Box&lt;dyn Fn&gt;</code></td>
+<td style="text-align: left;">5</td>
+</tr>
+<tr>
+<td style="text-align: left;">その場で 1 回だけ渡す</td>
+<td style="text-align: left;"><code>&amp;dyn Fn</code></td>
+<td style="text-align: left;">10</td>
+</tr>
+</tbody>
+</table>
+<p><strong>第 4 章だけを見ていたら間違えていました。</strong> <code>impl Fn</code> は書くたびに別の型になるので、第 5 章の畳み込みで並びに入りません。<strong>3 案を第 5 章まで書いてから決めています。</strong></p>
+<p>なでしこ3 版は「注入できるものが限られる」側、Rust は「<strong>注入の形が選べてしまう</strong>」側です。どちらも判断が要りますが、<strong>足りないから決めるのと、多いから決めるのは別</strong>です。</p>
 <h3 id="_8">イベントと畳み込み<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -8989,6 +9206,44 @@
 </tbody>
 </table>
 <p><strong>外から見た振る舞いは同じです。</strong> 畳み込みがループで書かれていても、状態を書き換えなければ畳み込みです。</p>
+<p><strong>Rust は Kotlin と同じ側です。</strong> <code>enum</code> と <code>match</code> の網羅があります。違いは<strong>網羅が守る範囲</strong>でした。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">穴の種類</th>
+<th style="text-align: left;">Kotlin</th>
+<th style="text-align: left;">なでしこ3</th>
+<th style="text-align: left;">Rust</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">枝が足りない</td>
+<td style="text-align: left;">止まる</td>
+<td style="text-align: left;">一覧と契約テスト</td>
+<td style="text-align: left;"><strong>止まる</strong>（E0004）</td>
+</tr>
+<tr>
+<td style="text-align: left;">ワイルドカードが隠す（単体の <code>enum</code>）</td>
+<td style="text-align: left;">止まらない</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">clippy で止められる</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>ワイルドカードが隠す（組・参照ごし）</strong></td>
+<td style="text-align: left;">止まらない</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;"><strong>止まらない</strong>（lint が発火しない）</td>
+</tr>
+<tr>
+<td style="text-align: left;">行き先が間違っている</td>
+<td style="text-align: left;">止まらない</td>
+<td style="text-align: left;">一覧で数える</td>
+<td style="text-align: left;"><strong>止まらない</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>遷移表は組（<code>(State, Command)</code>）で受けるので、lint が効きません。</strong> なでしこ3 版は「コンパイラが無いから数える」、Rust は「<strong>コンパイラがあっても数える。守る範囲が違うから</strong>」になりました。</p>
 <h3 id="_9">失敗の表し方<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -9017,6 +9272,35 @@
 </tbody>
 </table>
 <p><strong>型が無いと波及が静かです。</strong> 契約テストの無い場所は教えてくれません。</p>
+<p><strong>Rust は「作らない判断」の章になりました。</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">観点</th>
+<th style="text-align: left;">Rust</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">型</td>
+<td style="text-align: left;"><strong><code>Result&lt;T, E&gt;</code> は言語にある。</strong> 作るものが無い</td>
+</tr>
+<tr>
+<td style="text-align: left;">失敗の種類</td>
+<td style="text-align: left;">自前の <code>enum ZettaiError</code>（<a href="../../../adr/ADR-031-own-error-enum/">ADR-031</a>）。<code>thiserror</code> は依存 +10・12.29 秒で採らず</td>
+</tr>
+<tr>
+<td style="text-align: left;">波及の見え方</td>
+<td style="text-align: left;"><strong>段階的に見える。</strong> ドメイン 4 件 → テスト 7 件 → HTTP 10 件</td>
+</tr>
+<tr>
+<td style="text-align: left;">捨てたとき</td>
+<td style="text-align: left;"><strong><code>Result</code> は <code>#[must_use]</code>。</strong> <code>Option</code> は違う</td>
+</tr>
+</tbody>
+</table>
+<p><strong>型を変えたら、既にあった欠陥が 1 つ見つかりました。</strong> 受け入れテストで失敗を握りつぶしていた箇所です。<code>Option</code> のままでは見つかりません。</p>
+<p>波及の見え方も 3 者 3 様です。Kotlin は一度に全部、なでしこ3 は契約テストのある場所だけ、<strong>Rust はクレート単位で順に</strong>出ます。</p>
 <h3 id="_10">永続化<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -9050,6 +9334,35 @@
 </tbody>
 </table>
 <p>イベントソーシングとファイル追記は相性がよく、<strong>題材としてはむしろ素直</strong>でした。失ったのは原子性と同時実行の安全だけです。</p>
+<p><strong>Rust は Kotlin と同じ PostgreSQL です。</strong> 違いは検査の置き場と JSON でした。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">観点</th>
+<th style="text-align: left;">Rust</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">保存先</td>
+<td style="text-align: left;">PostgreSQL（1 テーブル）。<strong>同期のクレート</strong>（<a href="../../../adr/ADR-024-no-async/">ADR-024</a>）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>async</code></td>
+<td style="text-align: left;"><strong>採らなかった。</strong> 第 9 章で試され、持ちこたえた</td>
+</tr>
+<tr>
+<td style="text-align: left;">DB を使う検査</td>
+<td style="text-align: left;"><strong>別ジョブ</strong>（<a href="../../../adr/ADR-033-db-check-as-separate-job/">ADR-033</a>）。Kotlin 版は <code>check</code> に含める</td>
+</tr>
+<tr>
+<td style="text-align: left;">JSON</td>
+<td style="text-align: left;">自前。<code>serde_json</code> は依存 +5・8.30 秒で採らず</td>
+</tr>
+</tbody>
+</table>
+<p><strong>同じ ADR の題材で、Kotlin 版と結論が分かれました。</strong> <code>check</code> の所要時間が 95 秒対 26 秒で、<strong>同じ +22 秒が占める割合が違う</strong>ためです。</p>
+<p>自前の JSON は<strong>代償をすぐ払いました</strong>。<code>jsonb</code> は正規化して返すので、自分で書いた文字列だけで往復させたテストが通り、<strong>DB を通す結合テストだけが見つけました</strong>。</p>
 <h2 id="phase-3-1013">Phase 3（第 10〜13 章）で見えた違い<a class="headerlink" href="#phase-3-1013" title="Permanent link">&para;</a></h2>
 <h3 id="_11">文脈の持ち回り<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
 <table>
@@ -9085,6 +9398,66 @@
 </table>
 <p><strong>「できないこと」を章の主題にしました。</strong> 中身の無い文脈を形だけ真似ることはしていません。</p>
 <p>文脈を「接続」ではなく「どこを読み書きするか」と定義したおかげで、第 12 章で記録の行き先を足すときに定義を広げずに済みました。</p>
+<p><strong>Rust は「Kotlin 版の設計が型に拒まれた」側です。</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">観点</th>
+<th style="text-align: left;">Rust</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">文脈</td>
+<td style="text-align: left;"><strong>値として持てない。</strong> ロックとそれを借りたトランザクションが自己参照になる（E0515・E0505）</td>
+</tr>
+<tr>
+<td style="text-align: left;">中身が空の文脈</td>
+<td style="text-align: left;"><strong>作れない。</strong> <code>dyn Any</code> が <code>'static</code> を要求する（E0478）</td>
+</tr>
+<tr>
+<td style="text-align: left;">境界の表し方</td>
+<td style="text-align: left;"><strong>区間として貸す</strong>（<a href="../../../adr/ADR-034-transaction-as-scope/">ADR-034</a>）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>commit</code></td>
+<td style="text-align: left;"><strong>ドメインに出ない。</strong> 呼び忘れが起こりえない</td>
+</tr>
+<tr>
+<td style="text-align: left;">失敗のロールバック</td>
+<td style="text-align: left;"><strong>書いていない。</strong> <code>Transaction</code> の Drop が既定で戻す</td>
+</tr>
+</tbody>
+</table>
+<p><strong>3 対象で移植できなかった理由が違います。</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">対象</th>
+<th style="text-align: left;"><code>ContextReader</code> を</th>
+<th style="text-align: left;">理由</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Kotlin</td>
+<td style="text-align: left;">作った</td>
+<td style="text-align: left;">—</td>
+</tr>
+<tr>
+<td style="text-align: left;">なでしこ3</td>
+<td style="text-align: left;"><strong>移植できなかった</strong></td>
+<td style="text-align: left;"><strong>言語に足りない</strong>（関数値ごしの非同期が待たれない）</td>
+</tr>
+<tr>
+<td style="text-align: left;">Rust</td>
+<td style="text-align: left;"><strong>移植できなかった</strong></td>
+<td style="text-align: left;"><strong>言語の規則に拒まれた</strong>（<code>'static</code> の要求）</td>
+</tr>
+</tbody>
+</table>
+<p>そして Rust では、<strong>移植できなかった結果として得たもの</strong>があります。Kotlin 版は文脈を空にした代償に <code>require(context is JdbcContext)</code> という実行時検査を書いています。<strong>文脈に動詞を持たせたので、間違った文脈を渡せなくなりました。</strong></p>
+<p><strong>Kotlin 版はポートの型から失敗が消えました</strong>（トランザクションと引き換え）。<strong>Rust はどちらも失っていません。</strong></p>
 <h3 id="_12">複数のエラーを集める<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -9113,6 +9486,35 @@
 </tbody>
 </table>
 <p><strong>モナドとアプリカティブの違いを数字にできました。</strong> 両方だめな入力 69 回すべてで、結果連鎖は理由を 1 件しか返しませんでした（100%）。</p>
+<p><strong>Rust も別の型を作りました。ただし選択肢が 3 つありました。</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">案</th>
+<th style="text-align: left;">理由は 2 つ返るか</th>
+<th style="text-align: left;">合わせる操作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>ZettaiError</code> に <code>Multiple</code> を足す</td>
+<td style="text-align: left;">返る</td>
+<td style="text-align: left;"><strong>出てこない</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>別の型 <code>Validated&lt;T&gt;</code>（採用）</strong></td>
+<td style="text-align: left;">返る</td>
+<td style="text-align: left;"><strong><code>zip</code></strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Result&lt;T, Vec&lt;..&gt;&gt;</code></td>
+<td style="text-align: left;">返る</td>
+<td style="text-align: left;"><strong>出てこない</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>3 案とも結果は同じでした。</strong> 分けたのは「<strong>合わせる操作が出てくるか</strong>」です。<code>zip</code> を書かないと、アプリカティブの法則を確かめる対象がありません（<a href="../../../adr/ADR-035-validated-applicative/">ADR-035</a>）。</p>
+<p>数字も揃いました。<strong>モナドが理由を落とすのは「両方だめ」のときだけ</strong>で、46 / 200 で 1 対 1 に対応します。なでしこ3 版の 69 / 69（100%）と同じことを、別の測り方で確かめた形です。</p>
 <h3 id="json">JSON と双方向変換<a class="headerlink" href="#json" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -9141,6 +9543,100 @@
 </tbody>
 </table>
 <p><strong>「自前で書く」を惰性で続けませんでした。</strong> 足りていたのは JSON の生成で、足りなかったのは「対であること」だけでした。</p>
+<p><strong>Rust は「要求を満たす既製品があったのに入れなかった」側です。</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">観点</th>
+<th style="text-align: left;">Rust</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">JSON の生成</td>
+<td style="text-align: left;">自前（<a href="../../../adr/ADR-032-postgres-event-store/">ADR-032</a>・<a href="../../../adr/ADR-037-own-logging/">ADR-037</a>）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>serde</code> の derive</td>
+<td style="text-align: left;"><strong>要求（対であること）を既定で満たす</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">それでも入れない理由</td>
+<td style="text-align: left;"><strong>属性をドメインの型に書くので、<a href="../../../adr/ADR-027-crate-boundary/">ADR-027</a> の「依存 0」が壊れる</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">双方向変換</td>
+<td style="text-align: left;"><code>Converter&lt;A, B&gt;</code>（プロファンクタ）。<strong>片方だけ直す形が書けなくなる</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>第 9 章で片方だけ直しています。</strong> <code>jsonb</code> の正規化に対応したとき、読み側だけを直しました。第 12 章で対にして、その形が書けなくなっています。</p>
+<h3 id="3">3 対象で「既製品を入れるか」の答えが分かれた<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
+<p>Rust だけが<strong>毎章これを判断しました</strong>。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">章</th>
+<th style="text-align: left;">既製品</th>
+<th style="text-align: left;">要求を満たすか</th>
+<th style="text-align: left;">判断</th>
+<th style="text-align: left;">決め手</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;"><code>cucumber</code></td>
+<td style="text-align: left;">満たす</td>
+<td style="text-align: left;">入れず</td>
+<td style="text-align: left;">依存 +121・ビルド +92 秒</td>
+</tr>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;"><code>proptest</code></td>
+<td style="text-align: left;">満たす</td>
+<td style="text-align: left;">入れず</td>
+<td style="text-align: left;">依存 +38・26.77 秒</td>
+</tr>
+<tr>
+<td style="text-align: left;">7</td>
+<td style="text-align: left;"><code>thiserror</code></td>
+<td style="text-align: left;">満たす</td>
+<td style="text-align: left;">入れず</td>
+<td style="text-align: left;">依存 +10・12.29 秒。中身は <code>impl From</code> 1 つ</td>
+</tr>
+<tr>
+<td style="text-align: left;">9</td>
+<td style="text-align: left;"><code>serde_json</code></td>
+<td style="text-align: left;"><strong>満たさない</strong></td>
+<td style="text-align: left;">入れず</td>
+<td style="text-align: left;">対にならない</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>11</strong></td>
+<td style="text-align: left;"><strong><code>tera</code></strong></td>
+<td style="text-align: left;"><strong>満たす</strong></td>
+<td style="text-align: left;"><strong>入れた</strong></td>
+<td style="text-align: left;"><strong>自作する理由が消えた</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">12</td>
+<td style="text-align: left;"><code>tracing</code></td>
+<td style="text-align: left;">満たす</td>
+<td style="text-align: left;">入れず</td>
+<td style="text-align: left;">依存 +18・15.23 秒。<code>check</code> の余裕が 4 秒弱</td>
+</tr>
+<tr>
+<td style="text-align: left;">12</td>
+<td style="text-align: left;"><code>serde</code> derive</td>
+<td style="text-align: left;">満たす</td>
+<td style="text-align: left;">入れず</td>
+<td style="text-align: left;"><strong>依存 0 が壊れる</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>7 回のうち入れたのは 1 回です。</strong> そして入れなかった 6 回の理由は同じではありません。<strong>数字が合わない</strong>が 4 回、<strong>要求を満たさない</strong>が 1 回、<strong>別の性質が壊れる</strong>が 1 回でした。</p>
+<p>2 対象にこの判断はほぼありません。Kotlin 版は寄せる先があるときに寄せ、なでしこ3 版は寄せる先がありませんでした。<strong>選択肢が多い言語だけが、毎回これを考えます。</strong></p>
 <h3 id="_13">代数構造の確かめ方<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
 <p>7 つの構造を両版で扱いました。Kotlin 版は型が構造を表し、なでしこ3 版は<strong>性質テストだけ</strong>が表します。</p>
 <table>
@@ -9236,7 +9732,7 @@
 </table>
 <p><strong>差は 7〜11 秒です。</strong> 書いている間の体験は違いますが、本番に届く前に止まるという点では同じところに来ています。</p>
 <p>止まらないものもあります。<strong>テストの無い場所</strong>です。型は書いた全部を見ますが、テストは書いた分しか見ません。</p>
-<h2 id="3">第 3 の要素: 言語の癖<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
+<h2 id="3_1">第 3 の要素: 言語の癖<a class="headerlink" href="#3_1" title="Permanent link">&para;</a></h2>
 <p><strong>「型で保証する」対「約束とテストで保証する」という軸の外側に、もう 1 つあります。</strong></p>
 <p>なでしこ3 版の Unit 2 で、<code>繰り返す</code> が開始より終了が小さいときに逆向きに回ることが分かり、空の配列を回すコードが 5 箇所すべて潜在バグでした。<strong>これは型システムがあっても止まりません。</strong></p>
 <p>連載を通して、こうした癖を <strong>25 件</strong>集めました（<code>apps/nadesiko/zettai/README.md</code>）。</p>
@@ -9268,38 +9764,172 @@
 </tr>
 </tbody>
 </table>
-<h2 id="rust">Rust 版で増える比較<a class="headerlink" href="#rust" title="Permanent link">&para;</a></h2>
-<p>Rust 版は進行中です（3 / 13 章）。章を閉じるたびに足します。</p>
+<h2 id="3_2">3 対象を通して見えたこと<a class="headerlink" href="#3_2" title="Permanent link">&para;</a></h2>
+<p><strong>3 対象とも全 13 章を書き終えました。</strong> 同じ題材・同じ章立てで 3 回書いた結果です。</p>
+<h3 id="3_3">同じ要求に、3 通りの答えが出た<a class="headerlink" href="#3_3" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">章</th>
-<th style="text-align: left;">比較の焦点</th>
+<th style="text-align: left;">要求</th>
+<th style="text-align: left;">Kotlin</th>
+<th style="text-align: left;">なでしこ3</th>
+<th style="text-align: left;">Rust</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">4〜5</td>
-<td style="text-align: left;"><strong>所有権のもとでの関数型 DI とクロージャの合成。</strong> 3 対象で最も重い Unit と見込んでいる</td>
+<td style="text-align: left;">受け入れテストの入口</td>
+<td style="text-align: left;">ライブラリに寄せた</td>
+<td style="text-align: left;">自作（寄せる先が無い）</td>
+<td style="text-align: left;"><strong>調べて寄せないと決めた</strong></td>
 </tr>
 <tr>
-<td style="text-align: left;">6〜7</td>
-<td style="text-align: left;"><strong><code>enum</code> と <code>Result</code> が言語にある。</strong> Kotlin 版が自前で作ったものを使う側</td>
+<td style="text-align: left;">境界を守る</td>
+<td style="text-align: left;">import の検査</td>
+<td style="text-align: left;">文字列の検査</td>
+<td style="text-align: left;"><strong>検査を書かない</strong>（コンパイラ）</td>
 </tr>
 <tr>
-<td style="text-align: left;">8〜9</td>
-<td style="text-align: left;">射影と PostgreSQL 永続化。<strong>同期のまま通す</strong>（<a href="../../../adr/ADR-024-no-async/">ADR-024</a>）</td>
+<td style="text-align: left;">文脈の持ち回り</td>
+<td style="text-align: left;"><code>ContextReader</code></td>
+<td style="text-align: left;">「どこを読み書きするか」</td>
+<td style="text-align: left;"><strong>区間として貸す</strong></td>
 </tr>
 <tr>
-<td style="text-align: left;">10〜11</td>
-<td style="text-align: left;">境界とライフタイム。アプリカティブは自前</td>
+<td style="text-align: left;">テンプレート</td>
+<td style="text-align: left;">自作</td>
+<td style="text-align: left;">自作</td>
+<td style="text-align: left;"><strong>既製品（<code>tera</code>）</strong></td>
 </tr>
 <tr>
-<td style="text-align: left;">12〜13</td>
-<td style="text-align: left;">serde と tracing の採否。<strong>3 言語の総括</strong></td>
+<td style="text-align: left;">複数のエラー</td>
+<td style="text-align: left;"><code>Validation</code></td>
+<td style="text-align: left;">結果辞書</td>
+<td style="text-align: left;"><code>Validated&lt;T&gt;</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">JSON</td>
+<td style="text-align: left;">自作の <code>Converter</code></td>
+<td style="text-align: left;">組み込み + 変換</td>
+<td style="text-align: left;"><strong>自作の <code>Converter</code></strong></td>
 </tr>
 </tbody>
 </table>
+<p><strong>「言語が与えるほど設計は楽になるのか」への答えは、単純ではありませんでした。</strong></p>
+<p>なでしこ3 は<strong>足りないから決める</strong>ことになりました。Rust は<strong>多いから決める</strong>ことになりました。Kotlin はその中間で、<strong>決める場面が最も少ない</strong>言語でした。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">対象</th>
+<th style="text-align: left;">判断の性質</th>
+<th style="text-align: left;">記録した ADR</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Kotlin</td>
+<td style="text-align: left;">何を作るか</td>
+<td style="text-align: left;">12 件</td>
+</tr>
+<tr>
+<td style="text-align: left;">なでしこ3</td>
+<td style="text-align: left;"><strong>足りないものをどう埋めるか</strong></td>
+<td style="text-align: left;">11 件</td>
+</tr>
+<tr>
+<td style="text-align: left;">Rust</td>
+<td style="text-align: left;"><strong>与えられたものを使うか、作るか</strong></td>
+<td style="text-align: left;"><strong>14 件</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>ADR がいちばん多いのは Rust です。</strong> 書くコードは最も少ない言語でした。</p>
+<h3 id="_15">制約が設計を押した回数<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">対象</th>
+<th style="text-align: left;">制約の出どころ</th>
+<th style="text-align: left;">押された回数</th>
+<th style="text-align: left;">押された先</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">なでしこ3</td>
+<td style="text-align: left;"><strong>型の不在</strong>（関数値ごしの非同期など）</td>
+<td style="text-align: left;">5 回</td>
+<td style="text-align: left;">5 回とも関数型として素直な方向</td>
+</tr>
+<tr>
+<td style="text-align: left;">Rust</td>
+<td style="text-align: left;"><strong>型の存在</strong>（所有権・借用・ライフタイム）</td>
+<td style="text-align: left;"><strong>7 回</strong></td>
+<td style="text-align: left;">7 回とも読みやすい方向</td>
+</tr>
+</tbody>
+</table>
+<p><strong>制約の出どころが型でも型の不在でも、押された先は同じでした。</strong> これが連載を通して確かめたかったことです。</p>
+<p>Rust で押された例を 2 つ挙げます。</p>
+<ul>
+<li><strong>トランザクションを値として返せない</strong>（自己参照）→ 区間として貸す形になり、<strong><code>commit</code> の呼び忘れが起こりえなくなった</strong></li>
+<li><strong>中身が空の文脈を作れない</strong>（<code>dyn Any</code> が <code>'static</code> を要求）→ 文脈に動詞を持たせ、<strong>Kotlin 版の実行時検査が要らなくなった</strong></li>
+</ul>
+<h3 id="3_4">代数構造は 3 対象で同じだった<a class="headerlink" href="#3_4" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">構造</th>
+<th style="text-align: left;">章</th>
+<th style="text-align: left;">Kotlin</th>
+<th style="text-align: left;">なでしこ3</th>
+<th style="text-align: left;">Rust</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">モノイド</td>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">自作</td>
+<td style="text-align: left;">自作</td>
+<td style="text-align: left;"><strong>自作</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">ファンクタ</td>
+<td style="text-align: left;">7・8</td>
+<td style="text-align: left;">自作</td>
+<td style="text-align: left;">自作</td>
+<td style="text-align: left;"><strong>言語にある</strong>（<code>Result::map</code>）</td>
+</tr>
+<tr>
+<td style="text-align: left;">モナド</td>
+<td style="text-align: left;">9</td>
+<td style="text-align: left;">自作</td>
+<td style="text-align: left;">自作</td>
+<td style="text-align: left;"><strong>言語にある</strong>（<code>Result::and_then</code>）</td>
+</tr>
+<tr>
+<td style="text-align: left;">アプリカティブ</td>
+<td style="text-align: left;">11</td>
+<td style="text-align: left;">自作</td>
+<td style="text-align: left;">自作</td>
+<td style="text-align: left;">自作</td>
+</tr>
+<tr>
+<td style="text-align: left;">プロファンクタ</td>
+<td style="text-align: left;">12</td>
+<td style="text-align: left;">自作</td>
+<td style="text-align: left;">自作</td>
+<td style="text-align: left;">自作</td>
+</tr>
+</tbody>
+</table>
+<p><strong>言語が与えたのは 2 つだけ</strong>でした。残り 3 つは 3 対象とも自作しています。<strong>構造そのものは言語に関係なく、同じ形で現れます。</strong></p>
+<p>そして<strong>確かめ方は 3 対象で同じ</strong>でした。法則を壊して検出率を測ります（<a href="../../../adr/ADR-017-own-property-testing/">ADR-017</a>）。</p>
+<h3 id="_16">しきい値には分布の計算が要る<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h3>
+<p>なでしこ3 版でしきい値を期待値から <strong>1.58σ</strong> に置き、<strong>CI が確率 5.7% で落ちました</strong>。原因が分かるまで 3 Unit かかっています。</p>
+<p>Rust 版では<strong>期待値と標準偏差を計算してから置き</strong>、<strong>4σ</strong> 取りました。それでも実測が <strong>1.8σ</strong> ずれたことがあり、生成器を疑って種を 20 通り変えて数え直しています（平均 50.1 で偏りなし）。</p>
+<p><strong>「ずれた」と「間違っている」は別物です。</strong> 区別するには数え直すしかありません。</p>
 
 
 

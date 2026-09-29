@@ -1,6 +1,10 @@
 # Docs Update Log
 
 ## 2026-09-29
+* **Update**: [retrospective-rust-6](/development/retrospective-rust-6.md) を更新（claude-code/claude-opus-5）
+* **Update**: [bolt_report-rust-6](/development/bolt_report-rust-6.md) を更新（claude-code/claude-opus-5）
+* **Update**: [release_plan-rust](/development/release_plan-rust.md) を更新（claude-code/claude-opus-5）
+* **Update**: [iteration_plan-rust-6](/development/iteration_plan-rust-6.md) を更新（claude-code/claude-opus-5）
 * **Update**: [chapter11](/article/zettai/rust/chapter11.md) を更新（claude-code/claude-opus-5）
 * **Update**: [ADR-036-tera](/adr/ADR-036-tera.md) を更新（claude-code/claude-opus-5）
 * **Update**: [ADR-035-validated-applicative](/adr/ADR-035-validated-applicative.md) を更新（claude-code/claude-opus-5）

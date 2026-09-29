@@ -4,7 +4,7 @@ title: "Unit 6 の Bolt 計画（イテレーション 6）- Zettai 連載（Rus
 description: "Zettai 連載 Rust 版の Unit 6（境界とバリデーション）の Bolt 計画。トランザクションの境界をライフタイムのもとで表し、複数のエラーを集める型とテンプレート機構を作る。文脈の形・エラーを集める型・テンプレートの既製品の 3 つを承認ゲートに置く。"
 tags: [development, plan, ai-dlc, bolt, zettai, rust, unit-6]
 status: stable
-generated: { by: claude-code/claude-opus-5, at: 2026-09-29T07:44:20Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-29T07:51:03Z }
 verified:
   - { by: human:kakimomokuri, at: 2026-09-29T06:26:15Z }
 ---
@@ -356,11 +356,11 @@ verified:
   - **ADR-035**（複数のエラーを集める型）・**ADR-036**（テンプレート機構）
   - **`ui_design.md` に Rust の記述を新設**（フォーム・テンプレート・エスケープ）
   - `domain-model.md` の Rust 差分に検証の型を追記
-- [ ] **6-2.10 サイト反映と OKF 適用**
+- [x] **6-2.10 サイト反映と OKF 適用**
   - **前提**: 6-2.9 が済んでいること
   - 記事検査 6 本が 0 件。`gulp okf:check` が **ERROR 0、WARN も見る**
   - **`just check` を Unit の末にもう一度測る**（Try 5。なでしこ3 版は再超過した）
-- [ ] **6-2.11 Bolt 終了報告とふりかえり**
+- [x] **6-2.11 Bolt 終了報告とふりかえり**
   - **前提**: DoD がすべて埋まっていること
   - **ゲートの同期停止率を数える。** Unit 7 のゲート密度をここで決める（計画は「疎（1 箇所）」）
 

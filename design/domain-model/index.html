@@ -2154,6 +2154,41 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/iteration_plan-rust-4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「Rust」Unit 4 enum と Result
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -6046,6 +6081,76 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/rust/chapter06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 6 章 コマンドを実行してイベントを生成する
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/rust/chapter07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 7 章 関数型手法によるエラーハンドリング
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -9193,6 +9298,24 @@
 <td style="text-align: left;"><code>(ToDoListState) -&gt; ToDoListState</code></td>
 <td style="text-align: left;"><strong><code>type Transform = Box&lt;dyn Fn(ToDoList) -&gt; ToDoList&gt;</code></strong></td>
 <td style="text-align: left;">5</td>
+</tr>
+<tr>
+<td style="text-align: left;">コマンド</td>
+<td style="text-align: left;"><code>sealed class ToDoListCommand</code></td>
+<td style="text-align: left;"><strong><code>enum ToDoListCommand</code></strong></td>
+<td style="text-align: left;">6</td>
+</tr>
+<tr>
+<td style="text-align: left;">遷移表</td>
+<td style="text-align: left;"><code>when</code></td>
+<td style="text-align: left;"><strong><code>match (state, command)</code></strong>（ワイルドカードを書かない）</td>
+<td style="text-align: left;">6</td>
+</tr>
+<tr>
+<td style="text-align: left;">失敗</td>
+<td style="text-align: left;"><code>Outcome</code>（自作）</td>
+<td style="text-align: left;"><strong><code>Result&lt;T, ZettaiError&gt;</code></strong>（<code>Result</code> は言語、<code>ZettaiError</code> は自前の <code>enum</code>）</td>
+<td style="text-align: left;">7</td>
 </tr>
 <tr>
 <td style="text-align: left;">単位元・合成</td>

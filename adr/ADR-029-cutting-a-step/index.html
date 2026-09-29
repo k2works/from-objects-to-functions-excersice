@@ -1735,6 +1735,41 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/iteration_plan-rust-4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「Rust」Unit 4 enum と Result
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -5627,6 +5662,76 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/rust/chapter06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 6 章 コマンドを実行してイベントを生成する
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/rust/chapter07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 7 章 関数型手法によるエラーハンドリング
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -7923,6 +8028,28 @@ This may become a hard error in the future; see https://github.com/rust-lang/car
 <tr>
 <td style="text-align: left;">章ごとに切る</td>
 <td style="text-align: left;">段階が 13 個になる。ビルド時間が線形に増え、複製も増える</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2026-09-29">追記: ゲートに載せるのは、基準で決まらないときだけ（2026-09-29）<a class="headerlink" href="#2026-09-29" title="Permanent link">&para;</a></h3>
+<p>上の「Unit の計画時に決め、ゲートに載せます」は、<a href="../../development/release_plan-rust/">リリース計画</a> のゲート規約 1（<strong>選択肢と数字を添えられないものは、ゲートにしない</strong>）とぶつかります。</p>
+<p>Unit 4 で実際にぶつかりました。第 7 章は失敗する関数すべての戻り値の型を変えるので、<strong>上の基準で答えが決まってしまい、選択肢が立ちません</strong>。</p>
+<p><strong>規約 1 を優先します。</strong> 段階を切るかは、次のとおりに扱います。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">状況</th>
+<th style="text-align: left;">扱い</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">基準（章がコードの形を変えるとき）で答えが決まる</td>
+<td style="text-align: left;"><strong>DoD の項目にする。</strong> 切ったあとに秒数を測って記録する</td>
+</tr>
+<tr>
+<td style="text-align: left;">基準で決まらない（形が変わるとは言い切れない）</td>
+<td style="text-align: left;"><strong>ゲートに載せる。</strong> 選択肢と秒数を添える</td>
 </tr>
 </tbody>
 </table>

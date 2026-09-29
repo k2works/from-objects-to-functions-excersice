@@ -6,10 +6,11 @@
 //! `postgres` は**同期のクレート**です（[ADR-024](../../../../docs/adr/ADR-024-no-async.md)）。
 //! `async` を採らない判断が、この章で試されます。
 
-use postgres::{Client, NoTls};
+use postgres::{Client, NoTls, Transaction};
+use std::cell::RefCell;
 use std::sync::Mutex;
-use zettai_step5_domain::store::EventStore;
-use zettai_step5_domain::{ListName, ToDoItem, ToDoListEvent, User, ZettaiError};
+use zettai_step5_domain::store::{EventStore, TransactionalStore, TxEventStore, UnitOfWork};
+use zettai_step5_domain::{ListName, ToDoItem, ToDoList, ToDoListEvent, User, ZettaiError};
 
 /// エラーの連鎖をたどって文字列にする。
 ///
@@ -196,6 +197,86 @@ impl EventStore for PostgresEventStore {
         rows.iter()
             .map(|row| from_json(row.get::<_, &str>(0)))
             .collect()
+    }
+}
+
+/// トランザクションの中でだけ生きる口（第 10 章）。
+///
+/// **`'a` はここにだけ出ます。** ドメイン側には 1 つも出ていません。
+/// `&dyn TxEventStore` で渡すので、借用が型から消えます。
+struct PgTx<'a> {
+    tx: RefCell<Transaction<'a>>,
+    table: String,
+}
+
+impl PgTx<'_> {
+    fn rows_of(&self, user: &User, list_name: &ListName) -> Result<Vec<String>, ZettaiError> {
+        let rows = self
+            .tx
+            .borrow_mut()
+            .query(
+                &format!(
+                    "SELECT payload::text FROM {} WHERE user_name = $1 AND list_name = $2
+                     ORDER BY id",
+                    self.table
+                ),
+                &[&user.0, &list_name.0],
+            )
+            .map_err(|e| unavailable(&e))?;
+        Ok(rows.iter().map(|row| row.get::<_, String>(0)).collect())
+    }
+}
+
+impl TxEventStore for PgTx<'_> {
+    fn events_of(
+        &self,
+        user: &User,
+        list_name: &ListName,
+    ) -> Result<Vec<ToDoListEvent>, ZettaiError> {
+        self.rows_of(user, list_name)?
+            .iter()
+            .map(|text| from_json(text))
+            .collect()
+    }
+
+    fn append(
+        &self,
+        user: &User,
+        list_name: &ListName,
+        events: &[ToDoListEvent],
+    ) -> Result<(), ZettaiError> {
+        for event in events {
+            self.tx
+                .borrow_mut()
+                .execute(
+                    &format!(
+                        "INSERT INTO {} (user_name, list_name, payload)
+                         VALUES ($1, $2, ($3::text)::jsonb)",
+                        self.table
+                    ),
+                    &[&user.0, &list_name.0, &to_json(event)],
+                )
+                .map_err(|e| unavailable(&e))?;
+        }
+        Ok(())
+    }
+}
+
+impl TransactionalStore for PostgresEventStore {
+    /// **区間として貸します。**
+    ///
+    /// 失敗すると `PgTx` が drop され、`Transaction` の Drop が
+    /// ロールバックします。**「失敗したら戻す」を書いていません。**
+    fn in_transaction(&self, work: UnitOfWork<'_>) -> Result<ToDoList, ZettaiError> {
+        let mut client = self.client.lock().expect("毒されていない");
+        let tx = client.transaction().map_err(|e| unavailable(&e))?;
+        let pg = PgTx {
+            tx: RefCell::new(tx),
+            table: self.table.clone(),
+        };
+        let result = work(&pg)?;
+        pg.tx.into_inner().commit().map_err(|e| unavailable(&e))?;
+        Ok(result)
     }
 }
 

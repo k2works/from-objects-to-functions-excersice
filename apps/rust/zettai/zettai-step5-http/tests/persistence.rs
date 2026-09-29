@@ -168,3 +168,103 @@ fn the_third_route_tells_the_same_story() {
 
     actions.drop_table();
 }
+
+// ---------------------------------------------------------------------------
+// 第 10 章: 単位の中で処理する
+// ---------------------------------------------------------------------------
+
+// `TxEventStore` は import しない。**`&dyn TxEventStore` の主トレイトの
+// メソッドは import なしで呼べる**（既知の制約 8。第 7 章で踏んだ）。
+use zettai_step5_domain::store::{handle_in_transaction, load_in_transaction, TransactionalStore};
+
+#[test]
+fn a_command_in_a_unit_is_committed() {
+    let store = store_for("unit_ok");
+
+    handle_in_transaction(
+        &store,
+        &uberto(),
+        &book(),
+        ToDoListCommand::CreateList { list_name: book() },
+    )
+    .expect("作れる");
+
+    let list = load_in_transaction(&store, &uberto(), &book()).expect("読める");
+    assert_eq!(list.list_name, book());
+    store.drop_table().expect("片付けられる");
+}
+
+/// **この Unit でいちばん確かめたいこと。**
+///
+/// 「読む → 判断する → 書く」の途中で失敗させ、**1 件も残らない**ことを見る。
+/// 第 9 章までは `?` が 3 回並んでいるだけで、半分だけ残りえた。
+#[test]
+fn nothing_is_left_when_it_fails_halfway() {
+    let store = store_for("unit_ng");
+
+    // 1 件目は入れる。2 件目で、存在しない列に書こうとして落とす。
+    let result = store.in_transaction(&|tx| {
+        tx.append(
+            &uberto(),
+            &book(),
+            &[zettai_step5_domain::ToDoListEvent::ListCreated { list_name: book() }],
+        )?;
+        // **わざと落とす。** この時点で 1 件目は既に INSERT されている
+        Err(ZettaiError::StoreUnavailable {
+            detail: "わざと落とした".to_string(),
+        })
+    });
+
+    assert!(matches!(result, Err(ZettaiError::StoreUnavailable { .. })));
+    assert!(
+        store.events_of(&uberto(), &book()).unwrap().is_empty(),
+        "1 件も残らない"
+    );
+    store.drop_table().expect("片付けられる");
+}
+
+#[test]
+fn a_rejected_command_in_a_unit_writes_nothing() {
+    let store = store_for("unit_reject");
+
+    let result = handle_in_transaction(
+        &store,
+        &uberto(),
+        &book(),
+        ToDoListCommand::AddItem {
+            item: ToDoItem::new("write"),
+        },
+    );
+
+    assert!(matches!(result, Err(ZettaiError::ListNotFound { .. })));
+    assert!(store.events_of(&uberto(), &book()).unwrap().is_empty());
+    store.drop_table().expect("片付けられる");
+}
+
+/// **第 9 章までの形なら半分残る。** 上のテストが本物であることの裏づけ。
+///
+/// 単位を通さずに `EventStore::append` を 2 回呼び、2 回目の前に失敗したことにする。
+/// **1 回目が残ってしまう。**
+#[test]
+fn the_old_shape_leaves_half() {
+    let store = store_for("old_half");
+
+    // 1 回目は通る
+    EventStore::append(
+        &store,
+        &uberto(),
+        &book(),
+        &[zettai_step5_domain::ToDoListEvent::ListCreated { list_name: book() }],
+    )
+    .expect("入る");
+
+    // ここで失敗したことにする（2 回目を呼ばない）
+    let left = EventStore::events_of(&store, &uberto(), &book()).unwrap();
+
+    assert_eq!(
+        left.len(),
+        1,
+        "**半分だけ残っている。** これが第 10 章の出発点"
+    );
+    store.drop_table().expect("片付けられる");
+}

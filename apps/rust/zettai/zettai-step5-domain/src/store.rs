@@ -6,7 +6,7 @@
 //! 保存するのは**起きたことだけ**。状態は保存しない
 //! （[ADR-008](../../../../docs/adr/ADR-008-event-store-single-table.md) を踏襲）。
 
-use crate::{ListName, ToDoListEvent, User, ZettaiError};
+use crate::{ListName, ToDoList, ToDoListEvent, User, ZettaiError};
 
 /// イベントの保管。**追記と読み出しだけ。**
 ///
@@ -63,6 +63,79 @@ pub fn handle_with_store(
 
     let all = [before, new_events].concat();
     Ok(crate::replay(all))
+}
+
+/// トランザクションの中でだけ触れる口（第 10 章）。
+///
+/// **`EventStore` と同じ操作を持つが、意味が違う。** こちらは
+/// 「**1 つの単位の中にいる**」ことが型で分かる。
+pub trait TxEventStore {
+    fn events_of(
+        &self,
+        user: &User,
+        list_name: &ListName,
+    ) -> Result<Vec<ToDoListEvent>, ZettaiError>;
+
+    fn append(
+        &self,
+        user: &User,
+        list_name: &ListName,
+        events: &[ToDoListEvent],
+    ) -> Result<(), ZettaiError>;
+}
+
+/// 単位の中でする仕事。**`&dyn Fn` にするのは並びに入れないため**
+/// （[ADR-030] の「他の関数値と同じ入れ物に入るか」で言えば、入らない側）。
+pub type UnitOfWork<'a> = &'a dyn Fn(&dyn TxEventStore) -> Result<ToDoList, ZettaiError>;
+
+/// 単位を貸す側（第 10 章）。
+///
+/// **トランザクションを値として返しません。** 返そうとすると
+/// 「ロック」と「ロックの中身を借りたトランザクション」が同じ箱に入り、
+/// 自己参照になって書けません（E0515・E0505）。
+///
+/// 代わりに**区間として貸します**。借りている間だけ触れて、
+/// 抜けたら確定するか、失敗ならすべて無かったことになります。
+pub trait TransactionalStore {
+    fn in_transaction(&self, work: UnitOfWork<'_>) -> Result<ToDoList, ZettaiError>;
+}
+
+/// コマンドを 1 つのトランザクションで処理する（第 10 章）。
+///
+/// **境界がこの関数に見えます。** 読む・判断する・書くが同じ区間にあり、
+/// どこで失敗しても 1 件も残りません。
+///
+/// `commit` はここに出てきません。**呼び忘れようがない形**です。
+pub fn handle_in_transaction(
+    store: &dyn TransactionalStore,
+    user: &User,
+    list_name: &ListName,
+    command: crate::ToDoListCommand,
+) -> Result<ToDoList, ZettaiError> {
+    store.in_transaction(&|tx| {
+        let before = tx.events_of(user, list_name)?;
+        let new_events = crate::execute(user, list_name, &before, command.clone())?;
+        tx.append(user, list_name, &new_events)?;
+        Ok(crate::replay([before, new_events].concat()))
+    })
+}
+
+/// 単位の中で読み戻す。
+pub fn load_in_transaction(
+    store: &dyn TransactionalStore,
+    user: &User,
+    list_name: &ListName,
+) -> Result<ToDoList, ZettaiError> {
+    store.in_transaction(&|tx| {
+        let events = tx.events_of(user, list_name)?;
+        if events.is_empty() {
+            return Err(ZettaiError::ListNotFound {
+                user: user.clone(),
+                list_name: list_name.clone(),
+            });
+        }
+        Ok(crate::replay(events))
+    })
 }
 
 #[cfg(test)]
@@ -180,6 +253,132 @@ mod tests {
             load(&BrokenStore, &uberto(), &book()),
             Err(ZettaiError::StoreUnavailable { .. })
         ));
+    }
+
+    // -----------------------------------------------------------------
+    // 第 10 章: 単位の中で処理する
+    // -----------------------------------------------------------------
+
+    /// 記憶だけの単位。**失敗したら書いたものを捨てる。**
+    #[derive(Default)]
+    struct InMemoryTx {
+        committed: RefCell<Vec<ToDoListEvent>>,
+        /// 単位の中で書いたもの。**確定するまで `committed` に移さない。**
+        pending: RefCell<Vec<ToDoListEvent>>,
+        /// **わざと落とす。** n 件目の append で失敗する
+        fail_at: Option<usize>,
+        written: RefCell<usize>,
+    }
+
+    impl TxEventStore for InMemoryTx {
+        fn events_of(&self, _u: &User, _l: &ListName) -> Result<Vec<ToDoListEvent>, ZettaiError> {
+            let mut all = self.committed.borrow().clone();
+            all.extend(self.pending.borrow().iter().cloned());
+            Ok(all)
+        }
+
+        fn append(
+            &self,
+            _u: &User,
+            _l: &ListName,
+            events: &[ToDoListEvent],
+        ) -> Result<(), ZettaiError> {
+            for event in events {
+                *self.written.borrow_mut() += 1;
+                if Some(*self.written.borrow()) == self.fail_at {
+                    return Err(ZettaiError::StoreUnavailable {
+                        detail: "わざと落とした".to_string(),
+                    });
+                }
+                self.pending.borrow_mut().push(event.clone());
+            }
+            Ok(())
+        }
+    }
+
+    impl TransactionalStore for InMemoryTx {
+        fn in_transaction(&self, work: UnitOfWork<'_>) -> Result<ToDoList, ZettaiError> {
+            self.pending.borrow_mut().clear();
+            match work(self) {
+                Ok(list) => {
+                    // 確定
+                    let pending = self.pending.borrow().clone();
+                    self.committed.borrow_mut().extend(pending);
+                    self.pending.borrow_mut().clear();
+                    Ok(list)
+                }
+                Err(e) => {
+                    // **書いたものを捨てる**
+                    self.pending.borrow_mut().clear();
+                    Err(e)
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn a_command_in_a_unit_is_committed() {
+        let store = InMemoryTx::default();
+
+        handle_in_transaction(
+            &store,
+            &uberto(),
+            &book(),
+            ToDoListCommand::CreateList { list_name: book() },
+        )
+        .expect("作れる");
+
+        assert_eq!(store.committed.borrow().len(), 1);
+    }
+
+    #[test]
+    fn nothing_is_left_when_it_fails_halfway() {
+        let store = InMemoryTx {
+            fail_at: Some(1),
+            ..Default::default()
+        };
+
+        let result = handle_in_transaction(
+            &store,
+            &uberto(),
+            &book(),
+            ToDoListCommand::CreateList { list_name: book() },
+        );
+
+        assert!(matches!(result, Err(ZettaiError::StoreUnavailable { .. })));
+        assert!(store.committed.borrow().is_empty(), "1 件も残らない");
+    }
+
+    #[test]
+    fn a_rejected_command_in_a_unit_writes_nothing() {
+        let store = InMemoryTx::default();
+
+        let result = handle_in_transaction(
+            &store,
+            &uberto(),
+            &book(),
+            ToDoListCommand::AddItem {
+                item: ToDoItem::new("write"),
+            },
+        );
+
+        assert!(matches!(result, Err(ZettaiError::ListNotFound { .. })));
+        assert!(store.committed.borrow().is_empty());
+    }
+
+    #[test]
+    fn loading_in_a_unit_sees_what_was_committed() {
+        let store = InMemoryTx::default();
+        handle_in_transaction(
+            &store,
+            &uberto(),
+            &book(),
+            ToDoListCommand::CreateList { list_name: book() },
+        )
+        .expect("作れる");
+
+        let list = load_in_transaction(&store, &uberto(), &book()).expect("読める");
+        assert_eq!(list.list_name, book());
     }
 
     #[test]

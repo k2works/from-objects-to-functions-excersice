@@ -107,6 +107,11 @@ fn failed(reason: ZettaiError) -> Reply {
             body: "<html><body><h1>409</h1></body></html>".to_string(),
         },
         ZettaiError::EmptyDescription => bad_request(),
+        // 第 9 章で理由が 1 つ増え、**またここが止まった**（3 回目）。
+        ZettaiError::StoreUnavailable { .. } => Reply {
+            status: 503,
+            body: "<html><body><h1>503</h1></body></html>".to_string(),
+        },
     }
 }
 

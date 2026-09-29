@@ -10,8 +10,15 @@
 # | clippy | 言語の慣用から外れた書き方                          | しない（コンパイルは通るが指摘される書き方がある） |
 # | test   | 振る舞い。あわせて型・所有権も（コンパイルするため） | — |
 # | cov    | テストが見ていないコード                            | しない（test は「通ったか」しか見ない） |
+# | test-db| 保管との往復。**別立て**（下記）                     | しない（test は DB を通らない） |
 #
 # **4 段とも守るものが違うので、4 段とも入れる。**
+#
+# **DB を使うテストは `check` に入れない**（Unit 5 のゲート 1）。
+# 入れると CI が 26 秒 → 48 秒になり、ローカルで docker が必須になる。
+# 別立てにすれば CI では並走するので総時間は増えず、書いている間は
+# docker 無しで回せる。**代わりに、DB の検査を忘れない仕組みが要る**ので
+# `check-all` に入れてある。
 
 # カバレッジの下限。**Unit 3 で見直した。**
 #
@@ -58,9 +65,16 @@ default:
 check:
     {{run}} just fmt lint test
 
-# リリース前と CI はこれ（カバレッジを含む）
+# リリース前はこれ（カバレッジと DB を含む）
+#
+# **CI では check-all を 1 本で回さない。** cov までを `check` ジョブ、
+# DB を `db` ジョブに分けて並走させる（Unit 5 のゲート 1）。
 check-all:
-    {{run}} just fmt lint test cov
+    {{run}} just fmt lint test cov test-db
+
+# 保管との往復。**docker が要る**（`docker compose up -d zettai-db`）。
+test-db:
+    {{run}} cargo test -p zettai-step4-http --features db --test persistence
 
 # 体裁を検査する（直さない）
 fmt:

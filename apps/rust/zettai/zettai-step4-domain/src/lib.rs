@@ -17,6 +17,9 @@
 /// 射影（第 8 章）。**クエリ側はここに置く。**
 pub mod projection;
 
+/// 永続化のポート（第 9 章）。**契約だけ。実体はインフラ側。**
+pub mod store;
+
 /// ToDo リストの名前。
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct ListName(pub String);
@@ -247,6 +250,11 @@ pub enum ZettaiError {
     ListNotFound { user: User, list_name: ListName },
     /// 説明が空。
     EmptyDescription,
+    /// 保管とやりとりできなかった（第 9 章）。
+    ///
+    /// **外のクレートの型を持たない。** 持つとドメインが `postgres` に
+    /// 依存することになる（[ADR-027]）。理由は文字列にして受け取る。
+    StoreUnavailable { detail: String },
 }
 
 /// 遷移表の行。

@@ -72,3 +72,36 @@ jobs:
         with:
           python-version: '3.12'
       - run: python ops/scripts/check_rust_ci_parity.py
+
+  # DB を使う検査。**check とは別ジョブにして並走させる**（Unit 5 のゲート 1）。
+  #
+  # 同じジョブに入れるとサービスコンテナの起動ぶん +22 秒かかる
+  # （使い捨てのブランチで実測）。分ければ総時間は増えない。
+  db:
+    name: 保管との往復
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/rust/zettai
+    services:
+      zettai-db:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_DB: zettai
+          POSTGRES_USER: zettai
+          POSTGRES_PASSWORD: zettai
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: 1.91.1
+      - name: test-db
+        run: cargo test -p zettai-step4-http --features db --test persistence

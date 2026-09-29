@@ -4,7 +4,7 @@ title: "第 1 章 新しいアプリケーションを準備する"
 description: "Zettai 連載 Rust 版の第 1 章。テストの土台が言語にある場合に第 1 章で何をするのかを書く。なでしこ3 版が自作した検証関数とランナーは cargo が最初から与えるので、代わりに後戻りの効かない判断（async の採否と HTTP クレートの選定）を実測してから決める。"
 tags: [article, zettai, rust, chapter]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-29T01:11:23Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-29T02:08:46Z }
 ---
 
 # 第 1 章 新しいアプリケーションを準備する
@@ -83,8 +83,10 @@ just check
 ```toml
 [workspace]
 resolver = "2"
-members = ["zettai-step1-http"]
+members = ["zettai-step1-domain", "zettai-step1-http"]
 ```
+
+> 第 1 章の時点ではメンバーは 1 つでした。第 3 章でドメインを切り出して 2 つになっています（[ADR-027](../../../adr/ADR-027-crate-boundary.md)）。**同じ段階の中でコードが育つ**ので、記事は最終形を載せています（[ADR-015](../../../adr/ADR-015-step-directories.md)）。
 
 ### 判断 1: async を採るか
 

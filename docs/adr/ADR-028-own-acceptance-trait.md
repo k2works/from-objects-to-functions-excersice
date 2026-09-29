@@ -4,6 +4,7 @@ title: "ADR-028 受け入れテストの経路をトレイトで差し替え、c
 description: "Zettai 連載 Rust 版で、受け入れテストの経路の差し替えをトレイトで表し、cucumber を導入しない決定。既製品を先に調べた実測（依存 127 クレート・ビルド 92 秒）、必要なのは経路の差し替えだけだったこと、この決定が解かないことを記録する。"
 tags: [adr, rust, zettai]
 status: draft
+generated: { by: claude-code/claude-opus-5, at: 2026-09-29T02:09:29Z }
 ---
 
 # ADR-028 受け入れテストの経路をトレイトで差し替え、cucumber を入れない

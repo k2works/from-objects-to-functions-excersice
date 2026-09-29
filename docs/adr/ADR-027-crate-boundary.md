@@ -4,6 +4,7 @@ title: "ADR-027 境界をクレートで分け、境界検査を書かない"
 description: "Zettai 連載 Rust 版で、ドメインとインフラを段階ごとに 2 クレートに分ける決定。コンパイラが依存の向きを守るので 2 対象が書いた境界検査が要らないこと、実測でビルド時間が変わらなかったこと、この決定が解かないことを記録する。"
 tags: [adr, rust, zettai]
 status: draft
+generated: { by: claude-code/claude-opus-5, at: 2026-09-29T02:09:29Z }
 ---
 
 # ADR-027 境界をクレートで分け、境界検査を書かない

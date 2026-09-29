@@ -14,6 +14,9 @@
 // （spikes/match-exhaustiveness/）。
 #![warn(clippy::wildcard_enum_match_arm)]
 
+/// 射影（第 8 章）。**クエリ側はここに置く。**
+pub mod projection;
+
 /// ToDo リストの名前。
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct ListName(pub String);

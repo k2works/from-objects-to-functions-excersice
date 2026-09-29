@@ -1,0 +1,7 @@
+[package]
+name = "cqrs-boundary"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+zettai-step3-domain = { path = "../../zettai-step3-domain" }

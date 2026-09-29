@@ -203,6 +203,7 @@ nav:
               - 第 1 章 新しいアプリケーションを準備する: article/zettai/rust/chapter01.md
               - 第 2 章 関数を使って HTTP を扱う: article/zettai/rust/chapter02.md
               - 第 3 章 ドメインの定義とテスト: article/zettai/rust/chapter03.md
+              - 第 4 章 ドメインとアダプタのモデリング: article/zettai/rust/chapter04.md
   - リファレンス:
       - 概要: reference/index.md
       - よいソフトウェアとは: reference/よいソフトウェアとは.md

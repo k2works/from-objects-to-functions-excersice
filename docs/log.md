@@ -1,6 +1,9 @@
 # Docs Update Log
 
 ## 2026-09-29
+* **Update**: [chapter04](/article/zettai/rust/chapter04.md) を更新（claude-code/claude-opus-5）
+* **Update**: [ADR-030-functional-di-shape](/adr/ADR-030-functional-di-shape.md) を更新（claude-code/claude-opus-5）
+* **Update**: [ADR-029-cutting-a-step](/adr/ADR-029-cutting-a-step.md) を更新（claude-code/claude-opus-5）
 * **Update**: [iteration_plan-rust-3](/development/iteration_plan-rust-3.md) を更新（claude-code/claude-opus-5）
 * **Verification**: [iteration_plan-rust-3](/development/iteration_plan-rust-3.md) を human:kakimomokuri が検証
 * **Update**: [iteration_plan-rust-3](/development/iteration_plan-rust-3.md) を更新（claude-code/claude-opus-5）

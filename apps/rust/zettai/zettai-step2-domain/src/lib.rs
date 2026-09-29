@@ -115,6 +115,29 @@ where
     /// 受け取ったリストを書き換えるのではなく、**足した新しいリストを作る**。
     /// もとのリストは変わらないので、第 5 章で「イベントを適用する関数」に
     /// そのまま化ける。
+    /// コマンドを受け取り、起きたことを適用して保存する（第 6 章）。
+    ///
+    /// **判断は `execute_in` が持ち、ハブは配線だけを持つ。**
+    /// 断られたら保存しない。
+    pub fn handle(
+        &self,
+        user: &User,
+        list_name: &ListName,
+        command: ToDoListCommand,
+    ) -> Result<ToDoList, Rejected> {
+        let current = (self.fetch)(user, list_name);
+        let events = execute_in(state_of_list(current.as_ref()), command)?;
+
+        let before = current.unwrap_or(ToDoList {
+            list_name: list_name.clone(),
+            items: Vec::new(),
+        });
+        let after = fold_events(events)(before);
+
+        (self.save)(user, &after);
+        Ok(after)
+    }
+
     pub fn add_item(&self, user: &User, list_name: &ListName, item: ToDoItem) -> Option<ToDoList> {
         let list = (self.fetch)(user, list_name)?;
         let updated = ToDoList {
@@ -212,6 +235,18 @@ pub enum ListState {
     HasItems,
 }
 
+/// 保管されているリストから、遷移に使う状態を読む。
+///
+/// **第 9 章まではリストを保管している**ので、起きたことの並びが手元に無い。
+/// 状態だけは読めるので、ここで橋を架ける。
+pub fn state_of_list(list: Option<&ToDoList>) -> ListState {
+    match list {
+        None => ListState::Missing,
+        Some(list) if list.items.is_empty() => ListState::Empty,
+        Some(_) => ListState::HasItems,
+    }
+}
+
 /// 起きたことの並びから、遷移に使う状態を読む。
 pub fn state_of(events: &[ToDoListEvent]) -> ListState {
     match events.last() {
@@ -231,7 +266,15 @@ pub fn execute(
     events: &[ToDoListEvent],
     command: ToDoListCommand,
 ) -> Result<Vec<ToDoListEvent>, Rejected> {
-    match (state_of(events), command) {
+    execute_in(state_of(events), command)
+}
+
+/// 遷移表の本体。**状態とコマンドだけを見る。**
+pub fn execute_in(
+    state: ListState,
+    command: ToDoListCommand,
+) -> Result<Vec<ToDoListEvent>, Rejected> {
+    match (state, command) {
         (ListState::Missing, ToDoListCommand::CreateList { list_name }) => {
             Ok(vec![ToDoListEvent::ListCreated { list_name }])
         }
@@ -424,6 +467,48 @@ mod tests {
                 "{state:?} に {command:?} を出したとき"
             );
         }
+    }
+
+    #[test]
+    fn the_hub_rejects_adding_to_a_missing_list() {
+        let hub = ToDoListHub::new(|_u, _n| None, |_u, _l: &ToDoList| {});
+
+        let result = hub.handle(
+            &User::new("uberto"),
+            &ListName::new("nope"),
+            ToDoListCommand::AddItem {
+                item: ToDoItem::new("write"),
+            },
+        );
+
+        assert_eq!(result, Err(Rejected::ListDoesNotExist));
+    }
+
+    #[test]
+    fn the_hub_applies_the_events_it_produced() {
+        let saved: RefCell<Vec<ToDoList>> = RefCell::new(Vec::new());
+        let hub = ToDoListHub::new(
+            |_u, name| {
+                Some(ToDoList {
+                    list_name: name.clone(),
+                    items: vec![ToDoItem::new("先にあったもの")],
+                })
+            },
+            |_u, list: &ToDoList| saved.borrow_mut().push(list.clone()),
+        );
+
+        let after = hub
+            .handle(
+                &User::new("uberto"),
+                &ListName::new("book"),
+                ToDoListCommand::AddItem {
+                    item: ToDoItem::new("足したもの"),
+                },
+            )
+            .expect("あるリストには足せる");
+
+        assert_eq!(after.items.len(), 2);
+        assert_eq!(saved.borrow().len(), 1, "保存が 1 回呼ばれる");
     }
 
     // -----------------------------------------------------------------

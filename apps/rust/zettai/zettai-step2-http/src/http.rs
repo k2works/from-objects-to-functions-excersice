@@ -6,7 +6,9 @@
 //!
 //! リクエスト → 取り出す → 描く → 応答。矢印が 3 本ある。
 
-use zettai_step2_domain::{ListName, ToDoItem, ToDoList, ToDoListHub, User};
+use zettai_step2_domain::{
+    ListName, Rejected, ToDoItem, ToDoList, ToDoListCommand, ToDoListHub, User,
+};
 
 /// 応答。状態コードと本文だけを持つ。
 ///
@@ -53,21 +55,25 @@ where
         _ => return not_found(),
     };
 
-    let list = match method {
-        "GET" => hub.list_of(&user, &list_name),
+    match method {
+        "GET" => match hub.list_of(&user, &list_name) {
+            Some(list) => ok(&list),
+            None => not_found(),
+        },
+        // 第 6 章でコマンドを通すようになった。**断られた理由が型で返る。**
         "POST" => match description_in(body) {
-            Some(description) => hub.add_item(&user, &list_name, ToDoItem::new(&description)),
-            None => return bad_request(),
+            None => bad_request(),
+            Some(description) => {
+                let command = ToDoListCommand::AddItem {
+                    item: ToDoItem::new(&description),
+                };
+                match hub.handle(&user, &list_name, command) {
+                    Ok(list) => ok(&list),
+                    Err(reason) => rejected(reason),
+                }
+            }
         },
-        _ => return not_found(),
-    };
-
-    match list {
-        Some(list) => Reply {
-            status: 200,
-            body: render(&list),
-        },
-        None => not_found(),
+        _ => not_found(),
     }
 }
 
@@ -80,6 +86,27 @@ pub fn description_in(body: &str) -> Option<String> {
         .find(|(key, _)| *key == "description")
         .map(|(_, value)| value.replace('+', " "))
         .filter(|value| !value.is_empty())
+}
+
+fn ok(list: &ToDoList) -> Reply {
+    Reply {
+        status: 200,
+        body: render(list),
+    }
+}
+
+/// 断られた理由を状態コードに写す。
+///
+/// **理由が型なので、`match` が漏れを止める。** 理由を足したら
+/// ここもコンパイルが止まる。
+fn rejected(reason: Rejected) -> Reply {
+    match reason {
+        Rejected::ListDoesNotExist => not_found(),
+        Rejected::ListAlreadyExists => Reply {
+            status: 409,
+            body: "<html><body><h1>409</h1></body></html>".to_string(),
+        },
+    }
 }
 
 fn bad_request() -> Reply {

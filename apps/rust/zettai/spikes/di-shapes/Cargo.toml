@@ -1,0 +1,8 @@
+# スパイク: 関数型 DI の 3 案を、第 5 章のクロージャ合成まで書けるか確かめる。
+# workspace からは exclude してある（判断の記録として残す）。
+[package]
+name = "di-shapes"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]

@@ -4,7 +4,7 @@ title: "Unit 5 の Bolt 計画（イテレーション 5）- Zettai 連載（Rus
 description: "Zettai 連載 Rust 版の Unit 5（射影と永続化）の Bolt 計画。射影で CQRS に到達し、同期の postgres クレートで永続化する。DB を検査に含めるかと、段階の切り方を見直すかを承認ゲートに置く。Release v0.2.0 の判定も行う。"
 tags: [development, plan, ai-dlc, bolt, zettai, rust, unit-5]
 status: stable
-generated: { by: claude-code/claude-opus-5, at: 2026-09-29T04:16:24Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-29T04:27:13Z }
 verified:
   - { by: human:kakimomokuri, at: 2026-09-29T04:19:35Z }
 ---
@@ -207,9 +207,21 @@ verified:
 
 ### ステップ計画
 
-- [ ] **5-1.0 スパイクと ADR の棚卸し**
+- [x] **5-1.0 スパイクと ADR の棚卸し**
   - **前提**: Unit 4 の段階 3 が green で、**作業ツリーが clean**（Try 1・2）
   - Kotlin 版の [ADR-008](../adr/ADR-008-event-store-single-table.md)〜[ADR-012](../adr/ADR-012-own-json-converter.md) の移植要否を判断する
+  - **実績（2026-09-29）**: 棚卸しの結果
+
+| Kotlin 版の ADR | 本 Unit での扱い |
+| :--- | :--- |
+| [008](../adr/ADR-008-event-store-single-table.md) イベントストア 1 テーブル | **踏襲する**（踏襲 3） |
+| [009](../adr/ADR-009-integration-test-database.md) 結合テストの DB | **ゲート 1 で判断する**（Rust 版の CI は 17 秒で、足す代償が違う） |
+| [010](../adr/ADR-010-own-template.md) テンプレート | **Unit 6（第 11 章）へ送る** |
+| [011](../adr/ADR-011-transaction-boundary.md) トランザクションの境界 | **Unit 6（第 10 章）へ送る** |
+| [012](../adr/ADR-012-own-json-converter.md) JSON の変換 | **本 Unit で要る**（`payload` が `jsonb`）。5-2.3 で判断する |
+
+  - スパイク 3: `postgres::Error` は `impl From` 1 つで包める。ただし **`Display` が `"db error"` としか出さない**。`source()` を辿る関数を書いた
+  - スパイク 4: **スキーマごと分ける。** テーブル名だけでは `CREATE TABLE` が競る。3 テストの並列で件数が混ざらないことを確認
 - [ ] **5-1.1 射影を作る（Red → Green）**
   - **前提**: 5-1.0 で移植の要否が決まっていること
   - イベントの畳み込み先をもう 1 つ作る。**単体の Red を先に立てる**（Unit 3 Try 4）

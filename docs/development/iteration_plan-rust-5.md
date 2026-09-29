@@ -4,7 +4,7 @@ title: "Unit 5 の Bolt 計画（イテレーション 5）- Zettai 連載（Rus
 description: "Zettai 連載 Rust 版の Unit 5（射影と永続化）の Bolt 計画。射影で CQRS に到達し、同期の postgres クレートで永続化する。DB を検査に含めるかと、段階の切り方を見直すかを承認ゲートに置く。Release v0.2.0 の判定も行う。"
 tags: [development, plan, ai-dlc, bolt, zettai, rust, unit-5]
 status: stable
-generated: { by: claude-code/claude-opus-5, at: 2026-09-29T05:08:41Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-29T05:13:15Z }
 verified:
   - { by: human:kakimomokuri, at: 2026-09-29T04:19:35Z }
 ---
@@ -323,7 +323,7 @@ verified:
 - [x] **5-2.9 サイト反映と OKF 適用**
   - **前提**: 5-2.8 が書けていること
   - 記事検査 6 本が 0 件。`gulp okf:check` が **ERROR 0、WARN も見る**
-- [ ] **5-2.10 Release v0.2.0 と Bolt 終了報告・ふりかえり**
+- [x] **5-2.10 Release v0.2.0 と Bolt 終了報告・ふりかえり**
   - **前提**: DoD がすべて埋まっていること
   - push して CI の green を確かめ、**v0.2.0 の条件を判定する**
   - **ゲートの同期停止率を数える。** Unit 6 のゲート密度をここで決める（計画は「密（3 箇所）」）

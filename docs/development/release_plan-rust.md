@@ -4,7 +4,7 @@ title: "リリース計画 - Zettai 連載（Rust 版）"
 description: "『From Objects to Functions』を下敷きにした Zettai 連載 Rust 版の AI-DLC 準拠 Level 1 計画。言語が Result と enum を与える側で同じ 13 章を辿るという Intent、7 Unit・14 ストーリーへの分解、依存 DAG、5 軸のエントロピー評価、所有権と async の伝播に対するリスク台帳、2 対象の学びを反映した承認ゲート方針と指標を定義する。"
 tags: [development, plan, ai-dlc, zettai, rust]
 status: stable
-generated: { by: claude-code/claude-opus-5, at: 2026-09-29T04:16:24Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-29T05:13:15Z }
 verified:
   - { by: human:kakimomokuri, at: 2026-09-28T12:24:16Z }
 ---
@@ -374,10 +374,10 @@ US-001 第 1 章 ──→ US-002 第 2 章 ──→ US-003 第 3 章
 | Unit 2 | 10 | **2 / 2** | 0 | 0 | **完了** |
 | Unit 3 | 14 | **3 / 3** | 0 | 0 | **完了** |
 | Unit 4 | 7 | **1 / 1** | 0 | 0 | **完了** |
-| Unit 5 | 13 | - | - | - | **計画済み** |
+| Unit 5 | 13 | **2 / 2** | 0 | 0 | **完了** |
 | Unit 6 | 11 | - | - | - | 未着手 |
 | Unit 7 | 6 | - | - | - | 未着手 |
-| **合計** | **68** | **9 / 9** | **0** | **1** | 完了 Unit 数 **4 / 7** |
+| **合計** | **68** | **11 / 11** | **0** | **1** | 完了 Unit 数 **5 / 7** |
 
 ---
 
@@ -385,6 +385,7 @@ US-001 第 1 章 ──→ US-002 第 2 章 ──→ US-003 第 3 章
 
 | 日付 | 更新内容 | 更新者 |
 | :--- | :--- | :--- |
+| 2026-09-29 | **Release v0.2.0 達成。Phase 2 完了。** Unit 5 完了を反映し、承認ゲートの累計を 11 / 11 とした。DB の検査を別ジョブに分け（Kotlin 版の ADR-009 とは結論が分かれた）、受け入れシナリオが 3 経路で green になった | claude-code/claude-opus-5 |
 | 2026-09-29 | Unit 4 完了を反映。**ゲートを 3 箇所から 1 箇所に減らして 1 / 1 停止**（累計 9 / 9）。減らす側でもエントロピー評価どおりに動いた。第 6〜7 章を公開（7 / 13 章）し、3 つめの段階を切った | claude-code/claude-opus-5 |
 | 2026-09-29 | Unit 3 完了を反映。**承認ゲートが 3 / 3 で同期停止し、累計 8 / 8**。3 回送った持ち込み 2 件（段階を切る手順・カバレッジの下限）を消化し、カバレッジの下限を 80 → 90 に上げた（`src/bin/` を除く） | claude-code/claude-opus-5 |
 | 2026-09-29 | **Release v0.1.0 達成。Phase 1 完了。** Unit 2 完了を反映し、承認ゲートの累計を 5 / 5 とした。CI は `just` を通さず `cargo` を直接呼ぶ形（525 秒対 17 秒の実測）にし、二重管理を `check_rust_ci_parity.py` で押さえた | claude-code/claude-opus-5 |

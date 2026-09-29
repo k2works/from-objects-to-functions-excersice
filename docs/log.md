@@ -1,6 +1,12 @@
 # Docs Update Log
 
 ## 2026-09-29
+* **Update**: [retrospective-rust-5](/development/retrospective-rust-5.md) を更新（claude-code/claude-opus-5）
+* **Update**: [bolt_report-rust-5](/development/bolt_report-rust-5.md) を更新（claude-code/claude-opus-5）
+* **Update**: [release_plan-rust](/development/release_plan-rust.md) を更新（claude-code/claude-opus-5）
+* **Update**: [iteration_plan-rust-5](/development/iteration_plan-rust-5.md) を更新（claude-code/claude-opus-5）
+* **Update**: [chapter09](/article/zettai/rust/chapter09.md) を更新（claude-code/claude-opus-5）
+* **Update**: [ADR-033-db-check-as-separate-job](/adr/ADR-033-db-check-as-separate-job.md) を更新（claude-code/claude-opus-5）
 * **Update**: [chapter09](/article/zettai/rust/chapter09.md) を更新（claude-code/claude-opus-5）
 * **Update**: [ADR-033-db-check-as-separate-job](/adr/ADR-033-db-check-as-separate-job.md) を更新（claude-code/claude-opus-5）
 * **Update**: [ADR-032-postgres-event-store](/adr/ADR-032-postgres-event-store.md) を更新（claude-code/claude-opus-5）

@@ -9,6 +9,8 @@
 use postgres::{Client, NoTls, Transaction};
 use std::cell::RefCell;
 use std::sync::Mutex;
+use zettai_step5_domain::converter::Converter;
+use zettai_step5_domain::logging::{LogSink, Record, Silent};
 use zettai_step5_domain::store::{EventStore, TransactionalStore, TxEventStore, UnitOfWork};
 use zettai_step5_domain::{ListName, ToDoItem, ToDoList, ToDoListEvent, User, ZettaiError};
 
@@ -52,6 +54,18 @@ pub fn to_json(event: &ToDoListEvent) -> String {
             escape(&item.description)
         ),
     }
+}
+
+/// 書き出しと読み込みの対（第 12 章）。
+///
+/// **第 9 章は `to_json` と `from_json` が別々でした。** `jsonb` の正規化に
+/// 対応したとき、**読み側だけを直しています**。対にすると、片方だけ直す形が
+/// そもそも書けません。
+pub fn event_json() -> Converter<ToDoListEvent, String> {
+    Converter::new(
+        |event: &ToDoListEvent| to_json(event),
+        |text: &String| from_json(text),
+    )
 }
 
 /// JSON からイベントに戻す。
@@ -107,6 +121,8 @@ fn escape(s: &str) -> String {
 pub struct PostgresEventStore {
     client: Mutex<Client>,
     table: String,
+    /// 記録の行き先（第 12 章）。**ドメインは手段を知らない。**
+    sink: Box<dyn LogSink>,
 }
 
 impl PostgresEventStore {
@@ -130,7 +146,14 @@ impl PostgresEventStore {
         Ok(PostgresEventStore {
             client: Mutex::new(client),
             table: table.to_string(),
+            sink: Box::new(Silent),
         })
+    }
+
+    /// 記録の行き先を差し替える（第 12 章）。
+    pub fn recording_to(mut self, sink: Box<dyn LogSink>) -> Self {
+        self.sink = sink;
+        self
     }
 
     /// 使っているテーブルの名前。
@@ -172,7 +195,15 @@ impl EventStore for PostgresEventStore {
             )
             .map_err(|e| unavailable(&e))?;
         }
-        tx.commit().map_err(|e| unavailable(&e))
+        tx.commit().map_err(|e| unavailable(&e))?;
+        // **保管の読み書きを記録する。** ドメインは記録の手段を知らない
+        self.sink.record(
+            &Record::new("イベントを追記した")
+                .with("user", &user.0)
+                .with("list", &list_name.0)
+                .with("count", events.len()),
+        );
+        Ok(())
     }
 
     fn events_of(
@@ -194,9 +225,19 @@ impl EventStore for PostgresEventStore {
             )
             .map_err(|e| unavailable(&e))?;
 
-        rows.iter()
-            .map(|row| from_json(row.get::<_, &str>(0)))
-            .collect()
+        let converter = event_json();
+        let events: Result<Vec<ToDoListEvent>, ZettaiError> = rows
+            .iter()
+            .map(|row| converter.read(&row.get::<_, String>(0)))
+            .collect();
+        let events = events?;
+        self.sink.record(
+            &Record::new("イベントを読み出した")
+                .with("user", &user.0)
+                .with("list", &list_name.0)
+                .with("count", events.len()),
+        );
+        Ok(events)
     }
 }
 
@@ -207,6 +248,12 @@ impl EventStore for PostgresEventStore {
 struct PgTx<'a> {
     tx: RefCell<Transaction<'a>>,
     table: String,
+    /// 記録の行き先（第 12 章）。
+    ///
+    /// **ここに持たせる必要がありました。** 第 10 章で境界を入れてから、
+    /// 実際の読み書きは `EventStore` ではなく**単位の中の口**を通ります。
+    /// `EventStore` 側にだけ記録を足して、1 件も出ませんでした。
+    sink: &'a dyn LogSink,
 }
 
 impl PgTx<'_> {
@@ -233,10 +280,19 @@ impl TxEventStore for PgTx<'_> {
         user: &User,
         list_name: &ListName,
     ) -> Result<Vec<ToDoListEvent>, ZettaiError> {
-        self.rows_of(user, list_name)?
+        let converter = event_json();
+        let events: Vec<ToDoListEvent> = self
+            .rows_of(user, list_name)?
             .iter()
-            .map(|text| from_json(text))
-            .collect()
+            .map(|text| converter.read(text))
+            .collect::<Result<_, _>>()?;
+        self.sink.record(
+            &Record::new("イベントを読み出した")
+                .with("user", &user.0)
+                .with("list", &list_name.0)
+                .with("count", events.len()),
+        );
+        Ok(events)
     }
 
     fn append(
@@ -245,6 +301,12 @@ impl TxEventStore for PgTx<'_> {
         list_name: &ListName,
         events: &[ToDoListEvent],
     ) -> Result<(), ZettaiError> {
+        self.sink.record(
+            &Record::new("イベントを追記した")
+                .with("user", &user.0)
+                .with("list", &list_name.0)
+                .with("count", events.len()),
+        );
         for event in events {
             self.tx
                 .borrow_mut()
@@ -273,6 +335,7 @@ impl TransactionalStore for PostgresEventStore {
         let pg = PgTx {
             tx: RefCell::new(tx),
             table: self.table.clone(),
+            sink: self.sink.as_ref(),
         };
         let result = work(&pg)?;
         pg.tx.into_inner().commit().map_err(|e| unavailable(&e))?;

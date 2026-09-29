@@ -1,6 +1,10 @@
 # Docs Update Log
 
 ## 2026-09-29
+* **Update**: [chapter12](/article/zettai/rust/chapter12.md) を更新（claude-code/claude-opus-5）
+* **Update**: [ADR-037-own-logging](/adr/ADR-037-own-logging.md) を更新（claude-code/claude-opus-5）
+* **Update**: [iteration_plan-rust-7](/development/iteration_plan-rust-7.md) を更新（claude-code/claude-opus-5）
+* **Update**: [ADR-032-postgres-event-store](/adr/ADR-032-postgres-event-store.md) を更新（claude-code/claude-opus-5）
 * **Verification**: [iteration_plan-rust-7](/development/iteration_plan-rust-7.md) を human:kakimomokuri が検証
 * **Update**: [iteration_plan-rust-7](/development/iteration_plan-rust-7.md) を更新（claude-code/claude-opus-5）
 * **Update**: [release_plan-rust](/development/release_plan-rust.md) を更新（claude-code/claude-opus-5）

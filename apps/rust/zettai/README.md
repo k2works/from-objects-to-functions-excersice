@@ -88,4 +88,5 @@ just check
 | 1 | `type_complexity`: `Box<dyn Fn(&str, &str) -> Fetched>` を構造体のフィールドに直接書くな | `type Fetcher = ...` と名前を付けた | **改善。** 依存 1 つ分に名前が付き、記事でも指せるようになった |
 | 2 | `type_complexity`: ハブの戻り値（`ToDoListHub<impl Fn.., impl Fn..>`）が複雑すぎる | `type StoreHub<'a>` と名前を付けた。`impl Fn` から `Box<dyn Fn>` に変わる | **改善。** 記事でも指せるようになった |
 | 3 | `map_identity`: 恒等関数を `map` するな | **`#[allow]` で許可した。** ここではそれが確かめたいファンクタ則そのもので、消すとテストが消える | **clippy の好み。** ふだんは正しいが、法則のテストには当たらない |
+| 5 | `type_complexity`: `Box<dyn Fn>` を構造体のフィールドに直接書くな（**3 回目**） | `type Write<A, B>` / `type Read<A, B>` と名前を付けた | **改善。** 書く側と読む側で型の形が違う（読む側だけ `Result`）ことが目に入った |
 | 4 | `bind_instead_of_map`: `and_then(Ok)` は no-op だから直接書け | **`#[allow]` で許可した。** no-op であること自体が確かめたいモナド則（右恒等） | **clippy の好み。** 法則のテストには当たらない（2 件目） |

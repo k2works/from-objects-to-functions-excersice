@@ -8,6 +8,7 @@ pub mod bowling;
 pub mod bowling_oo;
 pub mod event_store;
 pub mod http;
+pub mod log_sink;
 pub mod store;
 pub mod template;
 

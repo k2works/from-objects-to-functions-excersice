@@ -23,6 +23,12 @@ pub mod store;
 /// 検証（第 11 章）。**理由を溜める型はここに置く。**
 pub mod validation;
 
+/// 双方向変換（第 12 章）。**書き出しと読み込みを 1 つにする。**
+pub mod converter;
+
+/// 記録の契約（第 12 章）。**手段は知らない。**
+pub mod logging;
+
 /// ToDo リストの名前。
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct ListName(pub String);

@@ -42,5 +42,6 @@
 | [ADR-034](ADR-034-transaction-as-scope.md) | トランザクションの境界を区間として貸す | 提案 |
 | [ADR-035](ADR-035-validated-applicative.md) | 複数の理由を集める型を別に作る | 提案 |
 | [ADR-036](ADR-036-tera.md) | テンプレートに tera を入れる | 提案 |
+| [ADR-037](ADR-037-own-logging.md) | 記録と JSON を自前で書き、tracing と serde を入れない | 提案 |
 
 ADR の作成には `creating-adr` スキルを使用してください。

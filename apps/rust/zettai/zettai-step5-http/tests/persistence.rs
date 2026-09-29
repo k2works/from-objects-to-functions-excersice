@@ -268,3 +268,51 @@ fn the_old_shape_leaves_half() {
     );
     store.drop_table().expect("片付けられる");
 }
+
+// ---------------------------------------------------------------------------
+// 第 12 章: 保管の読み書きを記録する
+// ---------------------------------------------------------------------------
+
+/// **保管の読み書きが記録される。**
+///
+/// ドメインは記録の手段を知りません。行き先を差し替えても、呼ぶ側は変わりません。
+#[test]
+fn reading_and_writing_are_recorded() {
+    use std::rc::Rc;
+    use zettai_step5_http::log_sink::Remembered;
+
+    // `Rc` にする。`Remembered` は `RefCell` を持つので `Sync` ではない
+    let sink = Rc::new(Remembered::default());
+    let store = PostgresEventStore::connect(CONN, &unique_table("log"))
+        .expect("DB が起動している")
+        .recording_to(Box::new(SharedSink(sink.clone())));
+
+    handle_in_transaction(
+        &store,
+        &uberto(),
+        &book(),
+        ToDoListCommand::CreateList { list_name: book() },
+    )
+    .expect("作れる");
+
+    let lines = sink.lines();
+    assert!(!lines.is_empty(), "何も記録されていない");
+    assert!(
+        lines.iter().any(|l| l.contains("イベントを追記した")),
+        "実際: {lines:?}"
+    );
+    assert!(
+        lines.iter().any(|l| l.contains(r#""user":"uberto""#)),
+        "実際: {lines:?}"
+    );
+    store.drop_table().expect("片付けられる");
+}
+
+/// 同じ行き先を共有する。
+struct SharedSink(std::rc::Rc<zettai_step5_http::log_sink::Remembered>);
+
+impl zettai_step5_domain::logging::LogSink for SharedSink {
+    fn record(&self, record: &zettai_step5_domain::logging::Record) {
+        self.0.record(record);
+    }
+}

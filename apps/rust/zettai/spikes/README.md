@@ -6,14 +6,14 @@
 
 | ディレクトリ | 何を確かめたか | 結果 | ADR |
 | :--- | :--- | :--- | :--- |
-| `sync-postgres/` | 同期の `postgres` クレートで `INSERT` / `SELECT` / トランザクションが書けるか | 書けた（実 DB で確認） | [ADR-024](../../../../docs/adr/ADR-024-no-async.md) |
+| `sync-postgres/` | 同期の `postgres` クレートで書けるか。**Unit 5 でエラーの包み方とテストの分離も** | 書けた。`Display` は `"db error"` だけで `source()` を辿る要あり | [ADR-024](../../../../docs/adr/ADR-024-no-async.md) |
 | `http-tiny_http/` | 縦串が書けるか。依存 5 クレート・ビルド 7 秒 | 採用 | [ADR-025](../../../../docs/adr/ADR-025-tiny-http.md) |
 | `http-rouille/` | 同上。依存 123 クレート・ビルド 58 秒 | 採らず | 同上 |
 | `http-axum/` | 同上。依存 61 クレート・ビルド 70 秒。**tokio 必須** | 採らず | 同上 |
 | `di-shapes/` | 関数型 DI の 3 案が、第 5 章のクロージャ合成まで書けるか | 案 A と案 C は書けない | [ADR-030](../../../../docs/adr/ADR-030-functional-di-shape.md) |
 | `prop-frameworks/` | 性質テストの既製品。依存 38 / 21 クレート、ビルド 26.77 / 12.82 秒 | **入れず自作**（[ADR-017](../../../../docs/adr/ADR-017-own-property-testing.md) を踏襲） | 第 5 章 |
 | `match-exhaustiveness/` | `match` の網羅が遷移表の穴をどこまで見るか | **枝の有無だけ。行き先の誤りは見ない** | 第 6 章 |
-| `error-crates/` | 失敗の型に既製品を入れるか。依存 +10 / +1、ビルド +12.29 / +2.15 秒 | **Unit 4 で判断中** | 第 7 章 |
+| `error-crates/` | 失敗の型に既製品を入れるか。依存 +10 / +1、ビルド +12.29 / +2.15 秒 | **入れず自前の `enum`**（[ADR-031](../../../../docs/adr/ADR-031-own-error-enum.md)） | 第 7 章 |
 
 ## workspace から外してある
 

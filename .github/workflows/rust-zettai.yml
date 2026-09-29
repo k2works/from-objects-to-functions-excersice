@@ -1,0 +1,87 @@
+name: Rust Zettai
+
+# **一時的に 2 案を並べている。** Unit 2 のゲート 1（CI に Nix を入れるか）を
+# 実測で決めるため。決まったら負けた方のジョブを消す。
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'apps/rust/zettai/**'
+      - 'ops/nix/environments/rust/**'
+      - '.github/workflows/rust-zettai.yml'
+  pull_request:
+    paths:
+      - 'apps/rust/zettai/**'
+      - 'ops/nix/environments/rust/**'
+      - '.github/workflows/rust-zettai.yml'
+  workflow_dispatch:
+
+jobs:
+  # 案 A: Nix を入れて just を通す。ローカルと同じ道具・同じコマンド。
+  with-nix:
+    name: 案A Nix + just
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v27
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+
+      - name: Cache Nix store
+        uses: DeterminateSystems/magic-nix-cache-action@v8
+
+      - name: Cache cargo
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            apps/rust/zettai/target
+          key: nix-cargo-${{ hashFiles('apps/rust/zettai/**/Cargo.toml') }}
+
+      # justfile が nix develop に入り直すので、ここでは just を呼ぶだけ。
+      - name: Run check-all
+        working-directory: apps/rust/zettai
+        run: nix develop ../../..#rust --command just check-all
+
+  # 案 B: Nix を入れず、rustup で版を合わせて cargo を直接呼ぶ。
+  without-nix:
+    name: 案B rustup + cargo
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Rust 1.91.1
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: 1.91.1
+          components: rustfmt, clippy, llvm-tools
+
+      - name: Install cargo-llvm-cov
+        uses: taiki-e/install-action@cargo-llvm-cov
+
+      - name: Cache cargo
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            apps/rust/zettai/target
+          key: rustup-cargo-${{ hashFiles('apps/rust/zettai/**/Cargo.toml') }}
+
+      # just を通さない。justfile と CI で 2 重管理になる。
+      - name: fmt
+        working-directory: apps/rust/zettai
+        run: cargo fmt --all -- --check
+      - name: clippy
+        working-directory: apps/rust/zettai
+        run: cargo clippy --all-targets --all-features -- -D warnings
+      - name: test
+        working-directory: apps/rust/zettai
+        run: cargo test --all
+      - name: cov
+        working-directory: apps/rust/zettai
+        run: cargo llvm-cov --all --fail-under-lines 80

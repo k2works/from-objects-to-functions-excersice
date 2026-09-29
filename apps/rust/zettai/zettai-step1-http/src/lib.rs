@@ -5,21 +5,13 @@
 
 pub mod bowling;
 pub mod bowling_oo;
+pub mod domain;
+pub mod http;
+
+pub use domain::{fetch_list, ListName, ToDoItem, ToDoList, User};
 
 use std::path::PathBuf;
 use std::sync::atomic::{AtomicUsize, Ordering};
-
-/// ToDo リストの名前。
-///
-/// 第 1 章ではまだ何も守らない。第 11 章で検証が入る。
-#[derive(Debug, Clone, PartialEq, Eq)]
-pub struct ListName(pub String);
-
-impl ListName {
-    pub fn new(name: &str) -> Self {
-        ListName(name.to_string())
-    }
-}
 
 /// テストごとに違う書き込み先を返す。
 ///
@@ -38,11 +30,6 @@ pub fn unique_path(label: &str) -> PathBuf {
 #[cfg(test)]
 mod tests {
     use super::*;
-
-    #[test]
-    fn list_name_keeps_what_it_was_given() {
-        assert_eq!(ListName::new("book"), ListName("book".to_string()));
-    }
 
     #[test]
     fn unique_path_differs_every_call() {

@@ -3,8 +3,10 @@ type: Bolt Plan
 title: "Unit 7 の Bolt 計画（イテレーション 7）- Zettai 連載（Rust 版）"
 description: "Zettai 連載 Rust 版の Unit 7（監視と 3 言語の総括）の Bolt 計画。構造化ログとプロファンクタを書き、第 13 章で 3 言語を対比する。第 12 章の既製品を入れるかを唯一の承認ゲートに置き、Release v1.0.0 で連載を完結させる。"
 tags: [development, plan, ai-dlc, bolt, zettai, rust, unit-7]
-status: draft
+status: stable
 generated: { by: claude-code/claude-opus-5, at: 2026-09-29T07:55:54Z }
+verified:
+  - { by: human:kakimomokuri, at: 2026-09-29T07:56:50Z }
 ---
 
 # Unit 7 の Bolt 計画（イテレーション 7）- Zettai 連載（Rust 版）

@@ -6,17 +6,17 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="{開発環境サーバー}を開発環境として使用し、{プロジェクト名}を Docker ベースで運用するための環境構築手順を説明します。">
+        <meta name="description" content="Zettai 連載 Rust 版 Unit 5（射影と永続化）の終了報告。ゲート 2 / 2 で同期停止したこと、async を採らなかった判断が持ちこたえたこと、自前の JSON が jsonb の正規化で落ちたこと、CI の見積もりを実測が訂正したこと、Release v0.2.0 を記録する。">
       
       
         <meta name="author" content="Project Team">
       
       
       
-        <link rel="prev" href="../%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E9%96%8B%E7%99%BA%E7%92%B0%E5%A2%83%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%E6%89%8B%E9%A0%86%E6%9B%B8/">
+        <link rel="prev" href="../bolt_report-rust-4/">
       
       
-        <link rel="next" href="../AWS%E3%82%B9%E3%83%86%E3%83%BC%E3%82%B8%E3%83%B3%E3%82%B0%E7%92%B0%E5%A2%83%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%E6%89%8B%E9%A0%86%E6%9B%B8/">
+        <link rel="next" href="../retrospective-7/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>開発環境セットアップ手順書 - From Objects to Functions 演習</title>
+        <title>Unit 5 の Bolt 終了報告 - Zettai 連載（Rust 版） - From Objects to Functions 演習</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#_1" class="md-skip">
+        <a href="#unit-5-bolt-zettai-rust" class="md-skip">
           Skip to content
         </a>
       
@@ -112,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              開発環境セットアップ手順書
+              Unit 5 の Bolt 終了報告 - Zettai 連載（Rust 版）
             
           </span>
         </div>
@@ -276,11 +276,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../development/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
           
   
   
@@ -416,13 +418,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../template/" class="md-tabs__link">
           
   
   
@@ -913,26 +913,31 @@
       
   
   
+    
   
   
+  
     
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
         
           
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
             
   
   
@@ -950,7 +955,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -968,7 +973,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/" class="md-nav__link">
+      <a href="../" class="md-nav__link">
         
   
   
@@ -996,7 +1001,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/release_plan/" class="md-nav__link">
+      <a href="../release_plan/" class="md-nav__link">
         
   
   
@@ -1031,7 +1036,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/release_plan-nadesiko/" class="md-nav__link">
+      <a href="../release_plan-nadesiko/" class="md-nav__link">
         
   
   
@@ -1066,7 +1071,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/development_strategy/" class="md-nav__link">
+      <a href="../development_strategy/" class="md-nav__link">
         
   
   
@@ -1107,17 +1112,20 @@
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5" >
         
           
-          <label class="md-nav__link" for="__nav_5_5" id="__nav_5_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_5" id="__nav_5_5_label" tabindex="">
             
   
   
@@ -1153,7 +1161,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-1/" class="md-nav__link">
+      <a href="../iteration_plan-1/" class="md-nav__link">
         
   
   
@@ -1188,7 +1196,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-2/" class="md-nav__link">
+      <a href="../iteration_plan-2/" class="md-nav__link">
         
   
   
@@ -1223,7 +1231,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-3/" class="md-nav__link">
+      <a href="../iteration_plan-3/" class="md-nav__link">
         
   
   
@@ -1258,7 +1266,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-4/" class="md-nav__link">
+      <a href="../iteration_plan-4/" class="md-nav__link">
         
   
   
@@ -1293,7 +1301,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-5/" class="md-nav__link">
+      <a href="../iteration_plan-5/" class="md-nav__link">
         
   
   
@@ -1328,7 +1336,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-6/" class="md-nav__link">
+      <a href="../iteration_plan-6/" class="md-nav__link">
         
   
   
@@ -1363,7 +1371,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-7/" class="md-nav__link">
+      <a href="../iteration_plan-7/" class="md-nav__link">
         
   
   
@@ -1398,7 +1406,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-nadesiko-1/" class="md-nav__link">
+      <a href="../iteration_plan-nadesiko-1/" class="md-nav__link">
         
   
   
@@ -1433,7 +1441,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-nadesiko-2/" class="md-nav__link">
+      <a href="../iteration_plan-nadesiko-2/" class="md-nav__link">
         
   
   
@@ -1468,7 +1476,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-nadesiko-3/" class="md-nav__link">
+      <a href="../iteration_plan-nadesiko-3/" class="md-nav__link">
         
   
   
@@ -1503,7 +1511,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-nadesiko-4/" class="md-nav__link">
+      <a href="../iteration_plan-nadesiko-4/" class="md-nav__link">
         
   
   
@@ -1538,7 +1546,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-nadesiko-5/" class="md-nav__link">
+      <a href="../iteration_plan-nadesiko-5/" class="md-nav__link">
         
   
   
@@ -1573,7 +1581,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-nadesiko-6/" class="md-nav__link">
+      <a href="../iteration_plan-nadesiko-6/" class="md-nav__link">
         
   
   
@@ -1608,7 +1616,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-nadesiko-7/" class="md-nav__link">
+      <a href="../iteration_plan-nadesiko-7/" class="md-nav__link">
         
   
   
@@ -1643,7 +1651,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-rust-1/" class="md-nav__link">
+      <a href="../iteration_plan-rust-1/" class="md-nav__link">
         
   
   
@@ -1678,7 +1686,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-rust-2/" class="md-nav__link">
+      <a href="../iteration_plan-rust-2/" class="md-nav__link">
         
   
   
@@ -1713,7 +1721,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-rust-3/" class="md-nav__link">
+      <a href="../iteration_plan-rust-3/" class="md-nav__link">
         
   
   
@@ -1748,7 +1756,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-rust-4/" class="md-nav__link">
+      <a href="../iteration_plan-rust-4/" class="md-nav__link">
         
   
   
@@ -1783,7 +1791,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-rust-5/" class="md-nav__link">
+      <a href="../iteration_plan-rust-5/" class="md-nav__link">
         
   
   
@@ -1823,26 +1831,31 @@
                 
   
   
+    
   
   
+  
     
     
     
     
       
       
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_6" >
         
           
-          <label class="md-nav__link" for="__nav_5_6" id="__nav_5_6_label" tabindex="0">
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5_6" id="__nav_5_6_label" tabindex="">
             
   
   
@@ -1860,7 +1873,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_6_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_6_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5_6">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1878,7 +1891,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-1/" class="md-nav__link">
+      <a href="../bolt_report-1/" class="md-nav__link">
         
   
   
@@ -1913,7 +1926,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-2/" class="md-nav__link">
+      <a href="../bolt_report-2/" class="md-nav__link">
         
   
   
@@ -1948,7 +1961,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-3/" class="md-nav__link">
+      <a href="../bolt_report-3/" class="md-nav__link">
         
   
   
@@ -1983,7 +1996,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-4/" class="md-nav__link">
+      <a href="../bolt_report-4/" class="md-nav__link">
         
   
   
@@ -2018,7 +2031,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-5/" class="md-nav__link">
+      <a href="../bolt_report-5/" class="md-nav__link">
         
   
   
@@ -2053,7 +2066,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-6/" class="md-nav__link">
+      <a href="../bolt_report-6/" class="md-nav__link">
         
   
   
@@ -2088,7 +2101,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-7/" class="md-nav__link">
+      <a href="../bolt_report-7/" class="md-nav__link">
         
   
   
@@ -2123,7 +2136,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-nadesiko-1/" class="md-nav__link">
+      <a href="../bolt_report-nadesiko-1/" class="md-nav__link">
         
   
   
@@ -2158,7 +2171,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-nadesiko-2/" class="md-nav__link">
+      <a href="../bolt_report-nadesiko-2/" class="md-nav__link">
         
   
   
@@ -2193,7 +2206,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-nadesiko-3/" class="md-nav__link">
+      <a href="../bolt_report-nadesiko-3/" class="md-nav__link">
         
   
   
@@ -2228,7 +2241,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-nadesiko-4/" class="md-nav__link">
+      <a href="../bolt_report-nadesiko-4/" class="md-nav__link">
         
   
   
@@ -2263,7 +2276,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-nadesiko-5/" class="md-nav__link">
+      <a href="../bolt_report-nadesiko-5/" class="md-nav__link">
         
   
   
@@ -2298,7 +2311,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-nadesiko-6/" class="md-nav__link">
+      <a href="../bolt_report-nadesiko-6/" class="md-nav__link">
         
   
   
@@ -2333,7 +2346,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-nadesiko-7/" class="md-nav__link">
+      <a href="../bolt_report-nadesiko-7/" class="md-nav__link">
         
   
   
@@ -2368,7 +2381,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-rust-1/" class="md-nav__link">
+      <a href="../bolt_report-rust-1/" class="md-nav__link">
         
   
   
@@ -2403,7 +2416,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-rust-2/" class="md-nav__link">
+      <a href="../bolt_report-rust-2/" class="md-nav__link">
         
   
   
@@ -2438,7 +2451,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-rust-3/" class="md-nav__link">
+      <a href="../bolt_report-rust-3/" class="md-nav__link">
         
   
   
@@ -2473,7 +2486,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-rust-4/" class="md-nav__link">
+      <a href="../bolt_report-rust-4/" class="md-nav__link">
         
   
   
@@ -2505,10 +2518,44 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../development/bolt_report-rust-5/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「Rust」Unit 5 射影と永続化
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -2531,6 +2578,175 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        概要
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        判断と学び
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="判断と学び">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-2-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. ゲートが 2 / 2 で同期停止した
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-async" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. async を採らなかった判断は持ちこたえた
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 自前の JSON が、判断の代償をすぐに払った
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-ci" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. CI の見積もりを実測が訂正した
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-adr-kotlin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 同じ ADR の題材で、Kotlin 版と結論が分かれた
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 検出率の揺れを 2 回測った
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 3 経路目が、その経路でしか出ない欠陥を捕まえた
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-clippy-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. clippy が法則のテストを 2 度目に止めた
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#release-v020phase-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Release v0.2.0（Phase 2 完了）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unit-6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unit 6 への持ち込み
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        関連ドキュメント
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2557,17 +2773,20 @@
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_7" >
         
           
-          <label class="md-nav__link" for="__nav_5_7" id="__nav_5_7_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_7" id="__nav_5_7_label" tabindex="">
             
   
   
@@ -2603,7 +2822,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/retrospective-7/" class="md-nav__link">
+      <a href="../retrospective-7/" class="md-nav__link">
         
   
   
@@ -2638,7 +2857,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/retrospective-nadesiko-1/" class="md-nav__link">
+      <a href="../retrospective-nadesiko-1/" class="md-nav__link">
         
   
   
@@ -2673,7 +2892,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/retrospective-nadesiko-2/" class="md-nav__link">
+      <a href="../retrospective-nadesiko-2/" class="md-nav__link">
         
   
   
@@ -2708,7 +2927,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/retrospective-nadesiko-3/" class="md-nav__link">
+      <a href="../retrospective-nadesiko-3/" class="md-nav__link">
         
   
   
@@ -2743,7 +2962,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/retrospective-nadesiko-4/" class="md-nav__link">
+      <a href="../retrospective-nadesiko-4/" class="md-nav__link">
         
   
   
@@ -2778,7 +2997,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/retrospective-nadesiko-5/" class="md-nav__link">
+      <a href="../retrospective-nadesiko-5/" class="md-nav__link">
         
   
   
@@ -2813,7 +3032,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/retrospective-nadesiko-6/" class="md-nav__link">
+      <a href="../retrospective-nadesiko-6/" class="md-nav__link">
         
   
   
@@ -2848,7 +3067,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/retrospective-nadesiko-7/" class="md-nav__link">
+      <a href="../retrospective-nadesiko-7/" class="md-nav__link">
         
   
   
@@ -2883,7 +3102,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/retrospective-rust-1/" class="md-nav__link">
+      <a href="../retrospective-rust-1/" class="md-nav__link">
         
   
   
@@ -2918,7 +3137,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/retrospective-rust-2/" class="md-nav__link">
+      <a href="../retrospective-rust-2/" class="md-nav__link">
         
   
   
@@ -2953,7 +3172,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/retrospective-rust-3/" class="md-nav__link">
+      <a href="../retrospective-rust-3/" class="md-nav__link">
         
   
   
@@ -2988,7 +3207,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/retrospective-rust-4/" class="md-nav__link">
+      <a href="../retrospective-rust-4/" class="md-nav__link">
         
   
   
@@ -3023,7 +3242,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/retrospective-rust-5/" class="md-nav__link">
+      <a href="../retrospective-rust-5/" class="md-nav__link">
         
   
   
@@ -3072,17 +3291,20 @@
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_8" >
         
           
-          <label class="md-nav__link" for="__nav_5_8" id="__nav_5_8_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_8" id="__nav_5_8_label" tabindex="">
             
   
   
@@ -3118,7 +3340,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/release_report-1.0.0/" class="md-nav__link">
+      <a href="../release_report-1.0.0/" class="md-nav__link">
         
   
   
@@ -3153,7 +3375,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/release_report-nadesiko-1.0.0/" class="md-nav__link">
+      <a href="../release_report-nadesiko-1.0.0/" class="md-nav__link">
         
   
   
@@ -7462,31 +7684,26 @@
       
   
   
-    
   
   
-  
     
     
     
     
-      
-        
-        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
         
           
-          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="">
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
             
   
   
@@ -7504,7 +7721,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_12">
             <span class="md-nav__icon md-icon"></span>
             
@@ -7522,7 +7739,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../" class="md-nav__link">
+      <a href="../../template/" class="md-nav__link">
         
   
   
@@ -7550,7 +7767,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E3%81%BE%E3%81%9A%E3%81%93%E3%82%8C%E3%82%92%E8%AA%AD%E3%82%82%E3%81%86%E3%83%AA%E3%82%B9%E3%83%88/" class="md-nav__link">
+      <a href="../../template/%E3%81%BE%E3%81%9A%E3%81%93%E3%82%8C%E3%82%92%E8%AA%AD%E3%82%82%E3%81%86%E3%83%AA%E3%82%B9%E3%83%88/" class="md-nav__link">
         
   
   
@@ -7585,7 +7802,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E3%83%93%E3%82%B8%E3%83%8D%E3%82%B9%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3/" class="md-nav__link">
+      <a href="../../template/%E3%83%93%E3%82%B8%E3%83%8D%E3%82%B9%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3/" class="md-nav__link">
         
   
   
@@ -7620,7 +7837,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E8%A6%81%E4%BB%B6%E5%AE%9A%E7%BE%A9/" class="md-nav__link">
+      <a href="../../template/%E8%A6%81%E4%BB%B6%E5%AE%9A%E7%BE%A9/" class="md-nav__link">
         
   
   
@@ -7655,7 +7872,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E5%AE%8C%E5%85%A8%E5%BD%A2%E5%BC%8F%E3%81%AE%E3%83%A6%E3%83%BC%E3%82%B9%E3%82%B1%E3%83%BC%E3%82%B9/" class="md-nav__link">
+      <a href="../../template/%E5%AE%8C%E5%85%A8%E5%BD%A2%E5%BC%8F%E3%81%AE%E3%83%A6%E3%83%BC%E3%82%B9%E3%82%B1%E3%83%BC%E3%82%B9/" class="md-nav__link">
         
   
   
@@ -7690,7 +7907,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E8%A8%AD%E8%A8%88/" class="md-nav__link">
+      <a href="../../template/%E8%A8%AD%E8%A8%88/" class="md-nav__link">
         
   
   
@@ -7725,7 +7942,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ADR/" class="md-nav__link">
+      <a href="../../template/ADR/" class="md-nav__link">
         
   
   
@@ -7760,7 +7977,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E3%82%A4%E3%83%B3%E3%82%BB%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3%E3%83%87%E3%83%83%E3%82%AD/" class="md-nav__link">
+      <a href="../../template/%E3%82%A4%E3%83%B3%E3%82%BB%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3%E3%83%87%E3%83%83%E3%82%AD/" class="md-nav__link">
         
   
   
@@ -7795,7 +8012,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E3%82%A4%E3%83%86%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E8%A8%88%E7%94%BB/" class="md-nav__link">
+      <a href="../../template/%E3%82%A4%E3%83%86%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E8%A8%88%E7%94%BB/" class="md-nav__link">
         
   
   
@@ -7830,7 +8047,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E3%82%A4%E3%83%86%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E5%AE%8C%E4%BA%86%E5%A0%B1%E5%91%8A%E6%9B%B8/" class="md-nav__link">
+      <a href="../../template/%E3%82%A4%E3%83%86%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E5%AE%8C%E4%BA%86%E5%A0%B1%E5%91%8A%E6%9B%B8/" class="md-nav__link">
         
   
   
@@ -7865,7 +8082,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E8%A8%88%E7%94%BB/" class="md-nav__link">
+      <a href="../../template/%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E8%A8%88%E7%94%BB/" class="md-nav__link">
         
   
   
@@ -7900,7 +8117,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E5%AE%8C%E4%BA%86%E5%A0%B1%E5%91%8A%E6%9B%B8/" class="md-nav__link">
+      <a href="../../template/%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E5%AE%8C%E4%BA%86%E5%A0%B1%E5%91%8A%E6%9B%B8/" class="md-nav__link">
         
   
   
@@ -7935,7 +8152,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E9%96%8B%E7%99%BA%E7%92%B0%E5%A2%83%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%E6%89%8B%E9%A0%86%E6%9B%B8/" class="md-nav__link">
+      <a href="../../template/%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E9%96%8B%E7%99%BA%E7%92%B0%E5%A2%83%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%E6%89%8B%E9%A0%86%E6%9B%B8/" class="md-nav__link">
         
   
   
@@ -7967,44 +8184,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    開発環境セットアップ手順書
-  
-
-    
-  </span>
-  
-  
-    
-  
-  
-    <span class="md-status md-status--stable"></span>
-  
-
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../template/%E9%96%8B%E7%99%BA%E7%92%B0%E5%A2%83%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%E6%89%8B%E9%A0%86%E6%9B%B8/" class="md-nav__link">
         
   
   
@@ -8027,736 +8210,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        概要
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="概要">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        デプロイフロー
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        前提条件
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        セットアップ手順
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="セットアップ手順">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-sshsftp" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. SSH・SFTP サービスの設定
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="1. SSH・SFTP サービスの設定">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#11-ssh" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1.1 SSH サービスの有効化
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#12-ssh" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1.2 SSH ユーザー権限の確認
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#13-sftp" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1.3 SFTP サービスの有効化
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#14-ssh" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1.4 SSH 接続の確認
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#15-ssh" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1.5 SSH 鍵認証の設定（推奨）
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="1.5 SSH 鍵認証の設定（推奨）">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#pc" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        鍵の生成（開発 PC で実行）
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        公開鍵をサーバーにコピー
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ssh" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        SSH 接続の設定ファイル（推奨）
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ssh_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        SSH 鍵認証がうまくいかない場合
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#16-sudo" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1.6 sudo パスワード省略の設定
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. プロジェクトディレクトリの作成
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ディレクトリ構造
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-docker" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Docker のインストール
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3. Docker のインストール">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#docker-compose" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Docker Compose の確認
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-container-registry" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Container Registry の設定
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="4. Container Registry の設定">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#41" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4.1 認証情報の作成
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#42" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4.2 必要な権限
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#43-registry" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4.3 サーバーからの Registry ログイン
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#44-pc-env" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4.4 開発 PC の .env 設定
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#5-docker-compose" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. Docker Compose 設定
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#6-pc" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6. イメージのビルドとプッシュ（開発 PC）
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="6. イメージのビルドとプッシュ（開発 PC）">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#61" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6.1 イメージ構成
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#62" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6.2 タスクランナーによるビルド・プッシュ
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#63" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6.3 手動でのビルド・プッシュ
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#64" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6.4 イメージの確認
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#7" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        7. 初回セットアップ
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="7. 初回セットアップ">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#71" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        7.1 タスクランナーによる自動セットアップ
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#72" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        7.2 手動セットアップ
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#73" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        7.3 起動確認
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#8" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        8. 動作確認
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="8. 動作確認">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#81" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        8.1 ヘルスチェック
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#82" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        8.2 ブラウザからのアクセス
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#9" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        9. 個別デプロイ（更新手順）
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="9. 個別デプロイ（更新手順）">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#91" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        9.1 典型的なデプロイフロー
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#92" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        9.2 特定サービスの更新
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#93" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        9.3 手動での更新
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#10-docker" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        10. Docker 管理コマンド
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#11" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        11. 環境のクリーンアップ
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#12-web" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        12. Web サーバーによるポータルサイト設定（任意）
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="12. Web サーバーによるポータルサイト設定（任意）">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#121-web" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        12.1 Web サーバーのインストール
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#122" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        12.2 ポータルファイルの配置
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#123" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        12.3 動作確認
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#13" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        13. デプロイスクリプト一覧
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#14" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        14. トラブルシューティング
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="14. トラブルシューティング">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#registry-401-unauthorized" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Registry からプルできない（401 Unauthorized）
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_8" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        イメージが見つからない
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_9" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        コンテナが起動しない
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ssh-docker-login" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        SSH から docker login できない
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_10" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        トークンの更新手順
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_11" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ポート一覧
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_12" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        接続情報まとめ
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_13" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        セキュリティチェックリスト
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_14" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        関連ドキュメント
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -8769,7 +8222,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../AWS%E3%82%B9%E3%83%86%E3%83%BC%E3%82%B8%E3%83%B3%E3%82%B0%E7%92%B0%E5%A2%83%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%E6%89%8B%E9%A0%86%E6%9B%B8/" class="md-nav__link">
+      <a href="../../template/AWS%E3%82%B9%E3%83%86%E3%83%BC%E3%82%B8%E3%83%B3%E3%82%B0%E7%92%B0%E5%A2%83%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%E6%89%8B%E9%A0%86%E6%9B%B8/" class="md-nav__link">
         
   
   
@@ -8804,7 +8257,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../AWS%E3%83%97%E3%83%AD%E3%83%80%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3%E7%92%B0%E5%A2%83%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%E6%89%8B%E9%A0%86%E6%9B%B8/" class="md-nav__link">
+      <a href="../../template/AWS%E3%83%97%E3%83%AD%E3%83%80%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3%E7%92%B0%E5%A2%83%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%E6%89%8B%E9%A0%86%E6%9B%B8/" class="md-nav__link">
         
   
   
@@ -8839,7 +8292,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E4%BC%81%E6%A5%AD%E5%88%86%E6%9E%90/" class="md-nav__link">
+      <a href="../../template/%E4%BC%81%E6%A5%AD%E5%88%86%E6%9E%90/" class="md-nav__link">
         
   
   
@@ -8874,7 +8327,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E4%BA%8B%E4%BE%8B%E5%88%86%E6%9E%90/" class="md-nav__link">
+      <a href="../../template/%E4%BA%8B%E4%BE%8B%E5%88%86%E6%9E%90/" class="md-nav__link">
         
   
   
@@ -8909,7 +8362,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../README.md" class="md-nav__link">
+      <a href="../../template/README.md" class="md-nav__link">
         
   
   
@@ -8957,654 +8410,326 @@
   
 
 
-<h1 id="_1">開発環境セットアップ手順書<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<h2 id="_2">概要<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<p>{開発環境サーバー}を開発環境として使用し、{プロジェクト名}を Docker ベースで運用するための環境構築手順を説明します。</p>
-<p>Docker イメージは開発 PC でビルドし、Container Registry 経由で開発環境サーバーにデプロイします。サーバー上での Docker ビルドは不要です。</p>
+<h1 id="unit-5-bolt-zettai-rust">Unit 5 の Bolt 終了報告 - Zettai 連載（Rust 版）<a class="headerlink" href="#unit-5-bolt-zettai-rust" title="Permanent link">&para;</a></h1>
+<p><strong>報告日</strong>: 2026-09-29</p>
+<h2 id="_1">概要<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>Rust 版 Unit 5（射影と永続化）を完了しました。計画は <a href="../iteration_plan-rust-5/">Unit 5 の Bolt 計画</a> です。</p>
 <table>
 <thead>
 <tr>
-<th>サービス</th>
-<th>略称</th>
-<th>コンテナ名</th>
-<th>ポート</th>
-<th>説明</th>
+<th style="text-align: left;">項目</th>
+<th style="text-align: left;">計画</th>
+<th style="text-align: left;">実績</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>{サービス名}</td>
-<td>{略称}</td>
-<td>{コンテナ名}</td>
-<td>{ポート}</td>
-<td>{説明}</td>
+<td style="text-align: left;">ステップ</td>
+<td style="text-align: left;">17</td>
+<td style="text-align: left;"><strong>17 完了</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>承認ゲート</strong></td>
+<td style="text-align: left;">2 箇所（目標 50% 以上）</td>
+<td style="text-align: left;"><strong>2 / 2 が同期停止（100%）。累計 11 / 11</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">検証負荷</td>
+<td style="text-align: left;">13</td>
+<td style="text-align: left;">13</td>
+</tr>
+<tr>
+<td style="text-align: left;">変更依頼数</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;"><strong>0</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">人が修正を入れた箇所数</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;"><strong>0</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">公開した章</td>
+<td style="text-align: left;">2（第 8〜9 章）</td>
+<td style="text-align: left;"><strong>2</strong>（9 / 13 章）</td>
+</tr>
+<tr>
+<td style="text-align: left;">ADR</td>
+<td style="text-align: left;">2 新設</td>
+<td style="text-align: left;"><strong>2 新設</strong>（<a href="../../adr/ADR-032-postgres-event-store/">032</a>・<a href="../../adr/ADR-033-db-check-as-separate-job/">033</a>）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>just check</code>（devShell 内）</td>
+<td style="text-align: left;">20 秒以内</td>
+<td style="text-align: left;"><strong>5.76〜6.67 秒</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>just check</code>（devShell 外）</td>
+<td style="text-align: left;">20 秒以内</td>
+<td style="text-align: left;"><strong>3.06〜15.50 秒</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">カバレッジ（行）</td>
+<td style="text-align: left;">90% 以上</td>
+<td style="text-align: left;"><strong>92.01%</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">CI</td>
+<td style="text-align: left;">10 分以内</td>
+<td style="text-align: left;"><strong>56 秒</strong>（3 ジョブ並走）</td>
+</tr>
+<tr>
+<td style="text-align: left;">段階</td>
+<td style="text-align: left;">4 つめを切る</td>
+<td style="text-align: left;"><strong>切った</strong>（メンバー 8）</td>
+</tr>
+<tr>
+<td style="text-align: left;">依存クレート</td>
+<td style="text-align: left;">記録する</td>
+<td style="text-align: left;"><strong>7 → 67</strong>（<code>postgres</code>）</td>
+</tr>
+<tr>
+<td style="text-align: left;">受け入れシナリオ</td>
+<td style="text-align: left;"><strong>3 経路</strong></td>
+<td style="text-align: left;"><strong>3 経路とも green</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">既知の制約</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">1 件追加（計 11 件）</td>
+</tr>
+<tr>
+<td style="text-align: left;">clippy に押されたもの</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">1 件追加（計 4 件）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Release</strong></td>
+<td style="text-align: left;"><strong>v0.2.0</strong></td>
+<td style="text-align: left;"><strong>達成</strong></td>
 </tr>
 </tbody>
 </table>
-<p><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIGRhdGEtZGlhZ3JhbS10eXBlPSJERVNDUklQVElPTiIgc3R5bGU9IndpZHRoOjY1MnB4O2hlaWdodDo3MjBweDtiYWNrZ3JvdW5kOiNGRkZGRkY7IiB3aWR0aD0iNjUycHgiIGhlaWdodD0iNzIwcHgiIHZpZXdCb3g9IjAgMCA2NTIgNzIwIiB6b29tQW5kUGFuPSJtYWduaWZ5IiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBjb250ZW50U3R5bGVUeXBlPSJ0ZXh0L2NzcyI+PD9wbGFudHVtbCAxLjIwMjYuOD8+PGRlZnMvPjxnIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciPjxnIGNsYXNzPSJ0aXRsZSIgZGF0YS1zb3VyY2UtbGluZT0iMSI+PHRleHQgeD0iMjczLjUiIHk9IjIyLjk5NSIgZmlsbD0iIzAwMCIgZm9udC1zaXplPSIxNCIgdGV4dExlbmd0aD0iOTgiIGZvbnQtd2VpZ2h0PSI3MDAiPumWi+eZuueSsOWig+ani+aIkOWbszwvdGV4dD48L2c+PCEtLWNsdXN0ZXIgQ29udGFpbmVyIFJlZ2lzdHJ5LS0+PGcgY2xhc3M9ImNsdXN0ZXIiIGRhdGEtcXVhbGlmaWVkLW5hbWU9IkNvbnRhaW5lciBSZWdpc3RyeSIgaWQ9ImVudDAwMDEiIGRhdGEtc291cmNlLWxpbmU9IjMiPjxwb2x5Z29uIHBvaW50cz0iMTYsMjI0LjM4NywyNiwyMTQuMzg3LDI0MCwyMTQuMzg3LDI0MCwyOTkuNjg3LDIzMCwzMDkuNjg3LDE2LDMwOS42ODcsMTYsMjI0LjM4NyIgZmlsbD0ibm9uZSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxO3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2UtbWl0ZXJsaW1pdDoxMDsiLz48bGluZSB4MT0iMjMwIiB5MT0iMjI0LjM4NyIgeDI9IjI0MCIgeTI9IjIxNC4zODciIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiLz48bGluZSB4MT0iMTYiIHkxPSIyMjQuMzg3IiB4Mj0iMjMwIiB5Mj0iMjI0LjM4NyIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIvPjxsaW5lIHgxPSIyMzAiIHkxPSIyMjQuMzg3IiB4Mj0iMjMwIiB5Mj0iMzA5LjY4NyIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIvPjx0ZXh0IHg9IjQ5LjkwNSIgeT0iMjQwLjM4MiIgZmlsbD0iIzAwMCIgZm9udC1zaXplPSIxNCIgdGV4dExlbmd0aD0iMTQ4LjE4OSIgZm9udC13ZWlnaHQ9IjcwMCI+Q29udGFpbmVyIFJlZ2lzdHJ5PC90ZXh0PjwvZz48IS0tY2x1c3RlciDplovnmbogUEMtLT48ZyBjbGFzcz0iY2x1c3RlciIgZGF0YS1xdWFsaWZpZWQtbmFtZT0iLi4gUEMiIGlkPSJlbnQwMDAzIiBkYXRhLXNvdXJjZS1saW5lPSI3Ij48cG9seWdvbiBwb2ludHM9IjQ1LDUzLjI5Nyw1NSw0My4yOTcsMzgwLDQzLjI5NywzODAsMTUxLjg4NywzNzAsMTYxLjg4Nyw0NSwxNjEuODg3LDQ1LDUzLjI5NyIgZmlsbD0ibm9uZSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxO3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2UtbWl0ZXJsaW1pdDoxMDsiLz48bGluZSB4MT0iMzcwIiB5MT0iNTMuMjk3IiB4Mj0iMzgwIiB5Mj0iNDMuMjk3IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7Ii8+PGxpbmUgeDE9IjQ1IiB5MT0iNTMuMjk3IiB4Mj0iMzcwIiB5Mj0iNTMuMjk3IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7Ii8+PGxpbmUgeDE9IjM3MCIgeTE9IjUzLjI5NyIgeDI9IjM3MCIgeTI9IjE2MS44ODciIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiLz48dGV4dCB4PSIxODEuNzk1IiB5PSI2OS4yOTIiIGZpbGw9IiMwMDAiIGZvbnQtc2l6ZT0iMTQiIHRleHRMZW5ndGg9IjUzLjQwOSIgZm9udC13ZWlnaHQ9IjcwMCI+6ZaL55m6IFBDPC90ZXh0PjwvZz48IS0tY2x1c3RlciDplovnmbrnkrDlooPjgrXjg7zjg5Djg7wtLT48ZyBjbGFzcz0iY2x1c3RlciIgZGF0YS1xdWFsaWZpZWQtbmFtZT0iLi4uLi4uLi4iIGlkPSJlbnQwMDA2IiBkYXRhLXNvdXJjZS1saW5lPSIxMiI+PHBvbHlnb24gcG9pbnRzPSIyNSwzNzIuMTg3LDM1LDM2Mi4xODcsNTI2LDM2Mi4xODcsNTI2LDY4NS43NzcsNTE2LDY5NS43NzcsMjUsNjk1Ljc3NywyNSwzNzIuMTg3IiBmaWxsPSJub25lIiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1taXRlcmxpbWl0OjEwOyIvPjxsaW5lIHgxPSI1MTYiIHkxPSIzNzIuMTg3IiB4Mj0iNTI2IiB5Mj0iMzYyLjE4NyIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIvPjxsaW5lIHgxPSIyNSIgeTE9IjM3Mi4xODciIHgyPSI1MTYiIHkyPSIzNzIuMTg3IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7Ii8+PGxpbmUgeDE9IjUxNiIgeTE9IjM3Mi4xODciIHgyPSI1MTYiIHkyPSI2OTUuNzc3IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7Ii8+PHRleHQgeD0iMjE1LjUiIHk9IjM4OC4xODIiIGZpbGw9IiMwMDAiIGZvbnQtc2l6ZT0iMTQiIHRleHRMZW5ndGg9IjExMiIgZm9udC13ZWlnaHQ9IjcwMCI+6ZaL55m655Kw5aKD44K144O844OQ44O8PC90ZXh0PjwvZz48IS0tY2x1c3RlciBwcm9qZWN0ZGlyLS0+PGcgY2xhc3M9ImNsdXN0ZXIiIGRhdGEtcXVhbGlmaWVkLW5hbWU9Ii4uLi4uLi4uLnByb2plY3RkaXIiIGlkPSJlbnQwMDA3IiBkYXRhLXNvdXJjZS1saW5lPSIxMyI+PHBhdGggZD0iTTU5LjUsNDE4LjE4NyBMMjQ4LjQzMyw0MTguMTg3IEEzLjc1LDMuNzUgMCAwIDEgMjUwLjkzMyw0MjAuNjg3IEwyNTcuOTMzLDQ0MC40ODQgTDI5Ny41LDQ0MC40ODQgQTIuNSwyLjUgMCAwIDEgMzAwLDQ0Mi45ODQgTDMwMCw1MzYuOTc3IEEyLjUsMi41IDAgMCAxIDI5Ny41LDUzOS40NzcgTDU5LjUsNTM5LjQ3NyBBMi41LDIuNSAwIDAgMSA1Nyw1MzYuOTc3IEw1Nyw0MjAuNjg3IEEyLjUsMi41IDAgMCAxIDU5LjUsNDE4LjE4NyIgc3R5bGU9InN0cm9rZTojMDAwO3N0cm9rZS13aWR0aDoxLjU7IiBmaWxsPSJub25lIi8+PGxpbmUgeDE9IjU3IiB5MT0iNDQwLjQ4NCIgeDI9IjI1Ny45MzMiIHkyPSI0NDAuNDg0IiBzdHlsZT0ic3Ryb2tlOiMwMDA7c3Ryb2tlLXdpZHRoOjEuNTsiLz48dGV4dCB4PSI2MSIgeT0iNDMzLjE4MiIgZmlsbD0iIzAwMCIgZm9udC1zaXplPSIxNCIgdGV4dExlbmd0aD0iMTg3LjkzMyIgZm9udC13ZWlnaHQ9IjcwMCI+e+ODl+ODreOCuOOCp+OCr+ODiOODh+OCo+ODrOOCr+ODiOODqn08L3RleHQ+PC9nPjwhLS1jbHVzdGVyIERvY2tlci0tPjxnIGNsYXNzPSJjbHVzdGVyIiBkYXRhLXF1YWxpZmllZC1uYW1lPSIuLi4uLi4uLi5Eb2NrZXIiIGlkPSJlbnQwMDA5IiBkYXRhLXNvdXJjZS1saW5lPSIxNyI+PHBhdGggZD0iTTMzNC41LDQyMi4wMzcgTDM5MC43NDgsNDIyLjAzNyBBMy43NSwzLjc1IDAgMCAxIDM5My4yNDgsNDI0LjUzNyBMNDAwLjI0OCw0NDQuMzM0IEw0OTkuNSw0NDQuMzM0IEEyLjUsMi41IDAgMCAxIDUwMiw0NDYuODM0IEw1MDIsNjY5LjI3NyBBMi41LDIuNSAwIDAgMSA0OTkuNSw2NzEuNzc3IEwzMzQuNSw2NzEuNzc3IEEyLjUsMi41IDAgMCAxIDMzMiw2NjkuMjc3IEwzMzIsNDI0LjUzNyBBMi41LDIuNSAwIDAgMSAzMzQuNSw0MjIuMDM3IiBzdHlsZT0ic3Ryb2tlOiMwMDA7c3Ryb2tlLXdpZHRoOjEuNTsiIGZpbGw9Im5vbmUiLz48bGluZSB4MT0iMzMyIiB5MT0iNDQ0LjMzNCIgeDI9IjQwMC4yNDgiIHkyPSI0NDQuMzM0IiBzdHlsZT0ic3Ryb2tlOiMwMDA7c3Ryb2tlLXdpZHRoOjEuNTsiLz48dGV4dCB4PSIzMzYiIHk9IjQzNy4wMzIiIGZpbGw9IiMwMDAiIGZvbnQtc2l6ZT0iMTQiIHRleHRMZW5ndGg9IjU1LjI0OCIgZm9udC13ZWlnaHQ9IjcwMCI+RG9ja2VyPC90ZXh0PjwvZz48IS0tY2x1c3RlciDjgq/jg6njgqTjgqLjg7Pjg4ggUEMtLT48ZyBjbGFzcz0iY2x1c3RlciIgZGF0YS1xdWFsaWZpZWQtbmFtZT0iLi4uLi4uIFBDIiBpZD0iZW50MDAxMiIgZGF0YS1zb3VyY2UtbGluZT0iMjMiPjxwb2x5Z29uIHBvaW50cz0iNDQyLDIyMC44ODcsNDUyLDIxMC44ODcsNjI3LDIxMC44ODcsNjI3LDMwMy4xODcsNjE3LDMxMy4xODcsNDQyLDMxMy4xODcsNDQyLDIyMC44ODciIGZpbGw9Im5vbmUiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW1pdGVybGltaXQ6MTA7Ii8+PGxpbmUgeDE9IjYxNyIgeTE9IjIyMC44ODciIHgyPSI2MjciIHkyPSIyMTAuODg3IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7Ii8+PGxpbmUgeDE9IjQ0MiIgeTE9IjIyMC44ODciIHgyPSI2MTciIHkyPSIyMjAuODg3IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7Ii8+PGxpbmUgeDE9IjYxNyIgeTE9IjIyMC44ODciIHgyPSI2MTciIHkyPSIzMTMuMTg3IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7Ii8+PHRleHQgeD0iNDc1Ljc5NiIgeT0iMjM2Ljg4MiIgZmlsbD0iIzAwMCIgZm9udC1zaXplPSIxNCIgdGV4dExlbmd0aD0iMTA5LjQwOSIgZm9udC13ZWlnaHQ9IjcwMCI+44Kv44Op44Kk44Ki44Oz44OIIFBDPC90ZXh0PjwvZz48IS0tZW50aXR5IGltZy0tPjxnIGNsYXNzPSJlbnRpdHkiIGRhdGEtcXVhbGlmaWVkLW5hbWU9IkNvbnRhaW5lciBSZWdpc3RyeS5pbWciIGlkPSJlbnQwMDAyIiBkYXRhLXNvdXJjZS1saW5lPSI0Ij48cmVjdCB4PSI1Ni4wNiIgeT0iMjU0LjM4NyIgd2lkdGg9IjE2MS44ODUiIGhlaWdodD0iMzkuMjk3IiBmaWxsPSIjRjFGMUYxIiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjAuNTsiIHJ4PSIyLjUiIHJ5PSIyLjUiLz48cG9seWdvbiBwb2ludHM9IjIwMC45NDUsMjU5LjM4NywyMDAuOTQ1LDI3My4zODcsMjEyLjk0NSwyNzMuMzg3LDIxMi45NDUsMjY1LjM4NywyMDYuOTQ1LDI1OS4zODcsMjAwLjk0NSwyNTkuMzg3IiBmaWxsPSIjRjFGMUYxIiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjAuNTtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW1pdGVybGltaXQ6MTA7Ii8+PGxpbmUgeDE9IjIwNi45NDUiIHkxPSIyNTkuMzg3IiB4Mj0iMjA2Ljk0NSIgeTI9IjI2NS4zODciIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MC41OyIvPjxsaW5lIHgxPSIyMTIuOTQ1IiB5MT0iMjY1LjM4NyIgeDI9IjIwNi45NDUiIHkyPSIyNjUuMzg3IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjAuNTsiLz48dGV4dCB4PSI2Ni4wNiIgeT0iMjgwLjM4MiIgZmlsbD0iIzAwMCIgZm9udC1zaXplPSIxNCIgdGV4dExlbmd0aD0iMTMxLjg4NSI+e+OCpOODoeODvOOCuOWQjX06bGF0ZXN0PC90ZXh0PjwvZz48IS0tZW50aXR5IGJ1aWxkLS0+PGcgY2xhc3M9ImVudGl0eSIgZGF0YS1xdWFsaWZpZWQtbmFtZT0iLi4gUEMuYnVpbGQiIGlkPSJlbnQwMDA0IiBkYXRhLXNvdXJjZS1saW5lPSI4Ij48cmVjdCB4PSI2MS40NCIgeT0iODMuMjk3IiB3aWR0aD0iMTI5LjExMyIgaGVpZ2h0PSI2Mi41OTQiIGZpbGw9IiNGMUYxRjEiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MC41OyIgcng9IjIuNSIgcnk9IjIuNSIvPjxyZWN0IHg9IjE3MC41NTMiIHk9Ijg4LjI5NyIgd2lkdGg9IjE1IiBoZWlnaHQ9IjEwIiBmaWxsPSIjRjFGMUYxIiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjAuNTsiLz48cmVjdCB4PSIxNjguNTUzIiB5PSI5MC4yOTciIHdpZHRoPSI0IiBoZWlnaHQ9IjIiIGZpbGw9IiNGMUYxRjEiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MC41OyIvPjxyZWN0IHg9IjE2OC41NTMiIHk9Ijk0LjI5NyIgd2lkdGg9IjQiIGhlaWdodD0iMiIgZmlsbD0iI0YxRjFGMSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDowLjU7Ii8+PHRleHQgeD0iNzYuNDQiIHk9IjExNi4yOTIiIGZpbGw9IiMwMDAiIGZvbnQtc2l6ZT0iMTQiIHRleHRMZW5ndGg9Ijg5LjExMyI+RG9ja2VyIEJ1aWxkPC90ZXh0Pjx0ZXh0IHg9Ijc2LjQ0IiB5PSIxMzIuNTg5IiBmaWxsPSIjMDAwIiBmb250LXNpemU9IjE0IiB0ZXh0TGVuZ3RoPSI0OC44NSI+JmFtcDsgUHVzaDwvdGV4dD48L2c+PCEtLWVudGl0eSB0YXNrLS0+PGcgY2xhc3M9ImVudGl0eSIgZGF0YS1xdWFsaWZpZWQtbmFtZT0iLi4gUEMudGFzayIgaWQ9ImVudDAwMDUiIGRhdGEtc291cmNlLWxpbmU9IjkiPjxyZWN0IHg9IjIyNiIgeT0iODMuMjk3IiB3aWR0aD0iMTM4IiBoZWlnaHQ9IjYyLjU5NCIgZmlsbD0iI0YxRjFGMSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDowLjU7IiByeD0iMi41IiByeT0iMi41Ii8+PHJlY3QgeD0iMzQ0IiB5PSI4OC4yOTciIHdpZHRoPSIxNSIgaGVpZ2h0PSIxMCIgZmlsbD0iI0YxRjFGMSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDowLjU7Ii8+PHJlY3QgeD0iMzQyIiB5PSI5MC4yOTciIHdpZHRoPSI0IiBoZWlnaHQ9IjIiIGZpbGw9IiNGMUYxRjEiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MC41OyIvPjxyZWN0IHg9IjM0MiIgeT0iOTQuMjk3IiB3aWR0aD0iNCIgaGVpZ2h0PSIyIiBmaWxsPSIjRjFGMUYxIiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjAuNTsiLz48dGV4dCB4PSIyNDEiIHk9IjExNi4yOTIiIGZpbGw9IiMwMDAiIGZvbnQtc2l6ZT0iMTQiIHRleHRMZW5ndGg9Ijk4Ij7jgr/jgrnjgq/jg6njg7Pjg4rjg7w8L3RleHQ+PHRleHQgeD0iMjQxIiB5PSIxMzIuNTg5IiBmaWxsPSIjMDAwIiBmb250LXNpemU9IjE0IiB0ZXh0TGVuZ3RoPSI5Ny4wMjIiPu+8iFNTSCAvIFNDUO+8iTwvdGV4dD48L2c+PCEtLWVudGl0eSBjb21wb3NlLS0+PGcgY2xhc3M9ImVudGl0eSIgZGF0YS1xdWFsaWZpZWQtbmFtZT0iLi4uLi4uLi4ucHJvamVjdGRpci5jb21wb3NlIiBpZD0iZW50MDAwOCIgZGF0YS1zb3VyY2UtbGluZT0iMTQiPjxwYXRoIGQ9Ik04My40LDQ2MS4xODcgTDEyNC40LDQ2MS4xODcgQTMuNzUsMy43NSAwIDAgMSAxMjYuOSw0NjMuNjg3IEwxMzMuOSw0ODIuMTg3IEwyNTQuNiw0ODIuMTg3IEEyLjUsMi41IDAgMCAxIDI1Ny4xLDQ4NC42ODcgTDI1Ny4xLDUxMi45ODQgQTIuNSwyLjUgMCAwIDEgMjU0LjYsNTE1LjQ4NCBMODMuNCw1MTUuNDg0IEEyLjUsMi41IDAgMCAxIDgwLjksNTEyLjk4NCBMODAuOSw0NjMuNjg3IEEyLjUsMi41IDAgMCAxIDgzLjQsNDYxLjE4NyIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDowLjU7IiBmaWxsPSIjRjFGMUYxIi8+PGxpbmUgeDE9IjgwLjkiIHkxPSI0ODIuMTg3IiB4Mj0iMTMzLjkiIHkyPSI0ODIuMTg3IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjAuNTsiLz48dGV4dCB4PSI5MC45IiB5PSI1MDIuMTgyIiBmaWxsPSIjMDAwIiBmb250LXNpemU9IjE0IiB0ZXh0TGVuZ3RoPSIxNDYuMiI+ZG9ja2VyLWNvbXBvc2UueW1sPC90ZXh0PjwvZz48IS0tZW50aXR5IHN2Yy0tPjxnIGNsYXNzPSJlbnRpdHkiIGRhdGEtcXVhbGlmaWVkLW5hbWU9Ii4uLi4uLi4uLkRvY2tlci5zdmMiIGlkPSJlbnQwMDEwIiBkYXRhLXNvdXJjZS1saW5lPSIxOCI+PHJlY3QgeD0iMzQ4LjE2IiB5PSI0NTcuMDM3IiB3aWR0aD0iMTM3LjY3OSIgaGVpZ2h0PSI2Mi41OTQiIGZpbGw9IiNGMUYxRjEiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MC41OyIgcng9IjIuNSIgcnk9IjIuNSIvPjxyZWN0IHg9IjQ2NS44MzkiIHk9IjQ2Mi4wMzciIHdpZHRoPSIxNSIgaGVpZ2h0PSIxMCIgZmlsbD0iI0YxRjFGMSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDowLjU7Ii8+PHJlY3QgeD0iNDYzLjgzOSIgeT0iNDY0LjAzNyIgd2lkdGg9IjQiIGhlaWdodD0iMiIgZmlsbD0iI0YxRjFGMSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDowLjU7Ii8+PHJlY3QgeD0iNDYzLjgzOSIgeT0iNDY4LjAzNyIgd2lkdGg9IjQiIGhlaWdodD0iMiIgZmlsbD0iI0YxRjFGMSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDowLjU7Ii8+PHRleHQgeD0iMzYzLjE2IiB5PSI0OTAuMDMyIiBmaWxsPSIjMDAwIiBmb250LXNpemU9IjE0IiB0ZXh0TGVuZ3RoPSI4Ny44MTQiPnvjgrXjg7zjg5PjgrnlkI19PC90ZXh0Pjx0ZXh0IHg9IjM2My4xNiIgeT0iNTA2LjMyOSIgZmlsbD0iIzAwMCIgZm9udC1zaXplPSIxNCIgdGV4dExlbmd0aD0iOTcuNjc5Ij5wb3J0OiB744Od44O844OIfTwvdGV4dD48L2c+PCEtLWVudGl0eSBkYi0tPjxnIGNsYXNzPSJlbnRpdHkiIGRhdGEtcXVhbGlmaWVkLW5hbWU9Ii4uLi4uLi4uLkRvY2tlci5kYiIgaWQ9ImVudDAwMTEiIGRhdGEtc291cmNlLWxpbmU9IjE5Ij48cGF0aCBkPSJNMzQ4LjA5LDYyMC40NzcgQzM0OC4wOSw2MTAuNDc3IDQwOC45OTcsNjEwLjQ3NyA0MDguOTk3LDYxMC40NzcgQzQwOC45OTcsNjEwLjQ3NyA0NjkuOTA0LDYxMC40NzcgNDY5LjkwNCw2MjAuNDc3IEw0NjkuOTA0LDY0NS43NzQgQzQ2OS45MDQsNjU1Ljc3NCA0MDguOTk3LDY1NS43NzQgNDA4Ljk5Nyw2NTUuNzc0IEM0MDguOTk3LDY1NS43NzQgMzQ4LjA5LDY1NS43NzQgMzQ4LjA5LDY0NS43NzQgTDM0OC4wOSw2MjAuNDc3IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjAuNTsiIGZpbGw9IiNGMUYxRjEiLz48cGF0aCBkPSJNMzQ4LjA5LDYyMC40NzcgQzM0OC4wOSw2MzAuNDc3IDQwOC45OTcsNjMwLjQ3NyA0MDguOTk3LDYzMC40NzcgQzQwOC45OTcsNjMwLjQ3NyA0NjkuOTA0LDYzMC40NzcgNDY5LjkwNCw2MjAuNDc3IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjAuNTsiIGZpbGw9Im5vbmUiLz48dGV4dCB4PSIzNTguMDkiIHk9IjY0Ny40NzIiIGZpbGw9IiMwMDAiIGZvbnQtc2l6ZT0iMTQiIHRleHRMZW5ndGg9IjEwMS44MTQiPnvjg4fjg7zjgr/jg5njg7zjgrl9PC90ZXh0PjwvZz48IS0tZW50aXR5IGJyb3dzZXItLT48ZyBjbGFzcz0iZW50aXR5IiBkYXRhLXF1YWxpZmllZC1uYW1lPSIuLi4uLi4gUEMuYnJvd3NlciIgaWQ9ImVudDAwMTMiIGRhdGEtc291cmNlLWxpbmU9IjI0Ij48cmVjdCB4PSI0NTkiIHk9IjI1MC44ODciIHdpZHRoPSI5NiIgaGVpZ2h0PSI0Ni4yOTciIGZpbGw9IiNGMUYxRjEiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MC41OyIgcng9IjIuNSIgcnk9IjIuNSIvPjxyZWN0IHg9IjUzNSIgeT0iMjU1Ljg4NyIgd2lkdGg9IjE1IiBoZWlnaHQ9IjEwIiBmaWxsPSIjRjFGMUYxIiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjAuNTsiLz48cmVjdCB4PSI1MzMiIHk9IjI1Ny44ODciIHdpZHRoPSI0IiBoZWlnaHQ9IjIiIGZpbGw9IiNGMUYxRjEiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MC41OyIvPjxyZWN0IHg9IjUzMyIgeT0iMjYxLjg4NyIgd2lkdGg9IjQiIGhlaWdodD0iMiIgZmlsbD0iI0YxRjFGMSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDowLjU7Ii8+PHRleHQgeD0iNDc0IiB5PSIyODMuODgyIiBmaWxsPSIjMDAwIiBmb250LXNpemU9IjE0IiB0ZXh0TGVuZ3RoPSI1NiI+44OW44Op44Km44K2PC90ZXh0PjwvZz48IS0tbGluayBidWlsZCB0byBpbWctLT48ZyBjbGFzcz0ibGluayIgZGF0YS1lbnRpdHktMT0iZW50MDAwNCIgZGF0YS1lbnRpdHktMj0iZW50MDAwMiIgaWQ9ImxuazE0IiBkYXRhLXNvdXJjZS1saW5lPSIyNyIgZGF0YS1saW5rLXR5cGU9ImRlcGVuZGVuY3kiPjxwYXRoIGQ9Ik0xMjguMTUsMTQ2LjMxNyBDMTMwLjM5LDE3OC4zNTcgMTMzLjQ3MSwyMjIuNTU5IDEzNS4zNDEsMjQ5LjI0OSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIgZmlsbD0ibm9uZSIgaWQ9ImJ1aWxkLXRvLWltZyIvPjxwb2x5Z29uIHBvaW50cz0iMTM1LjY5LDI1NC4yMzcsMTM5LjA1MSwyNDQuOTc5LDEzNS4zNDEsMjQ5LjI0OSwxMzEuMDcxLDI0NS41MzgsMTM1LjY5LDI1NC4yMzciIGZpbGw9IiMxODE4MTgiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW1pdGVybGltaXQ6MTA7Ii8+PHRleHQgeD0iMTMyLjUiIHk9IjE5MC45NTQiIGZpbGw9IiMwMDAiIGZvbnQtc2l6ZT0iMTMiIHRleHRMZW5ndGg9Ijc5Ljg2Ij5kb2NrZXIgcHVzaDwvdGV4dD48L2c+PCEtLWxpbmsgaW1nIHRvIHN2Yy0tPjxnIGNsYXNzPSJsaW5rIiBkYXRhLWVudGl0eS0xPSJlbnQwMDAyIiBkYXRhLWVudGl0eS0yPSJlbnQwMDEwIiBpZD0ibG5rMTUiIGRhdGEtc291cmNlLWxpbmU9IjI4IiBkYXRhLWxpbmstdHlwZT0iZGVwZW5kZW5jeSI+PHBhdGggZD0iTTE4NC40MiwyOTQuMTY3IEMyMjcuNiwzMTIuMDg3IDI4Ny42MywzMzguNDA3IDMwOCwzNTQuMTg3IEMzNDUuNDMsMzgzLjE4NyAzNzUuNTI2LDQyMy4xNTcgMzk1LjEyNiw0NTIuNTU3IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7IiBmaWxsPSJub25lIiBpZD0iaW1nLXRvLXN2YyIvPjxwb2x5Z29uIHBvaW50cz0iMzk3LjksNDU2LjcxNywzOTYuMjM2LDQ0Ny4wMSwzOTUuMTI2LDQ1Mi41NTcsMzg5LjU3OSw0NTEuNDQ3LDM5Ny45LDQ1Ni43MTciIGZpbGw9IiMxODE4MTgiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW1pdGVybGltaXQ6MTA7Ii8+PHRleHQgeD0iMjk2LjE3IiB5PSIzNDIuMjU0IiBmaWxsPSIjMDAwIiBmb250LXNpemU9IjEzIiB0ZXh0TGVuZ3RoPSI3Mi4wNzEiPmRvY2tlciBwdWxsPC90ZXh0PjwvZz48IS0tbGluayB0YXNrIHRvIHByb2plY3RkaXItLT48ZyBjbGFzcz0ibGluayIgZGF0YS1lbnRpdHktMT0iZW50MDAwNSIgZGF0YS1lbnRpdHktMj0iZW50MDAwNyIgaWQ9ImxuazE2IiBkYXRhLXNvdXJjZS1saW5lPSIyOSIgZGF0YS1saW5rLXR5cGU9ImRlcGVuZGVuY3kiPjxwYXRoIGQ9Ik0yOTQuNzUsMTQ2LjMyNyBDMjk0LjM5NSwxOTAuNTEyIDI5My43MTUsMjc0Ljc4MiAyOTMuMTIsMzQ4LjQ5MSBDMjkyLjk3MSwzNjYuOTE4IDI5Mi44MjgsMzg0LjY4NSAyOTIuNjk2LDQwMS4wMDEgQzI5Mi42NjMsNDA1LjA4IDI5Mi42MzEsNDA5LjA2OCAyOTIuNiw0MTIuOTUzIEMyOTIuNTkyLDQxMy45MjQgMjkyLjU4NCw0MTQuODg5IDI5Mi41NzYsNDE1Ljg0NyBDMjkyLjU3Miw0MTYuMzI2IDI5Mi42MDksNDM0LjEwMSAyOTIuNjA1LDQzNC41NzciIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiIGZpbGw9Im5vbmUiIGlkPSJ0YXNrLXRvLXByb2plY3RkaXIiLz48cG9seWdvbiBwb2ludHM9IjI5Mi41NjUsNDM5LjU3NiwyOTYuNjM3LDQzMC42MDksMjkyLjYwNSw0MzQuNTc3LDI4OC42MzcsNDMwLjU0NCwyOTIuNTY1LDQzOS41NzYiIGZpbGw9IiMxODE4MTgiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW1pdGVybGltaXQ6MTA7Ii8+PHRleHQgeD0iMjk1LjI3IiB5PSIyNzguNjA0IiBmaWxsPSIjMDAwIiBmb250LXNpemU9IjEzIiB0ZXh0TGVuZ3RoPSIxMzAuMjc5Ij5TU0jvvIjjg4fjg5fjg63jgqTnrqHnkIbvvIk8L3RleHQ+PC9nPjwhLS1saW5rIGJyb3dzZXIgdG8gc3ZjLS0+PGcgY2xhc3M9ImxpbmsiIGRhdGEtZW50aXR5LTE9ImVudDAwMTMiIGRhdGEtZW50aXR5LTI9ImVudDAwMTAiIGlkPSJsbmsxNyIgZGF0YS1zb3VyY2UtbGluZT0iMzAiIGRhdGEtbGluay10eXBlPSJkZXBlbmRlbmN5Ij48cGF0aCBkPSJNNDk3LjU0LDI5Ny4zNTcgQzQ4MS4zNCwzMzUuNTY3IDQ1MC4yMTEsNDA4Ljk5MyA0MzEuODkxLDQ1Mi4yMTMiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiIGZpbGw9Im5vbmUiIGlkPSJicm93c2VyLXRvLXN2YyIvPjxwb2x5Z29uIHBvaW50cz0iNDI5Ljk0LDQ1Ni44MTcsNDM3LjEzNSw0NTAuMDkyLDQzMS44OTEsNDUyLjIxMyw0MjkuNzcsNDQ2Ljk2OSw0MjkuOTQsNDU2LjgxNyIgZmlsbD0iIzE4MTgxOCIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxO3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2UtbWl0ZXJsaW1pdDoxMDsiLz48dGV4dCB4PSI0ODMuODYiIHk9IjM0Mi4yNTQiIGZpbGw9IiMwMDAiIGZvbnQtc2l6ZT0iMTMiIHRleHRMZW5ndGg9IjEwMy4zMTQiPkhUVFAgKHvjg53jg7zjg4h9KTwvdGV4dD48L2c+PCEtLWxpbmsgc3ZjIHRvIGRiLS0+PGcgY2xhc3M9ImxpbmsiIGRhdGEtZW50aXR5LTE9ImVudDAwMTAiIGRhdGEtZW50aXR5LTI9ImVudDAwMTEiIGlkPSJsbmsxOCIgZGF0YS1zb3VyY2UtbGluZT0iMzEiIGRhdGEtbGluay10eXBlPSJkZXBlbmRlbmN5Ij48cGF0aCBkPSJNNDE1LjI4LDUxOS45NjcgQzQxMy43Niw1NDcuMTc3IDQxMS44NDksNTgxLjI2NSA0MTAuNDk5LDYwNS4zODUiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiIGZpbGw9Im5vbmUiIGlkPSJzdmMtdG8tZGIiLz48cG9seWdvbiBwb2ludHM9IjQxMC4yMiw2MTAuMzc3LDQxNC43MTcsNjAxLjYxNCw0MTAuNDk5LDYwNS4zODUsNDA2LjcyOSw2MDEuMTY3LDQxMC4yMiw2MTAuMzc3IiBmaWxsPSIjMTgxODE4IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1taXRlcmxpbWl0OjEwOyIvPjx0ZXh0IHg9IjQxMy43NiIgeT0iNTc2LjU0NCIgZmlsbD0iIzAwMCIgZm9udC1zaXplPSIxMyIgdGV4dExlbmd0aD0iOTEuNjAzIj57REIg5o6l57aa5pa55byPfTwvdGV4dD48L2c+PD9wbGFudHVtbC1zcmMgUEw1RlFuRDE1Ql9GZnRaYTg3Zzh0ZEZtcUZKR09zWHdwNk1vRXVyaERabEJwYkdmOFBTUGlBajUzR2dIQVh4dzdxTGplTFlDMUZmWDdpZFlnTF8xRHhFOUJGTW94Q254eV9raDhucUItM0ZQQm12LTUteWt2cVRzU1J3X29DVnBKclVDOUo4S0s2bEFIRkNlNEhiaVlid2FUQlBSV283WmNPd3NVUTJYRGFIcFdsT0d4R3BEaF9kdXpRV0hTb3NLaFc1TjQwcndSQkgyQWNjV3JORzBXSG9hQ1g0OThRcEJlNF9tUXBqSDc3UUlVejNRS0tfeXd3d3hnTXdZa0s0cEhORTF6V2xRQXhJbFlCUUp0Q3hvVGRpMzdhNnhzUmdUbFZIbERMVnprekliR3BHX2RMV3hmZ3pKaVl0WmFFWjlZRnMwelprdkc3RmtFTkFxVXNZRXFOdlI3Ui1FRjdZUW9RU1lxNjZLTFR3N3RhUlRvck5ZdVV1V3pobEJpekVJeWczRlVzQmItNHVDbXZNbXotSkgxVGI5S2ZkZjFmMm1wdHdHYi1wZ01TMTJoZGNOQS01YnhfZG1SejBVLTl6ZmtIUHNZVkRWMGlsR2cyanB2QUZCX295MnhTSmxkQTZ2QldsOHY3Q2JDZVZZa3Uxd19SN2g1MWZHa2VNS2tjQmtuYXI4TTdLSW55b3J1NFVMbjFmMFBMNWJOZFVQLTRkbnV4ME9sdzNrczlBb1doVW5qVE0yLXZLRzdaMHRTMGpYYi1SM3pKTE9sM2FqaFp5azlqRnZ4RXRlQm0wMD8+PC9nPjwvc3ZnPg==" class="uml" alt="uml diagram" title="" /></p>
-<h3 id="_3">デプロイフロー<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
-<p><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIGRhdGEtZGlhZ3JhbS10eXBlPSJBQ1RJVklUWSIgc3R5bGU9IndpZHRoOjM3OXB4O2hlaWdodDo0MzVweDtiYWNrZ3JvdW5kOiNGRkZGRkY7IiB3aWR0aD0iMzc5cHgiIGhlaWdodD0iNDM1cHgiIHZpZXdCb3g9IjAgMCAzNzkgNDM1IiB6b29tQW5kUGFuPSJtYWduaWZ5IiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBjb250ZW50U3R5bGVUeXBlPSJ0ZXh0L2NzcyI+PD9wbGFudHVtbCAxLjIwMjYuOD8+PGRlZnMvPjxnIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciPjxnIGNsYXNzPSJ0aXRsZSIgZGF0YS1zb3VyY2UtbGluZT0iMSI+PHRleHQgeD0iMTM5Ljk5OSIgeT0iMzIuOTk1IiBmaWxsPSIjMDAwIiBmb250LXNpemU9IjE0IiB0ZXh0TGVuZ3RoPSI5OCIgZm9udC13ZWlnaHQ9IjcwMCI+44OH44OX44Ot44Kk44OV44Ot44O8PC90ZXh0PjwvZz48cmVjdCB4PSIyMCIgeT0iNTUuMDQyIiB3aWR0aD0iMzMyLjk5OCIgaGVpZ2h0PSIyMC45NTMiIGZpbGw9Im5vbmUiIHN0eWxlPSJzdHJva2U6bm9uZTsiLz48ZWxsaXBzZSBjeD0iMTA0Ljc0IiBjeT0iOTAuOTk1IiByeD0iMTAiIHJ5PSIxMCIgZmlsbD0iIzIyMiIgc3R5bGU9InN0cm9rZTojMjIyO3N0cm9rZS13aWR0aDoxOyIvPjxyZWN0IHg9IjQwLjczOSIgeT0iMTIwLjk5NSIgd2lkdGg9IjEyOC4wMDEiIGhlaWdodD0iNDcuOTM4IiBmaWxsPSIjRjFGMUYxIiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjAuNTsiIHJ4PSIxMi41IiByeT0iMTIuNSIvPjx0ZXh0IHg9IjUwLjczOSIgeT0iMTQyLjEzNCIgZmlsbD0iIzAwMCIgZm9udC1zaXplPSIxMiIgdGV4dExlbmd0aD0iNzQuMTQ1Ij5kb2NrZXIgYnVpbGQ8L3RleHQ+PHRleHQgeD0iNTAuNzM5IiB5PSIxNTYuMTAzIiBmaWxsPSIjMDAwIiBmb250LXNpemU9IjEyIiB0ZXh0TGVuZ3RoPSIxMDguMDAxIj7vvIjjg63jg7zjgqvjg6vjg5Pjg6vjg4nvvIk8L3RleHQ+PHJlY3QgeD0iMjYiIHk9IjE4OC45MzMiIHdpZHRoPSIxNTcuNDc5IiBoZWlnaHQ9IjQ3LjkzOCIgZmlsbD0iI0YxRjFGMSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDowLjU7IiByeD0iMTIuNSIgcnk9IjEyLjUiLz48dGV4dCB4PSIzNiIgeT0iMjEwLjA3MSIgZmlsbD0iIzAwMCIgZm9udC1zaXplPSIxMiIgdGV4dExlbmd0aD0iNzMuNzE3Ij5kb2NrZXIgcHVzaDwvdGV4dD48dGV4dCB4PSIzNiIgeT0iMjI0LjA0IiBmaWxsPSIjMDAwIiBmb250LXNpemU9IjEyIiB0ZXh0TGVuZ3RoPSIxMzcuNDc5Ij7vvIhSZWdpc3RyeSDjgavjg5fjg4Pjgrfjg6XvvIk8L3RleHQ+PGxpbmUgeDE9IjIwIiB5MT0iNTUuMDQyIiB4Mj0iMjAiIHkyPSI0MTQuNzQ1IiBzdHlsZT0ic3Ryb2tlOiMwMDA7c3Ryb2tlLXdpZHRoOjEuNTsiLz48cmVjdCB4PSIxOTcuNTY5IiB5PSIyNTYuODciIHdpZHRoPSIxNDUuNDc5IiBoZWlnaHQ9IjQ3LjkzOCIgZmlsbD0iI0YxRjFGMSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDowLjU7IiByeD0iMTIuNSIgcnk9IjEyLjUiLz48dGV4dCB4PSIyMDcuNTY5IiB5PSIyNzguMDA5IiBmaWxsPSIjMDAwIiBmb250LXNpemU9IjEyIiB0ZXh0TGVuZ3RoPSI2Ni41MjciPmRvY2tlciBwdWxsPC90ZXh0Pjx0ZXh0IHg9IjIwNy41NjkiIHk9IjI5MS45NzgiIGZpbGw9IiMwMDAiIGZvbnQtc2l6ZT0iMTIiIHRleHRMZW5ndGg9IjEyNS40NzkiPu+8iFJlZ2lzdHJ5IOOBi+OCieODl+ODq++8iTwvdGV4dD48cmVjdCB4PSIxOTMuNDc5IiB5PSIzMjQuODA4IiB3aWR0aD0iMTUzLjY1OCIgaGVpZ2h0PSI0Ny45MzgiIGZpbGw9IiNGMUYxRjEiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MC41OyIgcng9IjEyLjUiIHJ5PSIxMi41Ii8+PHRleHQgeD0iMjAzLjQ3OSIgeT0iMzQ1Ljk0NiIgZmlsbD0iIzAwMCIgZm9udC1zaXplPSIxMiIgdGV4dExlbmd0aD0iMTMzLjY1OCI+ZG9ja2VyIGNvbXBvc2UgdXAgLWQ8L3RleHQ+PHRleHQgeD0iMjAzLjQ3OSIgeT0iMzU5LjkxNSIgZmlsbD0iIzAwMCIgZm9udC1zaXplPSIxMiIgdGV4dExlbmd0aD0iOTYuMDAxIj7vvIjjgrPjg7Pjg4bjg4rotbfli5XvvIk8L3RleHQ+PGVsbGlwc2UgY3g9IjI3MC4zMDgiIGN5PSI0MDMuNzQ1IiByeD0iMTEiIHJ5PSIxMSIgZmlsbD0ibm9uZSIgc3R5bGU9InN0cm9rZTojMjIyO3N0cm9rZS13aWR0aDoxOyIvPjxlbGxpcHNlIGN4PSIyNzAuMzA4IiBjeT0iNDAzLjc0NSIgcng9IjYiIHJ5PSI2IiBmaWxsPSIjMjIyIiBzdHlsZT0ic3Ryb2tlOiMyMjI7c3Ryb2tlLXdpZHRoOjE7Ii8+PGxpbmUgeDE9IjE4Ny40NzkiIHkxPSI1NS4wNDIiIHgyPSIxODcuNDc5IiB5Mj0iNDE0Ljc0NSIgc3R5bGU9InN0cm9rZTojMDAwO3N0cm9rZS13aWR0aDoxLjU7Ii8+PGxpbmUgeDE9IjM1MS4xMzciIHkxPSI1NS4wNDIiIHgyPSIzNTEuMTM3IiB5Mj0iNDE0Ljc0NSIgc3R5bGU9InN0cm9rZTojMDAwO3N0cm9rZS13aWR0aDoxLjU7Ii8+PGxpbmUgeDE9IjEwNC43NCIgeTE9IjEwMC45OTUiIHgyPSIxMDQuNzQiIHkyPSIxMjAuOTk1IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7Ii8+PHBvbHlnb24gcG9pbnRzPSIxMDAuNzQsMTEwLjk5NSwxMDQuNzQsMTIwLjk5NSwxMDguNzQsMTEwLjk5NSwxMDQuNzQsMTE0Ljk5NSIgZmlsbD0iIzE4MTgxOCIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxO3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2UtbWl0ZXJsaW1pdDoxMDsiLz48bGluZSB4MT0iMTA0Ljc0IiB5MT0iMTY4LjkzMyIgeDI9IjEwNC43NCIgeTI9IjE4OC45MzMiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiLz48cG9seWdvbiBwb2ludHM9IjEwMC43NCwxNzguOTMzLDEwNC43NCwxODguOTMzLDEwOC43NCwxNzguOTMzLDEwNC43NCwxODIuOTMzIiBmaWxsPSIjMTgxODE4IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1taXRlcmxpbWl0OjEwOyIvPjxsaW5lIHgxPSIyNzAuMzA4IiB5MT0iMzA0LjgwOCIgeDI9IjI3MC4zMDgiIHkyPSIzMjQuODA4IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7Ii8+PHBvbHlnb24gcG9pbnRzPSIyNjYuMzA4LDMxNC44MDgsMjcwLjMwOCwzMjQuODA4LDI3NC4zMDgsMzE0LjgwOCwyNzAuMzA4LDMxOC44MDgiIGZpbGw9IiMxODE4MTgiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW1pdGVybGltaXQ6MTA7Ii8+PGxpbmUgeDE9IjI3MC4zMDgiIHkxPSIzNzIuNzQ1IiB4Mj0iMjcwLjMwOCIgeTI9IjM5Mi43NDUiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiLz48cG9seWdvbiBwb2ludHM9IjI2Ni4zMDgsMzgyLjc0NSwyNzAuMzA4LDM5Mi43NDUsMjc0LjMwOCwzODIuNzQ1LDI3MC4zMDgsMzg2Ljc0NSIgZmlsbD0iIzE4MTgxOCIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxO3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2UtbWl0ZXJsaW1pdDoxMDsiLz48bGluZSB4MT0iMTA0Ljc0IiB5MT0iMjM2Ljg3IiB4Mj0iMTA0Ljc0IiB5Mj0iMjQxLjg3IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7Ii8+PGxpbmUgeDE9IjEwNC43NCIgeTE9IjI0MS44NyIgeDI9IjI3MC4zMDgiIHkyPSIyNDEuODciIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiLz48bGluZSB4MT0iMjcwLjMwOCIgeTE9IjI0MS44NyIgeDI9IjI3MC4zMDgiIHkyPSIyNTYuODciIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiLz48cG9seWdvbiBwb2ludHM9IjI2Ni4zMDgsMjQ2Ljg3LDI3MC4zMDgsMjU2Ljg3LDI3NC4zMDgsMjQ2Ljg3LDI3MC4zMDgsMjUwLjg3IiBmaWxsPSIjMTgxODE4IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1taXRlcmxpbWl0OjEwOyIvPjx0ZXh0IHg9IjcxLjE2NyIgeT0iNzEuNzUiIGZpbGw9IiMwMDAiIGZvbnQtc2l6ZT0iMTgiIHRleHRMZW5ndGg9IjY1LjE0NCI+6ZaL55m6IFBDPC90ZXh0Pjx0ZXh0IHg9IjE5Ny4zMDkiIHk9IjcxLjc1IiBmaWxsPSIjMDAwIiBmb250LXNpemU9IjE4IiB0ZXh0TGVuZ3RoPSIxNDMuOTk5Ij7plovnmbrnkrDlooPjgrXjg7zjg5Djg7w8L3RleHQ+PD9wbGFudHVtbC1zcmMgQXlhaW9LYkxVRHBTX2hYdi1rRmNqTy1SYlpua2RXZllERV9YdWdmdkVRdHgtU25UMlc3RURMcDU5T2I1OUxuTUFWZDlzUWI1MmFjYmNKYWZDTmRsenRIMHIzdmtNbHN1Nk9XY1d5ZEV6dGl3aFJkV1lXakFZcEYwUWVESXFwRUJJdWVnNUh1dGhXUlJyX291UVZsWnZnS0d2TDNSZGFfUXk3R0hLNjhob0RaYzJLMm8xaWNhZDFucWF4ZVZEdE0yM0xrRFFjam9WY3YxVmQ2Z0djYzFXWXhLZ0tzUjdwUzNLVGxadmd1Tk14U194UHVBcUw1U2FieTAwMDAwPz48L2c+PC9zdmc+" class="uml" alt="uml diagram" title="" /></p>
-<h2 id="_4">前提条件<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h2 id="_2">判断と学び<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="1-2-2">1. ゲートが 2 / 2 で同期停止した<a class="headerlink" href="#1-2-2" title="Permanent link">&para;</a></h3>
+<p><strong>累計 11 / 11（100%）</strong>です。3 対象を通した累計は 52 箇所中 12 回になりました。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">ゲート</th>
+<th style="text-align: left;">添えた数字</th>
+<th style="text-align: left;">決定</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">段階の切り方</td>
+<td style="text-align: left;">3 案 × 初回・定常の秒数 + <strong>過去段階が壊れたら気づくか</strong></td>
+<td style="text-align: left;"><strong>このまま切り続ける</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">DB を検査に含めるか</td>
+<td style="text-align: left;">3 案 × CI とローカルの秒数（<strong>使い捨てブランチで実測</strong>）</td>
+<td style="text-align: left;"><strong>別ジョブに分ける</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>ゲート 2 では「速さ」以外の軸が決め手になりました。</strong> 古い段階を workspace から外す案は 3〜5 秒速いのですが、<strong>過去段階が壊れても気づかなくなります</strong>（わざと壊して確認）。記事が指すコードが腐るので採りませんでした。</p>
+<h3 id="2-async">2. <code>async</code> を採らなかった判断は持ちこたえた<a class="headerlink" href="#2-async" title="Permanent link">&para;</a></h3>
+<p><a href="../../adr/ADR-024-no-async/">ADR-024</a> は Unit 1 の後戻りの効かない判断でした。<strong>第 9 章で試され、持ちこたえました。</strong></p>
+<p><code>INSERT</code>・<code>SELECT</code>・トランザクションのすべてが同期で書け、<strong><code>async fn</code> が第 1〜8 章に伝播しませんでした</strong>。</p>
+<p>ただし記事には「<strong>持ちこたえたの中身は『困らなかった』であって『同期のほうが良かった』ではない</strong>」と書いています。1 プロセスで 1 リクエストずつ扱う規模だから困らなかっただけです。</p>
+<h3 id="3-json">3. 自前の JSON が、判断の代償をすぐに払った<a class="headerlink" href="#3-json" title="Permanent link">&para;</a></h3>
+<p><code>serde_json</code>（依存 +5・ビルド +8.30 秒）を入れず自前で書きました（<a href="../../adr/ADR-012-own-json-converter/">ADR-012</a> を踏襲）。</p>
+<p><strong><code>jsonb</code> は正規化して返します。</strong> コロンの後ろに空白が入り、自前のパーサが読めませんでした。</p>
+<p><strong>単体の往復テストは通っていました。</strong> 自分で書いた文字列を自分で読み返していたためです。<strong>DB を通す結合テストだけが見つけました。</strong></p>
+<p>記事には「<strong>1 件の代償では判断が決まらない。第 12 章で測り直す</strong>」と書いています。自前のパーサが 3 か所に増えていたら判断を変えます。</p>
+<h3 id="4-ci">4. CI の見積もりを実測が訂正した<a class="headerlink" href="#4-ci" title="Permanent link">&para;</a></h3>
+<p>ゲート 1 で「<strong>別ジョブなら並走するので総時間は増えない</strong>」と説明しました。<strong>CI 全体については間違いでした。</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">ジョブ</th>
+<th style="text-align: left;">前</th>
+<th style="text-align: left;">後</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>fmt, clippy, test, coverage</code></td>
+<td style="text-align: left;">26 秒</td>
+<td style="text-align: left;"><strong>56 秒</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">保管との往復</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">51 秒</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>parity</code></td>
+<td style="text-align: left;">6 秒</td>
+<td style="text-align: left;">5 秒</td>
+</tr>
+</tbody>
+</table>
+<p><strong><code>check</code> が 30 秒遅くなりました。</strong> サービスコンテナではなく、<code>postgres</code> クレートの<strong>コンパイル</strong>です。<code>cargo test --all</code> はテストを走らせなくても依存をビルドします。<strong>フィーチャで隠せるのはテストの実行だけです。</strong></p>
+<p>どの案を選んでも同じ 30 秒は乗るので、<strong>判断自体は正しいまま</strong>です（含めた場合の見込み 78 秒に対し、実測 56 秒）。記事と <a href="../../adr/ADR-033-db-check-as-separate-job/">ADR-033</a> の両方を実測に合わせて直しました。</p>
+<h3 id="5-adr-kotlin">5. 同じ ADR の題材で、Kotlin 版と結論が分かれた<a class="headerlink" href="#5-adr-kotlin" title="Permanent link">&para;</a></h3>
+<p><a href="../../adr/ADR-009-integration-test-database/">ADR-009</a> は「結合テストを <code>check</code> に含める。別ジョブに分けない」です。<strong>Rust 版は分けました。</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">対象</th>
+<th style="text-align: left;"><code>check</code> の所要</th>
+<th style="text-align: left;">+22 秒すると</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Kotlin</td>
+<td style="text-align: left;">95 秒</td>
+<td style="text-align: left;">117 秒（+23%）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Rust</strong></td>
+<td style="text-align: left;"><strong>26 秒</strong></td>
+<td style="text-align: left;"><strong>48 秒（+85%）</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>同じ題材でも、数字が違えば結論が変わります。</strong> 第 3 章第 5 節（3 対象で結論が 3 通り）に続く 2 例目です。</p>
+<h3 id="6-2">6. 検出率の揺れを 2 回測った<a class="headerlink" href="#6-2" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">章</th>
+<th style="text-align: left;">実測 / 期待値</th>
+<th style="text-align: left;">ずれ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">第 8 章（射影のファンクタ）</td>
+<td style="text-align: left;">61 / 50</td>
+<td style="text-align: left;"><strong>+1.8σ</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">第 9 章（モナド）</td>
+<td style="text-align: left;">47 / 50</td>
+<td style="text-align: left;">−0.5σ</td>
+</tr>
+</tbody>
+</table>
+<p>第 8 章では偏りを疑い、<strong>種を 20 通り変えて平均 50.1</strong> を確認しました。生成器ではなく揺れでした。</p>
+<p><strong>しきい値に 4σ 取っている理由が実データで裏づきました。</strong> なでしこ3 版は 1.58σ で、CI が確率 5.7% で落ちていました。</p>
+<h3 id="7-3">7. 3 経路目が、その経路でしか出ない欠陥を捕まえた<a class="headerlink" href="#7-3" title="Permanent link">&para;</a></h3>
+<p>なでしこ3 版と同じことが起きました。<strong><code>jsonb</code> の正規化は保管経由でしか出ません。</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">経路</th>
+<th style="text-align: left;">通るもの</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">ドメイン直接</td>
+<td style="text-align: left;">ハブと畳み込み</td>
+</tr>
+<tr>
+<td style="text-align: left;">HTTP 経由</td>
+<td style="text-align: left;">上 + パスの分解と HTML</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>保管経由</strong></td>
+<td style="text-align: left;">上 + <strong>JSON の往復と SQL</strong></td>
+</tr>
+</tbody>
+</table>
+<p>シナリオは 1 行も変えていません。第 3 章のトレイトに 3 つめの実装を足しただけです。</p>
+<h3 id="8-clippy-2">8. clippy が法則のテストを 2 度目に止めた<a class="headerlink" href="#8-clippy-2" title="Permanent link">&para;</a></h3>
+<p>右恒等則（<code>m.and_then(Ok)</code> は <code>m</code> と同じ）が <code>bind_instead_of_map</code> で止まりました。第 7 章の <code>map_identity</code> と同じ形です。</p>
+<p><strong>言語が構造を与えると、その構造を確かめるテストが「無駄なコード」に見えるようです。</strong></p>
+<h2 id="release-v020phase-2">Release v0.2.0（Phase 2 完了）<a class="headerlink" href="#release-v020phase-2" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">条件</th>
+<th style="text-align: left;">状態</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">第 4〜9 章が公開されている</td>
+<td style="text-align: left;"><strong>満たす</strong>（記事 6 本）</td>
+</tr>
+<tr>
+<td style="text-align: left;">代数構造 3 つが性質テストで確かめられている</td>
+<td style="text-align: left;"><strong>満たす</strong>（モノイド・ファンクタ・モナド。<strong>検出率も測った</strong>）</td>
+</tr>
+<tr>
+<td style="text-align: left;">受け入れシナリオが 3 経路で green</td>
+<td style="text-align: left;"><strong>満たす</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">CI が green</td>
+<td style="text-align: left;"><strong>満たす</strong>（<code>9c3efaf</code> で 3 ワークフローとも success）</td>
+</tr>
+</tbody>
+</table>
+<h2 id="unit-6">Unit 6 への持ち込み<a class="headerlink" href="#unit-6" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">#</th>
+<th style="text-align: left;">持ち込み</th>
+<th style="text-align: left;">理由</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;"><strong>ゲートを 3 箇所にする</strong></td>
+<td style="text-align: left;"><a href="../release_plan-rust/">リリース計画</a> の Unit 6 は「密（3 箇所）」。<strong>評価が 2 回続けて当たっている</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;"><strong><code>just check</code> が段階 5 つで上限に当たる</strong></td>
+<td style="text-align: left;">第 10 章で 5 つめを切る。<strong>定常が外で 13〜15 秒まで来ている</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">トランザクションの境界</td>
+<td style="text-align: left;"><a href="../../adr/ADR-011-transaction-boundary/">ADR-011</a> の移植。<strong>第 10 章の主題</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">テンプレート機構</td>
+<td style="text-align: left;"><a href="../../adr/ADR-010-own-template/">ADR-010</a> の移植。第 11 章</td>
+</tr>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;"><strong>自前の JSON を続けるか</strong></td>
+<td style="text-align: left;"><a href="../../adr/ADR-032-postgres-event-store/">ADR-032</a> の「解かないこと」。<strong>第 12 章で測り直す</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;"><strong>依存を足すと <code>check</code> も遅くなる</strong></td>
+<td style="text-align: left;">フィーチャで隠せるのはテストの実行だけ。<strong>次に依存を足すときは、この 30 秒を見積もりに入れる</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">7</td>
+<td style="text-align: left;"><code>parity</code> 検査はジョブの順序に依存する</td>
+<td style="text-align: left;">並べ替えると落ちる。<strong>落ちるのは正しいが理由が分かりにくい</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="_3">関連ドキュメント<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <ul>
-<li>開発環境サーバー（{サーバー OS / バージョン}）</li>
-<li>管理者権限を持つアカウント</li>
-<li>サーバーへのネットワークアクセス（SSH）</li>
-<li>SFTP サービスが有効（SCP ファイル転送に必要）</li>
-<li>Container Registry のアカウント（{Registry 名}）</li>
-<li>開発 PC に Docker Desktop がインストール済み</li>
-</ul>
-<hr />
-<h2 id="_5">セットアップ手順<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
-<h3 id="1-sshsftp">1. SSH・SFTP サービスの設定<a class="headerlink" href="#1-sshsftp" title="Permanent link">&para;</a></h3>
-<h4 id="11-ssh">1.1 SSH サービスの有効化<a class="headerlink" href="#11-ssh" title="Permanent link">&para;</a></h4>
-<ol>
-<li>サーバー管理画面にアクセス</li>
-<li>SSH サービスを有効にする</li>
-<li>ポート番号を確認（デフォルト: 22）</li>
-</ol>
-<h4 id="12-ssh">1.2 SSH ユーザー権限の確認<a class="headerlink" href="#12-ssh" title="Permanent link">&para;</a></h4>
-<p>SSH 接続には管理者グループに所属するユーザーが必要です。</p>
-<ol>
-<li>使用するユーザーが SSH アクセスを許可されていることを確認</li>
-<li>管理者グループに所属していることを確認</li>
-</ol>
-<h4 id="13-sftp">1.3 SFTP サービスの有効化<a class="headerlink" href="#13-sftp" title="Permanent link">&para;</a></h4>
-<p>SCP によるファイル転送に SFTP サブシステムが必要です。</p>
-<ol>
-<li>サーバー管理画面で SFTP サービスを有効にする</li>
-</ol>
-<blockquote>
-<p><strong>注意</strong>: SFTP が無効の場合、<code>scp</code> コマンドで <code>subsystem request failed on channel 0</code> エラーが発生します。</p>
-</blockquote>
-<h4 id="14-ssh">1.4 SSH 接続の確認<a class="headerlink" href="#14-ssh" title="Permanent link">&para;</a></h4>
-<p>開発 PC からの SSH 接続を確認します。</p>
-<div class="highlight"><pre><span></span><code>ssh<span class="w"> </span>&lt;ユーザー名&gt;@&lt;サーバー<span class="w"> </span>IP&gt;
-</code></pre></div>
-<p>接続後、以下を確認します:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># ホスト名と日時を表示</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s2">"接続成功: </span><span class="k">$(</span>hostname<span class="k">)</span><span class="s2"> / </span><span class="k">$(</span>date<span class="k">)</span><span class="s2">"</span>
-
-<span class="c1"># Docker が利用可能か確認</span>
-docker<span class="w"> </span>--version
-</code></pre></div>
-<h4 id="15-ssh">1.5 SSH 鍵認証の設定（推奨）<a class="headerlink" href="#15-ssh" title="Permanent link">&para;</a></h4>
-<h5 id="pc">鍵の生成（開発 PC で実行）<a class="headerlink" href="#pc" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>ssh-keygen<span class="w"> </span>-t<span class="w"> </span>ed25519<span class="w"> </span>-C<span class="w"> </span><span class="s2">"your_email@example.com"</span>
-</code></pre></div>
-<h5 id="_6">公開鍵をサーバーにコピー<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>ssh-copy-id<span class="w"> </span>-i<span class="w"> </span>~/.ssh/id_ed25519.pub<span class="w"> </span>&lt;ユーザー名&gt;@&lt;サーバー<span class="w"> </span>IP&gt;
-</code></pre></div>
-<h5 id="ssh">SSH 接続の設定ファイル（推奨）<a class="headerlink" href="#ssh" title="Permanent link">&para;</a></h5>
-<p><code>~/.ssh/config</code> に設定を追記します。</p>
-<div class="highlight"><pre><span></span><code>Host {ホスト名}
-    HostName &lt;サーバー IP&gt;
-    User &lt;ユーザー名&gt;
-    IdentityFile ~/.ssh/id_ed25519
-</code></pre></div>
-<p>設定後は <code>ssh {ホスト名}</code> で接続できます。</p>
-<h5 id="ssh_1">SSH 鍵認証がうまくいかない場合<a class="headerlink" href="#ssh_1" title="Permanent link">&para;</a></h5>
-<p>サーバーにパスワードでログインし、以下を実行します。</p>
-<div class="highlight"><pre><span></span><code>chmod<span class="w"> </span><span class="m">755</span><span class="w"> </span>~
-chmod<span class="w"> </span><span class="m">700</span><span class="w"> </span>~/.ssh
-chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>~/.ssh/authorized_keys
-</code></pre></div>
-<h4 id="16-sudo">1.6 sudo パスワード省略の設定<a class="headerlink" href="#16-sudo" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>chmod<span class="w"> </span>u+w<span class="w"> </span>/etc/sudoers
-sudo<span class="w"> </span>vi<span class="w"> </span>/etc/sudoers
-</code></pre></div>
-<p>末尾に以下を追加（ユーザー名に合わせて変更）:</p>
-<div class="highlight"><pre><span></span><code>{ユーザー名} ALL=(ALL) NOPASSWD: ALL
-</code></pre></div>
-<p>編集後、権限を元に戻します:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>chmod<span class="w"> </span>u-w<span class="w"> </span>/etc/sudoers
-</code></pre></div>
-<blockquote>
-<p><strong>注意</strong>: OS アップデートで <code>/etc/sudoers</code> がリセットされる場合があります。</p>
-</blockquote>
-<hr />
-<h3 id="2">2. プロジェクトディレクトリの作成<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
-<p>SSH でサーバーに接続し、プロジェクト用ディレクトリを作成します。</p>
-<div class="highlight"><pre><span></span><code>ssh<span class="w"> </span>&lt;ユーザー名&gt;@&lt;サーバー<span class="w"> </span>IP&gt;
-
-sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span><span class="o">{</span>プロジェクトディレクトリ<span class="o">}</span>
-sudo<span class="w"> </span>chown<span class="w"> </span><span class="k">$(</span>whoami<span class="k">)</span><span class="w"> </span><span class="o">{</span>プロジェクトディレクトリ<span class="o">}</span>
-</code></pre></div>
-<h3 id="_7">ディレクトリ構造<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
-<p>サーバー上にはソースコードや Dockerfile は配置しません。docker-compose.yml のみで管理します。</p>
-<div class="highlight"><pre><span></span><code>{プロジェクトディレクトリ}/
-├── docker-compose.yml       # Docker Compose 設定（image ベース）
-└── docs/                    # ドキュメント成果物（任意）
-</code></pre></div>
-<hr />
-<h3 id="3-docker">3. Docker のインストール<a class="headerlink" href="#3-docker" title="Permanent link">&para;</a></h3>
-<p>サーバーに Docker をインストールします。</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># インストール方法はサーバー OS に依存</span>
-<span class="c1"># 例: パッケージマネージャからインストール</span>
-<span class="o">{</span>Docker<span class="w"> </span>インストールコマンド<span class="o">}</span>
-</code></pre></div>
-<h4 id="docker-compose">Docker Compose の確認<a class="headerlink" href="#docker-compose" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>--version
-docker<span class="w"> </span>compose<span class="w"> </span>version
-</code></pre></div>
-<hr />
-<h3 id="4-container-registry">4. Container Registry の設定<a class="headerlink" href="#4-container-registry" title="Permanent link">&para;</a></h3>
-<p>Docker イメージは Container Registry で管理します。</p>
-<h4 id="41">4.1 認証情報の作成<a class="headerlink" href="#41" title="Permanent link">&para;</a></h4>
-<p>Registry へのアクセスに必要な認証情報を作成します。</p>
-<table>
-<thead>
-<tr>
-<th>項目</th>
-<th>設定値</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>名前</td>
-<td><code>{トークン名}</code></td>
-</tr>
-<tr>
-<td>有効期限</td>
-<td><code>90 days</code> または <code>No expiration</code></td>
-</tr>
-<tr>
-<td>権限</td>
-<td><code>read:packages</code>、<code>write:packages</code></td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p><strong>重要</strong>: トークンは一度しか表示されない場合があります。紛失した場合は再発行が必要です。</p>
-</blockquote>
-<h4 id="42">4.2 必要な権限<a class="headerlink" href="#42" title="Permanent link">&para;</a></h4>
-<table>
-<thead>
-<tr>
-<th>権限</th>
-<th>説明</th>
-<th>用途</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>read:packages</code></td>
-<td>パッケージのダウンロード</td>
-<td>サーバーでのイメージプル</td>
-</tr>
-<tr>
-<td><code>write:packages</code></td>
-<td>パッケージのアップロード</td>
-<td>開発 PC からのイメージプッシュ</td>
-</tr>
-</tbody>
-</table>
-<h4 id="43-registry">4.3 サーバーからの Registry ログイン<a class="headerlink" href="#43-registry" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>ssh<span class="w"> </span>&lt;ユーザー名&gt;@&lt;サーバー<span class="w"> </span>IP&gt;
-
-<span class="c1"># トークンを使用してログイン</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s1">'&lt;トークン&gt;'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>docker<span class="w"> </span>login<span class="w"> </span><span class="o">{</span>Registry<span class="w"> </span>URL<span class="o">}</span><span class="w"> </span>-u<span class="w"> </span>&lt;ユーザー名&gt;<span class="w"> </span>--password-stdin
-</code></pre></div>
-<h4 id="44-pc-env">4.4 開発 PC の .env 設定<a class="headerlink" href="#44-pc-env" title="Permanent link">&para;</a></h4>
-<p>プロジェクトルートの <code>.env</code> に以下を設定します。</p>
-<div class="highlight"><pre><span></span><code># SSH 接続情報
-DEV_SSH_HOST=&lt;サーバー IP&gt;
-DEV_SSH_USER=&lt;ユーザー名&gt;
-DEV_SSH_PORT=22
-DEV_SSH_KEY=~/.ssh/id_ed25519
-
-# Registry 認証情報
-REGISTRY_USER=&lt;ユーザー名&gt;
-REGISTRY_TOKEN=&lt;トークン&gt;
-
-# オプション（デフォルト値あり）
-# REGISTRY_URL={Registry URL}
-# REGISTRY_OWNER={組織名}
-# REGISTRY_TAG=latest
-# DEV_REMOTE_PROJECT_PATH={プロジェクトディレクトリ}
-</code></pre></div>
-<hr />
-<h3 id="5-docker-compose">5. Docker Compose 設定<a class="headerlink" href="#5-docker-compose" title="Permanent link">&para;</a></h3>
-<p><code>{プロジェクトディレクトリ}/docker-compose.yml</code> は <code>image:</code> ベースで構成します。Registry からイメージをプルして起動します。</p>
-<div class="highlight"><pre><span></span><code><span class="nt">services</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">{</span><span class="nv">サービス名</span><span class="p p-Indicator">}:</span>
-<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nv">Registry URL</span><span class="p p-Indicator">}</span><span class="l l-Scalar l-Scalar-Plain">/{組織名}/{イメージ名}:latest</span>
-<span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nv">コンテナ名</span><span class="p p-Indicator">}</span>
-<span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">unless-stopped</span>
-<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">PORT</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nv">ポート</span><span class="p p-Indicator">}</span>
-<span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"{ポート}:{ポート}"</span>
-<span class="w">    </span><span class="nt">healthcheck</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">test</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"CMD-SHELL"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"{ヘルスチェックコマンド}"</span><span class="p p-Indicator">]</span>
-<span class="w">      </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10s</span>
-<span class="w">      </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5s</span>
-<span class="w">      </span><span class="nt">retries</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">12</span>
-<span class="w">      </span><span class="nt">start_period</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60s</span>
-</code></pre></div>
-<blockquote>
-<p><strong>補足</strong>: docker-compose.yml はデプロイスクリプトが自動生成・配置する構成も可能です。</p>
-</blockquote>
-<hr />
-<h3 id="6-pc">6. イメージのビルドとプッシュ（開発 PC）<a class="headerlink" href="#6-pc" title="Permanent link">&para;</a></h3>
-<p>開発 PC で Docker イメージをビルドし、Registry にプッシュします。</p>
-<h4 id="61">6.1 イメージ構成<a class="headerlink" href="#61" title="Permanent link">&para;</a></h4>
-<table>
-<thead>
-<tr>
-<th>サービス</th>
-<th>Dockerfile</th>
-<th>イメージ名</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>{サービス名}</td>
-<td><code>{Dockerfile パス}</code></td>
-<td><code>{Registry URL}/{組織名}/{イメージ名}:latest</code></td>
-</tr>
-</tbody>
-</table>
-<h4 id="62">6.2 タスクランナーによるビルド・プッシュ<a class="headerlink" href="#62" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="c1"># 全サービスをローカルビルド</span>
-<span class="o">{</span>ビルドコマンド<span class="o">}</span>
-
-<span class="c1"># 全イメージを Registry にプッシュ</span>
-<span class="o">{</span>プッシュコマンド<span class="o">}</span>
-</code></pre></div>
-<h4 id="63">6.3 手動でのビルド・プッシュ<a class="headerlink" href="#63" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="c1"># Registry にログイン</span>
-<span class="nb">echo</span><span class="w"> </span><span class="nv">$REGISTRY_TOKEN</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>docker<span class="w"> </span>login<span class="w"> </span><span class="o">{</span>Registry<span class="w"> </span>URL<span class="o">}</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$REGISTRY_USER</span><span class="w"> </span>--password-stdin
-
-<span class="c1"># イメージのビルドとプッシュ</span>
-docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span><span class="o">{</span>Registry<span class="w"> </span>URL<span class="o">}</span>/<span class="o">{</span>組織名<span class="o">}</span>/<span class="o">{</span>イメージ名<span class="o">}</span>:latest<span class="w"> </span><span class="o">{</span>Dockerfile<span class="w"> </span>ディレクトリ<span class="o">}</span>
-docker<span class="w"> </span>push<span class="w"> </span><span class="o">{</span>Registry<span class="w"> </span>URL<span class="o">}</span>/<span class="o">{</span>組織名<span class="o">}</span>/<span class="o">{</span>イメージ名<span class="o">}</span>:latest
-</code></pre></div>
-<h4 id="64">6.4 イメージの確認<a class="headerlink" href="#64" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="c1"># ビルドされたイメージを確認</span>
-docker<span class="w"> </span>images<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="o">{</span>イメージ名<span class="o">}</span>
-</code></pre></div>
-<hr />
-<h3 id="7">7. 初回セットアップ<a class="headerlink" href="#7" title="Permanent link">&para;</a></h3>
-<h4 id="71">7.1 タスクランナーによる自動セットアップ<a class="headerlink" href="#71" title="Permanent link">&para;</a></h4>
-<p>開発 PC からビルド・プッシュ・デプロイまで一括でセットアップできます。</p>
-<div class="highlight"><pre><span></span><code><span class="o">{</span>セットアップコマンド<span class="o">}</span>
-</code></pre></div>
-<p>自動セットアップは以下を実行します:</p>
-<ol>
-<li>ローカルで Docker イメージをビルド</li>
-<li>Registry にログイン &amp; プッシュ</li>
-<li>SSH 接続確認</li>
-<li>プロジェクトディレクトリの作成</li>
-<li>サーバーから Registry にログイン</li>
-<li>docker-compose.yml の生成・配置</li>
-<li>イメージのプル &amp; コンテナ起動</li>
-</ol>
-<h4 id="72">7.2 手動セットアップ<a class="headerlink" href="#72" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="c1"># サーバーに SSH 接続</span>
-ssh<span class="w"> </span>&lt;ユーザー名&gt;@&lt;サーバー<span class="w"> </span>IP&gt;
-
-<span class="c1"># Registry にログイン</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s1">'&lt;トークン&gt;'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>docker<span class="w"> </span>login<span class="w"> </span><span class="o">{</span>Registry<span class="w"> </span>URL<span class="o">}</span><span class="w"> </span>-u<span class="w"> </span>&lt;ユーザー名&gt;<span class="w"> </span>--password-stdin
-
-<span class="c1"># プロジェクトディレクトリに移動</span>
-<span class="nb">cd</span><span class="w"> </span><span class="o">{</span>プロジェクトディレクトリ<span class="o">}</span>
-
-<span class="c1"># docker-compose.yml を作成（セクション 5 の内容）</span>
-vi<span class="w"> </span>docker-compose.yml
-
-<span class="c1"># イメージをプル</span>
-sudo<span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>pull
-
-<span class="c1"># コンテナを起動</span>
-sudo<span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d
-
-<span class="c1"># 起動状態を確認</span>
-sudo<span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>ps
-</code></pre></div>
-<h4 id="73">7.3 起動確認<a class="headerlink" href="#73" title="Permanent link">&para;</a></h4>
-<p>すべてのコンテナが <code>healthy</code> 状態になるまで待機します（約 1〜2 分）。</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># 全コンテナの状態を確認</span>
-docker<span class="w"> </span>compose<span class="w"> </span>ps
-
-<span class="c1"># 期待される出力:</span>
-<span class="c1"># NAME             SERVICE      STATUS          PORTS</span>
-<span class="c1"># {コンテナ名}      {サービス名}   Up (healthy)    0.0.0.0:{ポート}-&gt;{ポート}/tcp</span>
-</code></pre></div>
-<hr />
-<h3 id="8">8. 動作確認<a class="headerlink" href="#8" title="Permanent link">&para;</a></h3>
-<h4 id="81">8.1 ヘルスチェック<a class="headerlink" href="#81" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="c1"># 各サービスのヘルスチェック</span>
-curl<span class="w"> </span>http://&lt;サーバー<span class="w"> </span>IP&gt;:<span class="o">{</span>ポート<span class="o">}</span>/<span class="o">{</span>ヘルスチェックパス<span class="o">}</span>
-</code></pre></div>
-<p>期待されるレスポンス:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">"status"</span><span class="p">:</span><span class="s2">"UP"</span><span class="p">}</span>
-</code></pre></div>
-<h4 id="82">8.2 ブラウザからのアクセス<a class="headerlink" href="#82" title="Permanent link">&para;</a></h4>
-<table>
-<thead>
-<tr>
-<th>確認項目</th>
-<th>URL</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>{サービス名} アプリ</td>
-<td><code>http://&lt;サーバー IP&gt;:{ポート}/</code></td>
-</tr>
-<tr>
-<td>{サービス名} API ドキュメント</td>
-<td><code>http://&lt;サーバー IP&gt;:{ポート}/{API ドキュメントパス}</code></td>
-</tr>
-<tr>
-<td>{サービス名} DB 管理ツール</td>
-<td><code>http://&lt;サーバー IP&gt;:{ポート}/{DB 管理パス}</code></td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h3 id="9">9. 個別デプロイ（更新手順）<a class="headerlink" href="#9" title="Permanent link">&para;</a></h3>
-<p>サービスを更新する場合は、開発 PC でビルド・プッシュし、サーバーでプルします。</p>
-<h4 id="91">9.1 典型的なデプロイフロー<a class="headerlink" href="#91" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="c1"># 1. 開発 PC でイメージをビルド</span>
-<span class="o">{</span>ビルドコマンド<span class="o">}</span>
-
-<span class="c1"># 2. Registry にプッシュ</span>
-<span class="o">{</span>プッシュコマンド<span class="o">}</span>
-
-<span class="c1"># 3. サーバーでプル &amp; 再起動</span>
-<span class="o">{</span>デプロイコマンド<span class="o">}</span>
-</code></pre></div>
-<h4 id="92">9.2 特定サービスの更新<a class="headerlink" href="#92" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="c1"># 特定サービスのみビルド・プッシュ・デプロイ</span>
-<span class="o">{</span>サービス別ビルドコマンド<span class="o">}</span>
-<span class="o">{</span>サービス別プッシュコマンド<span class="o">}</span>
-<span class="o">{</span>サービス別デプロイコマンド<span class="o">}</span>
-</code></pre></div>
-<h4 id="93">9.3 手動での更新<a class="headerlink" href="#93" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="c1"># サーバーに SSH 接続</span>
-ssh<span class="w"> </span>&lt;ユーザー名&gt;@&lt;サーバー<span class="w"> </span>IP&gt;
-
-<span class="nb">cd</span><span class="w"> </span><span class="o">{</span>プロジェクトディレクトリ<span class="o">}</span>
-
-<span class="c1"># 最新イメージをプル</span>
-sudo<span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>pull
-
-<span class="c1"># コンテナを再作成</span>
-sudo<span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d
-
-<span class="c1"># 特定サービスのみ更新する場合</span>
-sudo<span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>pull<span class="w"> </span><span class="o">{</span>サービス名<span class="o">}</span>
-sudo<span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span><span class="o">{</span>サービス名<span class="o">}</span>
-</code></pre></div>
-<hr />
-<h3 id="10-docker">10. Docker 管理コマンド<a class="headerlink" href="#10-docker" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># プロジェクトディレクトリに移動</span>
-<span class="nb">cd</span><span class="w"> </span><span class="o">{</span>プロジェクトディレクトリ<span class="o">}</span>
-
-<span class="c1"># コンテナの状態確認</span>
-docker<span class="w"> </span>compose<span class="w"> </span>ps
-
-<span class="c1"># 全コンテナの起動</span>
-docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d
-
-<span class="c1"># 全コンテナの停止</span>
-docker<span class="w"> </span>compose<span class="w"> </span>down
-
-<span class="c1"># 全コンテナの再起動</span>
-docker<span class="w"> </span>compose<span class="w"> </span>restart
-
-<span class="c1"># 特定コンテナの再起動</span>
-docker<span class="w"> </span>compose<span class="w"> </span>restart<span class="w"> </span><span class="o">{</span>サービス名<span class="o">}</span>
-
-<span class="c1"># 最新イメージをプルして再起動</span>
-docker<span class="w"> </span>compose<span class="w"> </span>pull<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d
-
-<span class="c1"># ログの確認（リアルタイム）</span>
-docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>-f
-
-<span class="c1"># 特定コンテナのログ</span>
-docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span><span class="o">{</span>サービス名<span class="o">}</span>
-
-<span class="c1"># ログの確認（直近 100 行）</span>
-docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>--tail<span class="o">=</span><span class="m">100</span><span class="w"> </span><span class="o">{</span>サービス名<span class="o">}</span>
-
-<span class="c1"># コンテナに接続</span>
-docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span><span class="o">{</span>コンテナ名<span class="o">}</span><span class="w"> </span>sh
-
-<span class="c1"># 使用していないイメージの削除</span>
-docker<span class="w"> </span>image<span class="w"> </span>prune<span class="w"> </span>-f
-</code></pre></div>
-<hr />
-<h3 id="11">11. 環境のクリーンアップ<a class="headerlink" href="#11" title="Permanent link">&para;</a></h3>
-<p>開発環境を完全にクリーンアップする場合:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span><span class="o">{</span>プロジェクトディレクトリ<span class="o">}</span>
-
-<span class="c1"># コンテナの停止・削除（イメージも削除）</span>
-docker<span class="w"> </span>compose<span class="w"> </span>down<span class="w"> </span>--rmi<span class="w"> </span>all
-
-<span class="c1"># docker-compose.yml の削除</span>
-rm<span class="w"> </span>-f<span class="w"> </span>docker-compose.yml
-
-<span class="c1"># Registry ログアウト</span>
-docker<span class="w"> </span><span class="nb">logout</span><span class="w"> </span><span class="o">{</span>Registry<span class="w"> </span>URL<span class="o">}</span>
-</code></pre></div>
-<hr />
-<h3 id="12-web">12. Web サーバーによるポータルサイト設定（任意）<a class="headerlink" href="#12-web" title="Permanent link">&para;</a></h3>
-<p>ポータルサイトを Web サーバーで公開する場合の設定手順です。</p>
-<h4 id="121-web">12.1 Web サーバーのインストール<a class="headerlink" href="#121-web" title="Permanent link">&para;</a></h4>
-<p>サーバーに Web サーバー（Nginx / Apache 等）をインストールします。</p>
-<h4 id="122">12.2 ポータルファイルの配置<a class="headerlink" href="#122" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>ssh<span class="w"> </span>&lt;ユーザー名&gt;@&lt;サーバー<span class="w"> </span>IP&gt;
-
-<span class="c1"># ドキュメントルートにディレクトリを作成</span>
-sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span><span class="o">{</span>Web<span class="w"> </span>ルートディレクトリ<span class="o">}</span>
-sudo<span class="w"> </span>chown<span class="w"> </span><span class="k">$(</span>whoami<span class="k">)</span><span class="w"> </span><span class="o">{</span>Web<span class="w"> </span>ルートディレクトリ<span class="o">}</span>
-</code></pre></div>
-<p>開発 PC からポータルファイルを転送します。</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># タスクランナーを使用（推奨）</span>
-<span class="o">{</span>ポータルデプロイコマンド<span class="o">}</span>
-
-<span class="c1"># または手動で転送</span>
-scp<span class="w"> </span>-r<span class="w"> </span><span class="o">{</span>ポータルソースディレクトリ<span class="o">}</span>/*<span class="w"> </span>&lt;ユーザー名&gt;@&lt;サーバー<span class="w"> </span>IP&gt;:<span class="o">{</span>Web<span class="w"> </span>ルートディレクトリ<span class="o">}</span>/
-</code></pre></div>
-<h4 id="123">12.3 動作確認<a class="headerlink" href="#123" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="c1"># ブラウザで以下にアクセス</span>
-curl<span class="w"> </span>http://&lt;サーバー<span class="w"> </span>IP&gt;/<span class="o">{</span>ポータルパス<span class="o">}</span>/
-</code></pre></div>
-<hr />
-<h3 id="13">13. デプロイスクリプト一覧<a class="headerlink" href="#13" title="Permanent link">&para;</a></h3>
-<p>主要なデプロイタスクの一覧です。</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># 典型的なデプロイフロー</span>
-<span class="o">{</span>ビルドコマンド<span class="o">}</span><span class="w">                    </span><span class="c1"># 1. ローカルでイメージビルド</span>
-<span class="o">{</span>プッシュコマンド<span class="o">}</span><span class="w">                   </span><span class="c1"># 2. Registry にプッシュ</span>
-<span class="o">{</span>デプロイコマンド<span class="o">}</span><span class="w">                   </span><span class="c1"># 3. サーバーでプル &amp; 再起動</span>
-
-<span class="c1"># 初回セットアップ（ビルド → プッシュ → ログイン → プル → 起動 を一括実行）</span>
-<span class="o">{</span>セットアップコマンド<span class="o">}</span>
-
-<span class="c1"># 管理</span>
-<span class="o">{</span>ステータス確認コマンド<span class="o">}</span><span class="w">              </span><span class="c1"># コンテナ状態を確認</span>
-<span class="o">{</span>ログ確認コマンド<span class="o">}</span><span class="w">                   </span><span class="c1"># コンテナログを表示</span>
-<span class="o">{</span>クリーンアップコマンド<span class="o">}</span><span class="w">              </span><span class="c1"># 開発環境を完全削除</span>
-<span class="o">{</span>ヘルプコマンド<span class="o">}</span><span class="w">                    </span><span class="c1"># ヘルプを表示</span>
-</code></pre></div>
-<hr />
-<h3 id="14">14. トラブルシューティング<a class="headerlink" href="#14" title="Permanent link">&para;</a></h3>
-<h4 id="registry-401-unauthorized">Registry からプルできない（401 Unauthorized）<a class="headerlink" href="#registry-401-unauthorized" title="Permanent link">&para;</a></h4>
-<table>
-<thead>
-<tr>
-<th>原因</th>
-<th>対処</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>トークンの権限不足</td>
-<td><code>read:packages</code> 権限があるか確認</td>
-</tr>
-<tr>
-<td>トークンの有効期限切れ</td>
-<td>新しいトークンを発行し、<code>.env</code> と設定を更新</td>
-</tr>
-<tr>
-<td>Registry 未ログイン</td>
-<td><code>docker login {Registry URL}</code> を実行</td>
-</tr>
-</tbody>
-</table>
-<h4 id="_8">イメージが見つからない<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h4>
-<table>
-<thead>
-<tr>
-<th>原因</th>
-<th>対処</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>イメージ未プッシュ</td>
-<td>ビルド・プッシュコマンドを実行</td>
-</tr>
-<tr>
-<td>イメージ名のスペルミス</td>
-<td>イメージ名を確認</td>
-</tr>
-<tr>
-<td>組織のパッケージ権限</td>
-<td>管理者にパッケージへの Read 権限を依頼</td>
-</tr>
-</tbody>
-</table>
-<h4 id="_9">コンテナが起動しない<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span><span class="o">{</span>プロジェクトディレクトリ<span class="o">}</span>
-
-<span class="c1"># コンテナのログを確認</span>
-docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span><span class="o">{</span>サービス名<span class="o">}</span>
-</code></pre></div>
-<table>
-<thead>
-<tr>
-<th>症状</th>
-<th>原因</th>
-<th>対処</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>image not found</code></td>
-<td>イメージ未プル</td>
-<td><code>docker compose pull</code></td>
-</tr>
-<tr>
-<td><code>EADDRINUSE</code></td>
-<td>ポートが使用中</td>
-<td><code>docker compose down</code> で既存コンテナを停止</td>
-</tr>
-<tr>
-<td><code>OOM</code> / メモリ不足</td>
-<td>サーバーのメモリ不足</td>
-<td>不要なコンテナを停止、メモリ増設を検討</td>
-</tr>
-<tr>
-<td><code>healthcheck</code> が失敗</td>
-<td>アプリ起動に時間がかかる</td>
-<td><code>start_period</code> を延長</td>
-</tr>
-</tbody>
-</table>
-<h4 id="ssh-docker-login">SSH から docker login できない<a class="headerlink" href="#ssh-docker-login" title="Permanent link">&para;</a></h4>
-<table>
-<thead>
-<tr>
-<th>原因</th>
-<th>対処</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>トークンに特殊文字</td>
-<td>トークンをシングルクォートで囲む</td>
-</tr>
-<tr>
-<td>Docker 未起動</td>
-<td>Docker サービスが起動しているか確認</td>
-</tr>
-</tbody>
-</table>
-<h4 id="_10">トークンの更新手順<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h4>
-<p>トークンの有効期限が切れた場合:</p>
-<ol>
-<li>新しいトークンを発行（セクション 4.1 参照）</li>
-<li>開発 PC の <code>.env</code> の <code>REGISTRY_TOKEN</code> を更新</li>
-<li>サーバーで Registry 再ログイン</li>
-</ol>
-<hr />
-<h2 id="_11">ポート一覧<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>サービス</th>
-<th>ポート</th>
-<th>外部公開</th>
-<th>備考</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>{サービス名}</td>
-<td>{ポート}</td>
-<td>はい</td>
-<td>{備考}</td>
-</tr>
-<tr>
-<td>SSH</td>
-<td>22</td>
-<td>制限付き</td>
-<td>管理者のみ</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2 id="_12">接続情報まとめ<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>用途</th>
-<th>接続先</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>{サービス名} アプリ</td>
-<td><code>http://&lt;サーバー IP&gt;:{ポート}/</code></td>
-</tr>
-<tr>
-<td>{サービス名} API ドキュメント</td>
-<td><code>http://&lt;サーバー IP&gt;:{ポート}/{パス}</code></td>
-</tr>
-<tr>
-<td>SSH</td>
-<td><code>ssh &lt;ユーザー名&gt;@&lt;サーバー IP&gt;</code></td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2 id="_13">セキュリティチェックリスト<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>
-<ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> SSH 鍵認証を設定した</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> ファイアウォールで不要なポートをブロックした</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> DB 管理ツールへのアクセスをローカルネットワークに制限した</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> サーバー管理画面のアクセスを制限した</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Registry のトークンを安全に管理している（.env は Git 管理外）</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Registry のトークンの有効期限を把握している</li>
-</ul>
-<hr />
-<h2 id="_14">関連ドキュメント<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h2>
-<ul>
-<li>{関連ドキュメント 1}</li>
-<li>{関連ドキュメント 2}</li>
+<li><a href="../iteration_plan-rust-5/">Unit 5 の Bolt 計画</a> / <a href="../retrospective-rust-5/">ふりかえり</a></li>
+<li><a href="../bolt_report-rust-4/">Unit 4 の Bolt 終了報告</a> / <a href="../retrospective-rust-4/">Unit 4 のふりかえり</a></li>
+<li><a href="../release_plan-rust/">リリース計画（Rust 版）</a> / <a href="../development_strategy/">開発戦略</a></li>
+<li><a href="../../article/zettai/rust/chapter08/">第 8 章</a> / <a href="../../article/zettai/rust/chapter09/">第 9 章</a></li>
 </ul>
 
 

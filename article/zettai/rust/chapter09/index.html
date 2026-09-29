@@ -2501,6 +2501,41 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../development/bolt_report-rust-5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「Rust」Unit 5 射影と永続化
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -2961,6 +2996,41 @@
     
   
     「Rust」Unit 4 enum と Result
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../development/retrospective-rust-5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「Rust」Unit 5 射影と永続化
   
 
     
@@ -5994,6 +6064,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#ci" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ただし CI は遅くなりました
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#1" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -8443,7 +8524,35 @@
 </table>
 <p><strong>走らせるコストはほとんどありません。</strong> 重いのは 2 つで、<strong>CI のサービスコンテナ（+22 秒）</strong>と、<strong>ローカルで docker が要る</strong>ことです。</p>
 <p>Kotlin 版は <a href="../../../../adr/ADR-009-integration-test-database/">ADR-009</a> で「結合テストを <code>check</code> に含める。別ジョブに分けない」と決めました。<strong>Rust 版では分けました。</strong></p>
-<p>理由は数字です。Kotlin 版の <code>check</code> は 95 秒で、22 秒足しても割合が変わりません。<strong>Rust 版の <code>check</code> は 26 秒で、48 秒になると倍近くなります。</strong> そして別ジョブなら並走するので、<strong>総時間は増えません</strong>。</p>
+<p>理由は数字です。Kotlin 版の <code>check</code> は 95 秒で、22 秒足しても割合が変わりません。<strong>Rust 版の <code>check</code> は 26 秒で、48 秒になると倍近くなります。</strong> 別ジョブなら並走するので、<strong>サービスコンテナのぶんは総時間に乗りません</strong>。</p>
+<h3 id="ci">ただし CI は遅くなりました<a class="headerlink" href="#ci" title="Permanent link">&para;</a></h3>
+<p>分けたあとの実測です。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">ジョブ</th>
+<th style="text-align: left;">所要</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>fmt, clippy, test, coverage</code></td>
+<td style="text-align: left;"><strong>56 秒</strong>（前は 26 秒）</td>
+</tr>
+<tr>
+<td style="text-align: left;">保管との往復</td>
+<td style="text-align: left;">51 秒</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>justfile</code> と CI が一致しているか</td>
+<td style="text-align: left;">5 秒</td>
+</tr>
+</tbody>
+</table>
+<p><strong><code>check</code> が 26 秒から 56 秒になりました。</strong> サービスコンテナは足していないのに、です。</p>
+<p>理由は <code>postgres</code> クレートの<strong>コンパイル</strong>です。<code>cargo test --all</code> はテストを走らせなくても<strong>依存はビルドします</strong>。フィーチャで隠せるのは<strong>テストの実行</strong>だけで、<strong>依存そのものは隠せません</strong>。</p>
+<p><strong>「別ジョブにすれば総時間は増えない」は、サービスコンテナについては正しく、CI 全体については間違いでした。</strong> 依存を足した時点で 30 秒は乗ります。どの案を選んでも同じでした。</p>
+<p>並走している総時間（約 56 秒）は、含めた場合（26 + 22 + 30 ≒ 78 秒）より短いので、<strong>選んだ判断自体は正しかった</strong>と言えます。</p>
 <div class="highlight"><pre><span></span><code># 保管との往復。**docker が要る**（`docker compose up -d zettai-db`）。
 test-db:
     {{run}} cargo test -p zettai-step4-http --features db --test persistence

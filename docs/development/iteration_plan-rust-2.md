@@ -4,7 +4,7 @@ title: "Unit 2 の Bolt 計画（イテレーション 2）- Zettai 連載（Rus
 description: "Zettai 連載 Rust 版の Unit 2（ウォーキングスケルトンとドメイン分離）の Bolt 計画。tiny_http で縦串を通し、第 3 章でドメインとインフラをクレートで分ける。境界をコンパイラに守らせるかどうかと、CI に Nix を入れるかどうかの 2 つを承認ゲートに置く。"
 tags: [development, plan, ai-dlc, bolt, zettai, rust, unit-2]
 status: stable
-generated: { by: claude-code/claude-opus-5, at: 2026-09-29T01:22:33Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-29T02:13:49Z }
 verified:
   - { by: human:kakimomokuri, at: 2026-09-29T01:24:02Z }
 ---
@@ -286,7 +286,8 @@ Unit 1（リスクと未解決の仮定が HIGH）より下がっています。
   - ADR-027（境界の分け方）、ADR-028（受け入れテストの入口。既製品の採否）
 - [x] **2-2.8 サイト反映と OKF 適用**
   - **`comparison/index.md` に Rust の列を足す**（Phase 1 完了）
-- [ ] **2-2.9 Release v0.1.0**: push して CI の green を確かめる
+- [x] **2-2.9 Release v0.1.0**: push して CI の green を確かめる
+  - **実績（2026-09-29）**: 3 ワークフローとも success。**Release v0.1.0 達成**
 - [x] **2-2.10 Bolt 終了報告とふりかえり**: **ゲートの同期停止率を数える**
 
 ---

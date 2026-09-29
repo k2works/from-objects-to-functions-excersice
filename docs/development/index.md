@@ -42,7 +42,7 @@
 | Unit | Bolt 計画 | ふりかえり | Bolt 終了報告 | 状態 |
 |---------------|------|-----------|-----------|------|
 | Unit 1 器と第 1 章 | [Unit 1 の Bolt 計画](iteration_plan-rust-1.md) | [ふりかえり](retrospective-rust-1.md) | [Bolt 終了報告](bolt_report-rust-1.md) | **完了** |
-| Unit 2 ウォーキングスケルトンとドメイン分離 | [Unit 2 の Bolt 計画](iteration_plan-rust-2.md) | - | - | 計画済み |
+| Unit 2 ウォーキングスケルトンとドメイン分離 | [Unit 2 の Bolt 計画](iteration_plan-rust-2.md) | [ふりかえり](retrospective-rust-2.md) | [Bolt 終了報告](bolt_report-rust-2.md) | **完了** |
 
 Unit（イテレーション）開始時に行を追加します。AI-DLC では 1 Unit = 2 Bolt（章 1 本ずつ）とし、Bolt のステップ計画と承認ゲートを各計画に書きます。
 
@@ -82,3 +82,5 @@ AI-DLC ではベロシティの代わりに完了 Unit 数・承認ゲート通�
 - テンプレートは [template/リリース計画.md](../template/リリース計画.md)、[template/イテレーション計画.md](../template/イテレーション計画.md)、[template/イテレーション完了報告書.md](../template/イテレーション完了報告書.md)、[template/リリース完了報告書.md](../template/リリース完了報告書.md) を利用できます。
 * [リリース完了報告書 v1.0.0 - Zettai 連載（なでしこ3 版）](./release_report-nadesiko-1.0.0.md) - Zettai 連載なでしこ3 版 v1.0.0 のリリース完了報告書。全 7 Unit・14 ストーリー・13 章を完了した実績、AI-DLC の指標、承認ゲートが 41 箇所中 1 回しか止まらなかったこと、ADR 11 件と既知の制約 25 件の傾向、Kotlin 版との比較、扱わなかったこと、次の言語への提案を記録する。
 * [リリース計画 - Zettai 連載（Rust 版）](./release_plan-rust.md) - 『From Objects to Functions』を下敷きにした Zettai 連載 Rust 版の AI-DLC 準拠 Level 1 計画。言語が Result と enum を与える側で同じ 13 章を辿るという Intent、7 Unit・14 ストーリーへの分解、依存 DAG、5 軸のエントロピー評価、所有権と async の伝播に対するリスク台帳、2 対象の学びを反映した承認ゲート方針と指標を定義する。
+* [Unit 2 の Bolt 終了報告 - Zettai 連載（Rust 版）](./bolt_report-rust-2.md) - Zettai 連載 Rust 版 Unit 2（ウォーキングスケルトンとドメイン分離）の終了報告。承認ゲートが 2 / 2 で同期停止したこと、境界検査を 1 行も書かずにコンパイラが守ったこと、CI の 2 案を実測して二重管理を検査で押さえたこと、Release v0.1.0 を記録する。
+* [Unit 2 のふりかえり（KPT）- Zettai 連載（Rust 版）](./retrospective-rust-2.md) - Zettai 連載 Rust 版 Unit 2 の KPT ふりかえり。ゲートが 2 / 2 で止まった理由、両方作って測る手が効いたこと、二重管理を検査で押さえたこと、計画の順序の誤りと持ち込みを 2 回送ったことを整理し、Unit 3 で試すことを決める。

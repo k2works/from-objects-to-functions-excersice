@@ -1,6 +1,8 @@
 # Docs Update Log
 
 ## 2026-09-29
+* **Update**: [iteration_plan-rust-2](/development/iteration_plan-rust-2.md) を更新（claude-code/claude-opus-5）
+* **Update**: [release_plan-rust](/development/release_plan-rust.md) を更新（claude-code/claude-opus-5）
 * **Update**: [retrospective-rust-1](/development/retrospective-rust-1.md) を更新（claude-code/claude-opus-5）
 * **Update**: [bolt_report-rust-1](/development/bolt_report-rust-1.md) を更新（claude-code/claude-opus-5）
 * **Update**: [chapter01](/article/zettai/rust/chapter01.md) を更新（claude-code/claude-opus-5）

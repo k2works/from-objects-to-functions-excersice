@@ -75,3 +75,45 @@ fn uberto_adds_an_item_to_his_book_list(actions: &dyn ZettaiActions) {
         actions.route()
     );
 }
+
+// ---------------------------------------------------------------------------
+// 第 11 章のシナリオ。**まだ通らない**（6-2.1 で Red にした）。
+// ---------------------------------------------------------------------------
+
+#[test]
+fn every_route_can_rename_a_list() {
+    for actions in all_routes() {
+        uberto_renames_his_book_list(actions.as_ref());
+        a_bad_rename_returns_every_reason(actions.as_ref());
+    }
+}
+
+fn uberto_renames_his_book_list(actions: &dyn ZettaiActions) {
+    actions
+        .rename("uberto", "book", "reading")
+        .unwrap_or_else(|reasons| panic!("{}: 名前を変えられない: {reasons:?}", actions.route()));
+
+    assert!(
+        actions.items_of("uberto", "reading").is_some(),
+        "{}: 新しい名前で見られる",
+        actions.route()
+    );
+}
+
+/// **両方だめな入力を実物で書く。**
+///
+/// なでしこ3 版は「空でない・40 文字以内」と書いたが、**空文字は 40 文字以内**
+/// なので同時にだめにならず、検証の単位を置き直す手戻りが出た。
+fn a_bad_rename_returns_every_reason(actions: &dyn ZettaiActions) {
+    let too_long = "あ".repeat(41);
+    let reasons = actions
+        .rename("", "book", &too_long)
+        .expect_err("断られる");
+
+    assert_eq!(
+        reasons.len(),
+        2,
+        "{}: 利用者名が空 かつ 新しい名前が 41 文字 → 理由が 2 つ。実際: {reasons:?}",
+        actions.route()
+    );
+}

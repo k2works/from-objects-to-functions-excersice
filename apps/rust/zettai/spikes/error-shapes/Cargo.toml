@@ -1,0 +1,7 @@
+# スパイク: 複数のエラーをどの型で集めるか（Unit 6 / ゲート 2）
+[package]
+name = "error-shapes"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]

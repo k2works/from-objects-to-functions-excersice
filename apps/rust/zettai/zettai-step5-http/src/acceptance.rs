@@ -36,6 +36,11 @@ pub trait ZettaiActions {
     ///
     /// **業務の言葉のまま。** どこに足すか、誰が持つかは経路が決める。
     fn add_item(&self, user: &str, list_name: &str, description: &str);
+
+    /// リストの名前を変える（第 11 章）。
+    ///
+    /// 断られたら**理由をすべて**返す。第 10 章までは 1 つしか返せなかった。
+    fn rename(&self, user: &str, list_name: &str, new_name: &str) -> Result<(), Vec<String>>;
 }
 
 /// 経路 1: ドメインを直接呼ぶ。HTTP を通さない。

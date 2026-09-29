@@ -1,4 +1,4 @@
-//! ドメイン（第 4 章の段階）。**別のクレートにしてある。**
+//! ドメイン（第 4 章からの段階）。**別のクレートにしてある。**
 //!
 //! 第 3 章でインフラから分けた（Unit 2 のゲート 2）。クレートを分けると、
 //! `Cargo.toml` に書いていない相手は**呼ぼうとした時点でコンパイルが止まる**。
@@ -8,6 +8,11 @@
 //! なった。どこから取り出しどこへ保存するかを、ドメインは知らない。
 //!
 //! このクレートは依存を 1 つも持たない。
+
+// **ワイルドカードで網羅の検査を無効にしない。**
+// `_ =>` を 1 つ置くと、枝が足りなくてもコンパイラは止まらなくなる
+// （spikes/match-exhaustiveness/）。
+#![warn(clippy::wildcard_enum_match_arm)]
 
 /// ToDo リストの名前。
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -178,6 +183,72 @@ pub fn fold_events(events: Vec<ToDoListEvent>) -> Transform {
         .fold(identity(), compose)
 }
 
+/// 指示（第 6 章）。**起きたことではなく、起こしたいこと。**
+///
+/// イベントとの違いは時制。コマンドは断られることがあり、
+/// イベントは断られない（もう起きているため）。
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub enum ToDoListCommand {
+    CreateList { list_name: ListName },
+    AddItem { item: ToDoItem },
+}
+
+/// コマンドが断られた理由（第 6 章）。**第 7 章で育つ。**
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub enum Rejected {
+    /// 同じ名前のリストがもうある。
+    ListAlreadyExists,
+    /// リストがまだ無い。
+    ListDoesNotExist,
+}
+
+/// 遷移表の行。
+///
+/// `ToDoList` そのものではなく、**遷移を決めるのに要る分だけ**を持つ。
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum ListState {
+    Missing,
+    Empty,
+    HasItems,
+}
+
+/// 起きたことの並びから、遷移に使う状態を読む。
+pub fn state_of(events: &[ToDoListEvent]) -> ListState {
+    match events.last() {
+        None => ListState::Missing,
+        Some(ToDoListEvent::ListCreated { .. }) => ListState::Empty,
+        Some(ToDoListEvent::ItemAdded { .. }) => ListState::HasItems,
+    }
+}
+
+/// コマンドを実行して、起きたことを返す。断るときは理由を返す。
+///
+/// **遷移表そのもの。** 枝が 1 つでも欠けるとコンパイルが止まる（E0004）。
+/// ただしコンパイラが見るのは**枝が揃っているか**だけで、
+/// **行き先が正しいか**は見ない。だから表のマスを数えてテストする
+/// （なでしこ3 版 Unit 4 と同じ）。
+pub fn execute(
+    events: &[ToDoListEvent],
+    command: ToDoListCommand,
+) -> Result<Vec<ToDoListEvent>, Rejected> {
+    match (state_of(events), command) {
+        (ListState::Missing, ToDoListCommand::CreateList { list_name }) => {
+            Ok(vec![ToDoListEvent::ListCreated { list_name }])
+        }
+        (ListState::Missing, ToDoListCommand::AddItem { .. }) => Err(Rejected::ListDoesNotExist),
+        (ListState::Empty, ToDoListCommand::CreateList { .. }) => Err(Rejected::ListAlreadyExists),
+        (ListState::Empty, ToDoListCommand::AddItem { item }) => {
+            Ok(vec![ToDoListEvent::ItemAdded { item }])
+        }
+        (ListState::HasItems, ToDoListCommand::CreateList { .. }) => {
+            Err(Rejected::ListAlreadyExists)
+        }
+        (ListState::HasItems, ToDoListCommand::AddItem { item }) => {
+            Ok(vec![ToDoListEvent::ItemAdded { item }])
+        }
+    }
+}
+
 /// 空のリスト。畳み込みの出発点。
 pub fn empty_list() -> ToDoList {
     ToDoList {
@@ -263,6 +334,96 @@ mod tests {
         assert_eq!(after.items.len(), 2, "足した分だけ増える");
         assert_eq!(saved.borrow().len(), 1, "保存が 1 回呼ばれる");
         assert_eq!(saved.borrow()[0], after, "保存されたのは足した後のリスト");
+    }
+
+    // -----------------------------------------------------------------
+    // 第 6 章: コマンドがイベントを生む
+    // -----------------------------------------------------------------
+
+    #[test]
+    fn creating_a_list_produces_a_created_event() {
+        let events = execute(
+            &[],
+            ToDoListCommand::CreateList {
+                list_name: ListName::new("book"),
+            },
+        )
+        .expect("無いリストは作れる");
+
+        assert_eq!(
+            events,
+            vec![ToDoListEvent::ListCreated {
+                list_name: ListName::new("book")
+            }]
+        );
+    }
+
+    /// 遷移表の全マス。**状態 3 × コマンド 2 = 6 マス。**
+    ///
+    /// コンパイラが見るのは「枝が揃っているか」だけで、
+    /// **行き先が正しいかは見ない**。だから数える。
+    ///
+    /// なでしこ3 版は 16 マス（状態 4 × コマンド 4）を数えて穴を 1 つ
+    /// 見つけた。こちらは 6 マスで、**表そのものを配列で書く**。
+    #[test]
+    fn every_cell_of_the_table_is_checked() {
+        let book = || ListName::new("book");
+        let item = || ToDoItem::new("write");
+        let created = || ToDoListEvent::ListCreated { list_name: book() };
+        let added = || ToDoListEvent::ItemAdded { item: item() };
+
+        // (これまでに起きたこと, コマンド, 期待する結果)
+        type Cell = (
+            Vec<ToDoListEvent>,
+            ToDoListCommand,
+            Result<Vec<ToDoListEvent>, Rejected>,
+        );
+        let table: Vec<Cell> = vec![
+            // Missing
+            (
+                vec![],
+                ToDoListCommand::CreateList { list_name: book() },
+                Ok(vec![created()]),
+            ),
+            (
+                vec![],
+                ToDoListCommand::AddItem { item: item() },
+                Err(Rejected::ListDoesNotExist),
+            ),
+            // Empty
+            (
+                vec![created()],
+                ToDoListCommand::CreateList { list_name: book() },
+                Err(Rejected::ListAlreadyExists),
+            ),
+            (
+                vec![created()],
+                ToDoListCommand::AddItem { item: item() },
+                Ok(vec![added()]),
+            ),
+            // HasItems
+            (
+                vec![added()],
+                ToDoListCommand::CreateList { list_name: book() },
+                Err(Rejected::ListAlreadyExists),
+            ),
+            (
+                vec![added()],
+                ToDoListCommand::AddItem { item: item() },
+                Ok(vec![added()]),
+            ),
+        ];
+
+        assert_eq!(table.len(), 6, "状態 3 × コマンド 2 のマスが揃っている");
+
+        for (events, command, expected) in table {
+            let state = state_of(&events);
+            assert_eq!(
+                execute(&events, command.clone()),
+                expected,
+                "{state:?} に {command:?} を出したとき"
+            );
+        }
     }
 
     // -----------------------------------------------------------------

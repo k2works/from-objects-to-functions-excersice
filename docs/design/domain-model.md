@@ -4,7 +4,7 @@ title: "ドメインモデル設計 - Zettai"
 description: "Zettai（Kotlin 版）のドメインモデル設計。ユビキタス言語の対訳表、集約・エンティティ・値オブジェクト・列挙型の要素表、イベントと状態の関係、ToDo 項目の状態遷移、状態変換がモノイドであること、章の進行にあわせたモデルの成長を記述する。"
 tags: [design, domain-model, zettai, kotlin]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-29T03:25:36Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-29T04:07:53Z }
 ---
 
 # ドメインモデル設計 - Zettai
@@ -425,6 +425,9 @@ Kotlin 版の型定義がほぼそのまま書けます。違うのは 2 つで�
 | ハブ | `ToDoListHub` | **`struct ToDoListHub<F, S>`**（依存を型引数で持つ） | 4 |
 | イベント | `sealed class ToDoListEvent` | **`enum ToDoListEvent`** | 5 |
 | 状態変換 | `(ToDoListState) -> ToDoListState` | **`type Transform = Box<dyn Fn(ToDoList) -> ToDoList>`** | 5 |
+| コマンド | `sealed class ToDoListCommand` | **`enum ToDoListCommand`** | 6 |
+| 遷移表 | `when` | **`match (state, command)`**（ワイルドカードを書かない） | 6 |
+| 失敗 | `Outcome`（自作） | **`Result<T, ZettaiError>`**（`Result` は言語、`ZettaiError` は自前の `enum`） | 7 |
 | 単位元・合成 | 関数 | `identity()` / `compose(f, g)` | 5 |
 | 畳み込み | `fold` | `fold_events(events)` / `replay(events)` | 5 |
 

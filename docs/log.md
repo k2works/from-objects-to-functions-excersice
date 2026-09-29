@@ -1,6 +1,22 @@
 # Docs Update Log
 
 ## 2026-09-29
+* **Update**: [chapter07](/article/zettai/rust/chapter07.md) を更新（claude-code/claude-opus-5）
+* **Update**: [ADR-031-own-error-enum](/adr/ADR-031-own-error-enum.md) を更新（claude-code/claude-opus-5）
+* **Update**: [iteration_plan-rust-4](/development/iteration_plan-rust-4.md) を更新（claude-code/claude-opus-5）
+* **Update**: [domain-model](/design/domain-model.md) を更新（claude-code/claude-opus-5）
+* **Update**: [draft](/article/draft.md) を更新（claude-code/claude-opus-5）
+* **Update**: [ADR-029-cutting-a-step](/adr/ADR-029-cutting-a-step.md) を更新（claude-code/claude-opus-5）
+* **Update**: [chapter07](/article/zettai/rust/chapter07.md) を更新（claude-code/claude-opus-5）
+* **Update**: [ADR-031-own-error-enum](/adr/ADR-031-own-error-enum.md) を更新（claude-code/claude-opus-5）
+* **Update**: [iteration_plan-rust-4](/development/iteration_plan-rust-4.md) を更新（claude-code/claude-opus-5）
+* **Update**: [domain-model](/design/domain-model.md) を更新（claude-code/claude-opus-5）
+* **Update**: [draft](/article/draft.md) を更新（claude-code/claude-opus-5）
+* **Update**: [ADR-029-cutting-a-step](/adr/ADR-029-cutting-a-step.md) を更新（claude-code/claude-opus-5）
+* **Update**: [chapter07](/article/zettai/rust/chapter07.md) を更新（claude-code/claude-opus-5）
+* **Update**: [ADR-031-own-error-enum](/adr/ADR-031-own-error-enum.md) を更新（claude-code/claude-opus-5）
+* **Update**: [domain-model](/design/domain-model.md) を更新（claude-code/claude-opus-5）
+* **Update**: [draft](/article/draft.md) を更新（claude-code/claude-opus-5）
 * **Update**: [chapter06](/article/zettai/rust/chapter06.md) を更新（claude-code/claude-opus-5）
 * **Update**: [iteration_plan-rust-4](/development/iteration_plan-rust-4.md) を更新（claude-code/claude-opus-5）
 * **Verification**: [iteration_plan-rust-4](/development/iteration_plan-rust-4.md) を human:kakimomokuri が検証

@@ -209,6 +209,7 @@ nav:
               - 第 4 章 ドメインとアダプタのモデリング: article/zettai/rust/chapter04.md
               - 第 5 章 イベントで状態を変更する: article/zettai/rust/chapter05.md
               - 第 6 章 コマンドを実行してイベントを生成する: article/zettai/rust/chapter06.md
+              - 第 7 章 関数型手法によるエラーハンドリング: article/zettai/rust/chapter07.md
   - リファレンス:
       - 概要: reference/index.md
       - よいソフトウェアとは: reference/よいソフトウェアとは.md

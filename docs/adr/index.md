@@ -36,5 +36,6 @@
 | [ADR-028](ADR-028-own-acceptance-trait.md) | 受け入れテストの経路をトレイトで差し替え、cucumber を入れない | 提案 |
 | [ADR-029](ADR-029-cutting-a-step.md) | 段階を切る手順を決める | 提案 |
 | [ADR-030](ADR-030-functional-di-shape.md) | 関数型 DI は impl Fn、並びに入れる変換は Box<dyn Fn> にする | 提案 |
+| [ADR-031](ADR-031-own-error-enum.md) | 失敗を自前の enum で表し、エラー用のクレートを入れない | 提案 |
 
 ADR の作成には `creating-adr` スキルを使用してください。

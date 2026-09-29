@@ -2393,10 +2393,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#6" class="md-nav__link">
+  <a href="#6-unit-1-2026-09-29" class="md-nav__link">
     <span class="md-ellipsis">
       
-        6. スパイクのコードを捨てずに残した
+        6. Unit を閉じたあとに 1 件直した（2026-09-29）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. スパイクのコードを捨てずに残した
       
     </span>
   </a>
@@ -7728,12 +7739,12 @@
 <tr>
 <td style="text-align: left;"><code>just check</code></td>
 <td style="text-align: left;">20 秒以内</td>
-<td style="text-align: left;"><strong>3〜4 秒</strong></td>
+<td style="text-align: left;"><strong>2〜3 秒</strong>（devShell 内）／ <strong>4〜8 秒</strong>（外。再入込み）</td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>just check-all</code></td>
 <td style="text-align: left;">—</td>
-<td style="text-align: left;"><strong>10 秒</strong></td>
+<td style="text-align: left;"><strong>8〜10 秒</strong></td>
 </tr>
 <tr>
 <td style="text-align: left;">テスト</td>
@@ -7837,7 +7848,35 @@
 <p>計画では <code>Makefile</code> でした。作業中に人から「Just にして」と指示があり、変更しました。</p>
 <p><strong>指標「人が修正を入れた箇所数」の 1 件目です。</strong> 変更依頼（ゲートでのやり直し）ではないので、定義どおり分けて数えました。</p>
 <p><code>just --list</code> がタスク一覧になるので、2 対象で <code>Makefile</code> に書いていた <code>grep</code> + <code>awk</code> のヘルパが要らなくなりました。</p>
-<h3 id="6">6. スパイクのコードを捨てずに残した<a class="headerlink" href="#6" title="Permanent link">&para;</a></h3>
+<h3 id="6-unit-1-2026-09-29">6. Unit を閉じたあとに 1 件直した（2026-09-29）<a class="headerlink" href="#6-unit-1-2026-09-29" title="Permanent link">&para;</a></h3>
+<p>IDE から <code>just check</code> を叩いたところ、<strong>devShell の外ではホストの rustc 1.97.1 が使われる</strong>ことが分かりました。devShell は 1.91.1 を固定しています。<code>LLVM_COV</code> も未設定で <code>just cov</code> が落ちます。</p>
+<p><strong>「ローカルでは通ったが CI で落ちる」が起きる形</strong>です。判断と学び 3（<code>just</code> と <code>cargo-llvm-cov</code> がホストにしか無かった）と同じ根で、今度は逆向きでした。あちらは「ホストにしか無い」、こちらは「ホストのほうが使われる」です。</p>
+<p>2 対象がこの問題を持たないのは、<strong>道具をリポジトリに取り込んでいる</strong>からでした。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">対象</th>
+<th style="text-align: left;">道具の在り処</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Kotlin</td>
+<td style="text-align: left;"><code>./gradlew</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">なでしこ3</td>
+<td style="text-align: left;"><code>./node_modules/.bin/cnako3</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Rust</strong></td>
+<td style="text-align: left;"><strong>PATH</strong>（rustc も <code>cargo-llvm-cov</code> も取り込めない）</td>
+</tr>
+</tbody>
+</table>
+<p><code>justfile</code> が <code>IN_NIX_SHELL</code> を見て <code>nix develop</code> に入り直す形にしました（<a href="../../adr/ADR-026-just-and-coverage/">ADR-026</a> に追記）。<strong>再入は 1 回だけで、外から叩いても 4〜8 秒</strong>です。<code>check</code> を依存指定から 1 行に変えたのはこのためです。</p>
+<p><strong>指標「人が修正を入れた箇所数」の 2 件目</strong>にはしません。人の指摘ではなく、IDE の実行で見つかった実装の欠陥だからです。</p>
+<h3 id="7">7. スパイクのコードを捨てずに残した<a class="headerlink" href="#7" title="Permanent link">&para;</a></h3>
 <p>計画に「書いた 3 つは捨てずにスパイクの記録として残す」と書いていました。<code>apps/rust/zettai/spikes/</code> に置き、<strong>workspace の <code>exclude</code> に入れて検査の対象外</strong>にしています。</p>
 <p>理由は 2 つです。<code>sync-postgres</code> は DB が要り、HTTP の 3 つは同じポートを使うので並列に走らせられません。</p>
 <p><strong>記事検査（<code>check_article_code.py</code>）はこれを見ます。</strong> 第 1 章がスパイクのコードを引用できるのは、実物がここにあるからです。</p>
@@ -7875,6 +7914,11 @@
 <td style="text-align: left;">5</td>
 <td style="text-align: left;">ゲートの箇所数の調整</td>
 <td style="text-align: left;"><strong>3 / 3 で停止したので減らさない。</strong> Unit 2 は計画どおり 2 箇所</td>
+</tr>
+<tr>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;"><strong>CI に Nix を入れるかを決める</strong></td>
+<td style="text-align: left;"><code>justfile</code> が <code>nix develop</code> に入り直すので、<strong>runner に Nix が無いと落ちる</strong>。Nix を入れるか、CI では外側で <code>nix develop</code> を回すかを決める</td>
 </tr>
 </tbody>
 </table>

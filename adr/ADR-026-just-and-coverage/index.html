@@ -7553,7 +7553,38 @@
 <p>なでしこ3 版の <a href="../ADR-015-step-directories/">ADR-015</a> と同じ考え方です。<strong>速さが要るのは書いている間で、全部は CI の仕事</strong>です。</p>
 <h3 id="3-cargo-llvm-cov-80">3. カバレッジは <code>cargo-llvm-cov</code>、下限はドメイン層 80%<a class="headerlink" href="#3-cargo-llvm-cov-80" title="Permanent link">&para;</a></h3>
 <p>Kotlin 版の kover と同じ下限にします。<code>justfile</code> の変数 <code>cov_min</code> に置き、<code>--fail-under-lines</code> で落とします。</p>
-<h3 id="4-devshell-just-cargo-llvm-cov">4. devShell に <code>just</code> と <code>cargo-llvm-cov</code> を足す<a class="headerlink" href="#4-devshell-just-cargo-llvm-cov" title="Permanent link">&para;</a></h3>
+<h3 id="4-devshell-2026-09-29">4. devShell の外から呼ばれたら入り直す（2026-09-29 追記）<a class="headerlink" href="#4-devshell-2026-09-29" title="Permanent link">&para;</a></h3>
+<p><strong>IDE から <code>just check</code> を叩いて気づきました。</strong> この版の道具は devShell から来るので、外から叩くとホストの道具が使われます。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">項目</th>
+<th style="text-align: left;">devShell 内</th>
+<th style="text-align: left;">ホスト</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">rustc</td>
+<td style="text-align: left;">1.91.1</td>
+<td style="text-align: left;"><strong>1.97.1</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>cargo-llvm-cov</code></td>
+<td style="text-align: left;">0.6.20</td>
+<td style="text-align: left;">0.8.7</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>LLVM_COV</code> / <code>LLVM_PROFDATA</code></td>
+<td style="text-align: left;">設定済み</td>
+<td style="text-align: left;"><strong>未設定 → <code>cov</code> が落ちる</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>別のコンパイラで通って CI で落ちます。</strong> 2 対象は道具をリポジトリに取り込んでいる（<code>./gradlew</code>・<code>./node_modules/.bin/cnako3</code>）ので起きませんが、rustc は取り込めません。</p>
+<p><code>justfile</code> が <code>IN_NIX_SHELL</code> を見て、外なら <code>nix develop</code> に入り直します。中にいれば何も挟みません。</p>
+<p>再入は 1 回だけにしました。<code>check</code> を依存指定から 1 行に変えたのはこのためです（依存のままだと <code>fmt</code>・<code>lint</code>・<code>test</code> がそれぞれ入り直して 3 回になる）。<strong>外から叩いても 3〜4 秒のままです。</strong></p>
+<h3 id="5-devshell-just-cargo-llvm-cov">5. devShell に <code>just</code> と <code>cargo-llvm-cov</code> を足す<a class="headerlink" href="#5-devshell-just-cargo-llvm-cov" title="Permanent link">&para;</a></h3>
 <p>どちらもホストの <code>~/.cargo/bin</code> に入っていましたが、<strong>CI には来ません</strong>。<code>ops/nix/environments/rust/shell.nix</code> に足しました。</p>
 <p><strong><code>cargo-llvm-cov</code> は rustup の <code>llvm-tools-preview</code> を探しに行きますが、Nix にはありません。</strong> rustc の LLVM 版（21.1.7）と <code>llvmPackages.bintools</code> の LLVM 版が一致していたので、<code>LLVM_COV</code> と <code>LLVM_PROFDATA</code> を <code>shellHook</code> で指すようにしました。</p>
 <h3 id="_4">検討した代替案<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
@@ -7613,7 +7644,15 @@
 </tr>
 <tr>
 <td style="text-align: left;"><strong><code>just</code> のバージョン差</strong></td>
-<td style="text-align: left;">devShell の 1.45.0 に固定されます。ホストに別の版があっても devShell が優先されます</td>
+<td style="text-align: left;">devShell の 1.45.0 に固定されます。ホストに別の版があっても devShell が優先されます。ただし <strong><code>justfile</code> を最初に解析するのはホストの <code>just</code></strong> です（1.43.0 で確認）。<code>env()</code> と <code>/</code> 演算子はどちらの版にもあります</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Nix が無い環境</strong></td>
+<td style="text-align: left;">再入が失敗します。<strong>CI に Nix を入れるか、外側で <code>nix develop</code> を回すかを Unit 2 で決めます</strong>（<code>.github/workflows/rust-zettai.yml</code> は未作成）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>IDE 側の <code>PATH</code> の引用</strong></td>
+<td style="text-align: left;">IntelliJ が <code>PATH</code> を引用せずに渡して <code>export</code> が壊れることがあります。リポジトリからは直せません。<strong>実行構成の環境変数から <code>PATH</code> の上書きを外すのが対処</strong>で、この <code>justfile</code> は PATH に依存しないので上書きする理由がありません</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong>段が増えたときの時間</strong></td>

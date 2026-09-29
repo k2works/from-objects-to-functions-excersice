@@ -7746,10 +7746,17 @@
 <td style="text-align: left;">作業中に Make → Just の指示を受けて変更した</td>
 <td style="text-align: left;">計画で <code>Makefile</code> を前提にしていた。<strong>「何で書くか」も判断だったのに、判断として扱っていなかった</strong></td>
 </tr>
+<tr>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;"><strong>devShell の外から叩くと別の rustc で動いた</strong>（Unit を閉じたあとに発覚）</td>
+<td style="text-align: left;">IDE から <code>just check</code> を叩いて判明。ホスト 1.97.1 対 devShell 1.91.1</td>
+<td style="text-align: left;"><strong>「どこから叩かれるか」を考えていなかった。</strong> Problem 2 と同じ根で、向きが逆だった</td>
+</tr>
 </tbody>
 </table>
 <p>Problem 1 と 2 は、どちらも「<strong>確かめずに進んだ</strong>」種類です。</p>
 <p>Problem 5 は計画の抜けです。async と HTTP クレートは判断として扱ったのに、タスクランナーは 2 対象の踏襲として素通ししていました。</p>
+<p>Problem 6 は Unit を閉じたあとに出ました。<strong>Problem 2 で「ホストにしか無い」を直したとき、「ホストのほうが使われる」という逆向きを見ていませんでした。</strong> どちらも「道具がどこから来るか」を確かめていなかったことが原因です。</p>
 <hr />
 <h2 id="try">Try（次に試すこと）<a class="headerlink" href="#try" title="Permanent link">&para;</a></h2>
 <table>
@@ -7770,8 +7777,8 @@
 </tr>
 <tr>
 <td style="text-align: left;">2</td>
-<td style="text-align: left;"><strong>外部のコマンドを使う前に <code>which</code> で出どころを確かめる</strong>（Problem 2）</td>
-<td style="text-align: left;">devShell から来ているか、ホストから来ているかを見る。ホストなら <code>shell.nix</code> に足す</td>
+<td style="text-align: left;"><strong>外部のコマンドを使う前に <code>which</code> で出どころを確かめる</strong>（Problem 2・6）</td>
+<td style="text-align: left;">devShell から来ているか、ホストから来ているかを<strong>両方向</strong>で見る。「devShell に無い」だけでなく「<strong>外から叩いたらどちらが使われるか</strong>」も確かめる</td>
 <td style="text-align: left;">Unit 2 で CI を作るとき</td>
 </tr>
 <tr>

@@ -5458,6 +5458,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#4-devshell" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        つまずき 4: devShell の外から叩くと別の言語で動く
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#2-just-cargo-llvm-cov-ci" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -7971,15 +7982,80 @@ just check
 </table>
 <p><strong>4 段とも守るものが違うので、4 段とも入れました。</strong> タスクランナーは Just です。</p>
 <div class="highlight"><pre><span></span><code># 書いている間はこれ
-check: fmt lint test
+check:
+    {{run}} just fmt lint test
 
 # リリース前と CI はこれ（カバレッジを含む）
-check-all: fmt lint test cov
+check-all:
+    {{run}} just fmt lint test cov
 </code></pre></div>
 <p>2 段構えにしたのもなでしこ3 版の学びです。<strong>速さが要るのは書いている間で、全部は CI の仕事</strong>です。</p>
-<div class="highlight"><pre><span></span><code>just<span class="w"> </span>check<span class="w">      </span><span class="m">2</span>〜3<span class="w"> </span>秒（冷えた状態<span class="w"> </span><span class="m">5</span><span class="w"> </span>秒）
-just<span class="w"> </span>check-all<span class="w">  </span><span class="m">5</span>〜8<span class="w"> </span>秒（冷えた状態<span class="w"> </span><span class="m">11</span><span class="w"> </span>秒）
+<div class="highlight"><pre><span></span><code>just<span class="w"> </span>check<span class="w">      </span><span class="m">2</span>〜4<span class="w"> </span>秒
+just<span class="w"> </span>check-all<span class="w">  </span><span class="m">8</span><span class="w"> </span>秒
 </code></pre></div>
+<h3 id="4-devshell">つまずき 4: devShell の外から叩くと別の言語で動く<a class="headerlink" href="#4-devshell" title="Permanent link">&para;</a></h3>
+<p>行頭の <code>{{run}}</code> は後から足したものです。<strong>IDE から <code>just check</code> を叩いて気づきました。</strong></p>
+<p>この版の道具は Nix の devShell から来ます。外から叩くと、そこにあるのはホストの道具です。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">項目</th>
+<th style="text-align: left;">devShell 内</th>
+<th style="text-align: left;">ホスト</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">rustc</td>
+<td style="text-align: left;"><strong>1.91.1</strong></td>
+<td style="text-align: left;"><strong>1.97.1</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>cargo-llvm-cov</code></td>
+<td style="text-align: left;">0.6.20</td>
+<td style="text-align: left;">0.8.7</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>LLVM_COV</code> / <code>LLVM_PROFDATA</code></td>
+<td style="text-align: left;">設定済み</td>
+<td style="text-align: left;"><strong>未設定 → <code>cov</code> が落ちる</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>別のコンパイラで通って、CI で落ちます。</strong> つまずき 2 と同じ形が、今度は逆向きに出ました。あちらは「ホストにしか無い」、こちらは「ホストのほうが使われる」です。</p>
+<p>2 対象はこの問題を持ちません。<strong>道具をプロジェクトの中に取り込んでいるから</strong>です。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">対象</th>
+<th style="text-align: left;">道具の在り処</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Kotlin</td>
+<td style="text-align: left;"><code>./gradlew</code>（リポジトリの中）</td>
+</tr>
+<tr>
+<td style="text-align: left;">なでしこ3</td>
+<td style="text-align: left;"><code>./node_modules/.bin/cnako3</code>（リポジトリの中）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Rust</strong></td>
+<td style="text-align: left;"><strong>PATH</strong>（rustc も <code>cargo-llvm-cov</code> も取り込めない）</td>
+</tr>
+</tbody>
+</table>
+<p>rustc をリポジトリに置くわけにはいきません。そこで<strong>環境ごと入り直します。</strong></p>
+<div class="highlight"><pre><span></span><code>repo  := justfile_directory() / '../../..'
+shell := 'nix develop ' + repo + '#rust --command'
+run   := if env('IN_NIX_SHELL', '') == '' { shell } else { '' }
+</code></pre></div>
+<p><code>IN_NIX_SHELL</code> は Nix が立てる変数です。<strong>中にいれば <code>run</code> は空になり、何も挟まりません。</strong> 外から叩いたときだけ <code>nix develop</code> が前に付きます。</p>
+<p><code>check</code> を依存指定（<code>check: fmt lint test</code>）から 1 行に変えたのはこのためです。依存のままだと <code>fmt</code>・<code>lint</code>・<code>test</code> がそれぞれ入り直して 3 回になります。</p>
+<div class="highlight"><pre><span></span><code># 依存指定ではなく 1 行で子レシピを呼ぶ。こうすると再入が 1 回で済む
+</code></pre></div>
+<p>外から叩いても 3〜4 秒のままでした。<strong><code>nix develop</code> の 2 回目以降は 1.5 秒で、ビルドのキャッシュが効いているぶんと相殺されます。</strong></p>
 <h3 id="2-just-cargo-llvm-cov-ci">つまずき 2: <code>just</code> も <code>cargo-llvm-cov</code> も CI には来ない<a class="headerlink" href="#2-just-cargo-llvm-cov-ci" title="Permanent link">&para;</a></h3>
 <p>どちらもローカルでは動きました。<strong>ホストの <code>~/.cargo/bin</code> に入っていたからです。</strong></p>
 <div class="highlight"><pre><span></span><code>/Users/k2works/.cargo/bin/just

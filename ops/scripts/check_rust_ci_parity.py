@@ -5,6 +5,10 @@ Unit 2 のゲート 1 で「CI は just を通さず cargo を直接呼ぶ」と
 速いが（525 秒 → 17 秒）、**検査の定義が 2 か所に分かれる**。
 段を足したときの直し忘れを、人の注意ではなく検査で止める。
 
+**Unit 7 でジョブの setup も見るようにした。** Unit 6 で `cov` を別ジョブへ
+移したとき、`cargo-llvm-cov` のインストールを移し忘れて CI が落ちた。
+コマンドの一致だけを見ていたので止められなかった。
+
 使い方:
     python ops/scripts/check_rust_ci_parity.py
 """
@@ -31,6 +35,35 @@ ASSIGN = re.compile(r'^([a-z_]+) := "([^"]*)"$', re.M)
 RECIPE = re.compile(r"^([a-z-]+):\n(?:\s+#.*\n)*\s+\{\{run\}\} (cargo .+)$", re.M)
 # workflow の run:（working-directory は defaults で効く）
 WORKFLOW_RUN = re.compile(r"^\s+run: (cargo .+)$", re.M)
+
+# ジョブごとの塊（`  <name>:` で始まり、次の同じ深さまで）
+JOB = re.compile(r"^  ([a-z0-9-]+):\n(.*?)(?=^  [a-z0-9-]+:\n|\Z)", re.M | re.S)
+
+# cargo のサブコマンドが要る道具。
+#
+# **Unit 6 でここが抜けて CI が落ちた。** `cargo llvm-cov` を動かすジョブに
+# `cargo-llvm-cov` のインストールが無くても、コマンドの一致だけを見る検査は
+# 止められなかった。
+NEEDS = {
+    "cargo llvm-cov": ["taiki-e/install-action@cargo-llvm-cov", "llvm-tools"],
+    "cargo fmt": ["rustfmt"],
+    "cargo clippy": ["clippy"],
+}
+
+
+def check_job_setup(flow: str) -> list[str]:
+    """各ジョブが、自分の走らせる cargo コマンドに要る道具を持っているか。"""
+    problems: list[str] = []
+    for name, body in JOB.findall(flow):
+        for command, tools in NEEDS.items():
+            if f"run: {command}" not in body:
+                continue
+            for tool in tools:
+                if tool not in body:
+                    problems.append(
+                        f"ジョブ `{name}` が `{command}` を走らせるのに `{tool}` が無い"
+                    )
+    return problems
 
 
 def main() -> int:
@@ -61,8 +94,18 @@ def main() -> int:
 
     actual = [c.strip() for c in WORKFLOW_RUN.findall(flow)]
 
+    setup_problems = check_job_setup(flow)
+    if setup_problems:
+        print("NG ジョブに要る道具が足りない")
+        for problem in setup_problems:
+            print(f"   {problem}")
+        print()
+        print("コマンドをジョブ間で動かしたら、道具も動かす（Unit 6 で踏んだ）。")
+        return 1
+
     if expected == actual:
         print(f"OK justfile の check-all と CI が一致（{len(expected)} 段）")
+        print("   ジョブの setup も一致")
         for cmd in expected:
             print(f"   {cmd}")
         return 0

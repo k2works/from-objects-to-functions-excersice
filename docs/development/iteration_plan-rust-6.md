@@ -3,8 +3,10 @@ type: Bolt Plan
 title: "Unit 6 の Bolt 計画（イテレーション 6）- Zettai 連載（Rust 版）"
 description: "Zettai 連載 Rust 版の Unit 6（境界とバリデーション）の Bolt 計画。トランザクションの境界をライフタイムのもとで表し、複数のエラーを集める型とテンプレート機構を作る。文脈の形・エラーを集める型・テンプレートの既製品の 3 つを承認ゲートに置く。"
 tags: [development, plan, ai-dlc, bolt, zettai, rust, unit-6]
-status: draft
+status: stable
 generated: { by: claude-code/claude-opus-5, at: 2026-09-29T06:24:45Z }
+verified:
+  - { by: human:kakimomokuri, at: 2026-09-29T06:26:15Z }
 ---
 
 # Unit 6 の Bolt 計画（イテレーション 6）- Zettai 連載（Rust 版）

@@ -45,6 +45,7 @@
 | Unit 2 ウォーキングスケルトンとドメイン分離 | [Unit 2 の Bolt 計画](iteration_plan-rust-2.md) | [ふりかえり](retrospective-rust-2.md) | [Bolt 終了報告](bolt_report-rust-2.md) | **完了** |
 | Unit 3 所有権のもとでの DI とイベント | [Unit 3 の Bolt 計画](iteration_plan-rust-3.md) | [ふりかえり](retrospective-rust-3.md) | [Bolt 終了報告](bolt_report-rust-3.md) | **完了** |
 | Unit 4 enum と Result | [Unit 4 の Bolt 計画](iteration_plan-rust-4.md) | [ふりかえり](retrospective-rust-4.md) | [Bolt 終了報告](bolt_report-rust-4.md) | **完了** |
+| Unit 5 射影と永続化 | [Unit 5 の Bolt 計画](iteration_plan-rust-5.md) | - | - | 計画済み |
 
 Unit（イテレーション）開始時に行を追加します。AI-DLC では 1 Unit = 2 Bolt（章 1 本ずつ）とし、Bolt のステップ計画と承認ゲートを各計画に書きます。
 

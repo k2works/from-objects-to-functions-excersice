@@ -95,6 +95,29 @@ impl ZettaiActions for DomainOnly {
             self.route()
         );
     }
+
+    /// 経路 1 は**検証だけ**を通す。HTTP のパスを知らない。
+    fn rename(&self, user: &str, list_name: &str, new_name: &str) -> Result<(), Vec<String>> {
+        let (_user, name) =
+            zettai_step5_domain::validation::valid_rename(user, new_name).map_err(|reasons| {
+                reasons
+                    .iter()
+                    .map(crate::http::describe)
+                    .collect::<Vec<_>>()
+            })?;
+        let list = self
+            .store
+            .fetch(&User::new(user), &ListName::new(list_name))
+            .map_err(|e| vec![crate::http::describe(&e)])?;
+        self.store.save(
+            &User::new(user),
+            &ToDoList {
+                list_name: name,
+                items: list.items,
+            },
+        );
+        Ok(())
+    }
 }
 
 /// 経路 2: HTTP のハンドラを通す。
@@ -143,6 +166,55 @@ impl ZettaiActions for ThroughHttp {
             &format!("description={}", description.replace(' ', "+")),
         );
     }
+
+    /// 経路 2 は**パスを通る**。`/rename` の判定がここで効く。
+    fn rename(&self, user: &str, list_name: &str, new_name: &str) -> Result<(), Vec<String>> {
+        let reply = handle(
+            &self.hub(),
+            "POST",
+            &format!("/todo/{user}/{list_name}/rename"),
+            &format!("newname={}", encode(new_name)),
+        );
+        if reply.status == 302 {
+            // 302 の行き先にリストを移す（この経路は保管を持たないので写す）
+            let list = self
+                .store
+                .fetch(&User::new(user), &ListName::new(list_name))
+                .map_err(|e| vec![crate::http::describe(&e)])?;
+            self.store.save(
+                &User::new(user),
+                &ToDoList {
+                    list_name: ListName::new(new_name),
+                    items: list.items,
+                },
+            );
+            return Ok(());
+        }
+        // 400 の本文から理由を拾う
+        Err(reasons_in(&reply.body))
+    }
+}
+
+/// フォームに載せる形にする。**空白は `+`、それ以外は `%XX`。**
+fn encode(text: &str) -> String {
+    text.bytes()
+        .map(|b| match b {
+            b' ' => "+".to_string(),
+            b'A'..=b'Z' | b'a'..=b'z' | b'0'..=b'9' | b'-' | b'_' | b'.' | b'~' => {
+                (b as char).to_string()
+            }
+            _ => format!("%{b:02X}"),
+        })
+        .collect()
+}
+
+/// 画面から理由を拾う。
+fn reasons_in(html: &str) -> Vec<String> {
+    html.split(r#"<p class="error">"#)
+        .skip(1)
+        .filter_map(|part| part.split("</p>").next())
+        .map(str::to_string)
+        .collect()
 }
 
 /// ToDo リストから説明だけを取り出す。
@@ -232,6 +304,40 @@ impl ZettaiActions for ThroughStore {
             "{}: 項目を足せなかった: {outcome:?}",
             self.route()
         );
+    }
+
+    /// 経路 3 は**保管を通る**。検証を通ったら、起きたことを積み直す。
+    fn rename(&self, user: &str, list_name: &str, new_name: &str) -> Result<(), Vec<String>> {
+        let (_user, name) =
+            zettai_step5_domain::validation::valid_rename(user, new_name).map_err(|reasons| {
+                reasons
+                    .iter()
+                    .map(crate::http::describe)
+                    .collect::<Vec<_>>()
+            })?;
+
+        let list = zettai_step5_domain::store::load(
+            &self.store,
+            &User::new(user),
+            &ListName::new(list_name),
+        )
+        .map_err(|e| vec![crate::http::describe(&e)])?;
+
+        // 新しい名前で作り直す。**起きたことは消さない。**
+        let mut events = vec![zettai_step5_domain::ToDoListEvent::ListCreated {
+            list_name: name.clone(),
+        }];
+        for item in list.items {
+            events.push(zettai_step5_domain::ToDoListEvent::ItemAdded { item });
+        }
+        zettai_step5_domain::store::EventStore::append(
+            &self.store,
+            &User::new(user),
+            &name,
+            &events,
+        )
+        .map_err(|e| vec![crate::http::describe(&e)])?;
+        Ok(())
     }
 }
 

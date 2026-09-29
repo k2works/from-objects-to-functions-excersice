@@ -16,7 +16,7 @@ use zettai_step5_domain::{ListName, ToDoItem, ToDoList, ToDoListEvent, User, Zet
 ///
 /// **`postgres::Error` の `Display` は `"db error"` としか出さない。**
 /// 本当の理由は `source()` の先にある（スパイクで踏んだ）。
-fn detail_of(e: &(dyn std::error::Error + 'static)) -> String {
+pub fn detail_of(e: &(dyn std::error::Error + 'static)) -> String {
     let mut parts = vec![e.to_string()];
     let mut cause = e.source();
     while let Some(c) = cause {

@@ -59,8 +59,6 @@ jobs:
         run: cargo clippy --all-targets --all-features -- -D warnings
       - name: test
         run: cargo test --all
-      - name: coverage
-        run: cargo llvm-cov --all --ignore-filename-regex 'src/bin/' --fail-under-lines 90
 
   # 検査の定義が 2 か所に分かれた代償を、人の注意ではなく検査で押さえる。
   parity:
@@ -105,3 +103,5 @@ jobs:
           toolchain: 1.91.1
       - name: test-db
         run: cargo test -p zettai-step5-http --features db --test persistence
+      - name: coverage
+        run: cargo llvm-cov --all --all-features --ignore-filename-regex 'src/bin/' --fail-under-lines 90

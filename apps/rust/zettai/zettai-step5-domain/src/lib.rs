@@ -20,6 +20,9 @@ pub mod projection;
 /// 永続化のポート（第 9 章）。**契約だけ。実体はインフラ側。**
 pub mod store;
 
+/// 検証（第 11 章）。**理由を溜める型はここに置く。**
+pub mod validation;
+
 /// ToDo リストの名前。
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct ListName(pub String);
@@ -250,6 +253,14 @@ pub enum ZettaiError {
     ListNotFound { user: User, list_name: ListName },
     /// 説明が空。
     EmptyDescription,
+    /// 利用者名が空（第 11 章）。
+    EmptyUserName,
+    /// リスト名が空（第 11 章）。
+    EmptyListName,
+    /// リスト名が長すぎる（第 11 章）。
+    ListNameTooLong { limit: usize },
+    /// リスト名に記号が入っている（第 11 章）。
+    ListNameHasMarkup,
     /// 保管とやりとりできなかった（第 9 章）。
     ///
     /// **外のクレートの型を持たない。** 持つとドメインが `postgres` に

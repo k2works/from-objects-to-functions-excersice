@@ -70,7 +70,7 @@ check:
 # **CI では check-all を 1 本で回さない。** cov までを `check` ジョブ、
 # DB を `db` ジョブに分けて並走させる（Unit 5 のゲート 1）。
 check-all:
-    {{run}} just fmt lint test cov test-db
+    {{run}} just fmt lint test test-db cov
 
 # 保管との往復。**docker が要る**（`docker compose up -d zettai-db`）。
 test-db:
@@ -96,8 +96,13 @@ test:
     {{run}} cargo test --all
 
 # カバレッジを測り、下限を下回ったら落とす
+# **DB を使うテストも数える。** docker が要る。
+#
+# 第 11 章で段階が 5 つになり、db フィーチャの裏のコードが
+# 未到達として積み上がって 89.67% まで落ちた。フィーチャを有効にすると
+# 94.68%。**段階を切るたびに同じことが起きる**ので、数える側を直した。
 cov:
-    {{run}} cargo llvm-cov --all --ignore-filename-regex '{{cov_skip}}' --fail-under-lines {{cov_min}}
+    {{run}} cargo llvm-cov --all --all-features --ignore-filename-regex '{{cov_skip}}' --fail-under-lines {{cov_min}}
 
 # カバレッジの内訳を見る
 cov-report:

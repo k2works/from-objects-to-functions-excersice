@@ -10,6 +10,9 @@ zettai-step5-domain = { path = "../zettai-step5-domain" }
 tiny_http = "0.12.0"
 # 第 9 章。**同期のクレート**（ADR-024）。
 postgres = "0.19.14"
+# 第 11 章。**未適用のタグを既定で Err にする**（ADR-036）。
+# 2 対象は自作したが、Rust では既製品が要求を満たしていた。
+tera = "2.4.0"
 
 # DB を使うテストは既定で走らせない。**別ジョブに分ける**（Unit 5 のゲート 1）。
 # 書いている間は docker 無しで `just check` が通る。

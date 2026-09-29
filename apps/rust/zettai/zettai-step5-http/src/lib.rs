@@ -9,6 +9,7 @@ pub mod bowling_oo;
 pub mod event_store;
 pub mod http;
 pub mod store;
+pub mod template;
 
 // ドメインは別クレート。ここからは再輸出するだけで、実装は持たない。
 pub use zettai_step5_domain::{fetch_list, ListName, ToDoItem, ToDoList, User};

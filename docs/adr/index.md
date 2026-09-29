@@ -40,5 +40,7 @@
 | [ADR-032](ADR-032-postgres-event-store.md) | イベントを 1 テーブルに追記し、外のエラーを境界で包む | 提案 |
 | [ADR-033](ADR-033-db-check-as-separate-job.md) | DB を使う検査を別ジョブに分ける | 提案 |
 | [ADR-034](ADR-034-transaction-as-scope.md) | トランザクションの境界を区間として貸す | 提案 |
+| [ADR-035](ADR-035-validated-applicative.md) | 複数の理由を集める型を別に作る | 提案 |
+| [ADR-036](ADR-036-tera.md) | テンプレートに tera を入れる | 提案 |
 
 ADR の作成には `creating-adr` スキルを使用してください。

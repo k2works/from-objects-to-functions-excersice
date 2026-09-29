@@ -1,6 +1,15 @@
 # Docs Update Log
 
 ## 2026-09-29
+* **Update**: [chapter11](/article/zettai/rust/chapter11.md) を更新（claude-code/claude-opus-5）
+* **Update**: [ADR-036-tera](/adr/ADR-036-tera.md) を更新（claude-code/claude-opus-5）
+* **Update**: [ADR-035-validated-applicative](/adr/ADR-035-validated-applicative.md) を更新（claude-code/claude-opus-5）
+* **Update**: [iteration_plan-rust-6](/development/iteration_plan-rust-6.md) を更新（claude-code/claude-opus-5）
+* **Update**: [ui_design](/design/ui_design.md) を更新（claude-code/claude-opus-5）
+* **Update**: [chapter11](/article/zettai/rust/chapter11.md) を更新（claude-code/claude-opus-5）
+* **Update**: [ADR-036-tera](/adr/ADR-036-tera.md) を更新（claude-code/claude-opus-5）
+* **Update**: [ADR-035-validated-applicative](/adr/ADR-035-validated-applicative.md) を更新（claude-code/claude-opus-5）
+* **Update**: [ui_design](/design/ui_design.md) を更新（claude-code/claude-opus-5）
 * **Update**: [chapter10](/article/zettai/rust/chapter10.md) を更新（claude-code/claude-opus-5）
 * **Update**: [ADR-034-transaction-as-scope](/adr/ADR-034-transaction-as-scope.md) を更新（claude-code/claude-opus-5）
 * **Update**: [iteration_plan-rust-6](/development/iteration_plan-rust-6.md) を更新（claude-code/claude-opus-5）

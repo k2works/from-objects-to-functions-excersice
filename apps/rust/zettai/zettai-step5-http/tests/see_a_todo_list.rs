@@ -102,18 +102,21 @@ fn uberto_renames_his_book_list(actions: &dyn ZettaiActions) {
 
 /// **両方だめな入力を実物で書く。**
 ///
-/// なでしこ3 版は「空でない・40 文字以内」と書いたが、**空文字は 40 文字以内**
-/// なので同時にだめにならず、検証の単位を置き直す手戻りが出た。
+/// 計画には「利用者名が空 かつ 新しい名前が 41 文字」と書いたが、
+/// **利用者名はパスから来るので HTTP 経路では空にできなかった**
+/// （`/todo//book/rename` は空の部分が落ちて 3 要素になる）。
+/// **1 つの値に複数の規則をかける形に置き直した。**
 fn a_bad_rename_returns_every_reason(actions: &dyn ZettaiActions) {
-    let too_long = "あ".repeat(41);
+    // 48 文字 かつ 記号を含む
+    let bad = "<script>".repeat(6);
     let reasons = actions
-        .rename("", "book", &too_long)
+        .rename("uberto", "book", &bad)
         .expect_err("断られる");
 
     assert_eq!(
         reasons.len(),
         2,
-        "{}: 利用者名が空 かつ 新しい名前が 41 文字 → 理由が 2 つ。実際: {reasons:?}",
+        "{}: 40 文字を超え かつ 記号を含む → 理由が 2 つ。実際: {reasons:?}",
         actions.route()
     );
 }

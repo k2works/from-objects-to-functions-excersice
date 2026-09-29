@@ -61,3 +61,15 @@ dependencies = [
  "tiny_http",
  "zettai-step2-domain",
 ]
+
+[[package]]
+name = "zettai-step3-domain"
+version = "0.1.0"
+
+[[package]]
+name = "zettai-step3-http"
+version = "0.1.0"
+dependencies = [
+ "tiny_http",
+ "zettai-step3-domain",
+]

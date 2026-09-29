@@ -83,10 +83,10 @@ just check
 ```toml
 [workspace]
 resolver = "2"
-members = ["zettai-step1-domain", "zettai-step1-http", "zettai-step2-domain", "zettai-step2-http"]
+members = ["zettai-step1-domain", "zettai-step1-http", "zettai-step2-domain", "zettai-step2-http", "zettai-step3-domain", "zettai-step3-http"]
 ```
 
-> 第 1 章の時点ではメンバーは 1 つでした。第 3 章でドメインを切り出して 2 つになり、第 4 章で 2 つめの段階が加わって 4 つになっています（[ADR-027](../../../adr/ADR-027-crate-boundary.md)・[ADR-029](../../../adr/ADR-029-cutting-a-step.md)）。**同じ段階の中でコードが育つ**ので、記事は最終形を載せています（[ADR-015](../../../adr/ADR-015-step-directories.md)）。
+> 第 1 章の時点ではメンバーは 1 つでした。第 3 章でドメインを切り出して 2 つになり、第 4 章で 2 つめ、第 7 章で 3 つめの段階が加わって 6 つになっています（[ADR-027](../../../adr/ADR-027-crate-boundary.md)・[ADR-029](../../../adr/ADR-029-cutting-a-step.md)）。**同じ段階の中でコードが育つ**ので、記事は最終形を載せています（[ADR-015](../../../adr/ADR-015-step-directories.md)）。
 
 ### 判断 1: async を採るか
 

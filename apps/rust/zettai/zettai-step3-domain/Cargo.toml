@@ -1,0 +1,8 @@
+[package]
+name = "zettai-step3-domain"
+edition.workspace = true
+version.workspace = true
+
+# **依存を持たない。** ここに何かを足すときは、それがドメインの言葉か
+# どうかを疑う。HTTP も永続化もここには来ない（Unit 2 のゲート 2）。
+[dependencies]

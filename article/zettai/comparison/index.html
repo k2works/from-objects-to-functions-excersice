@@ -4925,10 +4925,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_15" class="md-nav__link">
+  <a href="#rust" class="md-nav__link">
     <span class="md-ellipsis">
       
-        これから増える比較
+        Rust 版で増える比較
       
     </span>
   </a>
@@ -5582,6 +5582,76 @@
     
   
     第 1 章 新しいアプリケーションを準備する
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rust/chapter02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 2 章 関数を使って HTTP を扱う
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rust/chapter03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 3 章 ドメインの定義とテスト
   
 
     
@@ -7809,12 +7879,51 @@
 
 <h1 id="_1">対象言語の横断比較<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
 <p>Zettai を複数の言語で書くと、同じ設計が言語ごとに違う形で現れます。ここでは章を閉じるたびに、その章で見えた違いを 1 つずつ足していきます。</p>
-<p>比較の軸は 1 つです。<strong>Kotlin 版は「型で保証する」、なでしこ3 版は「約束とテストで保証する」。</strong> 同じ設計に到達したとき、何がそれを支えているのかを並べます。</p>
+<p>当初の比較軸は 1 つでした。<strong>Kotlin 版は「型で保証する」、なでしこ3 版は「約束とテストで保証する」。</strong></p>
+<p><strong>Rust 版で軸が広がりました。</strong> 「型があるか」ではなく「<strong>言語がどこまで与えるか</strong>」です。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">対象</th>
+<th style="text-align: left;">型</th>
+<th style="text-align: left;">関数型の道具</th>
+<th style="text-align: left;"><code>Outcome</code> 相当</th>
+<th style="text-align: left;">代数的データ型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Kotlin</td>
+<td style="text-align: left;">あり</td>
+<td style="text-align: left;">あり</td>
+<td style="text-align: left;"><strong>自前で作る</strong></td>
+<td style="text-align: left;"><code>sealed interface</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">なでしこ3</td>
+<td style="text-align: left;">なし</td>
+<td style="text-align: left;">なし</td>
+<td style="text-align: left;"><strong>辞書で作る</strong></td>
+<td style="text-align: left;">無い</td>
+</tr>
+<tr>
+<td style="text-align: left;">Rust</td>
+<td style="text-align: left;">あり</td>
+<td style="text-align: left;">あり</td>
+<td style="text-align: left;"><strong><code>Result</code> が言語にある</strong></td>
+<td style="text-align: left;"><code>enum</code></td>
+</tr>
+</tbody>
+</table>
 <ul>
 <li><a href="../kotlin/">Kotlin 版</a>（完結・13 / 13 章）</li>
 <li><a href="../nadesiko/">なでしこ3 版</a>（完結・13 / 13 章）</li>
+<li><a href="../rust/">Rust 版</a>（進行中・3 / 13 章）</li>
 </ul>
 <h2 id="phase-1-13">Phase 1（第 1〜3 章）で見えた違い<a class="headerlink" href="#phase-1-13" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p><strong>Rust 版の列を 2026-09-29 に足しました。</strong> 以下の表は当初 2 対象で書いたもので、Rust 版の行を追記しています。</p>
+</blockquote>
 <h3 id="_2">テストの土台<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -7848,6 +7957,35 @@
 </tbody>
 </table>
 <p>Kotlin 版は第 1 章の大半を「テストを関数型に書く」ことに使えました。なでしこ3 版は<strong>その前に「テストを書く道具を作る」段階</strong>が入ります。</p>
+<p><strong>Rust 版は逆の極でした。</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">観点</th>
+<th style="text-align: left;">Rust</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">テストフレームワーク</td>
+<td style="text-align: left;"><strong>言語にある</strong>（<code>#[test]</code> と <code>assert_eq!</code>）。自作は 0 行</td>
+</tr>
+<tr>
+<td style="text-align: left;">失敗の判定</td>
+<td style="text-align: left;"><code>cargo test</code> の終了コード</td>
+</tr>
+<tr>
+<td style="text-align: left;">型の取り違え</td>
+<td style="text-align: left;">コンパイルが通らない</td>
+</tr>
+<tr>
+<td style="text-align: left;">カバレッジ</td>
+<td style="text-align: left;"><code>cargo-llvm-cov</code>（ドメイン層 80%）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>第 1 章で自作したものがありません。</strong> 代わりに<strong>後戻りの効かない判断</strong>（async の採否・HTTP クレートの選定）を実測してから決める章になりました（<a href="../../../adr/ADR-024-no-async/">ADR-024</a>・<a href="../../../adr/ADR-025-tiny-http/">ADR-025</a>）。</p>
+<p>3 対象で第 1 章の中身が違います。<strong>Kotlin は書き方、なでしこ3 は道具づくり、Rust は判断</strong>でした。</p>
 <h3 id="_3">ドメインの表し方<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -7881,6 +8019,7 @@
 </tbody>
 </table>
 <p><strong>同じ設計に到達しています。</strong> 違うのは、契約が「1 箇所に書けば守られる」か「2 箇所に書いて片方が片方を見張る」かです。</p>
+<p>Rust は Kotlin と同じ側です。<code>struct</code> のフィールドをコンパイラが見ます。<strong>違いは型の数</strong>で、<code>String</code> と <code>&amp;str</code> が別物なので、テストの期待値を揃える 1 行が要りました（第 3 章）。</p>
 <h3 id="_4">境界の引き方<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -7909,6 +8048,31 @@
 </tbody>
 </table>
 <p><strong>どちらも「不在」を検査しています。</strong> 手段は違っても、境界の守り方は同じ形になりました。</p>
+<p><strong>Rust だけが検査を書きませんでした。</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">観点</th>
+<th style="text-align: left;">Rust</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">境界の定義</td>
+<td style="text-align: left;"><code>zettai-stepN-domain</code> と <code>zettai-stepN-http</code> を別クレートにする</td>
+</tr>
+<tr>
+<td style="text-align: left;">表現手段</td>
+<td style="text-align: left;"><strong>クレート</strong>。<code>Cargo.toml</code> の <code>dependencies</code> が依存の一覧そのもの</td>
+</tr>
+<tr>
+<td style="text-align: left;">検査</td>
+<td style="text-align: left;"><strong>無し。</strong> 書いていない相手を呼ぶとコンパイルが止まる（<a href="../../../adr/ADR-027-crate-boundary/">ADR-027</a>）</td>
+</tr>
+</tbody>
+</table>
+<p>実測しました。同一クレート内でドメインから HTTP を呼ぶと<strong>エラー 0 件</strong>、クレートを分けると <code>error[E0433]</code> で止まります。<strong>ビルド時間は変わりませんでした。</strong></p>
+<p>なでしこ3 版は章が進むごとに検査の項目が増え（第 2 章 1 項目 → 第 12 章 5 項目 × 7 ファイル）、第 4 章では一覧への足し忘れが起きかけました。<strong>Rust では <code>Cargo.toml</code> が一覧なので、足し忘れようがありません。</strong></p>
 <h3 id="_5">受け入れテストの入口<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -7942,6 +8106,53 @@
 </tbody>
 </table>
 <p>なでしこ3 版は制約に押されて、<strong>シナリオに渡す関数が両経路とも純粋になりました。</strong> 関数型の設計としてはむしろ望ましい形です。<strong>制約が設計を良い方向に押すことがあります。</strong></p>
+<p><strong>Rust では「寄せる先があるのに寄せない」判断をしました。</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">観点</th>
+<th style="text-align: left;">Rust</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">枠組み</td>
+<td style="text-align: left;"><strong>トレイト 1 つ</strong>（自作。<a href="../../../adr/ADR-028-own-acceptance-trait/">ADR-028</a>）</td>
+</tr>
+<tr>
+<td style="text-align: left;">既製品</td>
+<td style="text-align: left;"><code>cucumber</code> はある。<strong>依存 6 → 127、ビルド +92 秒</strong>で <code>just check</code> の上限 20 秒を単独で超える</td>
+</tr>
+<tr>
+<td style="text-align: left;">HTTP 経由の経路</td>
+<td style="text-align: left;"><strong>サーバを起こさない。</strong> ハンドラが HTTP の型を返さないので関数として呼べる</td>
+</tr>
+</tbody>
+</table>
+<p>第 3 章第 5 節（Kotlin 版では「DDT を Pesticide に変換する」）で、<strong>3 対象の結論が 3 つとも違いました。</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">対象</th>
+<th style="text-align: left;">この節でしたこと</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Kotlin</td>
+<td style="text-align: left;">自作 → ライブラリ（Pesticide）に寄せた</td>
+</tr>
+<tr>
+<td style="text-align: left;">なでしこ3</td>
+<td style="text-align: left;">自作のまま（寄せる先が無い）</td>
+</tr>
+<tr>
+<td style="text-align: left;">Rust</td>
+<td style="text-align: left;"><strong>調べて、寄せないと決めた</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>言語が何を与えるかで、同じ判断の答えが変わります。</strong></p>
 <h3 id="_6">型検査があっても止まらないもの<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
 <p>なでしこ3 版の Unit 2 で、<code>繰り返す</code> が開始より終了が小さいときに逆向きに回ることが分かり、空の配列を回すコードが 5 箇所すべて潜在バグでした。</p>
 <p><strong>これは型システムがあっても止まりません。</strong> 「型で保証する」対「約束とテストで保証する」という軸の外側に、<strong>言語の癖という第 3 の要素</strong>があります。どちらの版でも、踏んでからガードや検査にするしかありません。</p>
@@ -8287,9 +8498,38 @@
 </tr>
 </tbody>
 </table>
-<h2 id="_15">これから増える比較<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h2>
-<p><strong>ありません。</strong> なでしこ3 版が第 13 章で完結し、全 13 章の比較が上に揃いました。</p>
-<p>3 言語目を足すときは、この構成のまま列を 1 本増やします。比較の軸（「型で保証する」対「約束とテストで保証する」、およびその外側の「言語の癖」）は、そのまま使えるはずです。</p>
+<h2 id="rust">Rust 版で増える比較<a class="headerlink" href="#rust" title="Permanent link">&para;</a></h2>
+<p>Rust 版は進行中です（3 / 13 章）。章を閉じるたびに足します。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">章</th>
+<th style="text-align: left;">比較の焦点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">4〜5</td>
+<td style="text-align: left;"><strong>所有権のもとでの関数型 DI とクロージャの合成。</strong> 3 対象で最も重い Unit と見込んでいる</td>
+</tr>
+<tr>
+<td style="text-align: left;">6〜7</td>
+<td style="text-align: left;"><strong><code>enum</code> と <code>Result</code> が言語にある。</strong> Kotlin 版が自前で作ったものを使う側</td>
+</tr>
+<tr>
+<td style="text-align: left;">8〜9</td>
+<td style="text-align: left;">射影と PostgreSQL 永続化。<strong>同期のまま通す</strong>（<a href="../../../adr/ADR-024-no-async/">ADR-024</a>）</td>
+</tr>
+<tr>
+<td style="text-align: left;">10〜11</td>
+<td style="text-align: left;">境界とライフタイム。アプリカティブは自前</td>
+</tr>
+<tr>
+<td style="text-align: left;">12〜13</td>
+<td style="text-align: left;">serde と tracing の採否。<strong>3 言語の総括</strong></td>
+</tr>
+</tbody>
+</table>
 
 
 

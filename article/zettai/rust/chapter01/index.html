@@ -16,7 +16,7 @@
         <link rel="prev" href="../">
       
       
-        <link rel="next" href="../../../../reference/">
+        <link rel="next" href="../chapter02/">
       
       
         
@@ -5633,6 +5633,76 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 2 章 関数を使って HTTP を扱う
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 3 章 ドメインの定義とテスト
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -7905,8 +7975,11 @@ just check
 <p>段階ごとに cargo workspace のメンバーを増やします。Kotlin 版の Gradle モジュール、なでしこ3 版の <code>src/stepN/</code> に対応します。</p>
 <div class="highlight"><pre><span></span><code><span class="k">[workspace]</span>
 <span class="n">resolver</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"2"</span>
-<span class="n">members</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">"zettai-step1-http"</span><span class="p">]</span>
+<span class="n">members</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">"zettai-step1-domain"</span><span class="p">,</span><span class="w"> </span><span class="s2">"zettai-step1-http"</span><span class="p">]</span>
 </code></pre></div>
+<blockquote>
+<p>第 1 章の時点ではメンバーは 1 つでした。第 3 章でドメインを切り出して 2 つになっています（<a href="../../../../adr/ADR-027-crate-boundary/">ADR-027</a>）。<strong>同じ段階の中でコードが育つ</strong>ので、記事は最終形を載せています（<a href="../../../../adr/ADR-015-step-directories/">ADR-015</a>）。</p>
+</blockquote>
 <h3 id="1-async">判断 1: async を採るか<a class="headerlink" href="#1-async" title="Permanent link">&para;</a></h3>
 <p><strong>実際に書いて確かめました。</strong></p>
 <p>同期の <code>postgres</code> クレートで、第 9 章（永続化）と第 10 章（トランザクションの境界）の題材が書けるかどうかです。</p>

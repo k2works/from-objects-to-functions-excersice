@@ -5863,6 +5863,76 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/rust/chapter02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 2 章 関数を使って HTTP を扱う
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/rust/chapter03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 3 章 ドメインの定義とテスト
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -8639,7 +8709,7 @@
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>2-1.5 第 2 章の骨子と執筆</strong></li>
 <li><strong>主張はテストで確かめてから書く</strong>（Try 1）。所有権が問題にならなかったならそう書く</li>
 <li>完了判定: 2 対象に無い内容が 1 つ以上ある</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>2-1.6 サイト反映</strong></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>2-1.6 サイト反映</strong></li>
 </ul>
 <hr />
 <h2 id="bolt-2-2-3">Bolt 2-2: ドメインとインフラの分離（第 3 章）<a class="headerlink" href="#bolt-2-2-3" title="Permanent link">&para;</a></h2>
@@ -8649,31 +8719,67 @@
 </blockquote>
 <h3 id="_11">ステップ計画<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
 <ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>2-2.1 受け入れテストの既製品を調べる</strong>（全 Bolt 共通のゲート項目）</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>2-2.1 受け入れテストの既製品を調べる</strong>（全 Bolt 共通のゲート項目）</li>
 <li><code>cucumber-rs</code> などで 2 経路の差し替えが書けるかを確かめる</li>
 <li><strong>入れない判断も記録する</strong>（<a href="../../adr/ADR-016-own-acceptance-entry/">ADR-016</a> を踏襲するかどうか）</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>2-2.2 境界の分け方を決める</strong>（持ち込み 3。スパイク 3）</li>
+<li><strong>実績（2026-09-29）</strong>: <code>cucumber</code> 0.23.0 は<strong>依存 6 → 127・ビルド +92 秒</strong>で <code>just check</code> の上限 20 秒を単独で超える。与えるのは Gherkin だが、必要なのは経路の差し替えでトレイト 1 つで足りた（<a href="../../adr/ADR-028-own-acceptance-trait/">ADR-028</a>）</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>2-2.2 境界の分け方を決める</strong>（持ち込み 3。スパイク 3）</li>
 <li>案 A: 段階メンバー 1 つの中でモジュール分割（<code>mod domain</code> / <code>mod http</code>）</li>
 <li>案 B: 段階ごとに 2 クレート（<code>zettai-step1-domain</code> / <code>zettai-step1-http</code>）</li>
 <li><strong>★人の確認が必要（ゲート 2）</strong></li>
 <li>添えるもの: それぞれの <code>just check</code> の秒数・<code>Cargo.toml</code> の数・<strong>境界検査を書くかどうか</strong></li>
 <li><strong>この決定が残り 10 章のファイル配置を縛る</strong></li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>2-2.3 ドメインを切り出す（Refactor）</strong>: 受け入れシナリオを green に保ったまま</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>2-2.4 受け入れテストを 2 経路にする</strong>: ドメイン直接・HTTP 経由で同じシナリオ</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>2-2.5 依存の向きを守る仕組みを入れる</strong>: ゲート 2 の決定による</li>
+<li><strong>実績（2026-09-29。ゲート 2 は同期停止した）</strong>: 両案を作り、<strong>ドメインから HTTP を呼ぶコードをわざと書いて</strong>確かめた</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">案A モジュール</th>
+<th style="text-align: left;">案B クレート（採用）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">ドメインから HTTP を呼ぶと</td>
+<td style="text-align: left;"><strong>通る</strong>（エラー 0 件）</td>
+<td style="text-align: left;"><strong>コンパイルが止まる</strong>（E0433）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>cargo test --all</code></td>
+<td style="text-align: left;">3 秒</td>
+<td style="text-align: left;"><strong>3 秒</strong>（変わらず）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Cargo.toml</code></td>
+<td style="text-align: left;">1 個</td>
+<td style="text-align: left;">2 個</td>
+</tr>
+<tr>
+<td style="text-align: left;">境界検査</td>
+<td style="text-align: left;">書く必要がある</td>
+<td style="text-align: left;"><strong>書かなくてよい</strong></td>
+</tr>
+</tbody>
+</table>
+<ul class="task-list">
+<li>人は「案B」を選択。<strong>境界検査を 1 行も書いていない</strong></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>2-2.3 ドメインを切り出す（Refactor）</strong>: 受け入れシナリオを green に保ったまま</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>2-2.4 受け入れテストを 2 経路にする</strong>: ドメイン直接・HTTP 経由で同じシナリオ</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>2-2.5 依存の向きを守る仕組みを入れる</strong>: ゲート 2 の決定による</li>
 <li>クレートなら<strong>何も書かない</strong>（コンパイラが守る）。その事実を記事に書く</li>
 <li>モジュールなら境界検査を書く（2 対象と同じ）</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>2-2.6 第 3 章の骨子と執筆</strong></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>2-2.6 第 3 章の骨子と執筆</strong></li>
 <li>節名の読み替えを確定させる（第 3 章第 5 節）</li>
 <li><strong>主張はテストで確かめてから書く</strong>（Try 1）</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>2-2.7 設計ドキュメント・節名の読み替え・ADR</strong></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>2-2.7 設計ドキュメント・節名の読み替え・ADR</strong></li>
 <li><code>draft.md</code> に第 3 章第 5 節の読み替え 1 件</li>
 <li><code>architecture_backend.md</code> に「Rust 版での差分」節を新設（境界の守り方）</li>
 <li>ADR-027（境界の分け方）、ADR-028（受け入れテストの入口。既製品の採否）</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>2-2.8 サイト反映と OKF 適用</strong></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>2-2.8 サイト反映と OKF 適用</strong></li>
 <li><strong><code>comparison/index.md</code> に Rust の列を足す</strong>（Phase 1 完了）</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>2-2.9 Release v0.1.0</strong>: push して CI の green を確かめる</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>2-2.10 Bolt 終了報告とふりかえり</strong>: <strong>ゲートの同期停止率を数える</strong></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>2-2.10 Bolt 終了報告とふりかえり</strong>: <strong>ゲートの同期停止率を数える</strong></li>
 </ul>
 <hr />
 <h2 id="_12">設計<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>

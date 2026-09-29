@@ -23,7 +23,7 @@ on:
 
 jobs:
   check:
-    name: fmt, clippy, test, coverage
+    name: fmt, clippy, test
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -37,10 +37,7 @@ jobs:
         uses: dtolnay/rust-toolchain@master
         with:
           toolchain: 1.91.1
-          components: rustfmt, clippy, llvm-tools
-
-      - name: Install cargo-llvm-cov
-        uses: taiki-e/install-action@cargo-llvm-cov
+          components: rustfmt, clippy
 
       - name: Cache cargo
         uses: actions/cache@v4
@@ -101,6 +98,11 @@ jobs:
         uses: dtolnay/rust-toolchain@master
         with:
           toolchain: 1.91.1
+          # **`cov` をこのジョブへ移したので、道具もここに要る。**
+          # 移したときに入れ忘れて CI が落ちた（Unit 6）。
+          components: llvm-tools
+      - name: Install cargo-llvm-cov
+        uses: taiki-e/install-action@cargo-llvm-cov
       - name: test-db
         run: cargo test -p zettai-step5-http --features db --test persistence
       - name: coverage

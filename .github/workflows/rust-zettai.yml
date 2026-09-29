@@ -1,7 +1,12 @@
 name: Rust Zettai
 
-# **一時的に 2 案を並べている。** Unit 2 のゲート 1（CI に Nix を入れるか）を
-# 実測で決めるため。決まったら負けた方のジョブを消す。
+# **CI は just を通さず cargo を直接呼ぶ**（Unit 2 のゲート 1 で決定。ADR-026 に追記）。
+#
+# Nix を入れて just check-all を回す案も同じコミットで実測した。
+# どちらも success だったが 525 秒対 17 秒（31 倍）だった。
+#
+# 代償は「検査の定義が justfile と ここ の 2 か所に分かれる」こと。
+# **段を足すときは両方を直す。** DoD のチェック項目に入れてある。
 on:
   push:
     branches: [main]
@@ -17,43 +22,17 @@ on:
   workflow_dispatch:
 
 jobs:
-  # 案 A: Nix を入れて just を通す。ローカルと同じ道具・同じコマンド。
-  with-nix:
-    name: 案A Nix + just
+  check:
+    name: fmt, clippy, test, coverage
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Install Nix
-        uses: cachix/install-nix-action@v27
-        with:
-          extra_nix_config: |
-            experimental-features = nix-command flakes
-
-      - name: Cache Nix store
-        uses: DeterminateSystems/magic-nix-cache-action@v8
-
-      - name: Cache cargo
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.cargo/registry
-            ~/.cargo/git
-            apps/rust/zettai/target
-          key: nix-cargo-${{ hashFiles('apps/rust/zettai/**/Cargo.toml') }}
-
-      # justfile が nix develop に入り直すので、ここでは just を呼ぶだけ。
-      - name: Run check-all
+    defaults:
+      run:
         working-directory: apps/rust/zettai
-        run: nix develop ../../..#rust --command just check-all
-
-  # 案 B: Nix を入れず、rustup で版を合わせて cargo を直接呼ぶ。
-  without-nix:
-    name: 案B rustup + cargo
-    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
+      # devShell と同じ 1.91.1 に合わせる（ops/nix/environments/rust/shell.nix）。
+      # **版を変えるときは両方を直す。**
       - name: Set up Rust 1.91.1
         uses: dtolnay/rust-toolchain@master
         with:
@@ -70,18 +49,26 @@ jobs:
             ~/.cargo/registry
             ~/.cargo/git
             apps/rust/zettai/target
-          key: rustup-cargo-${{ hashFiles('apps/rust/zettai/**/Cargo.toml') }}
+          key: rust-cargo-${{ hashFiles('apps/rust/zettai/**/Cargo.toml') }}
 
-      # just を通さない。justfile と CI で 2 重管理になる。
+      # 以下の 4 段は justfile の check-all と同じ内容にする。
+      # 段を足すときは justfile と ここ の両方を直す。
       - name: fmt
-        working-directory: apps/rust/zettai
         run: cargo fmt --all -- --check
       - name: clippy
-        working-directory: apps/rust/zettai
         run: cargo clippy --all-targets --all-features -- -D warnings
       - name: test
-        working-directory: apps/rust/zettai
         run: cargo test --all
-      - name: cov
-        working-directory: apps/rust/zettai
+      - name: coverage
         run: cargo llvm-cov --all --fail-under-lines 80
+
+  # 検査の定義が 2 か所に分かれた代償を、人の注意ではなく検査で押さえる。
+  parity:
+    name: justfile と CI が一致しているか
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python ops/scripts/check_rust_ci_parity.py

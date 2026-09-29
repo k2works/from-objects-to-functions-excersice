@@ -3,8 +3,10 @@ type: Bolt Plan
 title: "Unit 5 の Bolt 計画（イテレーション 5）- Zettai 連載（Rust 版）"
 description: "Zettai 連載 Rust 版の Unit 5（射影と永続化）の Bolt 計画。射影で CQRS に到達し、同期の postgres クレートで永続化する。DB を検査に含めるかと、段階の切り方を見直すかを承認ゲートに置く。Release v0.2.0 の判定も行う。"
 tags: [development, plan, ai-dlc, bolt, zettai, rust, unit-5]
-status: draft
+status: stable
 generated: { by: claude-code/claude-opus-5, at: 2026-09-29T04:16:24Z }
+verified:
+  - { by: human:kakimomokuri, at: 2026-09-29T04:19:35Z }
 ---
 
 # Unit 5 の Bolt 計画（イテレーション 5）- Zettai 連載（Rust 版）

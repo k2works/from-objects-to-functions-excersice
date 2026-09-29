@@ -21,7 +21,13 @@ WORKFLOW = ROOT / ".github/workflows/rust-zettai.yml"
 
 # justfile の check-all が呼ぶ子レシピ
 CHECK_ALL = re.compile(r"^check-all:\n\s+\{\{run\}\} just (.+)$", re.M)
-# 各レシピの cargo コマンド（{{run}} と {{cov_min}} は展開して比べる）
+# justfile の変数（`name := "value"`）。**すべて展開して比べる。**
+#
+# Unit 2 では cov_min だけを決め打ちで展開していた。Unit 3 で cov_skip を
+# 足したときに、検査が「ずれている」と言って落ちた。**落ちたのは正しいが、
+# 理由が二重管理ではなく検査の手抜きだった。** 変数を一般に読む形に直した。
+ASSIGN = re.compile(r'^([a-z_]+) := "([^"]*)"$', re.M)
+# 各レシピの cargo コマンド（{{run}} と justfile の変数は展開して比べる）
 RECIPE = re.compile(r"^([a-z-]+):\n(?:\s+#.*\n)*\s+\{\{run\}\} (cargo .+)$", re.M)
 # workflow の run:（working-directory は defaults で効く）
 WORKFLOW_RUN = re.compile(r"^\s+run: (cargo .+)$", re.M)
@@ -31,7 +37,7 @@ def main() -> int:
     just = JUSTFILE.read_text(encoding="utf-8")
     flow = WORKFLOW.read_text(encoding="utf-8")
 
-    cov_min = re.search(r'cov_min := "(\d+)"', just).group(1)
+    variables = dict(ASSIGN.findall(just))
 
     m = CHECK_ALL.search(just)
     if not m:
@@ -45,7 +51,13 @@ def main() -> int:
         if name not in recipes:
             print(f"NG justfile の check-all が呼ぶ {name} が見つからない")
             return 1
-        expected.append(recipes[name].replace("{{cov_min}}", cov_min).strip())
+        cmd = recipes[name]
+        for key, value in variables.items():
+            cmd = cmd.replace("{{" + key + "}}", value)
+        if "{{" in cmd:
+            print(f"NG {name} に展開できない変数が残っている: {cmd}")
+            return 1
+        expected.append(cmd.strip())
 
     actual = [c.strip() for c in WORKFLOW_RUN.findall(flow)]
 

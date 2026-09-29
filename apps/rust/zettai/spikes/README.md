@@ -10,6 +10,8 @@
 | `http-tiny_http/` | 縦串が書けるか。依存 5 クレート・ビルド 7 秒 | 採用 | [ADR-025](../../../../docs/adr/ADR-025-tiny-http.md) |
 | `http-rouille/` | 同上。依存 123 クレート・ビルド 58 秒 | 採らず | 同上 |
 | `http-axum/` | 同上。依存 61 クレート・ビルド 70 秒。**tokio 必須** | 採らず | 同上 |
+| `di-shapes/` | 関数型 DI の 3 案が、第 5 章のクロージャ合成まで書けるか | 案 A と案 C は書けない | [ADR-030](../../../../docs/adr/ADR-030-functional-di-shape.md) |
+| `prop-frameworks/` | 性質テストの既製品。依存 38 / 21 クレート、ビルド 26.77 / 12.82 秒 | **Unit 3 で判断中** | — |
 
 ## workspace から外してある
 

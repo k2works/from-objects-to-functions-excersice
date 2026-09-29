@@ -60,7 +60,7 @@ jobs:
       - name: test
         run: cargo test --all
       - name: coverage
-        run: cargo llvm-cov --all --fail-under-lines 80
+        run: cargo llvm-cov --all --ignore-filename-regex 'src/bin/' --fail-under-lines 90
 
   # 検査の定義が 2 か所に分かれた代償を、人の注意ではなく検査で押さえる。
   parity:

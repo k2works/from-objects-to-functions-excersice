@@ -121,6 +121,76 @@ where
     }
 }
 
+/// 起きたこと（第 5 章）。
+///
+/// **`enum` が言語にある。** Kotlin 版は sealed class、なでしこ3 版は
+/// 辞書の `種類` キーで表した。ここは `enum` をそのまま使う。
+///
+/// `match` の網羅をコンパイラが見るので、種類を足したときに
+/// **適用を書き忘れると止まる**。
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub enum ToDoListEvent {
+    ListCreated { list_name: ListName },
+    ItemAdded { item: ToDoItem },
+}
+
+/// 状態から状態への関数。**並びに入れるので `Box<dyn Fn>` に揃える**
+/// （[ADR-030]）。
+///
+/// `impl Fn` では書くたびに別の型になり、同じ `Vec` に入らない。
+pub type Transform = Box<dyn Fn(ToDoList) -> ToDoList>;
+
+/// 何もしない変換。**合成の単位元。**
+pub fn identity() -> Transform {
+    Box::new(|list| list)
+}
+
+/// 2 つの変換を繋ぐ。**結果も変換なので、繰り返せる。**
+pub fn compose(f: Transform, g: Transform) -> Transform {
+    Box::new(move |list| g(f(list)))
+}
+
+/// イベント 1 つを、状態から状態への関数にする。
+///
+/// **イベントは自分の値を持つ。** 借りた値を閉じ込めると `'static` に
+/// 足りない。保存して後から畳み込むので、持つほうが形に合う。
+pub fn transform_for(event: ToDoListEvent) -> Transform {
+    match event {
+        ToDoListEvent::ListCreated { list_name } => Box::new(move |_previous| ToDoList {
+            list_name: list_name.clone(),
+            items: Vec::new(),
+        }),
+        ToDoListEvent::ItemAdded { item } => Box::new(move |list: ToDoList| ToDoList {
+            list_name: list.list_name,
+            items: [list.items, vec![item.clone()]].concat(),
+        }),
+    }
+}
+
+/// イベントの並びを 1 つの変換に畳み込む。
+///
+/// **単位元から始めて合成を繰り返すだけ。** これができるのは、
+/// 合成の結果が同じ型に戻るからで、`impl Fn` では書けない。
+pub fn fold_events(events: Vec<ToDoListEvent>) -> Transform {
+    events
+        .into_iter()
+        .map(transform_for)
+        .fold(identity(), compose)
+}
+
+/// 空のリスト。畳み込みの出発点。
+pub fn empty_list() -> ToDoList {
+    ToDoList {
+        list_name: ListName::new(""),
+        items: Vec::new(),
+    }
+}
+
+/// イベントの並びから状態を作る。
+pub fn replay(events: Vec<ToDoListEvent>) -> ToDoList {
+    fold_events(events)(empty_list())
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -193,6 +263,43 @@ mod tests {
         assert_eq!(after.items.len(), 2, "足した分だけ増える");
         assert_eq!(saved.borrow().len(), 1, "保存が 1 回呼ばれる");
         assert_eq!(saved.borrow()[0], after, "保存されたのは足した後のリスト");
+    }
+
+    // -----------------------------------------------------------------
+    // 第 5 章: イベントを畳み込む
+    // -----------------------------------------------------------------
+
+    fn created(name: &str) -> ToDoListEvent {
+        ToDoListEvent::ListCreated {
+            list_name: ListName::new(name),
+        }
+    }
+
+    fn added(description: &str) -> ToDoListEvent {
+        ToDoListEvent::ItemAdded {
+            item: ToDoItem::new(description),
+        }
+    }
+
+    #[test]
+    fn replaying_no_events_gives_an_empty_list() {
+        assert_eq!(replay(vec![]), empty_list());
+    }
+
+    #[test]
+    fn replaying_builds_the_state() {
+        let list = replay(vec![created("book"), added("write"), added("publish")]);
+        assert_eq!(list.list_name, ListName::new("book"));
+        assert_eq!(list.items.len(), 2);
+        assert_eq!(list.items[1], ToDoItem::new("publish"));
+    }
+
+    #[test]
+    fn creating_again_starts_over() {
+        // ListCreated は前の状態を見ない。**イベントの意味がそのまま出る。**
+        let list = replay(vec![created("book"), added("write"), created("shopping")]);
+        assert_eq!(list.list_name, ListName::new("shopping"));
+        assert!(list.items.is_empty());
     }
 
     #[test]

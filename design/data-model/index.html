@@ -1057,6 +1057,67 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#rust" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rust 版での差分
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rust 版での差分">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. テーブル名を引数で受ける
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-payload-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. payload の JSON を自前で組み立てる
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. パラメータの型に注意が要る
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DB を使う検査の置き場
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1965,6 +2026,41 @@
     
   
     「Rust」Unit 4 enum と Result
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/iteration_plan-rust-5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「Rust」Unit 5 射影と永続化
   
 
     
@@ -6017,6 +6113,76 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/rust/chapter08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 8 章 ファンクタを使ってイベントを射影する
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/rust/chapter09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 9 章 モナドによる安全なデータ永続化
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -8415,6 +8581,30 @@
 <h3 id="_7">扱わないこと<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
 <p>同時書き込み、途中で落ちたときの整合、件数が増えたときの性能は扱いません。理由と再検討の条件は <a href="../../adr/ADR-019-file-event-log/">ADR-019</a> にあります。</p>
 <hr />
+<h2 id="rust">Rust 版での差分<a class="headerlink" href="#rust" title="Permanent link">&para;</a></h2>
+<p><strong>保存先は Kotlin 版と同じ PostgreSQL です</strong>（なでしこ3 版だけがファイル）。イベントを 1 テーブルに追記し、状態を保存しない形も同じです（<a href="../../adr/ADR-032-postgres-event-store/">ADR-032</a>）。</p>
+<p>違うのは 3 点です。</p>
+<h3 id="1_2">1. テーブル名を引数で受ける<a class="headerlink" href="#1_2" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="err">{</span><span class="k">table</span><span class="err">}</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="n">BIGSERIAL</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
+<span class="w">    </span><span class="n">user_name</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">list_name</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">payload</span><span class="w"> </span><span class="n">JSONB</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">recorded_at</span><span class="w"> </span><span class="n">TIMESTAMPTZ</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">now</span><span class="p">()</span>
+<span class="p">)</span>
+</code></pre></div>
+<p><code>cargo test</code> が既定で並列に走るためです。<strong>なでしこ3 版 Unit 7 では記録先を 1 つに決め打ちし、件数が混ざりました。</strong></p>
+<h3 id="2-payload-json">2. <code>payload</code> の JSON を自前で組み立てる<a class="headerlink" href="#2-payload-json" title="Permanent link">&para;</a></h3>
+<p><code>serde_json</code> は依存 +5・ビルド +8.30 秒、<code>serde</code> の derive まで入れると +11・+16.57 秒でした。イベントは 2 種類・各 1 フィールドなので自前にしています（<a href="../../adr/ADR-012-own-json-converter/">ADR-012</a> の踏襲）。</p>
+<p><strong>代償を 1 件払いました。</strong> <code>jsonb</code> は正規化して返すのでコロンの後ろに空白が入り、自前のパーサが読めませんでした。<strong>単体の往復テストは通っていて、DB を通す結合テストだけが見つけました。</strong></p>
+<h3 id="3_1">3. パラメータの型に注意が要る<a class="headerlink" href="#3_1" title="Permanent link">&para;</a></h3>
+<p><code>$2::jsonb</code> と書くと<strong>パラメータの型が <code>jsonb</code> と推論</strong>され、<code>&amp;str</code> を渡せません。</p>
+<div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="err">{</span><span class="k">table</span><span class="err">}</span><span class="w"> </span><span class="p">(</span><span class="n">user_name</span><span class="p">,</span><span class="w"> </span><span class="n">list_name</span><span class="p">,</span><span class="w"> </span><span class="n">payload</span><span class="p">)</span>
+<span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="err">$</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="err">$</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="err">$</span><span class="mi">3</span><span class="p">::</span><span class="nb">text</span><span class="p">)::</span><span class="n">jsonb</span><span class="p">)</span>
+</code></pre></div>
+<p><code>text</code> で受けてからキャストします（<code>README.md</code> の既知の制約 1）。</p>
+<h3 id="db">DB を使う検査の置き場<a class="headerlink" href="#db" title="Permanent link">&para;</a></h3>
+<p>Kotlin 版は <code>check</code> に含めています（<a href="../../adr/ADR-009-integration-test-database/">ADR-009</a>）。<strong>Rust 版は別ジョブに分けました</strong>（<a href="../../adr/ADR-033-db-check-as-separate-job/">ADR-033</a>）。<code>check</code> が 26 秒で、サービスコンテナの +22 秒が占める割合が違うためです。</p>
 <h2 id="_8">関連ドキュメント<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="../domain-model/">ドメインモデル設計</a></li>

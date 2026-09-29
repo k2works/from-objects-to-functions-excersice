@@ -1776,6 +1776,41 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../development/iteration_plan-rust-5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「Rust」Unit 5 射影と永続化
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -6123,6 +6158,76 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 8 章 ファンクタを使ってイベントを射影する
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 9 章 モナドによる安全なデータ永続化
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -8395,10 +8500,10 @@ just check
 <p>段階ごとに cargo workspace のメンバーを増やします。Kotlin 版の Gradle モジュール、なでしこ3 版の <code>src/stepN/</code> に対応します。</p>
 <div class="highlight"><pre><span></span><code><span class="k">[workspace]</span>
 <span class="n">resolver</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"2"</span>
-<span class="n">members</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">"zettai-step1-domain"</span><span class="p">,</span><span class="w"> </span><span class="s2">"zettai-step1-http"</span><span class="p">,</span><span class="w"> </span><span class="s2">"zettai-step2-domain"</span><span class="p">,</span><span class="w"> </span><span class="s2">"zettai-step2-http"</span><span class="p">,</span><span class="w"> </span><span class="s2">"zettai-step3-domain"</span><span class="p">,</span><span class="w"> </span><span class="s2">"zettai-step3-http"</span><span class="p">]</span>
+<span class="n">members</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">"zettai-step1-domain"</span><span class="p">,</span><span class="w"> </span><span class="s2">"zettai-step1-http"</span><span class="p">,</span><span class="w"> </span><span class="s2">"zettai-step2-domain"</span><span class="p">,</span><span class="w"> </span><span class="s2">"zettai-step2-http"</span><span class="p">,</span><span class="w"> </span><span class="s2">"zettai-step3-domain"</span><span class="p">,</span><span class="w"> </span><span class="s2">"zettai-step3-http"</span><span class="p">,</span><span class="w"> </span><span class="s2">"zettai-step4-domain"</span><span class="p">,</span><span class="w"> </span><span class="s2">"zettai-step4-http"</span><span class="p">]</span>
 </code></pre></div>
 <blockquote>
-<p>第 1 章の時点ではメンバーは 1 つでした。第 3 章でドメインを切り出して 2 つになり、第 4 章で 2 つめ、第 7 章で 3 つめの段階が加わって 6 つになっています（<a href="../../../../adr/ADR-027-crate-boundary/">ADR-027</a>・<a href="../../../../adr/ADR-029-cutting-a-step/">ADR-029</a>）。<strong>同じ段階の中でコードが育つ</strong>ので、記事は最終形を載せています（<a href="../../../../adr/ADR-015-step-directories/">ADR-015</a>）。</p>
+<p>第 1 章の時点ではメンバーは 1 つでした。第 3 章でドメインを切り出して 2 つになり、第 4 章で 2 つめ、第 7 章で 3 つめ、第 9 章で 4 つめの段階が加わって 8 つになっています（<a href="../../../../adr/ADR-027-crate-boundary/">ADR-027</a>・<a href="../../../../adr/ADR-029-cutting-a-step/">ADR-029</a>）。<strong>同じ段階の中でコードが育つ</strong>ので、記事は最終形を載せています（<a href="../../../../adr/ADR-015-step-directories/">ADR-015</a>）。</p>
 </blockquote>
 <h3 id="1-async">判断 1: async を採るか<a class="headerlink" href="#1-async" title="Permanent link">&para;</a></h3>
 <p><strong>実際に書いて確かめました。</strong></p>
@@ -8509,6 +8614,8 @@ just check
 </tbody>
 </table>
 <p><strong>4 段とも守るものが違うので、4 段とも入れました。</strong> タスクランナーは Just です。</p>
+<!-- code-check: ignore 第 1 章の時点の形。第 9 章で DB の段が加わる（ADR-015） -->
+
 <div class="highlight"><pre><span></span><code># 書いている間はこれ
 check:
     {{run}} just fmt lint test
@@ -8517,6 +8624,9 @@ check:
 check-all:
     {{run}} just fmt lint test cov
 </code></pre></div>
+<blockquote>
+<p><strong>第 9 章で <code>check-all</code> に <code>test-db</code> が加わります。</strong> 2 段構え自体は変わりません。DB を使う検査を <code>check</code> に入れない判断は<a href="../chapter09/">第 9 章</a>で数字とともに書きます。</p>
+</blockquote>
 <p>2 段構えにしたのもなでしこ3 版の学びです。<strong>速さが要るのは書いている間で、全部は CI の仕事</strong>です。</p>
 <div class="highlight"><pre><span></span><code>just<span class="w"> </span>check<span class="w">      </span><span class="m">2</span>〜4<span class="w"> </span>秒
 just<span class="w"> </span>check-all<span class="w">  </span><span class="m">8</span><span class="w"> </span>秒

@@ -1165,7 +1165,68 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#rust" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rust 版での差分
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rust 版での差分">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        型は言語にあるが、選択肢が増える
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        関数値の形が 2 つある
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        境界はコンパイラが守る
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        不変性
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
     <span class="md-ellipsis">
       
         関連ドキュメント
@@ -2038,6 +2099,41 @@
     
   
     「Rust」Unit 2 ウォーキングスケルトンとドメイン分離
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/iteration_plan-rust-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「Rust」Unit 3 所有権のもとでの DI とイベント
   
 
     
@@ -5810,6 +5906,76 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/rust/chapter04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 4 章 ドメインとアダプタのモデリング
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/rust/chapter05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 5 章 イベントで状態を変更する
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -8914,8 +9080,97 @@
 <p>記録先は<strong>文脈が持ちます</strong>（<a href="../../adr/ADR-021-context-as-path/">ADR-021</a> の「どこを読み書きするか」に、記録の行き先も同じ資格で入る）。テストが自分の記録先を持てるので、並列に走らせても件数が混ざりません。</p>
 <h3 id="_20">不変性<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h3>
 <p>Kotlin 版の <code>data class</code> は不変です。なでしこ3 の辞書と配列は<strong>参照で、破壊的に書き換えられます</strong>。状態変換は変換のたびに辞書と配列を写してから足します（<code>辞書写し</code>・<code>配列複製</code>）。<strong>不変性は言語ではなく約束が守ります。</strong></p>
+<h2 id="rust">Rust 版での差分<a class="headerlink" href="#rust" title="Permanent link">&para;</a></h2>
+<p>ドメインモデルもユビキタス言語も共通です。変わるのは<strong>契約の表し方</strong>と、<strong>関数値の持ち方</strong>です。</p>
+<h3 id="_21">型は言語にあるが、選択肢が増える<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h3>
+<p>Kotlin 版の型定義がほぼそのまま書けます。違うのは 2 つです。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">概念</th>
+<th style="text-align: left;">Kotlin 版の型</th>
+<th style="text-align: left;"><strong>Rust 版</strong></th>
+<th style="text-align: left;">章</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">ToDo 項目</td>
+<td style="text-align: left;"><code>ToDoItem(description, ...)</code></td>
+<td style="text-align: left;"><code>struct ToDoItem { description: String }</code></td>
+<td style="text-align: left;">2</td>
+</tr>
+<tr>
+<td style="text-align: left;">ToDo リスト</td>
+<td style="text-align: left;"><code>ToDoList(listName, items)</code></td>
+<td style="text-align: left;"><code>struct ToDoList { list_name: ListName, items: Vec&lt;ToDoItem&gt; }</code></td>
+<td style="text-align: left;">2</td>
+</tr>
+<tr>
+<td style="text-align: left;">ハブ</td>
+<td style="text-align: left;"><code>ToDoListHub</code></td>
+<td style="text-align: left;"><strong><code>struct ToDoListHub&lt;F, S&gt;</code></strong>（依存を型引数で持つ）</td>
+<td style="text-align: left;">4</td>
+</tr>
+<tr>
+<td style="text-align: left;">イベント</td>
+<td style="text-align: left;"><code>sealed class ToDoListEvent</code></td>
+<td style="text-align: left;"><strong><code>enum ToDoListEvent</code></strong></td>
+<td style="text-align: left;">5</td>
+</tr>
+<tr>
+<td style="text-align: left;">状態変換</td>
+<td style="text-align: left;"><code>(ToDoListState) -&gt; ToDoListState</code></td>
+<td style="text-align: left;"><strong><code>type Transform = Box&lt;dyn Fn(ToDoList) -&gt; ToDoList&gt;</code></strong></td>
+<td style="text-align: left;">5</td>
+</tr>
+<tr>
+<td style="text-align: left;">単位元・合成</td>
+<td style="text-align: left;">関数</td>
+<td style="text-align: left;"><code>identity()</code> / <code>compose(f, g)</code></td>
+<td style="text-align: left;">5</td>
+</tr>
+<tr>
+<td style="text-align: left;">畳み込み</td>
+<td style="text-align: left;"><code>fold</code></td>
+<td style="text-align: left;"><code>fold_events(events)</code> / <code>replay(events)</code></td>
+<td style="text-align: left;">5</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2">関数値の形が 2 つある<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<p><strong>ここが 2 対象に無い差分です。</strong></p>
+<p>Kotlin の関数型は 1 種類、なでしこ3 の関数値も 1 種類です。Rust は <code>impl Fn</code>（静的）と <code>Box&lt;dyn Fn&gt;</code>（動的）があり、<strong>どちらでも書けるところで選ぶことになります</strong>（<a href="../../adr/ADR-030-functional-di-shape/">ADR-030</a>）。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">その関数値は、他の関数値と同じ入れ物に入るか</th>
+<th style="text-align: left;">形</th>
+<th style="text-align: left;">例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">入らない（配線のときに 1 つ決まるだけ）</td>
+<td style="text-align: left;"><code>impl Fn</code>（型引数）</td>
+<td style="text-align: left;"><code>ToDoListHub&lt;F, S&gt;</code> の <code>fetch</code> / <code>save</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">入る（<code>Vec</code> に並べる、<code>fold</code> で畳む）</td>
+<td style="text-align: left;"><code>Box&lt;dyn Fn&gt;</code></td>
+<td style="text-align: left;"><code>Transform</code>（第 5 章）</td>
+</tr>
+</tbody>
+</table>
+<p><code>impl Fn</code> は<strong>書いた場所ごとに別の型</strong>になるので、同じ <code>Vec</code> に入りません。合成の結果も別の型になるため、<code>fold</code> の途中経過を揃えられません。</p>
+<h3 id="_22">境界はコンパイラが守る<a class="headerlink" href="#_22" title="Permanent link">&para;</a></h3>
+<p>ドメインは <code>zettai-stepN-domain</code> という<strong>別のクレート</strong>です。<code>Cargo.toml</code> に書いていない相手は呼べません（<a href="../../adr/ADR-027-crate-boundary/">ADR-027</a>）。2 対象が書いた境界検査に相当するものを、<strong>1 行も書いていません</strong>。</p>
+<p>ドメインのクレートは<strong>外部クレートに依存しません</strong>。性質テストの乱数も自前です（<a href="../../adr/ADR-017-own-property-testing/">ADR-017</a>）。</p>
+<h3 id="_23">不変性<a class="headerlink" href="#_23" title="Permanent link">&para;</a></h3>
+<p><code>struct</code> の値は既定で不変で、書き換えるには <code>mut</code> が要ります。状態変換は<strong>受け取った値から新しい値を作って返します</strong>。なでしこ3 版のように「写す約束」は要りません。</p>
+<p>代わりに押されるのが所有権です。クロージャに閉じ込める値は<strong>借りずに所有します</strong>（<code>Box&lt;dyn Fn&gt;</code> が既定で <code>+ 'static</code> のため）。イベントは保存して後から畳み込むので、<strong>持つほうが形に合っています</strong>。</p>
 <hr />
-<h2 id="_21">関連ドキュメント<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h2>
+<h2 id="_24">関連ドキュメント<a class="headerlink" href="#_24" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="../architecture_backend/">バックエンドアーキテクチャ設計</a></li>
 <li><a href="../ui_design/">UI 設計</a></li>

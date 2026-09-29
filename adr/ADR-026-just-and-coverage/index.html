@@ -1700,6 +1700,41 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/iteration_plan-rust-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「Rust」Unit 3 所有権のもとでの DI とイベント
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -5452,6 +5487,76 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/rust/chapter04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 4 章 ドメインとアダプタのモデリング
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/rust/chapter05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 5 章 イベントで状態を変更する
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -7793,6 +7898,33 @@
 <h3 id="6-devshell-just-cargo-llvm-cov">6. devShell に <code>just</code> と <code>cargo-llvm-cov</code> を足す<a class="headerlink" href="#6-devshell-just-cargo-llvm-cov" title="Permanent link">&para;</a></h3>
 <p>どちらもホストの <code>~/.cargo/bin</code> に入っていましたが、<strong>CI には来ません</strong>。<code>ops/nix/environments/rust/shell.nix</code> に足しました。</p>
 <p><strong><code>cargo-llvm-cov</code> は rustup の <code>llvm-tools-preview</code> を探しに行きますが、Nix にはありません。</strong> rustc の LLVM 版（21.1.7）と <code>llvmPackages.bintools</code> の LLVM 版が一致していたので、<code>LLVM_COV</code> と <code>LLVM_PROFDATA</code> を <code>shellHook</code> で指すようにしました。</p>
+<h3 id="7-90-2026-09-29">7. カバレッジの下限を 90 に上げ、配線を除く（2026-09-29 追記）<a class="headerlink" href="#7-90-2026-09-29" title="Permanent link">&para;</a></h3>
+<p>Unit 1 では Kotlin 版の kover と揃えて 80 に置きました。<strong>「揃えた」以上の根拠はありません。</strong> 3 Unit 続けて持ち越したので、段階が 2 つになった Unit 3 で測って決めます。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">行</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">そのまま</td>
+<td style="text-align: left;">90.83%</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>src/bin/</code> を除く</strong></td>
+<td style="text-align: left;"><strong>96.35%</strong></td>
+</tr>
+</tbody>
+</table>
+<p>差は配線（<code>src/bin/zettai.rs</code>）です。サーバを組み立てて <code>handle</code> に渡すだけで、<strong>分岐がありません</strong>。サーバを起こさないと通らないので、テストからは触れません。</p>
+<p>そして<strong>段階を切るたびに 22 行の未到達が増えます</strong>（<a href="../ADR-029-cutting-a-step/">ADR-029</a>）。段階 5 つで 110 行です。<strong>下限を据え置くと、コードが増えるほど下限が緩くなります。</strong></p>
+<p><strong><code>src/bin/</code> を除いたうえで、下限を 90 に上げます。</strong> 実測 96.36% に対して 6 ポイントの余裕があります。</p>
+<div class="highlight"><pre><span></span><code>cov_min := "90"
+cov_skip := "src/bin/"
+</code></pre></div>
+<p>除いた代償は、<strong>配線に書いたロジックが誰にも見られなくなる</strong>ことです。だから配線には<strong>ロジックを置きません</strong>（置いたら <code>handle</code> 側へ移します）。</p>
 <h3 id="_4">検討した代替案<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <table>
 <thead>

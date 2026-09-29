@@ -1,6 +1,7 @@
 # Docs Update Log
 
 ## 2026-09-29
+* **Update**: [outline](/article/outline.md) を更新（claude-code/claude-opus-5）
 * **Update**: [chapter02](/article/zettai/rust/chapter02.md) を更新（claude-code/claude-opus-5）
 * **Verification**: [iteration_plan-rust-2](/development/iteration_plan-rust-2.md) を human:kakimomokuri が検証
 * **Update**: [iteration_plan-rust-2](/development/iteration_plan-rust-2.md) を更新（claude-code/claude-opus-5）

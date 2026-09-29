@@ -198,6 +198,7 @@ nav:
           - Rust 版:
               - 概要: article/zettai/rust/index.md
               - 第 1 章 新しいアプリケーションを準備する: article/zettai/rust/chapter01.md
+              - 第 2 章 関数を使って HTTP を扱う: article/zettai/rust/chapter02.md
   - リファレンス:
       - 概要: reference/index.md
       - よいソフトウェアとは: reference/よいソフトウェアとは.md

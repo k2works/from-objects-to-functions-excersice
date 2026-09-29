@@ -8597,19 +8597,46 @@
 </blockquote>
 <h3 id="_10">ステップ計画<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
 <ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>2-1.0 スパイク</strong>: <code>tiny_http</code> で 404 と Content-Type を返す書き方を確かめる（スパイク 4）</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>2-1.1 受け入れシナリオを Red にする</strong>（アウトサイドイン）</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>2-1.0 スパイク</strong>: <code>tiny_http</code> で 404 と Content-Type を返す書き方を確かめる（スパイク 4）</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>2-1.1 受け入れシナリオを Red にする</strong>（アウトサイドイン）</li>
 <li>「uberto は book の項目を 3 件見られる」「無いリストは 404」を業務の言葉で書く</li>
 <li>この時点では 1 経路（ドメイン直接）だけ。2 経路目は第 3 章</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>2-1.2 CI を作る</strong>（持ち込み 1・6。Try 2）</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>2-1.2 CI を作る</strong>（持ち込み 1・6。Try 2）</li>
 <li><strong>Nix を入れるかを決める</strong>。入れないなら <code>just</code> を通さず <code>cargo</code> を直接呼ぶ</li>
 <li><code>which</code> で devShell 由来かホスト由来かを両方向で確かめる</li>
 <li><strong>★人の確認が必要（ゲート 1）</strong></li>
 <li>添えるもの: 選択肢 3 つ・CI 実行時間の実測・キャッシュの効き方・<code>just</code> が壊れる条件</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>2-1.3 HTTP のハンドラを書く（Red → Green）</strong>: パスの分解を自前で書く</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>2-1.4 矢印で設計する</strong>: リクエスト → ToDo リスト → HTML を関数の合成として表す</li>
+<li><strong>実績（2026-09-29。ゲート 1 は同期停止した）</strong>: 2 案を<strong>同じコミットで並べて実測</strong>した</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">案</th>
+<th style="text-align: left;">結果</th>
+<th style="text-align: left;">所要時間</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">A Nix + <code>just check-all</code></td>
+<td style="text-align: left;">success</td>
+<td style="text-align: left;"><strong>525 秒</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>B rustup + <code>cargo</code>（採用）</strong></td>
+<td style="text-align: left;">success</td>
+<td style="text-align: left;"><strong>17 秒</strong></td>
+</tr>
+</tbody>
+</table>
+<ul class="task-list">
+<li>人は「案B」を選択。<strong>代償は検査の定義が 2 か所に分かれること</strong></li>
+<li>その代償を<strong>検査で押さえた</strong>: <code>ops/scripts/check_rust_ci_parity.py</code> が <code>justfile</code> の <code>check-all</code> と workflow の <code>run:</code> を突き合わせる。わざとずらして落ちることを確認済み</li>
+<li><strong>計画では 2-1.2 が 2-1.3 より前だったが、順序を入れ替えた。</strong> 動かないコードで CI を測っても意味がないため</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>2-1.3 HTTP のハンドラを書く（Red → Green）</strong>: パスの分解を自前で書く</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>2-1.4 矢印で設計する</strong>: リクエスト → ToDo リスト → HTML を関数の合成として表す</li>
 <li><strong>所有権がどう出たかを記録する</strong>（<code>README.md</code> の「設計に効くもの」の表）</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>2-1.5 第 2 章の骨子と執筆</strong></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>2-1.5 第 2 章の骨子と執筆</strong></li>
 <li><strong>主張はテストで確かめてから書く</strong>（Try 1）。所有権が問題にならなかったならそう書く</li>
 <li>完了判定: 2 対象に無い内容が 1 つ以上ある</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>2-1.6 サイト反映</strong></li>

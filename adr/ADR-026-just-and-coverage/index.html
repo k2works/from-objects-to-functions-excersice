@@ -7619,7 +7619,38 @@
 <p><strong>別のコンパイラで通って CI で落ちます。</strong> 2 対象は道具をリポジトリに取り込んでいる（<code>./gradlew</code>・<code>./node_modules/.bin/cnako3</code>）ので起きませんが、rustc は取り込めません。</p>
 <p><code>justfile</code> が <code>IN_NIX_SHELL</code> を見て、外なら <code>nix develop</code> に入り直します。中にいれば何も挟みません。</p>
 <p>再入は 1 回だけにしました。<code>check</code> を依存指定から 1 行に変えたのはこのためです（依存のままだと <code>fmt</code>・<code>lint</code>・<code>test</code> がそれぞれ入り直して 3 回になる）。<strong>外から叩いても 3〜4 秒のままです。</strong></p>
-<h3 id="5-devshell-just-cargo-llvm-cov">5. devShell に <code>just</code> と <code>cargo-llvm-cov</code> を足す<a class="headerlink" href="#5-devshell-just-cargo-llvm-cov" title="Permanent link">&para;</a></h3>
+<h3 id="5-ci-just-cargo-2026-09-29">5. CI は <code>just</code> を通さず <code>cargo</code> を直接呼ぶ（2026-09-29 追記）<a class="headerlink" href="#5-ci-just-cargo-2026-09-29" title="Permanent link">&para;</a></h3>
+<p><strong>同じコミットで 2 案を並べて実測しました。</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">案</th>
+<th style="text-align: left;">内容</th>
+<th style="text-align: left;">結果</th>
+<th style="text-align: left;">所要時間</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">A</td>
+<td style="text-align: left;">Nix を入れて <code>just check-all</code></td>
+<td style="text-align: left;">success</td>
+<td style="text-align: left;"><strong>525 秒</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>B（採用）</strong></td>
+<td style="text-align: left;">rustup で 1.91.1 を入れて <code>cargo</code> を直接呼ぶ</td>
+<td style="text-align: left;">success</td>
+<td style="text-align: left;"><strong>17 秒</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>31 倍の差</strong>でした。どちらも NFR（CI 10 分以内）の中ですが、案 A は余裕が 75 秒しかなく、段階が増えれば超えます。</p>
+<p><strong>代償は時間ではなく「検査の定義が 2 か所に分かれる」ことです。</strong> <code>justfile</code> の <code>check-all</code> と workflow の 4 段が、別々に書かれます。段を足したときに片方だけ直すと、<strong>CI だけ古い検査で通り続けます。</strong></p>
+<p>そこで<strong>人の注意に頼らず、検査で止めます。</strong></p>
+<p><code>ops/scripts/check_rust_ci_parity.py</code> が、<code>justfile</code> の <code>check-all</code> が呼ぶ子レシピの <code>cargo</code> コマンドと、workflow の <code>run:</code> を突き合わせます。<code>{{cov_min}}</code> は展開してから比べます。ずれていれば CI が落ちます。</p>
+<p>これはなでしこ3 版 Unit 5 の学び「<strong>懸念を書くだけでは防げない。検査が止める</strong>」の適用です。「両方直すこと」と書くだけでは、いつか忘れます。</p>
+<h3 id="6-devshell-just-cargo-llvm-cov">6. devShell に <code>just</code> と <code>cargo-llvm-cov</code> を足す<a class="headerlink" href="#6-devshell-just-cargo-llvm-cov" title="Permanent link">&para;</a></h3>
 <p>どちらもホストの <code>~/.cargo/bin</code> に入っていましたが、<strong>CI には来ません</strong>。<code>ops/nix/environments/rust/shell.nix</code> に足しました。</p>
 <p><strong><code>cargo-llvm-cov</code> は rustup の <code>llvm-tools-preview</code> を探しに行きますが、Nix にはありません。</strong> rustc の LLVM 版（21.1.7）と <code>llvmPackages.bintools</code> の LLVM 版が一致していたので、<code>LLVM_COV</code> と <code>LLVM_PROFDATA</code> を <code>shellHook</code> で指すようにしました。</p>
 <h3 id="_4">検討した代替案<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
@@ -7683,7 +7714,11 @@
 </tr>
 <tr>
 <td style="text-align: left;"><strong>Nix が無い環境</strong></td>
-<td style="text-align: left;">再入が失敗します。<strong>CI に Nix を入れるか、外側で <code>nix develop</code> を回すかを Unit 2 で決めます</strong>（<code>.github/workflows/rust-zettai.yml</code> は未作成）</td>
+<td style="text-align: left;">再入が失敗します。<strong>CI は <code>just</code> を通さない</strong>と Unit 2 で決めました（上記 5）。ローカルで Nix が無い人は <code>just</code> を使えません</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>2 か所に分かれた検査の同期</strong></td>
+<td style="text-align: left;"><code>check_rust_ci_parity.py</code> が<strong>コマンドの一致</strong>しか見ません。キャッシュの設定や <code>working-directory</code> のずれは見ません</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong>IDE 側の <code>PATH</code> の引用</strong></td>

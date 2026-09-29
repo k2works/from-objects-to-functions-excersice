@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="関数型プログラミングで作る変更を楽に安全にできるソフトウェア">
+        <meta name="description" content="Zettai 連載 Rust 版の第 2 章。tiny_http で縦串を通す。ルーティング機構が無いのでパスの分解を自前で書き、フレームワークに隠されない形で「矢印で設計する」を見る。所有権に最初に押された箇所と、それが設計をどこへ動かしたかを記録する。">
       
       
         <meta name="author" content="Project Team">
@@ -18,19 +18,19 @@
         
       
       
-      <link rel="icon" href="../assets/images/favicon.png">
+      <link rel="icon" href="../../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
-        <title>Docs Update Log - From Objects to Functions 演習</title>
+        <title>第 2 章 関数を使って HTTP を扱う - From Objects to Functions 演習</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -49,9 +49,9 @@
       
     
     
-      <link rel="stylesheet" href="../assets/css/extra.css">
+      <link rel="stylesheet" href="../../../../assets/css/extra.css">
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -74,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#docs-update-log" class="md-skip">
+        <a href="#2-http" class="md-skip">
           Skip to content
         </a>
       
@@ -88,7 +88,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="From Objects to Functions 演習" class="md-header__button md-logo" aria-label="From Objects to Functions 演習" data-md-component="logo">
+    <a href="../../../.." title="From Objects to Functions 演習" class="md-header__button md-logo" aria-label="From Objects to Functions 演習" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -108,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Docs Update Log
+              第 2 章 関数を使って HTTP を扱う
             
           </span>
         </div>
@@ -195,7 +195,7 @@
   
   
     <li class="md-tabs__item">
-      <a href=".." class="md-tabs__link">
+      <a href="../../../.." class="md-tabs__link">
         
   
   
@@ -216,7 +216,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../strategy/" class="md-tabs__link">
+        <a href="../../../../strategy/" class="md-tabs__link">
           
   
   
@@ -236,7 +236,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../requirements/" class="md-tabs__link">
+        <a href="../../../../requirements/" class="md-tabs__link">
           
   
   
@@ -256,7 +256,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../design/" class="md-tabs__link">
+        <a href="../../../../design/" class="md-tabs__link">
           
   
   
@@ -276,7 +276,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../development/" class="md-tabs__link">
+        <a href="../../../../development/" class="md-tabs__link">
           
   
   
@@ -296,7 +296,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../operation/" class="md-tabs__link">
+        <a href="../../../../operation/" class="md-tabs__link">
           
   
   
@@ -316,7 +316,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../journal/" class="md-tabs__link">
+        <a href="../../../../journal/" class="md-tabs__link">
           
   
   
@@ -336,7 +336,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../review/" class="md-tabs__link">
+        <a href="../../../../review/" class="md-tabs__link">
           
   
   
@@ -356,7 +356,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../adr/" class="md-tabs__link">
+        <a href="../../../../adr/" class="md-tabs__link">
           
   
   
@@ -376,7 +376,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../article/" class="md-tabs__link">
+        <a href="../../../" class="md-tabs__link">
           
   
   
@@ -396,7 +396,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../reference/" class="md-tabs__link">
+        <a href="../../../../reference/" class="md-tabs__link">
           
   
   
@@ -416,7 +416,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../template/" class="md-tabs__link">
+        <a href="../../../../template/" class="md-tabs__link">
           
   
   
@@ -452,7 +452,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="From Objects to Functions 演習" class="md-nav__button md-logo" aria-label="From Objects to Functions 演習" data-md-component="logo">
+    <a href="../../../.." title="From Objects to Functions 演習" class="md-nav__button md-logo" aria-label="From Objects to Functions 演習" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -482,7 +482,7 @@
   
   
     <li class="md-nav__item">
-      <a href=".." class="md-nav__link">
+      <a href="../../../.." class="md-nav__link">
         
   
   
@@ -561,7 +561,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../strategy/" class="md-nav__link">
+      <a href="../../../../strategy/" class="md-nav__link">
         
   
   
@@ -648,7 +648,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../requirements/" class="md-nav__link">
+      <a href="../../../../requirements/" class="md-nav__link">
         
   
   
@@ -735,7 +735,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design/" class="md-nav__link">
+      <a href="../../../../design/" class="md-nav__link">
         
   
   
@@ -763,7 +763,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design/architecture_backend/" class="md-nav__link">
+      <a href="../../../../design/architecture_backend/" class="md-nav__link">
         
   
   
@@ -798,7 +798,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design/domain-model/" class="md-nav__link">
+      <a href="../../../../design/domain-model/" class="md-nav__link">
         
   
   
@@ -833,7 +833,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design/data-model/" class="md-nav__link">
+      <a href="../../../../design/data-model/" class="md-nav__link">
         
   
   
@@ -868,7 +868,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design/ui_design/" class="md-nav__link">
+      <a href="../../../../design/ui_design/" class="md-nav__link">
         
   
   
@@ -962,7 +962,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../development/" class="md-nav__link">
+      <a href="../../../../development/" class="md-nav__link">
         
   
   
@@ -990,7 +990,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../development/release_plan/" class="md-nav__link">
+      <a href="../../../../development/release_plan/" class="md-nav__link">
         
   
   
@@ -1025,7 +1025,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../development/release_plan-nadesiko/" class="md-nav__link">
+      <a href="../../../../development/release_plan-nadesiko/" class="md-nav__link">
         
   
   
@@ -1060,7 +1060,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../development/development_strategy/" class="md-nav__link">
+      <a href="../../../../development/development_strategy/" class="md-nav__link">
         
   
   
@@ -1147,7 +1147,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../development/iteration_plan-1/" class="md-nav__link">
+      <a href="../../../../development/iteration_plan-1/" class="md-nav__link">
         
   
   
@@ -1182,7 +1182,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../development/iteration_plan-2/" class="md-nav__link">
+      <a href="../../../../development/iteration_plan-2/" class="md-nav__link">
         
   
   
@@ -1217,7 +1217,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../development/iteration_plan-3/" class="md-nav__link">
+      <a href="../../../../development/iteration_plan-3/" class="md-nav__link">
         
   
   
@@ -1252,7 +1252,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../development/iteration_plan-4/" class="md-nav__link">
+      <a href="../../../../development/iteration_plan-4/" class="md-nav__link">
         
   
   
@@ -1287,7 +1287,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../development/iteration_plan-5/" class="md-nav__link">
+      <a href="../../../../development/iteration_plan-5/" class="md-nav__link">
         
   
   
@@ -1322,7 +1322,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../development/iteration_plan-6/" class="md-nav__link">
+      <a href="../../../../development/iteration_plan-6/" class="md-nav__link">
         
   
   
@@ -1357,7 +1357,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../development/iteration_plan-7/" class="md-nav__link">
+      <a href="../../../../development/iteration_plan-7/" class="md-nav__link">
         
   
   
@@ -1392,7 +1392,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../development/iteration_plan-nadesiko-1/" class="md-nav__link">
+      <a href="../../../../development/iteration_plan-nadesiko-1/" class="md-nav__link">
         
   
   
@@ -1427,7 +1427,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../development/iteration_plan-nadesiko-2/" class="md-nav__link">
+      <a href="../../../../development/iteration_plan-nadesiko-2/" class="md-nav__link">
         
   
   
@@ -1462,7 +1462,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../development/iteration_plan-nadesiko-3/" class="md-nav__link">
+      <a href="../../../../development/iteration_plan-nadesiko-3/" class="md-nav__link">
         
   
   
@@ -1497,7 +1497,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../development/iteration_plan-nadesiko-4/" class="md-nav__link">
+      <a href="../../../../development/iteration_plan-nadesiko-4/" class="md-nav__link">
         
   
   
@@ -1532,7 +1532,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../development/iteration_plan-nadesiko-5/" class="md-nav__link">
+      <a href="../../../../development/iteration_plan-nadesiko-5/" class="md-nav__link">
         
   
   
@@ -1567,7 +1567,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../development/iteration_plan-nadesiko-6/" class="md-nav__link">
+      <a href="../../../../development/iteration_plan-nadesiko-6/" class="md-nav__link">
         
   
   
@@ -1602,7 +1602,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../development/iteration_plan-nadesiko-7/" class="md-nav__link">
+      <a href="../../../../development/iteration_plan-nadesiko-7/" class="md-nav__link">
         
   
   
@@ -1637,7 +1637,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../development/iteration_plan-rust-1/" class="md-nav__link">
+      <a href="../../../../development/iteration_plan-rust-1/" class="md-nav__link">
         
   
   
@@ -1672,7 +1672,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../development/iteration_plan-rust-2/" class="md-nav__link">
+      <a href="../../../../development/iteration_plan-rust-2/" class="md-nav__link">
         
   
   
@@ -1767,7 +1767,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../development/bolt_report-1/" class="md-nav__link">
+      <a href="../../../../development/bolt_report-1/" class="md-nav__link">
         
   
   
@@ -1802,7 +1802,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../development/bolt_report-2/" class="md-nav__link">
+      <a href="../../../../development/bolt_report-2/" class="md-nav__link">
         
   
   
@@ -1837,7 +1837,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../development/bolt_report-3/" class="md-nav__link">
+      <a href="../../../../development/bolt_report-3/" class="md-nav__link">
         
   
   
@@ -1872,7 +1872,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../development/bolt_report-4/" class="md-nav__link">
+      <a href="../../../../development/bolt_report-4/" class="md-nav__link">
         
   
   
@@ -1907,7 +1907,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../development/bolt_report-5/" class="md-nav__link">
+      <a href="../../../../development/bolt_report-5/" class="md-nav__link">
         
   
   
@@ -1942,7 +1942,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../development/bolt_report-6/" class="md-nav__link">
+      <a href="../../../../development/bolt_report-6/" class="md-nav__link">
         
   
   
@@ -1977,7 +1977,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../development/bolt_report-7/" class="md-nav__link">
+      <a href="../../../../development/bolt_report-7/" class="md-nav__link">
         
   
   
@@ -2012,7 +2012,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../development/bolt_report-nadesiko-1/" class="md-nav__link">
+      <a href="../../../../development/bolt_report-nadesiko-1/" class="md-nav__link">
         
   
   
@@ -2047,7 +2047,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../development/bolt_report-nadesiko-2/" class="md-nav__link">
+      <a href="../../../../development/bolt_report-nadesiko-2/" class="md-nav__link">
         
   
   
@@ -2082,7 +2082,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../development/bolt_report-nadesiko-3/" class="md-nav__link">
+      <a href="../../../../development/bolt_report-nadesiko-3/" class="md-nav__link">
         
   
   
@@ -2117,7 +2117,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../development/bolt_report-nadesiko-4/" class="md-nav__link">
+      <a href="../../../../development/bolt_report-nadesiko-4/" class="md-nav__link">
         
   
   
@@ -2152,7 +2152,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../development/bolt_report-nadesiko-5/" class="md-nav__link">
+      <a href="../../../../development/bolt_report-nadesiko-5/" class="md-nav__link">
         
   
   
@@ -2187,7 +2187,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../development/bolt_report-nadesiko-6/" class="md-nav__link">
+      <a href="../../../../development/bolt_report-nadesiko-6/" class="md-nav__link">
         
   
   
@@ -2222,7 +2222,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../development/bolt_report-nadesiko-7/" class="md-nav__link">
+      <a href="../../../../development/bolt_report-nadesiko-7/" class="md-nav__link">
         
   
   
@@ -2257,7 +2257,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../development/bolt_report-rust-1/" class="md-nav__link">
+      <a href="../../../../development/bolt_report-rust-1/" class="md-nav__link">
         
   
   
@@ -2352,7 +2352,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../development/retrospective-7/" class="md-nav__link">
+      <a href="../../../../development/retrospective-7/" class="md-nav__link">
         
   
   
@@ -2387,7 +2387,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../development/retrospective-nadesiko-1/" class="md-nav__link">
+      <a href="../../../../development/retrospective-nadesiko-1/" class="md-nav__link">
         
   
   
@@ -2422,7 +2422,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../development/retrospective-nadesiko-2/" class="md-nav__link">
+      <a href="../../../../development/retrospective-nadesiko-2/" class="md-nav__link">
         
   
   
@@ -2457,7 +2457,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../development/retrospective-nadesiko-3/" class="md-nav__link">
+      <a href="../../../../development/retrospective-nadesiko-3/" class="md-nav__link">
         
   
   
@@ -2492,7 +2492,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../development/retrospective-nadesiko-4/" class="md-nav__link">
+      <a href="../../../../development/retrospective-nadesiko-4/" class="md-nav__link">
         
   
   
@@ -2527,7 +2527,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../development/retrospective-nadesiko-5/" class="md-nav__link">
+      <a href="../../../../development/retrospective-nadesiko-5/" class="md-nav__link">
         
   
   
@@ -2562,7 +2562,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../development/retrospective-nadesiko-6/" class="md-nav__link">
+      <a href="../../../../development/retrospective-nadesiko-6/" class="md-nav__link">
         
   
   
@@ -2597,7 +2597,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../development/retrospective-nadesiko-7/" class="md-nav__link">
+      <a href="../../../../development/retrospective-nadesiko-7/" class="md-nav__link">
         
   
   
@@ -2632,7 +2632,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../development/retrospective-rust-1/" class="md-nav__link">
+      <a href="../../../../development/retrospective-rust-1/" class="md-nav__link">
         
   
   
@@ -2727,7 +2727,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../development/release_report-1.0.0/" class="md-nav__link">
+      <a href="../../../../development/release_report-1.0.0/" class="md-nav__link">
         
   
   
@@ -2762,7 +2762,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../development/release_report-nadesiko-1.0.0/" class="md-nav__link">
+      <a href="../../../../development/release_report-nadesiko-1.0.0/" class="md-nav__link">
         
   
   
@@ -2864,7 +2864,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../operation/" class="md-nav__link">
+      <a href="../../../../operation/" class="md-nav__link">
         
   
   
@@ -2951,7 +2951,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../journal/" class="md-nav__link">
+      <a href="../../../../journal/" class="md-nav__link">
         
   
   
@@ -2979,7 +2979,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../journal/20260926/" class="md-nav__link">
+      <a href="../../../../journal/20260926/" class="md-nav__link">
         
   
   
@@ -3014,7 +3014,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../journal/20260926-unit2/" class="md-nav__link">
+      <a href="../../../../journal/20260926-unit2/" class="md-nav__link">
         
   
   
@@ -3049,7 +3049,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../journal/20260927/" class="md-nav__link">
+      <a href="../../../../journal/20260927/" class="md-nav__link">
         
   
   
@@ -3084,7 +3084,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../journal/20260927-unit4/" class="md-nav__link">
+      <a href="../../../../journal/20260927-unit4/" class="md-nav__link">
         
   
   
@@ -3119,7 +3119,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../journal/20260927-unit5/" class="md-nav__link">
+      <a href="../../../../journal/20260927-unit5/" class="md-nav__link">
         
   
   
@@ -3154,7 +3154,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../journal/20260927-unit6/" class="md-nav__link">
+      <a href="../../../../journal/20260927-unit6/" class="md-nav__link">
         
   
   
@@ -3189,7 +3189,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../journal/20260927-unit7/" class="md-nav__link">
+      <a href="../../../../journal/20260927-unit7/" class="md-nav__link">
         
   
   
@@ -3283,7 +3283,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../review/" class="md-nav__link">
+      <a href="../../../../review/" class="md-nav__link">
         
   
   
@@ -3311,7 +3311,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../review/unit7_review_20260927/" class="md-nav__link">
+      <a href="../../../../review/unit7_review_20260927/" class="md-nav__link">
         
   
   
@@ -3405,7 +3405,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adr/" class="md-nav__link">
+      <a href="../../../../adr/" class="md-nav__link">
         
   
   
@@ -3433,7 +3433,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adr/ADR-001-kotlin-toolchain/" class="md-nav__link">
+      <a href="../../../../adr/ADR-001-kotlin-toolchain/" class="md-nav__link">
         
   
   
@@ -3468,7 +3468,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adr/ADR-002-ddt-pesticide/" class="md-nav__link">
+      <a href="../../../../adr/ADR-002-ddt-pesticide/" class="md-nav__link">
         
   
   
@@ -3503,7 +3503,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adr/ADR-003-http4k-6/" class="md-nav__link">
+      <a href="../../../../adr/ADR-003-http4k-6/" class="md-nav__link">
         
   
   
@@ -3538,7 +3538,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adr/ADR-004-static-analysis/" class="md-nav__link">
+      <a href="../../../../adr/ADR-004-static-analysis/" class="md-nav__link">
         
   
   
@@ -3573,7 +3573,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adr/ADR-005-property-based-testing/" class="md-nav__link">
+      <a href="../../../../adr/ADR-005-property-based-testing/" class="md-nav__link">
         
   
   
@@ -3608,7 +3608,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adr/ADR-006-outcome-port-type/" class="md-nav__link">
+      <a href="../../../../adr/ADR-006-outcome-port-type/" class="md-nav__link">
         
   
   
@@ -3643,7 +3643,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adr/ADR-007-module-per-unit/" class="md-nav__link">
+      <a href="../../../../adr/ADR-007-module-per-unit/" class="md-nav__link">
         
   
   
@@ -3678,7 +3678,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adr/ADR-008-event-store-single-table/" class="md-nav__link">
+      <a href="../../../../adr/ADR-008-event-store-single-table/" class="md-nav__link">
         
   
   
@@ -3713,7 +3713,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adr/ADR-009-integration-test-database/" class="md-nav__link">
+      <a href="../../../../adr/ADR-009-integration-test-database/" class="md-nav__link">
         
   
   
@@ -3748,7 +3748,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adr/ADR-010-own-template/" class="md-nav__link">
+      <a href="../../../../adr/ADR-010-own-template/" class="md-nav__link">
         
   
   
@@ -3783,7 +3783,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adr/ADR-011-transaction-boundary/" class="md-nav__link">
+      <a href="../../../../adr/ADR-011-transaction-boundary/" class="md-nav__link">
         
   
   
@@ -3818,7 +3818,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adr/ADR-012-own-json-converter/" class="md-nav__link">
+      <a href="../../../../adr/ADR-012-own-json-converter/" class="md-nav__link">
         
   
   
@@ -3912,7 +3912,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../article/" class="md-nav__link">
+      <a href="../../../" class="md-nav__link">
         
   
   
@@ -3940,7 +3940,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../article/outline/" class="md-nav__link">
+      <a href="../../../outline/" class="md-nav__link">
         
   
   
@@ -3975,7 +3975,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../article/draft/" class="md-nav__link">
+      <a href="../../../draft/" class="md-nav__link">
         
   
   
@@ -4062,7 +4062,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../article/zettai/" class="md-nav__link">
+      <a href="../../" class="md-nav__link">
         
   
   
@@ -4142,7 +4142,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../article/zettai/kotlin/" class="md-nav__link">
+      <a href="../../kotlin/" class="md-nav__link">
         
   
   
@@ -4170,7 +4170,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../article/zettai/kotlin/chapter01/" class="md-nav__link">
+      <a href="../../kotlin/chapter01/" class="md-nav__link">
         
   
   
@@ -4205,7 +4205,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../article/zettai/kotlin/chapter02/" class="md-nav__link">
+      <a href="../../kotlin/chapter02/" class="md-nav__link">
         
   
   
@@ -4240,7 +4240,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../article/zettai/kotlin/chapter03/" class="md-nav__link">
+      <a href="../../kotlin/chapter03/" class="md-nav__link">
         
   
   
@@ -4275,7 +4275,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../article/zettai/kotlin/chapter04/" class="md-nav__link">
+      <a href="../../kotlin/chapter04/" class="md-nav__link">
         
   
   
@@ -4310,7 +4310,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../article/zettai/kotlin/chapter05/" class="md-nav__link">
+      <a href="../../kotlin/chapter05/" class="md-nav__link">
         
   
   
@@ -4345,7 +4345,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../article/zettai/kotlin/chapter06/" class="md-nav__link">
+      <a href="../../kotlin/chapter06/" class="md-nav__link">
         
   
   
@@ -4380,7 +4380,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../article/zettai/kotlin/chapter07/" class="md-nav__link">
+      <a href="../../kotlin/chapter07/" class="md-nav__link">
         
   
   
@@ -4415,7 +4415,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../article/zettai/kotlin/chapter08/" class="md-nav__link">
+      <a href="../../kotlin/chapter08/" class="md-nav__link">
         
   
   
@@ -4450,7 +4450,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../article/zettai/kotlin/chapter09/" class="md-nav__link">
+      <a href="../../kotlin/chapter09/" class="md-nav__link">
         
   
   
@@ -4485,7 +4485,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../article/zettai/kotlin/chapter10/" class="md-nav__link">
+      <a href="../../kotlin/chapter10/" class="md-nav__link">
         
   
   
@@ -4520,7 +4520,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../article/zettai/kotlin/chapter11/" class="md-nav__link">
+      <a href="../../kotlin/chapter11/" class="md-nav__link">
         
   
   
@@ -4555,7 +4555,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../article/zettai/kotlin/chapter12/" class="md-nav__link">
+      <a href="../../kotlin/chapter12/" class="md-nav__link">
         
   
   
@@ -4590,7 +4590,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../article/zettai/kotlin/chapter13/" class="md-nav__link">
+      <a href="../../kotlin/chapter13/" class="md-nav__link">
         
   
   
@@ -4633,7 +4633,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../article/zettai/comparison/" class="md-nav__link">
+      <a href="../../comparison/" class="md-nav__link">
         
   
   
@@ -4713,7 +4713,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../article/zettai/nadesiko/" class="md-nav__link">
+      <a href="../../nadesiko/" class="md-nav__link">
         
   
   
@@ -4741,7 +4741,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../article/zettai/nadesiko/chapter01/" class="md-nav__link">
+      <a href="../../nadesiko/chapter01/" class="md-nav__link">
         
   
   
@@ -4776,7 +4776,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../article/zettai/nadesiko/chapter02/" class="md-nav__link">
+      <a href="../../nadesiko/chapter02/" class="md-nav__link">
         
   
   
@@ -4811,7 +4811,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../article/zettai/nadesiko/chapter03/" class="md-nav__link">
+      <a href="../../nadesiko/chapter03/" class="md-nav__link">
         
   
   
@@ -4846,7 +4846,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../article/zettai/nadesiko/chapter04/" class="md-nav__link">
+      <a href="../../nadesiko/chapter04/" class="md-nav__link">
         
   
   
@@ -4881,7 +4881,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../article/zettai/nadesiko/chapter05/" class="md-nav__link">
+      <a href="../../nadesiko/chapter05/" class="md-nav__link">
         
   
   
@@ -4916,7 +4916,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../article/zettai/nadesiko/chapter06/" class="md-nav__link">
+      <a href="../../nadesiko/chapter06/" class="md-nav__link">
         
   
   
@@ -4951,7 +4951,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../article/zettai/nadesiko/chapter07/" class="md-nav__link">
+      <a href="../../nadesiko/chapter07/" class="md-nav__link">
         
   
   
@@ -4986,7 +4986,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../article/zettai/nadesiko/chapter08/" class="md-nav__link">
+      <a href="../../nadesiko/chapter08/" class="md-nav__link">
         
   
   
@@ -5021,7 +5021,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../article/zettai/nadesiko/chapter09/" class="md-nav__link">
+      <a href="../../nadesiko/chapter09/" class="md-nav__link">
         
   
   
@@ -5056,7 +5056,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../article/zettai/nadesiko/chapter10/" class="md-nav__link">
+      <a href="../../nadesiko/chapter10/" class="md-nav__link">
         
   
   
@@ -5091,7 +5091,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../article/zettai/nadesiko/chapter11/" class="md-nav__link">
+      <a href="../../nadesiko/chapter11/" class="md-nav__link">
         
   
   
@@ -5126,7 +5126,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../article/zettai/nadesiko/chapter12/" class="md-nav__link">
+      <a href="../../nadesiko/chapter12/" class="md-nav__link">
         
   
   
@@ -5161,7 +5161,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../article/zettai/nadesiko/chapter13/" class="md-nav__link">
+      <a href="../../nadesiko/chapter13/" class="md-nav__link">
         
   
   
@@ -5256,7 +5256,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../article/zettai/rust/" class="md-nav__link">
+      <a href="../" class="md-nav__link">
         
   
   
@@ -5284,7 +5284,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../article/zettai/rust/chapter01/" class="md-nav__link">
+      <a href="../chapter01/" class="md-nav__link">
         
   
   
@@ -5394,7 +5394,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/" class="md-nav__link">
+      <a href="../../../../reference/" class="md-nav__link">
         
   
   
@@ -5422,7 +5422,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/%E3%82%88%E3%81%84%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E3%81%A8%E3%81%AF/" class="md-nav__link">
+      <a href="../../../../reference/%E3%82%88%E3%81%84%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E3%81%A8%E3%81%AF/" class="md-nav__link">
         
   
   
@@ -5457,7 +5457,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/%E3%83%AD%E3%82%B8%E3%82%AB%E3%83%AB%E3%82%B7%E3%83%B3%E3%82%AD%E3%83%B3%E3%82%B0/" class="md-nav__link">
+      <a href="../../../../reference/%E3%83%AD%E3%82%B8%E3%82%AB%E3%83%AB%E3%82%B7%E3%83%B3%E3%82%AD%E3%83%B3%E3%82%B0/" class="md-nav__link">
         
   
   
@@ -5492,7 +5492,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/%E9%96%8B%E7%99%BA%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+      <a href="../../../../reference/%E9%96%8B%E7%99%BA%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
         
   
   
@@ -5527,7 +5527,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/%E9%96%8B%E7%99%BA%E3%82%AC%E3%82%A4%E3%83%89_AI-DLC%E7%89%88/" class="md-nav__link">
+      <a href="../../../../reference/%E9%96%8B%E7%99%BA%E3%82%AC%E3%82%A4%E3%83%89_AI-DLC%E7%89%88/" class="md-nav__link">
         
   
   
@@ -5562,7 +5562,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/AI-DLC%E5%B0%8E%E5%85%A5%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+      <a href="../../../../reference/AI-DLC%E5%B0%8E%E5%85%A5%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
         
   
   
@@ -5597,7 +5597,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/AI-DLC%E7%94%A8%E8%AA%9E%E9%9B%86/" class="md-nav__link">
+      <a href="../../../../reference/AI-DLC%E7%94%A8%E8%AA%9E%E9%9B%86/" class="md-nav__link">
         
   
   
@@ -5632,7 +5632,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/%E3%83%89%E3%82%AD%E3%83%A5%E3%83%A1%E3%83%B3%E3%83%88%E6%A7%8B%E6%88%90%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+      <a href="../../../../reference/%E3%83%89%E3%82%AD%E3%83%A5%E3%83%A1%E3%83%B3%E3%83%88%E6%A7%8B%E6%88%90%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
         
   
   
@@ -5667,7 +5667,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/OKF%E5%B0%8E%E5%85%A5%E3%82%AC%E3%82%A4%E3%83%89_V0.2/" class="md-nav__link">
+      <a href="../../../../reference/OKF%E5%B0%8E%E5%85%A5%E3%82%AC%E3%82%A4%E3%83%89_V0.2/" class="md-nav__link">
         
   
   
@@ -5702,7 +5702,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/%E7%B5%8C%E5%96%B6%E6%88%A6%E7%95%A5%E5%88%86%E6%9E%90%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+      <a href="../../../../reference/%E7%B5%8C%E5%96%B6%E6%88%A6%E7%95%A5%E5%88%86%E6%9E%90%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
         
   
   
@@ -5737,7 +5737,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/%E3%83%93%E3%82%B8%E3%83%8D%E3%82%B9%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3%E5%88%86%E6%9E%90%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+      <a href="../../../../reference/%E3%83%93%E3%82%B8%E3%83%8D%E3%82%B9%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3%E5%88%86%E6%9E%90%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
         
   
   
@@ -5772,7 +5772,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/%E8%A6%81%E4%BB%B6%E5%AE%9A%E7%BE%A9%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+      <a href="../../../../reference/%E8%A6%81%E4%BB%B6%E5%AE%9A%E7%BE%A9%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
         
   
   
@@ -5807,7 +5807,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/%E3%83%A6%E3%83%BC%E3%82%B9%E3%82%B1%E3%83%BC%E3%82%B9%E4%BD%9C%E6%88%90%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+      <a href="../../../../reference/%E3%83%A6%E3%83%BC%E3%82%B9%E3%82%B1%E3%83%BC%E3%82%B9%E4%BD%9C%E6%88%90%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
         
   
   
@@ -5842,7 +5842,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/%E3%83%A6%E3%83%BC%E3%82%B9%E3%82%B1%E3%83%BC%E3%82%B9%E4%BD%9C%E6%88%90%E3%82%AC%E3%82%A4%E3%83%89_AI-DLC%E7%89%88/" class="md-nav__link">
+      <a href="../../../../reference/%E3%83%A6%E3%83%BC%E3%82%B9%E3%82%B1%E3%83%BC%E3%82%B9%E4%BD%9C%E6%88%90%E3%82%AC%E3%82%A4%E3%83%89_AI-DLC%E7%89%88/" class="md-nav__link">
         
   
   
@@ -5877,7 +5877,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3%E8%A8%AD%E8%A8%88%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+      <a href="../../../../reference/%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3%E8%A8%AD%E8%A8%88%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
         
   
   
@@ -5912,7 +5912,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/%E3%83%87%E3%83%BC%E3%82%BF%E3%83%A2%E3%83%87%E3%83%AB%E8%A8%AD%E8%A8%88%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+      <a href="../../../../reference/%E3%83%87%E3%83%BC%E3%82%BF%E3%83%A2%E3%83%87%E3%83%AB%E8%A8%AD%E8%A8%88%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
         
   
   
@@ -5947,7 +5947,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E3%83%A2%E3%83%87%E3%83%AB%E8%A8%AD%E8%A8%88%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+      <a href="../../../../reference/%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E3%83%A2%E3%83%87%E3%83%AB%E8%A8%AD%E8%A8%88%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
         
   
   
@@ -5982,7 +5982,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/UI%E8%A8%AD%E8%A8%88%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+      <a href="../../../../reference/UI%E8%A8%AD%E8%A8%88%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
         
   
   
@@ -6017,7 +6017,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/%E3%83%86%E3%82%B9%E3%83%88%E6%88%A6%E7%95%A5%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+      <a href="../../../../reference/%E3%83%86%E3%82%B9%E3%83%88%E6%88%A6%E7%95%A5%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
         
   
   
@@ -6052,7 +6052,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/%E9%9D%9E%E6%A9%9F%E8%83%BD%E8%A6%81%E4%BB%B6%E5%AE%9A%E7%BE%A9%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+      <a href="../../../../reference/%E9%9D%9E%E6%A9%9F%E8%83%BD%E8%A6%81%E4%BB%B6%E5%AE%9A%E7%BE%A9%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
         
   
   
@@ -6087,7 +6087,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/%E9%81%8B%E7%94%A8%E8%A6%81%E4%BB%B6%E5%AE%9A%E7%BE%A9%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+      <a href="../../../../reference/%E9%81%8B%E7%94%A8%E8%A6%81%E4%BB%B6%E5%AE%9A%E7%BE%A9%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
         
   
   
@@ -6122,7 +6122,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/%E3%82%A4%E3%83%B3%E3%83%95%E3%83%A9%E8%A8%AD%E8%A8%88%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+      <a href="../../../../reference/%E3%82%A4%E3%83%B3%E3%83%95%E3%83%A9%E8%A8%AD%E8%A8%88%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
         
   
   
@@ -6157,7 +6157,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/%E3%82%B3%E3%83%BC%E3%83%87%E3%82%A3%E3%83%B3%E3%82%B0%E3%81%A8%E3%83%86%E3%82%B9%E3%83%88%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+      <a href="../../../../reference/%E3%82%B3%E3%83%BC%E3%83%87%E3%82%A3%E3%83%B3%E3%82%B0%E3%81%A8%E3%83%86%E3%82%B9%E3%83%88%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
         
   
   
@@ -6192,7 +6192,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/%E3%82%B3%E3%83%BC%E3%83%87%E3%82%A3%E3%83%B3%E3%82%B0%E3%81%A8%E3%83%86%E3%82%B9%E3%83%88%E3%82%AC%E3%82%A4%E3%83%89_AI-DLC%E7%89%88/" class="md-nav__link">
+      <a href="../../../../reference/%E3%82%B3%E3%83%BC%E3%83%87%E3%82%A3%E3%83%B3%E3%82%B0%E3%81%A8%E3%83%86%E3%82%B9%E3%83%88%E3%82%AC%E3%82%A4%E3%83%89_AI-DLC%E7%89%88/" class="md-nav__link">
         
   
   
@@ -6227,7 +6227,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/BDD%E5%B0%8E%E5%85%A5%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+      <a href="../../../../reference/BDD%E5%B0%8E%E5%85%A5%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
         
   
   
@@ -6262,7 +6262,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/%E3%82%A8%E3%82%AF%E3%82%B9%E3%83%88%E3%83%AA%E3%83%BC%E3%83%A0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0/" class="md-nav__link">
+      <a href="../../../../reference/%E3%82%A8%E3%82%AF%E3%82%B9%E3%83%88%E3%83%AA%E3%83%BC%E3%83%A0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0/" class="md-nav__link">
         
   
   
@@ -6297,7 +6297,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+      <a href="../../../../reference/%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
         
   
   
@@ -6332,7 +6332,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E3%83%BB%E3%82%A4%E3%83%86%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E8%A8%88%E7%94%BB%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+      <a href="../../../../reference/%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E3%83%BB%E3%82%A4%E3%83%86%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E8%A8%88%E7%94%BB%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
         
   
   
@@ -6367,7 +6367,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E3%83%BB%E3%82%A4%E3%83%86%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E8%A8%88%E7%94%BB%E3%82%AC%E3%82%A4%E3%83%89_AI-DLC%E7%89%88/" class="md-nav__link">
+      <a href="../../../../reference/%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E3%83%BB%E3%82%A4%E3%83%86%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E8%A8%88%E7%94%BB%E3%82%AC%E3%82%A4%E3%83%89_AI-DLC%E7%89%88/" class="md-nav__link">
         
   
   
@@ -6402,7 +6402,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/%E7%92%B0%E5%A2%83%E5%A4%89%E6%95%B0%E7%AE%A1%E7%90%86%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+      <a href="../../../../reference/%E7%92%B0%E5%A2%83%E5%A4%89%E6%95%B0%E7%AE%A1%E7%90%86%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
         
   
   
@@ -6437,7 +6437,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/%E8%A8%80%E8%AA%9E%E5%88%A5%E9%96%8B%E7%99%BA%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+      <a href="../../../../reference/%E8%A8%80%E8%AA%9E%E5%88%A5%E9%96%8B%E7%99%BA%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
         
   
   
@@ -6472,7 +6472,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/Java%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+      <a href="../../../../reference/Java%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
         
   
   
@@ -6507,7 +6507,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/TypeScript%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+      <a href="../../../../reference/TypeScript%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
         
   
   
@@ -6542,7 +6542,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/%E9%81%8B%E7%94%A8%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88%E4%BD%9C%E6%88%90%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+      <a href="../../../../reference/%E9%81%8B%E7%94%A8%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88%E4%BD%9C%E6%88%90%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
         
   
   
@@ -6577,7 +6577,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/CodexCLIMCP%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E9%96%8B%E7%99%BA%E3%83%95%E3%83%AD%E3%83%BC/" class="md-nav__link">
+      <a href="../../../../reference/CodexCLIMCP%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E9%96%8B%E7%99%BA%E3%83%95%E3%83%AD%E3%83%BC/" class="md-nav__link">
         
   
   
@@ -6612,7 +6612,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/CodexCLIMCP%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E8%A8%AD%E5%AE%9A%E6%89%8B%E9%A0%86/" class="md-nav__link">
+      <a href="../../../../reference/CodexCLIMCP%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E8%A8%AD%E5%AE%9A%E6%89%8B%E9%A0%86/" class="md-nav__link">
         
   
   
@@ -6647,7 +6647,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/SonarQube%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E7%92%B0%E5%A2%83%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%E6%89%8B%E9%A0%86%E6%9B%B8/" class="md-nav__link">
+      <a href="../../../../reference/SonarQube%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E7%92%B0%E5%A2%83%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%E6%89%8B%E9%A0%86%E6%9B%B8/" class="md-nav__link">
         
   
   
@@ -6682,7 +6682,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/Vim%E6%93%8D%E4%BD%9C%E3%83%9E%E3%83%8B%E3%83%A5%E3%82%A2%E3%83%AB/" class="md-nav__link">
+      <a href="../../../../reference/Vim%E6%93%8D%E4%BD%9C%E3%83%9E%E3%83%8B%E3%83%A5%E3%82%A2%E3%83%AB/" class="md-nav__link">
         
   
   
@@ -6717,7 +6717,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/%E4%BC%81%E6%A5%AD%E7%B5%8C%E5%96%B6%E8%AB%96/" class="md-nav__link">
+      <a href="../../../../reference/%E4%BC%81%E6%A5%AD%E7%B5%8C%E5%96%B6%E8%AB%96/" class="md-nav__link">
         
   
   
@@ -6752,7 +6752,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/%E9%81%8B%E5%96%B6%E7%AE%A1%E7%90%86/" class="md-nav__link">
+      <a href="../../../../reference/%E9%81%8B%E5%96%B6%E7%AE%A1%E7%90%86/" class="md-nav__link">
         
   
   
@@ -6846,7 +6846,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../template/" class="md-nav__link">
+      <a href="../../../../template/" class="md-nav__link">
         
   
   
@@ -6874,7 +6874,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../template/%E3%81%BE%E3%81%9A%E3%81%93%E3%82%8C%E3%82%92%E8%AA%AD%E3%82%82%E3%81%86%E3%83%AA%E3%82%B9%E3%83%88/" class="md-nav__link">
+      <a href="../../../../template/%E3%81%BE%E3%81%9A%E3%81%93%E3%82%8C%E3%82%92%E8%AA%AD%E3%82%82%E3%81%86%E3%83%AA%E3%82%B9%E3%83%88/" class="md-nav__link">
         
   
   
@@ -6909,7 +6909,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../template/%E3%83%93%E3%82%B8%E3%83%8D%E3%82%B9%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3/" class="md-nav__link">
+      <a href="../../../../template/%E3%83%93%E3%82%B8%E3%83%8D%E3%82%B9%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3/" class="md-nav__link">
         
   
   
@@ -6944,7 +6944,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../template/%E8%A6%81%E4%BB%B6%E5%AE%9A%E7%BE%A9/" class="md-nav__link">
+      <a href="../../../../template/%E8%A6%81%E4%BB%B6%E5%AE%9A%E7%BE%A9/" class="md-nav__link">
         
   
   
@@ -6979,7 +6979,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../template/%E5%AE%8C%E5%85%A8%E5%BD%A2%E5%BC%8F%E3%81%AE%E3%83%A6%E3%83%BC%E3%82%B9%E3%82%B1%E3%83%BC%E3%82%B9/" class="md-nav__link">
+      <a href="../../../../template/%E5%AE%8C%E5%85%A8%E5%BD%A2%E5%BC%8F%E3%81%AE%E3%83%A6%E3%83%BC%E3%82%B9%E3%82%B1%E3%83%BC%E3%82%B9/" class="md-nav__link">
         
   
   
@@ -7014,7 +7014,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../template/%E8%A8%AD%E8%A8%88/" class="md-nav__link">
+      <a href="../../../../template/%E8%A8%AD%E8%A8%88/" class="md-nav__link">
         
   
   
@@ -7049,7 +7049,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../template/ADR/" class="md-nav__link">
+      <a href="../../../../template/ADR/" class="md-nav__link">
         
   
   
@@ -7084,7 +7084,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../template/%E3%82%A4%E3%83%B3%E3%82%BB%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3%E3%83%87%E3%83%83%E3%82%AD/" class="md-nav__link">
+      <a href="../../../../template/%E3%82%A4%E3%83%B3%E3%82%BB%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3%E3%83%87%E3%83%83%E3%82%AD/" class="md-nav__link">
         
   
   
@@ -7119,7 +7119,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../template/%E3%82%A4%E3%83%86%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E8%A8%88%E7%94%BB/" class="md-nav__link">
+      <a href="../../../../template/%E3%82%A4%E3%83%86%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E8%A8%88%E7%94%BB/" class="md-nav__link">
         
   
   
@@ -7154,7 +7154,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../template/%E3%82%A4%E3%83%86%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E5%AE%8C%E4%BA%86%E5%A0%B1%E5%91%8A%E6%9B%B8/" class="md-nav__link">
+      <a href="../../../../template/%E3%82%A4%E3%83%86%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E5%AE%8C%E4%BA%86%E5%A0%B1%E5%91%8A%E6%9B%B8/" class="md-nav__link">
         
   
   
@@ -7189,7 +7189,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../template/%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E8%A8%88%E7%94%BB/" class="md-nav__link">
+      <a href="../../../../template/%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E8%A8%88%E7%94%BB/" class="md-nav__link">
         
   
   
@@ -7224,7 +7224,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../template/%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E5%AE%8C%E4%BA%86%E5%A0%B1%E5%91%8A%E6%9B%B8/" class="md-nav__link">
+      <a href="../../../../template/%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E5%AE%8C%E4%BA%86%E5%A0%B1%E5%91%8A%E6%9B%B8/" class="md-nav__link">
         
   
   
@@ -7259,7 +7259,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../template/%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E9%96%8B%E7%99%BA%E7%92%B0%E5%A2%83%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%E6%89%8B%E9%A0%86%E6%9B%B8/" class="md-nav__link">
+      <a href="../../../../template/%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E9%96%8B%E7%99%BA%E7%92%B0%E5%A2%83%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%E6%89%8B%E9%A0%86%E6%9B%B8/" class="md-nav__link">
         
   
   
@@ -7294,7 +7294,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../template/%E9%96%8B%E7%99%BA%E7%92%B0%E5%A2%83%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%E6%89%8B%E9%A0%86%E6%9B%B8/" class="md-nav__link">
+      <a href="../../../../template/%E9%96%8B%E7%99%BA%E7%92%B0%E5%A2%83%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%E6%89%8B%E9%A0%86%E6%9B%B8/" class="md-nav__link">
         
   
   
@@ -7329,7 +7329,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../template/AWS%E3%82%B9%E3%83%86%E3%83%BC%E3%82%B8%E3%83%B3%E3%82%B0%E7%92%B0%E5%A2%83%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%E6%89%8B%E9%A0%86%E6%9B%B8/" class="md-nav__link">
+      <a href="../../../../template/AWS%E3%82%B9%E3%83%86%E3%83%BC%E3%82%B8%E3%83%B3%E3%82%B0%E7%92%B0%E5%A2%83%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%E6%89%8B%E9%A0%86%E6%9B%B8/" class="md-nav__link">
         
   
   
@@ -7364,7 +7364,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../template/AWS%E3%83%97%E3%83%AD%E3%83%80%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3%E7%92%B0%E5%A2%83%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%E6%89%8B%E9%A0%86%E6%9B%B8/" class="md-nav__link">
+      <a href="../../../../template/AWS%E3%83%97%E3%83%AD%E3%83%80%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3%E7%92%B0%E5%A2%83%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%E6%89%8B%E9%A0%86%E6%9B%B8/" class="md-nav__link">
         
   
   
@@ -7399,7 +7399,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../template/%E4%BC%81%E6%A5%AD%E5%88%86%E6%9E%90/" class="md-nav__link">
+      <a href="../../../../template/%E4%BC%81%E6%A5%AD%E5%88%86%E6%9E%90/" class="md-nav__link">
         
   
   
@@ -7434,7 +7434,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../template/%E4%BA%8B%E4%BE%8B%E5%88%86%E6%9E%90/" class="md-nav__link">
+      <a href="../../../../template/%E4%BA%8B%E4%BE%8B%E5%88%86%E6%9E%90/" class="md-nav__link">
         
   
   
@@ -7469,7 +7469,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../template/README.md" class="md-nav__link">
+      <a href="../../../../template/README.md" class="md-nav__link">
         
   
   
@@ -7517,337 +7517,191 @@
   
 
 
-<h1 id="docs-update-log">Docs Update Log<a class="headerlink" href="#docs-update-log" title="Permanent link">&para;</a></h1>
-<h2 id="2026-09-29">2026-09-29<a class="headerlink" href="#2026-09-29" title="Permanent link">&para;</a></h2>
+<h1 id="2-http">第 2 章 関数を使って HTTP を扱う<a class="headerlink" href="#2-http" title="Permanent link">&para;</a></h1>
+<p>第 1 章では判断をしました。この章では<strong>動くものを作ります。</strong></p>
+<p>そして 2 対象に無かった相手に初めて当たります。<strong>所有権</strong>です。</p>
+<h2 id="_1">プロジェクトのキックオフ<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>作るのは 1 つだけです。<strong>利用者が自分の ToDo リストを見られること。</strong></p>
+<div class="highlight"><pre><span></span><code>GET /todo/uberto/book
+  → uberto の book というリストの項目が HTML で見える
+</code></pre></div>
+<p>これを端から端まで通します。<strong>ウォーキングスケルトン</strong>です。薄くてよいので、HTTP からドメインまでが 1 本につながっていることを先に作ります。</p>
+<p>3 対象ともこれを第 2 章に置いています。<strong>章の位置を揃えることが、比較を成立させる前提</strong>だからです。</p>
+<h2 id="html">関数型で HTML ページを提供する<a class="headerlink" href="#html" title="Permanent link">&para;</a></h2>
+<p>第 1 章で選んだのは <code>tiny_http</code> でした（<a href="../../../../adr/ADR-025-tiny-http/">ADR-025</a>）。依存 5 クレート、ビルド 7 秒。<strong>ルーティング機構はありません。</strong></p>
+<p>無いことが、この章では都合がよくなります。</p>
+<p><code>axum</code> や <code>rouille</code> を選んでいたら、パスの分解はマクロや型が引き受けます。便利ですが、<strong>「矢印で設計する」という第 2 章の主題が、フレームワークの裏に隠れます。</strong></p>
+<p>なでしこ3 版も同じ形でした。簡易 HTTP サーバのプラグインは前方一致しかせず、パスの分解を自前で書いています。<strong>3 対象のうち 2 つで、手で書くことになりました。</strong></p>
+<h2 id="zettai">Zettai の開発を始める<a class="headerlink" href="#zettai" title="Permanent link">&para;</a></h2>
+<p>受け入れシナリオから書きます。業務の言葉だけで書きます。</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#[test]</span>
+<span class="k">fn</span><span class="w"> </span><span class="nf">uberto_sees_his_book_list</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// 一度変数に受ける。`fetch_list(..).expect(..).items.iter()` と繋ぐと</span>
+<span class="w">    </span><span class="c1">// 一時値が借用中に破棄される（E0716）。**所有権に押された 1 件目。**</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">list</span><span class="w"> </span><span class="o">=</span>
+<span class="w">        </span><span class="n">fetch_list</span><span class="p">(</span><span class="o">&amp;</span><span class="n">User</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="s">"uberto"</span><span class="p">),</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ListName</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="s">"book"</span><span class="p">)).</span><span class="n">expect</span><span class="p">(</span><span class="s">"book のリストがある"</span><span class="p">);</span>
+</code></pre></div>
+<p><strong>コメントが付いているのは、最初は違う書き方をしたからです。</strong> それは後述します。</p>
+<p>走らせると赤になります。</p>
+<div class="highlight"><pre><span></span><code>error<span class="o">[</span>E0432<span class="o">]</span>:<span class="w"> </span>unresolved<span class="w"> </span>imports<span class="w"> </span><span class="sb">`</span>zettai_step1_http::fetch_list<span class="sb">`</span>,<span class="w"> </span><span class="sb">`</span>zettai_step1_http::User<span class="sb">`</span>
+error:<span class="w"> </span>could<span class="w"> </span>not<span class="w"> </span>compile<span class="w"> </span><span class="sb">`</span>zettai-step1-http<span class="sb">`</span><span class="w"> </span><span class="o">(</span><span class="nb">test</span><span class="w"> </span><span class="s2">"see_a_todo_list"</span><span class="o">)</span><span class="w"> </span>due<span class="w"> </span>to<span class="w"> </span><span class="m">1</span><span class="w"> </span>previous<span class="w"> </span>error
+</code></pre></div>
+<p><strong>これは「テストが失敗する Red」ではなく「コンパイルが通らない Red」です。</strong> 第 1 章で書き分けると決めた 2 種類のうちの後者です。</p>
+<h3 id="1">つまずき 1: 一時値が借用中に消える<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<p>最初はこう書きました。</p>
+<!-- code-check: ignore わざと壊したコード -->
+
+<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="n">descriptions</span><span class="p">:</span><span class="w"> </span><span class="nb">Vec</span><span class="o">&lt;&amp;</span><span class="kt">str</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fetch_list</span><span class="p">(</span><span class="o">&amp;</span><span class="n">User</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="s">"uberto"</span><span class="p">),</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ListName</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="s">"book"</span><span class="p">))</span>
+<span class="w">    </span><span class="p">.</span><span class="n">expect</span><span class="p">(</span><span class="s">"book のリストがある"</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="n">items</span>
+<span class="w">    </span><span class="p">.</span><span class="n">iter</span><span class="p">()</span>
+<span class="w">    </span><span class="p">.</span><span class="n">map</span><span class="p">(</span><span class="o">|</span><span class="n">item</span><span class="o">|</span><span class="w"> </span><span class="n">item</span><span class="p">.</span><span class="n">description</span><span class="p">.</span><span class="n">as_str</span><span class="p">())</span>
+<span class="w">    </span><span class="p">.</span><span class="n">collect</span><span class="p">();</span>
+</code></pre></div>
+<p>素直な書き方に見えます。落ちました。</p>
+<div class="highlight"><pre><span></span><code>error<span class="o">[</span>E0716<span class="o">]</span>:<span class="w"> </span>temporary<span class="w"> </span>value<span class="w"> </span>dropped<span class="w"> </span><span class="k">while</span><span class="w"> </span>borrowed
+<span class="w">   </span><span class="p">|</span>
+<span class="m">12</span><span class="w"> </span><span class="p">|</span><span class="w">       </span><span class="nb">let</span><span class="w"> </span>descriptions:<span class="w"> </span>Vec&lt;<span class="p">&amp;</span>str&gt;<span class="w"> </span><span class="o">=</span><span class="w"> </span>list
+<span class="w">   </span><span class="p">|</span><span class="w">  </span>___________________________________^
+<span class="m">13</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="p">|</span><span class="w">         </span>.expect<span class="o">(</span><span class="s2">"book のリストがある"</span><span class="o">)</span>
+<span class="w">   </span><span class="p">|</span><span class="w"> </span><span class="p">|</span>______________________________________^<span class="w"> </span>creates<span class="w"> </span>a<span class="w"> </span>temporary<span class="w"> </span>value<span class="w"> </span>which<span class="w"> </span>is<span class="w"> </span>freed<span class="w"> </span><span class="k">while</span><span class="w"> </span>still<span class="w"> </span><span class="k">in</span><span class="w"> </span>use
+</code></pre></div>
+<p><code>fetch_list</code> が返した <code>ToDoList</code> は<strong>誰のものでもない一時値</strong>です。<code>.items.iter()</code> はそれを借りますが、文が終わると一時値は消えます。借りたままのものが消えるので、コンパイラが止めます。</p>
+<p>直し方は 1 行増やすだけです。</p>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">list</span><span class="w"> </span><span class="o">=</span>
+<span class="w">        </span><span class="n">fetch_list</span><span class="p">(</span><span class="o">&amp;</span><span class="n">User</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="s">"uberto"</span><span class="p">),</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ListName</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="s">"book"</span><span class="p">)).</span><span class="n">expect</span><span class="p">(</span><span class="s">"book のリストがある"</span><span class="p">);</span>
+
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">descriptions</span><span class="p">:</span><span class="w"> </span><span class="nb">Vec</span><span class="o">&lt;&amp;</span><span class="kt">str</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">list</span>
+<span class="w">        </span><span class="p">.</span><span class="n">items</span>
+<span class="w">        </span><span class="p">.</span><span class="n">iter</span><span class="p">()</span>
+<span class="w">        </span><span class="p">.</span><span class="n">map</span><span class="p">(</span><span class="o">|</span><span class="n">item</span><span class="o">|</span><span class="w"> </span><span class="n">item</span><span class="p">.</span><span class="n">description</span><span class="p">.</span><span class="n">as_str</span><span class="p">())</span>
+<span class="w">        </span><span class="p">.</span><span class="n">collect</span><span class="p">();</span>
+</code></pre></div>
+<p><strong>押された先が、読みやすい形でした。</strong> 「取り出す」と「見る」が 2 行に分かれ、何をしているかが 1 行ずつになりました。</p>
+<p>なでしこ3 版では 5 回「制約に押されて、押された先が正しかった」ことが起きました。<strong>型の側の制約でも同じことが起きるか</strong>がこの版の問いの 1 つで、1 件目はそうなりました。</p>
+<p>制約の一覧の「設計に効くもの」の表に記録しました。</p>
+<h2 id="_2">矢印で設計する<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>この章の主題です。<strong>リクエストから応答までを、関数の並びとして見ます。</strong></p>
+<div class="highlight"><pre><span></span><code>リクエストのパス → 利用者とリスト名 → ToDo リスト → HTML → 応答
+</code></pre></div>
+<p>矢印が 4 本あります。1 本ずつ関数にします。</p>
+<div class="highlight"><pre><span></span><code><span class="sd">/// パスを `/` で割り、空を落とす。</span>
+<span class="sd">///</span>
+<span class="sd">/// `tiny_http` は前方一致もしないので、ここで全部を決める。</span>
+<span class="k">pub</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="nf">split_path</span><span class="p">(</span><span class="n">path</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="kt">str</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Vec</span><span class="o">&lt;&amp;</span><span class="kt">str</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">path</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="sc">'/'</span><span class="p">).</span><span class="n">filter</span><span class="p">(</span><span class="o">|</span><span class="n">part</span><span class="o">|</span><span class="w"> </span><span class="o">!</span><span class="n">part</span><span class="p">.</span><span class="n">is_empty</span><span class="p">()).</span><span class="n">collect</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="sd">/// ToDo リストを HTML にする。</span>
+<span class="k">pub</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="nf">render</span><span class="p">(</span><span class="n">list</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">ToDoList</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">String</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">items</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">list</span>
+<span class="w">        </span><span class="p">.</span><span class="n">items</span>
+<span class="w">        </span><span class="p">.</span><span class="n">iter</span><span class="p">()</span>
+<span class="w">        </span><span class="p">.</span><span class="n">map</span><span class="p">(</span><span class="o">|</span><span class="n">item</span><span class="o">|</span><span class="w"> </span><span class="fm">format!</span><span class="p">(</span><span class="s">"&lt;li&gt;{}&lt;/li&gt;"</span><span class="p">,</span><span class="w"> </span><span class="n">item</span><span class="p">.</span><span class="n">description</span><span class="p">))</span>
+<span class="w">        </span><span class="p">.</span><span class="n">collect</span><span class="p">();</span>
+</code></pre></div>
+<p>そして繋ぎます。</p>
+<div class="highlight"><pre><span></span><code><span class="sd">/// リクエストのパスから応答を決める。**矢印はここで繋がる。**</span>
+<span class="k">pub</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="nf">handle</span><span class="p">(</span><span class="n">path</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="kt">str</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nc">Reply</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">parts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">split_path</span><span class="p">(</span><span class="n">path</span><span class="p">);</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="p">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="n">list_name</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">match</span><span class="w"> </span><span class="n">parts</span><span class="p">.</span><span class="n">as_slice</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="p">[</span><span class="s">"todo"</span><span class="p">,</span><span class="w"> </span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="n">list_name</span><span class="p">]</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">User</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="n">user</span><span class="p">),</span><span class="w"> </span><span class="n">ListName</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="n">list_name</span><span class="p">)),</span>
+<span class="w">        </span><span class="n">_</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">not_found</span><span class="p">(),</span>
+<span class="w">    </span><span class="p">};</span>
+</code></pre></div>
+<p><strong><code>match</code> でパスの形を書けます。</strong> <code>["todo", user, list_name]</code> は「3 つあって、1 つめが <code>todo</code>」を 1 行で表しています。なでしこ3 版では要素数を数えてから添字で取り出しました。</p>
+<h3 id="http">HTTP の型を返さない<a class="headerlink" href="#http" title="Permanent link">&para;</a></h3>
+<p><code>handle</code> が返すのは <code>tiny_http</code> の型ではありません。</p>
+<div class="highlight"><pre><span></span><code><span class="sd">/// 応答。状態コードと本文だけを持つ。</span>
+<span class="sd">///</span>
+<span class="sd">/// `tiny_http` の型を返さないのは、**この関数を HTTP 無しでテストできる**</span>
+<span class="sd">/// ようにするため。サーバの組み立ては `src/bin/zettai.rs` が持つ。</span>
+<span class="cp">#[derive(Debug, PartialEq, Eq)]</span>
+<span class="k">pub</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">Reply</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="n">status</span><span class="p">:</span><span class="w"> </span><span class="kt">u16</span><span class="p">,</span>
+<span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="n">body</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>この 1 つの判断で、HTTP のテストがサーバ無しで書けます。</strong></p>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="cp">#[test]</span>
+<span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">a_known_list_is_rendered</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">reply</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">handle</span><span class="p">(</span><span class="s">"/todo/uberto/book"</span><span class="p">);</span>
+<span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">reply</span><span class="p">.</span><span class="n">status</span><span class="p">,</span><span class="w"> </span><span class="mi">200</span><span class="p">);</span>
+<span class="w">        </span><span class="fm">assert!</span><span class="p">(</span><span class="n">reply</span><span class="p">.</span><span class="n">body</span><span class="p">.</span><span class="n">contains</span><span class="p">(</span><span class="s">"&lt;li&gt;write chapter&lt;/li&gt;"</span><span class="p">));</span>
+<span class="w">        </span><span class="fm">assert!</span><span class="p">(</span><span class="n">reply</span><span class="p">.</span><span class="n">body</span><span class="p">.</span><span class="n">contains</span><span class="p">(</span><span class="s">"&lt;h1&gt;book&lt;/h1&gt;"</span><span class="p">));</span>
+<span class="w">    </span><span class="p">}</span>
+</code></pre></div>
+<p>サーバを起動しません。ポートも使いません。<strong>並列に走ります。</strong></p>
+<p>なでしこ3 版では受け入れテストの HTTP 経路でサーバを起こす必要があり、<code>Makefile</code> が起動と停止を持ちました。<strong>そうなった原因は「関数値ごしに非同期な命令を呼べない」という言語の制約</strong>で、こちらにはその制約がありません。</p>
+<p>サーバ側は配線だけです。</p>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">request</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">server</span><span class="p">.</span><span class="n">incoming_requests</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">reply</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">handle</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">url</span><span class="p">());</span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Response</span><span class="p">::</span><span class="n">from_string</span><span class="p">(</span><span class="n">reply</span><span class="p">.</span><span class="n">body</span><span class="p">)</span>
+<span class="w">            </span><span class="p">.</span><span class="n">with_header</span><span class="p">(</span><span class="n">html</span><span class="p">.</span><span class="n">clone</span><span class="p">())</span>
+<span class="w">            </span><span class="p">.</span><span class="n">with_status_code</span><span class="p">(</span><span class="n">StatusCode</span><span class="p">(</span><span class="n">reply</span><span class="p">.</span><span class="n">status</span><span class="p">));</span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">request</span><span class="p">.</span><span class="n">respond</span><span class="p">(</span><span class="n">response</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+</code></pre></div>
+<p><strong>「何を返すか」は <code>handle</code> が決め、「どう返すか」だけがここにあります。</strong></p>
+<h2 id="todo">ToDo リストをマップで提供する<a class="headerlink" href="#todo" title="Permanent link">&para;</a></h2>
+<p>ドメイン側はまだ薄いままにします。</p>
+<div class="highlight"><pre><span></span><code><span class="k">pub</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="nf">fetch_list</span><span class="p">(</span><span class="n">user</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">User</span><span class="p">,</span><span class="w"> </span><span class="n">list_name</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">ListName</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Option</span><span class="o">&lt;</span><span class="n">ToDoList</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">user</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">User</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="s">"uberto"</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">None</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">match</span><span class="w"> </span><span class="n">list_name</span><span class="p">.</span><span class="mf">0.</span><span class="n">as_str</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="s">"book"</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="n">ToDoList</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">list_name</span><span class="p">:</span><span class="w"> </span><span class="nc">list_name</span><span class="p">.</span><span class="n">clone</span><span class="p">(),</span>
+</code></pre></div>
+<p><strong>見つからないことを <code>Option</code> で表しています。</strong> 第 7 章で <code>Result</code> に変わり、「なぜ見つからないか」を持つようになります。</p>
+<p>Kotlin 版は第 7 章まで <code>ToDoList?</code> でした。なでしこ3 版は <code>空</code> でしたが、<strong><code>空</code> は「値が無い」「空文字列」「まだ調べていない」を区別しない</strong>ので、第 7 章で結果辞書に変えています。</p>
+<p><code>Option</code> にはその曖昧さがありません。<strong><code>None</code> は <code>None</code> だけです。</strong> それでも第 7 章で変えるのは、<strong>「なぜ」が要る</strong>からです。理由は型の有無とは別の話でした。</p>
+<h3 id="_3">空のリストも表示できる<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="cp">#[test]</span>
+<span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">an_empty_list_is_still_two_hundred</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">reply</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">handle</span><span class="p">(</span><span class="s">"/todo/uberto/shopping"</span><span class="p">);</span>
+<span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">reply</span><span class="p">.</span><span class="n">status</span><span class="p">,</span><span class="w"> </span><span class="mi">200</span><span class="p">);</span>
+<span class="w">        </span><span class="fm">assert!</span><span class="p">(</span><span class="o">!</span><span class="n">reply</span><span class="p">.</span><span class="n">body</span><span class="p">.</span><span class="n">contains</span><span class="p">(</span><span class="s">"&lt;li&gt;"</span><span class="p">));</span>
+<span class="w">    </span><span class="p">}</span>
+</code></pre></div>
+<p>なでしこ3 版ではここに罠がありました。<strong><code>繰り返す</code> が開始より終了が小さいときに逆向きに回る</strong>ので、0 件のリストを回すコードが潜在バグになっていました。</p>
+<p>Rust の <code>.iter()</code> は 0 件なら 0 回です。<strong>ガードが要りません。</strong></p>
+<h3 id="_4">動かす<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>book:<span class="w">     </span><span class="m">200</span><span class="w"> </span>/<span class="w"> </span><span class="m">3</span><span class="w"> </span>件
+shopping:<span class="w"> </span><span class="m">200</span>
+nope:<span class="w">     </span><span class="m">404</span>
+短いパス:<span class="w"> </span><span class="m">404</span>
+&lt;html&gt;&lt;body&gt;&lt;h1&gt;book&lt;/h1&gt;&lt;ul&gt;&lt;li&gt;write<span class="w"> </span>chapter&lt;/li&gt;&lt;li&gt;insert<span class="w"> </span>code&lt;/li&gt;&lt;li&gt;publish<span class="w"> </span>book&lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;
+</code></pre></div>
+<p>縦串が通りました。</p>
+<h2 id="_5">まとめ<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Update</strong>: <a href="/article/zettai/rust/chapter02.md">chapter02</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Verification</strong>: <a href="/development/iteration_plan-rust-2.md">iteration_plan-rust-2</a> を human:kakimomokuri が検証</li>
-<li><strong>Update</strong>: <a href="/development/iteration_plan-rust-2.md">iteration_plan-rust-2</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/release_plan-rust.md">release_plan-rust</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/retrospective-rust-1.md">retrospective-rust-1</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/bolt_report-rust-1.md">bolt_report-rust-1</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/zettai/rust/chapter01.md">chapter01</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/adr/ADR-026-just-and-coverage.md">ADR-026-just-and-coverage</a> を更新（claude-code/claude-opus-5）</li>
+<li><strong><code>tiny_http</code> にルーティング機構が無いことが、この章では都合がよくなりました。</strong> フレームワークが隠さないので、「矢印で設計する」がそのままコードに出ます。3 対象のうち 2 つで手で書いています</li>
+<li><strong><code>handle</code> が <code>tiny_http</code> の型を返さない</strong>という 1 つの判断で、HTTP のテストがサーバ無しで書けます。なでしこ3 版がサーバを起こす必要があったのは、言語の制約が原因でした</li>
+<li><strong>所有権に押されたのは 1 件だけ</strong>で、一時値の借用でした。<strong>押された先は読みやすい形</strong>（「取り出す」と「見る」が 2 行に分かれる）で、なでしこ3 版で 5 回起きたことと同じでした</li>
+<li><strong><code>match</code> でパスの形を書けます。</strong> <code>["todo", user, list_name]</code> の 1 行が、なでしこ3 版の「要素数を数えて添字で取り出す」に相当します</li>
+<li><strong><code>Option</code> は <code>空</code> と違って曖昧ではありません。</strong> それでも第 7 章で <code>Result</code> に変えます。「なぜ見つからないか」が要るからで、これは型の有無とは別の話です</li>
+<li>0 件のリストにガードが要りませんでした。なでしこ3 版では 5 箇所すべてが潜在バグでした</li>
 </ul>
-<h2 id="2026-09-28">2026-09-28<a class="headerlink" href="#2026-09-28" title="Permanent link">&para;</a></h2>
+<p>次の章で分けます。<strong>いまはドメインと HTTP が同じクレートの中にいます。</strong> 分け方をどうするか——2 対象は検査を書いて守りました。型のある言語では、<strong>コンパイラに守らせられるかもしれません。</strong></p>
+<hr />
+<h2 id="_6">この章で書いたコード<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Update</strong>: <a href="/development/retrospective-rust-1.md">retrospective-rust-1</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/bolt_report-rust-1.md">bolt_report-rust-1</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/zettai/rust/chapter01.md">chapter01</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/release_plan-rust.md">release_plan-rust</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/iteration_plan-rust-1.md">iteration_plan-rust-1</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/outline.md">outline</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/zettai/rust/chapter01.md">chapter01</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/zettai/rust/chapter01.md">chapter01</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/adr/ADR-026-just-and-coverage.md">ADR-026-just-and-coverage</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/adr/ADR-025-tiny-http.md">ADR-025-tiny-http</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/adr/ADR-024-no-async.md">ADR-024-no-async</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/release_plan-rust.md">release_plan-rust</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/iteration_plan-rust-1.md">iteration_plan-rust-1</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/development_strategy.md">development_strategy</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/outline.md">outline</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Verification</strong>: <a href="/development/iteration_plan-rust-1.md">iteration_plan-rust-1</a> を human:kakimomokuri が検証</li>
-<li><strong>Update</strong>: <a href="/development/iteration_plan-rust-1.md">iteration_plan-rust-1</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/release_plan-rust.md">release_plan-rust</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/development_strategy.md">development_strategy</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Verification</strong>: <a href="/development/release_plan-rust.md">release_plan-rust</a> を human:kakimomokuri が検証</li>
-<li><strong>Update</strong>: <a href="/development/release_plan-rust.md">release_plan-rust</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/outline.md">outline</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/retrospective-nadesiko-7.md">retrospective-nadesiko-7</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/release_report-nadesiko-1.0.0.md">release_report-nadesiko-1.0.0</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/bolt_report-nadesiko-7.md">bolt_report-nadesiko-7</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/release_plan-nadesiko.md">release_plan-nadesiko</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/iteration_plan-nadesiko-7.md">iteration_plan-nadesiko-7</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/zettai/nadesiko/chapter13.md">chapter13</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/iteration_plan-nadesiko-7.md">iteration_plan-nadesiko-7</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/outline.md">outline</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/zettai/nadesiko/chapter13.md">chapter13</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/iteration_plan-nadesiko-7.md">iteration_plan-nadesiko-7</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/outline.md">outline</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/zettai/nadesiko/chapter12.md">chapter12</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/outline.md">outline</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/adr/ADR-023-builtin-json-with-converter.md">ADR-023-builtin-json-with-converter</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/design/domain-model.md">domain-model</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/design/architecture_backend.md">architecture_backend</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/draft.md">draft</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/adr/ADR-023-builtin-json-with-converter.md">ADR-023-builtin-json-with-converter</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/design/domain-model.md">domain-model</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/design/architecture_backend.md">architecture_backend</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/draft.md">draft</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/iteration_plan-nadesiko-7.md">iteration_plan-nadesiko-7</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/zettai/nadesiko/chapter11.md">chapter11</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/adr/ADR-015-step-directories.md">ADR-015-step-directories</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Verification</strong>: <a href="/development/iteration_plan-nadesiko-7.md">iteration_plan-nadesiko-7</a> を human:kakimomokuri が検証</li>
-<li><strong>Update</strong>: <a href="/development/iteration_plan-nadesiko-7.md">iteration_plan-nadesiko-7</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/release_plan-nadesiko.md">release_plan-nadesiko</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/development_strategy.md">development_strategy</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/retrospective-nadesiko-6.md">retrospective-nadesiko-6</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/bolt_report-nadesiko-6.md">bolt_report-nadesiko-6</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/release_plan-nadesiko.md">release_plan-nadesiko</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/development_strategy.md">development_strategy</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/zettai/nadesiko/chapter11.md">chapter11</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/adr/ADR-022-template-with-unfilled-check.md">ADR-022-template-with-unfilled-check</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/adr/ADR-021-context-as-path.md">ADR-021-context-as-path</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/iteration_plan-nadesiko-6.md">iteration_plan-nadesiko-6</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/design/ui_design.md">ui_design</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/design/domain-model.md">domain-model</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/outline.md">outline</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/zettai/nadesiko/chapter10.md">chapter10</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/outline.md">outline</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/draft.md">draft</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Verification</strong>: <a href="/development/iteration_plan-nadesiko-6.md">iteration_plan-nadesiko-6</a> を human:kakimomokuri が検証</li>
-<li><strong>Update</strong>: <a href="/development/iteration_plan-nadesiko-6.md">iteration_plan-nadesiko-6</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/release_plan-nadesiko.md">release_plan-nadesiko</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/development_strategy.md">development_strategy</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/bolt_report-nadesiko-5.md">bolt_report-nadesiko-5</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/retrospective-nadesiko-5.md">retrospective-nadesiko-5</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/bolt_report-nadesiko-5.md">bolt_report-nadesiko-5</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/release_plan-nadesiko.md">release_plan-nadesiko</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/iteration_plan-nadesiko-5.md">iteration_plan-nadesiko-5</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/zettai/nadesiko/chapter09.md">chapter09</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/adr/ADR-020-third-route.md">ADR-020-third-route</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/adr/ADR-019-file-event-log.md">ADR-019-file-event-log</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/design/domain-model.md">domain-model</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/design/data-model.md">data-model</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/design/architecture_backend.md">architecture_backend</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/outline.md">outline</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/draft.md">draft</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Verification</strong>: <a href="/development/iteration_plan-nadesiko-5.md">iteration_plan-nadesiko-5</a> を human:kakimomokuri が検証</li>
-<li><strong>Update</strong>: <a href="/development/iteration_plan-nadesiko-5.md">iteration_plan-nadesiko-5</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/release_plan-nadesiko.md">release_plan-nadesiko</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/retrospective-nadesiko-4.md">retrospective-nadesiko-4</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/bolt_report-nadesiko-4.md">bolt_report-nadesiko-4</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/release_plan-nadesiko.md">release_plan-nadesiko</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/iteration_plan-nadesiko-4.md">iteration_plan-nadesiko-4</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/zettai/nadesiko/chapter07.md">chapter07</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/adr/ADR-018-outcome-dict-port.md">ADR-018-outcome-dict-port</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/adr/ADR-017-own-property-testing.md">ADR-017-own-property-testing</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/adr/ADR-016-own-acceptance-entry.md">ADR-016-own-acceptance-entry</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/design/ui_design.md">ui_design</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/design/domain-model.md">domain-model</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/design/architecture_backend.md">architecture_backend</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/zettai/nadesiko/chapter06.md">chapter06</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/zettai/nadesiko/chapter05.md">chapter05</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/zettai/nadesiko/chapter04.md">chapter04</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/outline.md">outline</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/adr/ADR-015-step-directories.md">ADR-015-step-directories</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/zettai/nadesiko/chapter07.md">chapter07</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/adr/ADR-018-outcome-dict-port.md">ADR-018-outcome-dict-port</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/adr/ADR-017-own-property-testing.md">ADR-017-own-property-testing</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/adr/ADR-016-own-acceptance-entry.md">ADR-016-own-acceptance-entry</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/zettai/nadesiko/chapter06.md">chapter06</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/zettai/nadesiko/chapter05.md">chapter05</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/zettai/nadesiko/chapter04.md">chapter04</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/adr/ADR-015-step-directories.md">ADR-015-step-directories</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/adr/ADR-015-step-directories.md">ADR-015-step-directories</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/release_plan-nadesiko.md">release_plan-nadesiko</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/iteration_plan-nadesiko-4.md">iteration_plan-nadesiko-4</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/zettai/nadesiko/chapter05.md">chapter05</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/zettai/nadesiko/chapter04.md">chapter04</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/zettai/nadesiko/chapter03.md">chapter03</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/zettai/nadesiko/chapter02.md">chapter02</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/zettai/nadesiko/chapter01.md">chapter01</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Verification</strong>: <a href="/development/iteration_plan-nadesiko-4.md">iteration_plan-nadesiko-4</a> を human:kakimomokuri が検証</li>
-<li><strong>Update</strong>: <a href="/development/iteration_plan-nadesiko-4.md">iteration_plan-nadesiko-4</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/release_plan-nadesiko.md">release_plan-nadesiko</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/development_strategy.md">development_strategy</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/retrospective-nadesiko-3.md">retrospective-nadesiko-3</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/bolt_report-nadesiko-3.md">bolt_report-nadesiko-3</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/release_plan-nadesiko.md">release_plan-nadesiko</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/iteration_plan-nadesiko-3.md">iteration_plan-nadesiko-3</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/zettai/nadesiko/chapter05.md">chapter05</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/design/domain-model.md">domain-model</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/zettai/nadesiko/chapter04.md">chapter04</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/zettai/nadesiko/chapter03.md">chapter03</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/zettai/nadesiko/chapter02.md">chapter02</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/outline.md">outline</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Verification</strong>: <a href="/development/iteration_plan-nadesiko-3.md">iteration_plan-nadesiko-3</a> を human:kakimomokuri が検証</li>
-<li><strong>Update</strong>: <a href="/development/iteration_plan-nadesiko-3.md">iteration_plan-nadesiko-3</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/release_plan-nadesiko.md">release_plan-nadesiko</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/development_strategy.md">development_strategy</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/retrospective-nadesiko-2.md">retrospective-nadesiko-2</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/bolt_report-nadesiko-2.md">bolt_report-nadesiko-2</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/release_plan-nadesiko.md">release_plan-nadesiko</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/iteration_plan-nadesiko-2.md">iteration_plan-nadesiko-2</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/retrospective-nadesiko-2.md">retrospective-nadesiko-2</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/bolt_report-nadesiko-2.md">bolt_report-nadesiko-2</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/release_plan-nadesiko.md">release_plan-nadesiko</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/iteration_plan-nadesiko-2.md">iteration_plan-nadesiko-2</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/zettai/nadesiko/chapter03.md">chapter03</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/design/ui_design.md">ui_design</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/design/architecture_backend.md">architecture_backend</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/outline.md">outline</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Verification</strong>: <a href="/development/iteration_plan-nadesiko-2.md">iteration_plan-nadesiko-2</a> を human:kakimomokuri が検証</li>
-<li><strong>Update</strong>: <a href="/development/iteration_plan-nadesiko-2.md">iteration_plan-nadesiko-2</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/release_plan-nadesiko.md">release_plan-nadesiko</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/development_strategy.md">development_strategy</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/retrospective-nadesiko-1.md">retrospective-nadesiko-1</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/bolt_report-nadesiko-1.md">bolt_report-nadesiko-1</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/release_plan-nadesiko.md">release_plan-nadesiko</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/iteration_plan-nadesiko-1.md">iteration_plan-nadesiko-1</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/zettai/nadesiko/chapter01.md">chapter01</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/outline.md">outline</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/adr/ADR-014-own-test-framework.md">ADR-014-own-test-framework</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/adr/ADR-013-cnako3-runtime.md">ADR-013-cnako3-runtime</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Verification</strong>: <a href="/development/iteration_plan-nadesiko-1.md">iteration_plan-nadesiko-1</a> を human:kakimomokuri が検証</li>
-<li><strong>Update</strong>: <a href="/development/iteration_plan-nadesiko-1.md">iteration_plan-nadesiko-1</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/release_plan-nadesiko.md">release_plan-nadesiko</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/outline.md">outline</a> を更新（claude-code/claude-opus-5）</li>
+<li>実装: <code>apps/rust/zettai/zettai-step1-http/src/domain.rs</code>、<code>apps/rust/zettai/zettai-step1-http/src/http.rs</code>、<code>apps/rust/zettai/zettai-step1-http/src/bin/zettai.rs</code></li>
+<li>受け入れ: <code>apps/rust/zettai/zettai-step1-http/tests/see_a_todo_list.rs</code></li>
+<li>制約の一覧: <code>apps/rust/zettai/README.md</code></li>
 </ul>
-<h2 id="2026-09-27">2026-09-27<a class="headerlink" href="#2026-09-27" title="Permanent link">&para;</a></h2>
+<p>本文のコードは、上のファイルからの転記です。次の 3 種類だけは逐語の転記ではありません。</p>
 <ul>
-<li><strong>Update</strong>: <a href="/development/release_report-1.0.0.md">release_report-1.0.0</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/bolt_report-7.md">bolt_report-7</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/review/unit7_review_20260927.md">unit7_review_20260927</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/review/unit7_review_20260927.md">unit7_review_20260927</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/journal/20260927-unit7.md">20260927-unit7</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/retrospective-7.md">retrospective-7</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/release_report-1.0.0.md">release_report-1.0.0</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/bolt_report-7.md">bolt_report-7</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/zettai/kotlin/chapter13.md">chapter13</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/zettai/kotlin/chapter05.md">chapter05</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/review/unit7_review_20260927.md">unit7_review_20260927</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/zettai/kotlin/chapter12.md">chapter12</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/review/unit7_review_20260927.md">unit7_review_20260927</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/zettai/kotlin/chapter12.md">chapter12</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/zettai/kotlin/chapter12.md">chapter12</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/review/unit7_review_20260927.md">unit7_review_20260927</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/journal/20260927-unit7.md">20260927-unit7</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/retrospective-7.md">retrospective-7</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/release_report-1.0.0.md">release_report-1.0.0</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/bolt_report-7.md">bolt_report-7</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/zettai/kotlin/chapter13.md">chapter13</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/zettai/kotlin/chapter09.md">chapter09</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/review/unit7_review_20260927.md">unit7_review_20260927</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/journal/20260927-unit7.md">20260927-unit7</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/retrospective-7.md">retrospective-7</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/release_report-1.0.0.md">release_report-1.0.0</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/bolt_report-7.md">bolt_report-7</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/zettai/kotlin/chapter13.md">chapter13</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/review/unit7_review_20260927.md">unit7_review_20260927</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/retrospective-7.md">retrospective-7</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/journal/20260927-unit7.md">20260927-unit7</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/release_report-1.0.0.md">release_report-1.0.0</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/bolt_report-7.md">bolt_report-7</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/zettai/kotlin/chapter13.md">chapter13</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/zettai/kotlin/chapter12.md">chapter12</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/zettai/kotlin/chapter10.md">chapter10</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/zettai/kotlin/chapter09.md">chapter09</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/outline.md">outline</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/review/unit7_review_20260927.md">unit7_review_20260927</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/retrospective-7.md">retrospective-7</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/release_report-1.0.0.md">release_report-1.0.0</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/zettai/kotlin/chapter13.md">chapter13</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/zettai/kotlin/chapter12.md">chapter12</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/zettai/kotlin/chapter10.md">chapter10</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/zettai/kotlin/chapter09.md">chapter09</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/outline.md">outline</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Creation</strong>: <a href="/review/unit7_review_20260927.md">Unit 7 開発成果物レビュー</a> を作成。5 視点（programmer / tester / architect / technical-writer / user-representative）の並列レビューを統合し、高 9 件・中 7 件・低 6 件の指摘と対応方針を記録（claude-code/claude-opus-5）</li>
-<li><strong>Creation</strong>: <a href="/development/retrospective-7.md">Unit 7 のふりかえり（KPT）</a> を作成。Keep 7 件・Problem 6 件・Try 6 件と次のリリースへの引き継ぎを記録（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: レビュー指摘に基づき第 12 章を改訂。「包めるのは結果を読まない範囲まで」（loggedOutcome）と「扱わなかったこと」（JSON エスケープ）の節を新設し、プロファンクタの厳密さ・法則数の見出し・往復テストの名前を実装に合わせた（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/zettai/kotlin/chapter09.md">第 9 章</a>・<a href="/article/zettai/kotlin/chapter10.md">第 10 章</a>・<a href="/article/zettai/kotlin/chapter13.md">第 13 章</a>・<a href="/article/outline.md">執筆計画</a>・<a href="/article/zettai/kotlin/index.md">Kotlin 版索引</a> の記述を実装に合わせた。第 4 章からの存在しない引用（捏造 3 例目）を地の文に直し、Kondor 採用前提の記述と境界テストの検査範囲を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/release_report-1.0.0.md">リリース完了報告（v1.0.0）</a> の誤りを修正。ADR 分類表の二重計上と ADR-006 の欠落、「ADR 全件に再検討の条件」の断言、次に足す検査の件数（引用の実在検査を追加）（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/journal/20260927-unit7.md">20260927-unit7</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/release_report-1.0.0.md">release_report-1.0.0</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/bolt_report-7.md">bolt_report-7</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/release_plan.md">release_plan</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/iteration_plan-7.md">iteration_plan-7</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/zettai/kotlin/chapter13.md">chapter13</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/zettai/kotlin/chapter09.md">chapter09</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/adr/ADR-012-own-json-converter.md">ADR-012-own-json-converter</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/adr/ADR-010-own-template.md">ADR-010-own-template</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/adr/ADR-009-integration-test-database.md">ADR-009-integration-test-database</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/adr/ADR-008-event-store-single-table.md">ADR-008-event-store-single-table</a> を更新（claude-code/claude-opus-5）</li>
-<li><strong>Creation</strong>: <a href="/development/release_report-1.0.0.md">リリース完了報告（v1.0.0）</a> を作成。7 Unit・14 ストーリー・13 章・690 テスト・ADR 12 件の実績、ゲート密度の推移（8→11→5→4→8→6→5、47/47 通過・変更依頼 2 件）、作った 4 つの検査が止めたもの、扱わなかったこと 5 件、学び 7 件、次のリリースへの提案 3 件を記録（claude-code/claude-opus-5）</li>
-<li><strong>Creation</strong>: <a href="/development/bolt_report-7.md">Unit 7 の Bolt 終了報告</a> と <a href="/journal/20260927-unit7.md">開発ジャーナル Unit 7</a> を作成。ポートの型を変えずにログを足せたこと（波及 0 ファイル）、連載全体を通じた学び 7 件を記録（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/zettai/kotlin/chapter09.md">第 9 章</a>・<a href="/article/zettai/kotlin/chapter13.md">第 13 章</a> の整合を修正。第 3 章に存在しない文を引用していた 2 箇所を実際の文に差し替え、ADR の再検討条件に関する記述を実態（「入れない」と決めた 6 件）に合わせた（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/adr/ADR-008-event-store-single-table.md">ADR-008</a>・<a href="/adr/ADR-009-integration-test-database.md">ADR-009</a>・<a href="/adr/ADR-010-own-template.md">ADR-010</a>・<a href="/adr/ADR-012-own-json-converter.md">ADR-012</a> に再検討の条件（どの事象が起きたら入れるか）を追記。「入れない」と決めた 6 件すべてが時期ではなく事象で条件を持った（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/release_plan.md">リリース計画</a>・<a href="/development/index.md">開発</a>・<a href="/journal/index.md">ジャーナル</a> の進捗を Unit 7 完了（完了 Unit 数 7 / 7・ゲート通過 47 / 47）に更新し、Release v1.0.0 を記録（claude-code/claude-opus-5）</li>
-<li><strong>Verification</strong>: <a href="/development/iteration_plan-7.md">iteration_plan-7</a> を human:kakimomokuri が検証</li>
-<li><strong>Creation</strong>: <a href="/development/iteration_plan-7.md">Unit 7 の Bolt 計画</a> を作成（AI-DLC 準拠・最終 Unit）。第 12 章の構造化ロギングとプロファンクタ、第 13 章の総括、Unit 6 からの持ち込み 9 項目と学び 5 件の織り込み、リスク欄をエントロピー評価に反映、ADR と記事の対応を機械検査する方針、Release v1.0.0 の完了条件を定義（claude-code/claude-opus-5）</li>
-<li><strong>Creation</strong>: <a href="/article/zettai/kotlin/chapter10.md">第 10 章 コンテキストを読み込み、コマンドを処理する</a>、<a href="/article/zettai/kotlin/chapter11.md">第 11 章 アプリカティブによるデータバリデーション</a> を公開（claude-code/claude-opus-5）</li>
-<li><strong>Creation</strong>: <a href="/adr/ADR-010-own-template.md">ADR-010 テンプレート機構を自前で書く</a>、<a href="/adr/ADR-011-transaction-boundary.md">ADR-011 トランザクションの境界と文脈の型</a> を作成（claude-code/claude-opus-5）</li>
-<li><strong>Creation</strong>: <a href="/development/bolt_report-6.md">Unit 6 の Bolt 終了報告</a> と <a href="/journal/20260927-unit6.md">開発ジャーナル Unit 6</a> を作成。第 13 章への持ち込み（扱わなかったこと 4 件）を記録（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/design/domain-model.md">ドメインモデル設計</a>・<a href="/design/architecture_backend.md">バックエンドアーキテクチャ設計</a>・<a href="/design/ui_design.md">UI 設計</a> に Unit 6 の実装（トランザクション・TxContext・Validation・テンプレート機構）を反映（claude-code/claude-opus-5）</li>
-<li><strong>Verification</strong>: <a href="/development/iteration_plan-6.md">iteration_plan-6</a> を human:kakimomokuri が検証</li>
-<li><strong>Creation</strong>: <a href="/development/iteration_plan-6.md">Unit 6 の Bolt 計画</a> を作成（AI-DLC 準拠）。中盤から終盤への局面移行の確認、Unit 5 からの持ち込み 8 項目（テンプレートエンジンの前提の訂正とスナップショットを扱わない判断を含む）と学び 5 件の織り込み、ポートの型変更の見積もり、疎いゲート密度（6 箇所）、画面遷移図の更新案を定義（claude-code/claude-opus-5）</li>
-<li><strong>Creation</strong>: <a href="/article/zettai/kotlin/chapter08.md">第 8 章 ファンクタを使ってイベントを射影する</a>、<a href="/article/zettai/kotlin/chapter09.md">第 9 章 モナドによる安全なデータ永続化</a> を公開（claude-code/claude-opus-5）</li>
-<li><strong>Creation</strong>: <a href="/design/data-model.md">データモデル設計</a> を作成。イベントストアのスキーマ、ER 図、正規化を論じない理由を記述（claude-code/claude-opus-5）</li>
-<li><strong>Creation</strong>: <a href="/adr/ADR-007-module-per-unit.md">ADR-007 モジュールを Unit の境界で切る</a>、<a href="/adr/ADR-008-event-store-single-table.md">ADR-008 イベントストアを 1 テーブルで持ち状態を保存しない</a>、<a href="/adr/ADR-009-integration-test-database.md">ADR-009 結合テストの DB を docker-compose と CI のサービスコンテナで用意する</a> を作成（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/adr/ADR-004-static-analysis.md">ADR-004</a> と <a href="/adr/ADR-005-property-based-testing.md">ADR-005</a> に再検討の結果を追記。ktlint を実際に試して採用せず、プロパティベーステストのライブラリも入れずに骨格をヘルパーへ切り出した（claude-code/claude-opus-5）</li>
-<li><strong>Creation</strong>: <a href="/development/bolt_report-5.md">Unit 5 の Bolt 終了報告</a> と <a href="/journal/20260927-unit5.md">開発ジャーナル Unit 5</a> を作成。Release v0.2.0 の達成を記録（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/design/architecture_backend.md">バックエンドアーキテクチャ設計</a> と <a href="/design/domain-model.md">ドメインモデル設計</a> に Unit 5 の実装（射影・CQRS・ContextReader・永続化）を反映（claude-code/claude-opus-5）</li>
-<li><strong>Verification</strong>: <a href="/development/iteration_plan-5.md">iteration_plan-5</a> を human:kakimomokuri が検証</li>
-<li><strong>Verification</strong>: <a href="/development/iteration_plan-5.md">iteration_plan-5</a> を human:kakimomokuri が検証</li>
-<li><strong>Creation</strong>: <a href="/development/iteration_plan-5.md">Unit 5 の Bolt 計画</a> を作成（AI-DLC 準拠）。ゲート密度を密に戻す根拠、Unit 4 からの持ち込み 8 項目と学び 5 件の織り込み、モジュールを Unit の境界で切る判断、エントロピー評価 HIGH 3 軸とスパイクの再導入、ER 図の初回作成案、ADR-004・005 の再検討を定義（claude-code/claude-opus-5）</li>
-<li><strong>Creation</strong>: <a href="/article/zettai/kotlin/chapter06.md">第 6 章 コマンドを実行してイベントを生成する</a>、<a href="/article/zettai/kotlin/chapter07.md">第 7 章 関数型手法によるエラーハンドリング</a> を公開（claude-code/claude-opus-5）</li>
-<li><strong>Creation</strong>: <a href="/adr/ADR-006-outcome-port-type.md">ADR-006 失敗を Outcome で表しポートの型を変える</a> を作成。波及が 6 ファイルだったこと、波及しなかった理由が境界の位置であることを記録（claude-code/claude-opus-5）</li>
-<li><strong>Creation</strong>: <a href="/development/bolt_report-4.md">Unit 4 の Bolt 終了報告</a> と <a href="/journal/20260927-unit4.md">開発ジャーナル Unit 4</a> を作成（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/design/domain-model.md">ドメインモデル設計</a>・<a href="/design/architecture_backend.md">バックエンドアーキテクチャ設計</a>・<a href="/design/ui_design.md">UI 設計</a> に Unit 4 の実装（コマンド・遷移表・Outcome・404/400 の区別）を反映（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/development_strategy.md">開発戦略</a> に「進捗管理の手段」の節を追加。GitHub に同期しない判断とユーザーマニュアルを作らない判断を、連載を通じての方針として確定（claude-code/claude-opus-5）</li>
-<li><strong>Verification</strong>: <a href="/development/iteration_plan-4.md">iteration_plan-4</a> を human:kakimomokuri が検証</li>
-<li><strong>Creation</strong>: <a href="/development/iteration_plan-4.md">Unit 4 の Bolt 計画</a> を作成（AI-DLC 準拠）。ポートの型が Outcome に変わる影響の見積もり、Unit 3 からの持ち込み 7 項目と学び 4 件の織り込み、ユーザーマニュアルを作らない判断の確定、遷移表 16 マス、疎いゲート密度に 1 つ足す判断を定義（claude-code/claude-opus-5）</li>
-<li><strong>Creation</strong>: <a href="/article/zettai/kotlin/chapter04.md">第 4 章 ドメインとアダプタのモデリング</a>、<a href="/article/zettai/kotlin/chapter05.md">第 5 章 イベントで状態を変更する</a> を公開（claude-code/claude-opus-5）</li>
-<li><strong>Creation</strong>: <a href="/design/domain-model.md">ドメインモデル設計</a> を作成。ユビキタス言語の対訳表、要素表、イベントと状態の関係、状態遷移図、満たす法則を記述（claude-code/claude-opus-5）</li>
-<li><strong>Creation</strong>: <a href="/adr/ADR-005-property-based-testing.md">ADR-005 プロパティベーステストを自前で書き kotest-property を導入しない</a> を作成（claude-code/claude-opus-5）</li>
-<li><strong>Creation</strong>: <a href="/development/bolt_report-3.md">Unit 3 の Bolt 終了報告</a> と <a href="/journal/20260927.md">開発ジャーナル Unit 3</a> を作成。疎いゲート密度で変更依頼 0 件、ゲートを外せる条件、抽象概念の名前を最後に出す構成を記録（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/design/architecture_backend.md">バックエンドアーキテクチャ設計</a> と <a href="/design/ui_design.md">UI 設計</a> に Unit 3 の実装を反映（claude-code/claude-opus-5）</li>
-<li><strong>Creation</strong>: <a href="/development/iteration_plan-3.md">Unit 3 の Bolt 計画</a> を作成（AI-DLC 準拠）。序盤から中盤への局面移行の確認、アプローチをインサイドアウトに切り替える根拠、Unit 2 からの持ち込み 5 項目と学び 2 件の織り込み、疎いゲート密度（5 箇所）、ドメインモデル図と状態遷移図を定義（claude-code/claude-opus-5）</li>
+<li>コマンドの実行例と、その出力</li>
+<li>つまずきの説明のために、わざと壊したコード</li>
+<li>比較のために引いた他言語のコード</li>
 </ul>
-<h2 id="2026-09-26">2026-09-26<a class="headerlink" href="#2026-09-26" title="Permanent link">&para;</a></h2>
+<h2 id="_7">参照<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<p>Uberto Barbini『From Objects to Functions』第 2 章。題材と章構成をこの本に拠っています。本連載のコードはすべて書き起こした自作実装で、原著のコードを転載したものではありません。</p>
 <ul>
-<li><strong>Verification</strong>: <a href="/development/iteration_plan-3.md">iteration_plan-3</a> を human:kakimomokuri が検証</li>
-<li><strong>Creation</strong>: <a href="/development/bolt_report-2.md">Unit 2 の Bolt 終了報告</a> と <a href="/journal/20260926-unit2.md">開発ジャーナル Unit 2</a> を作成。持ち込み 8 項目を全消化、記事のコード例検査が作った当日に 2 回ドリフトを検出、Unit 3 のゲート密度を疎にする判断を記録（claude-code/claude-opus-5）</li>
-<li><strong>Creation</strong>: <a href="/article/zettai/kotlin/chapter03.md">第 3 章 ドメインの定義とテスト</a> を公開。受け入れテストが実装に結合している問題を特定し、高階関数で実行経路を抽象化して同じシナリオを 2 経路で実行できるようにし、自前の DDT を Pesticide に載せ替える過程を記述（claude-code/claude-opus-5）</li>
-<li><strong>Creation</strong>: <a href="/adr/ADR-002-ddt-pesticide.md">ADR-002 受け入れテストを Cucumber ではなく DDT / Pesticide で書く</a> を作成（claude-code/claude-opus-5）</li>
-<li><strong>Creation</strong>: <a href="/design/architecture_backend.md">バックエンドアーキテクチャ設計</a>、<a href="/design/ui_design.md">UI 設計</a> を作成。ドメインとアダプタの境界、モジュール分割、ポートの一覧、画面一覧と遷移を記述（claude-code/claude-opus-5）</li>
-<li><strong>Creation</strong>: <a href="/article/zettai/kotlin/chapter02.md">第 2 章 関数を使って HTTP を扱う</a> を公開。http4k でウォーキングスケルトンを通し、HttpHandler が (Request) -&gt; Response であることを軸に矢印で依存を表す設計を記述（claude-code/claude-opus-5）</li>
-<li><strong>Creation</strong>: <a href="/adr/ADR-003-http4k-6.md">ADR-003 http4k 6.x を採用し原著の 4.x との差分は章ごとに注記する</a>、<a href="/adr/ADR-004-static-analysis.md">ADR-004 静的解析を check に組み込まず記事のコード例検査を優先する</a> を作成（claude-code/claude-opus-5）</li>
-<li><strong>Verification</strong>: <a href="/development/iteration_plan-2.md">iteration_plan-2</a> を human:kakimomokuri が検証</li>
-<li><strong>Creation</strong>: <a href="/development/iteration_plan-2.md">Unit 2 の Bolt 計画</a> を作成（AI-DLC 準拠）。ウォーキングスケルトンとドメイン分離を対象に、Unit 1 からの持ち込み 8 項目の消化先、5 軸のエントロピー評価、Bolt 2-1 / 2-2 のステップ計画 23 件・承認ゲート 11 箇所、ドメインモデル図と画面遷移図、Deployment Unit の完了条件を定義（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/development_strategy.md">開発戦略</a> に Unit 1 の完了と Unit 2 の計画確定を反映し、Unit 1 で積み残した静的解析の判断を Unit 2 へ移した（claude-code/claude-opus-5）</li>
-<li><strong>Creation</strong>: <a href="/development/bolt_report-1.md">Unit 1 の Bolt 終了報告</a> を作成。Bolt 1-1 / 1-2 の成果、完了 Unit 数 1・承認ゲート通過数 8・変更依頼数 1・リードタイム 1 日の実績、エントロピー評価の的中度、Unit 2 のゲート密度の決定を記録（claude-code/claude-opus-5）</li>
-<li><strong>Creation</strong>: <a href="/journal/20260926.md">開発ジャーナル 2026-09-26</a> を作成。AI-DLC への計画の作り直し、スパイクの効果、BDD 不採用の判断、記事のコード例の出所管理という学びを記録（claude-code/claude-opus-5）</li>
-<li><strong>Creation</strong>: <a href="/article/zettai/kotlin/chapter01.md">第 1 章 新しいアプリケーションを準備する</a> を公開。題材の定義、テストに開発をガイドさせる前提、Nix devShell と Gradle マルチプロジェクトのセットアップ、ボウリングの得点計算を題材にしたユニットテストの関数型化を TDD で記述（claude-code/claude-opus-5）</li>
-<li><strong>Creation</strong>: <a href="/adr/ADR-001-kotlin-toolchain.md">ADR-001 サンプル実装に Kotlin 2.2 / JDK 21 を採用する</a> を作成。原著の Kotlin 1.8.20 / JDK 11 を踏襲せず、ビルドの正を Gradle 側に置く判断と、devShell の kotlinc 2.3 との差を許容する理由を記録（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: Unit 1 の完了にあわせて<a href="/article/zettai/index.md">シリーズ索引</a>・<a href="/article/zettai/kotlin/index.md">Kotlin 版トップ</a>・<a href="/article/outline.md">執筆計画</a>の進捗と前提整備チェックリストを更新（claude-code/claude-opus-5）</li>
-<li><strong>Verification</strong>: <a href="/development/iteration_plan-1.md">iteration_plan-1</a> を human:kakimomokuri が検証</li>
-<li><strong>Update</strong>: <a href="/development/iteration_plan-1.md">Unit 1 の Bolt 計画</a> を開始準備の検証結果で更新。テンプレート必須節（ゴール・リスクと対策）を追加し、局面とアプローチ（序盤アウトサイドインの適用例外）、受入条件とステップの対応表、省略する設計 4 図とマニュアルの理由、<code>docs/design/</code> への反映注記を追記（claude-code/claude-opus-5）</li>
-<li><strong>Creation</strong>: <a href="/development/development_strategy.md">開発戦略</a> を作成。7 Unit を序盤・中盤・終盤の 3 局面に割り当て、アプローチ選択の根拠、共通の TDD サイクル、承認ゲートとゲート密度、デモ項目を受け入れ基準とする方針（BDD 不採用・DDT / Pesticide 採用）、設計ドキュメント整合、局面移行時の一貫性維持を定義（claude-code/claude-opus-5）</li>
-<li><strong>Creation</strong>: <a href="/development/iteration_plan-1.md">Unit 1 の Bolt 計画</a> を作成（AI-DLC 準拠）。Unit 1 の満足条件・5 軸のエントロピー評価・スコープと深さとテスト戦略・Bolt 1-1 / 1-2 のステップ計画 18 件・承認ゲート 8 箇所・Deployment Unit の完了条件を定義（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/development/release_plan.md">リリース計画</a> を AI-DLC 準拠に改訂。Intent・ビジネス価値・Unit 分解・依存 DAG・エントロピー評価・スコープと深さとテスト戦略を追加し、ベロシティを完了 Unit 数・承認ゲート通過数・変更依頼数・リードタイムに置き換え（claude-code/claude-opus-5）</li>
-<li><strong>Creation</strong>: <a href="/development/release_plan.md">リリース計画 - Zettai 連載（Kotlin 版）</a> を作成。執筆計画の全 13 章と前提整備を 14 ストーリー・75SP に分解し、1 イテレーション 2 章の 7 イテレーション・3 フェーズ構成、ベロシティ見積もり、バッファ戦略、リスク台帳 8 件、進捗管理の枠組みを定義（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/outline.md">執筆計画</a> をリリース計画と相互対応させ、章別計画にストーリー・IT・SP 列とフェーズ区切りを追加。あわせて OKF フロントマターを付与（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: <a href="/article/draft.md">章構成マインドマップ</a> に OKF フロントマターを付与（claude-code/claude-opus-5）</li>
-<li><strong>Update</strong>: 原著コンパニオンコードを <code>docs/article/fotf/</code> から <code>references/fotf/</code>（git 管理外）へ移し、OKF バンドルの外に出した。関連ドキュメントのパス記述を更新（claude-code/claude-opus-5）</li>
-<li><strong>Creation</strong>: <a href="/reference/BDD導入ガイド.md">BDD導入ガイド</a> を作成（claude-code/claude-opus-5）</li>
-</ul>
-<h2 id="2026-09-12">2026-09-12<a class="headerlink" href="#2026-09-12" title="Permanent link">&para;</a></h2>
-<ul>
-<li><strong>Verification</strong>: <a href="/reference/AI-DLC用語集.md">AI-DLC用語集</a> を human:kakimomokuri が検証</li>
-<li><strong>Verification</strong>: <a href="/reference/コーディングとテストガイド_AI-DLC版.md">コーディングとテストガイド_AI-DLC版</a> を human:kakimomokuri が検証</li>
-<li><strong>Verification</strong>: <a href="/reference/ユースケース作成ガイド_AI-DLC版.md">ユースケース作成ガイド_AI-DLC版</a> を human:kakimomokuri が検証</li>
-<li><strong>Verification</strong>: <a href="/reference/リリース・イテレーション計画ガイド_AI-DLC版.md">リリース・イテレーション計画ガイド_AI-DLC版</a> を human:kakimomokuri が検証</li>
-<li><strong>Verification</strong>: <a href="/reference/開発ガイド_AI-DLC版.md">開発ガイド_AI-DLC版</a> を human:kakimomokuri が検証</li>
-<li><strong>Verification</strong>: <a href="/reference/AI-DLC導入ガイド.md">AI-DLC導入ガイド</a> を human:kakimomokuri が検証</li>
-<li><strong>Creation</strong>: <a href="/reference/AI-DLC用語集.md">AI-DLC 用語集</a> を新規作成。論文・参照実装・本プロジェクトの AI-DLC 版ガイドの用語を 6 区分で定義し、XP・Scrum との対応表と参照先を追加。<code>CLAUDE.md</code> の参照表にも登録。</li>
-<li><strong>Creation</strong>: <a href="/reference/開発ガイド_AI-DLC版.md">開発ガイド（AI-DLC 版）</a> を新規作成。XP 版の開発ライフサイクル（分析・開発・運用・構築・配置）を AI-DLC の 3 フェーズで読み替え、各活動で AI が生成し人が検証するものを定義。AI-DLC 版ガイド 4 本と XP 版ガイドの対応表を追加。あわせて <code>CLAUDE.md</code> に AI-DLC を採用する旨と守るべき 6 原則を明記し、ペルソナの参照先を開発ガイド（AI-DLC 版）に変更。</li>
-<li><strong>Creation</strong>: <a href="/reference/コーディングとテストガイド_AI-DLC版.md">コーディングとテストガイド（AI-DLC 版）</a> を新規作成。XP 版の章構成を保ちながら、TDD の三原則を AI に守らせる Bolt 開発フロー、承認ゲートの密度選択、AI 向けのアプローチ指示、ステップ計画、Red/Green/Refactor 各フェーズの人の検証観点、AI 生成コード固有の品質観点、ソース束縛レビュー、テスト戦略の水準、ガードレール化、quick-cement としての技術的負債、開発スキルの読み替え表を定義。</li>
-<li><strong>Creation</strong>: <a href="/reference/ユースケース作成ガイド_AI-DLC版.md">ユースケース作成ガイド（AI-DLC 版）</a> を新規作成。XP 版の章構成を保ちながら、Mob Elaboration によるユースケース作成手順、12 ステップの AI と人の分担、トレーサビリティ項目を加えたテンプレート、セマンティクス密度、AI 生成ユースケースの検証観点、ブラウンフィールドのリバースエンジニアリング、プロンプトパターン、分析スキルの読み替え表を定義。</li>
-<li><strong>Creation</strong>: <a href="/reference/リリース・イテレーション計画ガイド_AI-DLC版.md">リリース・イテレーション計画ガイド（AI-DLC 版）</a> を新規作成。XP 版の章構成を保ちながら、Intent → Unit → Bolt の計画階層、承認駆動の Bolt 計画、エントロピー評価による見積もり、完了 Unit 数・ゲート通過数・リードタイムによる進捗管理、リスク台帳、Bolt 終了報告テンプレート、計画スキルの読み替え表を定義。</li>
-<li><strong>Update</strong>: <a href="/reference/AI-DLC導入ガイド.md">AI-DLC 導入ガイド</a> を一次情報（Method Definition Paper・aidlc-workflows ユーザーガイド）で精査し拡充。10 の基本原則、成果物定義（Intent・Unit・Bolt・Domain/Logical Design・Deployment Unit）、Inception の 6 成果物、グリーンフィールド／ブラウンフィールド実践例、付録 A のプロンプトパターン、参照実装の 5 フェーズ 33 ステージ・スコープ・エージェント・承認ゲート・監査ログ、33 ステージと Skills の対応表を追加。</li>
-<li><strong>Creation</strong>: <a href="/reference/AI-DLC導入ガイド.md">AI-DLC 導入ガイド</a> を新規作成。AI-DLC の概要・コア原則・3 フェーズ・ベストプラクティスを整理し、XP と Skills 体系への対応表と段階的な導入ステップを定義。</li>
-</ul>
-<h2 id="2026-08-26">2026-08-26<a class="headerlink" href="#2026-08-26" title="Permanent link">&para;</a></h2>
-<ul>
-<li><strong>Verification</strong>: <a href="/reference/ドキュメント構成ガイド.md">ドキュメント構成ガイド</a> を human:kakimomokuri が検証</li>
-<li><strong>Update</strong>: ドキュメント構成ガイドを更新。docs/review を共通からプロジェクト別カテゴリに変更（プロジェクト別は 7 カテゴリに）。</li>
-<li><strong>Creation</strong>: ドキュメント構成ガイドを新規作成。単一企業・統合戦略・複数プロジェクトのコンセプトと apps/ との対応規約を定義。</li>
-</ul>
-<h2 id="2026-08-25">2026-08-25<a class="headerlink" href="#2026-08-25" title="Permanent link">&para;</a></h2>
-<ul>
-<li><strong>Update</strong>: リンク切れ 53 件を修正。<code>grokking-concurrency</code> のサンプルコード参照をインラインコード表記に統一、<code>functional-desgin-ppp/elixir</code> の目次 6〜10 章を実際の章構成に合わせて書き直し、<a href="/reference/CodexCLIMCPアプリケーション開発フロー.md">Codex CLI MCP アプリケーション開発フロー</a> の関連ドキュメントを実在ガイドに付け替え、未執筆の付録は「未作成」と明記。<code>template/まずこれを読もうリスト.md</code> の 10 件はコピー先基準のパスのため据え置き。</li>
-<li><strong>Migration</strong>: <code>docs/</code> を OKF v0.2 の知識バンドルに移行。601 件のコンセプト（Article 552 件・Reference 31 件・Template 18 件）に <code>type</code>・<code>title</code>・<code>description</code>・<code>tags</code>・<code>generated</code> を付与し、ルート <code>index.md</code> に <code>okf_version: "0.2"</code> を宣言。本文は変更していない。Wiki.js 由来のフロントマターは OKF 形式に併合した。</li>
+<li><a href="../">Zettai — Rust 版</a> / <a href="../chapter01/">第 1 章</a> / <a href="../../kotlin/chapter02/">Kotlin 版の第 2 章</a> / <a href="../../nadesiko/chapter02/">なでしこ3 版の第 2 章</a></li>
+<li><a href="../../../../adr/ADR-025-tiny-http/">ADR-025 tiny_http を採用する</a></li>
 </ul>
 
 
@@ -7855,6 +7709,9 @@
 
 
 
+
+  
+  
 
 
 
@@ -7911,16 +7768,16 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "toc.integrate", "search.suggest", "search.highlight"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.tabs", "navigation.sections", "toc.integrate", "search.suggest", "search.highlight"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mermaid@11.17.2/dist/mermaid.min.js"></script>
       
-        <script src="../assets/js/extra.js"></script>
+        <script src="../../../../assets/js/extra.js"></script>
       
-        <script src="../assets/js/mathjax.js"></script>
+        <script src="../../../../assets/js/mathjax.js"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

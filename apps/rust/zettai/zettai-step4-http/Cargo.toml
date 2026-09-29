@@ -8,6 +8,8 @@ version.workspace = true
 [dependencies]
 zettai-step4-domain = { path = "../zettai-step4-domain" }
 tiny_http = "0.12.0"
+# 第 9 章。**同期のクレート**（ADR-024）。
+postgres = "0.19.14"
 
 # **段階ごとに実行ファイルの名前を分ける。** 同じ名前だと出力先が衝突し、
 # cargo が警告を出す（#6313。将来はエラー）。

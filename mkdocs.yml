@@ -197,7 +197,6 @@ nav:
               - 第 11 章 アプリカティブによるデータバリデーション: article/zettai/kotlin/chapter11.md
               - 第 12 章 監視と関数型 JSON: article/zettai/kotlin/chapter12.md
               - 第 13 章 関数型アーキテクチャの設計: article/zettai/kotlin/chapter13.md
-          - 横断比較: article/zettai/comparison/index.md
           - なでしこ3 版:
               - 概要: article/zettai/nadesiko/index.md
               - 第 1 章 新しいアプリケーションを準備する: article/zettai/nadesiko/chapter01.md
@@ -228,6 +227,7 @@ nav:
               - 第 11 章 アプリカティブによるデータバリデーション: article/zettai/rust/chapter11.md
               - 第 12 章 監視と関数型 JSON: article/zettai/rust/chapter12.md
               - 第 13 章 関数型アーキテクチャの設計: article/zettai/rust/chapter13.md
+          - 横断比較: article/zettai/comparison/index.md
   - リファレンス:
       - 概要: reference/index.md
       - よいソフトウェアとは: reference/よいソフトウェアとは.md

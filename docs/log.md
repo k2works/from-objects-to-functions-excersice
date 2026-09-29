@@ -1,6 +1,7 @@
 # Docs Update Log
 
 ## 2026-09-29
+* **Update**: [outline](/article/outline.md) を更新（claude-code/claude-opus-5）
 * **Update**: [retrospective-rust-7](/development/retrospective-rust-7.md) を更新（claude-code/claude-opus-5）
 * **Update**: [release_report-rust-1.0.0](/development/release_report-rust-1.0.0.md) を更新（claude-code/claude-opus-5）
 * **Update**: [bolt_report-rust-7](/development/bolt_report-rust-7.md) を更新（claude-code/claude-opus-5）

@@ -4,7 +4,7 @@ title: "執筆計画：関数型プログラミングで作る変更を楽に安
 description: "Uberto Barbini 著『From Objects to Functions』を下敷きにした Zettai 連載の執筆計画。多言語シリーズ（Kotlin / なでしこ3）の対象一覧、記事と実装の対称ファイル構成、全 13 章と原著コンパニオンコードの対応、前提整備と実行環境の方針、リリース計画のストーリー・イテレーション・SP と対応づけた章別計画、フェーズ区切り、なでしこ3 追加執筆計画、執筆規約を定義する。"
 tags: [article, plan, zettai]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-29T02:08:46Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-29T09:21:07Z }
 ---
 
 # 執筆計画：関数型プログラミングで作る変更を楽に安全にできるソフトウェア
@@ -14,7 +14,7 @@ generated: { by: claude-code/claude-opus-5, at: 2026-09-29T02:08:46Z }
 - 章・節構成の一次情報は [章構成マインドマップ](draft.md) です。記事の節見出しはこれに一致させます。
 - 原著のコンパニオンコードは `references/fotf/` に読み取り専用の参照元として置いています。**記事に載せるコードは参照元からの転載ではなく、`apps/{lang}/zettai/` の自作実装から転記します。**
 - シリーズの索引は [Zettai シリーズ索引](zettai/index.md) です。
-- 本計画を AI-DLC の Intent・Unit・Bolt に落としたものが対象ごとのリリース計画（Level 1 計画）です。[Kotlin 版](../development/release_plan.md)（完結）、[なでしこ3 版](../development/release_plan-nadesiko.md)（計画中）。本ファイルは章構成と執筆規約の一次情報、リリース計画は進行と進捗の一次情報とし、章の割り当てが変わったときは両方を揃えます。
+- 本計画を AI-DLC の Intent・Unit・Bolt に落としたものが対象ごとのリリース計画（Level 1 計画）です。[Kotlin 版](../development/release_plan.md)（完結）、[なでしこ3 版](../development/release_plan-nadesiko.md)（完結）、[Rust 版](../development/release_plan-rust.md)（完結）。本ファイルは章構成と執筆規約の一次情報、リリース計画は進行と進捗の一次情報とし、章の割り当てが変わったときは両方を揃えます。
 - 各章は 1 つの **Bolt**（時間〜日単位の作業単位）に対応し、2 章で 1 つの **Unit**（独立して公開できる単位）を構成します。局面別の TDD アプローチと承認ゲートの密度は [開発戦略](../development/development_strategy.md) にあります。
 
 ## 対象一覧
@@ -25,11 +25,11 @@ generated: { by: claude-code/claude-opus-5, at: 2026-09-29T02:08:46Z }
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | Kotlin | Nix devShell `kotlin`（JDK 21 / Gradle） | 13 | `docs/article/zettai/kotlin/` | `apps/kotlin/zettai/` | **完結**（13 / 13 章公開） |
 | なでしこ3 | Nix devShell `nadesiko`（Node 22 / cnako3 3.8.7） | 13 | `docs/article/zettai/nadesiko/` | `apps/nadesiko/zettai/` | **完結**（13 / 13 章公開） |
-| Rust | Nix devShell `rust`（rustc 1.91.1 / cargo 1.91.0） | 13 | `docs/article/zettai/rust/` | `apps/rust/zettai/` | 進行中（3 / 13 章公開） |
+| Rust | Nix devShell `rust`（rustc 1.91.1 / cargo 1.91.0） | 13 | `docs/article/zettai/rust/` | `apps/rust/zettai/` | **完結**（13 / 13 章公開） |
 
 横断比較コンテンツ [`docs/article/zettai/comparison/`](zettai/comparison/index.md) は、なでしこ3 版が Phase 1（第 3 章）を終えた 2026-09-28 に新設しました。当初の比較軸は「**型で保証する**（Kotlin）」と「**約束とテストで保証する**（なでしこ3）」の 2 点でした。
 
-**Rust 版で 3 点目が入ります。** 軸は「型の有無」ではなく「**言語がどこまで与えるか**」に広がります。
+**Rust 版で 3 点目が入りました。** 軸は「型の有無」ではなく「**言語がどこまで与えるか**」に広がっています。
 
 | 対象 | 型 | 関数型の道具 | `Outcome` 相当 | 代数的データ型 |
 | :--- | :--- | :--- | :--- | :--- |
@@ -37,7 +37,7 @@ generated: { by: claude-code/claude-opus-5, at: 2026-09-29T02:08:46Z }
 | なでしこ3 | なし | なし | **辞書で作る** | 無い（`種別` キーの約束） |
 | Rust | あり | あり | **`Result` が言語にある** | `enum` |
 
-3 点を並べると、**「言語が与えるほど、設計は楽になるのか」**という問いが立ちます。Rust 版はこの問いに答える対象です。
+3 点を並べると、**「言語が与えるほど、設計は楽になるのか」**という問いが立ちます。**答えは「楽にはならない。決めることが変わる」**でした（[第 13 章](zettai/rust/chapter13.md)・[横断比較](zettai/comparison/index.md)）。
 
 ## ファイル構成
 

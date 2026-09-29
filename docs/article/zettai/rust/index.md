@@ -79,3 +79,4 @@ just check
 - [Zettai シリーズ索引](../index.md) / [Kotlin 版](../kotlin/index.md) / [なでしこ3 版](../nadesiko/index.md)
 - [対象言語の横断比較](../comparison/index.md)
 - [執筆計画](../../outline.md) / [リリース計画（Rust 版）](../../../development/release_plan-rust.md)
+* [第 2 章 関数を使って HTTP を扱う](./chapter02.md) - Zettai 連載 Rust 版の第 2 章。tiny_http で縦串を通す。ルーティング機構が無いのでパスの分解を自前で書き、フレームワークに隠されない形で「矢印で設計する」を見る。所有権に最初に押された箇所と、それが設計をどこへ動かしたかを記録する。

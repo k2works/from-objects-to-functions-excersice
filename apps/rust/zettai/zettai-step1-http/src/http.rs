@@ -11,7 +11,7 @@ use crate::domain::{fetch_list, ListName, ToDoList, User};
 /// 応答。状態コードと本文だけを持つ。
 ///
 /// `tiny_http` の型を返さないのは、**この関数を HTTP 無しでテストできる**
-/// ようにするため。サーバの組み立ては `serve` が持つ。
+/// ようにするため。サーバの組み立ては `src/bin/zettai.rs` が持つ。
 #[derive(Debug, PartialEq, Eq)]
 pub struct Reply {
     pub status: u16,

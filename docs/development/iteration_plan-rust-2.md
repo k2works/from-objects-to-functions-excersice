@@ -3,8 +3,10 @@ type: Bolt Plan
 title: "Unit 2 の Bolt 計画（イテレーション 2）- Zettai 連載（Rust 版）"
 description: "Zettai 連載 Rust 版の Unit 2（ウォーキングスケルトンとドメイン分離）の Bolt 計画。tiny_http で縦串を通し、第 3 章でドメインとインフラをクレートで分ける。境界をコンパイラに守らせるかどうかと、CI に Nix を入れるかどうかの 2 つを承認ゲートに置く。"
 tags: [development, plan, ai-dlc, bolt, zettai, rust, unit-2]
-status: draft
+status: stable
 generated: { by: claude-code/claude-opus-5, at: 2026-09-29T01:22:33Z }
+verified:
+  - { by: human:kakimomokuri, at: 2026-09-29T01:24:02Z }
 ---
 
 # Unit 2 の Bolt 計画（イテレーション 2）- Zettai 連載（Rust 版）

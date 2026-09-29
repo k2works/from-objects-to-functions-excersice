@@ -53,8 +53,8 @@ just check
 | :--- | :--- | :--- |
 | 1 | `postgres` クレートで `$2::jsonb` と書くと**パラメータの型が `jsonb` と推論**され、`&str` を渡せない（`WrongType { postgres: Jsonb, rust: "&str" }`） | `($2::text)::jsonb` と書き、文字列として受けてからキャストする |
 | 2 | **devShell の外では道具が別物になる。** ホストの rustc は 1.97.1、devShell は 1.91.1。`LLVM_COV` も未設定で `cov` が落ちる | `justfile` が `IN_NIX_SHELL` を見て `nix develop` に入り直す |
-| 4 | **`Vec<String>` と `&[&str]` はそのまま比べられない**（E0308）。テストの期待値を `&str` で並べると落ちる | 比べる直前に `["a","b"].map(String::from)` で揃える。**期待値は `&str` のまま書けるので、シナリオは読みやすく保てる** |
 | 3 | **IntelliJ が `PATH` を引用せずに渡すことがある。** `IntelliJ IDEA.app` のスペースで `export PATH=...` が壊れ、`zsh:export:1: not valid in this context` になる | 実行構成の環境変数から `PATH` の上書きを外す。**この `justfile` は PATH に依存しないので、上書きする理由が無い** |
+| 4 | **`Vec<String>` と `&[&str]` はそのまま比べられない**（E0308）。テストの期待値を `&str` で並べると落ちる | 比べる直前に `["a","b"].map(String::from)` で揃える。**期待値は `&str` のまま書けるので、シナリオは読みやすく保てる** |
 
 ### 設計に効くもの
 

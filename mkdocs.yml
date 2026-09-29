@@ -101,6 +101,7 @@ nav:
           - 「なでしこ3」Unit 7 監視とアーキテクチャ総括: development/iteration_plan-nadesiko-7.md
           - 「Rust」Unit 1 器と第 1 章: development/iteration_plan-rust-1.md
           - 「Rust」Unit 2 ウォーキングスケルトンとドメイン分離: development/iteration_plan-rust-2.md
+          - 「Rust」Unit 3 所有権のもとでの DI とイベント: development/iteration_plan-rust-3.md
       - Bolt 終了報告:
           - Unit 1 実行環境と第 1 章: development/bolt_report-1.md
           - Unit 2 ウォーキングスケルトンとドメイン分離: development/bolt_report-2.md

@@ -4,7 +4,7 @@ title: "Unit 7 の Bolt 計画（イテレーション 7）- Zettai 連載（Rus
 description: "Zettai 連載 Rust 版の Unit 7（監視と 3 言語の総括）の Bolt 計画。構造化ログとプロファンクタを書き、第 13 章で 3 言語を対比する。第 12 章の既製品を入れるかを唯一の承認ゲートに置き、Release v1.0.0 で連載を完結させる。"
 tags: [development, plan, ai-dlc, bolt, zettai, rust, unit-7]
 status: stable
-generated: { by: claude-code/claude-opus-5, at: 2026-09-29T08:10:20Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-29T08:23:29Z }
 verified:
   - { by: human:kakimomokuri, at: 2026-09-29T07:56:50Z }
 ---
@@ -315,10 +315,10 @@ NG ジョブに要る道具が足りない
   - **前提**: 7-2.5 が書けていること
   - 記事検査 6 本が 0 件。`gulp okf:check` が **ERROR 0、WARN も見る**
   - **`just check` を 5 回測る**（Try 4）
-- [ ] **7-2.7 Release v1.0.0**
+- [x] **7-2.7 Release v1.0.0**
   - **前提**: DoD がすべて埋まっていること
   - push して **CI の 3 ワークフローが green** であることを確かめる
-- [ ] **7-2.8 Bolt 終了報告・ふりかえり・リリース完了報告**
+- [x] **7-2.8 Bolt 終了報告・ふりかえり・リリース完了報告**
   - **前提**: 7-2.7 が green であること
   - **連載の完結**として [リリース完了報告書](release_report-1.0.0.md) に相当するものを Rust 版でも作る
 

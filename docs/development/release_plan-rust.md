@@ -4,7 +4,7 @@ title: "リリース計画 - Zettai 連載（Rust 版）"
 description: "『From Objects to Functions』を下敷きにした Zettai 連載 Rust 版の AI-DLC 準拠 Level 1 計画。言語が Result と enum を与える側で同じ 13 章を辿るという Intent、7 Unit・14 ストーリーへの分解、依存 DAG、5 軸のエントロピー評価、所有権と async の伝播に対するリスク台帳、2 対象の学びを反映した承認ゲート方針と指標を定義する。"
 tags: [development, plan, ai-dlc, zettai, rust]
 status: stable
-generated: { by: claude-code/claude-opus-5, at: 2026-09-29T07:55:54Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-29T08:23:29Z }
 verified:
   - { by: human:kakimomokuri, at: 2026-09-28T12:24:16Z }
 ---
@@ -376,8 +376,8 @@ US-001 第 1 章 ──→ US-002 第 2 章 ──→ US-003 第 3 章
 | Unit 4 | 7 | **1 / 1** | 0 | 0 | **完了** |
 | Unit 5 | 13 | **2 / 2** | 0 | 0 | **完了** |
 | Unit 6 | 11 | **3 / 3** | 0 | 0 | **完了** |
-| Unit 7 | 6 | - | - | - | **計画済み** |
-| **合計** | **68** | **14 / 14** | **0** | **1** | 完了 Unit 数 **6 / 7** |
+| Unit 7 | 6 | **1 / 1** | 0 | 0 | **完了** |
+| **合計** | **68** | **15 / 15** | **0** | **1** | 完了 Unit 数 **7 / 7** |
 
 ---
 
@@ -385,6 +385,7 @@ US-001 第 1 章 ──→ US-002 第 2 章 ──→ US-003 第 3 章
 
 | 日付 | 更新内容 | 更新者 |
 | :--- | :--- | :--- |
+| 2026-09-29 | **Release v1.0.0 達成。連載完結。** Unit 7 完了を反映し、承認ゲートの累計を **15 / 15（100%）**とした。全 13 章を公開し、`comparison/index.md` を 3 列で全 13 章に広げた。[リリース完了報告書](release_report-rust-1.0.0.md) を作成 | claude-code/claude-opus-5 |
 | 2026-09-29 | Unit 6 完了を反映。**承認ゲートが 3 / 3 で同期停止し、累計 14 / 14**。第 10 章で ADR-011 の決定 2 が型システムに拒まれ、代わりに Kotlin 版の実行時検査が要らなくなった。第 11 章で**3 対象を通して初めて既製品（tera）に寄せた** | claude-code/claude-opus-5 |
 | 2026-09-29 | **Release v0.2.0 達成。Phase 2 完了。** Unit 5 完了を反映し、承認ゲートの累計を 11 / 11 とした。DB の検査を別ジョブに分け（Kotlin 版の ADR-009 とは結論が分かれた）、受け入れシナリオが 3 経路で green になった | claude-code/claude-opus-5 |
 | 2026-09-29 | Unit 4 完了を反映。**ゲートを 3 箇所から 1 箇所に減らして 1 / 1 停止**（累計 9 / 9）。減らす側でもエントロピー評価どおりに動いた。第 6〜7 章を公開（7 / 13 章）し、3 つめの段階を切った | claude-code/claude-opus-5 |

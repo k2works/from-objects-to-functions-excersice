@@ -47,7 +47,7 @@
 | Unit 4 enum と Result | [Unit 4 の Bolt 計画](iteration_plan-rust-4.md) | [ふりかえり](retrospective-rust-4.md) | [Bolt 終了報告](bolt_report-rust-4.md) | **完了** |
 | Unit 5 射影と永続化 | [Unit 5 の Bolt 計画](iteration_plan-rust-5.md) | [ふりかえり](retrospective-rust-5.md) | [Bolt 終了報告](bolt_report-rust-5.md) | **完了** |
 | Unit 6 境界とバリデーション | [Unit 6 の Bolt 計画](iteration_plan-rust-6.md) | [ふりかえり](retrospective-rust-6.md) | [Bolt 終了報告](bolt_report-rust-6.md) | **完了** |
-| Unit 7 監視と 3 言語の総括 | [Unit 7 の Bolt 計画](iteration_plan-rust-7.md) | - | - | 計画済み |
+| Unit 7 監視と 3 言語の総括 | [Unit 7 の Bolt 計画](iteration_plan-rust-7.md) | [ふりかえり](retrospective-rust-7.md) | [Bolt 終了報告](bolt_report-rust-7.md) | **完了** |
 
 Unit（イテレーション）開始時に行を追加します。AI-DLC では 1 Unit = 2 Bolt（章 1 本ずつ）とし、Bolt のステップ計画と承認ゲートを各計画に書きます。
 
@@ -89,3 +89,4 @@ AI-DLC ではベロシティの代わりに完了 Unit 数・承認ゲート通�
 * [リリース計画 - Zettai 連載（Rust 版）](./release_plan-rust.md) - 『From Objects to Functions』を下敷きにした Zettai 連載 Rust 版の AI-DLC 準拠 Level 1 計画。言語が Result と enum を与える側で同じ 13 章を辿るという Intent、7 Unit・14 ストーリーへの分解、依存 DAG、5 軸のエントロピー評価、所有権と async の伝播に対するリスク台帳、2 対象の学びを反映した承認ゲート方針と指標を定義する。
 * [Unit 2 の Bolt 終了報告 - Zettai 連載（Rust 版）](./bolt_report-rust-2.md) - Zettai 連載 Rust 版 Unit 2（ウォーキングスケルトンとドメイン分離）の終了報告。承認ゲートが 2 / 2 で同期停止したこと、境界検査を 1 行も書かずにコンパイラが守ったこと、CI の 2 案を実測して二重管理を検査で押さえたこと、Release v0.1.0 を記録する。
 * [Unit 2 のふりかえり（KPT）- Zettai 連載（Rust 版）](./retrospective-rust-2.md) - Zettai 連載 Rust 版 Unit 2 の KPT ふりかえり。ゲートが 2 / 2 で止まった理由、両方作って測る手が効いたこと、二重管理を検査で押さえたこと、計画の順序の誤りと持ち込みを 2 回送ったことを整理し、Unit 3 で試すことを決める。
+* [リリース完了報告書 v1.0.0 - Zettai 連載（Rust 版）](./release_report-rust-1.0.0.md) - Zettai 連載 Rust 版 v1.0.0 の完了報告。全 13 章の公開、承認ゲート 15 / 15、制約が設計を押した 7 回、既製品を 7 回判断して 1 回入れたこと、3 対象を通して見えたことを記録する。

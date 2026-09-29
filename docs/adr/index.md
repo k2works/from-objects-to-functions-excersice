@@ -37,5 +37,7 @@
 | [ADR-029](ADR-029-cutting-a-step.md) | 段階を切る手順を決める | 提案 |
 | [ADR-030](ADR-030-functional-di-shape.md) | 関数型 DI は impl Fn、並びに入れる変換は Box<dyn Fn> にする | 提案 |
 | [ADR-031](ADR-031-own-error-enum.md) | 失敗を自前の enum で表し、エラー用のクレートを入れない | 提案 |
+| [ADR-032](ADR-032-postgres-event-store.md) | イベントを 1 テーブルに追記し、外のエラーを境界で包む | 提案 |
+| [ADR-033](ADR-033-db-check-as-separate-job.md) | DB を使う検査を別ジョブに分ける | 提案 |
 
 ADR の作成には `creating-adr` スキルを使用してください。

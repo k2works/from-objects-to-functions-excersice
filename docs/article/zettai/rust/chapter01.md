@@ -4,7 +4,7 @@ title: "第 1 章 新しいアプリケーションを準備する"
 description: "Zettai 連載 Rust 版の第 1 章。テストの土台が言語にある場合に第 1 章で何をするのかを書く。なでしこ3 版が自作した検証関数とランナーは cargo が最初から与えるので、代わりに後戻りの効かない判断（async の採否と HTTP クレートの選定）を実測してから決める。"
 tags: [article, zettai, rust, chapter]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-29T02:08:46Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-29T05:08:41Z }
 ---
 
 # 第 1 章 新しいアプリケーションを準備する
@@ -170,6 +170,8 @@ Error: Error { kind: ToSql(1), cause: Some(WrongType { postgres: Jsonb, rust: "&
 
 **4 段とも守るものが違うので、4 段とも入れました。** タスクランナーは Just です。
 
+<!-- code-check: ignore 第 1 章の時点の形。第 9 章で DB の段が加わる（ADR-015） -->
+
 ```just
 # 書いている間はこれ
 check:
@@ -179,6 +181,8 @@ check:
 check-all:
     {{run}} just fmt lint test cov
 ```
+
+> **第 9 章で `check-all` に `test-db` が加わります。** 2 段構え自体は変わりません。DB を使う検査を `check` に入れない判断は[第 9 章](chapter09.md)で数字とともに書きます。
 
 2 段構えにしたのもなでしこ3 版の学びです。**速さが要るのは書いている間で、全部は CI の仕事**です。
 

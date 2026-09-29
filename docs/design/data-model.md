@@ -4,7 +4,7 @@ title: "データモデル設計 - Zettai"
 description: "Zettai（Kotlin 版）のデータモデル設計。イベントソーシングのため状態を保存せず、追記のみの単一テーブルでイベントストアを構成する判断、ER 図、テーブル定義、インデックス方針、正規化を論じない理由、章の進行にあわせた変化を記述する。"
 tags: [design, data-model, zettai, kotlin]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-28T06:40:42Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-29T05:08:41Z }
 ---
 
 # データモデル設計 - Zettai
@@ -137,6 +137,47 @@ CREATE INDEX IF NOT EXISTS idx_todo_list_event_entity
 同時書き込み、途中で落ちたときの整合、件数が増えたときの性能は扱いません。理由と再検討の条件は [ADR-019](../adr/ADR-019-file-event-log.md) にあります。
 
 ---
+
+## Rust 版での差分
+
+**保存先は Kotlin 版と同じ PostgreSQL です**（なでしこ3 版だけがファイル）。イベントを 1 テーブルに追記し、状態を保存しない形も同じです（[ADR-032](../adr/ADR-032-postgres-event-store.md)）。
+
+違うのは 3 点です。
+
+### 1. テーブル名を引数で受ける
+
+```sql
+CREATE TABLE IF NOT EXISTS {table} (
+    id BIGSERIAL PRIMARY KEY,
+    user_name TEXT NOT NULL,
+    list_name TEXT NOT NULL,
+    payload JSONB NOT NULL,
+    recorded_at TIMESTAMPTZ NOT NULL DEFAULT now()
+)
+```
+
+`cargo test` が既定で並列に走るためです。**なでしこ3 版 Unit 7 では記録先を 1 つに決め打ちし、件数が混ざりました。**
+
+### 2. `payload` の JSON を自前で組み立てる
+
+`serde_json` は依存 +5・ビルド +8.30 秒、`serde` の derive まで入れると +11・+16.57 秒でした。イベントは 2 種類・各 1 フィールドなので自前にしています（[ADR-012](../adr/ADR-012-own-json-converter.md) の踏襲）。
+
+**代償を 1 件払いました。** `jsonb` は正規化して返すのでコロンの後ろに空白が入り、自前のパーサが読めませんでした。**単体の往復テストは通っていて、DB を通す結合テストだけが見つけました。**
+
+### 3. パラメータの型に注意が要る
+
+`$2::jsonb` と書くと**パラメータの型が `jsonb` と推論**され、`&str` を渡せません。
+
+```sql
+INSERT INTO {table} (user_name, list_name, payload)
+VALUES ($1, $2, ($3::text)::jsonb)
+```
+
+`text` で受けてからキャストします（`README.md` の既知の制約 1）。
+
+### DB を使う検査の置き場
+
+Kotlin 版は `check` に含めています（[ADR-009](../adr/ADR-009-integration-test-database.md)）。**Rust 版は別ジョブに分けました**（[ADR-033](../adr/ADR-033-db-check-as-separate-job.md)）。`check` が 26 秒で、サービスコンテナの +22 秒が占める割合が違うためです。
 
 ## 関連ドキュメント
 

@@ -1,6 +1,21 @@
 # Docs Update Log
 
 ## 2026-09-29
+* **Update**: [chapter09](/article/zettai/rust/chapter09.md) を更新（claude-code/claude-opus-5）
+* **Update**: [ADR-033-db-check-as-separate-job](/adr/ADR-033-db-check-as-separate-job.md) を更新（claude-code/claude-opus-5）
+* **Update**: [ADR-032-postgres-event-store](/adr/ADR-032-postgres-event-store.md) を更新（claude-code/claude-opus-5）
+* **Update**: [iteration_plan-rust-5](/development/iteration_plan-rust-5.md) を更新（claude-code/claude-opus-5）
+* **Update**: [domain-model](/design/domain-model.md) を更新（claude-code/claude-opus-5）
+* **Update**: [data-model](/design/data-model.md) を更新（claude-code/claude-opus-5）
+* **Update**: [chapter01](/article/zettai/rust/chapter01.md) を更新（claude-code/claude-opus-5）
+* **Update**: [draft](/article/draft.md) を更新（claude-code/claude-opus-5）
+* **Update**: [chapter09](/article/zettai/rust/chapter09.md) を更新（claude-code/claude-opus-5）
+* **Update**: [ADR-033-db-check-as-separate-job](/adr/ADR-033-db-check-as-separate-job.md) を更新（claude-code/claude-opus-5）
+* **Update**: [ADR-032-postgres-event-store](/adr/ADR-032-postgres-event-store.md) を更新（claude-code/claude-opus-5）
+* **Update**: [domain-model](/design/domain-model.md) を更新（claude-code/claude-opus-5）
+* **Update**: [data-model](/design/data-model.md) を更新（claude-code/claude-opus-5）
+* **Update**: [chapter01](/article/zettai/rust/chapter01.md) を更新（claude-code/claude-opus-5）
+* **Update**: [draft](/article/draft.md) を更新（claude-code/claude-opus-5）
 * **Update**: [iteration_plan-rust-5](/development/iteration_plan-rust-5.md) を更新（claude-code/claude-opus-5）
 * **Update**: [chapter08](/article/zettai/rust/chapter08.md) を更新（claude-code/claude-opus-5）
 * **Update**: [iteration_plan-rust-5](/development/iteration_plan-rust-5.md) を更新（claude-code/claude-opus-5）

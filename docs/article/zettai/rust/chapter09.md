@@ -78,6 +78,8 @@ Kotlin 版は [ADR-009](../../../adr/ADR-009-integration-test-database.md) で�
 
 並走している総時間（約 56 秒）は、含めた場合（26 + 22 + 30 ≒ 78 秒）より短いので、**選んだ判断自体は正しかった**と言えます。
 
+<!-- code-check: ignore 第 9 章の時点の形。第 10 章で段階が 1 つ進む（ADR-015） -->
+
 ```just
 # 保管との往復。**docker が要る**（`docker compose up -d zettai-db`）。
 test-db:

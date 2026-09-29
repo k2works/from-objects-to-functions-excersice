@@ -831,3 +831,16 @@ dependencies = [
  "tiny_http",
  "zettai-step4-domain",
 ]
+
+[[package]]
+name = "zettai-step5-domain"
+version = "0.1.0"
+
+[[package]]
+name = "zettai-step5-http"
+version = "0.1.0"
+dependencies = [
+ "postgres",
+ "tiny_http",
+ "zettai-step5-domain",
+]

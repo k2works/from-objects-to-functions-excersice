@@ -74,7 +74,7 @@ check-all:
 
 # 保管との往復。**docker が要る**（`docker compose up -d zettai-db`）。
 test-db:
-    {{run}} cargo test -p zettai-step4-http --features db --test persistence
+    {{run}} cargo test -p zettai-step5-http --features db --test persistence
 
 # 体裁を検査する（直さない）
 fmt:

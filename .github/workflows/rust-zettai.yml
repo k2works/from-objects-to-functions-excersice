@@ -104,4 +104,4 @@ jobs:
         with:
           toolchain: 1.91.1
       - name: test-db
-        run: cargo test -p zettai-step4-http --features db --test persistence
+        run: cargo test -p zettai-step5-http --features db --test persistence

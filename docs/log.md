@@ -1,6 +1,8 @@
 # Docs Update Log
 
 ## 2026-09-29
+* **Update**: [chapter05](/article/zettai/rust/chapter05.md) を更新（claude-code/claude-opus-5）
+* **Update**: [domain-model](/design/domain-model.md) を更新（claude-code/claude-opus-5）
 * **Update**: [chapter04](/article/zettai/rust/chapter04.md) を更新（claude-code/claude-opus-5）
 * **Update**: [ADR-030-functional-di-shape](/adr/ADR-030-functional-di-shape.md) を更新（claude-code/claude-opus-5）
 * **Update**: [ADR-029-cutting-a-step](/adr/ADR-029-cutting-a-step.md) を更新（claude-code/claude-opus-5）

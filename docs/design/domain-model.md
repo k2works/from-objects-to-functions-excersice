@@ -4,7 +4,7 @@ title: "ドメインモデル設計 - Zettai"
 description: "Zettai（Kotlin 版）のドメインモデル設計。ユビキタス言語の対訳表、集約・エンティティ・値オブジェクト・列挙型の要素表、イベントと状態の関係、ToDo 項目の状態遷移、状態変換がモノイドであること、章の進行にあわせたモデルの成長を記述する。"
 tags: [design, domain-model, zettai, kotlin]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-28T11:34:09Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-29T03:25:36Z }
 ---
 
 # ドメインモデル設計 - Zettai
@@ -409,6 +409,49 @@ Kotlin 版は第 9 章のモナドを `ContextReader`（文脈つきの計算）
 ### 不変性
 
 Kotlin 版の `data class` は不変です。なでしこ3 の辞書と配列は**参照で、破壊的に書き換えられます**。状態変換は変換のたびに辞書と配列を写してから足します（`辞書写し`・`配列複製`）。**不変性は言語ではなく約束が守ります。**
+
+## Rust 版での差分
+
+ドメインモデルもユビキタス言語も共通です。変わるのは**契約の表し方**と、**関数値の持ち方**です。
+
+### 型は言語にあるが、選択肢が増える
+
+Kotlin 版の型定義がほぼそのまま書けます。違うのは 2 つです。
+
+| 概念 | Kotlin 版の型 | **Rust 版** | 章 |
+| :--- | :--- | :--- | :--- |
+| ToDo 項目 | `ToDoItem(description, ...)` | `struct ToDoItem { description: String }` | 2 |
+| ToDo リスト | `ToDoList(listName, items)` | `struct ToDoList { list_name: ListName, items: Vec<ToDoItem> }` | 2 |
+| ハブ | `ToDoListHub` | **`struct ToDoListHub<F, S>`**（依存を型引数で持つ） | 4 |
+| イベント | `sealed class ToDoListEvent` | **`enum ToDoListEvent`** | 5 |
+| 状態変換 | `(ToDoListState) -> ToDoListState` | **`type Transform = Box<dyn Fn(ToDoList) -> ToDoList>`** | 5 |
+| 単位元・合成 | 関数 | `identity()` / `compose(f, g)` | 5 |
+| 畳み込み | `fold` | `fold_events(events)` / `replay(events)` | 5 |
+
+### 関数値の形が 2 つある
+
+**ここが 2 対象に無い差分です。**
+
+Kotlin の関数型は 1 種類、なでしこ3 の関数値も 1 種類です。Rust は `impl Fn`（静的）と `Box<dyn Fn>`（動的）があり、**どちらでも書けるところで選ぶことになります**（[ADR-030](../adr/ADR-030-functional-di-shape.md)）。
+
+| その関数値は、他の関数値と同じ入れ物に入るか | 形 | 例 |
+| :--- | :--- | :--- |
+| 入らない（配線のときに 1 つ決まるだけ） | `impl Fn`（型引数） | `ToDoListHub<F, S>` の `fetch` / `save` |
+| 入る（`Vec` に並べる、`fold` で畳む） | `Box<dyn Fn>` | `Transform`（第 5 章） |
+
+`impl Fn` は**書いた場所ごとに別の型**になるので、同じ `Vec` に入りません。合成の結果も別の型になるため、`fold` の途中経過を揃えられません。
+
+### 境界はコンパイラが守る
+
+ドメインは `zettai-stepN-domain` という**別のクレート**です。`Cargo.toml` に書いていない相手は呼べません（[ADR-027](../adr/ADR-027-crate-boundary.md)）。2 対象が書いた境界検査に相当するものを、**1 行も書いていません**。
+
+ドメインのクレートは**外部クレートに依存しません**。性質テストの乱数も自前です（[ADR-017](../adr/ADR-017-own-property-testing.md)）。
+
+### 不変性
+
+`struct` の値は既定で不変で、書き換えるには `mut` が要ります。状態変換は**受け取った値から新しい値を作って返します**。なでしこ3 版のように「写す約束」は要りません。
+
+代わりに押されるのが所有権です。クロージャに閉じ込める値は**借りずに所有します**（`Box<dyn Fn>` が既定で `+ 'static` のため）。イベントは保存して後から畳み込むので、**持つほうが形に合っています**。
 
 ---
 

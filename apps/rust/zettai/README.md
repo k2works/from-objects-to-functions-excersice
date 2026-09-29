@@ -58,6 +58,7 @@ just check
 | 5 | **`impl Fn` は書くたびに別の型になる。** 同じ `Vec` に入れられない。エラーは `expected opaque type` と `found opaque type` を**同じ文字列で**並べる（E0308） | 並びに入れるものは `Box<dyn Fn>` に揃える。差し替えるだけの依存は `impl Fn` のままでよい |
 | 6 | **`Box<dyn Fn>` は既定で `+ 'static` が付く。** 借りた値を閉じ込めると `must outlive 'static` で落ちる | 閉じ込める前に所有する（`to_string()` など）。型別名に `'a` を足す道もあるが、イベントは自分の値を持つほうが形に合う |
 | 7 | **段階を増やすと `bin` の名前が衝突する。** `zettai-step2-http` の `zettai` が `zettai-step1-http` の `zettai` と同じ出力名になる（cargo #6313。いまは警告、将来エラー） | 段階ごとに `[[bin]] name` を変える。**段階を切る手順の ADR に入れる** |
+| 8 | **`dyn Trait` の主トレイトのメソッドは `use` なしで呼べる。** `as_reader().read_to_string(..)` は `std::io::Read` を import しなくても通り、import すると `unused_imports` で clippy が落ちる | 主トレイトのメソッドだけを使うなら import しない |
 
 ### 設計に効くもの
 

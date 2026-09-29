@@ -1,17 +1,17 @@
 [package]
-name = "zettai-step1-http"
+name = "zettai-step2-http"
 edition.workspace = true
 version.workspace = true
 
 # **ドメインへの依存は一方向。** ドメイン側の Cargo.toml に
-# zettai-step1-http は無い。だからドメインから HTTP は呼べない。
+# zettai-step2-http は無い。だからドメインから HTTP は呼べない。
 [dependencies]
-zettai-step1-domain = { path = "../zettai-step1-domain" }
+zettai-step2-domain = { path = "../zettai-step2-domain" }
 tiny_http = "0.12.0"
 
 # **段階ごとに実行ファイルの名前を分ける。** 同じ名前だと出力先が衝突し、
 # cargo が警告を出す（#6313。将来はエラー）。
 # ファイル名は変えない。第 2 章が src/bin/zettai.rs を指しているため。
 [[bin]]
-name = "zettai-step1"
+name = "zettai-step2"
 path = "src/bin/zettai.rs"

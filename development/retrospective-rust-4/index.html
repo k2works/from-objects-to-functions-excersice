@@ -6,17 +6,17 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="本ドキュメントは、{プロジェクト名}のアプリケーション開発環境をセットアップする手順を説明します。">
+        <meta name="description" content="Zettai 連載 Rust 版 Unit 4 の KPT ふりかえり。ゲートを減らして止まったこと、実機が主張を 1 度訂正したこと、取り消し操作で 2 Unit 続けて成果を消したことを整理し、Unit 5 で試すことを決める。">
       
       
         <meta name="author" content="Project Team">
       
       
       
-        <link rel="prev" href="../%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E5%AE%8C%E4%BA%86%E5%A0%B1%E5%91%8A%E6%9B%B8/">
+        <link rel="prev" href="../retrospective-rust-3/">
       
       
-        <link rel="next" href="../%E9%96%8B%E7%99%BA%E7%92%B0%E5%A2%83%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%E6%89%8B%E9%A0%86%E6%9B%B8/">
+        <link rel="next" href="../release_report-1.0.0/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>アプリケーション開発環境セットアップ手順書 - From Objects to Functions 演習</title>
+        <title>Unit 4 のふりかえり（KPT）- Zettai 連載（Rust 版） - From Objects to Functions 演習</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#_1" class="md-skip">
+        <a href="#unit-4-kpt-zettai-rust" class="md-skip">
           Skip to content
         </a>
       
@@ -112,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              アプリケーション開発環境セットアップ手順書
+              Unit 4 のふりかえり（KPT）- Zettai 連載（Rust 版）
             
           </span>
         </div>
@@ -276,11 +276,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../development/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
           
   
   
@@ -416,13 +418,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../template/" class="md-tabs__link">
           
   
   
@@ -913,26 +913,31 @@
       
   
   
+    
   
   
+  
     
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
         
           
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
             
   
   
@@ -950,7 +955,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -968,7 +973,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/" class="md-nav__link">
+      <a href="../" class="md-nav__link">
         
   
   
@@ -996,7 +1001,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/release_plan/" class="md-nav__link">
+      <a href="../release_plan/" class="md-nav__link">
         
   
   
@@ -1031,7 +1036,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/release_plan-nadesiko/" class="md-nav__link">
+      <a href="../release_plan-nadesiko/" class="md-nav__link">
         
   
   
@@ -1066,7 +1071,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/development_strategy/" class="md-nav__link">
+      <a href="../development_strategy/" class="md-nav__link">
         
   
   
@@ -1107,17 +1112,20 @@
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5" >
         
           
-          <label class="md-nav__link" for="__nav_5_5" id="__nav_5_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_5" id="__nav_5_5_label" tabindex="">
             
   
   
@@ -1153,7 +1161,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-1/" class="md-nav__link">
+      <a href="../iteration_plan-1/" class="md-nav__link">
         
   
   
@@ -1188,7 +1196,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-2/" class="md-nav__link">
+      <a href="../iteration_plan-2/" class="md-nav__link">
         
   
   
@@ -1223,7 +1231,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-3/" class="md-nav__link">
+      <a href="../iteration_plan-3/" class="md-nav__link">
         
   
   
@@ -1258,7 +1266,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-4/" class="md-nav__link">
+      <a href="../iteration_plan-4/" class="md-nav__link">
         
   
   
@@ -1293,7 +1301,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-5/" class="md-nav__link">
+      <a href="../iteration_plan-5/" class="md-nav__link">
         
   
   
@@ -1328,7 +1336,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-6/" class="md-nav__link">
+      <a href="../iteration_plan-6/" class="md-nav__link">
         
   
   
@@ -1363,7 +1371,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-7/" class="md-nav__link">
+      <a href="../iteration_plan-7/" class="md-nav__link">
         
   
   
@@ -1398,7 +1406,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-nadesiko-1/" class="md-nav__link">
+      <a href="../iteration_plan-nadesiko-1/" class="md-nav__link">
         
   
   
@@ -1433,7 +1441,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-nadesiko-2/" class="md-nav__link">
+      <a href="../iteration_plan-nadesiko-2/" class="md-nav__link">
         
   
   
@@ -1468,7 +1476,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-nadesiko-3/" class="md-nav__link">
+      <a href="../iteration_plan-nadesiko-3/" class="md-nav__link">
         
   
   
@@ -1503,7 +1511,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-nadesiko-4/" class="md-nav__link">
+      <a href="../iteration_plan-nadesiko-4/" class="md-nav__link">
         
   
   
@@ -1538,7 +1546,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-nadesiko-5/" class="md-nav__link">
+      <a href="../iteration_plan-nadesiko-5/" class="md-nav__link">
         
   
   
@@ -1573,7 +1581,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-nadesiko-6/" class="md-nav__link">
+      <a href="../iteration_plan-nadesiko-6/" class="md-nav__link">
         
   
   
@@ -1608,7 +1616,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-nadesiko-7/" class="md-nav__link">
+      <a href="../iteration_plan-nadesiko-7/" class="md-nav__link">
         
   
   
@@ -1643,7 +1651,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-rust-1/" class="md-nav__link">
+      <a href="../iteration_plan-rust-1/" class="md-nav__link">
         
   
   
@@ -1678,7 +1686,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-rust-2/" class="md-nav__link">
+      <a href="../iteration_plan-rust-2/" class="md-nav__link">
         
   
   
@@ -1713,7 +1721,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-rust-3/" class="md-nav__link">
+      <a href="../iteration_plan-rust-3/" class="md-nav__link">
         
   
   
@@ -1748,7 +1756,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-rust-4/" class="md-nav__link">
+      <a href="../iteration_plan-rust-4/" class="md-nav__link">
         
   
   
@@ -1797,17 +1805,20 @@
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_6" >
         
           
-          <label class="md-nav__link" for="__nav_5_6" id="__nav_5_6_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_6" id="__nav_5_6_label" tabindex="">
             
   
   
@@ -1843,7 +1854,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-1/" class="md-nav__link">
+      <a href="../bolt_report-1/" class="md-nav__link">
         
   
   
@@ -1878,7 +1889,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-2/" class="md-nav__link">
+      <a href="../bolt_report-2/" class="md-nav__link">
         
   
   
@@ -1913,7 +1924,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-3/" class="md-nav__link">
+      <a href="../bolt_report-3/" class="md-nav__link">
         
   
   
@@ -1948,7 +1959,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-4/" class="md-nav__link">
+      <a href="../bolt_report-4/" class="md-nav__link">
         
   
   
@@ -1983,7 +1994,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-5/" class="md-nav__link">
+      <a href="../bolt_report-5/" class="md-nav__link">
         
   
   
@@ -2018,7 +2029,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-6/" class="md-nav__link">
+      <a href="../bolt_report-6/" class="md-nav__link">
         
   
   
@@ -2053,7 +2064,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-7/" class="md-nav__link">
+      <a href="../bolt_report-7/" class="md-nav__link">
         
   
   
@@ -2088,7 +2099,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-nadesiko-1/" class="md-nav__link">
+      <a href="../bolt_report-nadesiko-1/" class="md-nav__link">
         
   
   
@@ -2123,7 +2134,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-nadesiko-2/" class="md-nav__link">
+      <a href="../bolt_report-nadesiko-2/" class="md-nav__link">
         
   
   
@@ -2158,7 +2169,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-nadesiko-3/" class="md-nav__link">
+      <a href="../bolt_report-nadesiko-3/" class="md-nav__link">
         
   
   
@@ -2193,7 +2204,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-nadesiko-4/" class="md-nav__link">
+      <a href="../bolt_report-nadesiko-4/" class="md-nav__link">
         
   
   
@@ -2228,7 +2239,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-nadesiko-5/" class="md-nav__link">
+      <a href="../bolt_report-nadesiko-5/" class="md-nav__link">
         
   
   
@@ -2263,7 +2274,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-nadesiko-6/" class="md-nav__link">
+      <a href="../bolt_report-nadesiko-6/" class="md-nav__link">
         
   
   
@@ -2298,7 +2309,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-nadesiko-7/" class="md-nav__link">
+      <a href="../bolt_report-nadesiko-7/" class="md-nav__link">
         
   
   
@@ -2333,7 +2344,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-rust-1/" class="md-nav__link">
+      <a href="../bolt_report-rust-1/" class="md-nav__link">
         
   
   
@@ -2368,7 +2379,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-rust-2/" class="md-nav__link">
+      <a href="../bolt_report-rust-2/" class="md-nav__link">
         
   
   
@@ -2403,7 +2414,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-rust-3/" class="md-nav__link">
+      <a href="../bolt_report-rust-3/" class="md-nav__link">
         
   
   
@@ -2438,7 +2449,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-rust-4/" class="md-nav__link">
+      <a href="../bolt_report-rust-4/" class="md-nav__link">
         
   
   
@@ -2478,26 +2489,31 @@
                 
   
   
+    
   
   
+  
     
     
     
     
       
       
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_7" >
         
           
-          <label class="md-nav__link" for="__nav_5_7" id="__nav_5_7_label" tabindex="0">
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_7" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5_7" id="__nav_5_7_label" tabindex="">
             
   
   
@@ -2515,7 +2531,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_7_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_7_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5_7">
             <span class="md-nav__icon md-icon"></span>
             
@@ -2533,7 +2549,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/retrospective-7/" class="md-nav__link">
+      <a href="../retrospective-7/" class="md-nav__link">
         
   
   
@@ -2568,7 +2584,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/retrospective-nadesiko-1/" class="md-nav__link">
+      <a href="../retrospective-nadesiko-1/" class="md-nav__link">
         
   
   
@@ -2603,7 +2619,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/retrospective-nadesiko-2/" class="md-nav__link">
+      <a href="../retrospective-nadesiko-2/" class="md-nav__link">
         
   
   
@@ -2638,7 +2654,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/retrospective-nadesiko-3/" class="md-nav__link">
+      <a href="../retrospective-nadesiko-3/" class="md-nav__link">
         
   
   
@@ -2673,7 +2689,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/retrospective-nadesiko-4/" class="md-nav__link">
+      <a href="../retrospective-nadesiko-4/" class="md-nav__link">
         
   
   
@@ -2708,7 +2724,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/retrospective-nadesiko-5/" class="md-nav__link">
+      <a href="../retrospective-nadesiko-5/" class="md-nav__link">
         
   
   
@@ -2743,7 +2759,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/retrospective-nadesiko-6/" class="md-nav__link">
+      <a href="../retrospective-nadesiko-6/" class="md-nav__link">
         
   
   
@@ -2778,7 +2794,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/retrospective-nadesiko-7/" class="md-nav__link">
+      <a href="../retrospective-nadesiko-7/" class="md-nav__link">
         
   
   
@@ -2813,7 +2829,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/retrospective-rust-1/" class="md-nav__link">
+      <a href="../retrospective-rust-1/" class="md-nav__link">
         
   
   
@@ -2848,7 +2864,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/retrospective-rust-2/" class="md-nav__link">
+      <a href="../retrospective-rust-2/" class="md-nav__link">
         
   
   
@@ -2883,7 +2899,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/retrospective-rust-3/" class="md-nav__link">
+      <a href="../retrospective-rust-3/" class="md-nav__link">
         
   
   
@@ -2915,10 +2931,44 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../development/retrospective-rust-4/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「Rust」Unit 4 enum と Result
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -2941,6 +2991,92 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        対象
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#keep" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Keep（続けること）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem（問題）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#try" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Try（次に試すこと）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unit-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unit 5 への引き継ぎ
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        関連ドキュメント
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2967,17 +3103,20 @@
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_8" >
         
           
-          <label class="md-nav__link" for="__nav_5_8" id="__nav_5_8_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_8" id="__nav_5_8_label" tabindex="">
             
   
   
@@ -3013,7 +3152,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/release_report-1.0.0/" class="md-nav__link">
+      <a href="../release_report-1.0.0/" class="md-nav__link">
         
   
   
@@ -3048,7 +3187,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/release_report-nadesiko-1.0.0/" class="md-nav__link">
+      <a href="../release_report-nadesiko-1.0.0/" class="md-nav__link">
         
   
   
@@ -7287,31 +7426,26 @@
       
   
   
-    
   
   
-  
     
     
     
     
-      
-        
-        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
         
           
-          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="">
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
             
   
   
@@ -7329,7 +7463,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_12">
             <span class="md-nav__icon md-icon"></span>
             
@@ -7347,7 +7481,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../" class="md-nav__link">
+      <a href="../../template/" class="md-nav__link">
         
   
   
@@ -7375,7 +7509,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E3%81%BE%E3%81%9A%E3%81%93%E3%82%8C%E3%82%92%E8%AA%AD%E3%82%82%E3%81%86%E3%83%AA%E3%82%B9%E3%83%88/" class="md-nav__link">
+      <a href="../../template/%E3%81%BE%E3%81%9A%E3%81%93%E3%82%8C%E3%82%92%E8%AA%AD%E3%82%82%E3%81%86%E3%83%AA%E3%82%B9%E3%83%88/" class="md-nav__link">
         
   
   
@@ -7410,7 +7544,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E3%83%93%E3%82%B8%E3%83%8D%E3%82%B9%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3/" class="md-nav__link">
+      <a href="../../template/%E3%83%93%E3%82%B8%E3%83%8D%E3%82%B9%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3/" class="md-nav__link">
         
   
   
@@ -7445,7 +7579,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E8%A6%81%E4%BB%B6%E5%AE%9A%E7%BE%A9/" class="md-nav__link">
+      <a href="../../template/%E8%A6%81%E4%BB%B6%E5%AE%9A%E7%BE%A9/" class="md-nav__link">
         
   
   
@@ -7480,7 +7614,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E5%AE%8C%E5%85%A8%E5%BD%A2%E5%BC%8F%E3%81%AE%E3%83%A6%E3%83%BC%E3%82%B9%E3%82%B1%E3%83%BC%E3%82%B9/" class="md-nav__link">
+      <a href="../../template/%E5%AE%8C%E5%85%A8%E5%BD%A2%E5%BC%8F%E3%81%AE%E3%83%A6%E3%83%BC%E3%82%B9%E3%82%B1%E3%83%BC%E3%82%B9/" class="md-nav__link">
         
   
   
@@ -7515,7 +7649,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E8%A8%AD%E8%A8%88/" class="md-nav__link">
+      <a href="../../template/%E8%A8%AD%E8%A8%88/" class="md-nav__link">
         
   
   
@@ -7550,7 +7684,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ADR/" class="md-nav__link">
+      <a href="../../template/ADR/" class="md-nav__link">
         
   
   
@@ -7585,7 +7719,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E3%82%A4%E3%83%B3%E3%82%BB%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3%E3%83%87%E3%83%83%E3%82%AD/" class="md-nav__link">
+      <a href="../../template/%E3%82%A4%E3%83%B3%E3%82%BB%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3%E3%83%87%E3%83%83%E3%82%AD/" class="md-nav__link">
         
   
   
@@ -7620,7 +7754,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E3%82%A4%E3%83%86%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E8%A8%88%E7%94%BB/" class="md-nav__link">
+      <a href="../../template/%E3%82%A4%E3%83%86%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E8%A8%88%E7%94%BB/" class="md-nav__link">
         
   
   
@@ -7655,7 +7789,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E3%82%A4%E3%83%86%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E5%AE%8C%E4%BA%86%E5%A0%B1%E5%91%8A%E6%9B%B8/" class="md-nav__link">
+      <a href="../../template/%E3%82%A4%E3%83%86%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E5%AE%8C%E4%BA%86%E5%A0%B1%E5%91%8A%E6%9B%B8/" class="md-nav__link">
         
   
   
@@ -7690,7 +7824,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E8%A8%88%E7%94%BB/" class="md-nav__link">
+      <a href="../../template/%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E8%A8%88%E7%94%BB/" class="md-nav__link">
         
   
   
@@ -7725,7 +7859,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E5%AE%8C%E4%BA%86%E5%A0%B1%E5%91%8A%E6%9B%B8/" class="md-nav__link">
+      <a href="../../template/%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E5%AE%8C%E4%BA%86%E5%A0%B1%E5%91%8A%E6%9B%B8/" class="md-nav__link">
         
   
   
@@ -7757,44 +7891,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    アプリケーション開発環境セットアップ手順書
-  
-
-    
-  </span>
-  
-  
-    
-  
-  
-    <span class="md-status md-status--stable"></span>
-  
-
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../template/%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E9%96%8B%E7%99%BA%E7%92%B0%E5%A2%83%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%E6%89%8B%E9%A0%86%E6%9B%B8/" class="md-nav__link">
         
   
   
@@ -7817,676 +7917,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        概要
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. 前提条件
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="1. 前提条件">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        {言語ランタイム}のインストール
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#docker" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Docker のインストール
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#nodejs" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Node.js のインストール
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. プロジェクトの取得
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2. プロジェクトの取得">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        リポジトリのクローン
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#nodejs_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Node.js 依存パッケージのインストール
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. サブシステム一覧
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. 技術スタック
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="4. 技術スタック">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        バックエンド
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        フロントエンド
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        インフラストラクチャ
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. プロファイル構成
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="5. プロファイル構成">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#default" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        default プロファイル（推奨：日常開発）
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#product" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        product プロファイル（本番互換）
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#6" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6. 開発サーバーの起動
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="6. 開発サーバーの起動">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_8" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        タスクランナー経由（推奨）
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_9" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ビルドツール直接実行
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_10" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        アクセス確認
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#7-docker-compose" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        7. Docker Compose のセットアップ
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="7. Docker Compose のセットアップ">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_11" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        データベースコンテナの起動
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#docker-compose" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Docker Compose の便利なコマンド
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#8" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        8. テストの実行
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="8. テストの実行">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_12" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        全テスト実行
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_13" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        テストの種類
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_14" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        テストカバレッジ
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#9" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        9. コード品質管理
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="9. コード品質管理">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_15" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        静的コード解析ツール
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_16" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        品質チェックの実行
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_17" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        コード複雑度の基準
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_18" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        レポートの確認
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#10" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        10. ディレクトリ構造
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#11" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        11. 命名規則
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#12-git" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        12. Git 規約
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="12. Git 規約">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_19" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        コミットメッセージ
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_20" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        スコープ
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#git-hookshusky-lint-staged" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Git Hooks（Husky + lint-staged）
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Git Hooks（Husky + lint-staged）">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_21" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        セットアップ
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pre-commit" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        pre-commit フック
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_22" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        フックをスキップする場合
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#13" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        13. セットアップの確認
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="13. セットアップの確認">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_23" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        アクセス確認
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#14-cicd" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        14. CI/CD
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="14. CI/CD">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_24" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ワークフロー一覧
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#backend-ci" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Backend CI
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#docker-image-publish" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Docker Image Publish
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_25" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        トラブルシューティング
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="トラブルシューティング">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        {問題タイトル 1}
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        {問題タイトル 2}
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pre-commit_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        pre-commit フックが失敗する場合
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_26" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        関連ドキュメント
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -8499,7 +7929,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E9%96%8B%E7%99%BA%E7%92%B0%E5%A2%83%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%E6%89%8B%E9%A0%86%E6%9B%B8/" class="md-nav__link">
+      <a href="../../template/%E9%96%8B%E7%99%BA%E7%92%B0%E5%A2%83%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%E6%89%8B%E9%A0%86%E6%9B%B8/" class="md-nav__link">
         
   
   
@@ -8534,7 +7964,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../AWS%E3%82%B9%E3%83%86%E3%83%BC%E3%82%B8%E3%83%B3%E3%82%B0%E7%92%B0%E5%A2%83%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%E6%89%8B%E9%A0%86%E6%9B%B8/" class="md-nav__link">
+      <a href="../../template/AWS%E3%82%B9%E3%83%86%E3%83%BC%E3%82%B8%E3%83%B3%E3%82%B0%E7%92%B0%E5%A2%83%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%E6%89%8B%E9%A0%86%E6%9B%B8/" class="md-nav__link">
         
   
   
@@ -8569,7 +7999,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../AWS%E3%83%97%E3%83%AD%E3%83%80%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3%E7%92%B0%E5%A2%83%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%E6%89%8B%E9%A0%86%E6%9B%B8/" class="md-nav__link">
+      <a href="../../template/AWS%E3%83%97%E3%83%AD%E3%83%80%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3%E7%92%B0%E5%A2%83%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%E6%89%8B%E9%A0%86%E6%9B%B8/" class="md-nav__link">
         
   
   
@@ -8604,7 +8034,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E4%BC%81%E6%A5%AD%E5%88%86%E6%9E%90/" class="md-nav__link">
+      <a href="../../template/%E4%BC%81%E6%A5%AD%E5%88%86%E6%9E%90/" class="md-nav__link">
         
   
   
@@ -8639,7 +8069,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E4%BA%8B%E4%BE%8B%E5%88%86%E6%9E%90/" class="md-nav__link">
+      <a href="../../template/%E4%BA%8B%E4%BE%8B%E5%88%86%E6%9E%90/" class="md-nav__link">
         
   
   
@@ -8674,7 +8104,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../README.md" class="md-nav__link">
+      <a href="../../template/README.md" class="md-nav__link">
         
   
   
@@ -8722,778 +8152,183 @@
   
 
 
-<h1 id="_1">アプリケーション開発環境セットアップ手順書<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<h2 id="_2">概要<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<p>本ドキュメントは、{プロジェクト名}のアプリケーション開発環境をセットアップする手順を説明します。</p>
-<p>テスト駆動開発（TDD）のゴールは <strong>動作するきれいなコード</strong> です。それを実現するためには <a href="https://t-wada.hatenablog.jp/entry/clean-code-that-works">ソフトウェア開発の三種の神器</a> が必要です。</p>
-<blockquote>
-<p>今日のソフトウェア開発の世界において絶対になければならない 3 つの技術的な柱があります。
-三本柱と言ったり、三種の神器と言ったりしていますが、それらは</p>
+<h1 id="unit-4-kpt-zettai-rust">Unit 4 のふりかえり（KPT）- Zettai 連載（Rust 版）<a class="headerlink" href="#unit-4-kpt-zettai-rust" title="Permanent link">&para;</a></h1>
+<h2 id="_1">対象<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">項目</th>
+<th style="text-align: left;">内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Unit</td>
+<td style="text-align: left;">Unit 4 enum と Result</td>
+</tr>
+<tr>
+<td style="text-align: left;">計画</td>
+<td style="text-align: left;"><a href="../iteration_plan-rust-4/">Unit 4 の Bolt 計画</a></td>
+</tr>
+<tr>
+<td style="text-align: left;">実績</td>
+<td style="text-align: left;"><a href="../bolt_report-rust-4/">Bolt 終了報告</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="keep">Keep（続けること）<a class="headerlink" href="#keep" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">#</th>
+<th style="text-align: left;">Keep</th>
+<th style="text-align: left;">根拠</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;"><strong>ゲートの密度をエントロピー評価で決める</strong></td>
+<td style="text-align: left;"><strong>減らす側でも成り立った。</strong> 5 軸 LOW で 1 箇所にして 1 / 1 停止。累計 9 / 9</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;"><strong>測る条件を先に書いてから測る</strong>（Unit 3 Try 1）</td>
+<td style="text-align: left;">ゲート 1 で <code>cargo clean</code> の手順を先に決めた。<strong>Unit 3 のような誤った推奨を出さずに済んだ</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;"><strong>主張はテストで確かめてから書く</strong></td>
+<td style="text-align: left;">「lint で守れる」が<strong>実機で崩れた</strong>。書く前に確かめた</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;"><strong>見逃しのある壊し方を先に設計してから計算する</strong>（Unit 3 Try 2）</td>
+<td style="text-align: left;"><strong>計算 50・実測 50 で初めて一致した</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;"><strong>契約を先に変えて波及を数える</strong></td>
+<td style="text-align: left;">4 → 7 → 10 件。<strong>数えたから「一度に全部は見えない」ことが分かった</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;"><strong>ステップに「前提」を 1 行書く</strong>（Unit 2 Try 1）</td>
+<td style="text-align: left;">18 ステップ全部。順序の誤り 0 件</td>
+</tr>
+<tr>
+<td style="text-align: left;">7</td>
+<td style="text-align: left;"><strong>計画の数値を機械で数える</strong></td>
+<td style="text-align: left;">ステップ数が 17 と書いてあり、実際は 18 だった。<strong>数えて直した</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">8</td>
+<td style="text-align: left;"><strong>ADR どうしの衝突を計画時に見つけて人に上げる</strong></td>
+<td style="text-align: left;">実装中に気づいていたら、どちらかを黙って破っていた</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="problem">Problem（問題）<a class="headerlink" href="#problem" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">#</th>
+<th style="text-align: left;">Problem</th>
+<th style="text-align: left;">何が起きたか</th>
+<th style="text-align: left;">原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;"><strong><code>git checkout</code> で第 6 章の実装を消した</strong></td>
+<td style="text-align: left;">lint の検証のために書き換えたファイルを戻すとき、<strong>未コミットの実装ごと消した</strong>。書き直した</td>
+<td style="text-align: left;"><strong>Unit 3 Try 3 は「<code>git stash</code> を使わない」としか書いていなかった。</strong> 同じ形の操作（取り消し）に広げていない</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">単体の Red を立てずに書いた箇所が残った</td>
+<td style="text-align: left;"><code>state_of_list</code> と <code>execute_in</code> の分離は、テストより先に実装した</td>
+<td style="text-align: left;">Unit 3 Try 4 を全ステップには適用できていない</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;"><strong><code>execute_in</code> で空文字を詰めた</strong></td>
+<td style="text-align: left;">失敗が <code>user</code> と <code>list_name</code> を持つようになったとき、<strong>とりあえず <code>User::new("")</code> で埋めた</strong>。すぐ直した</td>
+<td style="text-align: left;">型を通すことを優先し、<strong>意味を後回しにした</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">段階を切った直後の初回が上限を超えた</td>
+<td style="text-align: left;">36.25 秒（上限 20 秒）</td>
+<td style="text-align: left;"><strong>段階が増えるほど初回が伸びるのは構造上避けられない。</strong> 定常は上限内</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Problem 1 が一番重い</strong>です。Unit 3 で <code>git stash drop</code> で成果を消し、Try を書きました。<strong>その Try が狭すぎて、同じ形の事故を防げませんでした。</strong></p>
+<p>「<code>git stash</code> を使わない」ではなく「<strong>取り消し操作の前に、作業ツリーが commit 済みかを確かめる</strong>」が正しい形でした。</p>
+<hr />
+<h2 id="try">Try（次に試すこと）<a class="headerlink" href="#try" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">#</th>
+<th style="text-align: left;">Try</th>
+<th style="text-align: left;">期待効果</th>
+<th style="text-align: left;">期限・契機</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;"><strong>取り消し操作（<code>checkout</code> / <code>restore</code> / <code>stash drop</code> / <code>reset</code>）の前に、<code>git status</code> が clean かを確かめる</strong>（Problem 1）</td>
+<td style="text-align: left;">clean なら失うものが無い。dirty なら<strong>先に WIP コミットする</strong>。<strong>Unit 3 の Try を操作の種類に広げる</strong></td>
+<td style="text-align: left;">常時</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;"><strong>実験でファイルを書き換える前に commit する</strong>（Problem 1）</td>
+<td style="text-align: left;">戻し方を考えなくてよくなる</td>
+<td style="text-align: left;">実験のたび</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;"><strong>型を通すために意味の無い値を詰めない</strong>（Problem 3）</td>
+<td style="text-align: left;">詰めたくなったら、<strong>それは引数が足りない合図</strong>。<code>execute_in</code> は実際に引数が足りなかった</td>
+<td style="text-align: left;">実装中</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;"><strong>ゲートを 2 箇所に戻す</strong></td>
+<td style="text-align: left;"><a href="../release_plan-rust/">リリース計画</a> の Unit 5 は「中」。<strong>評価が減らす側でも当たったので、評価を信じる</strong></td>
+<td style="text-align: left;">Unit 5 の計画</td>
+</tr>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;"><strong>段階を切った直後に初回と定常を分けて測る</strong></td>
+<td style="text-align: left;">Unit 4 で分けて記録した。<strong>段階 5 つで上限に当たる見込みなので、Unit 5 は判断が要る</strong></td>
+<td style="text-align: left;">Unit 5 の 4 つめの段階</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="unit-5">Unit 5 への引き継ぎ<a class="headerlink" href="#unit-5" title="Permanent link">&para;</a></h2>
 <ul>
-<li>バージョン管理</li>
-<li>テスティング</li>
-<li>自動化</li>
+<li>Try 1・2・3 は常時、Try 4 は計画時、Try 5 は段階を切るとき</li>
+<li><a href="../bolt_report-rust-4/">Bolt 終了報告</a> の持ち込み 6 件</li>
+<li><strong>Unit 5 は検証負荷 13。</strong> PostgreSQL 永続化が入り、<strong>外部クレートのエラーが初めて境界を越える</strong></li>
+<li><strong><code>just check</code> が段階 5 つで上限に当たる見込み。</strong> 超えたら段階の切り方そのものを見直す</li>
+<li><strong>ゲートは 2 箇所に戻す</strong></li>
 </ul>
-<p>の 3 つです。</p>
-<p>— https://t-wada.hatenablog.jp/entry/clean-code-that-works</p>
-</blockquote>
 <hr />
-<h2 id="1">1. 前提条件<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
-<p>以下のツールがインストールされていることを確認してください。</p>
-<table>
-<thead>
-<tr>
-<th>ツール</th>
-<th>バージョン</th>
-<th>確認コマンド</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>{言語ランタイム}</td>
-<td>{バージョン}</td>
-<td><code>{確認コマンド}</code></td>
-</tr>
-<tr>
-<td>{ビルドツール}</td>
-<td>{バージョン}</td>
-<td><code>{確認コマンド}</code></td>
-</tr>
-<tr>
-<td>Docker</td>
-<td>最新</td>
-<td><code>docker -v</code></td>
-</tr>
-<tr>
-<td>Docker Compose</td>
-<td>v2.x</td>
-<td><code>docker compose version</code></td>
-</tr>
-<tr>
-<td>Git</td>
-<td>最新</td>
-<td><code>git -v</code></td>
-</tr>
-<tr>
-<td>Node.js</td>
-<td>v22.x LTS</td>
-<td><code>node -v</code></td>
-</tr>
-<tr>
-<td>npm</td>
-<td>v10.x</td>
-<td><code>npm -v</code></td>
-</tr>
-</tbody>
-</table>
-<h3 id="_3">{言語ランタイム}のインストール<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
-<p>{言語ランタイム}をインストールします。バージョン管理ツールを使用すると複数バージョンの管理が容易です。</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># バージョン管理ツールでインストール</span>
-<span class="o">{</span>インストールコマンド<span class="o">}</span>
-
-<span class="c1"># バージョン確認</span>
-<span class="o">{</span>確認コマンド<span class="o">}</span>
-</code></pre></div>
-<p>公式サイトから直接ダウンロードする場合：</p>
+<h2 id="_2">関連ドキュメント<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <ul>
-<li>{公式サイト URL}</li>
-</ul>
-<h3 id="docker">Docker のインストール<a class="headerlink" href="#docker" title="Permanent link">&para;</a></h3>
-<p>Docker Desktop をインストールします。</p>
-<ul>
-<li><strong>Windows</strong>: https://docs.docker.com/desktop/install/windows-install/</li>
-<li><strong>macOS</strong>: https://docs.docker.com/desktop/install/mac-install/</li>
-</ul>
-<div class="highlight"><pre><span></span><code><span class="c1"># バージョン確認</span>
-docker<span class="w"> </span>-v
-
-docker<span class="w"> </span>compose<span class="w"> </span>version
-</code></pre></div>
-<h3 id="nodejs">Node.js のインストール<a class="headerlink" href="#nodejs" title="Permanent link">&para;</a></h3>
-<p>コミット前の品質チェック（husky + lint-staged）に Node.js が必要です。</p>
-<ul>
-<li>https://nodejs.org/</li>
-</ul>
-<div class="highlight"><pre><span></span><code><span class="c1"># バージョン確認</span>
-node<span class="w"> </span>-v
-
-npm<span class="w"> </span>-v
-</code></pre></div>
-<hr />
-<h2 id="2">2. プロジェクトの取得<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
-<h3 id="_4">リポジトリのクローン<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span><span class="o">{</span>リポジトリ<span class="w"> </span>URL<span class="o">}</span>
-<span class="nb">cd</span><span class="w"> </span><span class="o">{</span>プロジェクトディレクトリ<span class="o">}</span>
-</code></pre></div>
-<h3 id="nodejs_1">Node.js 依存パッケージのインストール<a class="headerlink" href="#nodejs_1" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>npm<span class="w"> </span>install
-</code></pre></div>
-<blockquote>
-<p><strong>Note</strong>: husky（Git Hooks）が <code>prepare</code> スクリプトで自動的にセットアップされます。</p>
-</blockquote>
-<hr />
-<h2 id="3">3. サブシステム一覧<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
-<p>{プロジェクト名}は以下のサブシステムで構成されています。</p>
-<table>
-<thead>
-<tr>
-<th>システム</th>
-<th>ディレクトリ</th>
-<th>説明</th>
-<th>ポート (DB / App)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>{システム名}</td>
-<td><code>{ディレクトリ}</code></td>
-<td>{説明}</td>
-<td App="App" ポート="ポート">{DB ポート} /</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2 id="4">4. 技術スタック<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
-<h3 id="_5">バックエンド<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>カテゴリ</th>
-<th>技術</th>
-<th>バージョン</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>言語</td>
-<td>{言語}</td>
-<td>{バージョン}</td>
-</tr>
-<tr>
-<td>フレームワーク</td>
-<td>{フレームワーク}</td>
-<td>{バージョン}</td>
-</tr>
-<tr>
-<td>ビルドツール</td>
-<td>{ビルドツール}</td>
-<td>{バージョン}</td>
-</tr>
-<tr>
-<td>ORM</td>
-<td>{ORM}</td>
-<td>{バージョン}</td>
-</tr>
-<tr>
-<td>データベース</td>
-<td>{データベース}</td>
-<td>{バージョン}</td>
-</tr>
-<tr>
-<td>マイグレーション</td>
-<td>{マイグレーションツール}</td>
-<td>-</td>
-</tr>
-<tr>
-<td>テスト</td>
-<td>{テストフレームワーク}</td>
-<td>{バージョン}</td>
-</tr>
-<tr>
-<td>品質管理</td>
-<td>{品質管理ツール}</td>
-<td>-</td>
-</tr>
-</tbody>
-</table>
-<h3 id="_6">フロントエンド<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>カテゴリ</th>
-<th>技術</th>
-<th>バージョン</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>言語</td>
-<td>{言語}</td>
-<td>{バージョン}</td>
-</tr>
-<tr>
-<td>フレームワーク</td>
-<td>{フレームワーク}</td>
-<td>{バージョン}</td>
-</tr>
-<tr>
-<td>CSS</td>
-<td>{CSS フレームワーク}</td>
-<td>{バージョン}</td>
-</tr>
-</tbody>
-</table>
-<h3 id="_7">インフラストラクチャ<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>カテゴリ</th>
-<th>技術</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>コンテナ</td>
-<td>Docker / Docker Compose</td>
-</tr>
-<tr>
-<td>CI/CD</td>
-<td>{CI/CD ツール}</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2 id="5">5. プロファイル構成<a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
-<p>開発効率を高めるため、複数のプロファイルを使い分けます。</p>
-<table>
-<thead>
-<tr>
-<th>プロファイル</th>
-<th>データベース</th>
-<th>Docker</th>
-<th>用途</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>default</td>
-<td>{開発用 DB}（インメモリ等）</td>
-<td>不要</td>
-<td>日常開発・即座起動</td>
-</tr>
-<tr>
-<td>product</td>
-<td>{本番用 DB}</td>
-<td>必要</td>
-<td>本番互換テスト</td>
-</tr>
-</tbody>
-</table>
-<h3 id="default">default プロファイル（推奨：日常開発）<a class="headerlink" href="#default" title="Permanent link">&para;</a></h3>
-<p>Docker なしで即座に起動できます。</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span><span class="o">{</span>バックエンドディレクトリ<span class="o">}</span>
-<span class="o">{</span>起動コマンド<span class="o">}</span>
-</code></pre></div>
-<h3 id="product">product プロファイル（本番互換）<a class="headerlink" href="#product" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># データベースコンテナを起動</span>
-<span class="nb">cd</span><span class="w"> </span><span class="o">{</span>サブシステムディレクトリ<span class="o">}</span>
-docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span><span class="o">{</span>DB<span class="w"> </span>サービス名<span class="o">}</span>
-
-<span class="c1"># product プロファイルで起動</span>
-<span class="nb">cd</span><span class="w"> </span><span class="o">{</span>バックエンドディレクトリ<span class="o">}</span>
-<span class="o">{</span>product<span class="w"> </span>起動コマンド<span class="o">}</span>
-</code></pre></div>
-<hr />
-<h2 id="6">6. 開発サーバーの起動<a class="headerlink" href="#6" title="Permanent link">&para;</a></h2>
-<h3 id="_8">タスクランナー経由（推奨）<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># 開発サーバー起動（default プロファイル）</span>
-<span class="o">{</span>タスクランナーコマンド<span class="o">}</span>
-
-<span class="c1"># TDD モード（テスト自動再実行）</span>
-<span class="o">{</span>TDD<span class="w"> </span>コマンド<span class="o">}</span>
-
-<span class="c1"># タスク一覧を表示</span>
-<span class="o">{</span>ヘルプコマンド<span class="o">}</span>
-</code></pre></div>
-<h3 id="_9">ビルドツール直接実行<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span><span class="o">{</span>バックエンドディレクトリ<span class="o">}</span>
-
-<span class="c1"># default プロファイルで起動</span>
-<span class="o">{</span>起動コマンド<span class="o">}</span>
-
-<span class="c1"># TDD モード（テストを常に再実行）</span>
-<span class="o">{</span>TDD<span class="w"> </span>コマンド<span class="o">}</span>
-</code></pre></div>
-<h3 id="_10">アクセス確認<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>サービス</th>
-<th>URL</th>
-<th>説明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>アプリケーション</td>
-<td>http://localhost:{ポート}</td>
-<td>メインアプリケーション</td>
-</tr>
-<tr>
-<td>API ドキュメント</td>
-<td>http://localhost:{ポート}/{パス}</td>
-<td>API ドキュメント</td>
-</tr>
-<tr>
-<td>DB 管理ツール</td>
-<td>http://localhost:{ポート}/{パス}</td>
-<td>データベース管理（default プロファイル）</td>
-</tr>
-<tr>
-<td>ヘルスチェック</td>
-<td>http://localhost:{ポート}/{パス}</td>
-<td>ヘルスチェック</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2 id="7-docker-compose">7. Docker Compose のセットアップ<a class="headerlink" href="#7-docker-compose" title="Permanent link">&para;</a></h2>
-<h3 id="_11">データベースコンテナの起動<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span><span class="o">{</span>サブシステムディレクトリ<span class="o">}</span>
-
-<span class="c1"># データベースを起動</span>
-docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span><span class="o">{</span>DB<span class="w"> </span>サービス名<span class="o">}</span>
-
-<span class="c1"># コンテナの状態確認</span>
-docker<span class="w"> </span>compose<span class="w"> </span>ps
-</code></pre></div>
-<h3 id="docker-compose">Docker Compose の便利なコマンド<a class="headerlink" href="#docker-compose" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># データベースを起動</span>
-docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span><span class="o">{</span>DB<span class="w"> </span>サービス名<span class="o">}</span>
-
-<span class="c1"># コンテナの停止と削除</span>
-docker<span class="w"> </span>compose<span class="w"> </span>down
-
-<span class="c1"># ログを確認</span>
-docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span><span class="o">{</span>DB<span class="w"> </span>サービス名<span class="o">}</span>
-
-<span class="c1"># データベースに接続</span>
-docker<span class="w"> </span>compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span><span class="o">{</span>DB<span class="w"> </span>サービス名<span class="o">}</span><span class="w"> </span><span class="o">{</span>DB<span class="w"> </span>クライアントコマンド<span class="o">}</span>
-</code></pre></div>
-<hr />
-<h2 id="8">8. テストの実行<a class="headerlink" href="#8" title="Permanent link">&para;</a></h2>
-<h3 id="_12">全テスト実行<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span><span class="o">{</span>バックエンドディレクトリ<span class="o">}</span>
-
-<span class="c1"># テスト実行（カバレッジレポート付き）</span>
-<span class="o">{</span>テスト実行コマンド<span class="o">}</span>
-</code></pre></div>
-<h3 id="_13">テストの種類<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>テスト種別</th>
-<th>ツール</th>
-<th>説明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>単体テスト</td>
-<td>{テストフレームワーク}</td>
-<td>ドメインロジックのテスト</td>
-</tr>
-<tr>
-<td>統合テスト</td>
-<td>{統合テストツール}</td>
-<td>データベースを使用したテスト</td>
-</tr>
-<tr>
-<td>アーキテクチャテスト</td>
-<td>{アーキテクチャテストツール}</td>
-<td>レイヤー依存関係検証</td>
-</tr>
-</tbody>
-</table>
-<h3 id="_14">テストカバレッジ<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># テストを実行してカバレッジレポートを生成</span>
-<span class="o">{</span>カバレッジコマンド<span class="o">}</span>
-
-<span class="c1"># レポートの表示</span>
-<span class="c1"># {レポートパス}</span>
-</code></pre></div>
-<hr />
-<h2 id="9">9. コード品質管理<a class="headerlink" href="#9" title="Permanent link">&para;</a></h2>
-<h3 id="_15">静的コード解析ツール<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>ツール</th>
-<th>目的</th>
-<th>コマンド</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>{リンター}</td>
-<td>コーディング規約の検証</td>
-<td><code>{コマンド}</code></td>
-</tr>
-<tr>
-<td>{バグ検出ツール}</td>
-<td>バグパターン検出</td>
-<td><code>{コマンド}</code></td>
-</tr>
-<tr>
-<td>{カバレッジツール}</td>
-<td>テストカバレッジ</td>
-<td><code>{コマンド}</code></td>
-</tr>
-</tbody>
-</table>
-<h3 id="_16">品質チェックの実行<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span><span class="o">{</span>バックエンドディレクトリ<span class="o">}</span>
-
-<span class="c1"># 品質チェックのみ</span>
-<span class="o">{</span>品質チェックコマンド<span class="o">}</span>
-
-<span class="c1"># すべてのテストと品質チェック</span>
-<span class="o">{</span>フルチェックコマンド<span class="o">}</span>
-</code></pre></div>
-<h3 id="_17">コード複雑度の基準<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>指標</th>
-<th>閾値</th>
-<th>説明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>循環的複雑度</td>
-<td>10</td>
-<td>分岐・ループの複雑さ</td>
-</tr>
-<tr>
-<td>ファイルサイズ</td>
-<td>500 行</td>
-<td>1 ファイルの最大行数</td>
-</tr>
-<tr>
-<td>メソッドサイズ</td>
-<td>150 行</td>
-<td>1 メソッドの最大行数</td>
-</tr>
-<tr>
-<td>パラメータ数</td>
-<td>7</td>
-<td>メソッドの最大パラメータ数</td>
-</tr>
-</tbody>
-</table>
-<h3 id="_18">レポートの確認<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h3>
-<p>品質チェック後、以下のディレクトリにレポートが生成されます。</p>
-<table>
-<thead>
-<tr>
-<th>ツール</th>
-<th>レポートパス</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>{リンター}</td>
-<td><code>{レポートパス}</code></td>
-</tr>
-<tr>
-<td>{バグ検出ツール}</td>
-<td><code>{レポートパス}</code></td>
-</tr>
-<tr>
-<td>{カバレッジツール}</td>
-<td><code>{レポートパス}</code></td>
-</tr>
-<tr>
-<td>テスト結果</td>
-<td><code>{レポートパス}</code></td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2 id="10">10. ディレクトリ構造<a class="headerlink" href="#10" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>{プロジェクト名}/
-├── .husky/                          # Git Hooks (Husky)
-│   └── pre-commit                   # コミット前品質チェック
-├── apps/
-│   └── {サブシステム}/
-│       ├── backend/
-│       │   ├── {ビルド設定ファイル}
-│       │   ├── Dockerfile
-│       │   ├── config/              # 品質管理ツール設定
-│       │   └── src/
-│       │       ├── main/
-│       │       │   ├── {ソースディレクトリ}/
-│       │       │   │   ├── domain/            # ドメイン層
-│       │       │   │   ├── application/       # アプリケーション層
-│       │       │   │   └── infrastructure/    # インフラストラクチャ層
-│       │       │   └── resources/
-│       │       │       ├── {設定ファイル}
-│       │       │       └── db/migration/      # マイグレーション
-│       │       └── test/
-│       └── docker-compose.yml
-├── docs/                            # ドキュメント
-├── ops/                             # 運用スクリプト
-└── package.json                     # Node.js 依存関係（husky, lint-staged）
-</code></pre></div>
-<hr />
-<h2 id="11">11. 命名規則<a class="headerlink" href="#11" title="Permanent link">&para;</a></h2>
-<p>プロジェクトの命名規則を定義します。</p>
-<table>
-<thead>
-<tr>
-<th>要素</th>
-<th>規則</th>
-<th>例</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>テーブル名</td>
-<td>{規則}</td>
-<td><code>{例}</code></td>
-</tr>
-<tr>
-<td>カラム名</td>
-<td>{規則}</td>
-<td><code>{例}</code></td>
-</tr>
-<tr>
-<td>クラス名</td>
-<td>{規則}</td>
-<td><code>{例}</code></td>
-</tr>
-<tr>
-<td>フィールド名</td>
-<td>{規則}</td>
-<td><code>{例}</code></td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2 id="12-git">12. Git 規約<a class="headerlink" href="#12-git" title="Permanent link">&para;</a></h2>
-<h3 id="_19">コミットメッセージ<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h3>
-<p><a href="https://www.conventionalcommits.org/ja/">Conventional Commits</a> に従います。</p>
-<table>
-<thead>
-<tr>
-<th>タイプ</th>
-<th>説明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>feat</code></td>
-<td>新機能</td>
-</tr>
-<tr>
-<td><code>fix</code></td>
-<td>バグ修正</td>
-</tr>
-<tr>
-<td><code>docs</code></td>
-<td>ドキュメントのみの変更</td>
-</tr>
-<tr>
-<td><code>style</code></td>
-<td>コードの意味に影響しない変更</td>
-</tr>
-<tr>
-<td><code>refactor</code></td>
-<td>バグ修正でも機能追加でもないコード変更</td>
-</tr>
-<tr>
-<td><code>perf</code></td>
-<td>パフォーマンス改善</td>
-</tr>
-<tr>
-<td><code>test</code></td>
-<td>テストの追加・修正</td>
-</tr>
-<tr>
-<td><code>chore</code></td>
-<td>ビルドプロセス・補助ツールの変更</td>
-</tr>
-</tbody>
-</table>
-<h3 id="_20">スコープ<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h3>
-<p>サブシステムを示すスコープを使用します。</p>
-<div class="highlight"><pre><span></span><code>feat({スコープ}): {変更内容}
-fix({スコープ}): {変更内容}
-docs: {変更内容}
-</code></pre></div>
-<h3 id="git-hookshusky-lint-staged">Git Hooks（Husky + lint-staged）<a class="headerlink" href="#git-hookshusky-lint-staged" title="Permanent link">&para;</a></h3>
-<p>コミット時に自動で品質チェックが実行されます。</p>
-<h4 id="_21">セットアップ<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h4>
-<p><code>npm install</code> 実行時に Husky は自動的にセットアップされます（<code>prepare</code> スクリプト）。</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># 手動でセットアップする場合</span>
-npx<span class="w"> </span>husky<span class="w"> </span>init
-</code></pre></div>
-<h4 id="pre-commit">pre-commit フック<a class="headerlink" href="#pre-commit" title="Permanent link">&para;</a></h4>
-<p>ソースファイルに変更がある場合、以下のチェックが自動実行されます。</p>
-<table>
-<thead>
-<tr>
-<th>ツール</th>
-<th>目的</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>{リンター}</td>
-<td>コーディング規約の検証</td>
-</tr>
-<tr>
-<td>{バグ検出ツール}</td>
-<td>バグパターン検出</td>
-</tr>
-</tbody>
-</table>
-<p>いずれかのチェックが失敗すると、コミットがブロックされます。</p>
-<h4 id="_22">フックをスキップする場合<a class="headerlink" href="#_22" title="Permanent link">&para;</a></h4>
-<p>緊急時にフックをスキップしてコミットする場合（非推奨）：</p>
-<div class="highlight"><pre><span></span><code>git<span class="w"> </span>commit<span class="w"> </span>--no-verify<span class="w"> </span>-m<span class="w"> </span><span class="s2">"メッセージ"</span>
-</code></pre></div>
-<blockquote>
-<p><strong>Warning</strong>: フックのスキップは緊急時のみ使用してください。品質チェックを通過しないコードはチームに影響を与える可能性があります。</p>
-</blockquote>
-<hr />
-<h2 id="13">13. セットアップの確認<a class="headerlink" href="#13" title="Permanent link">&para;</a></h2>
-<p>すべてのセットアップが完了したら、以下のコマンドで動作確認を行います。</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># 1. Node.js 依存パッケージのインストール</span>
-npm<span class="w"> </span>install
-
-<span class="c1"># 2. ビルド確認</span>
-<span class="nb">cd</span><span class="w"> </span><span class="o">{</span>バックエンドディレクトリ<span class="o">}</span>
-<span class="o">{</span>ビルドコマンド<span class="o">}</span>
-
-<span class="c1"># 3. テスト実行</span>
-<span class="o">{</span>テスト実行コマンド<span class="o">}</span>
-
-<span class="c1"># 4. 品質チェック</span>
-<span class="o">{</span>品質チェックコマンド<span class="o">}</span>
-
-<span class="c1"># 5. 開発サーバー起動（default プロファイル）</span>
-<span class="o">{</span>起動コマンド<span class="o">}</span>
-</code></pre></div>
-<h3 id="_23">アクセス確認<a class="headerlink" href="#_23" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>サービス</th>
-<th>URL</th>
-<th>説明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>アプリケーション</td>
-<td>http://localhost:{ポート}</td>
-<td>メインアプリケーション</td>
-</tr>
-<tr>
-<td>API ドキュメント</td>
-<td>http://localhost:{ポート}/{パス}</td>
-<td>API ドキュメント</td>
-</tr>
-<tr>
-<td>DB 管理ツール</td>
-<td>http://localhost:{ポート}/{パス}</td>
-<td>データベース管理ツール</td>
-</tr>
-<tr>
-<td>ヘルスチェック</td>
-<td>http://localhost:{ポート}/{パス}</td>
-<td>ヘルスチェック</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2 id="14-cicd">14. CI/CD<a class="headerlink" href="#14-cicd" title="Permanent link">&para;</a></h2>
-<p>CI/CD による継続的インテグレーション・デプロイを設定しています。</p>
-<h3 id="_24">ワークフロー一覧<a class="headerlink" href="#_24" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>ワークフロー</th>
-<th>ファイル</th>
-<th>トリガー</th>
-<th>説明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Backend CI</td>
-<td><code>{ワークフローファイル}</code></td>
-<td><code>{トリガーパス}</code> 変更時</td>
-<td>品質チェック・テスト・ビルド</td>
-</tr>
-<tr>
-<td>Docker Publish</td>
-<td><code>{ワークフローファイル}</code></td>
-<td>タグ push / 手動実行</td>
-<td>イメージを Registry に公開</td>
-</tr>
-<tr>
-<td>Docs Deploy</td>
-<td><code>{ワークフローファイル}</code></td>
-<td>main ブランチ push</td>
-<td>ドキュメントをデプロイ</td>
-</tr>
-</tbody>
-</table>
-<h3 id="backend-ci">Backend CI<a class="headerlink" href="#backend-ci" title="Permanent link">&para;</a></h3>
-<p>バックエンドの変更時に自動実行されます。</p>
-<div class="highlight"><pre><span></span><code>実行内容:
-
-  1. 環境セットアップ
-  2. キャッシュ復元
-  3. 品質チェック（リンター、バグ検出）
-  4. テスト実行（単体・統合・アーキテクチャ）
-  5. カバレッジレポート生成
-  6. ビルド（成果物生成）
-  7. レポートアップロード
-</code></pre></div>
-<h3 id="docker-image-publish">Docker Image Publish<a class="headerlink" href="#docker-image-publish" title="Permanent link">&para;</a></h3>
-<p>タグ push 時または手動実行時に、Docker イメージをビルドして Registry に公開します。</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># 手動実行</span>
-<span class="o">{</span>手動実行コマンド<span class="o">}</span>
-
-<span class="c1"># タグによる自動実行</span>
-git<span class="w"> </span>tag<span class="w"> </span>v1.0.0
-git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>v1.0.0
-
-<span class="c1"># イメージの取得</span>
-docker<span class="w"> </span>pull<span class="w"> </span><span class="o">{</span>レジストリ<span class="o">}</span>/<span class="o">{</span>イメージ名<span class="o">}</span>:latest
-</code></pre></div>
-<hr />
-<h2 id="_25">トラブルシューティング<a class="headerlink" href="#_25" title="Permanent link">&para;</a></h2>
-<h3 id="1_1">{問題タイトル 1}<a class="headerlink" href="#1_1" title="Permanent link">&para;</a></h3>
-<p><strong>問題</strong>: {問題の説明}</p>
-<div class="highlight"><pre><span></span><code>{エラーメッセージ}
-</code></pre></div>
-<p><strong>解決策</strong>: {解決策の説明}</p>
-<div class="highlight"><pre><span></span><code><span class="o">{</span>解決コマンド<span class="o">}</span>
-</code></pre></div>
-<h3 id="2_1">{問題タイトル 2}<a class="headerlink" href="#2_1" title="Permanent link">&para;</a></h3>
-<p><strong>問題</strong>: {問題の説明}</p>
-<p><strong>解決策</strong>: {解決策の説明}</p>
-<div class="highlight"><pre><span></span><code><span class="o">{</span>解決コマンド<span class="o">}</span>
-</code></pre></div>
-<h3 id="pre-commit_1">pre-commit フックが失敗する場合<a class="headerlink" href="#pre-commit_1" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span><span class="o">{</span>バックエンドディレクトリ<span class="o">}</span>
-
-<span class="c1"># 品質チェックを手動実行してエラーを確認</span>
-<span class="o">{</span>品質チェックコマンド<span class="o">}</span>
-
-<span class="c1"># エラーを修正してから再度コミット</span>
-</code></pre></div>
-<hr />
-<h2 id="_26">関連ドキュメント<a class="headerlink" href="#_26" title="Permanent link">&para;</a></h2>
-<ul>
-<li>{関連ドキュメント 1}</li>
-<li>{関連ドキュメント 2}</li>
-<li>{関連ドキュメント 3}</li>
+<li><a href="../iteration_plan-rust-4/">Unit 4 の Bolt 計画</a> / <a href="../bolt_report-rust-4/">Bolt 終了報告</a></li>
+<li><a href="../retrospective-rust-3/">Unit 3 のふりかえり</a></li>
+<li><a href="../release_plan-rust/">リリース計画（Rust 版）</a> / <a href="../development_strategy/">開発戦略</a></li>
+<li><a href="../../article/zettai/rust/chapter06/">第 6 章</a> / <a href="../../article/zettai/rust/chapter07/">第 7 章</a></li>
 </ul>
 
 

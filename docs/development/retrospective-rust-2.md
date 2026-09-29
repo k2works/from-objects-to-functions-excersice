@@ -4,7 +4,7 @@ title: "Unit 2 のふりかえり（KPT）- Zettai 連載（Rust 版）"
 description: "Zettai 連載 Rust 版 Unit 2 の KPT ふりかえり。ゲートが 2 / 2 で止まった理由、両方作って測る手が効いたこと、二重管理を検査で押さえたこと、計画の順序の誤りと持ち込みを 2 回送ったことを整理し、Unit 3 で試すことを決める。"
 tags: [development, retrospective, ai-dlc, zettai, rust, unit-2]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-29T02:13:49Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-29T09:28:59Z }
 ---
 
 # Unit 2 のふりかえり（KPT）- Zettai 連載（Rust 版）
@@ -23,7 +23,7 @@ generated: { by: claude-code/claude-opus-5, at: 2026-09-29T02:13:49Z }
 
 | # | Keep | 根拠 |
 | :--- | :--- | :--- |
-| 1 | **ゲートには選択肢と数字を添える**（Unit 1 Keep 1） | **2 / 2 で停止。累計 5 / 5。** 3 対象を通した累計は 46 箇所中 6 回 |
+| 1 | **ゲートには選択肢と数字を添える**（Unit 1 Keep 1） | **2 / 2 で停止。累計 5 / 5。** なでしこ3 版の 41 箇所中 1 回に対し 5 箇所中 5 回 |
 | 2 | **両方作って測ってから決める** | CI は 2 案を同じコミットで走らせ（525 秒対 17 秒）、境界は両方の構成で**わざと境界を破って**確かめた。**どちらも作らなければ分からなかった** |
 | 3 | **既製品を先に調べる**（全 Bolt 共通のゲート項目） | `cucumber` は依存 6 → 127・ビルド +92 秒。**寄せる先があるのに寄せない判断**ができた |
 | 4 | **決めた代償を検査で押さえる** | CI の二重管理を `check_rust_ci_parity.py` で止める。**わざとずらして落ちることを確認した**。なでしこ3 版 Unit 5 の学びの適用 |

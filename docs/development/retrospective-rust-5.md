@@ -4,7 +4,7 @@ title: "Unit 5 のふりかえり（KPT）- Zettai 連載（Rust 版）"
 description: "Zettai 連載 Rust 版 Unit 5 の KPT ふりかえり。ゲートが 2 / 2 で止まったこと、見積もりを実測が訂正したこと、落ちたままコミットしたこと、Release v0.2.0 を整理し、Unit 6 で試すことを決める。"
 tags: [development, retrospective, ai-dlc, zettai, rust, unit-5]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-29T05:13:15Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-29T09:28:59Z }
 ---
 
 # Unit 5 のふりかえり（KPT）- Zettai 連載（Rust 版）
@@ -23,7 +23,7 @@ generated: { by: claude-code/claude-opus-5, at: 2026-09-29T05:13:15Z }
 
 | # | Keep | 根拠 |
 | :--- | :--- | :--- |
-| 1 | **ゲートには選択肢と数字を添える** | **2 / 2 で停止。累計 11 / 11。** 3 対象で 52 箇所中 12 回 |
+| 1 | **ゲートには選択肢と数字を添える** | **2 / 2 で停止。累計 11 / 11。** なでしこ3 版の 41 箇所中 1 回に対し 11 箇所中 11 回 |
 | 2 | **代償を「速さ」以外の軸でも測る** | 段階を外す案は 3〜5 秒速いが、**過去段階が壊れても気づかない**。わざと壊して確かめた。**これが決め手になった** |
 | 3 | **CI の代償は使い捨てブランチで実測する** | Unit 2 と同じ手。**見積もりでは 22 秒が出てこない** |
 | 4 | **測る条件を先に書く**（Unit 3 Try 1） | `cargo clean` の手順を先に決めた。3 案が同じ土俵に乗った |

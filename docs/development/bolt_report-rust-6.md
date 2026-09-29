@@ -4,7 +4,7 @@ title: "Unit 6 の Bolt 終了報告 - Zettai 連載（Rust 版）"
 description: "Zettai 連載 Rust 版 Unit 6（境界とバリデーション）の終了報告。ゲート 3 / 3 で同期停止したこと、Kotlin 版の設計が型システムに拒まれたこと、3 対象で初めて既製品に寄せたこと、計画の具体例が経路によって作れなかったことを記録する。"
 tags: [development, report, ai-dlc, bolt, zettai, rust, unit-6]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-29T07:51:03Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-29T09:28:59Z }
 ---
 
 # Unit 6 の Bolt 終了報告 - Zettai 連載（Rust 版）
@@ -37,7 +37,7 @@ Rust 版 Unit 6（境界とバリデーション）を完了しました。計�
 
 ### 1. ゲートが 3 / 3 で同期停止した
 
-**累計 14 / 14（100%）**です。3 対象を通した累計は 55 箇所中 15 回になりました。
+**累計 14 / 14（100%）**です。なでしこ3 版の 41 箇所中 1 回に対し、ここまで **14 箇所中 14 回**です。
 
 | ゲート | 決め手 |
 | :--- | :--- |

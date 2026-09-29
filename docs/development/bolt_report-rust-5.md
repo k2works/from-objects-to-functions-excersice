@@ -4,7 +4,7 @@ title: "Unit 5 の Bolt 終了報告 - Zettai 連載（Rust 版）"
 description: "Zettai 連載 Rust 版 Unit 5（射影と永続化）の終了報告。ゲート 2 / 2 で同期停止したこと、async を採らなかった判断が持ちこたえたこと、自前の JSON が jsonb の正規化で落ちたこと、CI の見積もりを実測が訂正したこと、Release v0.2.0 を記録する。"
 tags: [development, report, ai-dlc, bolt, zettai, rust, unit-5]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-29T05:13:15Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-29T09:28:59Z }
 ---
 
 # Unit 5 の Bolt 終了報告 - Zettai 連載（Rust 版）
@@ -39,7 +39,7 @@ Rust 版 Unit 5（射影と永続化）を完了しました。計画は [Unit 5
 
 ### 1. ゲートが 2 / 2 で同期停止した
 
-**累計 11 / 11（100%）**です。3 対象を通した累計は 52 箇所中 12 回になりました。
+**累計 11 / 11（100%）**です。なでしこ3 版の 41 箇所中 1 回に対し、ここまで **11 箇所中 11 回**です。
 
 | ゲート | 添えた数字 | 決定 |
 | :--- | :--- | :--- |

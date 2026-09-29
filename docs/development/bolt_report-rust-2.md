@@ -4,7 +4,7 @@ title: "Unit 2 の Bolt 終了報告 - Zettai 連載（Rust 版）"
 description: "Zettai 連載 Rust 版 Unit 2（ウォーキングスケルトンとドメイン分離）の終了報告。承認ゲートが 2 / 2 で同期停止したこと、境界検査を 1 行も書かずにコンパイラが守ったこと、CI の 2 案を実測して二重管理を検査で押さえたこと、Release v0.1.0 を記録する。"
 tags: [development, report, ai-dlc, bolt, zettai, rust, unit-2]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-29T02:13:49Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-29T09:28:59Z }
 ---
 
 # Unit 2 の Bolt 終了報告 - Zettai 連載（Rust 版）
@@ -39,7 +39,7 @@ Rust 版 Unit 2（ウォーキングスケルトンとドメイン分離）を�
 
 ### 1. 承認ゲートが 2 / 2 で同期停止した
 
-Unit 1 が 3 / 3、Unit 2 が 2 / 2 で、**累計 5 / 5（100%）**です。3 対象を通した累計は 46 箇所中 6 回になりました。
+Unit 1 が 3 / 3、Unit 2 が 2 / 2 で、**累計 5 / 5（100%）**です。なでしこ3 版の 41 箇所中 1 回に対し、ここまで **5 箇所中 5 回**です。
 
 止まった 2 箇所は、どちらも**選択肢と数字**を添えています。
 

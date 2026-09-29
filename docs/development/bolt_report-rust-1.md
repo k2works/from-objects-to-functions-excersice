@@ -4,7 +4,7 @@ title: "Unit 1 の Bolt 終了報告 - Zettai 連載（Rust 版）"
 description: "Zettai 連載 Rust 版 Unit 1（器と第 1 章）の終了報告。承認ゲート 3 箇所すべてが同期停止したこと、2 対象の学びを着手前に反映した効果、ローカルで動いたものが CI に来ないという発見、思い込みで書いたテストが落ちたことを記録する。"
 tags: [development, report, ai-dlc, bolt, zettai, rust, unit-1]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-29T01:11:23Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-29T09:28:59Z }
 ---
 
 # Unit 1 の Bolt 終了報告 - Zettai 連載（Rust 版）
@@ -35,7 +35,9 @@ Rust 版 Unit 1（器と第 1 章）を完了しました。計画は [Unit 1 �
 
 ### 1. 承認ゲートが 3 / 3 で同期停止した
 
-**2 対象は 41 箇所計画して 1 回でした。この Unit は 3 箇所計画して 3 回です。**
+**なでしこ3 版は 41 箇所計画して 1 回でした。この Unit は 3 箇所計画して 3 回です。**
+
+> **Kotlin 版は同期停止の回数を記録していません。** 報告書にあるのは「通過 47 / 47」で、指標が違います。**比べられるのは、なでしこ3 版とこの版です。**
 
 違いは計画の書き方です。Unit 1 の計画では、**ゲートごとに「添えるもの」を事前に確定**させていました。
 

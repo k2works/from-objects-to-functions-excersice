@@ -4,7 +4,7 @@ title: "Unit 3 の Bolt 終了報告 - Zettai 連載（Rust 版）"
 description: "Zettai 連載 Rust 版 Unit 3（所有権のもとでの DI とイベント）の終了報告。承認ゲートが 3 / 3 で同期停止したこと、第 5 章まで書いてから DI の形を決めたこと、3 回送った持ち込み 2 件を消化したこと、数字を 2 度間違えて測り直したことを記録する。"
 tags: [development, report, ai-dlc, bolt, zettai, rust, unit-3]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-29T03:29:31Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-29T09:28:59Z }
 ---
 
 # Unit 3 の Bolt 終了報告 - Zettai 連載（Rust 版）
@@ -37,7 +37,7 @@ Rust 版 Unit 3（所有権のもとでの DI とイベント）を完了しま�
 
 ### 1. 承認ゲートが 3 / 3 で同期停止した
 
-Unit 1 が 3 / 3、Unit 2 が 2 / 2、Unit 3 が 3 / 3 で、**累計 8 / 8（100%）**です。3 対象を通した累計は 49 箇所中 9 回になりました。
+Unit 1 が 3 / 3、Unit 2 が 2 / 2、Unit 3 が 3 / 3 で、**累計 8 / 8（100%）**です。なでしこ3 版の 41 箇所中 1 回に対し、ここまで **8 箇所中 8 回**です。
 
 | ゲート | 添えた数字 | 決定 |
 | :--- | :--- | :--- |

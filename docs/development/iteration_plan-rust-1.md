@@ -4,7 +4,7 @@ title: "Unit 1 の Bolt 計画（イテレーション 1）- Zettai 連載（Rus
 description: "Zettai 連載 Rust 版の Unit 1（器と第 1 章）の Bolt 計画。後戻りの効かない 2 つの判断（async の採否と HTTP クレートの選定）をスパイクで確かめてから決め、cargo workspace と just check を整えて第 1 章を書く。2 対象の学びを着手前に反映し、ゲートには必ず選択肢と数字を添える。"
 tags: [development, plan, ai-dlc, bolt, zettai, rust, unit-1]
 status: stable
-generated: { by: claude-code/claude-opus-5, at: 2026-09-28T13:21:01Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-29T09:28:59Z }
 verified:
   - { by: human:kakimomokuri, at: 2026-09-28T12:44:41Z }
 ---
@@ -35,7 +35,7 @@ verified:
 | 2 | **HTTP クレートの選定** | 1-1.3 | 候補ごとの「tokio 必須か」「縦串が何行で書けるか」「依存クレート数」 |
 | 3 | **`just check` の構成** | 1-1.5 | 各段が何を守っているか、それぞれの秒数 |
 
-**ゲートの書き方を規約にしました。** 2 対象は 41 箇所計画して同期停止 1 回でした。**選択肢と数字を添えられないものはゲートにせず、DoD のチェック項目に置きます**（[開発戦略](development_strategy.md) の Rust 版の節）。
+**ゲートの書き方を規約にしました。** なでしこ3 版は 41 箇所計画して同期停止 1 回でした（Kotlin 版は「通過 47 / 47」で、同期停止の回数を記録していません）。**選択肢と数字を添えられないものはゲートにせず、DoD のチェック項目に置きます**（[開発戦略](development_strategy.md) の Rust 版の節）。
 
 したがって、2 対象で 14 箇所計画して 1 度も止まらなかった「**記事の全文検証**」は、本 Unit ではゲートにしません。DoD に入れます。
 

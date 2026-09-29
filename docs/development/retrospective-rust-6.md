@@ -4,7 +4,7 @@ title: "Unit 6 のふりかえり（KPT）- Zettai 連載（Rust 版）"
 description: "Zettai 連載 Rust 版 Unit 6 の KPT ふりかえり。ゲートが 3 / 3 で止まったこと、Kotlin 版の設計が型に拒まれたこと、CI のジョブ間でステップを動かして道具を入れ忘れたことを整理し、Unit 7 で試すことを決める。"
 tags: [development, retrospective, ai-dlc, zettai, rust, unit-6]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-29T07:51:03Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-29T09:28:59Z }
 ---
 
 # Unit 6 のふりかえり（KPT）- Zettai 連載（Rust 版）
@@ -23,7 +23,7 @@ generated: { by: claude-code/claude-opus-5, at: 2026-09-29T07:51:03Z }
 
 | # | Keep | 根拠 |
 | :--- | :--- | :--- |
-| 1 | **ゲートには選択肢と数字を添える** | **3 / 3 で停止。累計 14 / 14。** 3 対象で 55 箇所中 15 回 |
+| 1 | **ゲートには選択肢と数字を添える** | **3 / 3 で停止。累計 14 / 14。** なでしこ3 版の 41 箇所中 1 回に対し 14 箇所中 14 回 |
 | 2 | **落ちる形も書いてから比べる** | 第 10 章で 2 形が落ちた（E0515・E0478）。**落ちたこと自体が章の中身になった** |
 | 3 | **「結果が同じでも形が違う」を見る** | エラーを集める 3 案は結果が同じ。**「合わせる操作が出るか」で分けた** |
 | 4 | **既製品の判断を毎回やり直す** | 第 11 章で**初めて寄せた**。Kotlin 版の理由が成り立たないことを実測で確かめた |

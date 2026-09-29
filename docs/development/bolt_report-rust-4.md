@@ -4,7 +4,7 @@ title: "Unit 4 の Bolt 終了報告 - Zettai 連載（Rust 版）"
 description: "Zettai 連載 Rust 版 Unit 4（enum と Result）の終了報告。ゲートを 3 箇所から 1 箇所に減らして止まったこと、言語が与える章でも判断が残ったこと、lint の効く範囲を実機で訂正したこと、取り消し操作で 2 度成果を消したことを記録する。"
 tags: [development, report, ai-dlc, bolt, zettai, rust, unit-4]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-29T04:11:58Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-29T09:28:59Z }
 ---
 
 # Unit 4 の Bolt 終了報告 - Zettai 連載（Rust 版）
@@ -47,7 +47,7 @@ Rust 版 Unit 4（enum と Result）を完了しました。計画は [Unit 4 �
 | Unit 3 | 構造・仮定が HIGH | 3 | 3 / 3 |
 | **Unit 4** | **5 軸すべて LOW** | **1** | **1 / 1** |
 
-**ゲートの密度をエントロピー評価で決める運用が、減らす側でも成り立ちました。** 3 対象を通した累計は 50 箇所中 10 回です。
+**ゲートの密度をエントロピー評価で決める運用が、減らす側でも成り立ちました。** なでしこ3 版の 41 箇所中 1 回に対し、ここまで **9 箇所中 9 回**です。
 
 ### 2. 言語が与える章でも、判断は残った
 

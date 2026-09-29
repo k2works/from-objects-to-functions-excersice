@@ -6638,6 +6638,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="支えているもの">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6 つの軸で重ねる
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -9910,6 +9927,78 @@
 <p><strong>型定義の数は、型のある 2 対象でも 22 の差があります。</strong> Kotlin 版が 57、Rust 版が 35 です。Rust 版は <code>enum</code> が代数的データ型をそのまま表し、<code>Outcome</code> 相当（<code>Result</code>）を作っていないぶん少なくなりました。<strong>型が多いことが、型で守れていることと同じではありません。</strong></p>
 <p><strong>検査を書かなかったのは Rust 版だけです。</strong> 契約テストも境界検査も 0 です。2 対象が書いたものを、<code>Cargo.toml</code> とコンパイラが肩代わりしました。</p>
 <p>止まらないものもあります。<strong>テストの無い場所</strong>です。型は書いた全部を見ますが、テストは書いた分しか見ません。<strong>そして型が見る範囲も、思っているより狭いところがあります</strong>（遷移表の行き先は見ません）。</p>
+<h3 id="6">6 つの軸で重ねる<a class="headerlink" href="#6" title="Permanent link">&para;</a></h3>
+<p><strong>上の表を 1 枚に重ねます。</strong> 順位を付けるための総合スコアではありません。<strong>どの対象も全部の軸で外側に来ない</strong>ことを見るための図です。連載の答え（「楽にはならない。決めることが変わる」）は、この形の違いそのものです。</p>
+<p>各軸は<strong>上の表の実測値</strong>を、その軸の最大値が 5 になるように割り直しただけです（新しい数字は足していません）。外側ほど多いという向きで揃えています。</p>
+<pre class="mermaid"><code>radar-beta
+  title 3 対象のプロファイル（各軸の最大値を 5 に揃えた）
+  axis t["型定義"], c["自分で書いた検査"], p["性質テスト"], a["受け入れ経路"], d["ADR"], f["テストファイル"]
+  curve kotlin["Kotlin 版"]{5.0, 0.2, 5.0, 3.3, 4.3, 5.0}
+  curve nadesiko["なでしこ3 版"]{0.0, 5.0, 3.3, 5.0, 3.9, 4.5}
+  curve rust["Rust 版"]{3.1, 0.0, 3.3, 5.0, 5.0, 3.6}
+  showLegend true
+  max 5
+  min 0
+  graticule polygon
+  ticks 5</code></pre>
+<p>割り直す前の数字と、その出どころです。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">軸</th>
+<th style="text-align: right;">Kotlin 版</th>
+<th style="text-align: right;">なでしこ3 版</th>
+<th style="text-align: right;">Rust 版</th>
+<th style="text-align: left;">出どころ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">型定義</td>
+<td style="text-align: right;">57</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">35</td>
+<td style="text-align: left;">上の表</td>
+</tr>
+<tr>
+<td style="text-align: left;">自分で書いた検査</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">契約テスト + 境界検査（なでしこ3 は 16 + 7）</td>
+</tr>
+<tr>
+<td style="text-align: left;">性質テスト</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">上の表</td>
+</tr>
+<tr>
+<td style="text-align: left;">受け入れ経路</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">上の表</td>
+</tr>
+<tr>
+<td style="text-align: left;">ADR</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: left;">各版のリリース完了報告書</td>
+</tr>
+<tr>
+<td style="text-align: left;">テストファイル</td>
+<td style="text-align: right;">32</td>
+<td style="text-align: right;">29</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: left;">上の表（なでしこ3 は 25 + 4、Rust は 8 + 15）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>外側が広いほうが良い、ではありません。</strong> なでしこ3 版の「自分で書いた検査 23」は、型が無いぶんを人が埋めた数です。Rust 版の 0 は、<code>Cargo.toml</code> とコンパイラが肩代わりした結果です。<strong>同じ軸の大小が、逆の意味を持ちます。</strong></p>
+<p>3 つの形は<strong>重なりません</strong>。型定義で外側に来る Kotlin 版は自分で書いた検査がほぼ 0 で、そこで外側に来るなでしこ3 版は型定義が 0 です。<strong>どの対象も全部の軸を取れていません。</strong></p>
 <h2 id="3_1">第 3 の要素: 言語の癖<a class="headerlink" href="#3_1" title="Permanent link">&para;</a></h2>
 <p><strong>「型で保証する」対「約束とテストで保証する」という軸の外側に、もう 1 つあります。</strong></p>
 <p>なでしこ3 版の Unit 2 で、<code>繰り返す</code> が開始より終了が小さいときに逆向きに回ることが分かり、空の配列を回すコードが 5 箇所すべて潜在バグでした。<strong>これは型システムがあっても止まりません。</strong></p>

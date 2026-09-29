@@ -6,17 +6,17 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Codex CLI を MCP（Model Context Protocol）サーバーとして動作させ、Claude Code からプロジェクトのコンテキストを効率的に検索・参照できるようにする手順です。">
+        <meta name="description" content="Zettai 連載 Rust 版の Unit 2（ウォーキングスケルトンとドメイン分離）の Bolt 計画。tiny_http で縦串を通し、第 3 章でドメインとインフラをクレートで分ける。境界をコンパイラに守らせるかどうかと、CI に Nix を入れるかどうかの 2 つを承認ゲートに置く。">
       
       
         <meta name="author" content="Project Team">
       
       
       
-        <link rel="prev" href="../CodexCLIMCP%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E9%96%8B%E7%99%BA%E3%83%95%E3%83%AD%E3%83%BC/">
+        <link rel="prev" href="../iteration_plan-rust-1/">
       
       
-        <link rel="next" href="../SonarQube%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E7%92%B0%E5%A2%83%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%E6%89%8B%E9%A0%86%E6%9B%B8/">
+        <link rel="next" href="../bolt_report-1/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>Codex CLI MCP サーバー設定手順 - From Objects to Functions 演習</title>
+        <title>Unit 2 の Bolt 計画（イテレーション 2）- Zettai 連載（Rust 版） - From Objects to Functions 演習</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#codex-cli-mcp" class="md-skip">
+        <a href="#unit-2-bolt-2-zettai-rust" class="md-skip">
           Skip to content
         </a>
       
@@ -112,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Codex CLI MCP サーバー設定手順
+              Unit 2 の Bolt 計画（イテレーション 2）- Zettai 連載（Rust 版）
             
           </span>
         </div>
@@ -276,11 +276,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../development/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
           
   
   
@@ -396,13 +398,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../reference/" class="md-tabs__link">
           
   
   
@@ -913,26 +913,31 @@
       
   
   
+    
   
   
+  
     
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
         
           
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
             
   
   
@@ -950,7 +955,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -968,7 +973,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/" class="md-nav__link">
+      <a href="../" class="md-nav__link">
         
   
   
@@ -996,7 +1001,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/release_plan/" class="md-nav__link">
+      <a href="../release_plan/" class="md-nav__link">
         
   
   
@@ -1031,7 +1036,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/release_plan-nadesiko/" class="md-nav__link">
+      <a href="../release_plan-nadesiko/" class="md-nav__link">
         
   
   
@@ -1066,7 +1071,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/development_strategy/" class="md-nav__link">
+      <a href="../development_strategy/" class="md-nav__link">
         
   
   
@@ -1098,26 +1103,31 @@
                 
   
   
+    
   
   
+  
     
     
     
     
       
       
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5" >
         
           
-          <label class="md-nav__link" for="__nav_5_5" id="__nav_5_5_label" tabindex="0">
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5_5" id="__nav_5_5_label" tabindex="">
             
   
   
@@ -1135,7 +1145,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1153,7 +1163,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-1/" class="md-nav__link">
+      <a href="../iteration_plan-1/" class="md-nav__link">
         
   
   
@@ -1188,7 +1198,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-2/" class="md-nav__link">
+      <a href="../iteration_plan-2/" class="md-nav__link">
         
   
   
@@ -1223,7 +1233,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-3/" class="md-nav__link">
+      <a href="../iteration_plan-3/" class="md-nav__link">
         
   
   
@@ -1258,7 +1268,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-4/" class="md-nav__link">
+      <a href="../iteration_plan-4/" class="md-nav__link">
         
   
   
@@ -1293,7 +1303,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-5/" class="md-nav__link">
+      <a href="../iteration_plan-5/" class="md-nav__link">
         
   
   
@@ -1328,7 +1338,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-6/" class="md-nav__link">
+      <a href="../iteration_plan-6/" class="md-nav__link">
         
   
   
@@ -1363,7 +1373,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-7/" class="md-nav__link">
+      <a href="../iteration_plan-7/" class="md-nav__link">
         
   
   
@@ -1398,7 +1408,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-nadesiko-1/" class="md-nav__link">
+      <a href="../iteration_plan-nadesiko-1/" class="md-nav__link">
         
   
   
@@ -1433,7 +1443,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-nadesiko-2/" class="md-nav__link">
+      <a href="../iteration_plan-nadesiko-2/" class="md-nav__link">
         
   
   
@@ -1468,7 +1478,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-nadesiko-3/" class="md-nav__link">
+      <a href="../iteration_plan-nadesiko-3/" class="md-nav__link">
         
   
   
@@ -1503,7 +1513,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-nadesiko-4/" class="md-nav__link">
+      <a href="../iteration_plan-nadesiko-4/" class="md-nav__link">
         
   
   
@@ -1538,7 +1548,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-nadesiko-5/" class="md-nav__link">
+      <a href="../iteration_plan-nadesiko-5/" class="md-nav__link">
         
   
   
@@ -1573,7 +1583,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-nadesiko-6/" class="md-nav__link">
+      <a href="../iteration_plan-nadesiko-6/" class="md-nav__link">
         
   
   
@@ -1608,7 +1618,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-nadesiko-7/" class="md-nav__link">
+      <a href="../iteration_plan-nadesiko-7/" class="md-nav__link">
         
   
   
@@ -1643,7 +1653,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-rust-1/" class="md-nav__link">
+      <a href="../iteration_plan-rust-1/" class="md-nav__link">
         
   
   
@@ -1675,10 +1685,44 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../development/iteration_plan-rust-2/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「Rust」Unit 2 ウォーキングスケルトンとドメイン分離
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1701,6 +1745,498 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        概要
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="概要">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        承認ゲートの運用形態
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        目標
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unit-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unit 1 からの持ち込み
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Unit 1 からの持ち込み">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#unit-1-try" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unit 1 のふりかえり Try
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2 対象から踏襲すること（判断として書く）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ゴール
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ゴール">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#unit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unit 完了時の達成状態
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        成功基準
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 3 章の節名の読み替え
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        スパイクで確かめる項目
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        局面とアプローチ
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unit-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unit 2 の満足条件
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Unit 2 の満足条件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ユーザーストーリー
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ユーザーストーリー">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#us-002-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        US-002: 第 2 章を公開する
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#us-003-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        US-003: 第 3 章を公開する
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfr-unit-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFR 定義（Unit 2 固有）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        エントロピー評価
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bolt-2-1-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bolt 2-1: ウォーキングスケルトン（第 2 章）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bolt 2-1: ウォーキングスケルトン（第 2 章）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bolt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bolt ゴール
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ステップ計画
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bolt-2-2-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bolt 2-2: ドメインとインフラの分離（第 3 章）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bolt 2-2: ドメインとインフラの分離（第 3 章）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bolt_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bolt ゴール
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ステップ計画
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        設計
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="設計">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#unit-2-23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unit 2 のドメインモデル（第 2〜3 章のスコープ）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        画面遷移図
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#er" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        状態遷移図・ER 図
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ユーザーマニュアル
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADR
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        リスクと対策
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deployment-unit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deployment Unit としての完了条件
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Deployment Unit としての完了条件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definition-of-done" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Definition of Done
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bolt-dod" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        全 Bolt 共通のゲート項目（DoD）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        デモ項目
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bolt_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        指標（Bolt 終了報告へ引き継ぐ）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        更新履歴
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        関連ドキュメント
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1727,17 +2263,20 @@
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_6" >
         
           
-          <label class="md-nav__link" for="__nav_5_6" id="__nav_5_6_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_6" id="__nav_5_6_label" tabindex="">
             
   
   
@@ -1773,7 +2312,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-1/" class="md-nav__link">
+      <a href="../bolt_report-1/" class="md-nav__link">
         
   
   
@@ -1808,7 +2347,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-2/" class="md-nav__link">
+      <a href="../bolt_report-2/" class="md-nav__link">
         
   
   
@@ -1843,7 +2382,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-3/" class="md-nav__link">
+      <a href="../bolt_report-3/" class="md-nav__link">
         
   
   
@@ -1878,7 +2417,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-4/" class="md-nav__link">
+      <a href="../bolt_report-4/" class="md-nav__link">
         
   
   
@@ -1913,7 +2452,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-5/" class="md-nav__link">
+      <a href="../bolt_report-5/" class="md-nav__link">
         
   
   
@@ -1948,7 +2487,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-6/" class="md-nav__link">
+      <a href="../bolt_report-6/" class="md-nav__link">
         
   
   
@@ -1983,7 +2522,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-7/" class="md-nav__link">
+      <a href="../bolt_report-7/" class="md-nav__link">
         
   
   
@@ -2018,7 +2557,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-nadesiko-1/" class="md-nav__link">
+      <a href="../bolt_report-nadesiko-1/" class="md-nav__link">
         
   
   
@@ -2053,7 +2592,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-nadesiko-2/" class="md-nav__link">
+      <a href="../bolt_report-nadesiko-2/" class="md-nav__link">
         
   
   
@@ -2088,7 +2627,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-nadesiko-3/" class="md-nav__link">
+      <a href="../bolt_report-nadesiko-3/" class="md-nav__link">
         
   
   
@@ -2123,7 +2662,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-nadesiko-4/" class="md-nav__link">
+      <a href="../bolt_report-nadesiko-4/" class="md-nav__link">
         
   
   
@@ -2158,7 +2697,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-nadesiko-5/" class="md-nav__link">
+      <a href="../bolt_report-nadesiko-5/" class="md-nav__link">
         
   
   
@@ -2193,7 +2732,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-nadesiko-6/" class="md-nav__link">
+      <a href="../bolt_report-nadesiko-6/" class="md-nav__link">
         
   
   
@@ -2228,7 +2767,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-nadesiko-7/" class="md-nav__link">
+      <a href="../bolt_report-nadesiko-7/" class="md-nav__link">
         
   
   
@@ -2263,7 +2802,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-rust-1/" class="md-nav__link">
+      <a href="../bolt_report-rust-1/" class="md-nav__link">
         
   
   
@@ -2312,17 +2851,20 @@
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_7" >
         
           
-          <label class="md-nav__link" for="__nav_5_7" id="__nav_5_7_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_7" id="__nav_5_7_label" tabindex="">
             
   
   
@@ -2358,7 +2900,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/retrospective-7/" class="md-nav__link">
+      <a href="../retrospective-7/" class="md-nav__link">
         
   
   
@@ -2393,7 +2935,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/retrospective-nadesiko-1/" class="md-nav__link">
+      <a href="../retrospective-nadesiko-1/" class="md-nav__link">
         
   
   
@@ -2428,7 +2970,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/retrospective-nadesiko-2/" class="md-nav__link">
+      <a href="../retrospective-nadesiko-2/" class="md-nav__link">
         
   
   
@@ -2463,7 +3005,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/retrospective-nadesiko-3/" class="md-nav__link">
+      <a href="../retrospective-nadesiko-3/" class="md-nav__link">
         
   
   
@@ -2498,7 +3040,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/retrospective-nadesiko-4/" class="md-nav__link">
+      <a href="../retrospective-nadesiko-4/" class="md-nav__link">
         
   
   
@@ -2533,7 +3075,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/retrospective-nadesiko-5/" class="md-nav__link">
+      <a href="../retrospective-nadesiko-5/" class="md-nav__link">
         
   
   
@@ -2568,7 +3110,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/retrospective-nadesiko-6/" class="md-nav__link">
+      <a href="../retrospective-nadesiko-6/" class="md-nav__link">
         
   
   
@@ -2603,7 +3145,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/retrospective-nadesiko-7/" class="md-nav__link">
+      <a href="../retrospective-nadesiko-7/" class="md-nav__link">
         
   
   
@@ -2638,7 +3180,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/retrospective-rust-1/" class="md-nav__link">
+      <a href="../retrospective-rust-1/" class="md-nav__link">
         
   
   
@@ -2687,17 +3229,20 @@
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_8" >
         
           
-          <label class="md-nav__link" for="__nav_5_8" id="__nav_5_8_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_8" id="__nav_5_8_label" tabindex="">
             
   
   
@@ -2733,7 +3278,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/release_report-1.0.0/" class="md-nav__link">
+      <a href="../release_report-1.0.0/" class="md-nav__link">
         
   
   
@@ -2768,7 +3313,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/release_report-nadesiko-1.0.0/" class="md-nav__link">
+      <a href="../release_report-nadesiko-1.0.0/" class="md-nav__link">
         
   
   
@@ -5345,31 +5890,26 @@
       
   
   
-    
   
   
-  
     
     
     
     
-      
-        
-        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
         
           
-          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="">
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
             
   
   
@@ -5387,7 +5927,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_11">
             <span class="md-nav__icon md-icon"></span>
             
@@ -5405,7 +5945,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../" class="md-nav__link">
+      <a href="../../reference/" class="md-nav__link">
         
   
   
@@ -5433,7 +5973,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E3%82%88%E3%81%84%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E3%81%A8%E3%81%AF/" class="md-nav__link">
+      <a href="../../reference/%E3%82%88%E3%81%84%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E3%81%A8%E3%81%AF/" class="md-nav__link">
         
   
   
@@ -5468,7 +6008,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E3%83%AD%E3%82%B8%E3%82%AB%E3%83%AB%E3%82%B7%E3%83%B3%E3%82%AD%E3%83%B3%E3%82%B0/" class="md-nav__link">
+      <a href="../../reference/%E3%83%AD%E3%82%B8%E3%82%AB%E3%83%AB%E3%82%B7%E3%83%B3%E3%82%AD%E3%83%B3%E3%82%B0/" class="md-nav__link">
         
   
   
@@ -5503,7 +6043,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E9%96%8B%E7%99%BA%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+      <a href="../../reference/%E9%96%8B%E7%99%BA%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
         
   
   
@@ -5538,7 +6078,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E9%96%8B%E7%99%BA%E3%82%AC%E3%82%A4%E3%83%89_AI-DLC%E7%89%88/" class="md-nav__link">
+      <a href="../../reference/%E9%96%8B%E7%99%BA%E3%82%AC%E3%82%A4%E3%83%89_AI-DLC%E7%89%88/" class="md-nav__link">
         
   
   
@@ -5573,7 +6113,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../AI-DLC%E5%B0%8E%E5%85%A5%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+      <a href="../../reference/AI-DLC%E5%B0%8E%E5%85%A5%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
         
   
   
@@ -5608,7 +6148,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../AI-DLC%E7%94%A8%E8%AA%9E%E9%9B%86/" class="md-nav__link">
+      <a href="../../reference/AI-DLC%E7%94%A8%E8%AA%9E%E9%9B%86/" class="md-nav__link">
         
   
   
@@ -5643,7 +6183,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E3%83%89%E3%82%AD%E3%83%A5%E3%83%A1%E3%83%B3%E3%83%88%E6%A7%8B%E6%88%90%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+      <a href="../../reference/%E3%83%89%E3%82%AD%E3%83%A5%E3%83%A1%E3%83%B3%E3%83%88%E6%A7%8B%E6%88%90%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
         
   
   
@@ -5678,7 +6218,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../OKF%E5%B0%8E%E5%85%A5%E3%82%AC%E3%82%A4%E3%83%89_V0.2/" class="md-nav__link">
+      <a href="../../reference/OKF%E5%B0%8E%E5%85%A5%E3%82%AC%E3%82%A4%E3%83%89_V0.2/" class="md-nav__link">
         
   
   
@@ -5713,7 +6253,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E7%B5%8C%E5%96%B6%E6%88%A6%E7%95%A5%E5%88%86%E6%9E%90%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+      <a href="../../reference/%E7%B5%8C%E5%96%B6%E6%88%A6%E7%95%A5%E5%88%86%E6%9E%90%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
         
   
   
@@ -5748,7 +6288,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E3%83%93%E3%82%B8%E3%83%8D%E3%82%B9%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3%E5%88%86%E6%9E%90%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+      <a href="../../reference/%E3%83%93%E3%82%B8%E3%83%8D%E3%82%B9%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3%E5%88%86%E6%9E%90%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
         
   
   
@@ -5783,7 +6323,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E8%A6%81%E4%BB%B6%E5%AE%9A%E7%BE%A9%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+      <a href="../../reference/%E8%A6%81%E4%BB%B6%E5%AE%9A%E7%BE%A9%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
         
   
   
@@ -5818,7 +6358,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E3%83%A6%E3%83%BC%E3%82%B9%E3%82%B1%E3%83%BC%E3%82%B9%E4%BD%9C%E6%88%90%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+      <a href="../../reference/%E3%83%A6%E3%83%BC%E3%82%B9%E3%82%B1%E3%83%BC%E3%82%B9%E4%BD%9C%E6%88%90%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
         
   
   
@@ -5853,7 +6393,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E3%83%A6%E3%83%BC%E3%82%B9%E3%82%B1%E3%83%BC%E3%82%B9%E4%BD%9C%E6%88%90%E3%82%AC%E3%82%A4%E3%83%89_AI-DLC%E7%89%88/" class="md-nav__link">
+      <a href="../../reference/%E3%83%A6%E3%83%BC%E3%82%B9%E3%82%B1%E3%83%BC%E3%82%B9%E4%BD%9C%E6%88%90%E3%82%AC%E3%82%A4%E3%83%89_AI-DLC%E7%89%88/" class="md-nav__link">
         
   
   
@@ -5888,7 +6428,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3%E8%A8%AD%E8%A8%88%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+      <a href="../../reference/%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3%E8%A8%AD%E8%A8%88%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
         
   
   
@@ -5923,7 +6463,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E3%83%87%E3%83%BC%E3%82%BF%E3%83%A2%E3%83%87%E3%83%AB%E8%A8%AD%E8%A8%88%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+      <a href="../../reference/%E3%83%87%E3%83%BC%E3%82%BF%E3%83%A2%E3%83%87%E3%83%AB%E8%A8%AD%E8%A8%88%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
         
   
   
@@ -5958,7 +6498,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E3%83%A2%E3%83%87%E3%83%AB%E8%A8%AD%E8%A8%88%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+      <a href="../../reference/%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E3%83%A2%E3%83%87%E3%83%AB%E8%A8%AD%E8%A8%88%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
         
   
   
@@ -5993,7 +6533,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../UI%E8%A8%AD%E8%A8%88%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+      <a href="../../reference/UI%E8%A8%AD%E8%A8%88%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
         
   
   
@@ -6028,7 +6568,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E3%83%86%E3%82%B9%E3%83%88%E6%88%A6%E7%95%A5%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+      <a href="../../reference/%E3%83%86%E3%82%B9%E3%83%88%E6%88%A6%E7%95%A5%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
         
   
   
@@ -6063,7 +6603,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E9%9D%9E%E6%A9%9F%E8%83%BD%E8%A6%81%E4%BB%B6%E5%AE%9A%E7%BE%A9%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+      <a href="../../reference/%E9%9D%9E%E6%A9%9F%E8%83%BD%E8%A6%81%E4%BB%B6%E5%AE%9A%E7%BE%A9%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
         
   
   
@@ -6098,7 +6638,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E9%81%8B%E7%94%A8%E8%A6%81%E4%BB%B6%E5%AE%9A%E7%BE%A9%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+      <a href="../../reference/%E9%81%8B%E7%94%A8%E8%A6%81%E4%BB%B6%E5%AE%9A%E7%BE%A9%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
         
   
   
@@ -6133,7 +6673,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E3%82%A4%E3%83%B3%E3%83%95%E3%83%A9%E8%A8%AD%E8%A8%88%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+      <a href="../../reference/%E3%82%A4%E3%83%B3%E3%83%95%E3%83%A9%E8%A8%AD%E8%A8%88%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
         
   
   
@@ -6168,7 +6708,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E3%82%B3%E3%83%BC%E3%83%87%E3%82%A3%E3%83%B3%E3%82%B0%E3%81%A8%E3%83%86%E3%82%B9%E3%83%88%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+      <a href="../../reference/%E3%82%B3%E3%83%BC%E3%83%87%E3%82%A3%E3%83%B3%E3%82%B0%E3%81%A8%E3%83%86%E3%82%B9%E3%83%88%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
         
   
   
@@ -6203,7 +6743,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E3%82%B3%E3%83%BC%E3%83%87%E3%82%A3%E3%83%B3%E3%82%B0%E3%81%A8%E3%83%86%E3%82%B9%E3%83%88%E3%82%AC%E3%82%A4%E3%83%89_AI-DLC%E7%89%88/" class="md-nav__link">
+      <a href="../../reference/%E3%82%B3%E3%83%BC%E3%83%87%E3%82%A3%E3%83%B3%E3%82%B0%E3%81%A8%E3%83%86%E3%82%B9%E3%83%88%E3%82%AC%E3%82%A4%E3%83%89_AI-DLC%E7%89%88/" class="md-nav__link">
         
   
   
@@ -6238,7 +6778,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../BDD%E5%B0%8E%E5%85%A5%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+      <a href="../../reference/BDD%E5%B0%8E%E5%85%A5%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
         
   
   
@@ -6273,7 +6813,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E3%82%A8%E3%82%AF%E3%82%B9%E3%83%88%E3%83%AA%E3%83%BC%E3%83%A0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0/" class="md-nav__link">
+      <a href="../../reference/%E3%82%A8%E3%82%AF%E3%82%B9%E3%83%88%E3%83%AA%E3%83%BC%E3%83%A0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0/" class="md-nav__link">
         
   
   
@@ -6308,7 +6848,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+      <a href="../../reference/%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
         
   
   
@@ -6343,7 +6883,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E3%83%BB%E3%82%A4%E3%83%86%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E8%A8%88%E7%94%BB%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+      <a href="../../reference/%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E3%83%BB%E3%82%A4%E3%83%86%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E8%A8%88%E7%94%BB%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
         
   
   
@@ -6378,7 +6918,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E3%83%BB%E3%82%A4%E3%83%86%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E8%A8%88%E7%94%BB%E3%82%AC%E3%82%A4%E3%83%89_AI-DLC%E7%89%88/" class="md-nav__link">
+      <a href="../../reference/%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E3%83%BB%E3%82%A4%E3%83%86%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E8%A8%88%E7%94%BB%E3%82%AC%E3%82%A4%E3%83%89_AI-DLC%E7%89%88/" class="md-nav__link">
         
   
   
@@ -6413,7 +6953,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E7%92%B0%E5%A2%83%E5%A4%89%E6%95%B0%E7%AE%A1%E7%90%86%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+      <a href="../../reference/%E7%92%B0%E5%A2%83%E5%A4%89%E6%95%B0%E7%AE%A1%E7%90%86%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
         
   
   
@@ -6448,7 +6988,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E8%A8%80%E8%AA%9E%E5%88%A5%E9%96%8B%E7%99%BA%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+      <a href="../../reference/%E8%A8%80%E8%AA%9E%E5%88%A5%E9%96%8B%E7%99%BA%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
         
   
   
@@ -6483,7 +7023,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Java%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+      <a href="../../reference/Java%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
         
   
   
@@ -6518,7 +7058,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TypeScript%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+      <a href="../../reference/TypeScript%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
         
   
   
@@ -6553,7 +7093,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E9%81%8B%E7%94%A8%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88%E4%BD%9C%E6%88%90%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+      <a href="../../reference/%E9%81%8B%E7%94%A8%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88%E4%BD%9C%E6%88%90%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
         
   
   
@@ -6588,7 +7128,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../CodexCLIMCP%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E9%96%8B%E7%99%BA%E3%83%95%E3%83%AD%E3%83%BC/" class="md-nav__link">
+      <a href="../../reference/CodexCLIMCP%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E9%96%8B%E7%99%BA%E3%83%95%E3%83%AD%E3%83%BC/" class="md-nav__link">
         
   
   
@@ -6620,44 +7160,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Codex CLI MCP サーバー設定手順
-  
-
-    
-  </span>
-  
-  
-    
-  
-  
-    <span class="md-status md-status--stable"></span>
-  
-
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../reference/CodexCLIMCP%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E8%A8%AD%E5%AE%9A%E6%89%8B%E9%A0%86/" class="md-nav__link">
         
   
   
@@ -6680,453 +7186,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        概要
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        前提条件
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        手順
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="手順">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-codex-cli" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. Codex CLI のインストール
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-openai" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. OpenAI 認証の設定
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2. OpenAI 認証の設定">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-codex-login" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        方法 1: codex login コマンド（推奨）
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        方法 2: 環境変数で設定
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        認証状態の確認
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-codex-mcp" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Codex MCP サーバーの起動確認
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-claude-code-mcp" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Claude Code への MCP サーバー設定
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="4. Claude Code への MCP サーバー設定">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        設定ファイルの場所
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#npx" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        設定内容（推奨: npx 経由）
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#claude-cli" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Claude CLI から直接追加する方法（推奨）
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        グローバルインストール済みの場合
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#windows" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Windows 環境でパスが認識されない場合
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#5-claude-code" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. Claude Code からの利用
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        トラブルシューティング
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="トラブルシューティング">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#mcp" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        MCP サーバーが起動しない場合
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#claude-code" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Claude Code から接続できない場合
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#401-unauthorized" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        401 Unauthorized エラーが発生する場合
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#account_deactivated" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        アカウント無効化エラー（account_deactivated）
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#mcp_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        MCP 経由で認証情報が引き継がれない場合
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_8" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        通信確認
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="通信確認">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#cli" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        CLI での確認
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#claude-code_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Claude Code での確認
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_9" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ベストプラクティス
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#codex-mcp" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Codex MCP ツールの使用方法
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Codex MCP ツールの使用方法">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_10" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        基本パラメータ
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#sandbox" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        sandbox パラメータ
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#approval-policy" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        approval-policy パラメータ
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_11" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        使用例
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="使用例">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_12" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ファイル作成
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_13" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        コード検索・分析
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_14" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        継続的な対話
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_15" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        関連リンク
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -7139,7 +7198,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../SonarQube%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E7%92%B0%E5%A2%83%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%E6%89%8B%E9%A0%86%E6%9B%B8/" class="md-nav__link">
+      <a href="../../reference/SonarQube%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E7%92%B0%E5%A2%83%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%E6%89%8B%E9%A0%86%E6%9B%B8/" class="md-nav__link">
         
   
   
@@ -7174,7 +7233,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Vim%E6%93%8D%E4%BD%9C%E3%83%9E%E3%83%8B%E3%83%A5%E3%82%A2%E3%83%AB/" class="md-nav__link">
+      <a href="../../reference/Vim%E6%93%8D%E4%BD%9C%E3%83%9E%E3%83%8B%E3%83%A5%E3%82%A2%E3%83%AB/" class="md-nav__link">
         
   
   
@@ -7209,7 +7268,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E4%BC%81%E6%A5%AD%E7%B5%8C%E5%96%B6%E8%AB%96/" class="md-nav__link">
+      <a href="../../reference/%E4%BC%81%E6%A5%AD%E7%B5%8C%E5%96%B6%E8%AB%96/" class="md-nav__link">
         
   
   
@@ -7244,7 +7303,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E9%81%8B%E5%96%B6%E7%AE%A1%E7%90%86/" class="md-nav__link">
+      <a href="../../reference/%E9%81%8B%E5%96%B6%E7%AE%A1%E7%90%86/" class="md-nav__link">
         
   
   
@@ -8009,307 +8068,846 @@
   
 
 
-<h1 id="codex-cli-mcp">Codex CLI MCP サーバー設定手順<a class="headerlink" href="#codex-cli-mcp" title="Permanent link">&para;</a></h1>
+<h1 id="unit-2-bolt-2-zettai-rust">Unit 2 の Bolt 計画（イテレーション 2）- Zettai 連載（Rust 版）<a class="headerlink" href="#unit-2-bolt-2-zettai-rust" title="Permanent link">&para;</a></h1>
 <h2 id="_1">概要<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p>Codex CLI を MCP（Model Context Protocol）サーバーとして動作させ、Claude Code からプロジェクトのコンテキストを効率的に検索・参照できるようにする手順です。</p>
-<h2 id="_2">前提条件<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Node.js 18 以降がインストールされていること</li>
-<li>npm が利用可能であること</li>
-<li>Claude Code がインストールされていること</li>
-<li><strong>有効な OpenAI アカウント</strong>があること</li>
-</ul>
-<h2 id="_3">手順<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
-<h3 id="1-codex-cli">1. Codex CLI のインストール<a class="headerlink" href="#1-codex-cli" title="Permanent link">&para;</a></h3>
-<p>Codex CLI をグローバルにインストールします。</p>
-<div class="highlight"><pre><span></span><code>npm<span class="w"> </span>install<span class="w"> </span>-g<span class="w"> </span>@openai/codex
-</code></pre></div>
-<p>インストール確認:</p>
-<div class="highlight"><pre><span></span><code>codex<span class="w"> </span>--version
-</code></pre></div>
-<h3 id="2-openai">2. OpenAI 認証の設定<a class="headerlink" href="#2-openai" title="Permanent link">&para;</a></h3>
-<p>Codex CLI を使用するには OpenAI アカウントでの認証が必要です。</p>
-<h4 id="1-codex-login">方法 1: <code>codex login</code> コマンド（推奨）<a class="headerlink" href="#1-codex-login" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>codex<span class="w"> </span>login
-</code></pre></div>
-<p>ブラウザが開き、OpenAI アカウントでログインできます。認証情報は <code>~/.codex/auth.json</code> に保存されます。</p>
-<h4 id="2">方法 2: 環境変数で設定<a class="headerlink" href="#2" title="Permanent link">&para;</a></h4>
-<p><code>.zshrc</code> または <code>.bashrc</code> に追加:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">OPENAI_API_KEY</span><span class="o">=</span><span class="s2">"sk-your-api-key-here"</span>
-</code></pre></div>
-<p>設定を反映:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/.zshrc<span class="w">  </span><span class="c1"># または source ~/.bashrc</span>
-</code></pre></div>
-<h4 id="_4">認証状態の確認<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="c1"># 認証ファイルの存在確認</span>
-ls<span class="w"> </span>-la<span class="w"> </span>~/.codex/auth.json
-
-<span class="c1"># 簡単な動作テスト</span>
-codex<span class="w"> </span><span class="nb">exec</span><span class="w"> </span><span class="s2">"Say hello"</span>
-</code></pre></div>
-<h3 id="3-codex-mcp">3. Codex MCP サーバーの起動確認<a class="headerlink" href="#3-codex-mcp" title="Permanent link">&para;</a></h3>
-<p>Codex CLI には MCP サーバーとして動作する機能が組み込まれています。以下のコマンドで動作確認します。</p>
-<div class="highlight"><pre><span></span><code>codex<span class="w"> </span>mcp-server
-</code></pre></div>
-<p>サーバーが待機状態になることを確認したら <code>Ctrl+C</code> で停止します。</p>
-<p><strong>注意</strong>: <code>codex mcp-server</code> は stdio transport で動作します。</p>
-<h3 id="4-claude-code-mcp">4. Claude Code への MCP サーバー設定<a class="headerlink" href="#4-claude-code-mcp" title="Permanent link">&para;</a></h3>
-<p>Claude Code の MCP 設定ファイルに Codex MCP サーバーを登録します。</p>
-<h4 id="_5">設定ファイルの場所<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
-<ul>
-<li><strong>グローバル設定</strong>: <code>~/.claude/.mcp.json</code></li>
-<li><strong>プロジェクト設定</strong>: <code>.claude/.mcp.json</code></li>
-</ul>
-<h4 id="npx">設定内容（推奨: npx 経由）<a class="headerlink" href="#npx" title="Permanent link">&para;</a></h4>
-<p><code>.claude/.mcp.json</code> ファイルの <code>mcpServers</code> に以下を追加します:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">"mcpServers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">"codex"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"npx"</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"@openai/codex"</span><span class="p">,</span><span class="w"> </span><span class="s2">"mcp-server"</span><span class="p">]</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<h4 id="claude-cli">Claude CLI から直接追加する方法（推奨）<a class="headerlink" href="#claude-cli" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="c1"># ユーザーレベル（グローバル）に追加</span>
-claude<span class="w"> </span>mcp<span class="w"> </span>add<span class="w"> </span>-s<span class="w"> </span>user<span class="w"> </span>codex<span class="w"> </span>--<span class="w"> </span>npx<span class="w"> </span>@openai/codex<span class="w"> </span>mcp-server
-
-<span class="c1"># プロジェクトレベルに追加</span>
-claude<span class="w"> </span>mcp<span class="w"> </span>add<span class="w"> </span>-s<span class="w"> </span>project<span class="w"> </span>codex<span class="w"> </span>--<span class="w"> </span>npx<span class="w"> </span>@openai/codex<span class="w"> </span>mcp-server
-</code></pre></div>
-<p><strong>注意</strong>: <code>npx -y</code> オプションは Claude Code の MCP 設定では使用できません。</p>
-<h4 id="_6">グローバルインストール済みの場合<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">"mcpServers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">"codex"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"codex"</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"mcp-server"</span><span class="p">]</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<h4 id="windows">Windows 環境でパスが認識されない場合<a class="headerlink" href="#windows" title="Permanent link">&para;</a></h4>
-<p>フルパスを指定します:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">"mcpServers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">"codex"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"C:\\Users\\&lt;ユーザー名&gt;\\scoop\\shims\\codex.cmd"</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"mcp-server"</span><span class="p">]</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<h3 id="5-claude-code">5. Claude Code からの利用<a class="headerlink" href="#5-claude-code" title="Permanent link">&para;</a></h3>
-<p>Claude Code を起動します。</p>
-<div class="highlight"><pre><span></span><code>claude
-</code></pre></div>
-<p>起動後、Claude は MCP 経由で Codex のツールにアクセスできます。</p>
-<p><strong>利用例</strong>:</p>
-<ul>
-<li>「このプロジェクトの中で認証処理を行っている箇所を探して」</li>
-<li>「API エンドポイントの一覧を教えて」</li>
-<li>「User モデルを使用しているファイルを検索して」</li>
-</ul>
-<h2 id="_7">トラブルシューティング<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
-<h3 id="mcp">MCP サーバーが起動しない場合<a class="headerlink" href="#mcp" title="Permanent link">&para;</a></h3>
-<ol>
-<li>Node.js のバージョンを確認:</li>
-</ol>
-<div class="highlight"><pre><span></span><code>node<span class="w"> </span>--version<span class="w">  </span><span class="c1"># 18 以上が必要</span>
-</code></pre></div>
-<ol>
-<li>Codex CLI の再インストール:</li>
-</ol>
-<div class="highlight"><pre><span></span><code>npm<span class="w"> </span>uninstall<span class="w"> </span>-g<span class="w"> </span>@openai/codex
-npm<span class="w"> </span>install<span class="w"> </span>-g<span class="w"> </span>@openai/codex
-</code></pre></div>
-<h3 id="claude-code">Claude Code から接続できない場合<a class="headerlink" href="#claude-code" title="Permanent link">&para;</a></h3>
-<ol>
-<li>設定ファイルの JSON 構文を確認</li>
-<li>コマンドパスが正しいか確認</li>
-<li>Claude Code を再起動</li>
-<li><code>/mcp</code> コマンドで MCP サーバーの状態を確認</li>
-</ol>
-<h3 id="401-unauthorized">401 Unauthorized エラーが発生する場合<a class="headerlink" href="#401-unauthorized" title="Permanent link">&para;</a></h3>
-<p>このエラーは OpenAI 認証に問題がある場合に発生します。</p>
-<ol>
-<li><strong>認証ファイルの確認</strong>:</li>
-</ol>
-<div class="highlight"><pre><span></span><code>ls<span class="w"> </span>-la<span class="w"> </span>~/.codex/auth.json
-</code></pre></div>
-<ol>
-<li><strong>再認証の実行</strong>:</li>
-</ol>
-<div class="highlight"><pre><span></span><code>codex<span class="w"> </span><span class="nb">logout</span>
-codex<span class="w"> </span>login
-</code></pre></div>
-<ol>
-<li><strong>環境変数の確認</strong>:</li>
-</ol>
-<div class="highlight"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="nv">$OPENAI_API_KEY</span>
-</code></pre></div>
-<ol>
-<li><strong>直接テスト</strong>（MCP 経由ではなく CLI で確認）:</li>
-</ol>
-<div class="highlight"><pre><span></span><code>codex<span class="w"> </span><span class="nb">exec</span><span class="w"> </span><span class="s2">"Say hello"</span>
-</code></pre></div>
-<h3 id="account_deactivated">アカウント無効化エラー（account_deactivated）<a class="headerlink" href="#account_deactivated" title="Permanent link">&para;</a></h3>
-<p>以下のエラーが表示される場合:</p>
-<div class="highlight"><pre><span></span><code>Your OpenAI account has been deactivated, please check your email for more information.
-</code></pre></div>
-<p><strong>対処方法</strong>:</p>
-<ol>
-<li>OpenAI からのメールを確認</li>
-<li><a href="https://help.openai.com">help.openai.com</a> でサポートに問い合わせ</li>
-<li>別の有効な OpenAI アカウントで再認証:</li>
-</ol>
-<div class="highlight"><pre><span></span><code>codex<span class="w"> </span><span class="nb">logout</span>
-codex<span class="w"> </span>login
-</code></pre></div>
-<h3 id="mcp_1">MCP 経由で認証情報が引き継がれない場合<a class="headerlink" href="#mcp_1" title="Permanent link">&para;</a></h3>
-<p>MCP サーバーが認証情報を読み取れない場合は、MCP 設定に環境変数を追加:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">"mcpServers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">"codex"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"npx"</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"@openai/codex"</span><span class="p">,</span><span class="w"> </span><span class="s2">"mcp-server"</span><span class="p">],</span>
-<span class="w">      </span><span class="nt">"env"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">"OPENAI_API_KEY"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sk-your-api-key-here"</span>
-<span class="w">      </span><span class="p">}</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<p><strong>注意</strong>: API キーを直接設定ファイルに記載する場合は、<code>.mcp.json</code> を <code>.gitignore</code> に追加してください。</p>
-<h2 id="_8">通信確認<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
-<p>セットアップ完了後、以下の方法で Codex MCP との通信を確認できます。</p>
-<h3 id="cli">CLI での確認<a class="headerlink" href="#cli" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># 直接 Codex CLI で動作確認</span>
-codex<span class="w"> </span><span class="nb">exec</span><span class="w"> </span><span class="s2">"Say hello"</span>
-</code></pre></div>
-<h3 id="claude-code_1">Claude Code での確認<a class="headerlink" href="#claude-code_1" title="Permanent link">&para;</a></h3>
-<p>Claude Code 内で以下のように Codex MCP ツールを呼び出して確認:</p>
-<div class="highlight"><pre><span></span><code>mcp__codex__codex ツールで "Say hello" を実行してください
-</code></pre></div>
-<p>正常に動作すれば、Codex からの応答が返ってきます。</p>
-<h2 id="_9">ベストプラクティス<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
-<ol>
-<li><strong>プロジェクト固有の設定</strong>: <code>.claude/settings.json</code> を使用してプロジェクトごとに設定</li>
-<li><strong>除外設定</strong>: <code>.gitignore</code> で不要なファイルを除外（Codex は Git を参照）</li>
-<li><strong>OpenAI API キー</strong>: <code>codex login</code> で認証を設定</li>
-<li><strong>セキュリティ</strong>: API キーを含む設定ファイルは <code>.gitignore</code> に追加</li>
-</ol>
-<h2 id="codex-mcp">Codex MCP ツールの使用方法<a class="headerlink" href="#codex-mcp" title="Permanent link">&para;</a></h2>
-<p>Claude Code から Codex MCP サーバーを呼び出す際の主要パラメータを説明します。</p>
-<h3 id="_10">基本パラメータ<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
-<th>パラメータ</th>
-<th>説明</th>
-<th>値の例</th>
+<th>項目</th>
+<th>内容</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>prompt</code></td>
-<td>Codex に実行させるタスクの指示（必須）</td>
-<td><code>"Create a file named hello"</code></td>
+<td><strong>イテレーション</strong></td>
+<td>2（Rust 版）</td>
 </tr>
 <tr>
-<td><code>sandbox</code></td>
-<td>実行環境の権限レベル</td>
-<td><code>read-only</code>, <code>workspace-write</code>, <code>danger-full-access</code></td>
+<td><strong>Unit</strong></td>
+<td>Unit 2 ウォーキングスケルトンとドメイン分離</td>
 </tr>
 <tr>
-<td><code>approval-policy</code></td>
-<td>コマンド実行時の承認ポリシー</td>
-<td><code>untrusted</code>, <code>on-failure</code>, <code>on-request</code>, <code>never</code></td>
+<td><strong>期間</strong></td>
+<td>2 週間</td>
 </tr>
 <tr>
-<td><code>cwd</code></td>
-<td>作業ディレクトリ</td>
-<td><code>C:\path\to\project</code></td>
+<td><strong>Bolt 数</strong></td>
+<td>2（Bolt 2-1 第 2 章 / Bolt 2-2 第 3 章）</td>
 </tr>
 <tr>
-<td><code>model</code></td>
-<td>使用するモデル</td>
-<td><code>gpt-5.2</code>, <code>gpt-5.2-codex</code></td>
+<td><strong>局面</strong></td>
+<td><strong>序盤（アウトサイドイン）</strong>。<a href="../development_strategy/">開発戦略</a></td>
+</tr>
+<tr>
+<td><strong>人の検証負荷</strong></td>
+<td>10 ポイント（第 2 章 6 / 第 3 章 4）</td>
+</tr>
+<tr>
+<td><strong>承認ゲート</strong></td>
+<td><strong>2 箇所</strong></td>
 </tr>
 </tbody>
 </table>
-<h3 id="sandbox">sandbox パラメータ<a class="headerlink" href="#sandbox" title="Permanent link">&para;</a></h3>
+<h3 id="_2">承認ゲートの運用形態<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p><strong>本 Unit のゲートは「同期停止」で運用します。</strong></p>
+<blockquote>
+<p><strong>本節は人だけが書き換えます。</strong> AI は書き換えません。運用形態を変えるなら人が本節を書き換えてから実行し、AI は切り替えを求められたら書き換えずに判断を仰ぎます。</p>
+</blockquote>
 <table>
 <thead>
 <tr>
-<th>値</th>
-<th>説明</th>
+<th style="text-align: left;">#</th>
+<th style="text-align: left;">ゲート</th>
+<th style="text-align: left;">ステップ</th>
+<th style="text-align: left;">添えるもの</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>read-only</code></td>
-<td>読み取り専用（デフォルト）。ファイルの作成・編集不可</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;"><strong>CI に Nix を入れるか</strong></td>
+<td style="text-align: left;">2-1.2</td>
+<td style="text-align: left;">選択肢 3 つ、それぞれの CI 実行時間の実測、キャッシュの効き方、<code>just</code> が壊れる条件</td>
 </tr>
 <tr>
-<td><code>workspace-write</code></td>
-<td>ワークスペース内のファイル書き込みを許可</td>
-</tr>
-<tr>
-<td><code>danger-full-access</code></td>
-<td>全アクセス許可（注意して使用）</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;"><strong>境界をクレートで分けるか、モジュールで分けるか</strong></td>
+<td style="text-align: left;">2-2.2</td>
+<td style="text-align: left;">選択肢 2 つ、それぞれの <code>just check</code> の秒数・<code>Cargo.toml</code> の数・境界検査を書くかどうか</td>
 </tr>
 </tbody>
 </table>
-<h3 id="approval-policy">approval-policy パラメータ<a class="headerlink" href="#approval-policy" title="Permanent link">&para;</a></h3>
+<p><strong>箇所は 2 です。</strong> Unit 1 は 3 / 3 で同期停止したので、<a href="../release_plan-rust/">リリース計画</a> の目標（50% 以上）に対して減らす根拠がありません。計画どおり「中（2 箇所）」を維持します（Unit 1 Try 5）。</p>
+<p><strong>「記事の全文検証」はゲートに置きません。</strong> 3 対象で 14 箇所計画して 1 度も止まっていないためで、DoD のチェック項目にします。</p>
+<h3 id="_3">目標<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p><strong>2 箇所のうち 1 箇所以上が同期停止すること</strong>（50% 以上）。下回ったら Unit 3 で箇所を減らします。</p>
+<hr />
+<h2 id="unit-1">Unit 1 からの持ち込み<a class="headerlink" href="#unit-1" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th>値</th>
-<th>説明</th>
+<th style="text-align: left;">#</th>
+<th style="text-align: left;">持ち込み</th>
+<th style="text-align: left;">出典</th>
+<th style="text-align: left;">消化するステップ</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>untrusted</code></td>
-<td>すべてのコマンドで承認を要求</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;"><strong>CI（<code>.github/workflows/rust-zettai.yml</code>）を作る</strong></td>
+<td style="text-align: left;">終了報告 1</td>
+<td style="text-align: left;">2-1.2</td>
 </tr>
 <tr>
-<td><code>on-failure</code></td>
-<td>失敗時のみ承認を要求</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">段階を切る手順を ADR に書く</td>
+<td style="text-align: left;">終了報告 2</td>
+<td style="text-align: left;"><strong>Unit 3 へ送る</strong>（本 Unit では段階を増やさない。下記）</td>
 </tr>
 <tr>
-<td><code>on-request</code></td>
-<td>リクエスト時に承認を要求</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;"><strong>境界をクレートの分割で引く</strong></td>
+<td style="text-align: left;">終了報告 3</td>
+<td style="text-align: left;">2-2.2</td>
 </tr>
 <tr>
-<td><code>never</code></td>
-<td>承認なしで実行（新規ファイル作成は除く）</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">カバレッジの下限の見直し</td>
+<td style="text-align: left;">終了報告 4</td>
+<td style="text-align: left;"><strong>Unit 3 へ送る</strong>（ドメインが育つまで意味が薄い）</td>
+</tr>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">ゲートの箇所数は減らさない</td>
+<td style="text-align: left;">終了報告 5 / Try 5</td>
+<td style="text-align: left;">本計画のゲート節（2 箇所を維持）</td>
+</tr>
+<tr>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;"><strong>CI に Nix を入れるかを決める</strong></td>
+<td style="text-align: left;">終了報告 6</td>
+<td style="text-align: left;">2-1.2（ゲート 1）</td>
 </tr>
 </tbody>
 </table>
-<h3 id="_11">使用例<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
-<h4 id="_12">ファイル作成<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>prompt: "Create a file named hello containing Hello World"
-sandbox: danger-full-access
-approval-policy: never
-</code></pre></div>
-<p><strong>注意</strong>: 新規ファイル作成は <code>approval-policy: never</code> でも確認を求められます。</p>
-<h4 id="_13">コード検索・分析<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>prompt: "Find all files that handle authentication"
-sandbox: read-only
-</code></pre></div>
-<h3 id="_14">継続的な対話<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
-<p><code>codex-reply</code> ツールを使用して、既存のスレッドで対話を継続できます:</p>
-<div class="highlight"><pre><span></span><code>threadId: "019bca72-76d5-73a1-9c68-88d1835932a9"
-prompt: "はい、作成してください"
-</code></pre></div>
-<h2 id="_15">関連リンク<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h2>
+<h3 id="unit-1-try">Unit 1 のふりかえり Try<a class="headerlink" href="#unit-1-try" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">#</th>
+<th style="text-align: left;">Try</th>
+<th style="text-align: left;">この計画での反映</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;"><strong>記事に書く主張は、テストで確かめてから書く</strong></td>
+<td style="text-align: left;">2-1.5・2-2.6 の完了判定に入れる。<strong>主張が落ちたら主張のほうを直す</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;"><strong>外部コマンドの出どころを両方向で確かめる</strong></td>
+<td style="text-align: left;">2-1.2 で CI を作るとき、<code>which</code> で devShell 由来かホスト由来かを見る。<strong>「devShell に無い」と「外から叩いたらどちらが使われるか」の両方</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;"><strong>2 対象の踏襲も「判断」として計画に書く</strong></td>
+<td style="text-align: left;">下の「2 対象から踏襲すること（判断として書く）」節</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;"><strong>計画の数値は機械で数える</strong></td>
+<td style="text-align: left;">本計画を書いたあとに突合する（ステップ数・ゲート数・検証負荷の合計）</td>
+</tr>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">ゲートの箇所数は減らさない</td>
+<td style="text-align: left;">2 箇所を維持</td>
+</tr>
+</tbody>
+</table>
+<p><strong>持ち込み 2 と 4 は本 Unit では消化できません。</strong> 段階（workspace メンバー）を増やすのは第 4 章（Unit 3）からで、カバレッジの下限もドメインが育つまで意味が薄いためです。<strong>送り先を明記しました</strong>（「見直す」に不要と判断する条件を添える）。</p>
+<hr />
+<h2 id="2">2 対象から踏襲すること（判断として書く）<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<p>Unit 1 Try 3 に従い、<strong>「2 対象と同じにする」も選択として書き出します。</strong> 選択肢が 1 つしかなくても、書けば人が見られます。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">#</th>
+<th style="text-align: left;">踏襲するもの</th>
+<th style="text-align: left;">出典</th>
+<th style="text-align: left;">選ばない場合の代替</th>
+<th style="text-align: left;">なぜ踏襲するか</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">URL 規約 <code>/todo/{user}/{listname}</code></td>
+<td style="text-align: left;"><a href="../../design/ui_design/">UI 設計</a></td>
+<td style="text-align: left;">REST 風に <code>/users/{u}/lists/{l}</code></td>
+<td style="text-align: left;"><strong>章の位置を対象間で比べられることが比較コンテンツの前提</strong>（<a href="../development_strategy/">開発戦略</a>）</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">ウォーキングスケルトンは第 2 章</td>
+<td style="text-align: left;">Kotlin 版・なでしこ3 版</td>
+<td style="text-align: left;">第 1 章に前倒し</td>
+<td style="text-align: left;">同上。3 対象で縦串の位置を揃える</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">受け入れシナリオを 2 経路（ドメイン直接・HTTP 経由）で走らせる</td>
+<td style="text-align: left;"><a href="../../adr/ADR-016-own-acceptance-entry/">ADR-016</a></td>
+<td style="text-align: left;">1 経路だけ</td>
+<td style="text-align: left;">なでしこ3 版 Unit 6 で<strong>経路固有の実装欠陥</strong>（<code>/rename</code> 以外への POST）を捕まえた実績がある</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">受け入れテストの入口を自作する</td>
+<td style="text-align: left;"><a href="../../adr/ADR-016-own-acceptance-entry/">ADR-016</a></td>
+<td style="text-align: left;"><code>cucumber-rs</code> などの既製品</td>
+<td style="text-align: left;"><strong>踏襲しない可能性がある。</strong> 全 Bolt 共通のゲート項目「既製品を先に調べる」に従い、2-2.1 で調べてから決める</td>
+</tr>
+</tbody>
+</table>
+<p><strong>4 だけは踏襲を前提にしません。</strong> Rust には受け入れテストの既製品があります。Unit 1 で組み込みの <code>#[test]</code> を使ったのと同じ手順で、先に調べます。</p>
+<hr />
+<h2 id="_4">ゴール<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p><code>tiny_http</code> で HTTP の縦串を通し、ドメインとインフラを分ける（第 2〜3 章）。<strong>確認したい仮説</strong>: 所有権は縦串の段階では邪魔にならず、境界の分割ではコンパイラが味方になる。</p>
+</blockquote>
+<h3 id="unit">Unit 完了時の達成状態<a class="headerlink" href="#unit" title="Permanent link">&para;</a></h3>
 <ul>
-<li><a href="https://github.com/openai/codex">Codex CLI GitHub</a></li>
-<li><a href="https://modelcontextprotocol.io/">Model Context Protocol</a></li>
-<li><a href="https://docs.anthropic.com/claude-code/mcp">Claude Code MCP 設定</a></li>
+<li><code>/todo/{user}/{listname}</code> で ToDo リストが HTTP で見える</li>
+<li>ドメインとインフラが分かれ、<strong>依存の向きが守られている</strong>（守り方はゲート 2 で決める）</li>
+<li>受け入れシナリオが 2 経路（ドメイン直接・HTTP 経由）で green</li>
+<li><strong>CI が green</strong>（<code>.github/workflows/rust-zettai.yml</code>）</li>
+<li>第 2〜3 章が公開されている（3 / 13 章）</li>
+<li><code>comparison/index.md</code> に <strong>Rust の列がある</strong>（Phase 1 完了時に足す）</li>
+<li><strong>Release v0.1.0 が達成されている</strong></li>
+</ul>
+<h3 id="_5">成功基準<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">#</th>
+<th style="text-align: left;">基準</th>
+<th style="text-align: left;">判定方法</th>
+<th style="text-align: left;">具体例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">縦串が通る</td>
+<td style="text-align: left;"><code>curl</code> で確かめる</td>
+<td style="text-align: left;"><code>/todo/uberto/book</code> が 3 件の項目を含む HTML を返す</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">無いリストが 404</td>
+<td style="text-align: left;">同上</td>
+<td style="text-align: left;"><code>/todo/uberto/nope</code> が 404</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">受け入れシナリオが 2 経路で green</td>
+<td style="text-align: left;"><code>just test</code></td>
+<td style="text-align: left;">ドメイン直接と HTTP 経由で同じシナリオが通る</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">依存の向きが守られている</td>
+<td style="text-align: left;">ゲート 2 の決定による</td>
+<td style="text-align: left;">クレートなら「<code>Cargo.toml</code> に依存が無い」、モジュールなら境界検査</td>
+</tr>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">CI が green</td>
+<td style="text-align: left;">GitHub Actions</td>
+<td style="text-align: left;"><code>Rust Zettai</code> が success</td>
+</tr>
+<tr>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">記事検査 6 本が 0 件</td>
+<td style="text-align: left;"><code>ops/scripts/article/*.py</code></td>
+<td style="text-align: left;">第 2・3 章を含めて違反 0</td>
+</tr>
+<tr>
+<td style="text-align: left;">7</td>
+<td style="text-align: left;"><strong>ゲートの 50% 以上が同期停止した</strong></td>
+<td style="text-align: left;">実績を数える</td>
+<td style="text-align: left;">2 箇所中 1 箇所以上</td>
+</tr>
+<tr>
+<td style="text-align: left;">8</td>
+<td style="text-align: left;"><code>just check</code> が 20 秒以内</td>
+<td style="text-align: left;">3 回測る</td>
+<td style="text-align: left;">devShell の内外の両方で測る</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="3">第 3 章の節名の読み替え<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">節</th>
+<th style="text-align: left;">マインドマップ</th>
+<th style="text-align: left;">読み替え後</th>
+<th style="text-align: left;">理由</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">第 3 章 第 5 節</td>
+<td style="text-align: left;">DDTをPesticideに変換する</td>
+<td style="text-align: left;"><strong>DDT をトレイトに変換する</strong></td>
+<td style="text-align: left;">Pesticide は Kotlin のライブラリで Rust には無い。なでしこ3 版は「共通の仕組み」としたが、Rust には<strong>トレイト</strong>という対応物がある</td>
+</tr>
+</tbody>
+</table>
+<p><strong>第 2 章に読み替えはありません。</strong></p>
+<p>読み替えは 2-2.7 で <code>draft.md</code> の表に登録します。<strong>登録しないと <code>check_sections.py</code> が落ちます</strong>（なでしこ3 版 Unit 6 で実際に落ちました）。</p>
+<blockquote>
+<p><strong>注</strong>: 読み替え後の節名はゲート 2 の決定に依存します。境界をクレートで分けるなら「トレイト」ではなく別の語になる可能性があります。<strong>2-2.2 の決定後に確定させます。</strong></p>
+</blockquote>
+<hr />
+<h2 id="_6">スパイクで確かめる項目<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">#</th>
+<th style="text-align: left;">確かめること</th>
+<th style="text-align: left;">成立しなかったときの代替</th>
+<th style="text-align: left;">対応するゲート</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">GitHub Actions の runner に Nix を入れたときの所要時間とキャッシュの効き</td>
+<td style="text-align: left;">Nix を入れず、CI では <code>cargo</code> を直接呼ぶ（<code>just</code> を通さない）</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">受け入れテストの既製品（<code>cucumber-rs</code> など）で 2 経路の差し替えが書けるか</td>
+<td style="text-align: left;">自作する（<a href="../../adr/ADR-016-own-acceptance-entry/">ADR-016</a> を踏襲）</td>
+<td style="text-align: left;">—</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">クレートを分けたときの <code>just check</code> の秒数</td>
+<td style="text-align: left;">モジュール分割にする</td>
+<td style="text-align: left;">2</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;"><code>tiny_http</code> で 404 と Content-Type を返す書き方</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">—</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_7">局面とアプローチ<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<p><strong>序盤（アウトサイドイン）です。</strong> 第 2 章は「動くものを外から作る」段階で、Unit 1 の Bolt 1-1（判断を作る段階）と違い、アウトサイドインがそのまま当てはまります。</p>
+<p>手順は 3 対象と同じです。</p>
+<ol>
+<li>業務の言葉で受け入れシナリオを書く（Red）</li>
+<li>HTTP のハンドラを書いて通す（Green）</li>
+<li>第 3 章でドメインを内側に切り出す（Refactor）</li>
+</ol>
+<p><strong>第 3 章が「分ける」章である</strong>ことは 3 対象で共通です。違うのは分け方で、Kotlin はパッケージ、なでしこ3 はファイル、Rust は<strong>クレートかモジュール</strong>（ゲート 2）。</p>
+<hr />
+<h2 id="unit-2">Unit 2 の満足条件<a class="headerlink" href="#unit-2" title="Permanent link">&para;</a></h2>
+<h3 id="_8">ユーザーストーリー<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<h4 id="us-002-2">US-002: 第 2 章を公開する<a class="headerlink" href="#us-002-2" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p><strong>読者</strong>として、<strong>所有権のある言語で HTTP の縦串をどう通すか</strong>を知りたい。<strong>フレームワークに隠されない形で「矢印で設計する」を見る</strong>ため。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">#</th>
+<th style="text-align: left;">受入条件</th>
+<th style="text-align: left;">具体例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;"><code>/todo/{user}/{listname}</code> が HTML を返す</td>
+<td style="text-align: left;"><code>/todo/uberto/book</code> が <code>&lt;li&gt;write chapter&lt;/li&gt;</code> を含む</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">無いリストが 404</td>
+<td style="text-align: left;"><code>/todo/uberto/nope</code> が 404</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">パスの分解が自前で書かれている</td>
+<td style="text-align: left;"><code>tiny_http</code> にルーティングが無いため（<a href="../../adr/ADR-025-tiny-http/">ADR-025</a>）</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;"><strong>2 対象に無い内容が 1 つ以上ある</strong></td>
+<td style="text-align: left;">所有権が縦串でどう出たか（または出なかったか）。<strong>出なかったならそう書く</strong>（Try 1）</td>
+</tr>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">CI が green</td>
+<td style="text-align: left;"><code>Rust Zettai</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="us-003-3">US-003: 第 3 章を公開する<a class="headerlink" href="#us-003-3" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p><strong>読者</strong>として、<strong>ドメインとインフラの境界を、コンパイラに守らせられるか</strong>を知りたい。<strong>2 対象が検査を書いて守ったものを、型のある言語がどこまで肩代わりするか</strong>を見るため。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">#</th>
+<th style="text-align: left;">受入条件</th>
+<th style="text-align: left;">具体例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">ドメインとインフラが分かれている</td>
+<td style="text-align: left;">ゲート 2 の決定による</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">依存の向きが守られている</td>
+<td style="text-align: left;">クレートなら <code>Cargo.toml</code> に依存が無い。<strong>守り方を記事に書く</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">受け入れシナリオが 2 経路で走る</td>
+<td style="text-align: left;">ドメイン直接・HTTP 経由で同じシナリオ</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">節名の読み替えが <code>draft.md</code> に登録されている</td>
+<td style="text-align: left;">第 3 章第 5 節</td>
+</tr>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;"><strong>2 対象に無い内容が 1 つ以上ある</strong></td>
+<td style="text-align: left;">「境界検査を書かなくてよい」ことが、2 対象の裏返しとして書かれている（クレートを選んだ場合）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="nfr-unit-2">NFR 定義（Unit 2 固有）<a class="headerlink" href="#nfr-unit-2" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">#</th>
+<th style="text-align: left;">項目</th>
+<th style="text-align: left;">目標</th>
+<th style="text-align: left;">測り方</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;"><code>just check</code>（devShell 内）</td>
+<td style="text-align: left;"><strong>20 秒以内</strong></td>
+<td style="text-align: left;">3 回測る</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;"><code>just check</code>（devShell 外）</td>
+<td style="text-align: left;"><strong>20 秒以内</strong></td>
+<td style="text-align: left;">3 回測る。Unit 1 の実測は 4〜8 秒</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">CI の所要時間</td>
+<td style="text-align: left;"><strong>10 分以内</strong></td>
+<td style="text-align: left;">GitHub Actions の実測</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">カバレッジ（行）</td>
+<td style="text-align: left;">80% 以上</td>
+<td style="text-align: left;"><code>just cov</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>devShell の内外の両方を測る</strong>のは Unit 1 の修正（<code>justfile</code> が入り直す）を受けたものです。<strong>外から叩いても上限内であることを、Unit ごとに確かめます。</strong></p>
+<hr />
+<h2 id="_9">エントロピー評価<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">軸</th>
+<th style="text-align: left;">水準</th>
+<th style="text-align: left;">根拠</th>
+<th style="text-align: left;">対処</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">意図の曖昧さ</td>
+<td style="text-align: left;">LOW</td>
+<td style="text-align: left;">第 2・3 章の主題は 2 対象で確定済み</td>
+<td style="text-align: left;">—</td>
+</tr>
+<tr>
+<td style="text-align: left;">構造的不確実性</td>
+<td style="text-align: left;"><strong>MED</strong></td>
+<td style="text-align: left;"><strong>境界をクレートで分けるかモジュールで分けるかが未確定。</strong> 残り 10 章のファイル配置を縛る</td>
+<td style="text-align: left;">スパイク 3 → ゲート 2</td>
+</tr>
+<tr>
+<td style="text-align: left;">検証の不確実性</td>
+<td style="text-align: left;">LOW</td>
+<td style="text-align: left;"><code>cargo test</code> と受け入れシナリオの形は 3 対象で確立済み</td>
+<td style="text-align: left;">—</td>
+</tr>
+<tr>
+<td style="text-align: left;">リスク</td>
+<td style="text-align: left;">MED</td>
+<td style="text-align: left;">CI が未作成。Nix を入れるかで CI の形が変わる</td>
+<td style="text-align: left;">スパイク 1 → ゲート 1</td>
+</tr>
+<tr>
+<td style="text-align: left;">未解決の仮定</td>
+<td style="text-align: left;">MED</td>
+<td style="text-align: left;">所有権が縦串で問題になるかが未知。<code>tiny_http</code> の 404 の書き方も未確認</td>
+<td style="text-align: left;">スパイク 4</td>
+</tr>
+</tbody>
+</table>
+<p>Unit 1（リスクと未解決の仮定が HIGH）より下がっています。<strong>後戻りの効かない判断は Unit 1 で潰しました。</strong></p>
+<hr />
+<h2 id="bolt-2-1-2">Bolt 2-1: ウォーキングスケルトン（第 2 章）<a class="headerlink" href="#bolt-2-1-2" title="Permanent link">&para;</a></h2>
+<h3 id="bolt">Bolt ゴール<a class="headerlink" href="#bolt" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><code>/todo/{user}/{listname}</code> を HTTP で返す縦串を通し、CI を作る。<strong>確認したい仮説</strong>: 所有権は縦串の段階では邪魔にならない。</p>
+</blockquote>
+<h3 id="_10">ステップ計画<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>2-1.0 スパイク</strong>: <code>tiny_http</code> で 404 と Content-Type を返す書き方を確かめる（スパイク 4）</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>2-1.1 受け入れシナリオを Red にする</strong>（アウトサイドイン）</li>
+<li>「uberto は book の項目を 3 件見られる」「無いリストは 404」を業務の言葉で書く</li>
+<li>この時点では 1 経路（ドメイン直接）だけ。2 経路目は第 3 章</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>2-1.2 CI を作る</strong>（持ち込み 1・6。Try 2）</li>
+<li><strong>Nix を入れるかを決める</strong>。入れないなら <code>just</code> を通さず <code>cargo</code> を直接呼ぶ</li>
+<li><code>which</code> で devShell 由来かホスト由来かを両方向で確かめる</li>
+<li><strong>★人の確認が必要（ゲート 1）</strong></li>
+<li>添えるもの: 選択肢 3 つ・CI 実行時間の実測・キャッシュの効き方・<code>just</code> が壊れる条件</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>2-1.3 HTTP のハンドラを書く（Red → Green）</strong>: パスの分解を自前で書く</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>2-1.4 矢印で設計する</strong>: リクエスト → ToDo リスト → HTML を関数の合成として表す</li>
+<li><strong>所有権がどう出たかを記録する</strong>（<code>README.md</code> の「設計に効くもの」の表）</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>2-1.5 第 2 章の骨子と執筆</strong></li>
+<li><strong>主張はテストで確かめてから書く</strong>（Try 1）。所有権が問題にならなかったならそう書く</li>
+<li>完了判定: 2 対象に無い内容が 1 つ以上ある</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>2-1.6 サイト反映</strong></li>
+</ul>
+<hr />
+<h2 id="bolt-2-2-3">Bolt 2-2: ドメインとインフラの分離（第 3 章）<a class="headerlink" href="#bolt-2-2-3" title="Permanent link">&para;</a></h2>
+<h3 id="bolt_1">Bolt ゴール<a class="headerlink" href="#bolt_1" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>ドメインを内側に切り出し、依存の向きを守る。<strong>確認したい仮説</strong>: 2 対象が検査を書いて守ったものを、コンパイラが肩代わりする。</p>
+</blockquote>
+<h3 id="_11">ステップ計画<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>2-2.1 受け入れテストの既製品を調べる</strong>（全 Bolt 共通のゲート項目）</li>
+<li><code>cucumber-rs</code> などで 2 経路の差し替えが書けるかを確かめる</li>
+<li><strong>入れない判断も記録する</strong>（<a href="../../adr/ADR-016-own-acceptance-entry/">ADR-016</a> を踏襲するかどうか）</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>2-2.2 境界の分け方を決める</strong>（持ち込み 3。スパイク 3）</li>
+<li>案 A: 段階メンバー 1 つの中でモジュール分割（<code>mod domain</code> / <code>mod http</code>）</li>
+<li>案 B: 段階ごとに 2 クレート（<code>zettai-step1-domain</code> / <code>zettai-step1-http</code>）</li>
+<li><strong>★人の確認が必要（ゲート 2）</strong></li>
+<li>添えるもの: それぞれの <code>just check</code> の秒数・<code>Cargo.toml</code> の数・<strong>境界検査を書くかどうか</strong></li>
+<li><strong>この決定が残り 10 章のファイル配置を縛る</strong></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>2-2.3 ドメインを切り出す（Refactor）</strong>: 受け入れシナリオを green に保ったまま</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>2-2.4 受け入れテストを 2 経路にする</strong>: ドメイン直接・HTTP 経由で同じシナリオ</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>2-2.5 依存の向きを守る仕組みを入れる</strong>: ゲート 2 の決定による</li>
+<li>クレートなら<strong>何も書かない</strong>（コンパイラが守る）。その事実を記事に書く</li>
+<li>モジュールなら境界検査を書く（2 対象と同じ）</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>2-2.6 第 3 章の骨子と執筆</strong></li>
+<li>節名の読み替えを確定させる（第 3 章第 5 節）</li>
+<li><strong>主張はテストで確かめてから書く</strong>（Try 1）</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>2-2.7 設計ドキュメント・節名の読み替え・ADR</strong></li>
+<li><code>draft.md</code> に第 3 章第 5 節の読み替え 1 件</li>
+<li><code>architecture_backend.md</code> に「Rust 版での差分」節を新設（境界の守り方）</li>
+<li>ADR-027（境界の分け方）、ADR-028（受け入れテストの入口。既製品の採否）</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>2-2.8 サイト反映と OKF 適用</strong></li>
+<li><strong><code>comparison/index.md</code> に Rust の列を足す</strong>（Phase 1 完了）</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>2-2.9 Release v0.1.0</strong>: push して CI の green を確かめる</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>2-2.10 Bolt 終了報告とふりかえり</strong>: <strong>ゲートの同期停止率を数える</strong></li>
+</ul>
+<hr />
+<h2 id="_12">設計<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
+<h3 id="unit-2-23">Unit 2 のドメインモデル（第 2〜3 章のスコープ）<a class="headerlink" href="#unit-2-23" title="Permanent link">&para;</a></h3>
+<p><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIGRhdGEtZGlhZ3JhbS10eXBlPSJDTEFTUyIgc3R5bGU9IndpZHRoOjgyMnB4O2hlaWdodDo1NzRweDtiYWNrZ3JvdW5kOiNGRkZGRkY7IiB3aWR0aD0iODIycHgiIGhlaWdodD0iNTc0cHgiIHZpZXdCb3g9IjAgMCA4MjIgNTc0IiB6b29tQW5kUGFuPSJtYWduaWZ5IiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBjb250ZW50U3R5bGVUeXBlPSJ0ZXh0L2NzcyI+PD9wbGFudHVtbCAxLjIwMjYuOD8+PGRlZnMvPjxnIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciPjxnIGNsYXNzPSJ0aXRsZSIgZGF0YS1zb3VyY2UtbGluZT0iMSI+PHRleHQgeD0iMjk2LjcyNyIgeT0iMjIuOTk1IiBmaWxsPSIjMDAwIiBmb250LXNpemU9IjE0IiB0ZXh0TGVuZ3RoPSIyMjEuNTQ1IiBmb250LXdlaWdodD0iNzAwIj5Vbml0IDIg44Gn5L2c44KL44KC44Gu77yI56ysIDLjgJwzIOeroO+8iTwvdGV4dD48L2c+PCEtLWNsdXN0ZXIg44OJ44Oh44Kk44Oz77yI56ysIDMg56ug44Gn5YiH44KK5Ye644GZ77yJLS0+PGcgY2xhc3M9ImNsdXN0ZXIiIGRhdGEtcXVhbGlmaWVkLW5hbWU9Ii4uLi4uLiAzIC4uLi4uLi4iIGlkPSJlbnQwMDAxIiBkYXRhLXNvdXJjZS1saW5lPSIzIj48cGF0aCBkPSJNNTAwLjUsMTYxLjU4NyBMNzAyLjk4OCwxNjEuNTg3IEEzLjc1LDMuNzUgMCAwIDEgNzA1LjQ4OCwxNjQuMDg3IEw3MTIuNDg4LDE4My44ODQgTDgwNC41LDE4My44ODQgQTIuNSwyLjUgMCAwIDEgODA3LDE4Ni4zODQgTDgwNyw1NTcuMjc3IEEyLjUsMi41IDAgMCAxIDgwNC41LDU1OS43NzcgTDUwMC41LDU1OS43NzcgQTIuNSwyLjUgMCAwIDEgNDk4LDU1Ny4yNzcgTDQ5OCwxNjQuMDg3IEEyLjUsMi41IDAgMCAxIDUwMC41LDE2MS41ODciIHN0eWxlPSJzdHJva2U6IzAwMDtzdHJva2Utd2lkdGg6MS41OyIgZmlsbD0ibm9uZSIvPjxsaW5lIHgxPSI0OTgiIHkxPSIxODMuODg0IiB4Mj0iNzEyLjQ4OCIgeTI9IjE4My44ODQiIHN0eWxlPSJzdHJva2U6IzAwMDtzdHJva2Utd2lkdGg6MS41OyIvPjx0ZXh0IHg9IjUwMiIgeT0iMTc2LjU4MiIgZmlsbD0iIzAwMCIgZm9udC1zaXplPSIxNCIgdGV4dExlbmd0aD0iMjAxLjQ4OCIgZm9udC13ZWlnaHQ9IjcwMCI+44OJ44Oh44Kk44Oz77yI56ysIDMg56ug44Gn5YiH44KK5Ye644GZ77yJPC90ZXh0PjwvZz48IS0tY2x1c3RlciDjgqTjg7Pjg5Xjg6nvvIhIVFRQ77yJLS0+PGcgY2xhc3M9ImNsdXN0ZXIiIGRhdGEtcXVhbGlmaWVkLW5hbWU9Ii4uLi4uSFRUUC4iIGlkPSJlbnQwMDA2IiBkYXRhLXNvdXJjZS1saW5lPSIxOSI+PHBhdGggZD0iTTguNSw0My4yOTcgTDEzNC41NzcsNDMuMjk3IEEzLjc1LDMuNzUgMCAwIDEgMTM3LjA3Nyw0NS43OTcgTDE0NC4wNzcsNjUuNTk0IEwyNTQuNSw2NS41OTQgQTIuNSwyLjUgMCAwIDEgMjU3LDY4LjA5NCBMMjU3LDI2MC4zODcgQTIuNSwyLjUgMCAwIDEgMjU0LjUsMjYyLjg4NyBMOC41LDI2Mi44ODcgQTIuNSwyLjUgMCAwIDEgNiwyNjAuMzg3IEw2LDQ1Ljc5NyBBMi41LDIuNSAwIDAgMSA4LjUsNDMuMjk3IiBzdHlsZT0ic3Ryb2tlOiMwMDA7c3Ryb2tlLXdpZHRoOjEuNTsiIGZpbGw9Im5vbmUiLz48bGluZSB4MT0iNiIgeTE9IjY1LjU5NCIgeDI9IjE0NC4wNzciIHkyPSI2NS41OTQiIHN0eWxlPSJzdHJva2U6IzAwMDtzdHJva2Utd2lkdGg6MS41OyIvPjx0ZXh0IHg9IjEwIiB5PSI1OC4yOTIiIGZpbGw9IiMwMDAiIGZvbnQtc2l6ZT0iMTQiIHRleHRMZW5ndGg9IjEyNS4wNzciIGZvbnQtd2VpZ2h0PSI3MDAiPuOCpOODs+ODleODqe+8iEhUVFDvvIk8L3RleHQ+PC9nPjwhLS1jbGFzcyBUb0RvSXRlbS0tPjxnIGNsYXNzPSJlbnRpdHkiIGRhdGEtcXVhbGlmaWVkLW5hbWU9Ii4uLi4uLiAzIC4uLi4uLi4uVG9Eb0l0ZW0iIGlkPSJlbnQwMDAyIiBkYXRhLXNvdXJjZS1saW5lPSI0Ij48cmVjdCB4PSI1MTMuNjEiIHk9IjQ3OS40NzciIHdpZHRoPSIxNDAuNzg5IiBoZWlnaHQ9IjY0LjI5NyIgZmlsbD0iI0YxRjFGMSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDowLjU7IiByeD0iMi41IiByeT0iMi41Ii8+PGVsbGlwc2UgY3g9IjU0Ni44MTYiIGN5PSI0OTUuNDc3IiByeD0iMTEiIHJ5PSIxMSIgZmlsbD0iI0FERDFCMiIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIvPjxwYXRoIGQ9Ik01NDkuNzg0LDUwMS4xMTggUTU0OS4yMDYsNTAxLjQxNCA1NDguNTY2LDUwMS41NTUgUTU0Ny45MjUsNTAxLjcxMSA1NDcuMjIyLDUwMS43MTEgUTU0NC43MjIsNTAxLjcxMSA1NDMuMzk0LDUwMC4wNzEgUTU0Mi4wODEsNDk4LjQxNCA1NDIuMDgxLDQ5NS4yODkgUTU0Mi4wODEsNDkyLjE2NCA1NDMuMzk0LDQ5MC41MDggUTU0NC43MjIsNDg4Ljg1MiA1NDcuMjIyLDQ4OC44NTIgUTU0Ny45MjUsNDg4Ljg1MiA1NDguNTY2LDQ4OS4wMDggUTU0OS4yMjIsNDg5LjE2NCA1NDkuNzg0LDQ4OS40NjEgTDU0OS43ODQsNDkyLjE4IFE1NDkuMTU5LDQ5MS42MDIgNTQ4LjU2Niw0OTEuMzM2IFE1NDcuOTcyLDQ5MS4wNTUgNTQ3LjM0Nyw0OTEuMDU1IFE1NDYuMDAzLDQ5MS4wNTUgNTQ1LjMxNiw0OTIuMTMzIFE1NDQuNjI4LDQ5My4xOTYgNTQ0LjYyOCw0OTUuMjg5IFE1NDQuNjI4LDQ5Ny4zODMgNTQ1LjMxNiw0OTguNDYxIFE1NDYuMDAzLDQ5OS41MjQgNTQ3LjM0Nyw0OTkuNTI0IFE1NDcuOTcyLDQ5OS41MjQgNTQ4LjU2Niw0OTkuMjU4IFE1NDkuMTU5LDQ5OC45NzcgNTQ5Ljc4NCw0OTguMzk5IEw1NDkuNzg0LDUwMS4xMTggWiAiIGZpbGw9IiMwMDAiLz48dGV4dCB4PSI1NjQuODYxIiB5PSI1MDAuMzI0IiBmaWxsPSIjMDAwIiBmb250LXNpemU9IjE0IiB0ZXh0TGVuZ3RoPSI2OC4zMzIiPlRvRG9JdGVtPC90ZXh0PjxsaW5lIHgxPSI1MTQuNjEiIHkxPSI1MTEuNDc3IiB4Mj0iNjUzLjM5OSIgeTI9IjUxMS40NzciIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MC41OyIvPjx0ZXh0IHg9IjUxOS42MSIgeT0iNTI4LjQ3MiIgZmlsbD0iIzAwMCIgZm9udC1zaXplPSIxNCIgdGV4dExlbmd0aD0iMTI4Ljc4OSI+ZGVzY3JpcHRpb246IFN0cmluZzwvdGV4dD48bGluZSB4MT0iNTE0LjYxIiB5MT0iNTM1Ljc3NCIgeDI9IjY1My4zOTkiIHkyPSI1MzUuNzc0IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjAuNTsiLz48L2c+PCEtLWNsYXNzIFRvRG9MaXN0LS0+PGcgY2xhc3M9ImVudGl0eSIgZGF0YS1xdWFsaWZpZWQtbmFtZT0iLi4uLi4uIDMgLi4uLi4uLi5Ub0RvTGlzdCIgaWQ9ImVudDAwMDMiIGRhdGEtc291cmNlLWxpbmU9IjciPjxyZWN0IHg9IjUxNC4xMSIgeT0iMzM3Ljg4NyIgd2lkdGg9IjE3Ny43NzEiIGhlaWdodD0iODAuNTk0IiBmaWxsPSIjRjFGMUYxIiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjAuNTsiIHJ4PSIyLjUiIHJ5PSIyLjUiLz48ZWxsaXBzZSBjeD0iNTY4LjI3OCIgY3k9IjM1My44ODciIHJ4PSIxMSIgcnk9IjExIiBmaWxsPSIjQUREMUIyIiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7Ii8+PHBhdGggZD0iTTU3MS4yNDcsMzU5LjUyOCBRNTcwLjY2OSwzNTkuODI0IDU3MC4wMjgsMzU5Ljk2NSBRNTY5LjM4NywzNjAuMTIxIDU2OC42ODQsMzYwLjEyMSBRNTY2LjE4NCwzNjAuMTIxIDU2NC44NTYsMzU4LjQ4MSBRNTYzLjU0NCwzNTYuODI0IDU2My41NDQsMzUzLjY5OSBRNTYzLjU0NCwzNTAuNTc0IDU2NC44NTYsMzQ4LjkxOCBRNTY2LjE4NCwzNDcuMjYyIDU2OC42ODQsMzQ3LjI2MiBRNTY5LjM4NywzNDcuMjYyIDU3MC4wMjgsMzQ3LjQxOCBRNTcwLjY4NCwzNDcuNTc0IDU3MS4yNDcsMzQ3Ljg3MSBMNTcxLjI0NywzNTAuNTkgUTU3MC42MjIsMzUwLjAxMiA1NzAuMDI4LDM0OS43NDYgUTU2OS40MzQsMzQ5LjQ2NSA1NjguODA5LDM0OS40NjUgUTU2Ny40NjUsMzQ5LjQ2NSA1NjYuNzc4LDM1MC41NDMgUTU2Ni4wOSwzNTEuNjA2IDU2Ni4wOSwzNTMuNjk5IFE1NjYuMDksMzU1Ljc5MyA1NjYuNzc4LDM1Ni44NzEgUTU2Ny40NjUsMzU3LjkzNCA1NjguODA5LDM1Ny45MzQgUTU2OS40MzQsMzU3LjkzNCA1NzAuMDI4LDM1Ny42NjggUTU3MC42MjIsMzU3LjM4NyA1NzEuMjQ3LDM1Ni44MDkgTDU3MS4yNDcsMzU5LjUyOCBaICIgZmlsbD0iIzAwMCIvPjx0ZXh0IHg9IjU4OC43NzgiIHk9IjM1OC43MzQiIGZpbGw9IiMwMDAiIGZvbnQtc2l6ZT0iMTQiIHRleHRMZW5ndGg9IjYwLjkzNiI+VG9Eb0xpc3Q8L3RleHQ+PGxpbmUgeDE9IjUxNS4xMSIgeTE9IjM2OS44ODciIHgyPSI2OTAuODgxIiB5Mj0iMzY5Ljg4NyIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDowLjU7Ii8+PHRleHQgeD0iNTIwLjExIiB5PSIzODYuODgyIiBmaWxsPSIjMDAwIiBmb250LXNpemU9IjE0IiB0ZXh0TGVuZ3RoPSIxNDIuMjA4Ij5saXN0X25hbWU6IExpc3ROYW1lPC90ZXh0Pjx0ZXh0IHg9IjUyMC4xMSIgeT0iNDAzLjE3OSIgZmlsbD0iIzAwMCIgZm9udC1zaXplPSIxNCIgdGV4dExlbmd0aD0iMTY1Ljc3MSI+aXRlbXM6IFZlYyZsdDtUb0RvSXRlbT48L3RleHQ+PGxpbmUgeDE9IjUxNS4xMSIgeTE9IjQxMC40ODEiIHgyPSI2OTAuODgxIiB5Mj0iNDEwLjQ4MSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDowLjU7Ii8+PC9nPjwhLS1jbGFzcyBMaXN0TmFtZS0tPjxnIGNsYXNzPSJlbnRpdHkiIGRhdGEtcXVhbGlmaWVkLW5hbWU9Ii4uLi4uLiAzIC4uLi4uLi4uTGlzdE5hbWUiIGlkPSJlbnQwMDA0IiBkYXRhLXNvdXJjZS1saW5lPSIxMSI+PHJlY3QgeD0iNjg5LjQxIiB5PSI0NzkuNDc3IiB3aWR0aD0iMTAxLjE4OCIgaGVpZ2h0PSI2NC4yOTciIGZpbGw9IiNGMUYxRjEiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MC41OyIgcng9IjIuNSIgcnk9IjIuNSIvPjxlbGxpcHNlIGN4PSI3MDUuOTQ2IiBjeT0iNDk1LjQ3NyIgcng9IjExIiByeT0iMTEiIGZpbGw9IiNBREQxQjIiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiLz48cGF0aCBkPSJNNzA4LjkxNSw1MDEuMTE4IFE3MDguMzM3LDUwMS40MTQgNzA3LjY5Niw1MDEuNTU1IFE3MDcuMDU1LDUwMS43MTEgNzA2LjM1Miw1MDEuNzExIFE3MDMuODUyLDUwMS43MTEgNzAyLjUyNCw1MDAuMDcxIFE3MDEuMjEyLDQ5OC40MTQgNzAxLjIxMiw0OTUuMjg5IFE3MDEuMjEyLDQ5Mi4xNjQgNzAyLjUyNCw0OTAuNTA4IFE3MDMuODUyLDQ4OC44NTIgNzA2LjM1Miw0ODguODUyIFE3MDcuMDU1LDQ4OC44NTIgNzA3LjY5Niw0ODkuMDA4IFE3MDguMzUyLDQ4OS4xNjQgNzA4LjkxNSw0ODkuNDYxIEw3MDguOTE1LDQ5Mi4xOCBRNzA4LjI5LDQ5MS42MDIgNzA3LjY5Niw0OTEuMzM2IFE3MDcuMTAyLDQ5MS4wNTUgNzA2LjQ3Nyw0OTEuMDU1IFE3MDUuMTMzLDQ5MS4wNTUgNzA0LjQ0Niw0OTIuMTMzIFE3MDMuNzU4LDQ5My4xOTYgNzAzLjc1OCw0OTUuMjg5IFE3MDMuNzU4LDQ5Ny4zODMgNzA0LjQ0Niw0OTguNDYxIFE3MDUuMTMzLDQ5OS41MjQgNzA2LjQ3Nyw0OTkuNTI0IFE3MDcuMTAyLDQ5OS41MjQgNzA3LjY5Niw0OTkuMjU4IFE3MDguMjksNDk4Ljk3NyA3MDguOTE1LDQ5OC4zOTkgTDcwOC45MTUsNTAxLjExOCBaICIgZmlsbD0iIzAwMCIvPjx0ZXh0IHg9IjcyMC4yODciIHk9IjUwMC4zMjQiIGZpbGw9IiMwMDAiIGZvbnQtc2l6ZT0iMTQiIHRleHRMZW5ndGg9IjY1Ljc3NSI+TGlzdE5hbWU8L3RleHQ+PGxpbmUgeDE9IjY5MC40MSIgeTE9IjUxMS40NzciIHgyPSI3ODkuNTk4IiB5Mj0iNTExLjQ3NyIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDowLjU7Ii8+PHRleHQgeD0iNjk1LjQxIiB5PSI1MjguNDcyIiBmaWxsPSIjMDAwIiBmb250LXNpemU9IjE0IiB0ZXh0TGVuZ3RoPSI4OS4xODgiPnZhbHVlOiBTdHJpbmc8L3RleHQ+PGxpbmUgeDE9IjY5MC40MSIgeTE9IjUzNS43NzQiIHgyPSI3ODkuNTk4IiB5Mj0iNTM1Ljc3NCIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDowLjU7Ii8+PC9nPjwhLS1jbGFzcyBVc2VyLS0+PGcgY2xhc3M9ImVudGl0eSIgZGF0YS1xdWFsaWZpZWQtbmFtZT0iLi4uLi4uIDMgLi4uLi4uLi5Vc2VyIiBpZD0iZW50MDAwNSIgZGF0YS1zb3VyY2UtbGluZT0iMTQiPjxyZWN0IHg9IjU1Mi40MSIgeT0iMTk2LjU4NyIgd2lkdGg9IjEwMS4xODgiIGhlaWdodD0iNjQuMjk3IiBmaWxsPSIjRjFGMUYxIiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjAuNTsiIHJ4PSIyLjUiIHJ5PSIyLjUiLz48ZWxsaXBzZSBjeD0iNTg0LjE4NSIgY3k9IjIxMi41ODciIHJ4PSIxMSIgcnk9IjExIiBmaWxsPSIjQUREMUIyIiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7Ii8+PHBhdGggZD0iTTU4Ny4xNTQsMjE4LjIyOCBRNTg2LjU3NiwyMTguNTI0IDU4NS45MzUsMjE4LjY2NSBRNTg1LjI5NSwyMTguODIxIDU4NC41OTEsMjE4LjgyMSBRNTgyLjA5MSwyMTguODIxIDU4MC43NjMsMjE3LjE4MSBRNTc5LjQ1MSwyMTUuNTI0IDU3OS40NTEsMjEyLjM5OSBRNTc5LjQ1MSwyMDkuMjc0IDU4MC43NjMsMjA3LjYxOCBRNTgyLjA5MSwyMDUuOTYyIDU4NC41OTEsMjA1Ljk2MiBRNTg1LjI5NSwyMDUuOTYyIDU4NS45MzUsMjA2LjExOCBRNTg2LjU5MSwyMDYuMjc0IDU4Ny4xNTQsMjA2LjU3MSBMNTg3LjE1NCwyMDkuMjkgUTU4Ni41MjksMjA4LjcxMiA1ODUuOTM1LDIwOC40NDYgUTU4NS4zNDEsMjA4LjE2NSA1ODQuNzE2LDIwOC4xNjUgUTU4My4zNzMsMjA4LjE2NSA1ODIuNjg1LDIwOS4yNDMgUTU4MS45OTgsMjEwLjMwNiA1ODEuOTk4LDIxMi4zOTkgUTU4MS45OTgsMjE0LjQ5MyA1ODIuNjg1LDIxNS41NzEgUTU4My4zNzMsMjE2LjYzNCA1ODQuNzE2LDIxNi42MzQgUTU4NS4zNDEsMjE2LjYzNCA1ODUuOTM1LDIxNi4zNjggUTU4Ni41MjksMjE2LjA4NyA1ODcuMTU0LDIxNS41MDkgTDU4Ny4xNTQsMjE4LjIyOCBaICIgZmlsbD0iIzAwMCIvPjx0ZXh0IHg9IjYwMS45MTMiIHk9IjIxNy40MzQiIGZpbGw9IiMwMDAiIGZvbnQtc2l6ZT0iMTQiIHRleHRMZW5ndGg9IjMxLjkxIj5Vc2VyPC90ZXh0PjxsaW5lIHgxPSI1NTMuNDEiIHkxPSIyMjguNTg3IiB4Mj0iNjUyLjU5OCIgeTI9IjIyOC41ODciIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MC41OyIvPjx0ZXh0IHg9IjU1OC40MSIgeT0iMjQ1LjU4MiIgZmlsbD0iIzAwMCIgZm9udC1zaXplPSIxNCIgdGV4dExlbmd0aD0iODkuMTg4Ij52YWx1ZTogU3RyaW5nPC90ZXh0PjxsaW5lIHgxPSI1NTMuNDEiIHkxPSIyNTIuODg0IiB4Mj0iNjUyLjU5OCIgeTI9IjI1Mi44ODQiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MC41OyIvPjwvZz48ZyBjbGFzcz0iZW50aXR5IiBkYXRhLXF1YWxpZmllZC1uYW1lPSIuLi4uLkhUVFAuLlBhdGgiIGlkPSJlbnQwMDA3IiBkYXRhLXNvdXJjZS1saW5lPSIyMCI+PHJlY3QgeD0iMjIiIHk9IjIxMC41ODciIHdpZHRoPSI4NCIgaGVpZ2h0PSIzNi4yOTciIGZpbGw9IiNGMUYxRjEiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MC41OyIgcng9IjIuNSIgcnk9IjIuNSIvPjx0ZXh0IHg9IjI5IiB5PSIyMjUuNTgyIiBmaWxsPSIjMDAwIiBmb250LXNpemU9IjE0IiB0ZXh0TGVuZ3RoPSI3MCI+44OR44K544Gu5YiG6KejPC90ZXh0PjxsaW5lIHgxPSIyMyIgeTE9IjIzMC44ODQiIHgyPSIxMDUiIHkyPSIyMzAuODg0IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjAuNTsiLz48L2c+PGcgY2xhc3M9ImVudGl0eSIgZGF0YS1xdWFsaWZpZWQtbmFtZT0iLi4uLi5IVFRQLi5IdG1sIiBpZD0iZW50MDAwOCIgZGF0YS1zb3VyY2UtbGluZT0iMjEiPjxyZWN0IHg9IjE0MS4zIiB5PSIyMTAuNTg3IiB3aWR0aD0iOTkuNDA4IiBoZWlnaHQ9IjM2LjI5NyIgZmlsbD0iI0YxRjFGMSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDowLjU7IiByeD0iMi41IiByeT0iMi41Ii8+PHRleHQgeD0iMTQ4LjMiIHk9IjIyNS41ODIiIGZpbGw9IiMwMDAiIGZvbnQtc2l6ZT0iMTQiIHRleHRMZW5ndGg9Ijg1LjQwOCI+SFRNTCDjga7mj4/nlLs8L3RleHQ+PGxpbmUgeDE9IjE0Mi4zIiB5MT0iMjMwLjg4NCIgeDI9IjIzOS43MDgiIHkyPSIyMzAuODg0IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjAuNTsiLz48L2c+PGcgY2xhc3M9ImVudGl0eSIgZGF0YS1xdWFsaWZpZWQtbmFtZT0iLi4uLi5IVFRQLi5IYW5kbGVyIiBpZD0iZW50MDAwOSIgZGF0YS1zb3VyY2UtbGluZT0iMjIiPjxyZWN0IHg9IjkwLjY0IiB5PSI3OC4yOTciIHdpZHRoPSIxNTAuNzI1IiBoZWlnaHQ9IjM2LjI5NyIgZmlsbD0iI0YxRjFGMSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDowLjU7IiByeD0iMi41IiByeT0iMi41Ii8+PHRleHQgeD0iOTcuNjQiIHk9IjkzLjI5MiIgZmlsbD0iIzAwMCIgZm9udC1zaXplPSIxNCIgdGV4dExlbmd0aD0iMTM2LjcyNSI+dGlueV9odHRwIOOBruODj+ODs+ODieODqTwvdGV4dD48bGluZSB4MT0iOTEuNjQiIHkxPSI5OC41OTQiIHgyPSIyNDAuMzY1IiB5Mj0iOTguNTk0IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjAuNTsiLz48L2c+PGcgY2xhc3M9ImVudGl0eSIgZGF0YS1xdWFsaWZpZWQtbmFtZT0iR01OMTYiIGlkPSJlbnQwMDE3IiBkYXRhLXNvdXJjZS1saW5lPSIzNCI+PHBhdGggZD0iTTI3Ni4xMiwyMDEuMDM3IEwyNzYuMTIsMjU2LjQzNSBBMCwwIDAgMCAwIDI3Ni4xMiwyNTYuNDM1IEw0ODEuODgxLDI1Ni40MzUgQTAsMCAwIDAgMCA0ODEuODgxLDI1Ni40MzUgTDQ4MS44ODEsMjExLjAzNyBMNDcxLjg4MSwyMDEuMDM3IEwzMzguODQsMjAxLjAzNyBMMTk0LjczLDExNS4wMTcgTDMzMC44NCwyMDEuMDM3IEwyNzYuMTIsMjAxLjAzNyBBMCwwIDAgMCAwIDI3Ni4xMiwyMDEuMDM3IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjAuNTsiIGZpbGw9IiNGRUZGREQiLz48cGF0aCBkPSJNNDcxLjg4MSwyMDEuMDM3IEw0NzEuODgxLDIxMS4wMzcgTDQ4MS44ODEsMjExLjAzNyBMNDcxLjg4MSwyMDEuMDM3IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjAuNTsiIGZpbGw9IiNGRUZGREQiLz48dGV4dCB4PSIyODIuMTIiIHk9IjIxOC4xMDQiIGZpbGw9IiMwMDAiIGZvbnQtc2l6ZT0iMTMiIHRleHRMZW5ndGg9IjE2OSI+5L6d5a2Y44Gu5ZCR44GN44Gv5LiK44GL44KJ5LiL44Gg44GR44CCPC90ZXh0Pjx0ZXh0IHg9IjI4Mi4xMiIgeT0iMjMzLjIzNyIgZmlsbD0iIzAwMCIgZm9udC1zaXplPSIxMyIgdGV4dExlbmd0aD0iMTg0Ljc2MSI+44OJ44Oh44Kk44Oz44GvIEhUVFAg44KS55+l44KJ44Gq44GE44CCPC90ZXh0Pjx0ZXh0IHg9IjI4Mi4xMiIgeT0iMjQ4LjM2OSIgZmlsbD0iIzAwMCIgZm9udC1zaXplPSIxMyIgdGV4dExlbmd0aD0iMTYxLjA5NyIgZm9udC13ZWlnaHQ9IjcwMCI+5a6I44KK5pa544Gv44Ky44O844OIIDIg44Gn5rG644KB44KLPC90ZXh0PjwvZz48IS0tbGluayBVc2VyIHRvIFRvRG9MaXN0LS0+PGcgY2xhc3M9ImxpbmsiIGRhdGEtZW50aXR5LTE9ImVudDAwMDUiIGRhdGEtZW50aXR5LTI9ImVudDAwMDMiIGlkPSJsbmsxMCIgZGF0YS1zb3VyY2UtbGluZT0iMjUiIGRhdGEtbGluay10eXBlPSJhc3NvY2lhdGlvbiI+PHBhdGggZD0iTTYwMywyNjEuMzY3IEM2MDMsMjgzLjYyNyA2MDMsMzEzLjU3NyA2MDMsMzM3LjQzNyIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIgZmlsbD0ibm9uZSIgaWQ9IlVzZXItVG9Eb0xpc3QiIGNvZGVMaW5lPSIyNSIvPjx0ZXh0IHg9IjYwNCIgeT0iMzAzLjk1NCIgZmlsbD0iIzAwMCIgZm9udC1zaXplPSIxMyIgdGV4dExlbmd0aD0iNTIiPuaJgOacieOBmeOCizwvdGV4dD48dGV4dCB4PSI1OTQuMjg3IiB5PSIyODAuODQ1IiBmaWxsPSIjMDAwIiBmb250LXNpemU9IjEzIj4xPC90ZXh0Pjx0ZXh0IHg9IjU5Ni41NjIiIHk9IjMyNi44MjUiIGZpbGw9IiMwMDAiIGZvbnQtc2l6ZT0iMTMiPio8L3RleHQ+PC9nPjwhLS1yZXZlcnNlIGxpbmsgVG9Eb0xpc3QgdG8gVG9Eb0l0ZW0tLT48ZyBjbGFzcz0ibGluayIgZGF0YS1lbnRpdHktMT0iZW50MDAwMyIgZGF0YS1lbnRpdHktMj0iZW50MDAwMiIgaWQ9ImxuazExIiBkYXRhLXNvdXJjZS1saW5lPSIyNiIgZGF0YS1saW5rLXR5cGU9ImNvbXBvc2l0aW9uIj48cGF0aCBkPSJNNTk1LjUzMSw0MzAuODUzIEM1OTIuNzMxLDQ1MC4xOTMgNTkxLjE0LDQ2MS4yMzcgNTg4LjUzLDQ3OS4zMDciIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiIGZpbGw9Im5vbmUiIGlkPSJUb0RvTGlzdC1iYWNrdG8tVG9Eb0l0ZW0iIGNvZGVMaW5lPSIyNiIvPjxwb2x5Z29uIHBvaW50cz0iNTk3LjI1LDQxOC45NzcsNTkyLjQzMiw0MjQuMzQyLDU5NS41MzEsNDMwLjg1Myw2MDAuMzQ5LDQyNS40ODgsNTk3LjI1LDQxOC45NzciIGZpbGw9IiMxODE4MTgiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW1pdGVybGltaXQ6MTA7Ii8+PHRleHQgeD0iNTg3Ljc3OCIgeT0iNDM4LjQ0OSIgZmlsbD0iIzAwMCIgZm9udC1zaXplPSIxMyI+MTwvdGV4dD48dGV4dCB4PSI1ODIuODk2IiB5PSI0NjguMTc1IiBmaWxsPSIjMDAwIiBmb250LXNpemU9IjEzIj4qPC90ZXh0PjwvZz48IS0tcmV2ZXJzZSBsaW5rIFRvRG9MaXN0IHRvIExpc3ROYW1lLS0+PGcgY2xhc3M9ImxpbmsiIGRhdGEtZW50aXR5LTE9ImVudDAwMDMiIGRhdGEtZW50aXR5LTI9ImVudDAwMDQiIGlkPSJsbmsxMiIgZGF0YS1zb3VyY2UtbGluZT0iMjciIGRhdGEtbGluay10eXBlPSJjb21wb3NpdGlvbiI+PHBhdGggZD0iTTY1My4xNCw0MjcuMjg0IEM2NzMuMyw0NDYuNjI0IDY4OC41Miw0NjEuMjM3IDcwNy4zNiw0NzkuMzA3IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7IiBmaWxsPSJub25lIiBpZD0iVG9Eb0xpc3QtYmFja3RvLUxpc3ROYW1lIiBjb2RlTGluZT0iMjciLz48cG9seWdvbiBwb2ludHM9IjY0NC40OCw0MTguOTc3LDY0Ni4wNDEsNDI2LjAxNyw2NTMuMTQsNDI3LjI4NCw2NTEuNTc5LDQyMC4yNDQsNjQ0LjQ4LDQxOC45NzciIGZpbGw9IiMxODE4MTgiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW1pdGVybGltaXQ6MTA7Ii8+PC9nPjwhLS1saW5rIEhhbmRsZXIgdG8gUGF0aC0tPjxnIGNsYXNzPSJsaW5rIiBkYXRhLWVudGl0eS0xPSJlbnQwMDA5IiBkYXRhLWVudGl0eS0yPSJlbnQwMDA3IiBpZD0ibG5rMTMiIGRhdGEtc291cmNlLWxpbmU9IjI5IiBkYXRhLWxpbmstdHlwZT0iZGVwZW5kZW5jeSI+PHBhdGggZD0iTTE1Mi4yNCwxMTUuMDE3IEMxMzIuNjcsMTQwLjAxNyAxMDAuMDcxLDE4MS42NDkgODAuNjIxLDIwNi41MDkiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTtzdHJva2UtZGFzaGFycmF5OjcsNzsiIGZpbGw9Im5vbmUiIGlkPSJIYW5kbGVyLXRvLVBhdGgiIGNvZGVMaW5lPSIyOSIvPjxwb2x5Z29uIHBvaW50cz0iNzcuNTQsMjEwLjQ0Nyw4Ni4yMzYsMjA1LjgyMyw4MC42MjEsMjA2LjUwOSw3OS45MzUsMjAwLjg5NCw3Ny41NCwyMTAuNDQ3IiBmaWxsPSIjMTgxODE4IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1taXRlcmxpbWl0OjEwOyIvPjwvZz48IS0tbGluayBIYW5kbGVyIHRvIEh0bWwtLT48ZyBjbGFzcz0ibGluayIgZGF0YS1lbnRpdHktMT0iZW50MDAwOSIgZGF0YS1lbnRpdHktMj0iZW50MDAwOCIgaWQ9ImxuazE0IiBkYXRhLXNvdXJjZS1saW5lPSIzMCIgZGF0YS1saW5rLXR5cGU9ImRlcGVuZGVuY3kiPjxwYXRoIGQ9Ik0xNjkuMzcsMTE1LjAxNyBDMTc0LjE3LDE0MC4wMTcgMTgxLjk2OCwxODAuNjc2IDE4Ni43MzgsMjA1LjUzNiIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxO3N0cm9rZS1kYXNoYXJyYXk6Nyw3OyIgZmlsbD0ibm9uZSIgaWQ9IkhhbmRsZXItdG8tSHRtbCIgY29kZUxpbmU9IjMwIi8+PHBvbHlnb24gcG9pbnRzPSIxODcuNjgsMjEwLjQ0NywxODkuOTEyLDIwMC44NTQsMTg2LjczOCwyMDUuNTM2LDE4Mi4wNTYsMjAyLjM2MiwxODcuNjgsMjEwLjQ0NyIgZmlsbD0iIzE4MTgxOCIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxO3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2UtbWl0ZXJsaW1pdDoxMDsiLz48L2c+PCEtLWxpbmsgSHRtbCB0byBUb0RvTGlzdC0tPjxnIGNsYXNzPSJsaW5rIiBkYXRhLWVudGl0eS0xPSJlbnQwMDA4IiBkYXRhLWVudGl0eS0yPSJlbnQwMDAzIiBpZD0ibG5rMTUiIGRhdGEtc291cmNlLWxpbmU9IjMxIiBkYXRhLWxpbmstdHlwZT0iZGVwZW5kZW5jeSI+PHBhdGggZD0iTTIxNi42NywyNDcuMzE3IEMyMjkuMDcsMjU1LjI2NyAyNDQuNCwyNjQuMzI3IDI1OSwyNzAuODg3IEMzNDIuNTQsMzA4LjM4NyA0MzguMjc5LDMzNi41MjYgNTA5LjAzOSwzNTQuODA2IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7c3Ryb2tlLWRhc2hhcnJheTo3LDc7IiBmaWxsPSJub25lIiBpZD0iSHRtbC10by1Ub0RvTGlzdCIgY29kZUxpbmU9IjMxIi8+PHBvbHlnb24gcG9pbnRzPSI1MTMuODgsMzU2LjA1Nyw1MDYuMTY3LDM0OS45MzMsNTA5LjAzOSwzNTQuODA2LDUwNC4xNjYsMzU3LjY3OSw1MTMuODgsMzU2LjA1NyIgZmlsbD0iIzE4MTgxOCIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxO3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2UtbWl0ZXJsaW1pdDoxMDsiLz48dGV4dCB4PSIzNTEuODQiIHk9IjMwMy45NTQiIGZpbGw9IiMwMDAiIGZvbnQtc2l6ZT0iMTMiIHRleHRMZW5ndGg9IjI2Ij7mj4/jgY88L3RleHQ+PC9nPjw/cGxhbnR1bWwtc3JjIFJQOTFJem5HNENWbHhyQ0NFR09LakJVYlVFZlgxSE1YUXd5SWl3emtzY29vUjV1QktlSHpCd0tjWWdHaFJNYlhZdWVqT2NqTmdYVGhydHdQc01IeHlvanFOZFFEV05mOXljUC1DLXlfX3VubVhDalhuTkM0cDBCQXUtNXIzektFQWVNb1ZwRThIZ1VkQzhrVHRXQ09WSi11NlNJQ2pJcHhrUk5FbVMwbW5sMEdySFNDQm9QYUpiNkpERGYyalBya05RN3lINEs2bDZBc1FtSzFyRm43X2hwV0pHaEtVTTJ0ZFBQbVZBeTJacU5SeVRSUFBXYlJTMDkxYzRrbExTemd5V2hlbzE5ekNPU3cxMUx1bWtzN2ptdGRZamZSWWNmVk1rdUJfYl9wYk8ydHhxYmtiYVZCWHlCbUZPT2RENWdyTGJrVVpFNmxGVUVzcUNEdEtWcVlaekJlcFRfWjhtRWkwOU9qcUlZMFFjcm5XVnBpUHFhb1VsU3hwclQ1cW90b21sNHNMWGoyajNJNE9QQlZIdVFVWjU3Qmd4a3loS05iU2VxUDB3UWNtMzJERXN5Z2FDTVRoMVVKbl9KN00xN05oNWMyakpydE1QcWZaNklKVXMxd1VjdWlsbnA4elVmN1ZZaFZjb0dlNHlPeU50MU95dU5tYy0wX0JLR0ZfdG5FVnRwS3RocGplam41VUpReXQ0UDlJbktGQnRUR3FlUHFpUURPVU80ODBjcXBlRGVSeE55YjVFS3RiQXlyUHZmZkZ3OXpvWndHdU1VZXBaNFNPMVlEenBOeFVPTEFhVzZjb1JYTjF3dGY3bTAwPz48L2c+PC9zdmc+" class="uml" alt="uml diagram" title="" /></p>
+<p><strong>第 4 章以降の要素（<code>ToDoStatus</code>・イベント・コマンド）は入れません。</strong> 既存の <a href="../../design/domain-model/">ドメインモデル設計</a> にあります。</p>
+<h3 id="_13">画面遷移図<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<p><strong>本 Unit では掲載しません。</strong> 画面は 1 つ（ToDo リストの表示）だけで、遷移がありません。遷移が生まれるのは第 11 章（名前変更のフォーム）からです。既存の <a href="../../design/ui_design/">UI 設計</a> にあります。</p>
+<h3 id="er">状態遷移図・ER 図<a class="headerlink" href="#er" title="Permanent link">&para;</a></h3>
+<p><strong>本 Unit では掲載しません。</strong> 状態は第 4 章（Unit 3）から、永続化は第 9 章（Unit 5）からです。</p>
+<h3 id="_14">ユーザーマニュアル<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
+<p><strong>本 Unit では作りません。</strong> 本連載の成果物は記事であり、利用者向けマニュアルを持ちません（3 対象で共通）。</p>
+<h3 id="adr">ADR<a class="headerlink" href="#adr" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">ADR</th>
+<th style="text-align: left;">内容</th>
+<th style="text-align: left;">ステップ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">ADR-027（予定）</td>
+<td style="text-align: left;">境界の分け方（クレートかモジュールか）</td>
+<td style="text-align: left;">2-2.2・2-2.7</td>
+</tr>
+<tr>
+<td style="text-align: left;">ADR-028（予定）</td>
+<td style="text-align: left;">受け入れテストの入口（既製品の採否）</td>
+<td style="text-align: left;">2-2.1・2-2.7</td>
+</tr>
+<tr>
+<td style="text-align: left;">CI の判断</td>
+<td style="text-align: left;">ゲート 1 の結果を <strong>ADR-026 に追記</strong>する（<code>just</code> と CI の関係なので新設しない）</td>
+<td style="text-align: left;">2-1.2</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_15">リスクと対策<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">リスク</th>
+<th style="text-align: left;">影響</th>
+<th style="text-align: left;">対策</th>
+<th style="text-align: left;">検知</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>CI の runner に Nix を入れると遅い</strong></td>
+<td style="text-align: left;">中</td>
+<td style="text-align: left;">スパイク 1 で実測してから決める。<strong>遅ければ <code>just</code> を通さず <code>cargo</code> を直接呼ぶ</strong>（<code>justfile</code> と CI が二重管理になる代償を承知で）</td>
+<td style="text-align: left;">2-1.2</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>クレートを分けると <code>just check</code> が伸びる</strong></td>
+<td style="text-align: left;">中</td>
+<td style="text-align: left;">スパイク 3 で実測。<strong>20 秒を超えるならモジュール分割にする</strong></td>
+<td style="text-align: left;">2-2.2</td>
+</tr>
+<tr>
+<td style="text-align: left;">所有権が縦串で問題になり、第 2 章が所有権の説明で埋まる</td>
+<td style="text-align: left;">中</td>
+<td style="text-align: left;"><strong>問題にならなかったらそう書く</strong>（Try 1）。埋まるようなら第 4 章（関数型 DI）へ送る</td>
+<td style="text-align: left;">2-1.4</td>
+</tr>
+<tr>
+<td style="text-align: left;">第 2・3 章が 2 対象の焼き直しになる</td>
+<td style="text-align: left;"><strong>高</strong></td>
+<td style="text-align: left;">受入条件で「2 対象に無い内容を 1 つ以上」を要求する。無ければ未完了</td>
+<td style="text-align: left;">2-1.5・2-2.6</td>
+</tr>
+<tr>
+<td style="text-align: left;">ゲートが止まらない</td>
+<td style="text-align: left;">中</td>
+<td style="text-align: left;">選択肢と数字を必ず添える。<strong>2 箇所中 1 箇所を下回ったら Unit 3 で減らす</strong></td>
+<td style="text-align: left;">2-2.10</td>
+</tr>
+<tr>
+<td style="text-align: left;">節名の読み替えを <code>draft.md</code> に登録し忘れる</td>
+<td style="text-align: left;">低</td>
+<td style="text-align: left;"><code>check_sections.py</code> が落ちる。<strong>なでしこ3 版 Unit 6 で実際に落ちた</strong></td>
+<td style="text-align: left;">2-2.7</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="deployment-unit">Deployment Unit としての完了条件<a class="headerlink" href="#deployment-unit" title="Permanent link">&para;</a></h2>
+<h3 id="definition-of-done">Definition of Done<a class="headerlink" href="#definition-of-done" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>/todo/{user}/{listname}</code> が HTML を返し、無いリストが 404</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 受け入れシナリオが 2 経路で green</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 依存の向きが守られている（守り方はゲート 2 の決定による）</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>just check</code> が <strong>20 秒以内</strong>（devShell の<strong>内外の両方</strong>で 3 回測る）</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> カバレッジ（行）が 80% 以上</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>CI が green</strong>（<code>Rust Zettai</code>）</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 第 2〜3 章が公開され、<strong>それぞれ 2 対象に無い内容が 1 つ以上ある</strong></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 節名の読み替えが <code>draft.md</code> に登録されている</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> ADR 2 件（境界の分け方・受け入れテストの入口）と ADR-026 への追記</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>comparison/index.md</code> に <strong>Rust の列がある</strong></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 記事検査 6 本が違反 0 件</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>gulp okf:check</code> が ERROR 0</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>Release v0.1.0 が達成されている</strong></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Bolt 終了報告とふりかえりがあり、<strong>ゲートの同期停止率を数えた</strong></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> ユーザーマニュアル: <strong>対象外</strong></li>
+</ul>
+<h3 id="bolt-dod">全 Bolt 共通のゲート項目（DoD）<a class="headerlink" href="#bolt-dod" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">項目</th>
+<th style="text-align: left;">本 Unit での扱い</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>既製品を先に調べたか</strong></td>
+<td style="text-align: left;">受け入れテストの枠組み（2-2.1）。<strong>入れない判断も記録する</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">記事のコード例が実装からの転記か</td>
+<td style="text-align: left;"><code>check_article_code.py</code> が green</td>
+</tr>
+<tr>
+<td style="text-align: left;">つまずき節があるか</td>
+<td style="text-align: left;">第 2・3 章に <strong>2 対象に無い</strong> Rust 固有の内容が 1 つ以上</td>
+</tr>
+<tr>
+<td style="text-align: left;">既知の制約の一覧が更新されているか</td>
+<td style="text-align: left;"><code>apps/rust/zettai/README.md</code>。<strong>所有権に押された箇所</strong>の表も</td>
+</tr>
+<tr>
+<td style="text-align: left;">性質テストのしきい値に根拠があるか</td>
+<td style="text-align: left;"><strong>本 Unit では性質テストを書かない</strong>（Unit 3 から）</td>
+</tr>
+<tr>
+<td style="text-align: left;">記事の全文検証</td>
+<td style="text-align: left;"><strong>ゲートではなく DoD</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="_16">デモ項目<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">#</th>
+<th style="text-align: left;">デモ</th>
+<th style="text-align: left;">確認すること</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">サーバを起動して <code>/todo/uberto/book</code> を開く</td>
+<td style="text-align: left;">項目が 3 件見える</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;"><code>/todo/uberto/nope</code> を開く</td>
+<td style="text-align: left;">404</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">受け入れシナリオを走らせる</td>
+<td style="text-align: left;">2 経路とも green</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">ドメインから HTTP を呼ぼうとする</td>
+<td style="text-align: left;"><strong>コンパイルが通らない</strong>（クレートを選んだ場合）</td>
+</tr>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;"><code>just check</code> を devShell の内外で測る</td>
+<td style="text-align: left;">どちらも 20 秒以内</td>
+</tr>
+<tr>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">CI を見る</td>
+<td style="text-align: left;">green</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="bolt_2">指標（Bolt 終了報告へ引き継ぐ）<a class="headerlink" href="#bolt_2" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">指標</th>
+<th style="text-align: left;">計画</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">ステップ</td>
+<td style="text-align: left;"><strong>17</strong>（Bolt 2-1: 7 / Bolt 2-2: 10）</td>
+</tr>
+<tr>
+<td style="text-align: left;">承認ゲート</td>
+<td style="text-align: left;">2 箇所（同期停止）。<strong>目標は 1 箇所以上が実際に停止すること</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">検証負荷</td>
+<td style="text-align: left;">10</td>
+</tr>
+<tr>
+<td style="text-align: left;">変更依頼数</td>
+<td style="text-align: left;">ゲートで「やり直し」と判断された回数</td>
+</tr>
+<tr>
+<td style="text-align: left;">人が修正を入れた箇所数</td>
+<td style="text-align: left;">記録する</td>
+</tr>
+<tr>
+<td style="text-align: left;">公開する章</td>
+<td style="text-align: left;">2（第 2〜3 章）</td>
+</tr>
+<tr>
+<td style="text-align: left;">ADR</td>
+<td style="text-align: left;">2 新設 + 1 追記</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>just check</code></td>
+<td style="text-align: left;">20 秒以内（devShell の内外）</td>
+</tr>
+<tr>
+<td style="text-align: left;">リリース</td>
+<td style="text-align: left;"><strong>v0.1.0</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_17">更新履歴<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>日付</th>
+<th>更新内容</th>
+<th>更新者</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2026-09-29</td>
+<td>初版作成。Unit 1 の持ち込み 6 件と Try 5 件を反映。消化できない 2 件（段階を切る手順・カバレッジの下限）は送り先を明記した。<strong>Try 3 に従い「2 対象から踏襲すること」を判断として 4 件書き出した</strong>。ゲートは 2 箇所を維持（Unit 1 が 3 / 3 で停止したため減らす根拠が無い）</td>
+<td>claude-code/claude-opus-5</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_18">関連ドキュメント<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../release_plan-rust/">リリース計画（Rust 版）</a> / <a href="../development_strategy/">開発戦略</a></li>
+<li><a href="../iteration_plan-rust-1/">Unit 1 の Bolt 計画</a> / <a href="../bolt_report-rust-1/">Bolt 終了報告</a> / <a href="../retrospective-rust-1/">ふりかえり</a></li>
+<li><a href="../../article/outline/">執筆計画</a> / <a href="../../article/draft/">章構成マインドマップ</a></li>
+<li><a href="../../design/domain-model/">ドメインモデル設計</a> / <a href="../../design/architecture_backend/">バックエンドアーキテクチャ設計</a> / <a href="../../design/ui_design/">UI 設計</a></li>
+<li><a href="../../adr/ADR-025-tiny-http/">ADR-025 tiny_http を採用する</a> / <a href="../../adr/ADR-026-just-and-coverage/">ADR-026 Just とカバレッジ</a></li>
+<li><a href="../iteration_plan-2/">Kotlin 版 Unit 2 の Bolt 計画</a> / <a href="../iteration_plan-nadesiko-2/">なでしこ3 版 Unit 2 の Bolt 計画</a></li>
 </ul>
 
 

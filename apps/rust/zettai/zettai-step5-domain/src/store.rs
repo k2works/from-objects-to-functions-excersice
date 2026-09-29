@@ -138,6 +138,24 @@ pub fn load_in_transaction(
     })
 }
 
+/// 射影を単位の中で引く（第 10 章）。
+///
+/// **読む側も同じ区間を通します。** コマンド側とクエリ側は型が違いますが
+/// （第 8 章）、**保管との付き合い方は同じ**です。
+pub fn summary_in_transaction(
+    store: &dyn TransactionalStore,
+    user: &User,
+    list_name: &ListName,
+) -> Result<crate::projection::ListSummary, ZettaiError> {
+    // `in_transaction` は `ToDoList` を返す形に固定してある（オブジェクト安全のため）。
+    // **射影は畳み込み直す。** イベントを 2 度読まない。
+    let list = load_in_transaction(store, user, list_name)?;
+    Ok(crate::projection::ListSummary {
+        list_name: list.list_name.0,
+        item_count: list.items.len(),
+    })
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -379,6 +397,31 @@ mod tests {
 
         let list = load_in_transaction(&store, &uberto(), &book()).expect("読める");
         assert_eq!(list.list_name, book());
+    }
+
+    #[test]
+    fn the_summary_comes_from_the_same_unit() {
+        let store = InMemoryTx::default();
+        handle_in_transaction(
+            &store,
+            &uberto(),
+            &book(),
+            ToDoListCommand::CreateList { list_name: book() },
+        )
+        .expect("作れる");
+        handle_in_transaction(
+            &store,
+            &uberto(),
+            &book(),
+            ToDoListCommand::AddItem {
+                item: ToDoItem::new("write"),
+            },
+        )
+        .expect("足せる");
+
+        let summary = summary_in_transaction(&store, &uberto(), &book()).expect("引ける");
+        assert_eq!(summary.list_name, "book");
+        assert_eq!(summary.item_count, 1);
     }
 
     #[test]

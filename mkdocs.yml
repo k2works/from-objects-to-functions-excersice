@@ -218,6 +218,7 @@ nav:
               - 第 7 章 関数型手法によるエラーハンドリング: article/zettai/rust/chapter07.md
               - 第 8 章 ファンクタを使ってイベントを射影する: article/zettai/rust/chapter08.md
               - 第 9 章 モナドによる安全なデータ永続化: article/zettai/rust/chapter09.md
+              - 第 10 章 コンテキストを読み込み、コマンドを処理する: article/zettai/rust/chapter10.md
   - リファレンス:
       - 概要: reference/index.md
       - よいソフトウェアとは: reference/よいソフトウェアとは.md

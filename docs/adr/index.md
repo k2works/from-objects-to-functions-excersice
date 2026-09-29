@@ -39,5 +39,6 @@
 | [ADR-031](ADR-031-own-error-enum.md) | 失敗を自前の enum で表し、エラー用のクレートを入れない | 提案 |
 | [ADR-032](ADR-032-postgres-event-store.md) | イベントを 1 テーブルに追記し、外のエラーを境界で包む | 提案 |
 | [ADR-033](ADR-033-db-check-as-separate-job.md) | DB を使う検査を別ジョブに分ける | 提案 |
+| [ADR-034](ADR-034-transaction-as-scope.md) | トランザクションの境界を区間として貸す | 提案 |
 
 ADR の作成には `creating-adr` スキルを使用してください。

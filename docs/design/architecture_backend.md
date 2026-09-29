@@ -4,7 +4,7 @@ title: "バックエンドアーキテクチャ設計 - Zettai"
 description: "Zettai（Kotlin 版）のバックエンドアーキテクチャ設計。ドメインとアダプタの境界の定義と担保方法、Gradle マルチプロジェクトのモジュール分割と命名規約、パッケージ構成、依存の向き、関数の型による依存表現、章の進行にあわせた構造の変化を記述する。"
 tags: [design, architecture, zettai, kotlin]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-28T11:34:09Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-29T06:50:32Z }
 ---
 
 # バックエンドアーキテクチャ設計 - Zettai
@@ -282,6 +282,71 @@ apps/nadesiko/zettai/src/
 - **第 9 章から 3 経路目（永続化経由）が加わる**（[ADR-020](../adr/ADR-020-third-route.md)）。3 経路が同じ結果になることを、永続化がドメインに漏れていない証拠とする
 
 ---
+
+## Rust 版での差分
+
+レイヤーの分け方もポートの考え方も共通です。変わるのは**境界の守り方**と**ポートの型**です。
+
+### 境界はコンパイラが守る
+
+| 対象 | 分ける手段 | 守る手段 |
+| :--- | :--- | :--- |
+| Kotlin | パッケージ | `DomainBoundaryTest` が import を検査 |
+| なでしこ3 | ファイル | `boundary_test.nako3` が文字列を数える（7 ファイル × 5 項目） |
+| **Rust** | **クレート** | **無し。`Cargo.toml` に書いていない相手はコンパイルが止める** |
+
+段階ごとに `zettai-stepN-domain` と `zettai-stepN-http` の 2 クレートに分けています（[ADR-027](../adr/ADR-027-crate-boundary.md)）。**ドメインのクレートは外部クレートに依存しません。** 性質テストの乱数も、JSON の組み立ても自前です。
+
+**境界検査を 1 行も書いていません。** 2 対象が書いたものに相当するコードがありません。
+
+### パッケージ構成
+
+| 段階 | クレート | 章 |
+| :--- | :--- | :--- |
+| step1 | `zettai-step1-domain` / `zettai-step1-http` | 1〜3 |
+| step2 | `zettai-step2-*` | 4〜6 |
+| step3 | `zettai-step3-*` | 7〜8 |
+| step4 | `zettai-step4-*` | 9 |
+| step5 | `zettai-step5-*` | 10〜 |
+
+段階を切る手順は [ADR-029](../adr/ADR-029-cutting-a-step.md) にあります。**過去の段階には手を入れません。**
+
+### ポートの一覧（Rust 版）
+
+| ポート | 型 | アダプタ | 章 |
+| :--- | :--- | :--- | :--- |
+| リストの取得 | `impl Fn(&User, &ListName) -> Result<ToDoList, ZettaiError>` | インメモリ / PostgreSQL | 4、7（`Result` 化） |
+| リストの保存 | `impl Fn(&User, &ToDoList)` | 同上 | 4 |
+| イベントの追記・読み出し | `trait EventStore` | `PostgresEventStore` | 9 |
+| **単位の中での追記・読み出し** | **`trait TxEventStore`** | `PgTx<'a>` | **10** |
+| **単位を貸す** | **`trait TransactionalStore`** | `PostgresEventStore` | **10** |
+
+**関数値の形が 3 つあります**（[ADR-030](../adr/ADR-030-functional-di-shape.md)）。判断の基準は「その関数値は他の関数値と同じ入れ物に入るか」です。
+
+| 入るか | 形 | 例 |
+| :--- | :--- | :--- |
+| 入らない（配線で 1 つ決まる） | `impl Fn` | ハブの依存 |
+| 入る（`Vec` に並べる、`fold` で畳む） | `Box<dyn Fn>` | 状態変換（第 5 章） |
+| **その場で 1 回だけ渡す** | **`&dyn Fn`** | **`UnitOfWork`（第 10 章）** |
+
+### 第 10 章でポートの型から失敗は消えませんでした
+
+**Kotlin 版との最大の差分です。**
+
+Kotlin 版は `HubAction`（`ContextReader`）を導入した結果、ポートの戻り値から `Outcome` が消え、失敗は実行時に捕らえる形になりました。**得たもの（トランザクション）と失ったもの（型に現れる失敗）のトレードオフ**です。
+
+**Rust 版はどちらも失っていません。** `TxEventStore` の戻り値は `Result<_, ZettaiError>` のままです。区間として貸す形（[ADR-034](../adr/ADR-034-transaction-as-scope.md)）にしたので、遅延させる必要がありませんでした。
+
+代わりに払った代償は 2 つです。
+
+- **単位の戻り値が `ToDoList` に固定**されています。`<T>` を入れるとオブジェクト安全でなくなり、`&dyn` で受けられません
+- **[ADR-011](../adr/ADR-011-transaction-boundary.md) の決定 2（中身が空の文脈）が移植できません**。`dyn Any` が `'static` を要求するためです
+
+ただし 2 つめは、**Kotlin 版が実行時検査（`require(context is JdbcContext)`）で妥協した箇所を消す**結果になりました。文脈にドメインの動詞を持たせたので、間違った文脈を渡せません。
+
+### 品質ゲート
+
+`just check`（`fmt` / `clippy` / `test`）と `just check-all`（+ `cov` / `test-db`）の 2 段構えです（[ADR-026](../adr/ADR-026-just-and-coverage.md)）。**DB を使う検査は別ジョブ**にしています（[ADR-033](../adr/ADR-033-db-check-as-separate-job.md)）。Kotlin 版は `check` に含めており、判断が分かれました。理由は `check` の所要時間の割合です。
 
 ## 関連ドキュメント
 

@@ -1,6 +1,14 @@
 # Docs Update Log
 
 ## 2026-09-29
+* **Update**: [chapter10](/article/zettai/rust/chapter10.md) を更新（claude-code/claude-opus-5）
+* **Update**: [ADR-034-transaction-as-scope](/adr/ADR-034-transaction-as-scope.md) を更新（claude-code/claude-opus-5）
+* **Update**: [iteration_plan-rust-6](/development/iteration_plan-rust-6.md) を更新（claude-code/claude-opus-5）
+* **Update**: [architecture_backend](/design/architecture_backend.md) を更新（claude-code/claude-opus-5）
+* **Update**: [ADR-032-postgres-event-store](/adr/ADR-032-postgres-event-store.md) を更新（claude-code/claude-opus-5）
+* **Update**: [chapter10](/article/zettai/rust/chapter10.md) を更新（claude-code/claude-opus-5）
+* **Update**: [ADR-034-transaction-as-scope](/adr/ADR-034-transaction-as-scope.md) を更新（claude-code/claude-opus-5）
+* **Update**: [architecture_backend](/design/architecture_backend.md) を更新（claude-code/claude-opus-5）
 * **Verification**: [iteration_plan-rust-6](/development/iteration_plan-rust-6.md) を human:kakimomokuri が検証
 * **Update**: [iteration_plan-rust-6](/development/iteration_plan-rust-6.md) を更新（claude-code/claude-opus-5）
 * **Update**: [release_plan-rust](/development/release_plan-rust.md) を更新（claude-code/claude-opus-5）

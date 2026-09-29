@@ -13,6 +13,7 @@
 | `di-shapes/` | 関数型 DI の 3 案が、第 5 章のクロージャ合成まで書けるか | 案 A と案 C は書けない | [ADR-030](../../../../docs/adr/ADR-030-functional-di-shape.md) |
 | `prop-frameworks/` | 性質テストの既製品。依存 38 / 21 クレート、ビルド 26.77 / 12.82 秒 | **入れず自作**（[ADR-017](../../../../docs/adr/ADR-017-own-property-testing.md) を踏襲） | 第 5 章 |
 | `match-exhaustiveness/` | `match` の網羅が遷移表の穴をどこまで見るか | **枝の有無だけ。行き先の誤りは見ない** | 第 6 章 |
+| `error-crates/` | 失敗の型に既製品を入れるか。依存 +10 / +1、ビルド +12.29 / +2.15 秒 | **Unit 4 で判断中** | 第 7 章 |
 
 ## workspace から外してある
 

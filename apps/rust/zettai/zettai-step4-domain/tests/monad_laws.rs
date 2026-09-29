@@ -80,6 +80,12 @@ fn left_identity() {
 }
 
 /// 右恒等: `m.and_then(Ok)` は `m` と同じ。
+///
+/// **clippy が `bind_instead_of_map` で止める。** 「`and_then(Ok)` は
+/// no-op だから直接書け」はふだんは正しいが、**ここでは no-op で
+/// あること自体が確かめたい法則**。消すとテストが消える。
+/// 第 7 章の `map_identity` と同じ形（2 件目）。
+#[allow(clippy::bind_instead_of_map)]
 #[test]
 fn right_identity() {
     let mut rng = Rng::new(31415926);
@@ -90,6 +96,7 @@ fn right_identity() {
 }
 
 /// 結合律: 繋ぐ順序を変えても同じ。
+#[allow(clippy::bind_instead_of_map)]
 #[test]
 fn associativity() {
     let mut rng = Rng::new(27182818);
@@ -104,6 +111,7 @@ fn associativity() {
 }
 
 /// 失敗のあとは続きが呼ばれない。**`?` が短く書ける理由。**
+#[allow(clippy::bind_instead_of_map)]
 #[test]
 fn a_failure_short_circuits() {
     let failed: Outcome = Err(ZettaiError::EmptyDescription);

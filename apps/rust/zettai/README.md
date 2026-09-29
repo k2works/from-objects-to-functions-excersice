@@ -62,6 +62,7 @@ just check
 | 9 | **`match` の網羅はワイルドカードで無効になる。** `_ =>` を 1 つ置くと、枝が足りなくてもコンパイラは止まらない。`clippy::wildcard_enum_match_arm` は**単体の enum を直接 match したときだけ**発火し、**組（`(State, Command)`）や `Option<&T>` ごしでは発火しない** | lint は付けるが、**遷移表の形では効かない**。マスを数えてテストする |
 | 10 | **`Result` は `#[must_use]` だが `Option` は違う。** 戻り値を捨てると `Result` だけコンパイラが警告する | **失敗を握りつぶしていた箇所が見つかった。** `Option` のままでは見つからなかった |
 | 11 | **`postgres::Error` の `Display` は `"db error"` としか出さない。** 本当の理由は `source()` の先にある | 包むときに `source()` を辿って文字列にする（`spikes/sync-postgres/` の `detail_of`） |
+| 12 | **フォームのボディはパーセントエンコードされて届く。** 空白は `+`、それ以外は `%XX`。`tiny_http` は戻さない | 自前で戻す。**第 4 章の `description_in` は `+` しか戻していなかった**（ASCII の説明しか使っていなかったので気づかなかった） |
 
 ### 設計に効くもの
 

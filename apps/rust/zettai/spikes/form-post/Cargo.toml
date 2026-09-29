@@ -1,0 +1,11 @@
+# スパイク: フォームの POST と 302（Unit 6 / スパイク 3）
+#
+# **相手が返した形で確かめる**（Unit 5 Try 2）。
+# 第 9 章では自前の JSON を自分の出力だけで往復させ、jsonb の正規化で落ちた。
+[package]
+name = "form-post"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+tiny_http = "0.12.0"

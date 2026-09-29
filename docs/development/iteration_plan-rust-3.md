@@ -3,8 +3,10 @@ type: Bolt Plan
 title: "Unit 3 の Bolt 計画（イテレーション 3）- Zettai 連載（Rust 版）"
 description: "Zettai 連載 Rust 版の Unit 3（所有権のもとでの DI とイベント）の Bolt 計画。関数型 DI の表し方・段階の切り方・性質テストの既製品の 3 つを承認ゲートに置き、3 対象で最も重い Unit（検証負荷 14）を所有権に正面から当てる。"
 tags: [development, plan, ai-dlc, bolt, zettai, rust, unit-3]
-status: draft
+status: stable
 generated: { by: claude-code/claude-opus-5, at: 2026-09-29T02:31:23Z }
+verified:
+  - { by: human:kakimomokuri, at: 2026-09-29T02:41:11Z }
 ---
 
 # Unit 3 の Bolt 計画（イテレーション 3）- Zettai 連載（Rust 版）

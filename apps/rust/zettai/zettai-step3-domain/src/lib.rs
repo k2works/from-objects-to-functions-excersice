@@ -62,12 +62,16 @@ pub struct ToDoList {
 ///
 /// 第 4 章からは、これは**ハブに渡す関数値の 1 つ**にすぎない。
 /// 第 5 章でイベントの畳み込みになり、第 9 章で永続化される。
-pub fn fetch_list(user: &User, list_name: &ListName) -> Option<ToDoList> {
+pub fn fetch_list(user: &User, list_name: &ListName) -> Result<ToDoList, ZettaiError> {
+    let not_found = || ZettaiError::ListNotFound {
+        user: user.clone(),
+        list_name: list_name.clone(),
+    };
     if user != &User::new("uberto") {
-        return None;
+        return Err(not_found());
     }
     match list_name.0.as_str() {
-        "book" => Some(ToDoList {
+        "book" => Ok(ToDoList {
             list_name: list_name.clone(),
             items: vec![
                 ToDoItem::new("write chapter"),
@@ -75,11 +79,11 @@ pub fn fetch_list(user: &User, list_name: &ListName) -> Option<ToDoList> {
                 ToDoItem::new("publish book"),
             ],
         }),
-        "shopping" => Some(ToDoList {
+        "shopping" => Ok(ToDoList {
             list_name: list_name.clone(),
             items: vec![],
         }),
-        _ => None,
+        _ => Err(not_found()),
     }
 }
 
@@ -98,7 +102,7 @@ pub struct ToDoListHub<F, S> {
 
 impl<F, S> ToDoListHub<F, S>
 where
-    F: Fn(&User, &ListName) -> Option<ToDoList>,
+    F: Fn(&User, &ListName) -> Result<ToDoList, ZettaiError>,
     S: Fn(&User, &ToDoList),
 {
     pub fn new(fetch: F, save: S) -> Self {
@@ -106,7 +110,7 @@ where
     }
 
     /// リストを見る。
-    pub fn list_of(&self, user: &User, list_name: &ListName) -> Option<ToDoList> {
+    pub fn list_of(&self, user: &User, list_name: &ListName) -> Result<ToDoList, ZettaiError> {
         (self.fetch)(user, list_name)
     }
 
@@ -124,9 +128,9 @@ where
         user: &User,
         list_name: &ListName,
         command: ToDoListCommand,
-    ) -> Result<ToDoList, Rejected> {
-        let current = (self.fetch)(user, list_name);
-        let events = execute_in(state_of_list(current.as_ref()), command)?;
+    ) -> Result<ToDoList, ZettaiError> {
+        let current = (self.fetch)(user, list_name).ok();
+        let events = execute_in(state_of_list(current.as_ref()), user, list_name, command)?;
 
         let before = current.unwrap_or(ToDoList {
             list_name: list_name.clone(),
@@ -138,14 +142,19 @@ where
         Ok(after)
     }
 
-    pub fn add_item(&self, user: &User, list_name: &ListName, item: ToDoItem) -> Option<ToDoList> {
+    pub fn add_item(
+        &self,
+        user: &User,
+        list_name: &ListName,
+        item: ToDoItem,
+    ) -> Result<ToDoList, ZettaiError> {
         let list = (self.fetch)(user, list_name)?;
         let updated = ToDoList {
             list_name: list.list_name,
             items: [list.items, vec![item]].concat(),
         };
         (self.save)(user, &updated);
-        Some(updated)
+        Ok(updated)
     }
 }
 
@@ -216,13 +225,25 @@ pub enum ToDoListCommand {
     AddItem { item: ToDoItem },
 }
 
-/// コマンドが断られた理由（第 6 章）。**第 7 章で育つ。**
+/// うまくいかなかった理由（第 7 章で育てた）。
+///
+/// 第 6 章では `Rejected` という名前で、コマンドを断る理由 2 つだけを
+/// 持っていた。第 7 章で `Option` を置き換えるので、**「見つからない」も
+/// ここに入る**。名前も `ZettaiError` に変えた。
+///
+/// **既製品を調べてから自前にした。** `thiserror` は `#[from]` と
+/// `Display` の導出をくれるが、依存 +10・ビルド +12.29 秒。`anyhow` は
+/// 軽いが**型を 1 つに潰す**ので `match` で分けられなくなる。
+/// 分けられることがこの型の目的なので、採らなかった（[ADR-031]）。
 #[derive(Debug, Clone, PartialEq, Eq)]
-pub enum Rejected {
+pub enum ZettaiError {
     /// 同じ名前のリストがもうある。
-    ListAlreadyExists,
-    /// リストがまだ無い。
-    ListDoesNotExist,
+    ListAlreadyExists { list_name: ListName },
+    /// リストが見つからない。**第 6 章の `ListDoesNotExist` と、
+    /// `Option` の `None` が、ここで 1 つになった。**
+    ListNotFound { user: User, list_name: ListName },
+    /// 説明が空。
+    EmptyDescription,
 }
 
 /// 遷移表の行。
@@ -263,28 +284,39 @@ pub fn state_of(events: &[ToDoListEvent]) -> ListState {
 /// **行き先が正しいか**は見ない。だから表のマスを数えてテストする
 /// （なでしこ3 版 Unit 4 と同じ）。
 pub fn execute(
+    user: &User,
+    list_name: &ListName,
     events: &[ToDoListEvent],
     command: ToDoListCommand,
-) -> Result<Vec<ToDoListEvent>, Rejected> {
-    execute_in(state_of(events), command)
+) -> Result<Vec<ToDoListEvent>, ZettaiError> {
+    execute_in(state_of(events), user, list_name, command)
 }
 
 /// 遷移表の本体。**状態とコマンドだけを見る。**
+/// **第 7 章で引数が増えた。** 失敗が「誰のどのリストか」を持つようになり、
+/// 表の中でそれを組み立てる必要が出た。
 pub fn execute_in(
     state: ListState,
+    user: &User,
+    list_name: &ListName,
     command: ToDoListCommand,
-) -> Result<Vec<ToDoListEvent>, Rejected> {
+) -> Result<Vec<ToDoListEvent>, ZettaiError> {
     match (state, command) {
         (ListState::Missing, ToDoListCommand::CreateList { list_name }) => {
             Ok(vec![ToDoListEvent::ListCreated { list_name }])
         }
-        (ListState::Missing, ToDoListCommand::AddItem { .. }) => Err(Rejected::ListDoesNotExist),
-        (ListState::Empty, ToDoListCommand::CreateList { .. }) => Err(Rejected::ListAlreadyExists),
+        (ListState::Missing, ToDoListCommand::AddItem { .. }) => Err(ZettaiError::ListNotFound {
+            user: user.clone(),
+            list_name: list_name.clone(),
+        }),
+        (ListState::Empty, ToDoListCommand::CreateList { list_name }) => {
+            Err(ZettaiError::ListAlreadyExists { list_name })
+        }
         (ListState::Empty, ToDoListCommand::AddItem { item }) => {
             Ok(vec![ToDoListEvent::ItemAdded { item }])
         }
-        (ListState::HasItems, ToDoListCommand::CreateList { .. }) => {
-            Err(Rejected::ListAlreadyExists)
+        (ListState::HasItems, ToDoListCommand::CreateList { list_name }) => {
+            Err(ZettaiError::ListAlreadyExists { list_name })
         }
         (ListState::HasItems, ToDoListCommand::AddItem { item }) => {
             Ok(vec![ToDoListEvent::ItemAdded { item }])
@@ -324,7 +356,7 @@ mod tests {
 
     #[test]
     fn an_unknown_user_has_nothing() {
-        assert!(fetch_list(&User::new("nobody"), &ListName::new("book")).is_none());
+        assert!(fetch_list(&User::new("nobody"), &ListName::new("book")).is_err());
     }
 
     // -----------------------------------------------------------------
@@ -338,7 +370,7 @@ mod tests {
         // 埋め込みのデータではなく、**ここで渡したものが返る**。
         let hub = ToDoListHub::new(
             |_u, name| {
-                Some(ToDoList {
+                Ok(ToDoList {
                     list_name: name.clone(),
                     items: vec![ToDoItem::new("渡したほう")],
                 })
@@ -358,7 +390,7 @@ mod tests {
         let saved: RefCell<Vec<ToDoList>> = RefCell::new(Vec::new());
         let hub = ToDoListHub::new(
             |_u, name| {
-                Some(ToDoList {
+                Ok(ToDoList {
                     list_name: name.clone(),
                     items: vec![ToDoItem::new("先にあったもの")],
                 })
@@ -386,6 +418,8 @@ mod tests {
     #[test]
     fn creating_a_list_produces_a_created_event() {
         let events = execute(
+            &User::new("uberto"),
+            &ListName::new("book"),
             &[],
             ToDoListCommand::CreateList {
                 list_name: ListName::new("book"),
@@ -419,7 +453,7 @@ mod tests {
         type Cell = (
             Vec<ToDoListEvent>,
             ToDoListCommand,
-            Result<Vec<ToDoListEvent>, Rejected>,
+            Result<Vec<ToDoListEvent>, ZettaiError>,
         );
         let table: Vec<Cell> = vec![
             // Missing
@@ -431,13 +465,16 @@ mod tests {
             (
                 vec![],
                 ToDoListCommand::AddItem { item: item() },
-                Err(Rejected::ListDoesNotExist),
+                Err(ZettaiError::ListNotFound {
+                    user: User::new("uberto"),
+                    list_name: book(),
+                }),
             ),
             // Empty
             (
                 vec![created()],
                 ToDoListCommand::CreateList { list_name: book() },
-                Err(Rejected::ListAlreadyExists),
+                Err(ZettaiError::ListAlreadyExists { list_name: book() }),
             ),
             (
                 vec![created()],
@@ -448,7 +485,7 @@ mod tests {
             (
                 vec![added()],
                 ToDoListCommand::CreateList { list_name: book() },
-                Err(Rejected::ListAlreadyExists),
+                Err(ZettaiError::ListAlreadyExists { list_name: book() }),
             ),
             (
                 vec![added()],
@@ -462,7 +499,7 @@ mod tests {
         for (events, command, expected) in table {
             let state = state_of(&events);
             assert_eq!(
-                execute(&events, command.clone()),
+                execute(&User::new("uberto"), &book(), &events, command.clone()),
                 expected,
                 "{state:?} に {command:?} を出したとき"
             );
@@ -471,7 +508,15 @@ mod tests {
 
     #[test]
     fn the_hub_rejects_adding_to_a_missing_list() {
-        let hub = ToDoListHub::new(|_u, _n| None, |_u, _l: &ToDoList| {});
+        let hub = ToDoListHub::new(
+            |u: &User, n: &ListName| {
+                Err(ZettaiError::ListNotFound {
+                    user: u.clone(),
+                    list_name: n.clone(),
+                })
+            },
+            |_u, _l: &ToDoList| {},
+        );
 
         let result = hub.handle(
             &User::new("uberto"),
@@ -481,7 +526,13 @@ mod tests {
             },
         );
 
-        assert_eq!(result, Err(Rejected::ListDoesNotExist));
+        assert_eq!(
+            result,
+            Err(ZettaiError::ListNotFound {
+                user: User::new("uberto"),
+                list_name: ListName::new("nope"),
+            })
+        );
     }
 
     #[test]
@@ -489,7 +540,7 @@ mod tests {
         let saved: RefCell<Vec<ToDoList>> = RefCell::new(Vec::new());
         let hub = ToDoListHub::new(
             |_u, name| {
-                Some(ToDoList {
+                Ok(ToDoList {
                     list_name: name.clone(),
                     items: vec![ToDoItem::new("先にあったもの")],
                 })
@@ -551,7 +602,15 @@ mod tests {
     #[test]
     fn adding_to_a_missing_list_saves_nothing() {
         let saved: RefCell<usize> = RefCell::new(0);
-        let hub = ToDoListHub::new(|_u, _n| None, |_u, _l: &ToDoList| *saved.borrow_mut() += 1);
+        let hub = ToDoListHub::new(
+            |u: &User, n: &ListName| {
+                Err(ZettaiError::ListNotFound {
+                    user: u.clone(),
+                    list_name: n.clone(),
+                })
+            },
+            |_u, _l: &ToDoList| *saved.borrow_mut() += 1,
+        );
 
         let after = hub.add_item(
             &User::new("uberto"),
@@ -559,7 +618,7 @@ mod tests {
             ToDoItem::new("足せない"),
         );
 
-        assert!(after.is_none());
+        assert!(after.is_err());
         assert_eq!(*saved.borrow(), 0, "無いリストには保存しない");
     }
 }

@@ -5,7 +5,7 @@
 
 use std::collections::HashMap;
 use std::sync::Mutex;
-use zettai_step3_domain::{fetch_list, ListName, ToDoList, User};
+use zettai_step3_domain::{fetch_list, ListName, ToDoList, User, ZettaiError};
 
 /// 利用者ごとのリストを持つ。
 ///
@@ -24,7 +24,7 @@ impl InMemoryLists {
         let uberto = User::new("uberto");
         for name in ["book", "shopping"] {
             let list_name = ListName::new(name);
-            if let Some(list) = fetch_list(&uberto, &list_name) {
+            if let Ok(list) = fetch_list(&uberto, &list_name) {
                 store.save(&uberto, &list);
             }
         }
@@ -32,12 +32,19 @@ impl InMemoryLists {
     }
 
     /// ハブに渡す `fetch` の実体。
-    pub fn fetch(&self, user: &User, list_name: &ListName) -> Option<ToDoList> {
+    ///
+    /// **第 7 章で `Option` から `Result` に変わった。** 無いことを
+    /// 「値が無い」ではなく「**誰のどのリストが**無いか」で返す。
+    pub fn fetch(&self, user: &User, list_name: &ListName) -> Result<ToDoList, ZettaiError> {
         self.lists
             .lock()
             .expect("毒されていない")
             .get(&(user.0.clone(), list_name.0.clone()))
             .cloned()
+            .ok_or_else(|| ZettaiError::ListNotFound {
+                user: user.clone(),
+                list_name: list_name.clone(),
+            })
     }
 
     /// ハブに渡す `save` の実体。
@@ -83,6 +90,6 @@ mod tests {
         let store = InMemoryLists::seeded();
         assert!(store
             .fetch(&User::new("uberto"), &ListName::new("nope"))
-            .is_none());
+            .is_err());
     }
 }

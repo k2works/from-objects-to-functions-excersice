@@ -12,7 +12,14 @@
 
 use crate::http::handle;
 use crate::store::InMemoryLists;
-use zettai_step3_domain::{ListName, ToDoItem, ToDoList, ToDoListHub, User};
+use zettai_step3_domain::{ListName, ToDoItem, ToDoList, ToDoListHub, User, ZettaiError};
+
+/// 保管の上に組み立てたハブ。**clippy に名前を付けろと言われた**
+/// （`type_complexity`）。付けたほうが読みやすい。
+pub type StoreHub<'a> = ToDoListHub<
+    Box<dyn Fn(&User, &ListName) -> Result<ToDoList, ZettaiError> + 'a>,
+    Box<dyn Fn(&User, &ToDoList) + 'a>,
+>;
 
 /// シナリオが使える操作。**経路ごとに実装する。**
 ///
@@ -48,15 +55,10 @@ impl DomainOnly {
     }
 
     /// 保存先からハブを組み立てる。**配線はここだけ。**
-    fn hub(
-        &self,
-    ) -> ToDoListHub<
-        impl Fn(&User, &ListName) -> Option<ToDoList> + '_,
-        impl Fn(&User, &ToDoList) + '_,
-    > {
+    fn hub(&self) -> StoreHub<'_> {
         ToDoListHub::new(
-            |user, name| self.store.fetch(user, name),
-            |user, list| self.store.save(user, list),
+            Box::new(|user, name| self.store.fetch(user, name)),
+            Box::new(|user, list| self.store.save(user, list)),
         )
     }
 }
@@ -69,15 +71,23 @@ impl ZettaiActions for DomainOnly {
     fn items_of(&self, user: &str, list_name: &str) -> Option<Vec<String>> {
         let list = self
             .hub()
-            .list_of(&User::new(user), &ListName::new(list_name))?;
+            .list_of(&User::new(user), &ListName::new(list_name))
+            .ok()?;
         Some(descriptions(&list))
     }
 
     fn add_item(&self, user: &str, list_name: &str, description: &str) {
-        self.hub().add_item(
+        // **`Result` を捨てると `unused_must_use` で止まる。**
+        // `Option` のときは黙って捨てられていた（第 7 章のつまずき）。
+        let outcome = self.hub().add_item(
             &User::new(user),
             &ListName::new(list_name),
             ToDoItem::new(description),
+        );
+        assert!(
+            outcome.is_ok(),
+            "{}: 項目を足せなかった: {outcome:?}",
+            self.route()
         );
     }
 }
@@ -99,15 +109,10 @@ impl ThroughHttp {
         }
     }
 
-    fn hub(
-        &self,
-    ) -> ToDoListHub<
-        impl Fn(&User, &ListName) -> Option<ToDoList> + '_,
-        impl Fn(&User, &ToDoList) + '_,
-    > {
+    fn hub(&self) -> StoreHub<'_> {
         ToDoListHub::new(
-            |user, name| self.store.fetch(user, name),
-            |user, list| self.store.save(user, list),
+            Box::new(|user, name| self.store.fetch(user, name)),
+            Box::new(|user, list| self.store.save(user, list)),
         )
     }
 }

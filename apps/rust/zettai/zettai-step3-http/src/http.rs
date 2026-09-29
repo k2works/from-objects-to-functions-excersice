@@ -7,7 +7,7 @@
 //! リクエスト → 取り出す → 描く → 応答。矢印が 3 本ある。
 
 use zettai_step3_domain::{
-    ListName, Rejected, ToDoItem, ToDoList, ToDoListCommand, ToDoListHub, User,
+    ListName, ToDoItem, ToDoList, ToDoListCommand, ToDoListHub, User, ZettaiError,
 };
 
 /// 応答。状態コードと本文だけを持つ。
@@ -46,7 +46,7 @@ pub fn render(list: &ToDoList) -> String {
 /// 型引数で受けているので呼び出しは静的に決まる（[ADR-030] の案 A）。
 pub fn handle<F, S>(hub: &ToDoListHub<F, S>, method: &str, path: &str, body: &str) -> Reply
 where
-    F: Fn(&User, &ListName) -> Option<ToDoList>,
+    F: Fn(&User, &ListName) -> Result<ToDoList, ZettaiError>,
     S: Fn(&User, &ToDoList),
 {
     let parts = split_path(path);
@@ -57,8 +57,8 @@ where
 
     match method {
         "GET" => match hub.list_of(&user, &list_name) {
-            Some(list) => ok(&list),
-            None => not_found(),
+            Ok(list) => ok(&list),
+            Err(reason) => failed(reason),
         },
         // 第 6 章でコマンドを通すようになった。**断られた理由が型で返る。**
         "POST" => match description_in(body) {
@@ -69,7 +69,7 @@ where
                 };
                 match hub.handle(&user, &list_name, command) {
                     Ok(list) => ok(&list),
-                    Err(reason) => rejected(reason),
+                    Err(reason) => failed(reason),
                 }
             }
         },
@@ -95,17 +95,18 @@ fn ok(list: &ToDoList) -> Reply {
     }
 }
 
-/// 断られた理由を状態コードに写す。
+/// うまくいかなかった理由を状態コードに写す。
 ///
 /// **理由が型なので、`match` が漏れを止める。** 理由を足したら
-/// ここもコンパイルが止まる。
-fn rejected(reason: Rejected) -> Reply {
+/// ここもコンパイルが止まる。第 7 章で理由が 1 つ増え、実際に止まった。
+fn failed(reason: ZettaiError) -> Reply {
     match reason {
-        Rejected::ListDoesNotExist => not_found(),
-        Rejected::ListAlreadyExists => Reply {
+        ZettaiError::ListNotFound { .. } => not_found(),
+        ZettaiError::ListAlreadyExists { .. } => Reply {
             status: 409,
             body: "<html><body><h1>409</h1></body></html>".to_string(),
         },
+        ZettaiError::EmptyDescription => bad_request(),
     }
 }
 
@@ -129,15 +130,10 @@ mod tests {
     use crate::store::InMemoryLists;
 
     /// テスト用の配線。**毎回まっさらな保存先を作る。**
-    fn hub_over(
-        store: &InMemoryLists,
-    ) -> ToDoListHub<
-        impl Fn(&User, &ListName) -> Option<ToDoList> + '_,
-        impl Fn(&User, &ToDoList) + '_,
-    > {
+    fn hub_over(store: &InMemoryLists) -> crate::acceptance::StoreHub<'_> {
         ToDoListHub::new(
-            |user, name| store.fetch(user, name),
-            |user, list| store.save(user, list),
+            Box::new(|user, name| store.fetch(user, name)),
+            Box::new(|user, list| store.save(user, list)),
         )
     }
 

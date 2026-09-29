@@ -16,7 +16,7 @@
         <link rel="prev" href="../chapter08/">
       
       
-        <link rel="next" href="../../../../reference/">
+        <link rel="next" href="../chapter10/">
       
       
         
@@ -1791,6 +1791,41 @@
     
   
     「Rust」Unit 5 射影と永続化
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../development/iteration_plan-rust-6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「Rust」Unit 6 境界とバリデーション
   
 
     
@@ -6260,6 +6295,76 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 10 章 コンテキストを読み込み、コマンドを処理する
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 11 章 アプリカティブによるデータバリデーション
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -8553,6 +8658,8 @@
 <p>理由は <code>postgres</code> クレートの<strong>コンパイル</strong>です。<code>cargo test --all</code> はテストを走らせなくても<strong>依存はビルドします</strong>。フィーチャで隠せるのは<strong>テストの実行</strong>だけで、<strong>依存そのものは隠せません</strong>。</p>
 <p><strong>「別ジョブにすれば総時間は増えない」は、サービスコンテナについては正しく、CI 全体については間違いでした。</strong> 依存を足した時点で 30 秒は乗ります。どの案を選んでも同じでした。</p>
 <p>並走している総時間（約 56 秒）は、含めた場合（26 + 22 + 30 ≒ 78 秒）より短いので、<strong>選んだ判断自体は正しかった</strong>と言えます。</p>
+<!-- code-check: ignore 第 9 章の時点の形。第 10 章で段階が 1 つ進む（ADR-015） -->
+
 <div class="highlight"><pre><span></span><code># 保管との往復。**docker が要る**（`docker compose up -d zettai-db`）。
 test-db:
     {{run}} cargo test -p zettai-step4-http --features db --test persistence

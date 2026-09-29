@@ -1119,7 +1119,68 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#rust" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rust 版での差分
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rust 版での差分">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#html_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HTML の組み立て
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        フォームの値
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        経路の振り分け
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        エラーの表示
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
     <span class="md-ellipsis">
       
         関連ドキュメント
@@ -2027,6 +2088,41 @@
     
   
     「Rust」Unit 5 射影と永続化
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/iteration_plan-rust-6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「Rust」Unit 6 境界とバリデーション
   
 
     
@@ -6219,6 +6315,76 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/rust/chapter10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 10 章 コンテキストを読み込み、コマンドを処理する
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/rust/chapter11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 11 章 アプリカティブによるデータバリデーション
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -8638,7 +8804,79 @@
 <h3 id="_7">空のリスト<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
 <p>第 5 章で空のリストを表示できるようにします。なでしこ3 では、<strong>空の配列を回すループが逆向きに回る</strong>という罠があるため（<code>繰り返す</code> は開始が終了より大きくても空回りしない）、項目が 0 件のときの分岐を明示的に書きます。</p>
 <hr />
-<h2 id="_8">関連ドキュメント<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<h2 id="rust">Rust 版での差分<a class="headerlink" href="#rust" title="Permanent link">&para;</a></h2>
+<p>画面の構成も URL 規約も共通です。変わるのは <strong>HTML の組み立て方</strong>と、<strong>フォームの値の受け取り方</strong>です。</p>
+<h3 id="html_2">HTML の組み立て<a class="headerlink" href="#html_2" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">段階</th>
+<th style="text-align: left;">方式</th>
+<th style="text-align: left;">章</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">第 2〜10 章</td>
+<td style="text-align: left;"><code>format!</code> の直書き</td>
+<td style="text-align: left;">2</td>
+</tr>
+<tr>
+<td style="text-align: left;">第 11 章以降</td>
+<td style="text-align: left;"><strong><code>tera</code>（既製品）</strong></td>
+<td style="text-align: left;">11</td>
+</tr>
+</tbody>
+</table>
+<p><strong>3 対象で初めて既製品に寄せました</strong>（<a href="../../adr/ADR-036-tera/">ADR-036</a>）。</p>
+<p>Kotlin 版・なでしこ3 版は自作しています。理由は「既製品は未適用のタグを空文字か例外にするだけで、失敗として扱えない」でした（<a href="../../adr/ADR-010-own-template/">ADR-010</a>）。<strong>Rust では成り立ちません。</strong></p>
+<div class="highlight"><pre><span></span><code>tera: Err(Error { kind: RenderingError(... message: "Variable `forgotten` is not defined." ...) })
+</code></pre></div>
+<p><code>tera</code> は既定で <code>Result</code> を返し、足りない変数の名前まで挙げます。</p>
+<p><strong>ただし自動エスケープは既定では効きません。</strong> テンプレート名の拡張子で決まるので、<code>"list.html"</code> のように名づけます。<strong>「既製品を入れたから安全」ではありません。</strong></p>
+<p>第 10 章までの <code>format!</code> 直書きには<strong>エスケープがありませんでした</strong>。第 11 章で入りました。</p>
+<h3 id="_8">フォームの値<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p><strong>パーセントエンコードされて届きます。</strong></p>
+<div class="highlight"><pre><span></span><code>body="user=&amp;newname=%E8%AA%AD%E3%82%80+%E6%9C%AC%26%22%3Cx%3E%22"
+</code></pre></div>
+<p>空白は <code>+</code>、それ以外は <code>%XX</code> です。<code>tiny_http</code> は戻しません（<a href="../../adr/ADR-025-tiny-http/">ADR-025</a>）。</p>
+<p><strong>第 4 章の <code>description_in</code> は <code>+</code> しか戻していませんでした。</strong> ASCII だけの説明を使っていたので、受け入れテストは通り続けていました。第 11 章で直しています。</p>
+<p>値の中の <code>&amp;</code> と <code>=</code> は <code>%26</code> / <code>%3D</code> で届くので、<strong>分割してから戻す</strong>順序で正しくなります。</p>
+<h3 id="_9">経路の振り分け<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<p><code>tiny_http</code> にルーティングはありません。パスを <code>/</code> で割って組で照合します。</p>
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="p">[</span><span class="s">"todo"</span><span class="p">,</span><span class="w"> </span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="n">list_name</span><span class="p">,</span><span class="w"> </span><span class="s">"rename"</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">parts</span><span class="p">.</span><span class="n">as_slice</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</code></pre></div>
+<p><strong><code>/rename</code> で終わるかどうかを先に見ます。</strong> なでしこ3 版は前方一致だけで振り分け、<code>/rename</code> 以外への POST まで名前変更として処理していました。<strong>受け入れシナリオに入れて防いでいます。</strong></p>
+<h3 id="_10">エラーの表示<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<p>複数の理由をまとめて出します（<a href="../../adr/ADR-035-validated-applicative/">ADR-035</a>）。理由を画面の言葉に写す <code>describe</code> は <code>match</code> なので、<strong>理由を足すとコンパイルが止まります</strong>。第 6 章から 5 回止まりました。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">状況</th>
+<th style="text-align: left;">状態コード</th>
+<th style="text-align: left;">画面</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">変更できた</td>
+<td style="text-align: left;"><strong>302</strong></td>
+<td style="text-align: left;">新しい名前の画面へ</td>
+</tr>
+<tr>
+<td style="text-align: left;">検証に落ちた</td>
+<td style="text-align: left;"><strong>400</strong></td>
+<td style="text-align: left;">同じフォームに<strong>理由をすべて</strong>並べて再表示</td>
+</tr>
+<tr>
+<td style="text-align: left;">リストが無い</td>
+<td style="text-align: left;">404</td>
+<td style="text-align: left;">—</td>
+</tr>
+</tbody>
+</table>
+<p><strong><code>curl -L</code> は 302 のあとに POST を再送します</strong>（なでしこ3 版で踏みました）。テストでは使いません。</p>
+<h2 id="_11">関連ドキュメント<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="../architecture_backend/">バックエンドアーキテクチャ設計</a></li>
 <li><a href="../domain-model/">ドメインモデル設計</a></li>

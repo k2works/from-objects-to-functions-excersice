@@ -1805,6 +1805,41 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/iteration_plan-rust-6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「Rust」Unit 6 境界とバリデーション
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -5977,6 +6012,76 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/rust/chapter10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 10 章 コンテキストを読み込み、コマンドを処理する
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/rust/chapter11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 11 章 アプリカティブによるデータバリデーション
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -8311,8 +8416,8 @@
 <td style="text-align: left;"><strong>1 件の代償では判断が決まりません。</strong> 第 12 章でログの JSON が要るとき、もう一度測ります。<strong>自前のパーサが 3 か所に増えていたら判断を変えます</strong></td>
 </tr>
 <tr>
-<td style="text-align: left;">トランザクションの境界</td>
-<td style="text-align: left;">いまは「1 コマンドぶんのイベント」です。<strong>第 10 章の主題</strong>なので、そこで決めます（<a href="../ADR-011-transaction-boundary/">ADR-011</a> の移植）</td>
+<td style="text-align: left;">~~トランザクションの境界~~</td>
+<td style="text-align: left;"><strong><a href="../ADR-034-transaction-as-scope/">ADR-034</a> で閉じました</strong>（2026-09-29）。区間として貸す形にし、「読む → 判断する → 書く」が 1 つの単位になっています</td>
 </tr>
 <tr>
 <td style="text-align: left;">読み出しの量</td>

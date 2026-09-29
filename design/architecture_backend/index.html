@@ -1036,7 +1036,79 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#rust" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rust 版での差分
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rust 版での差分">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        境界はコンパイラが守る
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        パッケージ構成
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rust_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ポートの一覧（Rust 版）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 10 章でポートの型から失敗は消えませんでした
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        品質ゲート
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
     <span class="md-ellipsis">
       
         関連ドキュメント
@@ -2049,6 +2121,41 @@
     
   
     「Rust」Unit 5 射影と永続化
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/iteration_plan-rust-6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「Rust」Unit 6 境界とバリデーション
   
 
     
@@ -6241,6 +6348,76 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/rust/chapter10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 10 章 コンテキストを読み込み、コマンドを処理する
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/rust/chapter11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 11 章 アプリカティブによるデータバリデーション
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -8920,7 +9097,158 @@ src/test/kotlin/zettai/
 <li><strong>第 9 章から 3 経路目（永続化経由）が加わる</strong>（<a href="../../adr/ADR-020-third-route/">ADR-020</a>）。3 経路が同じ結果になることを、永続化がドメインに漏れていない証拠とする</li>
 </ul>
 <hr />
-<h2 id="_14">関連ドキュメント<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h2>
+<h2 id="rust">Rust 版での差分<a class="headerlink" href="#rust" title="Permanent link">&para;</a></h2>
+<p>レイヤーの分け方もポートの考え方も共通です。変わるのは<strong>境界の守り方</strong>と<strong>ポートの型</strong>です。</p>
+<h3 id="_14">境界はコンパイラが守る<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">対象</th>
+<th style="text-align: left;">分ける手段</th>
+<th style="text-align: left;">守る手段</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Kotlin</td>
+<td style="text-align: left;">パッケージ</td>
+<td style="text-align: left;"><code>DomainBoundaryTest</code> が import を検査</td>
+</tr>
+<tr>
+<td style="text-align: left;">なでしこ3</td>
+<td style="text-align: left;">ファイル</td>
+<td style="text-align: left;"><code>boundary_test.nako3</code> が文字列を数える（7 ファイル × 5 項目）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Rust</strong></td>
+<td style="text-align: left;"><strong>クレート</strong></td>
+<td style="text-align: left;"><strong>無し。<code>Cargo.toml</code> に書いていない相手はコンパイルが止める</strong></td>
+</tr>
+</tbody>
+</table>
+<p>段階ごとに <code>zettai-stepN-domain</code> と <code>zettai-stepN-http</code> の 2 クレートに分けています（<a href="../../adr/ADR-027-crate-boundary/">ADR-027</a>）。<strong>ドメインのクレートは外部クレートに依存しません。</strong> 性質テストの乱数も、JSON の組み立ても自前です。</p>
+<p><strong>境界検査を 1 行も書いていません。</strong> 2 対象が書いたものに相当するコードがありません。</p>
+<h3 id="_15">パッケージ構成<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">段階</th>
+<th style="text-align: left;">クレート</th>
+<th style="text-align: left;">章</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">step1</td>
+<td style="text-align: left;"><code>zettai-step1-domain</code> / <code>zettai-step1-http</code></td>
+<td style="text-align: left;">1〜3</td>
+</tr>
+<tr>
+<td style="text-align: left;">step2</td>
+<td style="text-align: left;"><code>zettai-step2-*</code></td>
+<td style="text-align: left;">4〜6</td>
+</tr>
+<tr>
+<td style="text-align: left;">step3</td>
+<td style="text-align: left;"><code>zettai-step3-*</code></td>
+<td style="text-align: left;">7〜8</td>
+</tr>
+<tr>
+<td style="text-align: left;">step4</td>
+<td style="text-align: left;"><code>zettai-step4-*</code></td>
+<td style="text-align: left;">9</td>
+</tr>
+<tr>
+<td style="text-align: left;">step5</td>
+<td style="text-align: left;"><code>zettai-step5-*</code></td>
+<td style="text-align: left;">10〜</td>
+</tr>
+</tbody>
+</table>
+<p>段階を切る手順は <a href="../../adr/ADR-029-cutting-a-step/">ADR-029</a> にあります。<strong>過去の段階には手を入れません。</strong></p>
+<h3 id="rust_1">ポートの一覧（Rust 版）<a class="headerlink" href="#rust_1" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">ポート</th>
+<th style="text-align: left;">型</th>
+<th style="text-align: left;">アダプタ</th>
+<th style="text-align: left;">章</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">リストの取得</td>
+<td style="text-align: left;"><code>impl Fn(&amp;User, &amp;ListName) -&gt; Result&lt;ToDoList, ZettaiError&gt;</code></td>
+<td style="text-align: left;">インメモリ / PostgreSQL</td>
+<td style="text-align: left;">4、7（<code>Result</code> 化）</td>
+</tr>
+<tr>
+<td style="text-align: left;">リストの保存</td>
+<td style="text-align: left;"><code>impl Fn(&amp;User, &amp;ToDoList)</code></td>
+<td style="text-align: left;">同上</td>
+<td style="text-align: left;">4</td>
+</tr>
+<tr>
+<td style="text-align: left;">イベントの追記・読み出し</td>
+<td style="text-align: left;"><code>trait EventStore</code></td>
+<td style="text-align: left;"><code>PostgresEventStore</code></td>
+<td style="text-align: left;">9</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>単位の中での追記・読み出し</strong></td>
+<td style="text-align: left;"><strong><code>trait TxEventStore</code></strong></td>
+<td style="text-align: left;"><code>PgTx&lt;'a&gt;</code></td>
+<td style="text-align: left;"><strong>10</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>単位を貸す</strong></td>
+<td style="text-align: left;"><strong><code>trait TransactionalStore</code></strong></td>
+<td style="text-align: left;"><code>PostgresEventStore</code></td>
+<td style="text-align: left;"><strong>10</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>関数値の形が 3 つあります</strong>（<a href="../../adr/ADR-030-functional-di-shape/">ADR-030</a>）。判断の基準は「その関数値は他の関数値と同じ入れ物に入るか」です。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">入るか</th>
+<th style="text-align: left;">形</th>
+<th style="text-align: left;">例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">入らない（配線で 1 つ決まる）</td>
+<td style="text-align: left;"><code>impl Fn</code></td>
+<td style="text-align: left;">ハブの依存</td>
+</tr>
+<tr>
+<td style="text-align: left;">入る（<code>Vec</code> に並べる、<code>fold</code> で畳む）</td>
+<td style="text-align: left;"><code>Box&lt;dyn Fn&gt;</code></td>
+<td style="text-align: left;">状態変換（第 5 章）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>その場で 1 回だけ渡す</strong></td>
+<td style="text-align: left;"><strong><code>&amp;dyn Fn</code></strong></td>
+<td style="text-align: left;"><strong><code>UnitOfWork</code>（第 10 章）</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="10">第 10 章でポートの型から失敗は消えませんでした<a class="headerlink" href="#10" title="Permanent link">&para;</a></h3>
+<p><strong>Kotlin 版との最大の差分です。</strong></p>
+<p>Kotlin 版は <code>HubAction</code>（<code>ContextReader</code>）を導入した結果、ポートの戻り値から <code>Outcome</code> が消え、失敗は実行時に捕らえる形になりました。<strong>得たもの（トランザクション）と失ったもの（型に現れる失敗）のトレードオフ</strong>です。</p>
+<p><strong>Rust 版はどちらも失っていません。</strong> <code>TxEventStore</code> の戻り値は <code>Result&lt;_, ZettaiError&gt;</code> のままです。区間として貸す形（<a href="../../adr/ADR-034-transaction-as-scope/">ADR-034</a>）にしたので、遅延させる必要がありませんでした。</p>
+<p>代わりに払った代償は 2 つです。</p>
+<ul>
+<li><strong>単位の戻り値が <code>ToDoList</code> に固定</strong>されています。<code>&lt;T&gt;</code> を入れるとオブジェクト安全でなくなり、<code>&amp;dyn</code> で受けられません</li>
+<li><strong><a href="../../adr/ADR-011-transaction-boundary/">ADR-011</a> の決定 2（中身が空の文脈）が移植できません</strong>。<code>dyn Any</code> が <code>'static</code> を要求するためです</li>
+</ul>
+<p>ただし 2 つめは、<strong>Kotlin 版が実行時検査（<code>require(context is JdbcContext)</code>）で妥協した箇所を消す</strong>結果になりました。文脈にドメインの動詞を持たせたので、間違った文脈を渡せません。</p>
+<h3 id="_16">品質ゲート<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h3>
+<p><code>just check</code>（<code>fmt</code> / <code>clippy</code> / <code>test</code>）と <code>just check-all</code>（+ <code>cov</code> / <code>test-db</code>）の 2 段構えです（<a href="../../adr/ADR-026-just-and-coverage/">ADR-026</a>）。<strong>DB を使う検査は別ジョブ</strong>にしています（<a href="../../adr/ADR-033-db-check-as-separate-job/">ADR-033</a>）。Kotlin 版は <code>check</code> に含めており、判断が分かれました。理由は <code>check</code> の所要時間の割合です。</p>
+<h2 id="_17">関連ドキュメント<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="../domain-model/">ドメインモデル設計</a></li>
 <li><a href="../data-model/">データモデル設計</a></li>

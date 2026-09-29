@@ -104,6 +104,7 @@ nav:
           - 「Rust」Unit 3 所有権のもとでの DI とイベント: development/iteration_plan-rust-3.md
           - 「Rust」Unit 4 enum と Result: development/iteration_plan-rust-4.md
           - 「Rust」Unit 5 射影と永続化: development/iteration_plan-rust-5.md
+          - 「Rust」Unit 6 境界とバリデーション: development/iteration_plan-rust-6.md
       - Bolt 終了報告:
           - Unit 1 実行環境と第 1 章: development/bolt_report-1.md
           - Unit 2 ウォーキングスケルトンとドメイン分離: development/bolt_report-2.md

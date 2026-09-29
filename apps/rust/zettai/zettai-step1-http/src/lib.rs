@@ -3,12 +3,13 @@
 //! 第 1 章ではドメインをまだ作らない。テストに開発をガイドさせるという
 //! 前提を置き、そのための道具が言語に揃っていることを確かめるだけにする。
 
+pub mod acceptance;
 pub mod bowling;
 pub mod bowling_oo;
-pub mod domain;
 pub mod http;
 
-pub use domain::{fetch_list, ListName, ToDoItem, ToDoList, User};
+// ドメインは別クレート。ここからは再輸出するだけで、実装は持たない。
+pub use zettai_step1_domain::{fetch_list, ListName, ToDoItem, ToDoList, User};
 
 use std::path::PathBuf;
 use std::sync::atomic::{AtomicUsize, Ordering};

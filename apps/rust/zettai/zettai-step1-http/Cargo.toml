@@ -3,5 +3,8 @@ name = "zettai-step1-http"
 edition.workspace = true
 version.workspace = true
 
+# **ドメインへの依存は一方向。** ドメイン側の Cargo.toml に
+# zettai-step1-http は無い。だからドメインから HTTP は呼べない。
 [dependencies]
+zettai-step1-domain = { path = "../zettai-step1-domain" }
 tiny_http = "0.12.0"

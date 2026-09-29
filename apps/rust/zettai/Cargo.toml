@@ -3,7 +3,7 @@
 # 過去の章のコードをそのまま残し、記事が指すコードが変化しないようにする。
 [workspace]
 resolver = "2"
-members = ["zettai-step1-http"]
+members = ["zettai-step1-domain", "zettai-step1-http"]
 # スパイクは判断の記録として残すが、検査の対象外にする。
 # sync-postgres は DB が要り、HTTP の 3 つは同じポートを使う。
 exclude = ["spikes"]

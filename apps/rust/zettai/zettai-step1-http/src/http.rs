@@ -6,7 +6,7 @@
 //!
 //! リクエスト → 取り出す → 描く → 応答。矢印が 3 本ある。
 
-use crate::domain::{fetch_list, ListName, ToDoList, User};
+use zettai_step1_domain::{fetch_list, ListName, ToDoList, User};
 
 /// 応答。状態コードと本文だけを持つ。
 ///

@@ -32,5 +32,7 @@
 | [ADR-024](ADR-024-no-async.md) | async を採らず、同期のクレートで 13 章を通す | 提案 |
 | [ADR-025](ADR-025-tiny-http.md) | HTTP クレートに tiny_http を採用する | 提案 |
 | [ADR-026](ADR-026-just-and-coverage.md) | タスクランナーに Just を使い、カバレッジを検査に入れる | 提案 |
+| [ADR-027](ADR-027-crate-boundary.md) | 境界をクレートで分け、境界検査を書かない | 提案 |
+| [ADR-028](ADR-028-own-acceptance-trait.md) | 受け入れテストの経路をトレイトで差し替え、cucumber を入れない | 提案 |
 
 ADR の作成には `creating-adr` スキルを使用してください。

@@ -1,30 +1,47 @@
-//! 受け入れシナリオ（第 2 章）。
+//! 受け入れシナリオ。
 //!
-//! 業務の言葉で書く。第 2 章はドメインを直接呼ぶ 1 経路だけで、
-//! 第 3 章で経路を抽象化して HTTP 経由を足す。
+//! **業務の言葉だけで書く。** HTTP もドメインの関数名も出てこない。
+//! 同じシナリオを全経路で走らせ、片方だけ落ちたらそこに業務のロジックが
+//! 漏れていると判断する（[ADR-016]）。
 
-use zettai_step1_http::{fetch_list, ListName, User};
+use zettai_step1_http::acceptance::{all_routes, ZettaiActions};
 
 #[test]
-fn uberto_sees_his_book_list() {
-    // 一度変数に受ける。`fetch_list(..).expect(..).items.iter()` と繋ぐと
-    // 一時値が借用中に破棄される（E0716）。**所有権に押された 1 件目。**
-    let list =
-        fetch_list(&User::new("uberto"), &ListName::new("book")).expect("book のリストがある");
+fn every_route_tells_the_same_story() {
+    for actions in all_routes() {
+        uberto_sees_his_book_list(actions.as_ref());
+        an_empty_list_is_still_a_list(actions.as_ref());
+        an_unknown_list_is_not_found(actions.as_ref());
+    }
+}
 
-    let descriptions: Vec<&str> = list
-        .items
-        .iter()
-        .map(|item| item.description.as_str())
-        .collect();
+fn uberto_sees_his_book_list(actions: &dyn ZettaiActions) {
+    // 期待値は `&str` で並べ、比べる直前に `String` へ揃える。
+    // `Vec<String>` に `&[&str]` はそのまま比べられない（E0308）。
+    let expected = ["write chapter", "insert code", "publish book"].map(String::from);
 
     assert_eq!(
-        descriptions,
-        vec!["write chapter", "insert code", "publish book"]
+        actions.items_of("uberto", "book"),
+        Some(expected.to_vec()),
+        "{}: uberto は book の項目を 3 件見られる",
+        actions.route()
     );
 }
 
-#[test]
-fn an_unknown_list_is_not_found() {
-    assert!(fetch_list(&User::new("uberto"), &ListName::new("nope")).is_none());
+fn an_empty_list_is_still_a_list(actions: &dyn ZettaiActions) {
+    assert_eq!(
+        actions.items_of("uberto", "shopping"),
+        Some(vec![]),
+        "{}: 空のリストも見られる",
+        actions.route()
+    );
+}
+
+fn an_unknown_list_is_not_found(actions: &dyn ZettaiActions) {
+    assert_eq!(
+        actions.items_of("uberto", "nope"),
+        None,
+        "{}: 無いリストは見つからない",
+        actions.route()
+    );
 }

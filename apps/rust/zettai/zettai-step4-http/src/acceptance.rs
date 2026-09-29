@@ -157,6 +157,79 @@ fn extract_items(html: &str) -> Vec<String> {
         .collect()
 }
 
+/// 経路 3: 保管を通す（第 9 章）。**`db` フィーチャのときだけ。**
+///
+/// 2 経路では捕まらない欠陥がある、というのが 3 経路目を足す理由
+/// （[ADR-020](../../../../docs/adr/ADR-020-third-route.md)）。
+/// なでしこ3 版では経路固有の実装欠陥を実際に捕まえた。
+#[cfg(feature = "db")]
+pub struct ThroughStore {
+    store: crate::event_store::PostgresEventStore,
+}
+
+#[cfg(feature = "db")]
+impl ThroughStore {
+    pub fn seeded(conn: &str, table: &str) -> Self {
+        let store = crate::event_store::PostgresEventStore::connect(conn, table)
+            .expect("DB が起動している");
+        // 既定の中身を、**起きたこととして**入れる。
+        for name in ["book", "shopping"] {
+            let list_name = ListName::new(name);
+            let uberto = User::new("uberto");
+            let mut events = vec![zettai_step4_domain::ToDoListEvent::ListCreated {
+                list_name: list_name.clone(),
+            }];
+            if name == "book" {
+                for d in ["write chapter", "insert code", "publish book"] {
+                    events.push(zettai_step4_domain::ToDoListEvent::ItemAdded {
+                        item: ToDoItem::new(d),
+                    });
+                }
+            }
+            zettai_step4_domain::store::EventStore::append(&store, &uberto, &list_name, &events)
+                .expect("入れられる");
+        }
+        ThroughStore { store }
+    }
+
+    pub fn drop_table(&self) {
+        self.store.drop_table().expect("片付けられる");
+    }
+}
+
+#[cfg(feature = "db")]
+impl ZettaiActions for ThroughStore {
+    fn route(&self) -> &'static str {
+        "保管経由"
+    }
+
+    fn items_of(&self, user: &str, list_name: &str) -> Option<Vec<String>> {
+        let list = zettai_step4_domain::store::load(
+            &self.store,
+            &User::new(user),
+            &ListName::new(list_name),
+        )
+        .ok()?;
+        Some(descriptions(&list))
+    }
+
+    fn add_item(&self, user: &str, list_name: &str, description: &str) {
+        let outcome = zettai_step4_domain::store::handle_with_store(
+            &self.store,
+            &User::new(user),
+            &ListName::new(list_name),
+            zettai_step4_domain::ToDoListCommand::AddItem {
+                item: ToDoItem::new(description),
+            },
+        );
+        assert!(
+            outcome.is_ok(),
+            "{}: 項目を足せなかった: {outcome:?}",
+            self.route()
+        );
+    }
+}
+
 /// 全経路。シナリオはこれを回す。
 pub fn all_routes() -> Vec<Box<dyn ZettaiActions>> {
     vec![

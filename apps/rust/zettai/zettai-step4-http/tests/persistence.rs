@@ -129,3 +129,42 @@ fn an_unreachable_store_says_so() {
     let broken = PostgresEventStore::connect("host=localhost port=1 user=nobody", "x");
     assert!(matches!(broken, Err(ZettaiError::StoreUnavailable { .. })));
 }
+
+/// **3 経路目。** 同じシナリオを保管を通して走らせる。
+///
+/// 2 経路（ドメイン直接・HTTP 経由）では捕まらない欠陥がある、
+/// というのが足す理由（[ADR-020]）。
+#[test]
+fn the_third_route_tells_the_same_story() {
+    use zettai_step4_http::acceptance::{ThroughStore, ZettaiActions};
+
+    let actions = ThroughStore::seeded(CONN, &unique_table("route"));
+
+    assert_eq!(
+        actions.items_of("uberto", "book"),
+        Some(
+            ["write chapter", "insert code", "publish book"]
+                .map(String::from)
+                .to_vec()
+        ),
+        "{}: uberto は book の項目を 3 件見られる",
+        actions.route()
+    );
+    assert_eq!(
+        actions.items_of("uberto", "shopping"),
+        Some(vec![]),
+        "{}: 空のリストも見られる",
+        actions.route()
+    );
+    assert_eq!(
+        actions.items_of("uberto", "nope"),
+        None,
+        "{}: 無いリストは見つからない",
+        actions.route()
+    );
+
+    actions.add_item("uberto", "book", "review chapter");
+    assert_eq!(actions.items_of("uberto", "book").unwrap().len(), 4);
+
+    actions.drop_table();
+}

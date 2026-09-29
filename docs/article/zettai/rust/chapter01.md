@@ -4,7 +4,7 @@ title: "第 1 章 新しいアプリケーションを準備する"
 description: "Zettai 連載 Rust 版の第 1 章。テストの土台が言語にある場合に第 1 章で何をするのかを書く。なでしこ3 版が自作した検証関数とランナーは cargo が最初から与えるので、代わりに後戻りの効かない判断（async の採否と HTTP クレートの選定）を実測してから決める。"
 tags: [article, zettai, rust, chapter]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-28T13:21:01Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-29T01:11:23Z }
 ---
 
 # 第 1 章 新しいアプリケーションを準備する
@@ -170,18 +170,60 @@ Error: Error { kind: ToSql(1), cause: Some(WrongType { postgres: Jsonb, rust: "&
 
 ```just
 # 書いている間はこれ
-check: fmt lint test
+check:
+    {{run}} just fmt lint test
 
 # リリース前と CI はこれ（カバレッジを含む）
-check-all: fmt lint test cov
+check-all:
+    {{run}} just fmt lint test cov
 ```
 
 2 段構えにしたのもなでしこ3 版の学びです。**速さが要るのは書いている間で、全部は CI の仕事**です。
 
 ```bash
-just check      2〜3 秒（冷えた状態 5 秒）
-just check-all  5〜8 秒（冷えた状態 11 秒）
+just check      2〜4 秒
+just check-all  8 秒
 ```
+
+### つまずき 4: devShell の外から叩くと別の言語で動く
+
+行頭の `{{run}}` は後から足したものです。**IDE から `just check` を叩いて気づきました。**
+
+この版の道具は Nix の devShell から来ます。外から叩くと、そこにあるのはホストの道具です。
+
+| 項目 | devShell 内 | ホスト |
+| :--- | :--- | :--- |
+| rustc | **1.91.1** | **1.97.1** |
+| `cargo-llvm-cov` | 0.6.20 | 0.8.7 |
+| `LLVM_COV` / `LLVM_PROFDATA` | 設定済み | **未設定 → `cov` が落ちる** |
+
+**別のコンパイラで通って、CI で落ちます。** つまずき 2 と同じ形が、今度は逆向きに出ました。あちらは「ホストにしか無い」、こちらは「ホストのほうが使われる」です。
+
+2 対象はこの問題を持ちません。**道具をプロジェクトの中に取り込んでいるから**です。
+
+| 対象 | 道具の在り処 |
+| :--- | :--- |
+| Kotlin | `./gradlew`（リポジトリの中） |
+| なでしこ3 | `./node_modules/.bin/cnako3`（リポジトリの中） |
+| **Rust** | **PATH**（rustc も `cargo-llvm-cov` も取り込めない） |
+
+rustc をリポジトリに置くわけにはいきません。そこで**環境ごと入り直します。**
+
+```just
+repo  := justfile_directory() / '../../..'
+shell := 'nix develop ' + repo + '#rust --command'
+run   := if env('IN_NIX_SHELL', '') == '' { shell } else { '' }
+```
+
+`IN_NIX_SHELL` は Nix が立てる変数です。**中にいれば `run` は空になり、何も挟まりません。** 外から叩いたときだけ `nix develop` が前に付きます。
+
+`check` を依存指定（`check: fmt lint test`）から 1 行に変えたのはこのためです。依存のままだと `fmt`・`lint`・`test` がそれぞれ入り直して 3 回になります。
+
+```just
+# 依存指定ではなく 1 行で子レシピを呼ぶ。こうすると再入が 1 回で済む
+```
+
+外から叩いても 3〜4 秒のままでした。**`nix develop` の 2 回目以降は 1.5 秒で、ビルドのキャッシュが効いているぶんと相殺されます。**
 
 ### つまずき 2: `just` も `cargo-llvm-cov` も CI には来ない
 

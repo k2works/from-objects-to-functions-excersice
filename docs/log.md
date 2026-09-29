@@ -1,5 +1,11 @@
 # Docs Update Log
 
+## 2026-09-29
+* **Update**: [retrospective-rust-1](/development/retrospective-rust-1.md) を更新（claude-code/claude-opus-5）
+* **Update**: [bolt_report-rust-1](/development/bolt_report-rust-1.md) を更新（claude-code/claude-opus-5）
+* **Update**: [chapter01](/article/zettai/rust/chapter01.md) を更新（claude-code/claude-opus-5）
+* **Update**: [ADR-026-just-and-coverage](/adr/ADR-026-just-and-coverage.md) を更新（claude-code/claude-opus-5）
+
 ## 2026-09-28
 * **Update**: [retrospective-rust-1](/development/retrospective-rust-1.md) を更新（claude-code/claude-opus-5）
 * **Update**: [bolt_report-rust-1](/development/bolt_report-rust-1.md) を更新（claude-code/claude-opus-5）

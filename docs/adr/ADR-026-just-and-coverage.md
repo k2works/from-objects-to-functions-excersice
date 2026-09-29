@@ -4,7 +4,7 @@ title: "ADR-026 タスクランナーに Just を使い、カバレッジを検�
 description: "Zettai 連載 Rust 版で、タスクランナーに Just を採用し、cargo-llvm-cov によるカバレッジ計測を check-all に入れる決定。各段が何を守るかを先に数えたこと、devShell に just と cargo-llvm-cov を足したこと、LLVM のツールを rustc と揃えたことを記録する。"
 tags: [adr, rust, zettai]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-28T13:11:33Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-29T01:11:23Z }
 ---
 
 # ADR-026 タスクランナーに Just を使い、カバレッジを検査に入れる
@@ -51,7 +51,23 @@ generated: { by: claude-code/claude-opus-5, at: 2026-09-28T13:11:33Z }
 
 Kotlin 版の kover と同じ下限にします。`justfile` の変数 `cov_min` に置き、`--fail-under-lines` で落とします。
 
-### 4. devShell に `just` と `cargo-llvm-cov` を足す
+### 4. devShell の外から呼ばれたら入り直す（2026-09-29 追記）
+
+**IDE から `just check` を叩いて気づきました。** この版の道具は devShell から来るので、外から叩くとホストの道具が使われます。
+
+| 項目 | devShell 内 | ホスト |
+| :--- | :--- | :--- |
+| rustc | 1.91.1 | **1.97.1** |
+| `cargo-llvm-cov` | 0.6.20 | 0.8.7 |
+| `LLVM_COV` / `LLVM_PROFDATA` | 設定済み | **未設定 → `cov` が落ちる** |
+
+**別のコンパイラで通って CI で落ちます。** 2 対象は道具をリポジトリに取り込んでいる（`./gradlew`・`./node_modules/.bin/cnako3`）ので起きませんが、rustc は取り込めません。
+
+`justfile` が `IN_NIX_SHELL` を見て、外なら `nix develop` に入り直します。中にいれば何も挟みません。
+
+再入は 1 回だけにしました。`check` を依存指定から 1 行に変えたのはこのためです（依存のままだと `fmt`・`lint`・`test` がそれぞれ入り直して 3 回になる）。**外から叩いても 3〜4 秒のままです。**
+
+### 5. devShell に `just` と `cargo-llvm-cov` を足す
 
 どちらもホストの `~/.cargo/bin` に入っていましたが、**CI には来ません**。`ops/nix/environments/rust/shell.nix` に足しました。
 
@@ -80,7 +96,9 @@ Kotlin 版の kover と同じ下限にします。`justfile` の変数 `cov_min`
 | :--- | :--- |
 | **カバレッジの下限が意味を持つか** | 第 1 章の時点でコードが 30 行弱しかなく、80% に意味はありません。**Unit 3（ドメインが育つ）で見直します** |
 | **`clippy` の指摘の仕分け** | `-D warnings` は設計判断に混ざります。押された箇所を `README.md` に記録し、**第 13 章で「設計の改善」と「clippy の好み」に仕分けます** |
-| **`just` のバージョン差** | devShell の 1.45.0 に固定されます。ホストに別の版があっても devShell が優先されます |
+| **`just` のバージョン差** | devShell の 1.45.0 に固定されます。ホストに別の版があっても devShell が優先されます。ただし **`justfile` を最初に解析するのはホストの `just`** です（1.43.0 で確認）。`env()` と `/` 演算子はどちらの版にもあります |
+| **Nix が無い環境** | 再入が失敗します。**CI に Nix を入れるか、外側で `nix develop` を回すかを Unit 2 で決めます**（`.github/workflows/rust-zettai.yml` は未作成） |
+| **IDE 側の `PATH` の引用** | IntelliJ が `PATH` を引用せずに渡して `export` が壊れることがあります。リポジトリからは直せません。**実行構成の環境変数から `PATH` の上書きを外すのが対処**で、この `justfile` は PATH に依存しないので上書きする理由がありません |
 | **段が増えたときの時間** | 段階（workspace のメンバー）が増えれば伸びます。**増やす前に見積もり、直後に測ります**（なでしこ3 版 Unit 5 Try 2） |
 
 ## コンプライアンス

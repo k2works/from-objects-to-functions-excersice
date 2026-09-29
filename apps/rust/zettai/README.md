@@ -27,6 +27,20 @@ just check-all  # 上 + カバレッジ（リリース前と CI）
 
 **各段が何を守るかは `justfile` に書いてあります。** 守っているものが無い段は入れません（[ADR-026](../../../docs/adr/ADR-026-just-and-coverage.md)）。
 
+### devShell の外から叩いてもよい
+
+**`justfile` が自分で `nix develop` に入り直します。** IDE のターミナルからでも、素のシェルからでも、CI と同じ道具（rustc 1.91.1・`cargo-llvm-cov` 0.6.20・`LLVM_COV`）で走ります。
+
+そうしないと、ホストの rustc（別の版）で通って CI で落ちます。**2 対象は `./gradlew` と `./node_modules/.bin/cnako3` で道具をリポジトリに取り込んでいますが、rustc は取り込めません。**
+
+再入は 1 回だけです（`check` が依存指定ではなく 1 行で子レシピを呼ぶため）。**続けて作業するなら、先に devShell に入るほうが速くなります。**
+
+```bash
+nix develop .#rust      # 入っておけば再入しない
+cd apps/rust/zettai
+just check
+```
+
 ## 既知の制約
 
 **この一覧は Unit 1 から置いています。** なでしこ3 版では Unit 6 になってから作り、それまでに同じ制約を 3 回踏みました。一覧を作って設計の前に読んだ章では、設計の間違いが 0 回になりました。**作るのに 30 分もかかりません。**
@@ -38,6 +52,8 @@ just check-all  # 上 + カバレッジ（リリース前と CI）
 | # | 制約 | 対処 |
 | :--- | :--- | :--- |
 | 1 | `postgres` クレートで `$2::jsonb` と書くと**パラメータの型が `jsonb` と推論**され、`&str` を渡せない（`WrongType { postgres: Jsonb, rust: "&str" }`） | `($2::text)::jsonb` と書き、文字列として受けてからキャストする |
+| 2 | **devShell の外では道具が別物になる。** ホストの rustc は 1.97.1、devShell は 1.91.1。`LLVM_COV` も未設定で `cov` が落ちる | `justfile` が `IN_NIX_SHELL` を見て `nix develop` に入り直す |
+| 3 | **IntelliJ が `PATH` を引用せずに渡すことがある。** `IntelliJ IDEA.app` のスペースで `export PATH=...` が壊れ、`zsh:export:1: not valid in this context` になる | 実行構成の環境変数から `PATH` の上書きを外す。**この `justfile` は PATH に依存しないので、上書きする理由が無い** |
 
 ### 設計に効くもの
 

@@ -16,46 +16,66 @@
 # ドメイン層のカバレッジの下限（Kotlin 版の kover と揃える）
 cov_min := "80"
 
+# devShell の外から呼ばれたら、nix develop を挟んで入り直す。
+#
+# Kotlin 版は ./gradlew、なでしこ3 版は ./node_modules/.bin/cnako3 と、
+# ツールをプロジェクトに取り込んでいるので devShell の外でも動く。
+# Rust は rustc も cargo-llvm-cov も取り込めないので、環境ごと入り直す。
+#
+# 揃えないと、ホストの rustc（別の版）で通って CI で落ちる。
+# LLVM_COV も devShell が export するので、外では cov が落ちる。
+#
+# 判定は Nix が立てる IN_NIX_SHELL。中にいれば prefix は空になり、
+# 何も挟まらない（再入のコストは devShell の外から呼んだときだけ）。
+repo  := justfile_directory() / '../../..'
+shell := 'nix develop ' + repo + '#rust --command'
+run   := if env('IN_NIX_SHELL', '') == '' { shell } else { '' }
+
 # タスク一覧を表示する
 default:
     @just --list
 
+# 依存指定ではなく 1 行で子レシピを呼ぶ。こうすると再入が 1 回で済む
+# （依存のままだと fmt・lint・test がそれぞれ入り直して 3 回になる）。
+
 # 書いている間はこれ
-check: fmt lint test
+check:
+    {{run}} just fmt lint test
 
 # リリース前と CI はこれ（カバレッジを含む）
-check-all: fmt lint test cov
+check-all:
+    {{run}} just fmt lint test cov
 
 # 体裁を検査する（直さない）
 fmt:
-    cargo fmt --all -- --check
+    {{run}} cargo fmt --all -- --check
 
 # 体裁を直す
 fmt-fix:
-    cargo fmt --all
+    {{run}} cargo fmt --all
 
 # -D warnings で警告をエラーにする。clippy の指摘が設計判断に混ざる
 # ことがあるので、押された箇所は README の一覧に記録する。
 
 # 慣用から外れた書き方を見つける
 lint:
-    cargo clippy --all-targets --all-features -- -D warnings
+    {{run}} cargo clippy --all-targets --all-features -- -D warnings
 
 # テストを実行する
 test:
-    cargo test --all
+    {{run}} cargo test --all
 
 # カバレッジを測り、下限を下回ったら落とす
 cov:
-    cargo llvm-cov --all --fail-under-lines {{cov_min}}
+    {{run}} cargo llvm-cov --all --fail-under-lines {{cov_min}}
 
 # カバレッジの内訳を見る
 cov-report:
-    cargo llvm-cov --all
+    {{run}} cargo llvm-cov --all
 
 # ビルドする
 build:
-    cargo build --all
+    {{run}} cargo build --all
 
 # 最新の段階を実行する（第 2 章から）
 run:
@@ -63,4 +83,4 @@ run:
 
 # 生成物を削除する
 clean:
-    cargo clean
+    {{run}} cargo clean

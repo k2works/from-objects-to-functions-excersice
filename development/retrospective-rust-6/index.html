@@ -6,17 +6,17 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Zettai 連載 Kotlin 版で、null によるエラー表現を Outcome に置き換え、ToDoListFetcher の戻り値という公開された型を変更する決定。第 2 章から書いてきた前提を自ら破る理由、影響範囲、実際に変更が必要だったファイル数、段階的に置き換えた順序を記録する。">
+        <meta name="description" content="Zettai 連載 Rust 版 Unit 6 の KPT ふりかえり。ゲートが 3 / 3 で止まったこと、Kotlin 版の設計が型に拒まれたこと、CI のジョブ間でステップを動かして道具を入れ忘れたことを整理し、Unit 7 で試すことを決める。">
       
       
         <meta name="author" content="Project Team">
       
       
       
-        <link rel="prev" href="../ADR-005-property-based-testing/">
+        <link rel="prev" href="../retrospective-rust-5/">
       
       
-        <link rel="next" href="../ADR-007-module-per-unit/">
+        <link rel="next" href="../release_report-1.0.0/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>ADR-006 失敗を Outcome で表しポートの型を変える - From Objects to Functions 演習</title>
+        <title>Unit 6 のふりかえり（KPT）- Zettai 連載（Rust 版） - From Objects to Functions 演習</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#adr-006-outcome" class="md-skip">
+        <a href="#unit-6-kpt-zettai-rust" class="md-skip">
           Skip to content
         </a>
       
@@ -112,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              ADR-006 失敗を Outcome で表しポートの型を変える
+              Unit 6 のふりかえり（KPT）- Zettai 連載（Rust 版）
             
           </span>
         </div>
@@ -276,11 +276,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../development/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
           
   
   
@@ -356,13 +358,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../adr/" class="md-tabs__link">
           
   
   
@@ -913,26 +913,31 @@
       
   
   
+    
   
   
+  
     
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
         
           
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
             
   
   
@@ -950,7 +955,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -968,7 +973,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/" class="md-nav__link">
+      <a href="../" class="md-nav__link">
         
   
   
@@ -996,7 +1001,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/release_plan/" class="md-nav__link">
+      <a href="../release_plan/" class="md-nav__link">
         
   
   
@@ -1031,7 +1036,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/release_plan-nadesiko/" class="md-nav__link">
+      <a href="../release_plan-nadesiko/" class="md-nav__link">
         
   
   
@@ -1066,7 +1071,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/development_strategy/" class="md-nav__link">
+      <a href="../development_strategy/" class="md-nav__link">
         
   
   
@@ -1107,17 +1112,20 @@
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5" >
         
           
-          <label class="md-nav__link" for="__nav_5_5" id="__nav_5_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_5" id="__nav_5_5_label" tabindex="">
             
   
   
@@ -1153,7 +1161,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-1/" class="md-nav__link">
+      <a href="../iteration_plan-1/" class="md-nav__link">
         
   
   
@@ -1188,7 +1196,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-2/" class="md-nav__link">
+      <a href="../iteration_plan-2/" class="md-nav__link">
         
   
   
@@ -1223,7 +1231,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-3/" class="md-nav__link">
+      <a href="../iteration_plan-3/" class="md-nav__link">
         
   
   
@@ -1258,7 +1266,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-4/" class="md-nav__link">
+      <a href="../iteration_plan-4/" class="md-nav__link">
         
   
   
@@ -1293,7 +1301,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-5/" class="md-nav__link">
+      <a href="../iteration_plan-5/" class="md-nav__link">
         
   
   
@@ -1328,7 +1336,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-6/" class="md-nav__link">
+      <a href="../iteration_plan-6/" class="md-nav__link">
         
   
   
@@ -1363,7 +1371,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-7/" class="md-nav__link">
+      <a href="../iteration_plan-7/" class="md-nav__link">
         
   
   
@@ -1398,7 +1406,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-nadesiko-1/" class="md-nav__link">
+      <a href="../iteration_plan-nadesiko-1/" class="md-nav__link">
         
   
   
@@ -1433,7 +1441,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-nadesiko-2/" class="md-nav__link">
+      <a href="../iteration_plan-nadesiko-2/" class="md-nav__link">
         
   
   
@@ -1468,7 +1476,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-nadesiko-3/" class="md-nav__link">
+      <a href="../iteration_plan-nadesiko-3/" class="md-nav__link">
         
   
   
@@ -1503,7 +1511,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-nadesiko-4/" class="md-nav__link">
+      <a href="../iteration_plan-nadesiko-4/" class="md-nav__link">
         
   
   
@@ -1538,7 +1546,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-nadesiko-5/" class="md-nav__link">
+      <a href="../iteration_plan-nadesiko-5/" class="md-nav__link">
         
   
   
@@ -1573,7 +1581,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-nadesiko-6/" class="md-nav__link">
+      <a href="../iteration_plan-nadesiko-6/" class="md-nav__link">
         
   
   
@@ -1608,7 +1616,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-nadesiko-7/" class="md-nav__link">
+      <a href="../iteration_plan-nadesiko-7/" class="md-nav__link">
         
   
   
@@ -1643,7 +1651,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-rust-1/" class="md-nav__link">
+      <a href="../iteration_plan-rust-1/" class="md-nav__link">
         
   
   
@@ -1678,7 +1686,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-rust-2/" class="md-nav__link">
+      <a href="../iteration_plan-rust-2/" class="md-nav__link">
         
   
   
@@ -1713,7 +1721,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-rust-3/" class="md-nav__link">
+      <a href="../iteration_plan-rust-3/" class="md-nav__link">
         
   
   
@@ -1748,7 +1756,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-rust-4/" class="md-nav__link">
+      <a href="../iteration_plan-rust-4/" class="md-nav__link">
         
   
   
@@ -1783,7 +1791,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-rust-5/" class="md-nav__link">
+      <a href="../iteration_plan-rust-5/" class="md-nav__link">
         
   
   
@@ -1818,7 +1826,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/iteration_plan-rust-6/" class="md-nav__link">
+      <a href="../iteration_plan-rust-6/" class="md-nav__link">
         
   
   
@@ -1867,17 +1875,20 @@
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_6" >
         
           
-          <label class="md-nav__link" for="__nav_5_6" id="__nav_5_6_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_6" id="__nav_5_6_label" tabindex="">
             
   
   
@@ -1913,7 +1924,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-1/" class="md-nav__link">
+      <a href="../bolt_report-1/" class="md-nav__link">
         
   
   
@@ -1948,7 +1959,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-2/" class="md-nav__link">
+      <a href="../bolt_report-2/" class="md-nav__link">
         
   
   
@@ -1983,7 +1994,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-3/" class="md-nav__link">
+      <a href="../bolt_report-3/" class="md-nav__link">
         
   
   
@@ -2018,7 +2029,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-4/" class="md-nav__link">
+      <a href="../bolt_report-4/" class="md-nav__link">
         
   
   
@@ -2053,7 +2064,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-5/" class="md-nav__link">
+      <a href="../bolt_report-5/" class="md-nav__link">
         
   
   
@@ -2088,7 +2099,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-6/" class="md-nav__link">
+      <a href="../bolt_report-6/" class="md-nav__link">
         
   
   
@@ -2123,7 +2134,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-7/" class="md-nav__link">
+      <a href="../bolt_report-7/" class="md-nav__link">
         
   
   
@@ -2158,7 +2169,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-nadesiko-1/" class="md-nav__link">
+      <a href="../bolt_report-nadesiko-1/" class="md-nav__link">
         
   
   
@@ -2193,7 +2204,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-nadesiko-2/" class="md-nav__link">
+      <a href="../bolt_report-nadesiko-2/" class="md-nav__link">
         
   
   
@@ -2228,7 +2239,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-nadesiko-3/" class="md-nav__link">
+      <a href="../bolt_report-nadesiko-3/" class="md-nav__link">
         
   
   
@@ -2263,7 +2274,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-nadesiko-4/" class="md-nav__link">
+      <a href="../bolt_report-nadesiko-4/" class="md-nav__link">
         
   
   
@@ -2298,7 +2309,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-nadesiko-5/" class="md-nav__link">
+      <a href="../bolt_report-nadesiko-5/" class="md-nav__link">
         
   
   
@@ -2333,7 +2344,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-nadesiko-6/" class="md-nav__link">
+      <a href="../bolt_report-nadesiko-6/" class="md-nav__link">
         
   
   
@@ -2368,7 +2379,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-nadesiko-7/" class="md-nav__link">
+      <a href="../bolt_report-nadesiko-7/" class="md-nav__link">
         
   
   
@@ -2403,7 +2414,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-rust-1/" class="md-nav__link">
+      <a href="../bolt_report-rust-1/" class="md-nav__link">
         
   
   
@@ -2438,7 +2449,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-rust-2/" class="md-nav__link">
+      <a href="../bolt_report-rust-2/" class="md-nav__link">
         
   
   
@@ -2473,7 +2484,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-rust-3/" class="md-nav__link">
+      <a href="../bolt_report-rust-3/" class="md-nav__link">
         
   
   
@@ -2508,7 +2519,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-rust-4/" class="md-nav__link">
+      <a href="../bolt_report-rust-4/" class="md-nav__link">
         
   
   
@@ -2543,7 +2554,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-rust-5/" class="md-nav__link">
+      <a href="../bolt_report-rust-5/" class="md-nav__link">
         
   
   
@@ -2578,7 +2589,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bolt_report-rust-6/" class="md-nav__link">
+      <a href="../bolt_report-rust-6/" class="md-nav__link">
         
   
   
@@ -2618,26 +2629,31 @@
                 
   
   
+    
   
   
+  
     
     
     
     
       
       
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_7" >
         
           
-          <label class="md-nav__link" for="__nav_5_7" id="__nav_5_7_label" tabindex="0">
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_7" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5_7" id="__nav_5_7_label" tabindex="">
             
   
   
@@ -2655,7 +2671,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_7_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_7_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5_7">
             <span class="md-nav__icon md-icon"></span>
             
@@ -2673,7 +2689,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/retrospective-7/" class="md-nav__link">
+      <a href="../retrospective-7/" class="md-nav__link">
         
   
   
@@ -2708,7 +2724,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/retrospective-nadesiko-1/" class="md-nav__link">
+      <a href="../retrospective-nadesiko-1/" class="md-nav__link">
         
   
   
@@ -2743,7 +2759,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/retrospective-nadesiko-2/" class="md-nav__link">
+      <a href="../retrospective-nadesiko-2/" class="md-nav__link">
         
   
   
@@ -2778,7 +2794,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/retrospective-nadesiko-3/" class="md-nav__link">
+      <a href="../retrospective-nadesiko-3/" class="md-nav__link">
         
   
   
@@ -2813,7 +2829,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/retrospective-nadesiko-4/" class="md-nav__link">
+      <a href="../retrospective-nadesiko-4/" class="md-nav__link">
         
   
   
@@ -2848,7 +2864,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/retrospective-nadesiko-5/" class="md-nav__link">
+      <a href="../retrospective-nadesiko-5/" class="md-nav__link">
         
   
   
@@ -2883,7 +2899,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/retrospective-nadesiko-6/" class="md-nav__link">
+      <a href="../retrospective-nadesiko-6/" class="md-nav__link">
         
   
   
@@ -2918,7 +2934,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/retrospective-nadesiko-7/" class="md-nav__link">
+      <a href="../retrospective-nadesiko-7/" class="md-nav__link">
         
   
   
@@ -2953,7 +2969,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/retrospective-rust-1/" class="md-nav__link">
+      <a href="../retrospective-rust-1/" class="md-nav__link">
         
   
   
@@ -2988,7 +3004,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/retrospective-rust-2/" class="md-nav__link">
+      <a href="../retrospective-rust-2/" class="md-nav__link">
         
   
   
@@ -3023,7 +3039,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/retrospective-rust-3/" class="md-nav__link">
+      <a href="../retrospective-rust-3/" class="md-nav__link">
         
   
   
@@ -3058,7 +3074,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/retrospective-rust-4/" class="md-nav__link">
+      <a href="../retrospective-rust-4/" class="md-nav__link">
         
   
   
@@ -3093,7 +3109,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/retrospective-rust-5/" class="md-nav__link">
+      <a href="../retrospective-rust-5/" class="md-nav__link">
         
   
   
@@ -3125,10 +3141,44 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../development/retrospective-rust-6/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「Rust」Unit 6 境界とバリデーション
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -3151,6 +3201,92 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        対象
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#keep" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Keep（続けること）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem（問題）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#try" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Try（次に試すこと）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unit-7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unit 7 への引き継ぎ
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        関連ドキュメント
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -3177,17 +3313,20 @@
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_8" >
         
           
-          <label class="md-nav__link" for="__nav_5_8" id="__nav_5_8_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_8" id="__nav_5_8_label" tabindex="">
             
   
   
@@ -3223,7 +3362,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/release_report-1.0.0/" class="md-nav__link">
+      <a href="../release_report-1.0.0/" class="md-nav__link">
         
   
   
@@ -3258,7 +3397,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/release_report-nadesiko-1.0.0/" class="md-nav__link">
+      <a href="../release_report-nadesiko-1.0.0/" class="md-nav__link">
         
   
   
@@ -3846,31 +3985,26 @@
       
   
   
-    
   
   
-  
     
     
     
     
-      
-        
-        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
         
           
-          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
             
   
   
@@ -3888,7 +4022,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_9">
             <span class="md-nav__icon md-icon"></span>
             
@@ -3906,7 +4040,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../" class="md-nav__link">
+      <a href="../../adr/" class="md-nav__link">
         
   
   
@@ -3934,7 +4068,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ADR-001-kotlin-toolchain/" class="md-nav__link">
+      <a href="../../adr/ADR-001-kotlin-toolchain/" class="md-nav__link">
         
   
   
@@ -3969,7 +4103,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ADR-002-ddt-pesticide/" class="md-nav__link">
+      <a href="../../adr/ADR-002-ddt-pesticide/" class="md-nav__link">
         
   
   
@@ -4004,7 +4138,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ADR-003-http4k-6/" class="md-nav__link">
+      <a href="../../adr/ADR-003-http4k-6/" class="md-nav__link">
         
   
   
@@ -4039,7 +4173,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ADR-004-static-analysis/" class="md-nav__link">
+      <a href="../../adr/ADR-004-static-analysis/" class="md-nav__link">
         
   
   
@@ -4074,7 +4208,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ADR-005-property-based-testing/" class="md-nav__link">
+      <a href="../../adr/ADR-005-property-based-testing/" class="md-nav__link">
         
   
   
@@ -4106,44 +4240,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    ADR-006 Outcome とポートの型変更
-  
-
-    
-  </span>
-  
-  
-    
-  
-  
-    <span class="md-status md-status--draft"></span>
-  
-
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../adr/ADR-006-outcome-port-type/" class="md-nav__link">
         
   
   
@@ -4166,148 +4266,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ステータス
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        コンテキスト
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="コンテキスト">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        これまでの前提との衝突
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        決定
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="決定">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        置き換えの順序
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        変更が必要だったファイル
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        影響
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_8" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        検討した代替案
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_9" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        コンプライアンス
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_10" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        備考
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -4320,7 +4278,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ADR-007-module-per-unit/" class="md-nav__link">
+      <a href="../../adr/ADR-007-module-per-unit/" class="md-nav__link">
         
   
   
@@ -4355,7 +4313,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ADR-008-event-store-single-table/" class="md-nav__link">
+      <a href="../../adr/ADR-008-event-store-single-table/" class="md-nav__link">
         
   
   
@@ -4390,7 +4348,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ADR-009-integration-test-database/" class="md-nav__link">
+      <a href="../../adr/ADR-009-integration-test-database/" class="md-nav__link">
         
   
   
@@ -4425,7 +4383,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ADR-010-own-template/" class="md-nav__link">
+      <a href="../../adr/ADR-010-own-template/" class="md-nav__link">
         
   
   
@@ -4460,7 +4418,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ADR-011-transaction-boundary/" class="md-nav__link">
+      <a href="../../adr/ADR-011-transaction-boundary/" class="md-nav__link">
         
   
   
@@ -4495,7 +4453,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ADR-012-own-json-converter/" class="md-nav__link">
+      <a href="../../adr/ADR-012-own-json-converter/" class="md-nav__link">
         
   
   
@@ -8544,151 +8502,190 @@
   
 
 
-<h1 id="adr-006-outcome">ADR-006 失敗を Outcome で表しポートの型を変える<a class="headerlink" href="#adr-006-outcome" title="Permanent link">&para;</a></h1>
-<p>日付: 2026-09-27</p>
-<h2 id="_1">ステータス<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p>2026-09-27 提案されました</p>
-<h2 id="_2">コンテキスト<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<p>第 2 章から、ポート（<code>ToDoListFetcher</code>）の戻り値を <code>ToDoList?</code> にしていました。<code>null</code> は「見つからない」を表します。</p>
-<p>第 2 章の記事でこの問題を認識し、第 7 章まで持ち越すと明記していました。</p>
-<blockquote>
-<p>「リストが無い」ことを <code>null</code> で表しているのが気になるかもしれません。気になって正解です。<strong>null は「なぜ無いのか」を説明しません。</strong></p>
-</blockquote>
-<p>第 6 章でコマンドを導入したことで、失敗の種類が増えました。</p>
+<h1 id="unit-6-kpt-zettai-rust">Unit 6 のふりかえり（KPT）- Zettai 連載（Rust 版）<a class="headerlink" href="#unit-6-kpt-zettai-rust" title="Permanent link">&para;</a></h1>
+<h2 id="_1">対象<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">失敗</th>
-<th style="text-align: left;"><code>null</code> で表せるか</th>
+<th style="text-align: left;">項目</th>
+<th style="text-align: left;">内容</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">リストが見つからない</td>
-<td style="text-align: left;">表せる（ただし理由は不明）</td>
+<td style="text-align: left;">Unit</td>
+<td style="text-align: left;">Unit 6 境界とバリデーション</td>
 </tr>
 <tr>
-<td style="text-align: left;">リストが既にある（作成の拒否）</td>
-<td style="text-align: left;"><strong>表せない</strong>（コマンドの戻り値が空リストだった）</td>
+<td style="text-align: left;">計画</td>
+<td style="text-align: left;"><a href="../iteration_plan-rust-6/">Unit 6 の Bolt 計画</a></td>
 </tr>
 <tr>
-<td style="text-align: left;">項目が見つからない</td>
-<td style="text-align: left;">表せない</td>
-</tr>
-<tr>
-<td style="text-align: left;">許されない状態遷移</td>
-<td style="text-align: left;"><strong>表せない</strong></td>
+<td style="text-align: left;">実績</td>
+<td style="text-align: left;"><a href="../bolt_report-rust-6/">Bolt 終了報告</a></td>
 </tr>
 </tbody>
 </table>
-<p>第 6 章の時点では、コマンドの処理が「空のイベントリスト」を返して拒否を表していました。呼び出し側は「何も起きなかった」と「拒否された」を区別できません。</p>
-<h3 id="_3">これまでの前提との衝突<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
-<p>第 2 章から「<strong>ポートの型が変わらなければ、ハブより上のコードは変わらない</strong>」と書いてきました。関数の型で依存を表すことの利点として説明してきたものです。</p>
-<p><code>Outcome</code> を導入すると、<strong>ポートの型そのものが変わります</strong>。前提が効きません。</p>
-<h2 id="_4">決定<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
-<p><strong><code>Outcome&lt;ZettaiError, T&gt;</code> を導入し、ポートの型を変更します。</strong></p>
-<div class="highlight"><pre><span></span><code><span class="k">typealias</span><span class="w"> </span><span class="n">ToDoListFetcher</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">User</span><span class="p">,</span><span class="w"> </span><span class="n">ListName</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Outcome</span><span class="o">&lt;</span><span class="n">ZettaiError</span><span class="p">,</span><span class="w"> </span><span class="n">ToDoList</span><span class="o">&gt;</span>
-</code></pre></div>
-<ol>
-<li>失敗の理由を <code>ZettaiError</code> の 4 つの実装（<code>ListNotFound</code>・<code>ListAlreadyExists</code>・<code>ItemNotFound</code>・<code>InvalidTransition</code>）で区別する</li>
-<li>ハブの <code>getList</code> と <code>handle</code> の戻り値も <code>Outcome</code> にする</li>
-<li>HTTP アダプタは失敗の種類に応じて 404 と 400 を返す</li>
-<li><strong><code>Outcome</code> は <code>zettai.fp</code> パッケージに置き、フレームワークを import しない。</strong> <code>DomainBoundaryTest</code> の検査対象に加える</li>
-</ol>
-<h3 id="_5">置き換えの順序<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
-<p>一度に全部変えず、次の順で進め、各段階で <code>./gradlew check</code> を green に保ちました。</p>
-<ol>
-<li><code>Outcome</code> と <code>ZettaiError</code> を作る（既存コードに影響しない）</li>
-<li>ポート（<code>ToDoListFetcher</code>）の型を変える</li>
-<li>ハブを追従させる</li>
-<li>インメモリのアダプタを追従させる</li>
-<li>HTTP アダプタを追従させる（ここで 404 / 400 の区別が入る）</li>
-<li>テストと DDT の 2 経路を追従させる</li>
-</ol>
-<h3 id="_6">変更が必要だったファイル<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
-<p><strong>6 ファイル</strong>でした。</p>
+<hr />
+<h2 id="keep">Keep（続けること）<a class="headerlink" href="#keep" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">ファイル</th>
-<th style="text-align: left;">変更の内容</th>
+<th style="text-align: left;">#</th>
+<th style="text-align: left;">Keep</th>
+<th style="text-align: left;">根拠</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><code>domain/ToDoListHub.kt</code></td>
-<td style="text-align: left;">ポートの型定義、<code>getList</code> と <code>handle</code> の戻り値</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;"><strong>ゲートには選択肢と数字を添える</strong></td>
+<td style="text-align: left;"><strong>3 / 3 で停止。累計 14 / 14。</strong> 3 対象で 55 箇所中 15 回</td>
 </tr>
 <tr>
-<td style="text-align: left;"><code>web/InMemoryToDoListFetcher.kt</code></td>
-<td style="text-align: left;"><code>null</code> を <code>Failure</code> に</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;"><strong>落ちる形も書いてから比べる</strong></td>
+<td style="text-align: left;">第 10 章で 2 形が落ちた（E0515・E0478）。<strong>落ちたこと自体が章の中身になった</strong></td>
 </tr>
 <tr>
-<td style="text-align: left;"><code>web/Zettai.kt</code></td>
-<td style="text-align: left;"><code>?:</code> を <code>fold</code> に。404 / 400 の振り分けを追加</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;"><strong>「結果が同じでも形が違う」を見る</strong></td>
+<td style="text-align: left;">エラーを集める 3 案は結果が同じ。<strong>「合わせる操作が出るか」で分けた</strong></td>
 </tr>
 <tr>
-<td style="text-align: left;"><code>domain/ToDoListHubTest.kt</code></td>
-<td style="text-align: left;">期待値を <code>Outcome</code> に</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;"><strong>既製品の判断を毎回やり直す</strong></td>
+<td style="text-align: left;">第 11 章で<strong>初めて寄せた</strong>。Kotlin 版の理由が成り立たないことを実測で確かめた</td>
 </tr>
 <tr>
-<td style="text-align: left;"><code>ddt/DomainOnlyActions.kt</code></td>
-<td style="text-align: left;">戻り値の取り出しを <code>fold</code> に</td>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;"><strong>往復テストは相手が返した形で書く</strong>（Unit 5 Try 2）</td>
+<td style="text-align: left;">パーセントエンコードの見落としが見つかった。<strong>第 4 章から残っていた</strong></td>
 </tr>
 <tr>
-<td style="text-align: left;"><code>ddt/HttpActions.kt</code></td>
-<td style="text-align: left;">同上</td>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;"><strong>実験の前に commit する</strong>（Unit 4 Try 2）</td>
+<td style="text-align: left;">スパイク 4 本とも clean から始めた。取り消し操作の事故 0 件</td>
+</tr>
+<tr>
+<td style="text-align: left;">7</td>
+<td style="text-align: left;"><strong>計画時に探索して、やり残しを見つける</strong></td>
+<td style="text-align: left;">Unit 2 の設計ドキュメント 2 件。<strong>実装中に気づいていたら送っていた</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">8</td>
+<td style="text-align: left;"><strong><code>just check</code> は終了コードで判断する</strong>（Unit 5 Try 1）</td>
+<td style="text-align: left;"><code>grep</code> で絞った出力で判断した回数 0</td>
 </tr>
 </tbody>
 </table>
-<p><strong>ドメインの型（<code>ToDoList</code>・<code>ToDoItem</code>・イベント・コマンド・ステートマシン）は 1 行も変わりませんでした。</strong> 状態の畳み込みもモノイドのテストも無変更です。</p>
-<p><strong>受け入れテストのシナリオ（<code>SeeATodoListDdt</code>・<code>ToDoListOwner</code>）も無変更でした。</strong> 経路の実装だけが変わり、シナリオは業務の言葉のままです。</p>
-<h2 id="_7">影響<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<hr />
+<h2 id="problem">Problem（問題）<a class="headerlink" href="#problem" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">#</th>
+<th style="text-align: left;">Problem</th>
+<th style="text-align: left;">何が起きたか</th>
+<th style="text-align: left;">原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;"><strong>CI のジョブ間でステップを動かし、道具を入れ忘れた</strong></td>
+<td style="text-align: left;"><code>cov</code> を <code>db</code> ジョブへ移したが、<code>cargo-llvm-cov</code> のインストールを移さず CI が落ちた</td>
+<td style="text-align: left;"><strong><code>parity</code> 検査は cargo コマンドの一致しか見ない。</strong> ジョブの setup が欠けても止まらない</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;"><strong>計画の具体例が、経路によって作れなかった</strong></td>
+<td style="text-align: left;">「利用者名が空 かつ 41 文字」は HTTP 経路で作れない（パスから来るので空にできない）</td>
+<td style="text-align: left;"><strong>実物で書いたが、「すべての経路で作れるか」を見ていない</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;"><strong>既製品を入れても既定が安全でなかった</strong></td>
+<td style="text-align: left;"><code>tera</code> の自動エスケープが効かず、<code>&lt;script&gt;</code> がそのまま出た</td>
+<td style="text-align: left;">入れた時点で「安全になった」と思い込んだ。<strong>設定を確かめていない</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;"><strong>測り始めの値を定常と取り違えかけた</strong></td>
+<td style="text-align: left;">段階 5 つめの直後、2〜3 回目が 21.23 / 17.68 秒だった</td>
+<td style="text-align: left;"><strong>Unit 3 と同じ形。</strong> 5 回測って気づいたが、3 回で止めていたら「超えた」と書いていた</td>
+</tr>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">カバレッジが落ちた</td>
+<td style="text-align: left;"><code>db</code> フィーチャの裏が未到達として積み上がり 89.67%</td>
+<td style="text-align: left;"><strong>段階を切るたびに起きる構造。</strong> 第 9 章の <code>src/bin/</code> と同じ形</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Problem 1 が一番重い</strong>です。<strong>Unit 5 の持ち込み 7（<code>parity</code> 検査の対象を広げるか）が現実になりました。</strong> 送ったまま判断していません。</p>
+<p>Problem 2 と 3 は同じ形です。<strong>「書いた／入れた」で止まり、「効いているか」を確かめていません。</strong></p>
+<hr />
+<h2 id="try">Try（次に試すこと）<a class="headerlink" href="#try" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">#</th>
+<th style="text-align: left;">Try</th>
+<th style="text-align: left;">期待効果</th>
+<th style="text-align: left;">期限・契機</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;"><strong><code>parity</code> 検査をジョブの setup まで広げる</strong>（Problem 1）</td>
+<td style="text-align: left;">cargo コマンドの一致だけでなく、<strong>そのコマンドが要る道具がジョブにあるか</strong>を見る。送り続けている持ち込みを消化する</td>
+<td style="text-align: left;">Unit 7 の計画</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;"><strong>具体例は「どの経路で作れるか」まで書く</strong>（Problem 2）</td>
+<td style="text-align: left;">受入条件の例に<strong>経路名を添える</strong>。作れない経路があるなら、そう書く</td>
+<td style="text-align: left;">Unit 7 の計画</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;"><strong>既製品を入れたら「効いているか」のテストを先に書く</strong>（Problem 3）</td>
+<td style="text-align: left;">入れた直後に、<strong>その既製品を入れた理由をそのまま確かめるテスト</strong>を書く</td>
+<td style="text-align: left;">既製品を入れるとき</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;"><strong>秒数は 5 回測る</strong>（Problem 4）</td>
+<td style="text-align: left;">3 回だと暖まりきらない。<strong>Unit 3・Unit 6 の 2 回とも 3 回目までが高かった</strong></td>
+<td style="text-align: left;">計測のたび</td>
+</tr>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;"><strong>ゲートを 1 箇所に減らす</strong></td>
+<td style="text-align: left;"><a href="../release_plan-rust/">リリース計画</a> の Unit 7 は「疎」。<strong>評価が 3 回続けて当たっている</strong></td>
+<td style="text-align: left;">Unit 7 の計画</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="unit-7">Unit 7 への引き継ぎ<a class="headerlink" href="#unit-7" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>失敗の理由が利用者に届きます。</strong> 以前はすべて 404 でした</li>
-<li><strong>呼び出し側が失敗を無視できません。</strong> <code>Outcome</code> は <code>fold</code> か <code>map</code> を通さないと値が取れません</li>
-<li><strong>第 2 章と第 4 章の記事のコード例が古くなります。</strong> 記事のコード例検査が検出するので、マーカーを足します</li>
-<li><strong>「ポートの型が変わらなければ上は変わらない」という説明は、条件付きだったことが明らかになりました。</strong> 正確には「<strong>型が変わらなければ変わらない。型が変われば、その型を触る場所だけが変わる</strong>」です。今回変わったのは 6 ファイルで、ドメインの中核と受け入れテストのシナリオには波及しませんでした</li>
+<li>Try 1・2・5 は Unit 7 の計画時、Try 3・4 は実行中に適用する</li>
+<li><a href="../bolt_report-rust-6/">Bolt 終了報告</a> の持ち込み 6 件</li>
+<li><strong>11 / 13 章。残りは第 12〜13 章</strong></li>
+<li><strong>Unit 7 は検証負荷 6 で、3 対象を通して最も軽い Unit。</strong> ただし<strong>第 13 章が 3 言語の対比</strong>になる</li>
+<li><strong><code>just check</code> の余裕が 4 秒を切った。</strong> 段階 6 つめを切るなら先に見積もる</li>
+<li><strong>第 12 章で JSON の判断をやり直す。</strong> <code>tera</code> を入れた前例があるので、基準が変わったかを確かめる</li>
 </ul>
-<p>最後の点は、設計の弁護ではなく観測です。<strong>波及しなかったのは、ドメインがポートを知らず、シナリオが実装を知らないからです。</strong> もし <code>ToDoList</code> 自体が <code>Outcome</code> を持つ設計だったら、ドメインの全体に波及していました。</p>
-<h2 id="_8">検討した代替案<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">案</th>
-<th style="text-align: left;">採らなかった理由</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">例外を投げる</td>
-<td style="text-align: left;">型に現れないので呼び出し側が無視できる。関数合成もできない</td>
-</tr>
-<tr>
-<td style="text-align: left;">Kotlin の <code>Result&lt;T&gt;</code></td>
-<td style="text-align: left;">失敗が <code>Throwable</code> に固定される。<code>ZettaiError</code> のような閉じた型で表せない</td>
-</tr>
-<tr>
-<td style="text-align: left;"><code>Either</code> を提供するライブラリ（Arrow など）</td>
-<td style="text-align: left;">依存が増える。第 7 章の主題は <code>Outcome</code> を<strong>自分で作る</strong>ことなので、既製品を使うと教材にならない</td>
-</tr>
-<tr>
-<td style="text-align: left;"><code>null</code> のまま、失敗の種類を別の戻り値で返す</td>
-<td style="text-align: left;">呼び出し側が 2 つの値を見る必要がある。忘れられる</td>
-</tr>
-</tbody>
-</table>
-<h2 id="_9">コンプライアンス<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<hr />
+<h2 id="_2">関連ドキュメント<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <ul>
-<li><code>ToDoListFetcher</code> の戻り値が <code>Outcome&lt;ZettaiError, ToDoList&gt;</code> であること</li>
-<li><code>zettai.fp</code> がフレームワークを import しないこと（<code>DomainBoundaryTest</code>）</li>
-<li><code>Outcome</code> の <code>map</code> がファンクタ則を満たすこと（プロパティベーステスト）</li>
-<li>HTTP アダプタが失敗の種類に応じてステータスコードを返すこと（DDT）</li>
-</ul>
-<h2 id="_10">備考<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
-<ul>
-<li>起案: Unit 4 のステップ 4-2.2（<a href="../../development/iteration_plan-4/">Unit 4 の Bolt 計画</a>）</li>
-<li>関連: <a href="../ADR-005-property-based-testing/">ADR-005</a>（ファンクタ則の検証方法）、<a href="../../design/domain-model/">ドメインモデル設計</a></li>
+<li><a href="../iteration_plan-rust-6/">Unit 6 の Bolt 計画</a> / <a href="../bolt_report-rust-6/">Bolt 終了報告</a></li>
+<li><a href="../retrospective-rust-5/">Unit 5 のふりかえり</a></li>
+<li><a href="../release_plan-rust/">リリース計画（Rust 版）</a> / <a href="../development_strategy/">開発戦略</a></li>
+<li><a href="../../article/zettai/rust/chapter10/">第 10 章</a> / <a href="../../article/zettai/rust/chapter11/">第 11 章</a></li>
 </ul>
 
 

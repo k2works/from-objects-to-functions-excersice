@@ -4,7 +4,7 @@ title: "Unit 4 の Bolt 計画（イテレーション 4）- Zettai 連載（Rus
 description: "Zettai 連載 Rust 版の Unit 4（enum と Result）の Bolt 計画。言語が与えるものを使う 2 章で、書くべき設計判断が残るかを確かめる。承認ゲートは 1 箇所に減らし、失敗の表し方だけを人の判断に置く。"
 tags: [development, plan, ai-dlc, bolt, zettai, rust, unit-4]
 status: stable
-generated: { by: claude-code/claude-opus-5, at: 2026-09-29T04:07:53Z }
+generated: { by: claude-code/claude-opus-5, at: 2026-09-29T04:11:58Z }
 verified:
   - { by: human:kakimomokuri, at: 2026-09-29T03:40:50Z }
 ---
@@ -307,7 +307,7 @@ verified:
   - **新規 ADR を作るので `okf:check` の WARN も見る**
 - [x] **4-2.9 サイト反映と OKF 適用**
   - **前提**: 4-2.8 が済んでいること
-- [ ] **4-2.10 Bolt 終了報告とふりかえり**
+- [x] **4-2.10 Bolt 終了報告とふりかえり**
   - **前提**: DoD がすべて埋まっていること
   - **ゲートを 1 箇所に減らして止まったかを数える。** Unit 5 のゲート密度をここで決める（計画は「中（2 箇所）」）
 

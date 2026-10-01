@@ -229,24 +229,18 @@ title どの構造を選ぶか
 start
 if (入力と出力の両方を変換する？) then (はい)
   #lightblue:プロファンクタ（map + contramap）;
-else (いいえ)
-  if (前の結果を使って次を決める？) then (はい)
-    #lightgreen:モナド（flatMap）;
+elseif (前の結果を使って次を決める？) then (はい)
+  #lightgreen:モナド（flatMap）;
+elseif (複数の結果を合わせる？) then (はい)
+  if (失敗を全部集めたい？) then (はい)
+    #lightyellow:アプリカティブ（combine）;
   else (いいえ)
-    if (複数の結果を合わせる？) then (はい)
-      if (失敗を全部集めたい？) then (はい)
-        #lightyellow:アプリカティブ（combine）;
-      else (いいえ)
-        #lightgreen:モナドでもよい;
-      endif
-    else (いいえ)
-      if (同じ型を畳み込む？) then (はい)
-        #pink:モノイド;
-      else (いいえ)
-        #lightgray:ファンクタ（map）;
-      endif
-    endif
+    #lightgreen:モナドでもよい;
   endif
+elseif (同じ型を畳み込む？) then (はい)
+  #pink:モノイド;
+else (いいえ)
+  #lightgray:ファンクタ（map）;
 endif
 stop
 @enduml

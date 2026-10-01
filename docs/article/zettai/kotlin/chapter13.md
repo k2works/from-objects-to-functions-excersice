@@ -224,23 +224,34 @@ HTTP もデータベースも出てきません。第 3 章でこう書きまし
 
 ```plantuml
 @startuml
+<style>
+activityDiagram {
+  activity {
+    .profunctor { BackgroundColor lightblue }
+    .monad { BackgroundColor lightgreen }
+    .applicative { BackgroundColor lightyellow }
+    .monoid { BackgroundColor pink }
+    .functor { BackgroundColor lightgray }
+  }
+}
+</style>
 title どの構造を選ぶか
 
 start
 if (入力と出力の両方を変換する？) then (はい)
-  :プロファンクタ（map + contramap）; <<#lightblue>>
+  :プロファンクタ（map + contramap）; <<profunctor>>
 elseif (前の結果を使って次を決める？) then (はい)
-  :モナド（flatMap）; <<#lightgreen>>
+  :モナド（flatMap）; <<monad>>
 elseif (複数の結果を合わせる？) then (はい)
   if (失敗を全部集めたい？) then (はい)
-    :アプリカティブ（combine）; <<#lightyellow>>
+    :アプリカティブ（combine）; <<applicative>>
   else (いいえ)
-    :モナドでもよい; <<#lightgreen>>
+    :モナドでもよい; <<monad>>
   endif
 elseif (同じ型を畳み込む？) then (はい)
-  :モノイド; <<#pink>>
+  :モノイド; <<monoid>>
 else (いいえ)
-  :ファンクタ（map）; <<#lightgray>>
+  :ファンクタ（map）; <<functor>>
 endif
 stop
 @enduml

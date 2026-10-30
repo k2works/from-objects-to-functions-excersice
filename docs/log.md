@@ -1,5 +1,8 @@
 # Docs Update Log
 
+## 2026-10-30
+* **Update**: JDK 25・Cucumber を採用する Kotlin FP 版の追加執筆計画を策定
+
 ## 2026-09-29
 * **Update**: [retrospective-rust-7](/development/retrospective-rust-7.md) を更新（claude-code/claude-opus-5）
 * **Update**: [retrospective-rust-6](/development/retrospective-rust-6.md) を更新（claude-code/claude-opus-5）

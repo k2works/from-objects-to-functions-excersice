@@ -1,10 +1,10 @@
 ---
 type: Writing Plan
 title: "執筆計画：関数型プログラミングで作る変更を楽に安全にできるソフトウェア"
-description: "Uberto Barbini 著『From Objects to Functions』を下敷きにした Zettai 連載の執筆計画。多言語シリーズ（Kotlin / なでしこ3）の対象一覧、記事と実装の対称ファイル構成、全 13 章と原著コンパニオンコードの対応、前提整備と実行環境の方針、リリース計画のストーリー・イテレーション・SP と対応づけた章別計画、フェーズ区切り、なでしこ3 追加執筆計画、執筆規約を定義する。"
+description: "Uberto Barbini 著『From Objects to Functions』を下敷きにした Zettai 連載の執筆計画。既存 3 言語版に加え、Grokking Functional Programming の Kotlin + Arrow 解説を基礎にした Kotlin FP 版について、全 13 章の移植方針、記事と実装の同期、前提整備、品質ゲートを定義する。"
 tags: [article, plan, zettai]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-29T09:21:07Z }
+generated: { by: openai-codex/gpt-5, at: 2026-10-30T00:53:09Z }
 ---
 
 # 執筆計画：関数型プログラミングで作る変更を楽に安全にできるソフトウェア
@@ -19,11 +19,12 @@ generated: { by: claude-code/claude-opus-5, at: 2026-09-29T09:21:07Z }
 
 ## 対象一覧
 
-本シリーズは同じ 13 章構成を言語ごとに書き起こす多言語シリーズです。現在の対象は **3 言語** です。章の番号・タイトル・焦点は対象言語をまたいで共通とし、言語ごとに変えるのは実現手段だけです。
+本シリーズは同じ 13 章構成を対象ごとに書き起こす比較シリーズです。現在の対象は **3 言語・4 実装方針** です。章の番号・タイトル・焦点は対象をまたいで共通とし、対象ごとに変えるのは実現手段だけです。Kotlin FP 版は言語を増やすのではなく、同じ Kotlin で「自前の関数型抽象」と「Arrow / coroutine を使う実装」を比較する対象です。
 
 | 対象 | 実行環境 | 章数 | 記事 | サンプル実装 | 状態 |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | Kotlin | Nix devShell `kotlin`（JDK 21 / Gradle） | 13 | `docs/article/zettai/kotlin/` | `apps/kotlin/zettai/` | **完結**（13 / 13 章公開） |
+| Kotlin FP | Nix devShell `kotlin-fp`（JDK 25 / Gradle） | 13 | `docs/article/zettai/kotlin-fp/` | `apps/kotlin-fp/zettai/` | **計画中**（0 / 13 章） |
 | なでしこ3 | Nix devShell `nadesiko`（Node 22 / cnako3 3.8.7） | 13 | `docs/article/zettai/nadesiko/` | `apps/nadesiko/zettai/` | **完結**（13 / 13 章公開） |
 | Rust | Nix devShell `rust`（rustc 1.91.1 / cargo 1.91.0） | 13 | `docs/article/zettai/rust/` | `apps/rust/zettai/` | **完結**（13 / 13 章公開） |
 
@@ -34,10 +35,11 @@ generated: { by: claude-code/claude-opus-5, at: 2026-09-29T09:21:07Z }
 | 対象 | 型 | 関数型の道具 | `Outcome` 相当 | 代数的データ型 |
 | :--- | :--- | :--- | :--- | :--- |
 | Kotlin | あり | あり | **自前で作る** | `sealed interface` |
+| Kotlin FP | あり | Arrow / coroutine を利用 | **`Either` / Raise を使う** | `sealed interface` |
 | なでしこ3 | なし | なし | **辞書で作る** | 無い（`種別` キーの約束） |
 | Rust | あり | あり | **`Result` が言語にある** | `enum` |
 
-3 点を並べると、**「言語が与えるほど、設計は楽になるのか」**という問いが立ちます。**答えは「楽にはならない。決めることが変わる」**でした（[第 13 章](zettai/rust/chapter13.md)・[横断比較](zettai/comparison/index.md)）。
+既存 3 対象を並べると、**「言語が与えるほど、設計は楽になるのか」**という問いが立ちます。**答えは「楽にはならない。決めることが変わる」**でした（[第 13 章](zettai/rust/chapter13.md)・[横断比較](zettai/comparison/index.md)）。Kotlin FP 版では、ここへ **「ライブラリへ委ねるほど、設計の意図は明確になるのか」**という 4 点目の問いを加えます。
 
 ## ファイル構成
 
@@ -50,6 +52,9 @@ docs/article/
 │   ├── index.md          # シリーズ索引・全章構成表・進捗管理表
 │   ├── kotlin/
 │   │   ├── index.md      # Kotlin 版トップ
+│   │   └── chapter01.md … chapter13.md
+│   ├── kotlin-fp/
+│   │   ├── index.md      # Kotlin FP 版トップ
 │   │   └── chapter01.md … chapter13.md
 │   └── nadesiko/
 │       ├── index.md      # なでしこ3 版トップ
@@ -65,6 +70,12 @@ apps/
 │       ├── build.gradle.kts
 │       ├── gradle/libs.versions.toml
 │       └── zettai-stepN-*/
+├── kotlin-fp/
+│   └── zettai/           # Kotlin + Arrow / coroutine 版の自作実装
+│       ├── settings.gradle.kts
+│       ├── build.gradle.kts
+│       ├── gradle/libs.versions.toml
+│       └── zettai-stepN-*/
 └── nadesiko/
     └── zettai/           # 自作実装（cnako3）
         ├── package.json  # cnako3 のバージョン固定
@@ -74,7 +85,7 @@ apps/
         └── doctest/      # 受け入れテスト
 ```
 
-記事は `docs/article/zettai/{lang}/`、実装は `apps/{lang}/zettai/` の対称構成とし、言語を追加してもこの形を崩しません。
+記事は `docs/article/zettai/{target}/`、実装は `apps/{target}/zettai/` の対称構成とし、言語または実装方針を追加してもこの形を崩しません。
 
 ## 章と参照元モジュールの対応（Kotlin 版）
 
@@ -145,6 +156,168 @@ apps/
 | Phase 3 モナドから関数型アーキテクチャへ | 10〜13 | Unit 6〜7 | 18 | `ContextReader`・バリデーション・監視・設計の総括 | v1.0.0 |
 
 フェーズの区切りは [章構成マインドマップ](draft.md) のテーマの切れ目のうち、Unit の境界と一致する位置に置いています。Unit の依存はチェーン状で、並列に回せる Unit はありません（原著の章立てが設計の到達順序を固定しているため）。
+
+## Kotlin FP 追加執筆計画
+
+既存 Kotlin 版と同じ Zettai・同じ 13 章を、`tmp/grokkingfp-excersice/docs/article/kotlin/` の Kotlin + Arrow 解説で使われている考え方を取り込み、**Kotlin FP 版**として書き起こします。既存 Kotlin 版を改稿するのではなく、記事とサンプル実装を別対象として追加します。
+
+### Intent と成功条件
+
+**Intent**: 自前の `Outcome`・`ContextReader`・`Validation` を段階的に組み立てる既存 Kotlin 版に対し、Kotlin の標準機能、Arrow、kotlinx.coroutines を使うと設計判断がどう変わるかを、動く Zettai の実装と同じ 13 章構成で示します。
+
+成功条件は次のとおりです。
+
+- [ ] 既存 Kotlin 版の章番号・章タイトル・各節の役割を維持した `index.md` + 13 章がある
+- [ ] 記事の Kotlin コードがすべて `apps/kotlin-fp/zettai/` のテスト済み実装から転記されている
+- [ ] 各章に「既存 Kotlin 版の自前抽象」と「Kotlin FP 版の標準機能 / Arrow」の選択差がある
+- [ ] `./gradlew check` で単体・性質・Cucumber 受け入れ・結合テストが通り、記事コード同期検査と `mkdocs build --strict` が通る
+- [ ] シリーズ索引、章構成マインドマップの読み替え、サイトナビゲーション、横断比較、CI が同期している
+
+### 参照元と使い分け
+
+| 参照元 | 役割 | そのまま持ち込まないもの |
+| :--- | :--- | :--- |
+| `docs/article/zettai/kotlin/` | Zettai の要件、13 章の物語、節の役割、既存実装との比較基準 | 自前抽象の実装を Kotlin FP 版へコピーしない |
+| `tmp/grokkingfp-excersice/docs/article/kotlin/` | 純粋関数、イミュータブルデータ、高階関数、`Either` / Raise DSL、`suspend`、`Resource`、Kotest Property の説明順 | TravelGuide など Zettai 以外の題材、6 Part / 12 章という章立て |
+| `tmp/grokkingfp-excersice/app/kotlin/` | Arrow / coroutine / Kotest の動作確認済み API 使用例 | パッケージ構成と完成コードの直接流用 |
+| Arrow・Kotlin・kotlinx.coroutines・Kotest の公式資料 | 着手時の API と安定版の確認 | `tmp/` のバージョンが現在も最新だという仮定 |
+
+`tmp/` は一時領域なので、実装着手時に参照元の版と採用した API を計画または ADR に記録します。記事には参照元の文章・コードを転載せず、Zettai のテストから作ったコードだけを載せます。
+
+### 取り込む範囲
+
+Grokking FP Kotlin 版の全トピックを Zettai に機械的に詰め込まず、Zettai の設計判断を説明するものだけを採用します。
+
+| Grokking FP Kotlin 版 | Kotlin FP 版での主な反映先 | 方針 |
+| :--- | :--- | :--- |
+| Part I: 純粋関数・参照透過性 | 第 1〜2 章 | 関数型 core と HTTP boundary を分ける基礎にする |
+| Part II: イミュータブルデータ・高階関数・`fold` / `flatMap` | 第 3〜6 章 | DDT、関数型 DI、イベント畳み込み、状態遷移へ適用する |
+| Part III: nullable・`Either`・Raise DSL・エラー蓄積 | 第 7・11 章 | `Outcome` を `Either` / Raise、`Validation` を `zipOrAccumulate` 系へ読み替える |
+| Part IV: `suspend`・副作用・`Resource` | 第 9〜10 章 | DB、トランザクション、リソース寿命を境界へ押し出す |
+| Part V: 構造化並行性・Flow・STM | 必要な章だけ | Zettai の要件が要求しない限り採用しない。教材の道具を見せるためだけの並行化はしない |
+| Part VI: アプリケーション組み立て・テスト戦略 | 第 12〜13 章と全章 | property-based testing、resource test、functional core / effectful shell の総括に使う |
+
+### 技術方針
+
+| 項目 | 方針 | 決定のタイミング |
+| :--- | :--- | :--- |
+| Kotlin / JDK | JDK 25 専用の `kotlin-fp` devShell を追加し、Gradle JVM toolchain を 25 に固定する。Kotlin は Gradle Wrapper / version catalog で固定する | Unit 1 の最初に Kotlin compiler・Gradle・Arrow・Kotest・Cucumber の JDK 25 互換性を最小ビルドで確認する |
+| FP ライブラリ | Arrow Core を `Either`、Raise DSL、エラー蓄積に使う | Unit 1 の最小テストで API を固定する |
+| Effect | 独自 `IO` 型は導入せず、純粋関数と `suspend` 関数を分ける | 第 2・9 章で境界を確定する |
+| Resource | DB connection / transaction の寿命を Arrow Resource または Kotlin の `use` で表す | 第 9 章のスパイクで単純な方を選び ADR に残す |
+| 並行処理 | kotlinx.coroutines の structured concurrency を採用候補とするが、要件が無い処理を並列化しない | 必要性が出た章で判断する |
+| Web | 既存 Kotlin 版と比較できるよう http4k を維持する | Unit 1 で coroutine 境界との接続方法をスパイクする |
+| 永続化 | 既存の PostgreSQL event store と同じ振る舞いを維持する | 第 9 章で結合テストを先に移植する |
+| Test | 単体・性質テストは Kotest / Kotest Property、coroutine test は kotlinx-coroutines-test、受け入れテストは Cucumber + Gherkin を使う | Unit 1 で Kotest と Cucumber の JUnit Platform 上での共存、タグ別実行、レポート出力を確認する |
+| Version 管理 | `gradle/libs.versions.toml` に集中し、`tmp/` の Kotlin 2.4.20 / Arrow 2.2.3 等は検証用の基準値として扱う | Unit 1 で公式資料と依存解決を確認後に固定する |
+
+Arrow に型クラスが存在することを前提にしません。モノイド・ファンクタ・モナド・アプリカティブ・プロファンクタは、既存記事と同じく **操作と法則を先にテストし、必要な箇所だけ Arrow の具体的な API に対応づけます**。ライブラリ名を教えるために抽象を増やしません。
+
+### 前提整備
+
+最初の Bolt はウォーキングスケルトンです。執筆を始める前に、次を順に満たします。
+
+- [ ] `apps/kotlin-fp/zettai/` に Gradle マルチプロジェクトを作り、復元可能な成果物を `.gitignore` で除外する
+- [ ] `ops/nix/environments/kotlin-fp/shell.nix` を追加し、JDK 25 と Gradle を定義する
+- [ ] `flake.nix` に `devShells.kotlin-fp` を登録し、`nix develop .#kotlin-fp` で `java -version` が JDK 25 を示すことを確認する
+- [ ] Gradle JVM toolchain を 25 に固定し、Kotlin compiler・Gradle・Arrow・Kotest・Cucumber の互換性を最小ビルドで確認する
+- [ ] Arrow Core、必要最小限の Arrow Fx、kotlinx.coroutines、Kotest、Cucumber JVM を version catalog に固定する
+- [ ] `src/test/resources/features/` と Kotlin の step definitions を用意し、同じ Gherkin scenario を domain / HTTP の 2 経路で実行できる最小構成を確認する
+- [ ] 純粋関数、`Either`、`suspend` の最小テストを 1 本ずつ Red → Green で通し、ライブラリの組み合わせを確定する
+- [ ] http4k の同期ハンドラから effectful boundary を呼ぶ最小スパイクを作り、スレッドをブロックする位置を決める
+- [ ] `./gradlew check` をローカルの単一品質ゲートにする
+- [ ] `.github/workflows/kotlin-fp-zettai.yml` を追加し、CI も JDK 25 に固定する。`apps/kotlin-fp/zettai/**`、`docs/article/zettai/kotlin-fp/**`、JDK 25 の環境定義、関連する検査スクリプトだけを主な path trigger にする
+- [ ] `ops/scripts/article/check_sections.py` の対象名に `kotlin-fp` を登録する
+- [ ] `ops/scripts/article/check_numbers.py` が `apps/kotlin-fp/zettai/` の性質テスト宣言を探索できるようにする
+- [ ] `ops/scripts/article/check_adr_references.py` の対象パス正規表現をハイフン付きディレクトリに対応させる
+- [ ] `docs/article/draft.md` に Kotlin FP 固有の節名読み替えを登録する
+
+### 章別計画
+
+章タイトルと第 2 見出しの並びは既存対象と揃えます。Kotlin FP 固有の説明は既存の節の役割を壊さない位置に置きます。
+
+| 章 | ファイル | Kotlin FP 版の焦点 | 実装・検証の到達点 |
+| :--- | :--- | :--- | :--- |
+| 1 | `chapter01.md` | 純粋関数、参照透過性、式本体関数、`val` をテストから導く | Kotest で最小の純粋関数テストが通る |
+| 2 | `chapter02.md` | functional core / effectful shell として HTTP を組み立てる | http4k のウォーキングスケルトンと boundary test が通る |
+| 3 | `chapter03.md` | Gherkin でシナリオを表し、Cucumber の step definitions から実行 adapter を差し替える | 同じ feature / scenario が domain / HTTP の 2 経路で通る |
+| 4 | `chapter04.md` | interface より小さい関数型と constructor function で依存を渡す | in-memory adapter と HTTP adapter を関数で差し替えられる |
+| 5 | `chapter05.md` | immutable event list と `fold`、結合則・単位元を property test する | イベントの畳み込みとモノイド則が通る |
+| 6 | `chapter06.md` | sealed ADT と純粋な `State -> Command -> Either<Error, Events>` | すべての状態遷移と拒否理由を型で検証できる |
+| 7 | `chapter07.md` | 自前 `Outcome` を Arrow `Either` / Raise DSL に読み替える | typed error、`map` / `flatMap`、ファンクタ則が通る |
+| 8 | `chapter08.md` | 射影を純粋関数として合成し、`Either.map` と CQRS の境界を示す | command / query の経路が分かれ、射影の性質テストが通る |
+| 9 | `chapter09.md` | JDBC の副作用を `suspend` と resource boundary に閉じ込める | PostgreSQL event store の結合テスト、rollback、モナド則が通る |
+| 10 | `chapter10.md` | 自前 `ContextReader` を環境引数を持つ suspend 関数として表す | 1 transaction で command 処理が完結し、失敗時に rollback する |
+| 11 | `chapter11.md` | Arrow のエラー蓄積で独立した検証を合成する | 全エラーを返す validation とアプリカティブ則が通る |
+| 12 | `chapter12.md` | ロギングを effectful decorator、Converter を純粋な双方向変換として扱う | 機密情報を除外した構造化ログと converter の性質テストが通る |
+| 13 | `chapter13.md` | 自前抽象版との比較から functional core / effectful shell を総括する | 5 つの代数構造、effect boundary、採用しなかった道具を説明できる |
+
+### Unit / Bolt 計画
+
+既存対象と同じく、各章を 1 Bolt、2 章を 1 Unit とします。実装順に依存があるため、Unit は原則として直列です。
+
+| Unit | Bolt | 対象 | 完了ゲート |
+| :--- | :--- | :--- | :--- |
+| 1 | 1-1 / 1-2 | 前提整備 / 第 1 章 | 最小構成の `check` と CI が緑、記事フォーマットが確立 |
+| 2 | 2-1 / 2-2 | 第 2〜3 章 | HTTP の縦串と、Cucumber で実行する domain / HTTP 2 経路の受け入れテストが緑 |
+| 3 | 3-1 / 3-2 | 第 4〜5 章 | 関数型 DI とイベント畳み込みの性質テストが緑 |
+| 4 | 4-1 / 4-2 | 第 6〜7 章 | 純粋な状態遷移と Arrow typed error が緑 |
+| 5 | 5-1 / 5-2 | 第 8〜9 章 | CQRS と PostgreSQL 結合テストが緑 |
+| 6 | 6-1 / 6-2 | 第 10〜11 章 | transaction / rollback とエラー蓄積が緑 |
+| 7 | 7-1 / 7-2 | 第 12〜13 章 | 監視、横断比較、全品質ゲートが緑 |
+
+各 Unit の着手前に、`docs/development/` に Kotlin FP 版のリリース計画と Bolt 計画を用意し、受入条件と承認ゲートを具体化します。本節は記事の範囲と順序の一次情報、リリース計画は進捗の一次情報とします。
+
+### 章ごとの作業サイクル
+
+各章で次の順序を固定します。
+
+1. 既存 Kotlin 版の同じ章と、Grokking FP Kotlin 版の対応トピックを読む
+2. 受入条件をテストにし、Red を実際に確認する
+3. `apps/kotlin-fp/zettai/` に最小実装を加えて Green にする
+4. Kotlin / Arrow らしい形へ Refactor し、性質がある抽象は property test で法則を確かめる
+5. 動作確認済みコードを `docs/article/zettai/kotlin-fp/chapterNN.md` に転記する
+6. `mkdocs.yml`、シリーズ索引、進捗表をその章の公開状態へ更新する
+7. 実装（`feat(kotlin-fp): ...`）と記事（`docs(kotlin-fp): ...`）を別コミットにする
+
+### 横断比較で追加する軸
+
+Kotlin FP 版は同じ言語内の比較なので、「言語が何を与えるか」だけでなく「ライブラリへ委ねる範囲」を比較軸に加えます。
+
+| 比較対象 | 既存 Kotlin 版 | Kotlin FP 版で検証する問い |
+| :--- | :--- | :--- |
+| 失敗 | 自前 `Outcome` | `Either` / Raise は domain error を読みやすくするか |
+| 文脈 | 自前 `ContextReader` | 環境引数 + `suspend` で十分か |
+| 検証 | 自前 `Validation` | Arrow のエラー蓄積は仕様を直接表せるか |
+| 副作用 | 遅延計算と JDBC operation | `suspend` / Resource は effect boundary を明確にするか |
+| 法則 | 自作 generator を含む性質テスト | Kotest Property で法則の意図が読みやすくなるか |
+| コスト | 抽象を理解し実装する | 外部 API、バージョン変更、coroutine boundary を管理する |
+
+### リスクと対策
+
+| リスク | 影響 | 対策 |
+| :--- | :--- | :--- |
+| 既存 Kotlin 版も既に関数型で差が見えない | 重複記事になる | 各章に「自前抽象から何を置き換え、何を残したか」を必須項目として置く |
+| Arrow の API 変更 | `tmp/` のコードがビルドできない | Unit 1 で公式資料と最小テストを確認し、version catalog に固定する |
+| JDK 25 と Kotlin / Gradle / plugin の互換性 | toolchain は起動しても compile / test plugin が動かない | Unit 1 の最初に空の Gradle project と最小テストを通し、互換性が確認できる組み合わせだけを version catalog と Wrapper に固定する |
+| Cucumber の step definitions が adapter の詳細を知りすぎる | feature は同じでも domain / HTTP で glue が重複し、仕様が実装へ引きずられる | Gherkin は業務語彙だけで記述し、step definitions から共通の action port を呼び、経路差は runner / adapter の構成へ閉じ込める |
+| `suspend` が domain 全体へ伝播する | 純粋な core が見えなくなる | domain transition / projection は非 suspend のまま保ち、adapter boundary だけを suspend にする |
+| http4k の同期モデルと coroutine の接続 | blocking / cancellation の説明を誤る | 第 2 章で最小スパイクを行い、`runBlocking` を置くなら最外周 1 箇所に限定する |
+| Arrow の型を使うこと自体が目的になる | Zettai の設計判断が薄まる | 要件から必要性を説明できない Flow・STM・並行化は採用しない |
+| 13 章 × 2 実装のコード例が混ざる | 記事と実装が不一致になる | `apps/kotlin-fp/zettai/` を独立させ、コード同期検査を対象別に実行する |
+| `kotlin-fp` のハイフンを既存検査が扱えない | CI が誤検知・見逃しを起こす | 前提整備で対象名 mapping、探索パス、正規表現をテストしてから執筆する |
+| `tmp/` が消える | 参照根拠を再現できない | 着手時に参照版と採用 API を記録し、必要なら正式な参照領域への移管を承認ゲートにする |
+
+### 完了確認
+
+- [ ] `docs/article/outline.md`、`docs/article/zettai/index.md`、`docs/article/draft.md` に Kotlin FP 版が反映されている
+- [ ] `docs/article/zettai/kotlin-fp/index.md` と `chapter01.md`〜`chapter13.md` がある
+- [ ] `apps/kotlin-fp/zettai/` の `./gradlew check` が成功する
+- [ ] 記事コード同期・節構成・件数・引用・ADR 参照の検査が Kotlin FP 版を含めて成功する
+- [ ] `mkdocs.yml` の nav とリンクが揃い、`mkdocs build --strict` が成功する
+- [ ] `.github/workflows/kotlin-fp-zettai.yml` がグリーンである
+- [ ] `docs/article/zettai/comparison/` に全 13 章分の「自前抽象 vs Arrow / coroutine」が反映されている
+- [ ] 記事、実装、環境・CI を目的別にコミットしている
 
 ## なでしこ3 追加執筆計画
 
@@ -381,7 +554,7 @@ Unit・Bolt・ストーリーの割り当ては 2 対象と同一（1 Unit = 2 �
 
 - 見出しは階層を飛ばさない。章内の節は [draft.md](draft.md) のマインドマップに一致させる
 - コードブロックには言語を明示する。差分を示すときは変更箇所が分かる粒度で切る
-- **記事のコード例は必ず対象言語のサンプル実装（`apps/kotlin/zettai/`・`apps/nadesiko/zettai/`・`apps/rust/zettai/`）の動作確認済み実装から転記する。** 憶測で書いたコードを載せない
+- **記事のコード例は必ず対象のサンプル実装（`apps/kotlin/zettai/`・`apps/kotlin-fp/zettai/`・`apps/nadesiko/zettai/`・`apps/rust/zettai/`）の動作確認済み実装から転記する。** 憶測で書いたコードを載せない
 - 長い完成コードは `<details>` に入れ、本文には差分だけを載せる
 - 日本語と半角英数字の間に半角スペース。文体はですます調。技術用語は英語のまま
 - 読者が実行するコマンドは、プロンプト記号を混ぜず、コピーしてそのまま動く形で書く
@@ -396,7 +569,8 @@ Unit・Bolt・ストーリーの割り当ては 2 対象と同一（1 Unit = 2 �
 
 | 対象 | 追加の規約 |
 | :--- | :--- |
+| Kotlin FP | 言語タグは `kotlin`。Arrow / coroutine の API を載せる前に実装とテストを通し、既存 Kotlin 版から置き換えた抽象と置き換えなかった抽象を各章で明記する |
 | なでしこ3 | 識別子にひらがなを使わない（助詞として切られる）。言語タグは `nako3`。Red の直後に実際のエラー出力を `bash` ブロックで貼る |
 | Rust | 言語タグは `rust`。**所有権で書き直した箇所は、書き直す前のコードも載せる**（`<!-- code-check: ignore わざと壊したコード -->` を付ける）。`cargo` の出力は `bash` ブロックで貼る |
 
-**対象に固有の語（ライブラリ名・言語名・製品名）を含む節名は読み替える**という規則は 3 対象に共通です。読み替えた対応は [draft.md](draft.md) の表に登録します。**登録しないと `check_sections.py` が落ちます。**
+**対象に固有の語（ライブラリ名・言語名・製品名）を含む節名は読み替える**という規則は 4 対象に共通です。読み替えた対応は [draft.md](draft.md) の表に登録します。**登録しないと `check_sections.py` が落ちます。**

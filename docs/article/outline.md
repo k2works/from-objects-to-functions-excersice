@@ -4,7 +4,7 @@ title: "執筆計画：関数型プログラミングで作る変更を楽に安
 description: "Uberto Barbini 著『From Objects to Functions』を下敷きにした Zettai 連載の執筆計画。既存 3 言語版に加え、Grokking Functional Programming の Kotlin + Arrow 解説を基礎にした Kotlin FP 版について、全 13 章の移植方針、記事と実装の同期、前提整備、品質ゲートを定義する。"
 tags: [article, plan, zettai]
 status: draft
-generated: { by: openai-codex/gpt-5, at: 2026-10-30T00:53:09Z }
+generated: { by: openai-codex/gpt-5, at: 2026-10-30T00:58:18Z }
 ---
 
 # 執筆計画：関数型プログラミングで作る変更を楽に安全にできるソフトウェア
@@ -170,7 +170,7 @@ apps/
 - [ ] 既存 Kotlin 版の章番号・章タイトル・各節の役割を維持した `index.md` + 13 章がある
 - [ ] 記事の Kotlin コードがすべて `apps/kotlin-fp/zettai/` のテスト済み実装から転記されている
 - [ ] 各章に「既存 Kotlin 版の自前抽象」と「Kotlin FP 版の標準機能 / Arrow」の選択差がある
-- [ ] `./gradlew check` で単体・性質・Cucumber 受け入れ・結合テストが通り、記事コード同期検査と `mkdocs build --strict` が通る
+- [ ] `./gradlew check` で単体・性質・Cucumber 受け入れ・Testcontainers 結合テストが通り、記事コード同期検査と `mkdocs build --strict` が通る
 - [ ] シリーズ索引、章構成マインドマップの読み替え、サイトナビゲーション、横断比較、CI が同期している
 
 ### 参照元と使い分け
@@ -207,7 +207,7 @@ Grokking FP Kotlin 版の全トピックを Zettai に機械的に詰め込ま�
 | Resource | DB connection / transaction の寿命を Arrow Resource または Kotlin の `use` で表す | 第 9 章のスパイクで単純な方を選び ADR に残す |
 | 並行処理 | kotlinx.coroutines の structured concurrency を採用候補とするが、要件が無い処理を並列化しない | 必要性が出た章で判断する |
 | Web | 既存 Kotlin 版と比較できるよう http4k を維持する | Unit 1 で coroutine 境界との接続方法をスパイクする |
-| 永続化 | 既存の PostgreSQL event store と同じ振る舞いを維持する | 第 9 章で結合テストを先に移植する |
+| 永続化 | 既存の PostgreSQL event store と同じ振る舞いを維持し、結合テストでは Testcontainers の PostgreSQL module を使う | 第 9 章で container の lifecycle、接続情報の注入、テスト間分離を先に確定する |
 | Test | 単体・性質テストは Kotest / Kotest Property、coroutine test は kotlinx-coroutines-test、受け入れテストは Cucumber + Gherkin を使う | Unit 1 で Kotest と Cucumber の JUnit Platform 上での共存、タグ別実行、レポート出力を確認する |
 | Version 管理 | `gradle/libs.versions.toml` に集中し、`tmp/` の Kotlin 2.4.20 / Arrow 2.2.3 等は検証用の基準値として扱う | Unit 1 で公式資料と依存解決を確認後に固定する |
 
@@ -221,12 +221,13 @@ Arrow に型クラスが存在することを前提にしません。モノイ�
 - [ ] `ops/nix/environments/kotlin-fp/shell.nix` を追加し、JDK 25 と Gradle を定義する
 - [ ] `flake.nix` に `devShells.kotlin-fp` を登録し、`nix develop .#kotlin-fp` で `java -version` が JDK 25 を示すことを確認する
 - [ ] Gradle JVM toolchain を 25 に固定し、Kotlin compiler・Gradle・Arrow・Kotest・Cucumber の互換性を最小ビルドで確認する
-- [ ] Arrow Core、必要最小限の Arrow Fx、kotlinx.coroutines、Kotest、Cucumber JVM を version catalog に固定する
+- [ ] Arrow Core、必要最小限の Arrow Fx、kotlinx.coroutines、Kotest、Cucumber JVM、Testcontainers PostgreSQL module を version catalog に固定する
 - [ ] `src/test/resources/features/` と Kotlin の step definitions を用意し、同じ Gherkin scenario を domain / HTTP の 2 経路で実行できる最小構成を確認する
 - [ ] 純粋関数、`Either`、`suspend` の最小テストを 1 本ずつ Red → Green で通し、ライブラリの組み合わせを確定する
 - [ ] http4k の同期ハンドラから effectful boundary を呼ぶ最小スパイクを作り、スレッドをブロックする位置を決める
+- [ ] Docker daemon が利用できる環境で PostgreSQL container を起動し、動的な JDBC URL・ユーザー・パスワードだけをテスト対象へ注入する最小結合テストを通す
 - [ ] `./gradlew check` をローカルの単一品質ゲートにする
-- [ ] `.github/workflows/kotlin-fp-zettai.yml` を追加し、CI も JDK 25 に固定する。`apps/kotlin-fp/zettai/**`、`docs/article/zettai/kotlin-fp/**`、JDK 25 の環境定義、関連する検査スクリプトだけを主な path trigger にする
+- [ ] `.github/workflows/kotlin-fp-zettai.yml` を追加し、CI も JDK 25 に固定する。GitHub Actions の Docker daemon で Testcontainers を実行し、固定 PostgreSQL service は定義しない。`apps/kotlin-fp/zettai/**`、`docs/article/zettai/kotlin-fp/**`、JDK 25 の環境定義、関連する検査スクリプトだけを主な path trigger にする
 - [ ] `ops/scripts/article/check_sections.py` の対象名に `kotlin-fp` を登録する
 - [ ] `ops/scripts/article/check_numbers.py` が `apps/kotlin-fp/zettai/` の性質テスト宣言を探索できるようにする
 - [ ] `ops/scripts/article/check_adr_references.py` の対象パス正規表現をハイフン付きディレクトリに対応させる
@@ -246,7 +247,7 @@ Arrow に型クラスが存在することを前提にしません。モノイ�
 | 6 | `chapter06.md` | sealed ADT と純粋な `State -> Command -> Either<Error, Events>` | すべての状態遷移と拒否理由を型で検証できる |
 | 7 | `chapter07.md` | 自前 `Outcome` を Arrow `Either` / Raise DSL に読み替える | typed error、`map` / `flatMap`、ファンクタ則が通る |
 | 8 | `chapter08.md` | 射影を純粋関数として合成し、`Either.map` と CQRS の境界を示す | command / query の経路が分かれ、射影の性質テストが通る |
-| 9 | `chapter09.md` | JDBC の副作用を `suspend` と resource boundary に閉じ込める | PostgreSQL event store の結合テスト、rollback、モナド則が通る |
+| 9 | `chapter09.md` | JDBC の副作用を `suspend` と resource boundary に閉じ込め、PostgreSQL を Testcontainers でテストごとに隔離する | container が公開する接続情報を使う event store 結合テスト、rollback、モナド則が通る |
 | 10 | `chapter10.md` | 自前 `ContextReader` を環境引数を持つ suspend 関数として表す | 1 transaction で command 処理が完結し、失敗時に rollback する |
 | 11 | `chapter11.md` | Arrow のエラー蓄積で独立した検証を合成する | 全エラーを返す validation とアプリカティブ則が通る |
 | 12 | `chapter12.md` | ロギングを effectful decorator、Converter を純粋な双方向変換として扱う | 機密情報を除外した構造化ログと converter の性質テストが通る |
@@ -262,7 +263,7 @@ Arrow に型クラスが存在することを前提にしません。モノイ�
 | 2 | 2-1 / 2-2 | 第 2〜3 章 | HTTP の縦串と、Cucumber で実行する domain / HTTP 2 経路の受け入れテストが緑 |
 | 3 | 3-1 / 3-2 | 第 4〜5 章 | 関数型 DI とイベント畳み込みの性質テストが緑 |
 | 4 | 4-1 / 4-2 | 第 6〜7 章 | 純粋な状態遷移と Arrow typed error が緑 |
-| 5 | 5-1 / 5-2 | 第 8〜9 章 | CQRS と PostgreSQL 結合テストが緑 |
+| 5 | 5-1 / 5-2 | 第 8〜9 章 | CQRS と Testcontainers PostgreSQL 結合テストが緑 |
 | 6 | 6-1 / 6-2 | 第 10〜11 章 | transaction / rollback とエラー蓄積が緑 |
 | 7 | 7-1 / 7-2 | 第 12〜13 章 | 監視、横断比較、全品質ゲートが緑 |
 
@@ -301,6 +302,8 @@ Kotlin FP 版は同じ言語内の比較なので、「言語が何を与える�
 | Arrow の API 変更 | `tmp/` のコードがビルドできない | Unit 1 で公式資料と最小テストを確認し、version catalog に固定する |
 | JDK 25 と Kotlin / Gradle / plugin の互換性 | toolchain は起動しても compile / test plugin が動かない | Unit 1 の最初に空の Gradle project と最小テストを通し、互換性が確認できる組み合わせだけを version catalog と Wrapper に固定する |
 | Cucumber の step definitions が adapter の詳細を知りすぎる | feature は同じでも domain / HTTP で glue が重複し、仕様が実装へ引きずられる | Gherkin は業務語彙だけで記述し、step definitions から共通の action port を呼び、経路差は runner / adapter の構成へ閉じ込める |
+| Testcontainers が Docker daemon に接続できない | 第 9 章以降の `check` が環境依存で失敗する | Unit 1 でローカルと CI の Docker 接続を smoke test し、失敗時に skip せず必要条件と診断を表示する |
+| PostgreSQL container の起動コストと共有状態 | テストが遅くなり、並列実行で相互干渉する | container の再利用範囲を test suite 内に限定し、schema / database をテスト単位で初期化して、終了時の状態に依存しないテストにする |
 | `suspend` が domain 全体へ伝播する | 純粋な core が見えなくなる | domain transition / projection は非 suspend のまま保ち、adapter boundary だけを suspend にする |
 | http4k の同期モデルと coroutine の接続 | blocking / cancellation の説明を誤る | 第 2 章で最小スパイクを行い、`runBlocking` を置くなら最外周 1 箇所に限定する |
 | Arrow の型を使うこと自体が目的になる | Zettai の設計判断が薄まる | 要件から必要性を説明できない Flow・STM・並行化は採用しない |
@@ -313,6 +316,7 @@ Kotlin FP 版は同じ言語内の比較なので、「言語が何を与える�
 - [ ] `docs/article/outline.md`、`docs/article/zettai/index.md`、`docs/article/draft.md` に Kotlin FP 版が反映されている
 - [ ] `docs/article/zettai/kotlin-fp/index.md` と `chapter01.md`〜`chapter13.md` がある
 - [ ] `apps/kotlin-fp/zettai/` の `./gradlew check` が成功する
+- [ ] PostgreSQL 結合テストが固定接続先や外部の共有 DB に依存せず、Testcontainers でローカルと CI の両方で成功する
 - [ ] 記事コード同期・節構成・件数・引用・ADR 参照の検査が Kotlin FP 版を含めて成功する
 - [ ] `mkdocs.yml` の nav とリンクが揃い、`mkdocs build --strict` が成功する
 - [ ] `.github/workflows/kotlin-fp-zettai.yml` がグリーンである

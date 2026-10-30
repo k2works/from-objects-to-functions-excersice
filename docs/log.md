@@ -1,6 +1,7 @@
 # Docs Update Log
 
 ## 2026-10-30
+* **Update**: Kotlin FP 版の PostgreSQL 結合テストに Testcontainers を採用
 * **Update**: JDK 25・Cucumber を採用する Kotlin FP 版の追加執筆計画を策定
 
 ## 2026-09-29

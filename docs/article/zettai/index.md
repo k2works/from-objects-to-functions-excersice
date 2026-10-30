@@ -12,7 +12,7 @@ ToDo リストアプリケーション **Zettai** を TDD で一から作りな�
 | 対象 | 記事 | サンプル実装 | 実行環境 | 状態 |
 | :--- | :--- | :--- | :--- | :--- |
 | Kotlin | [Kotlin 版](kotlin/index.md) | `apps/kotlin/zettai/` | Nix devShell `kotlin`（JDK 21 / Gradle） | **完結（13 / 13 章）** |
-| Kotlin FP | [Kotlin FP 版](kotlin-fp/index.md) | `apps/kotlin-fp/zettai/` | Nix devShell `kotlin-fp`（JDK 25 / Gradle） | **執筆中（1 / 13 章）** |
+| Kotlin FP | [Kotlin FP 版](kotlin-fp/index.md) | `apps/kotlin-fp/zettai/` | Nix devShell `kotlin-fp`（JDK 25 / Gradle） | **執筆中（3 / 13 章）** |
 | なでしこ3 | [なでしこ3 版](nadesiko/index.md) | `apps/nadesiko/zettai/` | Nix devShell `nadesiko`（Node 22 / cnako3 3.8.7） | **完結（13 / 13 章）** |
 | Rust | [Rust 版](rust/index.md) | `apps/rust/zettai/` | Nix devShell `rust`（rustc 1.91.1 / cargo 1.91.0） | **完結（13 / 13 章）** |
 
@@ -34,8 +34,8 @@ ToDo リストアプリケーション **Zettai** を TDD で一から作りな�
 | 章 | タイトル | Kotlin | Kotlin FP | なでしこ3 | Rust |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | 1 | 新しいアプリケーションを準備する | [公開済み](kotlin/chapter01.md) | [公開済み](kotlin-fp/chapter01.md) | [公開済み](nadesiko/chapter01.md) | [公開済み](rust/chapter01.md) |
-| 2 | 関数を使って HTTP を扱う | [公開済み](kotlin/chapter02.md) | 未着手 | [公開済み](nadesiko/chapter02.md) | [公開済み](rust/chapter02.md) |
-| 3 | ドメインの定義とテスト | [公開済み](kotlin/chapter03.md) | 未着手 | [公開済み](nadesiko/chapter03.md) | [公開済み](rust/chapter03.md) |
+| 2 | 関数を使って HTTP を扱う | [公開済み](kotlin/chapter02.md) | [公開済み](kotlin-fp/chapter02.md) | [公開済み](nadesiko/chapter02.md) | [公開済み](rust/chapter02.md) |
+| 3 | ドメインの定義とテスト | [公開済み](kotlin/chapter03.md) | [公開済み](kotlin-fp/chapter03.md) | [公開済み](nadesiko/chapter03.md) | [公開済み](rust/chapter03.md) |
 | 4 | ドメインとアダプタのモデリング | [公開済み](kotlin/chapter04.md) | 未着手 | [公開済み](nadesiko/chapter04.md) | [公開済み](rust/chapter04.md) |
 | 5 | イベントで状態を変更する | [公開済み](kotlin/chapter05.md) | 未着手 | [公開済み](nadesiko/chapter05.md) | [公開済み](rust/chapter05.md) |
 | 6 | コマンドを実行してイベントを生成する | [公開済み](kotlin/chapter06.md) | 未着手 | [公開済み](nadesiko/chapter06.md) | [公開済み](rust/chapter06.md) |
@@ -56,7 +56,7 @@ ToDo リストアプリケーション **Zettai** を TDD で一から作りな�
 | 実行環境（Nix devShell） | **完了** | **定義済み** | **完了** | **完了** |
 | サンプル実装の雛形 | **完了** | **完了** | **完了** | **完了** |
 | CI | **完了** | **定義済み（同等コマンド green）** | **完了** | **完了** |
-| 公開済みの章 | **13 / 13（完結）** | **1 / 13** | **13 / 13（完結）** | **13 / 13（完結）** |
+| 公開済みの章 | **13 / 13（完結）** | **3 / 13** | **13 / 13（完結）** | **13 / 13（完結）** |
 | ADR | 12 件 | — | 11 件 | **14 件** |
 | 計画した承認ゲート | 47 箇所 | 8 箇所 | 41 箇所 | 15 箇所 |
 | **うち同期停止した回数** | 記録なし | 0 | **1** | **15** |

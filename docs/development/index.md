@@ -28,9 +28,10 @@
 
 ### Bolt 計画（Kotlin FP 版）
 
-| Unit | Bolt 計画 | 状態 |
-| :--- | :--- | :--- |
-| Unit 1 実行環境と第 1 章 | [Unit 1 の Bolt 計画](iteration_plan-kotlin-fp-1.md) | **完了** |
+| Unit | Bolt 計画 | ふりかえり | Bolt 終了報告 | 状態 |
+| :--- | :--- | :--- | :--- | :--- |
+| Unit 1 実行環境と第 1 章 | [Unit 1 の Bolt 計画](iteration_plan-kotlin-fp-1.md) | [ふりかえり](retrospective-kotlin-fp-1.md) | [Bolt 終了報告](bolt_report-kotlin-fp-1.md) | **完了** |
+| Unit 2 ウォーキングスケルトンとドメイン分離 | [Unit 2 の Bolt 計画](iteration_plan-kotlin-fp-2.md) | [ふりかえり](retrospective-kotlin-fp-2.md) | [Bolt 終了報告](bolt_report-kotlin-fp-2.md) | **完了** |
 
 ### Bolt 計画（なでしこ3 版）
 

@@ -1,6 +1,24 @@
 # Docs Update Log
 
 ## 2026-10-30
+* **Update**: [chapter03](/article/zettai/kotlin-fp/chapter03.md) を更新（openai-codex/gpt-5）
+* **Update**: [kotlin-fp-unit2_review_20261030](/review/kotlin-fp-unit2_review_20261030.md) を更新（openai-codex/gpt-5）
+* **Update**: [retrospective-kotlin-fp-2](/development/retrospective-kotlin-fp-2.md) を更新（openai-codex/gpt-5）
+* **Update**: [retrospective-kotlin-fp-1](/development/retrospective-kotlin-fp-1.md) を更新（openai-codex/gpt-5）
+* **Update**: [iteration_plan-kotlin-fp-2](/development/iteration_plan-kotlin-fp-2.md) を更新（openai-codex/gpt-5）
+* **Update**: [bolt_report-kotlin-fp-2](/development/bolt_report-kotlin-fp-2.md) を更新（openai-codex/gpt-5）
+* **Update**: [bolt_report-kotlin-fp-1](/development/bolt_report-kotlin-fp-1.md) を更新（openai-codex/gpt-5）
+* **Update**: [chapter03](/article/zettai/kotlin-fp/chapter03.md) を更新（openai-codex/gpt-5）
+* **Update**: [chapter02](/article/zettai/kotlin-fp/chapter02.md) を更新（openai-codex/gpt-5）
+* **Update**: [release_plan-kotlin-fp](/development/release_plan-kotlin-fp.md) を更新（openai-codex/gpt-5）
+* **Update**: [outline](/article/outline.md) を更新（openai-codex/gpt-5）
+* **Update**: [retrospective-kotlin-fp-1](/development/retrospective-kotlin-fp-1.md) を更新（openai-codex/gpt-5）
+* **Update**: [iteration_plan-kotlin-fp-2](/development/iteration_plan-kotlin-fp-2.md) を更新（openai-codex/gpt-5）
+* **Update**: [bolt_report-kotlin-fp-1](/development/bolt_report-kotlin-fp-1.md) を更新（openai-codex/gpt-5）
+* **Update**: [chapter03](/article/zettai/kotlin-fp/chapter03.md) を更新（openai-codex/gpt-5）
+* **Update**: [chapter02](/article/zettai/kotlin-fp/chapter02.md) を更新（openai-codex/gpt-5）
+* **Update**: [release_plan-kotlin-fp](/development/release_plan-kotlin-fp.md) を更新（openai-codex/gpt-5）
+* **Update**: [outline](/article/outline.md) を更新（openai-codex/gpt-5）
 * **Update**: Kotlin FP 版の PostgreSQL 結合テストに Testcontainers を採用
 * **Update**: JDK 25・Cucumber を採用する Kotlin FP 版の追加執筆計画を策定
 

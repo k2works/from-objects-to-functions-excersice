@@ -22,4 +22,5 @@ references/
 
 # Gradle
 .gradle/
+.kotlin/
 build/

@@ -63,9 +63,21 @@ extra:
 plugins:
   - search
 
+validation:
+  nav:
+    omitted_files: info
+    not_found: info
+    absolute_links: info
+  links:
+    not_found: info
+    absolute_links: info
+    unrecognized_links: info
+    anchors: info
+
 exclude_docs: |
   wiki
   article/fotf/
+  template/README.md
 
 nav:
   - Home: index.md
@@ -82,6 +94,7 @@ nav:
   - 開発:
       - 概要: development/index.md
       - リリース計画（Kotlin 版）: development/release_plan.md
+      - リリース計画（Kotlin FP 版）: development/release_plan-kotlin-fp.md
       - リリース計画（なでしこ3 版）: development/release_plan-nadesiko.md
       - 開発戦略: development/development_strategy.md
       - Bolt 計画:
@@ -92,6 +105,7 @@ nav:
           - Unit 5 射影と永続化: development/iteration_plan-5.md
           - Unit 6 文脈の受け渡しとバリデーション: development/iteration_plan-6.md
           - Unit 7 監視とアーキテクチャ総括: development/iteration_plan-7.md
+          - 「Kotlin FP」Unit 1 実行環境と第 1 章: development/iteration_plan-kotlin-fp-1.md
           - 「なでしこ3」Unit 1 実行環境・テスト基盤と第 1 章: development/iteration_plan-nadesiko-1.md
           - 「なでしこ3」Unit 2 ウォーキングスケルトンとドメイン分離: development/iteration_plan-nadesiko-2.md
           - 「なでしこ3」Unit 3 関数型 DI とイベント: development/iteration_plan-nadesiko-3.md
@@ -161,6 +175,7 @@ nav:
       - 2026-09-27 Unit 7: journal/20260927-unit7.md
   - レビュー:
       - 概要: review/index.md
+      - Kotlin FP 版 Unit 1 開発成果物レビュー: review/kotlin-fp-unit1_review_20261030.md
       - Unit 7 開発成果物レビュー: review/unit7_review_20260927.md
   - ADR:
       - 概要: adr/index.md
@@ -197,6 +212,9 @@ nav:
               - 第 11 章 アプリカティブによるデータバリデーション: article/zettai/kotlin/chapter11.md
               - 第 12 章 監視と関数型 JSON: article/zettai/kotlin/chapter12.md
               - 第 13 章 関数型アーキテクチャの設計: article/zettai/kotlin/chapter13.md
+          - Kotlin FP 版:
+              - 概要: article/zettai/kotlin-fp/index.md
+              - 第 1 章 新しいアプリケーションを準備する: article/zettai/kotlin-fp/chapter01.md
           - なでしこ3 版:
               - 概要: article/zettai/nadesiko/index.md
               - 第 1 章 新しいアプリケーションを準備する: article/zettai/nadesiko/chapter01.md
@@ -288,4 +306,3 @@ nav:
       - AWS プロダクション環境セットアップ手順書: template/AWSプロダクション環境セットアップ手順書.md
       - 企業分析: template/企業分析.md
       - 事例分析: template/事例分析.md
-      - README: template/README.md

@@ -26,7 +26,7 @@ import sys
 from pathlib import Path
 
 ADR_LINK = re.compile(r"\]\((?:[./]*)(?:adr/)?(ADR-\d{3}[\w.-]*\.md)\)")
-CHAPTER_LINK = re.compile(r"\]\((?:[./]*)(?:article/zettai/\w+/)?(chapter\d{2}\.md)\)")
+CHAPTER_LINK = re.compile(r"\]\((?:[./]*)(?:article/zettai/[\w-]+/)?(chapter\d{2}\.md)\)")
 INDEX_ROW = re.compile(r"\|\s*\[(ADR-\d{3})\]\(([\w.-]+\.md)\)")
 
 

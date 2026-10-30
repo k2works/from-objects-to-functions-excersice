@@ -22,6 +22,7 @@
           dotnet = import ./ops/nix/environments/dotnet/shell.nix { inherit packages; };
           java = import ./ops/nix/environments/java/shell.nix { inherit packages; };
           kotlin = import ./ops/nix/environments/kotlin/shell.nix { inherit packages; };
+          kotlin-fp = import ./ops/nix/environments/kotlin-fp/shell.nix { inherit packages; };
           haskell = import ./ops/nix/environments/haskell/shell.nix { inherit packages; };
           ruby = import ./ops/nix/environments/ruby/shell.nix { inherit packages; };
           php = import ./ops/nix/environments/php/shell.nix { inherit packages; };

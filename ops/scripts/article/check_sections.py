@@ -29,7 +29,12 @@ ARTICLE_DIR = ROOT / "docs/article/zettai"
 TRAILING = {"この章で書いたコード", "参照", "連載を終えて"}
 
 # 記事のディレクトリ名と、draft.md の読み替え表の「対象」列の対応。
-TARGET_NAMES = {"kotlin": "Kotlin", "nadesiko": "なでしこ3", "rust": "Rust"}
+TARGET_NAMES = {
+    "kotlin": "Kotlin",
+    "kotlin-fp": "Kotlin FP",
+    "nadesiko": "なでしこ3",
+    "rust": "Rust",
+}
 
 CHAPTER_LINE = re.compile(r"^\*\* 第([０-９0-9]+)章[　 ]*(.*)$")
 SECTION_LINE = re.compile(r"^\*\*\* (.+)$")

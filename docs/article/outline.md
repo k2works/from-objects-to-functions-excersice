@@ -217,21 +217,21 @@ Arrow に型クラスが存在することを前提にしません。モノイ�
 
 最初の Bolt はウォーキングスケルトンです。執筆を始める前に、次を順に満たします。
 
-- [ ] `apps/kotlin-fp/zettai/` に Gradle マルチプロジェクトを作り、復元可能な成果物を `.gitignore` で除外する
-- [ ] `ops/nix/environments/kotlin-fp/shell.nix` を追加し、JDK 25 と Gradle を定義する
-- [ ] `flake.nix` に `devShells.kotlin-fp` を登録し、`nix develop .#kotlin-fp` で `java -version` が JDK 25 を示すことを確認する
-- [ ] Gradle JVM toolchain を 25 に固定し、Kotlin compiler・Gradle・Arrow・Kotest・Cucumber の互換性を最小ビルドで確認する
-- [ ] Arrow Core、必要最小限の Arrow Fx、kotlinx.coroutines、Kotest、Cucumber JVM、Testcontainers PostgreSQL module を version catalog に固定する
-- [ ] `src/test/resources/features/` と Kotlin の step definitions を用意し、同じ Gherkin scenario を domain / HTTP の 2 経路で実行できる最小構成を確認する
-- [ ] 純粋関数、`Either`、`suspend` の最小テストを 1 本ずつ Red → Green で通し、ライブラリの組み合わせを確定する
-- [ ] http4k の同期ハンドラから effectful boundary を呼ぶ最小スパイクを作り、スレッドをブロックする位置を決める
-- [ ] Docker daemon が利用できる環境で PostgreSQL container を起動し、動的な JDBC URL・ユーザー・パスワードだけをテスト対象へ注入する最小結合テストを通す
-- [ ] `./gradlew check` をローカルの単一品質ゲートにする
-- [ ] `.github/workflows/kotlin-fp-zettai.yml` を追加し、CI も JDK 25 に固定する。GitHub Actions の Docker daemon で Testcontainers を実行し、固定 PostgreSQL service は定義しない。`apps/kotlin-fp/zettai/**`、`docs/article/zettai/kotlin-fp/**`、JDK 25 の環境定義、関連する検査スクリプトだけを主な path trigger にする
-- [ ] `ops/scripts/article/check_sections.py` の対象名に `kotlin-fp` を登録する
-- [ ] `ops/scripts/article/check_numbers.py` が `apps/kotlin-fp/zettai/` の性質テスト宣言を探索できるようにする
-- [ ] `ops/scripts/article/check_adr_references.py` の対象パス正規表現をハイフン付きディレクトリに対応させる
-- [ ] `docs/article/draft.md` に Kotlin FP 固有の節名読み替えを登録する
+- [x] `apps/kotlin-fp/zettai/` に Gradle マルチプロジェクトを作り、復元可能な成果物を `.gitignore` で除外する
+- [x] `ops/nix/environments/kotlin-fp/shell.nix` を追加し、JDK 25 と Gradle を定義する
+- [x] `flake.nix` に `devShells.kotlin-fp` を登録し、Docker 上の Nix で `nix develop path:/workspace#kotlin-fp` が JDK 25.0.1 を示すことを確認する
+- [x] Gradle JVM toolchain を 25 に固定し、Kotlin compiler・Gradle・Arrow・Kotest・Cucumber の互換性を最小ビルドで確認する
+- [x] Arrow Core、必要最小限の Arrow Fx、kotlinx.coroutines、Kotest、Cucumber JVM、Testcontainers PostgreSQL module を version catalog に固定する
+- [x] `src/test/resources/features/` と Kotlin の step definitions を用意し、同じ Gherkin scenario を domain / HTTP の 2 経路で実行できる最小構成を確認する
+- [x] 純粋関数、`Either`、`suspend` の最小テストを 1 本ずつ Red → Green で通し、ライブラリの組み合わせを確定する
+- [x] http4k の同期ハンドラから effectful boundary を呼ぶ最小スパイクを作り、スレッドをブロックする位置を決める
+- [x] Docker daemon が利用できる環境で PostgreSQL container を起動し、動的な JDBC URL・ユーザー・パスワードだけをテスト対象へ注入する最小結合テストを通す
+- [x] `./gradlew check` をローカルの単一品質ゲートにする
+- [x] `.github/workflows/kotlin-fp-zettai.yml` を追加し、CI も JDK 25 に固定する。GitHub Actions の Docker daemon で Testcontainers を実行し、固定 PostgreSQL service は定義しない。`apps/kotlin-fp/zettai/**`、`docs/article/zettai/kotlin-fp/**`、JDK 25 の環境定義、関連する検査スクリプトだけを主な path trigger にする
+- [x] `ops/scripts/article/check_sections.py` の対象名に `kotlin-fp` を登録する
+- [x] `ops/scripts/article/check_numbers.py` が `apps/kotlin-fp/zettai/` の性質テスト宣言を探索できることを確認する
+- [x] `ops/scripts/article/check_adr_references.py` の対象パス正規表現をハイフン付きディレクトリに対応させる
+- [x] `docs/article/draft.md` に Kotlin FP 固有の節名読み替えを登録する
 
 ### 章別計画
 

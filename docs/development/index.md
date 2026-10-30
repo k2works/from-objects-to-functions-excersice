@@ -9,6 +9,7 @@
 | ドキュメント | 説明 |
 |-------------|------|
 | [リリース計画（Kotlin 版）](release_plan.md) | AI-DLC の Level 1 計画。Intent、Unit 分解（7 Unit）、依存 DAG、エントロピー評価、スコープ／検証バッファ、リスク台帳、進捗指標 |
+| [リリース計画（Kotlin FP 版）](release_plan-kotlin-fp.md) | Kotlin、Arrow、kotlinx.coroutines を使う 7 Unit の Level 1 計画。Cucumber と Testcontainers を品質ゲートに含める |
 | [リリース計画（なでしこ3 版）](release_plan-nadesiko.md) | シリーズ 2 言語目の Level 1 計画。cnako3 の採用根拠、7 Unit・14 ストーリーへの分解、型・テストフレームワーク・DB プラグインの不在に対するリスク台帳、契約テストを加えた承認ゲート方針 |
 | [リリース計画（Rust 版）](release_plan-rust.md) | シリーズ 3 言語目の Level 1 計画。言語が `Result` と `enum` を与える側で同じ 13 章を辿る Intent、所有権と async の伝播に対するリスク台帳、ゲートの書き方そのものを規約にした承認ゲート方針 |
 | [開発戦略](development_strategy.md) | 局面別 TDD アプローチ（序盤・終盤アウトサイドイン／中盤インサイドアウト）、承認ゲートとゲート密度、デモ項目を受け入れ基準とする方針 |
@@ -24,6 +25,12 @@
 | Unit 5 射影と永続化 | [Unit 5 の Bolt 計画](iteration_plan-5.md) | - | [Bolt 終了報告](bolt_report-5.md) | **完了** |
 | Unit 6 文脈の受け渡しとバリデーション | [Unit 6 の Bolt 計画](iteration_plan-6.md) | - | [Bolt 終了報告](bolt_report-6.md) | **完了** |
 | Unit 7 監視とアーキテクチャ総括 | [Unit 7 の Bolt 計画](iteration_plan-7.md) | [ふりかえり](retrospective-7.md) | [Bolt 終了報告](bolt_report-7.md) | **完了** |
+
+### Bolt 計画（Kotlin FP 版）
+
+| Unit | Bolt 計画 | 状態 |
+| :--- | :--- | :--- |
+| Unit 1 実行環境と第 1 章 | [Unit 1 の Bolt 計画](iteration_plan-kotlin-fp-1.md) | **完了** |
 
 ### Bolt 計画（なでしこ3 版）
 

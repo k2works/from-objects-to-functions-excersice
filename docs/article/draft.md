@@ -114,6 +114,8 @@ generated: { by: claude-code/claude-opus-5, at: 2026-09-29T05:08:41Z }
 
 | 章・節 | マインドマップの節名 | 対象 | 読み替え後 | 理由 |
 | :--- | :--- | :--- | :--- | :--- |
+| 第 3 章 第 5 節 | DDTをPesticideに変換する | Kotlin FP | Gherkin を Cucumber で実行する | 受け入れ仕様は Gherkin に置き、domain / HTTP の実行 adapter を step definitions から差し替える |
+| 第 7 章 第 4 節 | Outcomeを使って実装する | Kotlin FP | Arrow `Either` / Raise を使って実装する | 自前の `Outcome` を作らず Arrow の typed error を利用する |
 | 第 3 章 第 5 節 | DDTをPesticideに変換する | なでしこ3 | DDT を共通の仕組みに変換する | Pesticide は Kotlin のライブラリで、なでしこ3 には存在しない |
 | 第 3 章 第 5 節 | DDTをPesticideに変換する | Rust | DDT をトレイトに変換する | Pesticide は Kotlin のライブラリで Rust には無い。経路の差し替えはトレイトが担う（[ADR-028](../adr/ADR-028-own-acceptance-trait.md)） |
 | 第 7 章 第 4 節 | Outcomeを使って実装する | Rust | `Result` を使って実装する | `Outcome` は Kotlin 版で自作した型の名前。Rust は `Result` が言語にあり、作らない（[ADR-031](../adr/ADR-031-own-error-enum.md)） |

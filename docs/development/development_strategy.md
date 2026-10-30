@@ -1,13 +1,13 @@
 ---
 type: Development Strategy
-title: "開発戦略 - Zettai 連載（Kotlin 版 / なでしこ3 版）"
-description: "Zettai 連載の開発戦略。Kotlin 版となでしこ3 版のそれぞれについて、7 イテレーションを序盤・中盤・終盤の 3 局面に分け、序盤と終盤はアウトサイドイン、中盤はインサイドアウトを採る根拠、共通の TDD サイクルと品質チェック、デモ項目を受け入れ基準とする方針（BDD 不採用と DDT / Pesticide 採用の理由）、ウォーキングスケルトンの基盤化、設計ドキュメント整合、局面移行時の一貫性維持を定義する。なでしこ3 版では型検査の不在を契約テストで補う方針と、局面割り当てを Kotlin 版と同一に保つ根拠を加える。"
-tags: [development, strategy, zettai, kotlin, nadesiko]
+title: "開発戦略 - Zettai 連載"
+description: "Zettai 連載の Kotlin、Kotlin FP、なでしこ3、Rust 各版に共通する局面別 TDD アプローチと、対象ごとの差分を定義する開発戦略。"
+tags: [development, strategy, zettai, kotlin, arrow, nadesiko, rust]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-28T13:11:33Z }
+generated: { by: openai-codex/gpt-5, at: 2026-10-30T00:00:00Z }
 ---
 
-# 開発戦略 - Zettai 連載（Kotlin 版 / なでしこ3 版）
+# 開発戦略 - Zettai 連載
 
 ## 概要
 
@@ -714,10 +714,23 @@ TDD の三原則と Red-Green-Refactor は不変です。変わるのは次の 4
 - **2 対象の同じ局面と比べて、記事に「2 対象に無い内容」があるか。** 無ければ焼き直しになっています
 - **所有権に押された箇所を記録できているか。** 第 13 章の材料になります
 
+## Kotlin FP 版の差分
+
+Kotlin FP 版は既存 Kotlin 版と同じ 7 Unit・13 章・局面割り当てを維持します。異なるのは、関数型の抽象を自前で作らず、Kotlin、Arrow、kotlinx.coroutines へ委ねる範囲を毎章判断する点です。
+
+- Unit 1 はライブラリ共存を確かめるスパイクとし、Kotest、Cucumber、Testcontainers を最初から単一の `check` に含めます
+- 受け入れ仕様は DDT / Pesticide ではなく Gherkin / Cucumber に置き、同じ scenario を domain / HTTP adapter から実行します
+- PostgreSQL 結合テストは固定 service ではなく Testcontainers を使い、動的な接続情報だけを注入します
+- 純粋関数を core、`suspend`・HTTP・DB を shell とし、`runBlocking` は同期 adapter の境界に限定します
+- Unit 2〜5 は既存戦略どおりアウトサイドイン → インサイドアウト、Unit 6〜7 はアウトサイドインへ戻します
+
+Unit 1 のゲート密度は密です。JDK 25、Gradle、Arrow、Cucumber、Testcontainers の組み合わせが後続 Unit 全体を拘束するためです。Unit 2 以降は、Unit 1 の変更依頼実績を見て密度を見直します。
+
 ## 更新履歴
 
 | 日付 | 更新内容 | 更新者 |
 |------|---------|--------|
+| 2026-10-30 | Kotlin FP 版の差分を追加。Cucumber、Testcontainers、functional core / effectful shell、Unit 1 のゲート方針を定義 | openai-codex/gpt-5 |
 | 2026-09-28 | Unit 7 の Bolt 計画作成時の整合性検証で、ゲート箇所を 3 + 条件付き 1 に修正（下記の決定からの変更。理由はゲート密度表に記載） | claude-code/claude-opus-5 |
 | 2026-09-28 | **Rust 版（3 言語目）の局面別アプローチを追記。** 局面割り当ては 2 対象と同一に保ちつつ、ゲート密度を局面ではなく「制約（所有権）の効き方」で決める方針とし、「既製品を先に調べる」を全 Bolt 共通のゲート項目に置いた。ゲートの書き方そのものを規約化した | claude-code/claude-opus-5 |
 | 2026-09-28 | Unit 6 完了を受けて Unit 7 のゲート密度を「疎（2 箇所）」に決定。あわせて指標「人が検証に使った時間」を外し「人が修正を入れた箇所数」に置き換える（[Unit 6 のふりかえり](retrospective-nadesiko-6.md)） | claude-code/claude-opus-5 |
@@ -730,7 +743,7 @@ TDD の三原則と Red-Green-Refactor は不変です。変わるのは次の 4
 
 ## 関連ドキュメント
 
-- [リリース計画（Kotlin 版）](release_plan.md) / [リリース計画（なでしこ3 版）](release_plan-nadesiko.md)
+- [リリース計画（Kotlin 版）](release_plan.md) / [リリース計画（Kotlin FP 版）](release_plan-kotlin-fp.md) / [リリース計画（なでしこ3 版）](release_plan-nadesiko.md)
 - [Unit 1 の Bolt 計画](iteration_plan-1.md)
 - [リリース・イテレーション計画ガイド（AI-DLC 版）](../reference/リリース・イテレーション計画ガイド_AI-DLC版.md)
 - [執筆計画](../article/outline.md)

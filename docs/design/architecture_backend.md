@@ -4,7 +4,7 @@ title: "バックエンドアーキテクチャ設計 - Zettai"
 description: "Zettai（Kotlin 版）のバックエンドアーキテクチャ設計。ドメインとアダプタの境界の定義と担保方法、Gradle マルチプロジェクトのモジュール分割と命名規約、パッケージ構成、依存の向き、関数の型による依存表現、章の進行にあわせた構造の変化を記述する。"
 tags: [design, architecture, zettai, kotlin]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:37:42Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T11:07:55Z }
 ---
 
 # バックエンドアーキテクチャ設計 - Zettai
@@ -473,6 +473,21 @@ Unit 5 の後半で、driven adapter に `adapter.postgres` を足し、永続�
 
 結合テストの DB は Testcontainers が起動する PostgreSQL で、`docker-compose.yml` に service を足しません。判断は [ADR-040](../adr/ADR-040-jdbc-blocking-boundary.md) に記録しています。transaction の境界は第 10 章で扱い、この段階の `persist` は 1 回の呼び出しの中で確定します。
 
+### 第 10 章：transaction と楽観ロック
+
+Unit 6 の前半で、command 1 つの処理を 1 つの transaction に入れ、競合を版の確認で検出します。環境（transaction の接続）は、暗黙の context ではなく、型引数 `Tx` と関数の引数で通します（[ADR-042](../adr/ADR-042-transaction-scope-and-environment.md)、[ADR-043](../adr/ADR-043-optimistic-locking-by-version.md)）。
+
+| port | 型 | 使う側 |
+| :--- | :--- | :--- |
+| `AggregateEventReader`、`UserEventReader` | `suspend (...) -> Either<PersistenceFailure, List<ToDoListEvent>>` | query。transaction の外 |
+| `Transaction<Tx>` | block を受け取り、`Right` なら commit、`Left` と例外なら rollback する | command。境界は 1 か所 |
+| `StreamReader<Tx>` | `suspend (Tx, StreamId) -> Either<PersistenceFailure, StreamEvents>` | command。stream を版つきで読む |
+| `StreamAppender<Tx>` | `suspend (Tx, Map<StreamId, Int>, List<ToDoListEvent>) -> Either<StoreError, Unit>` | command。触れる stream ごとに期待する版を渡す |
+
+`EventStore<Tx>` がこれらを束ね、`todoListHub(store)` が Hub を組み立てます。`Tx` は組み立てるときにだけ現れ、`ToDoListHub` の型には出ません。PostgreSQL では `Tx` は `java.sql.Connection`、in-memory では `Unit` です。
+
+保存の失敗は `StoreError`（`PersistenceFailure` と `ConcurrentModification`）で、HTTP は `ConcurrentModification` を 409 に写像します。読み出しの失敗は `PersistenceFailure` のままです。in-memory の transaction は `Mutex` で直列になるので競合は起きませんが、event が重複しないこと、更新が失われないことは、PostgreSQL と同じ契約テストで確かめます。
+
 ### Kotlin FP 版の段階 module
 
 | module | 章 | 状態 |
@@ -482,6 +497,7 @@ Unit 5 の後半で、driven adapter に `adapter.postgres` を足し、永続�
 | `zettai-step3-domain-events` | 4〜5 | Unit 3 で作成 |
 | `zettai-step4-command-errors` | 6〜7 | Unit 4 で作成 |
 | `zettai-step5-cqrs-persistence` | 8〜9 | Unit 5 で作成 |
+| `zettai-step6-transaction-validation` | 10〜11 | Unit 6 で作成 |
 
 各 module は記事時点の snapshot として独立させ、後続 module から前段 module の production code へ依存しません。これにより、後章のリファクタリングで前章のコード例を壊しません。
 

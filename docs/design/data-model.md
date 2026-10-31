@@ -4,7 +4,7 @@ title: "データモデル設計 - Zettai"
 description: "Zettai（Kotlin 版）のデータモデル設計。イベントソーシングのため状態を保存せず、追記のみの単一テーブルでイベントストアを構成する判断、ER 図、テーブル定義、インデックス方針、正規化を論じない理由、章の進行にあわせた変化を記述する。"
 tags: [design, data-model, zettai, kotlin]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:11:51Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T11:07:55Z }
 ---
 
 # データモデル設計 - Zettai
@@ -150,6 +150,33 @@ CREATE INDEX IF NOT EXISTS idx_todo_list_event_entity
 ### jsonb の正規化
 
 `jsonb` は入れた文字列を保ちません。空白が消え、キーが並べ替えられます。そのため、書いた JSON の文字列と読み戻した文字列を比べるテストは書かず、読み戻した event が元の event と等しいことで確かめます。
+
+### 版と楽観ロック（第 10 章）
+
+並行する command の競合を検出するため、`todo_list_event` に `version` 列と一意制約を足します（[ADR-043](../adr/ADR-043-optimistic-locking-by-version.md)）。
+
+| 変更 | 内容 |
+| :--- | :--- |
+| `version INTEGER NOT NULL` | `entity_id` ごとの連番（1 から）。その stream に追記済みの event の件数に等しい |
+| `UNIQUE (entity_id, version)` | 同じ stream の同じ版への挿入を拒否する。競合の検出は、この制約の違反（SQLState `23505`）で行う |
+
+```sql
+CREATE TABLE IF NOT EXISTS todo_list_event (
+    id          BIGSERIAL PRIMARY KEY,
+    entity_id   TEXT        NOT NULL,
+    version     INTEGER     NOT NULL,
+    event_type  TEXT        NOT NULL,
+    payload     JSONB       NOT NULL,
+    recorded_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    UNIQUE (entity_id, version)
+);
+```
+
+読み出しは event と一緒に、その stream の版を返します。保存は、触れる stream ごとに読んだ時点の版を受け取り、`読んだ版 + 1` からの連番を付けて挿入します。複数の stream への書き込みは 1 つの transaction で行い、どれか 1 つでも衝突すれば、すべて rollback します。
+
+`CREATE TABLE IF NOT EXISTS` は、すでにあるテーブルを変更しません。この列を足す前のテーブルを持つ DB には使えません。結合テストの DB は Testcontainers がテストごとに作るので、既存のデータは無く、移行は要りません。実際の運用で既存のテーブルを持つ場合は、`ALTER TABLE` と既存の event への版の採番が別に要ります。この連載では扱いません。
+
+`UNIQUE (entity_id, version)` は、`(entity_id, version)` の索引を暗黙に作ります。読み出しの索引 `(entity_id, id)` は、そのまま残します。
 
 ## なでしこ3 版での差分
 

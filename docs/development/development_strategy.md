@@ -4,7 +4,7 @@ title: "開発戦略 - Zettai 連載"
 description: "Zettai 連載の Kotlin、Kotlin FP、なでしこ3、Rust 各版に共通する局面別 TDD アプローチと、対象ごとの差分を定義する開発戦略。"
 tags: [development, strategy, zettai, kotlin, arrow, nadesiko, rust]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T12:17:22Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T12:20:46Z }
 ---
 
 # 開発戦略 - Zettai 連載
@@ -367,7 +367,7 @@ at --> adapter : 6. デモ項目が green
 | :--- | :--- | :--- | :--- | :--- |
 | Unit 6 | Bolt 6-1 | US-010 | 10 | `ContextReader` によるコマンド処理 |
 | Unit 6 | Bolt 6-2 | US-011 | 11 | `fp/Validation` とテンプレートエンジン |
-| Unit 7 | Bolt 7-1 | US-012 | 12 | `logger/`、Kondor による JSON、プロファンクタ |
+| Unit 7 | Bolt 7-1 | US-012 | 12 | 構造化ロギングの decorator、`Converter` による JSON（kotlinx-serialization-json の `JsonElement`。Kondor は採らない）、プロファンクタ |
 | Unit 7 | Bolt 7-2 | US-013 | 13 | アーキテクチャの総括（実装追加は最小） |
 
 ### ワークフロー

@@ -4,7 +4,7 @@ title: "Unit 7 の Bolt 計画 - Zettai 連載（Kotlin FP 版）"
 description: "Kotlin FP 版 Unit 7 の構造化ロギング、関数型 JSON とプロファンクタ、データベース呼び出しのロギング、関数型アーキテクチャの総括、第 12〜13 章、連載全体の品質ゲートを定義する Bolt 計画。"
 tags: [development, plan, ai-dlc, zettai, kotlin, arrow, logging, json, unit-7]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T12:17:22Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T12:20:46Z }
 ---
 
 # Unit 7 の Bolt 計画 - Zettai 連載（Kotlin FP 版）
@@ -23,7 +23,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T12:17:22Z }
 | ゲート密度 | **疎**（停止 3 箇所 + 条件付き 1） |
 | 見積もり | US-012: 5 SP / US-013: 3 SP、フィーチャバッファ 30% |
 
-ゲート密度の根拠：Unit 7 の実装は、既存の Hub と store を包む decorator と、新しい変換の層です。スキーマの変更は無く、既存の判断を覆しません。ただし、JSON の道具は新しい依存の追加で、確認必須です（停止 1）。
+ゲート密度の根拠（Kotlin FP 版固有）：Unit 6 は、スキーマ変更、画面、新しい ADR が重なったので中でした。Unit 7 は、スキーマの変更も新しい集約も無く、既存の Hub と store を包む decorator と、新しい変換の層だけです。疎に下げられます。ただし、取り戻せない判断が 2 つあります。(1) 新しい依存の追加と、承認済みの ADR-040 の部分的な見直し（停止 1）、(2) ログに載せる個人情報の範囲（停止 2）です。この 2 つと、記事の全文（停止 3）に絞り、第 13 章は主張が裏付けられないときだけ止まります（条件付き停止 4）。なでしこ3 版の疎の根拠は流用していません。
 
 ## ゴール
 
@@ -37,7 +37,7 @@ Unit 6 の持ち越しと開発戦略から、この Unit が答える問いは 
 | :--- | :--- |
 | 副作用（ログ）を、domain に持ち込まずに足せるか | Hub と store を包む decorator にする。domain と application の import は変えない（`BoundaryTest` で固定） |
 | ログに載ってはならないものは何か | 載せるもの（command の種類、結果の型、所要時間、stream 数）と、載せないもの（項目の説明、`PersistenceFailure.reason`、利用者の入力そのもの）を、先に表にして、テストで固定する |
-| 辞書と JSON の変換を、副作用なしに合成できるか | `Converter<A, B>`（`to` と `from`）を純粋な値にし、`dimap` で入力と出力を写せることを、法則で確かめる |
+| 辞書と JSON の変換を、副作用なしに合成できるか | `Converter<A, B>`（`to` と `from`）を純粋な値にし、`dimap` で入力と出力を写せることを、法則（`dimap id id = id`、`dimap (f ∘ g) (h ∘ k) = dimap g h ∘ dimap f k`）で確かめる。既存 Kotlin 版は `map` と `contramap` を「厳密なプロファンクタではない」と断っている。この版は `dimap` を持つ形にして、断りが要らないかを法則で確かめる |
 
 ### ログに載せるもの、載せないもの
 
@@ -51,6 +51,25 @@ Unit 6 の持ち越しと開発戦略から、この Unit が答える問いは 
 
 利用者名とリスト名を載せるかどうかは、業務上の判断です。計画では「載せる」とし、停止 2 で人が確認します（個人を特定しうるため）。
 
+### 既存コードの前提（実コードで確認済み）
+
+- `ToDoListHub` は `getList`、`listRows`、`execute` の 3 つの関数を持つ data class。decorator は、この 3 つを包む。command または query の種類は、`execute` が受ける command の型名と、`getList`、`listRows` という関数の別から決める。
+- `EventStore<Tx>` は interface ではなく、`readAggregate`、`readUser`、`transaction`、`readStream`、`append` を持つ data class。`Tx` は総称なので、store の decorator も `<Tx>` を持つ。包む対象は、transaction の外の `readAggregate`、`readUser` と、transaction の中の `readStream`、`append`。`transaction` 自体は包まない。
+- decorator は新しい package `zettai.adapter.logging` に置く。依存の向きは adapter → application / domain で、既存の依存方向に合う。`zettai.adapter.postgres`、`zettai.adapter.inmemory`、`zettai.web` には依存しない。HTTP の request log の filter は web に置く。application と domain は decorator を知らない（組み立ては、アプリの組み立て箇所とテストで行う）。
+
+## JSON の道具の決定（停止 1 に出す比較）
+
+承認済みの [ADR-040](../adr/ADR-040-jdbc-blocking-boundary.md) は、「kotlinx.serialization などの JSON ライブラリは採らない」と決めました。理由は「新しい依存は確認が必要で、SQL 側で payload を組み立てられるため要らない」でした。第 12 章は用途が違います。ログの行を組み立てるだけでなく、`Converter` の `from`（JSON から値へ）で、壊れた入力を `Left` にする読み取りが要ります。理由が変わるので、ADR-040 を部分的に見直す新しい ADR を作り、人が承認します。置き換えではなく、「DB の payload は SQL 側で組む」という ADR-040 の決定は残し、「ログと converter の JSON」だけに別の決定を足します。
+
+| 案 | 内容 | 判断 |
+| :--- | :--- | :--- |
+| A. `kotlinx-serialization-json`（`JsonElement` の木だけ。注釈と plugin は使わない） | parser と printer が揃う。特殊文字の escape を任せられる | **既定**。`from` に parser が要るので |
+| B. 自前の JSON の ADT と printer（parser なし） | 依存が増えない | `from` を持てず、converter が双方向にならない。採らない |
+| C. 自前の ADT、printer、parser | 依存が増えない | 過剰。escape と数値の扱いを自前で守ることになる。採らない |
+| D. http4k の JSON module | http4k に寄る | web 層の依存を増やす。logging の decorator が web に依存してしまう。採らない |
+
+版と変更の手順（7-1.3 のスパイクで確かめる）：Kotlin 2.4.21 と整合する版を選び、`gradle/libs.versions.toml` に足す。依存は `zettai-step7-observability` だけに足す（他の module の依存は変えない）。root の `build.gradle.kts` の共通設定は変えない。
+
 ## Unit 6 からの引き継ぎ
 
 [Unit 6 の Bolt 終了報告](bolt_report-kotlin-fp-6.md)、[ふりかえり](retrospective-kotlin-fp-6.md)、[開発成果物レビュー](../review/kotlin-fp-unit6_review_20261031.md)の持ち越しを、次のステップへ割り当てます。
@@ -63,8 +82,10 @@ Unit 6 の持ち越しと開発戦略から、この Unit が答える問いは 
 | 4 | 小さな関数でも、テストを先に走らせて Red を確認する | 全 Bolt の作業規則 |
 | 5 | 受入条件の表は、実装中に分かったことで直し、Bolt の終了報告で最終版にする。文言はテスト名で言い直せるものだけにする | 受入条件表・7-2.6 |
 | 6 | レビューの指摘は、「直す」「持ち越す」を決める基準（利用者に見えるか、データが壊れるか）を先に持つ | 7-2.5 |
-| 7 | 低の持ち越し：`Request.listKey()` の重複 | 7-1.5 |
+| 7 | 低の持ち越し：`ZettaiHttpApp.kt` の `showList` と `showRenameForm` が、`User(request.path("user").orEmpty())` と `ListName(request.path("list").orEmpty())` を繰り返している（Unit 6 のレビューは `Request.listKey()` と呼んだが、その関数は実在しない）。`private fun Request.userAndList()` に寄せる | 7-1.1（request log の filter が同じ path を読むので、先に直す） |
 | 8 | 低の持ち越し：名前変更の成功の知らせ | 含めない（理由は下の表） |
+| 11 | ふりかえり Try：失敗応答（404、500）を HTML にするかは、「次の Unit の最初に決める」。Kotlin FP 版の契約は、フォームを伴わない失敗をプレーンテキストで返す（`ZettaiHttpAppTest`）。request log が 404、400、409、500 を扱うので、先に決める | 7-1.1 |
+| 12 | 低の持ち越し：`rename` の分岐が 3 種類の error 型を列挙し、`describeError` の `else` が実質使われない | 7-1.1 |
 | 9 | HTTP と PostgreSQL の組み合わせが、どの経路でも検証されていない | 7-2.4（第 13 章で「確かめていない組み合わせ」として整理する。検証は含めない） |
 | 10 | `Transaction<Tx>` の戻り値が固定されている。command 以外の用途が現れたら総称にする | 含めない。ロギングの decorator は `Transaction` を包まず、`readStream` と `append` を包むので、必要が現れない |
 
@@ -108,9 +129,20 @@ Unit 6 の持ち越しと開発戦略から、この Unit が答える問いは 
 - [ ] 第 13 章の主張を、対応するテストとコードの箇所で裏付ける。5 つの代数構造（モノイド、ファンクタ、モナド、アプリカティブ、プロファンクタ）ごとに、どの章のどのテストが対応するかを表にする。対応が無いものは「無い」と書く
 - [ ] effect の境界（`runBlocking` は web だけ、JDBC は adapter だけ）を、`BoundaryTest` のテスト名で示す
 - [ ] 採用しなかった道具（`Resource`、Arrow の optics、既製の template エンジン、悲観ロックなど）を、理由つきで列挙する。確かめていないことは、確かめていないと書く
-- [ ] 既存 3 版との比較（横断比較）に、Kotlin FP 版の行を足す。数や行は実測から書く
+- [ ] 既存 3 版との比較（横断比較）に、Kotlin FP 版を加える。「実測」は、章数、module ごとのテスト件数（Gradle の `test-results` の XML の合計）、本番コードの `.kt` の行数（`git ls-files` で数える）と定め、数えた日付とコミットを書く
 - [ ] 節構成が既存 Kotlin 版の第 13 章（シンプルさを追い求めて／システム全体の設計／コードへの翻訳／最後の考察）と一致する（章末の「連載を終えて」は検査の対象外）
 - [ ] 連載全体の品質ゲート（全 13 章の記事検査、全 module の `clean check`、`mkdocs build --strict`、OKF、CI）が green
+
+### 新規ファイルの扱い
+
+CLAUDE.md は新規ファイルの作成を確認必須としています。この計画の承認で、次の新規ファイルの作成を承認したものとします。承認の範囲外が出た場合は、その時点で止まります。
+
+- `apps/kotlin-fp/zettai/zettai-step7-observability/`（module 一式）と、`settings.gradle.kts` の `include`
+- `docs/article/zettai/kotlin-fp/chapter12.md`、`chapter13.md`
+- 新しい ADR（ログの decorator、JSON の依存と converter）。ADR-040 の部分的な見直しを含む
+- Bolt 終了の文書（レビュー、ふりかえり、Bolt 終了報告）と、連載の完了報告書
+
+依存の追加と、ADR-040 の見直しは、これとは別に停止 1 で承認を求めます。
 
 ### 受入条件と検証の対応
 
@@ -134,11 +166,12 @@ gantt
     dateFormat  YYYY-MM-DD
     axisFormat  %m-%d
     section Bolt 7-1
-    module 新設・ログの決め事・依存の承認       :a1, 2026-11-01, 1d
-    Hub と store の decorator・converter        :a2, after a1, 2d
-    request log・第 12 章                       :a3, after a2, 1d
+    module 新設・持ち越し・ログの決め事         :a1, 2026-11-01, 1d
+    依存のスパイク・承認・converter             :a2, after a1, 1d
+    Hub と store の decorator・request log      :a3, after a2, 2d
+    第 12 章（構成と全文は停止 3 で確認）       :a4, after a3, 2d
     section Bolt 7-2
-    対応表の裏付け・横断比較                   :b1, after a3, 1d
+    対応表の裏付け・横断比較                   :b1, after a4, 1d
     第 13 章                                   :b2, after b1, 1d
     全品質ゲート・レビュー・Bolt 終了           :b3, after b2, 1d
 ```
@@ -147,25 +180,25 @@ gantt
 
 ### Bolt 7-1：第 12 章「監視と関数型JSON」
 
-- [ ] **7-1.1** `zettai-step7-observability` module を新設する。Unit 6 の production code と test を独立した snapshot としてコピーする。第 12 章で変わる型（`ToDoListHub`、`EventStore`、`ZettaiHttpApp`）を一覧し、decorator で包む点を決める
+- [ ] **7-1.1** `zettai-step7-observability` module を新設する。Unit 6 の production code と test を独立した snapshot としてコピーする。第 12 章で変わる型（`ToDoListHub`、`EventStore<Tx>`、`ZettaiHttpApp`）を一覧し、decorator で包む点を決める。あわせて、持ち越し 7（`userAndList` に寄せる）、11（失敗応答を HTML にするかを決め、`ZettaiHttpAppTest` と計画に残す）、12（`rename` の分岐と `describeError` の `else`）を片づける
 - [ ] **7-1.2** ログに載せるもの、載せないものの表（本計画）をテストにする（ローカルで Red を確認）。決定的な時刻、1 行の JSON、機密の除外
-- [ ] **7-1.3** 新しい依存を決める（**停止 1**：新しい依存の追加は確認必須）。既定は `kotlinx-serialization-json`（`JsonElement` の木だけを使い、注釈と plugin は使わない）。既製の道具が無ければ、自前の JSON の ADT と printer になるが、parser まで自作するのは過剰なので、採らない。スパイクで、`JsonElement` の往復と、特殊文字の escape を確かめ、ADR にする
-- [ ] **7-1.4** `Converter<A, B>` と `dimap` を作り、法則（恒等則、合成則、往復）を property test で確かめる。壊れた入力は `Left`
-- [ ] **7-1.5** Hub の decorator を作る（Red → Green）。載せるものを確かめ、載せないものが載らないことをテストする。利用者名とリスト名を載せるかを確認する（**停止 2**：ログの内容の承認）。`Request.listKey()` の重複（引き継ぎ 7）をこの機会に直す
-- [ ] **7-1.6** event store の decorator を作る（読み出し、追記、失敗の記録。payload は載せない）
+- [ ] **7-1.3** 新しい依存を決める（**停止 1**：新しい依存の追加と、承認済みの ADR-040 の部分的な見直しは確認必須）。上の比較表の案 A を既定として提示する。スパイクで、Kotlin 2.4.21 と整合する版、`JsonElement` の往復、特殊文字（引用符、バックスラッシュ、改行、絵文字）の escape を確かめ、ADR にする。承認が得られないときは、案 B〜D の理由を示して止まる
+- [ ] **7-1.4** `Converter<A, B>` と `dimap` を作り、法則（`dimap id id = id`、`dimap (f ∘ g) (h ∘ k) = dimap g h ∘ dimap f k`、往復）を property test で確かめる。壊れた入力は `Left`。法則を満たさない部分があれば、第 12 章に「厳密なプロファンクタではない」理由として書く
+- [ ] **7-1.5** Hub の decorator を `zettai.adapter.logging` に作る（Red → Green）。ログの出力先は `(String) -> Unit`、時刻は `() -> Instant` の引数で与える。1 行を 1 回の呼び出しで書き、並行しても行が混ざらないことをテストする。載せるものを確かめ、載せないものが載らないことをテストする。利用者名とリスト名を載せるかを確認する（**停止 2**：ログの内容の承認）
+- [ ] **7-1.6** `EventStore<Tx>` の decorator を `<Tx>` を持つ関数として作る。包むのは `readAggregate`、`readUser`、`readStream`、`append` で、`transaction` は包まない（読み出し、追記、失敗の記録。payload は載せない）
 - [ ] **7-1.7** HTTP の request log の filter を作る。body と query は載せない。404、400、409、500 も記録する
-- [ ] **7-1.8** `BoundaryTest` に、decorator が adapter 側にあること、domain と application が新しい import を持たないことを足す
-- [ ] **7-1.9** 設計文書（アーキテクチャ設計）に、前半の判断を反映する
+- [ ] **7-1.8** `BoundaryTest` に、`zettai.adapter.logging` が `zettai.adapter.postgres`、`zettai.adapter.inmemory`、`zettai.web` に依存しないことを足す。domain と application が `zettai.adapter.logging` を import しないことは、既存の禁止リストが `zettai.adapter` 全体を禁じているので、追加の検査は要らない
+- [ ] **7-1.9** 設計文書（アーキテクチャ設計）に、前半の判断を反映する。開発戦略の Unit 7 の行（「`logger/`、Kondor による JSON」。Kondor は既存 Kotlin 版で採った道具で、この版では採らない）を、実際の到達点に直す
 - [ ] **7-1.10** 第 12 章を実装済みコードから執筆する（**停止 3**：記事の構成と全文）。第 2 見出しは既存 Kotlin 版と同じ並び。断定する表現は、対応するテスト名を示せるものだけに使う
 
 ### Bolt 7-2：第 13 章「関数型アーキテクチャの設計」
 
-- [ ] **7-2.1** 5 つの代数構造と、各章のテストの対応表を、実装から作る。対応が無いものは「無い」と書く
+- [ ] **7-2.1** 5 つの代数構造と、各章のテストの対応表を、実装から作る。確認済みの現状：モノイドは step3 の `StateTransitionMonoidTest` だけで、step4 以降の module には持ち越されていない（表には module を書く）。ファンクタは `EitherFunctorLawTest`、モナドは `EitherMonadLawTest`、アプリカティブは `AccumulationLawsTest`。プロファンクタは step6 までに存在せず、7-1.4 で初めて作る。同じ Unit の成果物が根拠になることを、表に書く
 - [ ] **7-2.2** effect の境界を、`BoundaryTest` のテスト名で示す表を作る
 - [ ] **7-2.3** 採用しなかった道具を、理由つきで列挙する。確かめていないことは、確かめていないと書く
-- [ ] **7-2.4** 横断比較（`docs/article/zettai/comparison/index.md`）に Kotlin FP 版の行を足す。数や行は実測から書く
+- [ ] **7-2.4** 横断比較（`docs/article/zettai/comparison/index.md`）に Kotlin FP 版を加える。現在の構造は、列が Kotlin、なでしこ3、Rust の表の連続で、冒頭は「3 対象」と書いている。既存の表は書き換えず、末尾に「Kotlin FP 版を加えた比較」の節を新設し、冒頭の対象数と追記履歴を更新する。数は実測（章数、テスト件数、本番コードの行数）から書く
 - [ ] **7-2.5** 第 13 章を執筆する（**条件付き停止 4**：総括の主張が、実装で裏付けられない行が出た場合だけ、人に判断を求める）
-- [ ] **7-2.6** 連載全体の品質ゲート：全 module の `clean check`、全 13 章の記事検査、`mkdocs build --strict`、OKF、step7 の 3 回連続
+- [ ] **7-2.6** 連載全体の品質ゲート：全 module の `clean check`（約 2 分。Testcontainers を含む）、全 13 章の記事検査、`mkdocs build --strict`、OKF、step7 の 3 回連続
 - [ ] **7-2.7** 5 観点レビュー、再レビュー、ふりかえり、Bolt 終了報告、連載の完了報告書（`creating-release-report`）。ADR の承認、push、CI は人の承認を得て行う
 
 ## 作業規則（ゲート）
@@ -199,9 +232,9 @@ gantt
 ### 受入条件（検証可能な表現）
 
 - [ ] 機密を含む入力を処理しても、ログに項目の説明、`reason`、スタックトレースが載らない
-- [ ] ログの各行が、特殊文字を含む入力でも、正しい JSON の 1 行である
+- [ ] ログの各行が、特殊文字（引用符、バックスラッシュ、改行、絵文字）を含む入力でも、改行を含まず、JSON の parser で読み戻せる 1 行である（テストでは `Json.parseToJsonElement` で判定する）
 - [ ] `Converter` が恒等則、合成則、往復を満たす
-- [ ] decorator を外しても、Hub の振る舞いが変わらない
+- [ ] decorator を外しても、Hub の振る舞いが変わらない（任意の command 列を、decorator ありと無しの 2 つの Hub に同じ in-memory の store で流し、結果の `Either` と event の列が一致することを、property test で確かめる）
 - [ ] 第 13 章の対応表の各行が、テスト名か「無い」で埋まっている
 
 ## リスク
@@ -213,7 +246,11 @@ gantt
 | 総括の章が、実装で裏付けられない主張を書く | 対応表の各行にテスト名を要求する。裏付けが無い行は「無い」と書く（条件付き停止 4） |
 | 連載全体の品質ゲートが、最後に大量の指摘を出す | 7-2.6 を最後に回さず、7-1 の終わりに全 13 章の記事検査を一度走らせる |
 | 横断比較の数が古い | 実測から書き、書いた日付とコミットを残す |
-| decorator の時刻・出力先が副作用で、テストが不安定になる | 時刻と出力先を引数で与える。標準出力には書かない |
+| decorator の時刻・出力先が副作用で、テストが不安定になる | 時刻（`() -> Instant`）と出力先（`(String) -> Unit`）を引数で与える。標準出力には書かない |
+| 並行する command のログの行が混ざる | 1 行を 1 回の呼び出しで書く。並行の command で、行が壊れないことをテストする |
+| 承認済みの ADR-040 と矛盾する | 比較表で理由の違い（読み取りが要る）を示し、部分的な見直しとして、人が停止 1 で承認する |
+| 全 module の `clean check` と 3 回連続、CI の時間 | 7-2.6 に約 2 分と見込みを書く。CI の待ちは、監視をバックグラウンドで行う |
+| 計画の承認後に、索引の状態が古い | 承認後に、開発の索引とリリース計画の状態を更新する |
 
 ## 関連ドキュメント
 
@@ -230,3 +267,4 @@ gantt
 | 日付 | 内容 | 作成者 |
 | :--- | :--- | :--- |
 | 2026-10-31 | 初版。Unit 6 の持ち越しと開発戦略を反映し、ログの内容、依存、停止の位置を定めた | anthropic/claude-sonnet-5-5 |
+| 2026-10-31 | 独立した検証（高 4 / 中 6 / 低 4）を反映。ADR-040 との関係と JSON の比較表、実在しない `listKey` の訂正、漏れていた持ち越し 2 件、`EventStore` の実際の型と decorator の置き場所、プロファンクタとモノイドの根拠、横断比較の構造、新規ファイルの扱い、受入条件の検証方法を直した | anthropic/claude-sonnet-5-5 |

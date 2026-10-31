@@ -3,8 +3,10 @@ type: ADR
 title: "ADR-042 transaction の境界を command 1 つの処理に置き、環境を型引数で通す"
 description: "Zettai 連載 Kotlin FP 版の第 10 章で、transaction の境界を command 1 つの処理に置く決定と、transaction の環境を暗黙の context ではなく型引数と関数の引数として通す決定。Resource を使わず use で足りる理由と、既存 Kotlin 版 ADR-011 との違いを記録する。"
 tags: [adr, kotlin-fp, zettai, transaction, postgresql]
-status: draft
+status: stable
 generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T11:37:33Z }
+verified:
+  - { by: human:kakimomokuri, at: 2026-10-31T11:52:34Z }
 ---
 
 # ADR-042 transaction の境界を command 1 つの処理に置き、環境を型引数で通す
@@ -13,7 +15,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T11:37:33Z }
 
 ## ステータス
 
-2026-10-31 提案されました
+2026-10-31 承認されました
 
 ## コンテキスト
 

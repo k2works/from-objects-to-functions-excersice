@@ -3,8 +3,10 @@ type: ADR
 title: "ADR-043 楽観ロックを stream ごとの版と一意制約で行い、複数の stream を 1 つの transaction で書く"
 description: "Zettai 連載 Kotlin FP 版の第 10 章で、並行する command の競合を stream ごとの版と UNIQUE (entity_id, version) で検出する決定。複数の stream への書き込みを 1 つの transaction で確定させる理由と、再試行を呼び出し側の判断とする理由を記録する。"
 tags: [adr, kotlin-fp, zettai, postgresql, optimistic-locking]
-status: draft
+status: stable
 generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T11:37:33Z }
+verified:
+  - { by: human:kakimomokuri, at: 2026-10-31T11:52:34Z }
 ---
 
 # ADR-043 楽観ロックを stream ごとの版と一意制約で行い、複数の stream を 1 つの transaction で書く
@@ -13,7 +15,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T11:37:33Z }
 
 ## ステータス
 
-2026-10-31 提案されました
+2026-10-31 承認されました
 
 ## コンテキスト
 

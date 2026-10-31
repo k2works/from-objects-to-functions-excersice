@@ -3,8 +3,10 @@ type: Design
 title: "データモデル設計 - Zettai"
 description: "Zettai（Kotlin 版）のデータモデル設計。イベントソーシングのため状態を保存せず、追記のみの単一テーブルでイベントストアを構成する判断、ER 図、テーブル定義、インデックス方針、正規化を論じない理由、章の進行にあわせた変化を記述する。"
 tags: [design, data-model, zettai, kotlin]
-status: draft
+status: stable
 generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T11:07:55Z }
+verified:
+  - { by: human:kakimomokuri, at: 2026-10-31T11:52:34Z }
 ---
 
 # データモデル設計 - Zettai

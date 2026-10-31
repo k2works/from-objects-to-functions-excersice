@@ -1,6 +1,9 @@
 # Docs Update Log
 
 ## 2026-10-31
+* **Verification**: [data-model](/design/data-model.md) を human:kakimomokuri が検証
+* **Verification**: [ADR-043-optimistic-locking-by-version](/adr/ADR-043-optimistic-locking-by-version.md) を human:kakimomokuri が検証
+* **Verification**: [ADR-042-transaction-scope-and-environment](/adr/ADR-042-transaction-scope-and-environment.md) を human:kakimomokuri が検証
 * **Update**: [kotlin-fp-unit6_review_20261031](/review/kotlin-fp-unit6_review_20261031.md) を更新（anthropic/claude-sonnet-5-5）
 * **Update**: [retrospective-kotlin-fp-6](/development/retrospective-kotlin-fp-6.md) を更新（anthropic/claude-sonnet-5-5）
 * **Update**: [bolt_report-kotlin-fp-6](/development/bolt_report-kotlin-fp-6.md) を更新（anthropic/claude-sonnet-5-5）

@@ -4,7 +4,7 @@ title: "ADR-041 結合テストの DB は Testcontainers で用意する"
 description: "Zettai 連載 Kotlin FP 版の第 9 章で、結合テストの PostgreSQL を docker-compose の service ではなく Testcontainers で用意する決定。既存 Kotlin 版 ADR-009 が退けた 3 つの理由への答えと、失うものを記録する。"
 tags: [adr, kotlin-fp, zettai, postgresql, testcontainers]
 status: stable
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:45:16Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T10:27:41Z }
 verified:
   - { by: human:kakimomokuri, at: 2026-10-31T06:40:40Z }
 ---
@@ -52,7 +52,7 @@ Kotlin FP 版の Intent は、自前の抽象や手順を作る代わりに、�
 - ローカルと CI で、同じ手順で DB が用意される設計です。固定の値がコードに残りません。push 後の GitHub Actions（ubuntu-latest）で、結合テストを含む `check` が成功したことを確認しました（run 41177663644）。
 - **失うものがあります。** `docker compose up -d` で DB が動いている様子を見る機会が無くなります。読者が `check` を通すには Docker daemon が必要になり、初回は image の取得に時間とネットワークが要ります。
 - `postgres:18-alpine` は動く tag です。minor 版や digest で固定すると、再現性は上がります。
-- **Docker が無い環境で、失敗がどう見えるかは確認していません。** Testcontainers は成功した接続方法を記憶するため、環境変数だけでは Docker が無い状態を再現できませんでした。診断を足すかどうかは、実際に困った時点で判断します。
+- **Docker が無い環境で、失敗がどう見えるかは確認していません。** Testcontainers は成功した接続方法を記憶するため、環境変数や `user.home` の差し替えでは、Docker が無い状態を再現できませんでした。診断を足すかどうかは、実際に困った時点で判断します。
 
 ## 関連
 

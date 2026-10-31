@@ -1573,6 +1573,41 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../development/iteration_plan-kotlin-fp-5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「Kotlin FP」Unit 5 射影と永続化
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../development/iteration_plan-nadesiko-1/" class="md-nav__link">
         
   
@@ -2236,6 +2271,41 @@
     
   
     「Kotlin FP」Unit 4 command と typed error
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/bolt_report-kotlin-fp-5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「Kotlin FP」Unit 5 射影と永続化
   
 
     
@@ -3171,6 +3241,41 @@
     
   
     「Kotlin FP」Unit 4 command と typed error
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/retrospective-kotlin-fp-5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「Kotlin FP」Unit 5 射影と永続化
   
 
     
@@ -4445,6 +4550,41 @@
     
   
     Kotlin FP 版 Unit 2 開発成果物レビュー
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../review/kotlin-fp-unit5_review_20261031/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kotlin FP 版 Unit 5 開発成果物レビュー
   
 
     
@@ -6243,6 +6383,76 @@
     
   
     第 7 章 関数型手法によるエラーハンドリング
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="chapter08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 8 章 ファンクタを使ってイベントを射影する
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="chapter09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 9 章 モナドによる安全なデータ永続化
   
 
     
@@ -9565,6 +9775,8 @@
 <li><a href="chapter05/">第 5 章 イベントで状態を変更する</a></li>
 <li><a href="chapter06/">第 6 章 コマンドを実行してイベントを生成する</a></li>
 <li><a href="chapter07/">第 7 章 関数型手法によるエラーハンドリング</a></li>
+<li><a href="chapter08/">第 8 章 ファンクタを使ってイベントを射影する</a></li>
+<li><a href="chapter09/">第 9 章 モナドによる安全なデータ永続化</a></li>
 </ol>
 <h2 id="_2">実行方法<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>JDK 25 と Docker daemon が必要です。Docker は <code>check</code> に含まれる Testcontainers PostgreSQL テストで使います。</p>
@@ -9576,6 +9788,7 @@ bash<span class="w"> </span>./gradlew<span class="w"> </span>check
 <div class="highlight"><pre><span></span><code><span class="nb">cd </span><span class="n">apps</span><span class="p">/</span><span class="n">kotlin-fp</span><span class="p">/</span><span class="n">zettai</span>
 <span class="p">.\</span><span class="n">gradlew</span><span class="p">.</span><span class="n">bat</span> <span class="n">check</span>
 </code></pre></div>
+<p>第 9 章から、<code>check</code> は PostgreSQL の結合テストを含みます。<code>docker version</code> で Client と Server の両方が表示される状態にしてください。Windows と macOS では Docker Desktop を起動しておきます。Docker を使えない場合は、PostgreSQL に触れない範囲のテストに絞って実行できます。コマンドは <a href="chapter09/">第 9 章</a> にあります。</p>
 
 
 

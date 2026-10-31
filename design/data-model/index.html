@@ -1018,6 +1018,56 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#kotlin-fp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kotlin FP 版での差分
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Kotlin FP 版での差分">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#entity_id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        entity_id の符号化
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#payload" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        payload の形
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jsonb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        jsonb の正規化
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#3" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1843,6 +1893,41 @@
   
   
     <li class="md-nav__item">
+      <a href="../../development/iteration_plan-kotlin-fp-5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「Kotlin FP」Unit 5 射影と永続化
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../development/iteration_plan-nadesiko-1/" class="md-nav__link">
         
   
@@ -2506,6 +2591,41 @@
     
   
     「Kotlin FP」Unit 4 command と typed error
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/bolt_report-kotlin-fp-5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「Kotlin FP」Unit 5 射影と永続化
   
 
     
@@ -3441,6 +3561,41 @@
     
   
     「Kotlin FP」Unit 4 command と typed error
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/retrospective-kotlin-fp-5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「Kotlin FP」Unit 5 射影と永続化
   
 
     
@@ -4715,6 +4870,41 @@
     
   
     Kotlin FP 版 Unit 2 開発成果物レビュー
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../review/kotlin-fp-unit5_review_20261031/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kotlin FP 版 Unit 5 開発成果物レビュー
   
 
     
@@ -6432,6 +6622,76 @@
     
   
     第 7 章 関数型手法によるエラーハンドリング
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/kotlin-fp/chapter08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 8 章 ファンクタを使ってイベントを射影する
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/kotlin-fp/chapter09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 9 章 モナドによる安全なデータ永続化
   
 
     
@@ -9880,6 +10140,110 @@
 </tbody>
 </table>
 <p>第 8 章までのデータはインメモリで、テーブルはありません。</p>
+<h2 id="kotlin-fp">Kotlin FP 版での差分<a class="headerlink" href="#kotlin-fp" title="Permanent link">&para;</a></h2>
+<p>テーブル <code>todo_list_event</code>、カラム、インデックス <code>(entity_id, id)</code> は既存 Kotlin 版と同じです。保存するのは出来事だけで、追記のみ、順序の根拠は <code>id</code> です。違いは、接続の用意と、2 つの符号化にあります。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">観点</th>
+<th style="text-align: left;">既存 Kotlin 版</th>
+<th style="text-align: left;">Kotlin FP 版</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">結合テストの DB</td>
+<td style="text-align: left;"><code>docker-compose.yml</code> の <code>zettai-db</code> と CI のサービスコンテナ</td>
+<td style="text-align: left;">Testcontainers が起動する PostgreSQL。固定のポートや service を持たず、container が公開する JDBC URL・ユーザー・パスワードだけを注入する</td>
+</tr>
+<tr>
+<td style="text-align: left;">テーブルの作成</td>
+<td style="text-align: left;">起動時に <code>CREATE TABLE IF NOT EXISTS</code></td>
+<td style="text-align: left;">同じ。adapter の <code>createSchema</code> が実行する</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>payload</code> の組み立て</td>
+<td style="text-align: left;">手書きの JSON 文字列</td>
+<td style="text-align: left;"><code>jsonb_build_object</code> と bind parameter。JSON ライブラリを足さない（<a href="../../adr/ADR-040-jdbc-blocking-boundary/">ADR-040</a>）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>payload</code> の読み出し</td>
+<td style="text-align: left;">JSON 文字列を解析する</td>
+<td style="text-align: left;"><code>payload-&gt;&gt;'key'</code> で項目ごとに読む</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>entity_id</code></td>
+<td style="text-align: left;"><code>{user}/{listName}</code></td>
+<td style="text-align: left;">各部分の <code>%</code> を <code>%25</code>、<code>/</code> を <code>%2F</code> に置き換えて <code>/</code> で結ぶ</td>
+</tr>
+<tr>
+<td style="text-align: left;">ユーザー単位の読み出し</td>
+<td style="text-align: left;"><code>entity_id</code> で絞る</td>
+<td style="text-align: left;"><code>starts_with(entity_id, 符号化した user + '/')</code> で絞る</td>
+</tr>
+</tbody>
+</table>
+<h3 id="entity_id">entity_id の符号化<a class="headerlink" href="#entity_id" title="Permanent link">&para;</a></h3>
+<p><code>{user}/{listName}</code> をそのまま連結すると、<code>User("a/b")</code> と <code>ListName("c")</code> の組と、<code>User("a")</code> と <code>ListName("b/c")</code> の組が、どちらも <code>a/b/c</code> になり、別の集約が混ざります。HTTP の path からは <code>/</code> を含む名前は来ませんが、domain の <code>User</code> と <code>ListName</code> は文字列なら何でも受け取ります。</p>
+<p>そこで、各部分の <code>%</code> と <code>/</code> を置き換えてから連結します。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">user</th>
+<th style="text-align: left;">listName</th>
+<th style="text-align: left;">entity_id</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>alice</code></td>
+<td style="text-align: left;"><code>book</code></td>
+<td style="text-align: left;"><code>alice/book</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>a/b</code></td>
+<td style="text-align: left;"><code>c</code></td>
+<td style="text-align: left;"><code>a%2Fb/c</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>a</code></td>
+<td style="text-align: left;"><code>b/c</code></td>
+<td style="text-align: left;"><code>a/b%2Fc</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>100%</code></td>
+<td style="text-align: left;"><code>done</code></td>
+<td style="text-align: left;"><code>100%25/done</code></td>
+</tr>
+</tbody>
+</table>
+<p>通常の名前では既存 Kotlin 版と同じ値になり、<code>/</code> と <code>%</code> を含む名前でだけ変わります。<code>%</code> を先に置き換えるので、元の名前に戻せ、衝突しません。ユーザー単位の読み出しに <code>LIKE</code> を使わないのは、符号化した値に含まれる <code>%</code> がワイルドカードになるためです。</p>
+<h3 id="payload">payload の形<a class="headerlink" href="#payload" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">event_type</th>
+<th style="text-align: left;">payload のキー</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>ListCreated</code></td>
+<td style="text-align: left;"><code>user</code>、<code>listName</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>ItemAdded</code></td>
+<td style="text-align: left;"><code>user</code>、<code>listName</code>、<code>item</code>（<code>description</code>、<code>dueDate</code>、<code>status</code>）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>ItemStatusChanged</code></td>
+<td style="text-align: left;"><code>user</code>、<code>listName</code>、<code>description</code>、<code>newStatus</code></td>
+</tr>
+</tbody>
+</table>
+<p><code>dueDate</code> は ISO 8601 の文字列で、ない場合は JSON の null です。未知の <code>event_type</code>、必須キーの欠落、不正な <code>status</code> は、読み出し時に <code>PersistenceFailure</code> として返します。</p>
+<h3 id="jsonb">jsonb の正規化<a class="headerlink" href="#jsonb" title="Permanent link">&para;</a></h3>
+<p><code>jsonb</code> は入れた文字列を保ちません。空白が消え、キーが並べ替えられます。そのため、書いた JSON の文字列と読み戻した文字列を比べるテストは書かず、読み戻した event が元の event と等しいことで確かめます。</p>
 <h2 id="3">なでしこ3 版での差分<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
 <p><strong>データベースを使いません。</strong> 判断（状態を保存せず出来事だけを追記する）は同じで、保存先だけが違います（<a href="../../adr/ADR-019-file-event-log/">ADR-019</a>）。</p>
 <table>

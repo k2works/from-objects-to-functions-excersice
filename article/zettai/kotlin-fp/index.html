@@ -1503,6 +1503,41 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../development/iteration_plan-kotlin-fp-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「Kotlin FP」Unit 3 関数型 DI とイベント
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../development/iteration_plan-nadesiko-1/" class="md-nav__link">
         
   
@@ -2096,6 +2131,41 @@
     
   
     「Kotlin FP」Unit 2 ウォーキングスケルトンとドメイン分離
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/bolt_report-kotlin-fp-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「Kotlin FP」Unit 3 関数型 DI とイベント
   
 
     
@@ -2961,6 +3031,41 @@
     
   
     「Kotlin FP」Unit 2 ウォーキングスケルトンとドメイン分離
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/retrospective-kotlin-fp-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「Kotlin FP」Unit 3 関数型 DI とイベント
   
 
     
@@ -4235,6 +4340,41 @@
     
   
     Kotlin FP 版 Unit 2 開発成果物レビュー
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../review/kotlin-fp-unit3_review_20261031/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kotlin FP 版 Unit 3 開発成果物レビュー
   
 
     
@@ -5823,6 +5963,76 @@
     
   
     第 3 章 ドメインの定義とテスト
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="chapter04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 4 章 ドメインとアダプタのモデリング
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="chapter05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 5 章 イベントで状態を変更する
   
 
     
@@ -9141,11 +9351,18 @@
 <li><a href="chapter01/">第 1 章 新しいアプリケーションを準備する</a></li>
 <li><a href="chapter02/">第 2 章 関数を使って HTTP を扱う</a></li>
 <li><a href="chapter03/">第 3 章 ドメインの定義とテスト</a></li>
+<li><a href="chapter04/">第 4 章 ドメインとアダプタのモデリング</a></li>
+<li><a href="chapter05/">第 5 章 イベントで状態を変更する</a></li>
 </ol>
 <h2 id="_2">実行方法<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>JDK 25 と Docker daemon が必要です。Docker は <code>check</code> に含まれる Testcontainers PostgreSQL テストで使います。</p>
 <div class="highlight"><pre><span></span><code>nix<span class="w"> </span>develop<span class="w"> </span>.#kotlin-fp
 <span class="nb">cd</span><span class="w"> </span>apps/kotlin-fp/zettai
 bash<span class="w"> </span>./gradlew<span class="w"> </span>check
+</code></pre></div>
+<p>Windows PowerShell では project root から次を実行します。</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd </span><span class="n">apps</span><span class="p">/</span><span class="n">kotlin-fp</span><span class="p">/</span><span class="n">zettai</span>
+<span class="p">.\</span><span class="n">gradlew</span><span class="p">.</span><span class="n">bat</span> <span class="n">check</span>
 </code></pre></div>
 
 

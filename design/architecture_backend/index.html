@@ -1164,6 +1164,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#12-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 12 章：構造化ログと JSON の変換
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#kotlin-fp-module" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2045,6 +2056,41 @@
   
   
     <li class="md-nav__item">
+      <a href="../../development/iteration_plan-kotlin-fp-7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「Kotlin FP」Unit 7 監視と総括
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../development/iteration_plan-nadesiko-1/" class="md-nav__link">
         
   
@@ -2778,6 +2824,41 @@
     
   
     「Kotlin FP」Unit 6 transaction と検証
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/bolt_report-kotlin-fp-7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「Kotlin FP」Unit 7 監視と総括
   
 
     
@@ -3810,6 +3891,41 @@
   
   
     <li class="md-nav__item">
+      <a href="../../development/retrospective-kotlin-fp-7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「Kotlin FP」Unit 7 監視と総括
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../development/retrospective-7/" class="md-nav__link">
         
   
@@ -4493,6 +4609,41 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/release_report-kotlin-fp-1.0.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「Kotlin FP」Release v1.0.0
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -5057,6 +5208,41 @@
     
   
     Kotlin FP 版 Unit 2 開発成果物レビュー
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../review/kotlin-fp-unit7_review_20261031/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kotlin FP 版 Unit 7 開発成果物レビュー
   
 
     
@@ -6984,6 +7170,76 @@
     
   
     第 11 章 アプリカティブによるデータバリデーション
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/kotlin-fp/chapter12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 12 章 監視と関数型 JSON
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/kotlin-fp/chapter13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 13 章 関数型アーキテクチャの設計
   
 
     
@@ -11088,6 +11344,40 @@ src/test/kotlin/zettai/
 </tbody>
 </table>
 <p><code>CatchAll</code> は、予期しない例外の詳細を本文に出さず、固定の本文 <code>Internal server error</code> を返します。依存の方向は変わりません（<code>web -&gt; application -&gt; domain</code>）。</p>
+<h3 id="12-json">第 12 章：構造化ログと JSON の変換<a class="headerlink" href="#12-json" title="Permanent link">&para;</a></h3>
+<p>Unit 7 で、ログを decorator と filter で足し、辞書と JSON の変換を純粋な <code>Converter</code> で表します（<a href="../../adr/ADR-044-json-tree-for-logs-and-converters/">ADR-044</a>、<a href="../../adr/ADR-045-logging-as-decorator-with-typed-record/">ADR-045</a>）。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">場所</th>
+<th style="text-align: left;">内容</th>
+<th style="text-align: left;">依存してよいもの</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>zettai.json</code></td>
+<td style="text-align: left;"><code>Encoder</code>、<code>Decoder</code>、<code>Converter</code>、<code>jsonText</code>。純粋な変換。<code>dimap</code> を持つ</td>
+<td style="text-align: left;">kotlinx-serialization-json、Arrow</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>zettai.logging</code></td>
+<td style="text-align: left;"><code>LogRecord</code>（載せるものを型で決める）と、<code>logLine</code>（1 行の JSON との双方向変換）</td>
+<td style="text-align: left;"><code>zettai.json</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>zettai.adapter.logging</code></td>
+<td style="text-align: left;"><code>ToDoListHub.logged</code>、<code>EventStore&lt;Tx&gt;.logged</code>。結果を変えずに 1 行のログを書く</td>
+<td style="text-align: left;">application、domain、<code>zettai.logging</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>zettai.web</code></td>
+<td style="text-align: left;"><code>requestLogged</code>（method、path、status、所要時間。query と body は載せない）</td>
+<td style="text-align: left;"><code>zettai.logging</code>、http4k</td>
+</tr>
+</tbody>
+</table>
+<p>依存の方向は変わりません。domain と application は、ログの package を import しません。<code>LogRecord</code> を adapter でも web でもない場所に置くのは、web が adapter に依存できない既存の境界テストと両立するためです。組み立ては、アプリの組み立て箇所とテストで行います。</p>
 <h3 id="kotlin-fp-module">Kotlin FP 版の段階 module<a class="headerlink" href="#kotlin-fp-module" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -11127,6 +11417,11 @@ src/test/kotlin/zettai/
 <td style="text-align: left;"><code>zettai-step6-transaction-validation</code></td>
 <td style="text-align: left;">10〜11</td>
 <td style="text-align: left;">Unit 6 で作成</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>zettai-step7-observability</code></td>
+<td style="text-align: left;">12〜13</td>
+<td style="text-align: left;">Unit 7 で作成</td>
 </tr>
 </tbody>
 </table>

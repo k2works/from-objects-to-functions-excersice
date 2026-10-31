@@ -3,8 +3,10 @@ type: Bolt Plan
 title: "Unit 5 の Bolt 計画 - Zettai 連載（Kotlin FP 版）"
 description: "Kotlin FP 版 Unit 5 の射影と CQRS、集約単位の port、Testcontainers PostgreSQL による event store、永続化の typed error、第 8〜9 章を定義する Bolt 計画。"
 tags: [development, plan, ai-dlc, bolt, zettai, kotlin, arrow, postgresql, unit-5]
-status: draft
+status: stable
 generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T05:47:36Z }
+verified:
+  - { by: human:kakimomokuri, at: 2026-10-31T05:49:29Z }
 ---
 
 # Unit 5 の Bolt 計画 - Zettai 連載（Kotlin FP 版）

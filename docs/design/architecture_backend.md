@@ -4,7 +4,7 @@ title: "バックエンドアーキテクチャ設計 - Zettai"
 description: "Zettai（Kotlin 版）のバックエンドアーキテクチャ設計。ドメインとアダプタの境界の定義と担保方法、Gradle マルチプロジェクトのモジュール分割と命名規約、パッケージ構成、依存の向き、関数の型による依存表現、章の進行にあわせた構造の変化を記述する。"
 tags: [design, architecture, zettai, kotlin]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T11:07:55Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T11:25:25Z }
 ---
 
 # バックエンドアーキテクチャ設計 - Zettai
@@ -487,6 +487,18 @@ Unit 6 の前半で、command 1 つの処理を 1 つの transaction に入れ�
 `EventStore<Tx>` がこれらを束ね、`todoListHub(store)` が Hub を組み立てます。`Tx` は組み立てるときにだけ現れ、`ToDoListHub` の型には出ません。PostgreSQL では `Tx` は `java.sql.Connection`、in-memory では `Unit` です。
 
 保存の失敗は `StoreError`（`PersistenceFailure` と `ConcurrentModification`）で、HTTP は `ConcurrentModification` を 409 に写像します。読み出しの失敗は `PersistenceFailure` のままです。in-memory の transaction は `Mutex` で直列になるので競合は起きませんが、event が重複しないこと、更新が失われないことは、PostgreSQL と同じ契約テストで確かめます。
+
+### 第 11 章：名前変更、蓄積する検証、テンプレート
+
+Unit 6 の後半で、`RenameToDoList` と `ListRenamed` を加え、入力の誤りをすべて集める検証と、テンプレートによる画面を作ります。
+
+| 場所 | 内容 |
+| :--- | :--- |
+| `domain.validation` | `zipAll`（`Either.zipOrAccumulate` の薄い包み）、`validateName`、`validateRename`。誤りは `NonEmptyList<FieldProblem>` |
+| `domain.errors` | `InvalidInput`。HTTP は 400 に写像する |
+| `web` | `renderTemplate`（二重の波括弧はエスケープ、三重は生。値の無いタグは失敗）、`describeProblem`（誤りの日本語の文言）、テンプレートは `src/main/resources/templates/` |
+
+`CatchAll` は、予期しない例外の詳細を本文に出さず、固定の本文 `Internal server error` を返します。依存の方向は変わりません（`web -> application -> domain`）。
 
 ### Kotlin FP 版の段階 module
 

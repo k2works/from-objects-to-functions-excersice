@@ -4,7 +4,7 @@ title: "ドメインモデル設計 - Zettai"
 description: "Zettai（Kotlin 版）のドメインモデル設計。ユビキタス言語の対訳表、集約・エンティティ・値オブジェクト・列挙型の要素表、イベントと状態の関係、ToDo 項目の状態遷移、状態変換がモノイドであること、章の進行にあわせたモデルの成長を記述する。"
 tags: [design, domain-model, zettai, kotlin]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T11:07:55Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T11:25:25Z }
 ---
 
 # ドメインモデル設計 - Zettai
@@ -88,6 +88,7 @@ Zettai のドメインモデルを定義します。連載の進行にあわせ�
 | `ListCreated` | `user`、`listName` | リストが作られた | 5 |
 | `ItemAdded` | `user`、`listName`、`item` | 項目が追加された | 5 |
 | `ItemStatusChanged` | `user`、`listName`、`description`、`newStatus` | 項目の状態が変わった | 6 |
+| `ListRenamed` | `user`、`listName`（旧い名前）、`newName` | リストの旧い名前が無くなった。新しい名前のリストは、別の stream の `ListCreated` と `ItemAdded` が作る | 11 |
 | `ListRenamed` | `user`、`listName`、`newName` | リスト名が変わった | 11 |
 
 ### コマンド
@@ -97,6 +98,7 @@ Zettai のドメインモデルを定義します。連載の進行にあわせ�
 | `CreateToDoList` | `user`、`listName` | リストを作れ | 6 |
 | `AddToDoItem` | `user`、`listName`、`item` | 項目を追加せよ | 6 |
 | `ChangeItemStatus` | `user`、`listName`、`description`、`newStatus` | 項目の状態を変えよ | 6 |
+| `RenameToDoList` | `user`、`listName`、`newName` | リストの名前を変えよ。旧い名前と新しい名前の 2 つの stream に触れる | 11 |
 | `RenameToDoList` | `user`、`listName`、`newName` | リスト名を変えよ | 11 |
 
 コマンドは**命令形**、イベントは**過去形**で名付けます。コマンドは拒否できますが、イベントは拒否できません。この違いが両方を持つ理由です。
@@ -475,6 +477,8 @@ Kotlin FP 版 Unit 3〜4 は、既存 Kotlin 版と同じユビキタス言語�
 | `PersistenceFailure` | error | 永続化の失敗。原因は `reason` に持ち、利用者向けの `message` には含めない（第 9 章） |
 | `StoreError` | sealed error | 永続化に関わる失敗。`PersistenceFailure` と `ConcurrentModification` を持つ（第 10 章） |
 | `ConcurrentModification` | error | 読んだ後に別の command が同じ stream へ追記した。検出した `StreamId` を持つ（第 10 章） |
+| `InvalidInput` | error | 入力の検証に失敗した。誤りを `FieldProblem` の `NonEmptyList` で持ち、`message` には入力の値を含めない（第 11 章） |
+| `FieldProblem` | 値 | 誤りが起きた入力（`InputField`）と、誤りの種類（`Blank`、`TooLong`、`ForbiddenCharacter`）（第 11 章） |
 | `StreamId` | 値 | `User` と `ListName` の組。event の列（stream）を決める（第 10 章） |
 | `ToDoListRow` | read model | `ListName`、項目数、完了数。画面が欲しい形で、`ToDoListState` とは別に持つ（第 8 章） |
 | `ToDoListCommand` | sealed command | `CreateToDoList`、`AddToDoItem`、`ChangeItemStatus` で利用者の意図を表す |

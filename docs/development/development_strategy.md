@@ -4,7 +4,7 @@ title: "開発戦略 - Zettai 連載"
 description: "Zettai 連載の Kotlin、Kotlin FP、なでしこ3、Rust 各版に共通する局面別 TDD アプローチと、対象ごとの差分を定義する開発戦略。"
 tags: [development, strategy, zettai, kotlin, arrow, nadesiko, rust]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T10:46:10Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T11:54:52Z }
 ---
 
 # 開発戦略 - Zettai 連載
@@ -27,7 +27,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T10:46:10Z }
 | テスト種別・テストピラミッド | [テスト戦略ガイド](../reference/テスト戦略ガイド.md) |
 | 受け入れテストを Gherkin で書く場合の記法・処理系 | [BDD 導入ガイド](../reference/BDD導入ガイド.md)（本プロジェクトでは不採用。理由は後述） |
 
-本戦略は Bolt 計画を前提とします。Kotlin FP 版は Unit 1〜5 が完了し、Unit 6 の [Bolt 計画](iteration_plan-kotlin-fp-6.md) まで確定しています。Unit 7 以降の局面割り当ては**暫定案**であり、各 Bolt 計画が確定した時点で、対象ストーリーとデモ項目を本ドキュメントに追従させます。
+本戦略は Bolt 計画を前提とします。Kotlin FP 版は Unit 1〜6 が完了し、Unit 6 の [Bolt 計画](iteration_plan-kotlin-fp-6.md) まで確定しています。Unit 7 以降の局面割り当ては**暫定案**であり、各 Bolt 計画が確定した時点で、対象ストーリーとデモ項目を本ドキュメントに追従させます。
 
 **本ドキュメントは 2 つの対象を扱います。** 「## 戦略の全体像」から「## 局面移行時の一貫性維持」までは **Kotlin 版**（完結済み）の戦略です。シリーズ 2 言語目の **なでしこ3 版** の戦略は「[なでしこ3 版の局面別アプローチ](#なでしこ3-版の局面別アプローチ)」の節にまとめ、Kotlin 版との差分だけを書きます。差分に書いていない事項は Kotlin 版の記述をそのまま適用します。
 

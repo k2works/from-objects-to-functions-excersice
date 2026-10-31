@@ -1,6 +1,10 @@
 # Docs Update Log
 
 ## 2026-10-31
+* **Update**: [release_plan-kotlin-fp](/development/release_plan-kotlin-fp.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [iteration_plan-kotlin-fp-6](/development/iteration_plan-kotlin-fp-6.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [development_strategy](/development/development_strategy.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [bolt_report-kotlin-fp-6](/development/bolt_report-kotlin-fp-6.md) を更新（anthropic/claude-sonnet-5-5）
 * **Verification**: [data-model](/design/data-model.md) を human:kakimomokuri が検証
 * **Verification**: [ADR-043-optimistic-locking-by-version](/adr/ADR-043-optimistic-locking-by-version.md) を human:kakimomokuri が検証
 * **Verification**: [ADR-042-transaction-scope-and-environment](/adr/ADR-042-transaction-scope-and-environment.md) を human:kakimomokuri が検証

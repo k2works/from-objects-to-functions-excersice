@@ -4,7 +4,7 @@ title: "Unit 6 の Bolt 終了報告 - Zettai 連載（Kotlin FP 版）"
 description: "Kotlin FP 版 Unit 6 の transaction と楽観ロック、複数 stream の原子的な保存、名前変更、蓄積する検証、テンプレート描画、第 10〜11 章の完了結果を記録する。"
 tags: [development, report, zettai, kotlin, arrow, postgresql, applicative, unit-6]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T11:47:36Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T11:54:52Z }
 ---
 
 # Unit 6 の Bolt 終了報告 - Zettai 連載（Kotlin FP 版）
@@ -16,7 +16,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T11:47:36Z }
 | Unit | 6：transaction と検証 |
 | Bolt | 6-1 第 10 章 / 6-2 第 11 章 |
 | 実施日 | 2026-10-31 |
-| 状態 | **実装・執筆・レビュー対応は完了。ADR とデータモデルは承認済み。push と CI の確認が未了** |
+| 状態 | **実装・執筆・レビュー対応は完了。ADR とデータモデルは承認済み。push 済みで CI も成功** |
 
 ## 成果
 
@@ -42,7 +42,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T11:47:36Z }
 | `mkdocs build --strict` | 成功（最後のドキュメント変更の後に実行） |
 | 5 観点レビュー | 高 8 / 中 約 18 / 低 約 18。高の残件 0。中の持ち越し 5 件（[レビュー](../review/kotlin-fp-unit6_review_20261031.md)） |
 | 変異による確認 | 版をでたらめにすると PostgreSQL の並行テストが失敗することを確認。名前変更の並行テスト 2 件は変異を行っていない |
-| CI（push 後の GitHub Actions） | 未実施（push は人の承認を得て行う） |
+| CI（push 後の GitHub Actions） | 成功。`1388f24` に対し Kotlin FP Zettai、Kotlin Zettai、Nadesiko3 Zettai、Deploy MkDocs の 4 本（run 41198684123 ほか） |
 
 Docker を使わない絞り込み（`web`、`domain`、`smoke`）は 11 秒で成功しました。
 
@@ -81,7 +81,6 @@ Docker を使わない絞り込み（`web`、`domain`、`smoke`）は 11 秒で�
 ## 未了と持ち越し
 
 - ADR-042、ADR-043、データモデルの Kotlin FP 版の差分は、人（kakimomokuri）が承認し、`stable` にしました。
-- push と CI の確認が未了です。
 - レビューの中の持ち越し 5 件（`MAX(version)`、`createSchema` の列確認、途中例外の rollback テスト、失敗応答の HTML 化、404 の導線）があります。
 - 修正後の再レビューは実施していません。
 

@@ -16,6 +16,7 @@ class ZettaiSteps {
     private val actionPaths = listOf(domainActions(), httpActions(), postgresActions())
     private var user: User? = null
     private var actual: Map<String, List<ToDoItem>?> = emptyMap()
+    private var renamed: Map<String, RenameOutcome> = emptyMap()
 
     @Given("ユーザー {string} がリスト {string} に次の項目を持っている")
     fun listExists(userName: String, listName: String, items: DataTable) {
@@ -53,6 +54,33 @@ class ZettaiSteps {
     fun listIsNotFound() {
         actual.forEach { (path, result) ->
             withClue("$path 経路") { result shouldBe null }
+        }
+    }
+
+    @When("ユーザーがリスト {string} の名前を {string} に変える")
+    fun renameList(listName: String, newName: String) {
+        renamed = runBlocking {
+            actionPaths.associate { it.name to it.rename(requireNotNull(user), ListName(listName), newName) }
+        }
+    }
+
+    @When("ユーザーがリスト {string} の名前を {string} を {int} 回くり返した名前に変える")
+    fun renameListToRepeated(listName: String, unit: String, times: Int) {
+        renameList(listName, unit.repeat(times))
+    }
+
+    @Then("名前が変わった")
+    fun renameSucceeded() {
+        renamed.forEach { (path, outcome) ->
+            withClue("$path 経路") { outcome shouldBe RenameOutcome.Renamed }
+        }
+    }
+
+    @Then("名前は変わらず、理由は次のとおりである")
+    fun renameRejected(reasons: DataTable) {
+        val expected = RenameOutcome.Rejected(reasons.asLists().flatten().filterNotNull())
+        renamed.forEach { (path, outcome) ->
+            withClue("$path 経路") { outcome shouldBe expected }
         }
     }
 }

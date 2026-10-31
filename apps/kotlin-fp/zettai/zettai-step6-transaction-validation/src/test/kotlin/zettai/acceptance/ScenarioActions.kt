@@ -4,20 +4,27 @@ import arrow.core.Either
 import arrow.core.getOrElse
 import kotlinx.coroutines.runBlocking
 import org.http4k.core.Method.GET
+import org.http4k.core.Method.POST
+import java.net.URLEncoder
 import org.http4k.core.Request
+import org.http4k.core.Response
 import org.http4k.core.Status
 import zettai.adapter.inmemory.inMemoryEventStore
 import zettai.adapter.postgres.SharedPostgres
 import zettai.adapter.postgres.postgresEventStore
 import zettai.application.ToDoListHub
 import zettai.application.todoListHub
+import zettai.domain.ListName
 import zettai.domain.ToDoItem
 import zettai.domain.ToDoList
 import zettai.domain.User
 import zettai.domain.commands.AddToDoItem
 import zettai.domain.commands.CreateToDoList
 import zettai.domain.errors.ListNotFound
+import zettai.domain.errors.InvalidInput
 import zettai.domain.errors.ZettaiError
+import zettai.domain.validation.validateRename
+import zettai.web.describeProblem
 import zettai.web.zettaiHttpApp
 
 /** 前提の用意は command で行う。どの経路でも event store が唯一の源になる。 */
@@ -35,11 +42,24 @@ private fun Either<ZettaiError, ToDoList>.itemsOrNull(): List<ToDoItem>? =
         ifRight = { it.items },
     )
 
+/** domain と PostgreSQL の経路。検証してから command を実行する。 */
+private suspend fun ToDoListHub.renameWithCommands(user: User, listName: ListName, rawNewName: String): RenameOutcome =
+    validateRename(user.name, listName.name, rawNewName).fold(
+        ifLeft = { invalid -> RenameOutcome.Rejected(invalid.problems.map(::describeProblem)) },
+        ifRight = { command ->
+            execute(command).fold(
+                ifLeft = { RenameOutcome.Rejected(listOf(it.message)) },
+                ifRight = { RenameOutcome.Renamed },
+            )
+        },
+    )
+
 fun domainActions(hub: ToDoListHub = freshHub()): ZettaiActions =
     ZettaiActions(
         name = "domain",
         setUp = hub::setUpWithCommands,
         getToDoList = { user, listName -> hub.getList(user, listName).itemsOrNull() },
+        rename = hub::renameWithCommands,
     )
 
 /**
@@ -55,6 +75,7 @@ fun postgresActions(): ZettaiActions {
         name = "PostgreSQL",
         setUp = writer::setUpWithCommands,
         getToDoList = { user, listName -> newHub().getList(user, listName).itemsOrNull() },
+        rename = { user, listName, newName -> newHub().renameWithCommands(user, listName, newName) },
     )
 }
 
@@ -76,7 +97,28 @@ fun httpActions(hub: ToDoListHub = freshHub()): ZettaiActions {
                 else -> error("HTTP ${response.status}: ${response.bodyString()}")
             }
         },
+        rename = { user, listName, newName ->
+            val response = app(
+                Request(POST, "/todo/${user.name}/${listName.name}/rename")
+                    .header("Content-Type", "application/x-www-form-urlencoded")
+                    .body("newName=" + URLEncoder.encode(newName, Charsets.UTF_8)),
+            )
+            when (response.status) {
+                Status.FOUND -> RenameOutcome.Renamed
+                Status.BAD_REQUEST, Status.NOT_FOUND -> RenameOutcome.Rejected(response.reasons())
+                else -> error("HTTP ${response.status}: ${response.bodyString()}")
+            }
+        },
     )
+}
+
+/** 検証の誤りは画面の `<li class="problem">`、それ以外は本文そのものが理由になる。 */
+private fun Response.reasons(): List<String> {
+    val problems = "<li class=\"problem\">(.*?)</li>".toRegex()
+        .findAll(bodyString())
+        .map { it.groupValues[1] }
+        .toList()
+    return (problems.ifEmpty { listOf(bodyString()) }).map { it.decodeHtmlEntities() }
 }
 
 private fun freshHub(): ToDoListHub = todoListHub(inMemoryEventStore())

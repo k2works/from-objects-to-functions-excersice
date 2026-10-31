@@ -25,6 +25,25 @@ class ValidationTest : StringSpec({
         validateName(NewName, "") shouldBe nonEmptyListOf(FieldProblem(NewName, Blank)).left()
     }
 
+    "ちょうど 40 文字の名前は通る" {
+        validateName(NewName, "x".repeat(MAX_NAME_LENGTH)) shouldBe "x".repeat(MAX_NAME_LENGTH).right()
+    }
+
+    "空白だけの名前は Blank だけを返す" {
+        validateName(NewName, "   ") shouldBe nonEmptyListOf(FieldProblem(NewName, Blank)).left()
+    }
+
+    "制御文字を含む名前は ForbiddenCharacter を返す" {
+        listOf('\n', '\t', '\u0000').forEach { control ->
+            validateName(NewName, "a${control}b") shouldBe
+                nonEmptyListOf(FieldProblem(NewName, ForbiddenCharacter(control))).left()
+        }
+    }
+
+    "使えない文字が複数あっても、最初の 1 文字だけを示す" {
+        validateName(NewName, "a/b/c") shouldBe nonEmptyListOf(FieldProblem(NewName, ForbiddenCharacter('/'))).left()
+    }
+
     "長すぎる名前は TooLong を返す" {
         validateName(NewName, "x".repeat(41)) shouldBe
             nonEmptyListOf(FieldProblem(NewName, TooLong(MAX_NAME_LENGTH, 41))).left()

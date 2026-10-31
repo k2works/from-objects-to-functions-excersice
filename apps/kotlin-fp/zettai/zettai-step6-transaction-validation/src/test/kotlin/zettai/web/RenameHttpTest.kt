@@ -1,5 +1,6 @@
 package zettai.web
 
+import arrow.core.left
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldContain
@@ -13,8 +14,10 @@ import zettai.adapter.inmemory.inMemoryEventStore
 import zettai.application.ToDoListHub
 import zettai.application.todoListHub
 import zettai.domain.ListName
+import zettai.domain.StreamId
 import zettai.domain.User
 import zettai.domain.commands.CreateToDoList
+import zettai.domain.errors.ConcurrentModification
 
 class RenameHttpTest : StringSpec({
     val alice = User("alice")
@@ -81,6 +84,34 @@ class RenameHttpTest : StringSpec({
         app(Request(POST, "/todo/alice/missing/rename")
             .header("Content-Type", "application/x-www-form-urlencoded")
             .body("newName=x")).status shouldBe Status.NOT_FOUND
+    }
+
+    "form に newName が無い POST は、空の名前として 400 になる" {
+        val (_, app) = appWithBook()
+
+        val response = app(
+            Request(POST, "/todo/alice/book/rename")
+                .header("Content-Type", "application/x-www-form-urlencoded")
+                .body(""),
+        )
+
+        response.status shouldBe Status.BAD_REQUEST
+        response.bodyString() shouldContain "<li class=\"problem\">新しい名前が空です</li>"
+    }
+
+    "競合は 409 で、開き直す案内を同じ画面に出す" {
+        val store = inMemoryEventStore()
+        val raced = store.copy(append = { _, _, _ -> ConcurrentModification(listOf(StreamId(alice, ListName("book")))).left() })
+        val hub = todoListHub(store).let { plain ->
+            runBlocking { plain.execute(CreateToDoList(alice, ListName("book"))) }
+            todoListHub(raced)
+        }
+
+        val response = zettaiHttpApp(hub)(post("novel"))
+
+        response.status shouldBe Status.CONFLICT
+        response.bodyString() shouldContain "別の操作で変更されました"
+        response.bodyString() shouldContain "name=\"newName\" value=\"novel\""
     }
 
     "予期しない例外の本文に、内部の情報を出さない" {

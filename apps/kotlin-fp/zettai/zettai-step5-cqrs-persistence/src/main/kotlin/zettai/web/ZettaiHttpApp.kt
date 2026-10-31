@@ -18,6 +18,7 @@ import zettai.domain.errors.InvalidTransition
 import zettai.domain.errors.ItemNotFound
 import zettai.domain.errors.ListAlreadyExists
 import zettai.domain.errors.ListNotFound
+import zettai.domain.errors.PersistenceFailure
 import zettai.domain.errors.ZettaiError
 
 fun zettaiHttpApp(hub: ToDoListHub): HttpHandler =
@@ -59,4 +60,6 @@ private fun statusOf(error: ZettaiError): Status =
         is ListAlreadyExists,
         is InvalidTransition,
         -> Status.BAD_REQUEST
+
+        is PersistenceFailure -> Status.INTERNAL_SERVER_ERROR
     }

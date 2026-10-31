@@ -1,5 +1,6 @@
 package zettai.adapter.inmemory
 
+import arrow.core.right
 import zettai.application.AggregateEventReader
 import zettai.application.EventPersister
 import zettai.application.UserEventReader
@@ -19,9 +20,12 @@ fun inMemoryEventStore(
 
     return InMemoryEventStore(
         readAggregate = { user, listName ->
-            events.filter { it.user == user && it.listName == listName }
+            events.filter { it.user == user && it.listName == listName }.right()
         },
-        readUser = { user -> events.filter { it.user == user } },
-        persist = { newEvents -> events += newEvents.toList() },
+        readUser = { user -> events.filter { it.user == user }.right() },
+        persist = { newEvents ->
+            events += newEvents.toList()
+            Unit.right()
+        },
     )
 }

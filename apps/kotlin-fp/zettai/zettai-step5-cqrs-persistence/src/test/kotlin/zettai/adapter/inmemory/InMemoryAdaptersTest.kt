@@ -1,5 +1,6 @@
 package zettai.adapter.inmemory
 
+import arrow.core.getOrElse
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.test.runTest
@@ -26,7 +27,7 @@ class InMemoryAdaptersTest : StringSpec({
                 ),
             )
 
-            store.readAggregate(alice, book) shouldBe listOf(
+            store.readAggregate(alice, book).getOrElse { error(it.message) } shouldBe listOf(
                 ListCreated(alice, book),
                 ItemAdded(alice, book, ToDoItem("write chapter")),
             )
@@ -43,7 +44,7 @@ class InMemoryAdaptersTest : StringSpec({
                 ),
             )
 
-            store.readUser(alice) shouldBe listOf(ListCreated(alice, book), ListCreated(alice, shop))
+            store.readUser(alice).getOrElse { error(it.message) } shouldBe listOf(ListCreated(alice, book), ListCreated(alice, shop))
         }
     }
 
@@ -57,7 +58,7 @@ class InMemoryAdaptersTest : StringSpec({
             store.persist(batch)
             batch.clear()
 
-            store.readAggregate(alice, book) shouldBe listOf(
+            store.readAggregate(alice, book).getOrElse { error(it.message) } shouldBe listOf(
                 ListCreated(alice, book),
                 ItemAdded(alice, book, ToDoItem("write chapter")),
             )

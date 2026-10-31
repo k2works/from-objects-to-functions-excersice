@@ -1,5 +1,6 @@
 package zettai.web
 
+import arrow.core.right
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldContain
@@ -15,6 +16,7 @@ import zettai.domain.errors.InvalidTransition
 import zettai.domain.errors.ItemNotFound
 import zettai.domain.errors.ListAlreadyExists
 import zettai.domain.errors.ListNotFound
+import zettai.domain.errors.PersistenceFailure
 import zettai.domain.errors.ZettaiError
 import zettai.domain.events.ItemAdded
 import zettai.domain.events.ListCreated
@@ -30,7 +32,7 @@ class ZettaiHttpAppTest : StringSpec({
             todoListHub(
                 readAggregate = { u, l ->
                     requested += u to l
-                    events
+                    events.right()
                 },
                 readUser = { error("GET /todo/{user}/{list} は user 単位で読まない") },
                 persist = { error("GET は永続化しない") },
@@ -67,6 +69,7 @@ class ZettaiHttpAppTest : StringSpec({
         ItemNotFound(user, listName, "write chapter") to Status.NOT_FOUND,
         ListAlreadyExists(user, listName) to Status.BAD_REQUEST,
         InvalidTransition("write chapter", ToDoStatus.Done, ToDoStatus.InProgress) to Status.BAD_REQUEST,
+        PersistenceFailure("connection refused") to Status.INTERNAL_SERVER_ERROR,
     ).forEach { (error, status) ->
         "${error::class.simpleName} を ${status.code} の plain text に写像する" {
             val response = toResponse(error)
@@ -76,5 +79,11 @@ class ZettaiHttpAppTest : StringSpec({
             response.header("X-Content-Type-Options") shouldBe "nosniff"
             response.bodyString() shouldBe error.message
         }
+    }
+
+    "PersistenceFailure の原因は response に含めない" {
+        val response = toResponse(PersistenceFailure("jdbc:postgresql://db.internal/zettai password=secret"))
+
+        response.bodyString() shouldBe "Persistence failure"
     }
 })

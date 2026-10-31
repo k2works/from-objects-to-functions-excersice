@@ -38,12 +38,14 @@ class BoundaryTest : StringSpec({
         violations(sources, forbidden).shouldBeEmpty()
     }
 
-    "driven adapter は driving adapter と HTTP と coroutine runner に依存しない" {
+    // adapter は blocking の I/O を Dispatchers.IO に閉じ込めるため、withContext と Dispatchers は使ってよい。
+    // 同期と非同期をつなぐ runBlocking は、web の最外周だけに置く。
+    "driven adapter は driving adapter と HTTP と runBlocking に依存しない" {
         val sources = productionSources("adapter")
         val forbidden = listOf(
             "zettai.web",
             "org.http4k",
-            "kotlinx.coroutines",
+            "kotlinx.coroutines.runBlocking",
         )
 
         violations(sources, forbidden).shouldBeEmpty()

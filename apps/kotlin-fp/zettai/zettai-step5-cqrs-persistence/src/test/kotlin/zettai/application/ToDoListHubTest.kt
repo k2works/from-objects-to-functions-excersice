@@ -15,6 +15,7 @@ import zettai.domain.commands.ChangeItemStatus
 import zettai.domain.commands.CreateToDoList
 import zettai.domain.commands.ToDoListCommand
 import zettai.domain.errors.InvalidTransition
+import zettai.domain.errors.PersistenceFailure
 import zettai.domain.errors.ItemNotFound
 import zettai.domain.errors.ListAlreadyExists
 import zettai.domain.errors.ListNotFound
@@ -37,9 +38,9 @@ class ToDoListHubTest : StringSpec({
         runTest {
             val persisted = mutableListOf<List<ToDoListEvent>>()
             val hub = todoListHub(
-                readAggregate = { _, _ -> listOf(created) },
+                readAggregate = { _, _ -> listOf(created).right() },
                 readUser = { error("command は user 単位で読まない") },
-                persist = { persisted += it },
+                persist = { persisted += it; Unit.right() },
             )
 
             hub.execute(AddToDoItem(user, listName, item)) shouldBe listOf(added).right()
@@ -53,10 +54,10 @@ class ToDoListHubTest : StringSpec({
             val hub = todoListHub(
                 readAggregate = { u, l ->
                     requested += u to l
-                    listOf(created)
+                    listOf(created).right()
                 },
                 readUser = { error("command は user 単位で読まない") },
-                persist = {},
+                persist = { Unit.right() },
             )
 
             hub.execute(AddToDoItem(user, listName, item))
@@ -69,9 +70,9 @@ class ToDoListHubTest : StringSpec({
         runTest {
             val other = ListName("shop")
             val hub = todoListHub(
-                readAggregate = { _, _ -> listOf(ListCreated(user, other)) },
+                readAggregate = { _, _ -> listOf(ListCreated(user, other)).right() },
                 readUser = { error("command は user 単位で読まない") },
-                persist = {},
+                persist = { Unit.right() },
             )
 
             hub.execute(AddToDoItem(user, listName, item)) shouldBe
@@ -103,9 +104,9 @@ class ToDoListHubTest : StringSpec({
             runTest {
                 var persistCalls = 0
                 val hub = todoListHub(
-                    readAggregate = { _, _ -> rejection.events },
+                    readAggregate = { _, _ -> rejection.events.right() },
                     readUser = { error("command は user 単位で読まない") },
-                    persist = { persistCalls += 1 },
+                    persist = { persistCalls += 1; Unit.right() },
                 )
 
                 hub.execute(rejection.command) shouldBe rejection.error.left()
@@ -117,7 +118,7 @@ class ToDoListHubTest : StringSpec({
     "query 側の getList は集約のイベントから ToDoList を導く" {
         runTest {
             val hub = todoListHub(
-                readAggregate = { _, _ -> listOf(created, added) },
+                readAggregate = { _, _ -> listOf(created, added).right() },
                 readUser = { error("getList は user 単位で読まない") },
                 persist = { error("query は永続化しない") },
             )
@@ -129,7 +130,7 @@ class ToDoListHubTest : StringSpec({
     "イベントのないリストは ListNotFound になる" {
         runTest {
             val hub = todoListHub(
-                readAggregate = { _, _ -> emptyList() },
+                readAggregate = { _, _ -> emptyList<ToDoListEvent>().right() },
                 readUser = { error("getList は user 単位で読まない") },
                 persist = { error("query は永続化しない") },
             )
@@ -142,11 +143,53 @@ class ToDoListHubTest : StringSpec({
         runTest {
             val hub = todoListHub(
                 readAggregate = { _, _ -> error("listRows は集約単位で読まない") },
-                readUser = { listOf(created, added, done) },
+                readUser = { listOf(created, added, done).right() },
                 persist = { error("query は永続化しない") },
             )
 
-            hub.listRows(user) shouldBe listOf(ToDoListRow(listName, itemCount = 1, doneCount = 1))
+            hub.listRows(user) shouldBe listOf(ToDoListRow(listName, itemCount = 1, doneCount = 1)).right()
+        }
+    }
+
+    "保存に失敗したら成功を返さない" {
+        runTest {
+            val failure = PersistenceFailure("disk full")
+            val hub = todoListHub(
+                readAggregate = { _, _ -> listOf(created).right() },
+                readUser = { error("command は user 単位で読まない") },
+                persist = { failure.left() },
+            )
+
+            hub.execute(AddToDoItem(user, listName, item)) shouldBe failure.left()
+        }
+    }
+
+    "読み出しに失敗したら判断も保存もしない" {
+        runTest {
+            val failure = PersistenceFailure("connection refused")
+            var persistCalls = 0
+            val hub = todoListHub(
+                readAggregate = { _, _ -> failure.left() },
+                readUser = { error("command は user 単位で読まない") },
+                persist = { persistCalls += 1; Unit.right() },
+            )
+
+            hub.execute(AddToDoItem(user, listName, item)) shouldBe failure.left()
+            persistCalls shouldBe 0
+        }
+    }
+
+    "query は読み出しの失敗を ListNotFound にせずそのまま返す" {
+        runTest {
+            val failure = PersistenceFailure("connection refused")
+            val hub = todoListHub(
+                readAggregate = { _, _ -> failure.left() },
+                readUser = { failure.left() },
+                persist = { error("query は永続化しない") },
+            )
+
+            hub.getList(user, listName) shouldBe failure.left()
+            hub.listRows(user) shouldBe failure.left()
         }
     }
 })

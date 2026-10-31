@@ -5,7 +5,6 @@ import zettai.domain.ListName
 import zettai.domain.StreamId
 import zettai.domain.ToDoStatus
 import zettai.domain.User
-import zettai.domain.validation.FieldProblem
 
 sealed interface ZettaiError {
     val message: String

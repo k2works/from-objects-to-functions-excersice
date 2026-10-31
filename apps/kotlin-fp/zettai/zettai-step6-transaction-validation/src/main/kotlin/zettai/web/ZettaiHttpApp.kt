@@ -48,11 +48,7 @@ private fun showList(request: Request, hub: ToDoListHub): Response =
 
         hub.getList(user, listName).fold(
             ifLeft = ::toResponse,
-            ifRight = {
-                Response(Status.OK)
-                    .header("Content-Type", "text/html; charset=utf-8")
-                    .body(renderHtml(user, it))
-            },
+            ifRight = { html(Status.OK, renderHtml(user, it)) },
         )
     }
 
@@ -81,12 +77,31 @@ private fun rename(request: Request, hub: ToDoListHub): Response =
             ifLeft = { invalid ->
                 html(
                     Status.BAD_REQUEST,
-                    renderRenameForm(User(rawUser), ListName(rawList), rawNewName, invalid.problems),
+                    renderRenameForm(
+                        User(rawUser),
+                        ListName(rawList),
+                        rawNewName,
+                        invalid.problems.map(::describeProblem),
+                    ),
                 )
             },
             ifRight = { command ->
                 hub.execute(command).fold(
-                    ifLeft = ::toResponse,
+                    ifLeft = { error ->
+                        if (error is ListAlreadyExists || error is ListNotFound || error is ConcurrentModification) {
+                            html(
+                                statusOf(error),
+                                renderRenameForm(
+                                    command.user,
+                                    command.listName,
+                                    rawNewName,
+                                    listOf(describeError(error)),
+                                ),
+                            )
+                        } else {
+                            toResponse(error)
+                        }
+                    },
                     ifRight = {
                         Response(Status.FOUND).header("Location", listPath(command.user, command.newName))
                     },

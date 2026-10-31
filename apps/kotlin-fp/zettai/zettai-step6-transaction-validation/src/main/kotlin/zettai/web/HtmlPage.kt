@@ -4,8 +4,12 @@ import java.net.URLEncoder
 import zettai.domain.ListName
 import zettai.domain.ToDoList
 import zettai.domain.User
-import zettai.domain.validation.FieldProblem
-import zettai.domain.validation.InputProblem
+import zettai.domain.errors.ConcurrentModification
+import zettai.domain.errors.FieldProblem
+import zettai.domain.errors.InputProblem
+import zettai.domain.errors.ListAlreadyExists
+import zettai.domain.errors.ListNotFound
+import zettai.domain.errors.ZettaiError
 
 private fun template(name: String): String =
     requireNotNull(object {}.javaClass.getResource("/templates/$name")) { "テンプレートが無い: $name" }.readText()
@@ -33,7 +37,7 @@ fun renderHtml(user: User, list: ToDoList): String =
     )
 
 /** 検証の誤りは、すべて並べる。入力は保持して、書き直さなくて済むようにする。 */
-fun renderRenameForm(user: User, listName: ListName, newName: String, problems: List<FieldProblem>): String =
+fun renderRenameForm(user: User, listName: ListName, newName: String, problems: List<String>): String =
     render(
         "rename.html",
         mapOf(
@@ -46,13 +50,22 @@ fun renderRenameForm(user: User, listName: ListName, newName: String, problems: 
         ),
     )
 
-private fun problemsHtml(problems: List<FieldProblem>): String =
+private fun problemsHtml(problems: List<String>): String =
     if (problems.isEmpty()) {
         ""
     } else {
         problems.joinToString(prefix = "<ul class=\"problems\">\n", postfix = "</ul>\n", separator = "") {
-            "<li class=\"problem\">${escapeHtml(describeProblem(it))}</li>\n"
+            "<li class=\"problem\">${escapeHtml(it)}</li>\n"
         }
+    }
+
+/** 業務のルールで断られた理由を、利用者が次にすることが分かる文言にする。それ以外は内部の message のまま。 */
+fun describeError(error: ZettaiError): String =
+    when (error) {
+        is ListAlreadyExists -> "「${error.listName.name}」というリストはすでにあります。別の名前にしてください"
+        is ListNotFound -> "このリストは見つかりません。名前が変わったか、無くなった可能性があります"
+        is ConcurrentModification -> "このリストは別の操作で変更されました。開き直してから、もう一度お試しください"
+        else -> error.message
     }
 
 fun describeProblem(problem: FieldProblem): String {

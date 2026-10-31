@@ -7,12 +7,14 @@ import arrow.core.nonEmptyListOf
 import arrow.core.right
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
-import zettai.domain.validation.InputField.ListName
-import zettai.domain.validation.InputField.NewName
-import zettai.domain.validation.InputField.User
-import zettai.domain.validation.InputProblem.Blank
-import zettai.domain.validation.InputProblem.ForbiddenCharacter
-import zettai.domain.validation.InputProblem.TooLong
+import zettai.domain.errors.FieldProblem
+import zettai.domain.errors.InputField.ListName
+import zettai.domain.errors.InputField.NewName
+import zettai.domain.errors.InputField.User
+import zettai.domain.errors.InputProblem
+import zettai.domain.errors.InputProblem.Blank
+import zettai.domain.errors.InputProblem.ForbiddenCharacter
+import zettai.domain.errors.InputProblem.TooLong
 
 class ValidationTest : StringSpec({
     "正しい名前は通る" {

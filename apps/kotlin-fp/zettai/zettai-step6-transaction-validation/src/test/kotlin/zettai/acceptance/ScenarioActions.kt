@@ -2,10 +2,10 @@ package zettai.acceptance
 
 import arrow.core.Either
 import arrow.core.getOrElse
+import java.net.URLEncoder
 import kotlinx.coroutines.runBlocking
 import org.http4k.core.Method.GET
 import org.http4k.core.Method.POST
-import java.net.URLEncoder
 import org.http4k.core.Request
 import org.http4k.core.Response
 import org.http4k.core.Status
@@ -20,10 +20,11 @@ import zettai.domain.ToDoList
 import zettai.domain.User
 import zettai.domain.commands.AddToDoItem
 import zettai.domain.commands.CreateToDoList
-import zettai.domain.errors.ListNotFound
 import zettai.domain.errors.InvalidInput
+import zettai.domain.errors.ListNotFound
 import zettai.domain.errors.ZettaiError
 import zettai.domain.validation.validateRename
+import zettai.web.describeError
 import zettai.web.describeProblem
 import zettai.web.zettaiHttpApp
 
@@ -48,7 +49,7 @@ private suspend fun ToDoListHub.renameWithCommands(user: User, listName: ListNam
         ifLeft = { invalid -> RenameOutcome.Rejected(invalid.problems.map(::describeProblem)) },
         ifRight = { command ->
             execute(command).fold(
-                ifLeft = { RenameOutcome.Rejected(listOf(it.message)) },
+                ifLeft = { RenameOutcome.Rejected(listOf(describeError(it))) },
                 ifRight = { RenameOutcome.Renamed },
             )
         },

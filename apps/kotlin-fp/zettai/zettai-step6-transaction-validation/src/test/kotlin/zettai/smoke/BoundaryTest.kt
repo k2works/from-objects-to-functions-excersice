@@ -21,6 +21,13 @@ class BoundaryTest : StringSpec({
         violations(sources, forbidden).shouldBeEmpty()
     }
 
+    "domain.errors は validation と commands に依存しない（domain の中に循環を作らない）" {
+        val sources = productionSources("domain/errors")
+        val forbidden = listOf("zettai.domain.validation", "zettai.domain.commands")
+
+        violations(sources, forbidden).shouldBeEmpty()
+    }
+
     "application は driving adapter と driven adapter と coroutine runner に依存しない" {
         val sources = productionSources("application")
         val forbidden = listOf(

@@ -8,26 +8,12 @@ import arrow.core.right
 import zettai.domain.ListName
 import zettai.domain.User
 import zettai.domain.commands.RenameToDoList
+import zettai.domain.errors.FieldProblem
+import zettai.domain.errors.InputField
+import zettai.domain.errors.InputProblem
 import zettai.domain.errors.InvalidInput
 
 const val MAX_NAME_LENGTH = 40
-
-/** 検証する入力。画面に誤りを示すときの名前を持つ。 */
-enum class InputField(val label: String) {
-    User("利用者名"),
-    ListName("リスト名"),
-    NewName("新しい名前"),
-}
-
-sealed interface InputProblem {
-    data object Blank : InputProblem
-
-    data class TooLong(val max: Int, val actual: Int) : InputProblem
-
-    data class ForbiddenCharacter(val character: Char) : InputProblem
-}
-
-data class FieldProblem(val field: InputField, val problem: InputProblem)
 
 /**
  * 独立した検証の結果を合成する。どれかが失敗しても止まらず、すべての失敗を左から順に集める。

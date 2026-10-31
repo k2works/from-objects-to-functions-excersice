@@ -4,7 +4,7 @@ title: "Unit 7 の Bolt 計画 - Zettai 連載（Kotlin FP 版）"
 description: "Kotlin FP 版 Unit 7 の構造化ロギング、関数型 JSON とプロファンクタ、データベース呼び出しのロギング、関数型アーキテクチャの総括、第 12〜13 章、連載全体の品質ゲートを定義する Bolt 計画。"
 tags: [development, plan, ai-dlc, zettai, kotlin, arrow, logging, json, unit-7]
 status: stable
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T12:20:46Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T12:25:18Z }
 verified:
   - { by: human:kakimomokuri, at: 2026-10-31T12:21:58Z }
 ---
@@ -86,7 +86,7 @@ Unit 6 の持ち越しと開発戦略から、この Unit が答える問いは 
 | 6 | レビューの指摘は、「直す」「持ち越す」を決める基準（利用者に見えるか、データが壊れるか）を先に持つ | 7-2.5 |
 | 7 | 低の持ち越し：`ZettaiHttpApp.kt` の `showList` と `showRenameForm` が、`User(request.path("user").orEmpty())` と `ListName(request.path("list").orEmpty())` を繰り返している（Unit 6 のレビューは `Request.listKey()` と呼んだが、その関数は実在しない）。`private fun Request.userAndList()` に寄せる | 7-1.1（request log の filter が同じ path を読むので、先に直す） |
 | 8 | 低の持ち越し：名前変更の成功の知らせ | 含めない（理由は下の表） |
-| 11 | ふりかえり Try：失敗応答（404、500）を HTML にするかは、「次の Unit の最初に決める」。Kotlin FP 版の契約は、フォームを伴わない失敗をプレーンテキストで返す（`ZettaiHttpAppTest`）。request log が 404、400、409、500 を扱うので、先に決める | 7-1.1 |
+| 11 | ふりかえり Try：失敗応答（404、500）を HTML にするかは、「次の Unit の最初に決める」。Kotlin FP 版の契約は、フォームを伴わない失敗をプレーンテキストで返す（`ZettaiHttpAppTest`）。request log が 404、400、409、500 を扱うので、先に決める | 7-1.1。**決定（7-1.1）**：フォームを伴わない失敗は、プレーンテキストのままにする。request log はステータスだけを記録するので、本文の形式に依らない。HTML にするのは、利用者が入力を直せる名前変更のフォームだけ |
 | 12 | 低の持ち越し：`rename` の分岐が 3 種類の error 型を列挙し、`describeError` の `else` が実質使われない | 7-1.1 |
 | 9 | HTTP と PostgreSQL の組み合わせが、どの経路でも検証されていない | 7-2.4（第 13 章で「確かめていない組み合わせ」として整理する。検証は含めない） |
 | 10 | `Transaction<Tx>` の戻り値が固定されている。command 以外の用途が現れたら総称にする | 含めない。ロギングの decorator は `Transaction` を包まず、`readStream` と `append` を包むので、必要が現れない |
@@ -182,7 +182,7 @@ gantt
 
 ### Bolt 7-1：第 12 章「監視と関数型JSON」
 
-- [ ] **7-1.1** `zettai-step7-observability` module を新設する。Unit 6 の production code と test を独立した snapshot としてコピーする。第 12 章で変わる型（`ToDoListHub`、`EventStore<Tx>`、`ZettaiHttpApp`）を一覧し、decorator で包む点を決める。あわせて、持ち越し 7（`userAndList` に寄せる）、11（失敗応答を HTML にするかを決め、`ZettaiHttpAppTest` と計画に残す）、12（`rename` の分岐と `describeError` の `else`）を片づける
+- [x] **7-1.1** `zettai-step7-observability` module を新設する。Unit 6 の production code と test を独立した snapshot としてコピーする。第 12 章で変わる型（`ToDoListHub`、`EventStore<Tx>`、`ZettaiHttpApp`）を一覧し、decorator で包む点を決める。あわせて、持ち越し 7（`userAndList` に寄せる）、11（失敗応答を HTML にするかを決め、`ZettaiHttpAppTest` と計画に残す）、12（`rename` の分岐と `describeError` の `else`）を片づける
 - [ ] **7-1.2** ログに載せるもの、載せないものの表（本計画）をテストにする（ローカルで Red を確認）。決定的な時刻、1 行の JSON、機密の除外
 - [ ] **7-1.3** 新しい依存を決める（**停止 1**：新しい依存の追加と、承認済みの ADR-040 の部分的な見直しは確認必須）。上の比較表の案 A を既定として提示する。スパイクで、Kotlin 2.4.21 と整合する版、`JsonElement` の往復、特殊文字（引用符、バックスラッシュ、改行、絵文字）の escape を確かめ、ADR にする。承認が得られないときは、案 B〜D の理由を示して止まる
 - [ ] **7-1.4** `Converter<A, B>` と `dimap` を作り、法則（`dimap id id = id`、`dimap (f ∘ g) (h ∘ k) = dimap g h ∘ dimap f k`、往復）を property test で確かめる。壊れた入力は `Left`。法則を満たさない部分があれば、第 12 章に「厳密なプロファンクタではない」理由として書く

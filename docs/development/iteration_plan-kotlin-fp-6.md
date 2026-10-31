@@ -4,7 +4,7 @@ title: "Unit 6 の Bolt 計画 - Zettai 連載（Kotlin FP 版）"
 description: "Kotlin FP 版 Unit 6 の transaction と楽観ロック、複数 stream の原子的な保存、名前変更と蓄積する検証、テンプレート描画、第 10〜11 章を定義する Bolt 計画。"
 tags: [development, plan, ai-dlc, bolt, zettai, kotlin, arrow, postgresql, unit-6]
 status: stable
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T11:54:52Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T12:01:24Z }
 verified:
   - { by: human:kakimomokuri, at: 2026-10-31T10:54:02Z }
 ---
@@ -415,7 +415,7 @@ package domain {
 - [x] アーキテクチャ設計、ドメインモデル設計、データモデル設計、UI 設計に Unit 6 の判断を反映する
 - [x] ADR が作成され、データベースのスキーマ変更、データモデルの Kotlin FP 版の差分とともに、人の承認を得ている
 - [x] 受入条件の表の各セルが、テスト名と 1 対 1 で対応している
-- [ ] 5 観点の開発成果物レビューで高・中重要度の残件がない
+- [x] 5 観点の開発成果物レビューで高・中重要度の残件がない
 - [x] OKF 検査が ERROR 0
 - [x] push 後の CI が green（push は人の承認を得て行う）
 

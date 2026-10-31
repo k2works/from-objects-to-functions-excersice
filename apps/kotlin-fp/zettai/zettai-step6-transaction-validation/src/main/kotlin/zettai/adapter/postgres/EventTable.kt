@@ -19,7 +19,7 @@ internal object EventTable {
 
     const val HAS_VERSION_COLUMN = """
         SELECT 1 FROM information_schema.columns
-        WHERE table_name = 'todo_list_event' AND column_name = 'version'
+        WHERE table_schema = current_schema() AND table_name = 'todo_list_event' AND column_name = 'version'
     """
 
     const val CREATE_INDEX = """

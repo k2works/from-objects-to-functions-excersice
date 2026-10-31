@@ -2,6 +2,8 @@
 
 ## 2026-10-31
 * **Update**: [kotlin-fp-unit6_review_20261031](/review/kotlin-fp-unit6_review_20261031.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [iteration_plan-kotlin-fp-6](/development/iteration_plan-kotlin-fp-6.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [kotlin-fp-unit6_review_20261031](/review/kotlin-fp-unit6_review_20261031.md) を更新（anthropic/claude-sonnet-5-5）
 * **Update**: [bolt_report-kotlin-fp-6](/development/bolt_report-kotlin-fp-6.md) を更新（anthropic/claude-sonnet-5-5）
 * **Update**: [ADR-043-optimistic-locking-by-version](/adr/ADR-043-optimistic-locking-by-version.md) を更新（anthropic/claude-sonnet-5-5）
 * **Update**: [release_plan-kotlin-fp](/development/release_plan-kotlin-fp.md) を更新（anthropic/claude-sonnet-5-5）

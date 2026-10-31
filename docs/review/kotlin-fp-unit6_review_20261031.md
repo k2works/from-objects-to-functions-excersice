@@ -4,7 +4,7 @@ title: "Kotlin FP 版 Unit 6 開発成果物レビュー"
 description: "Kotlin FP 版 Unit 6（第 10〜11 章、zettai-step6-transaction-validation）を 5 観点（プログラマー、テスター、アーキテクト、テクニカルライター、ユーザー代表）で並列レビューした結果と、指摘ごとの対応方針。"
 tags: [review, zettai, kotlin, unit-6]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T11:58:16Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T12:01:24Z }
 ---
 
 # Kotlin FP 版 Unit 6 開発成果物レビュー
@@ -74,3 +74,12 @@ transaction の境界を 1 か所に集め、`Tx` を型引数で通す設計と
 ## 再レビュー
 
 修正後の再レビューは、末尾の「再レビュー結果」に記録します。
+
+## 再レビュー結果
+
+修正後に、独立した読み取り専用の確認を行いました（コードと差分を根拠にした確認。gradle は実行していない）。結果は **高・中の残件なし** です。
+
+- 循環 import の解消、版の導出と `createSchema` の列確認、フォームのエスケープ、新しい待ち合わせの設計、誤った理由で通るテストの有無を確かめ、問題は見つかりませんでした。
+- 「修正」とした項目は、コードとテストに反映されていました。「決定」とした項目の理由は、コードの事実と矛盾しませんでした。
+- 低の指摘 1 件（`information_schema` の絞り込みに `table_schema` が無い）は、`current_schema()` を足して直しました。残る低は、`rename` の分岐が 3 種類の error 型を列挙していること（`describeError` の `else` が実質使われない）です。
+- 記事と ADR の文言は、この再レビューの範囲外です。それらは 1 回目のレビューで確かめています。

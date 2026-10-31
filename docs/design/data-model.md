@@ -4,7 +4,7 @@ title: "データモデル設計 - Zettai"
 description: "Zettai（Kotlin 版）のデータモデル設計。イベントソーシングのため状態を保存せず、追記のみの単一テーブルでイベントストアを構成する判断、ER 図、テーブル定義、インデックス方針、正規化を論じない理由、章の進行にあわせた変化を記述する。"
 tags: [design, data-model, zettai, kotlin]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-29T05:08:41Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:11:51Z }
 ---
 
 # データモデル設計 - Zettai
@@ -108,6 +108,48 @@ CREATE INDEX IF NOT EXISTS idx_todo_list_event_entity
 | 12 | `payload` の JSON を Kondor で扱う |
 
 第 8 章までのデータはインメモリで、テーブルはありません。
+
+## Kotlin FP 版での差分
+
+テーブル `todo_list_event`、カラム、インデックス `(entity_id, id)` は既存 Kotlin 版と同じです。保存するのは出来事だけで、追記のみ、順序の根拠は `id` です。違いは、接続の用意と、2 つの符号化にあります。
+
+| 観点 | 既存 Kotlin 版 | Kotlin FP 版 |
+| :--- | :--- | :--- |
+| 結合テストの DB | `docker-compose.yml` の `zettai-db` と CI のサービスコンテナ | Testcontainers が起動する PostgreSQL。固定のポートや service を持たず、container が公開する JDBC URL・ユーザー・パスワードだけを注入する |
+| テーブルの作成 | 起動時に `CREATE TABLE IF NOT EXISTS` | 同じ。adapter の `createSchema` が実行する |
+| `payload` の組み立て | 手書きの JSON 文字列 | `jsonb_build_object` と bind parameter。JSON ライブラリを足さない（[ADR-040](../adr/ADR-040-jdbc-blocking-boundary.md)） |
+| `payload` の読み出し | JSON 文字列を解析する | `payload->>'key'` で項目ごとに読む |
+| `entity_id` | `{user}/{listName}` | 各部分の `%` を `%25`、`/` を `%2F` に置き換えて `/` で結ぶ |
+| ユーザー単位の読み出し | `entity_id` で絞る | `starts_with(entity_id, 符号化した user + '/')` で絞る |
+
+### entity_id の符号化
+
+`{user}/{listName}` をそのまま連結すると、`User("a/b")` と `ListName("c")` の組と、`User("a")` と `ListName("b/c")` の組が、どちらも `a/b/c` になり、別の集約が混ざります。HTTP の path からは `/` を含む名前は来ませんが、domain の `User` と `ListName` は文字列なら何でも受け取ります。
+
+そこで、各部分の `%` と `/` を置き換えてから連結します。
+
+| user | listName | entity_id |
+| :--- | :--- | :--- |
+| `alice` | `book` | `alice/book` |
+| `a/b` | `c` | `a%2Fb/c` |
+| `a` | `b/c` | `a/b%2Fc` |
+| `100%` | `done` | `100%25/done` |
+
+通常の名前では既存 Kotlin 版と同じ値になり、`/` と `%` を含む名前でだけ変わります。`%` を先に置き換えるので、元の名前に戻せ、衝突しません。ユーザー単位の読み出しに `LIKE` を使わないのは、符号化した値に含まれる `%` がワイルドカードになるためです。
+
+### payload の形
+
+| event_type | payload のキー |
+| :--- | :--- |
+| `ListCreated` | `user`、`listName` |
+| `ItemAdded` | `user`、`listName`、`item`（`description`、`dueDate`、`status`） |
+| `ItemStatusChanged` | `user`、`listName`、`description`、`newStatus` |
+
+`dueDate` は ISO 8601 の文字列で、ない場合は JSON の null です。未知の `event_type`、必須キーの欠落、不正な `status` は、読み出し時に `PersistenceFailure` として返します。
+
+### jsonb の正規化
+
+`jsonb` は入れた文字列を保ちません。空白が消え、キーが並べ替えられます。そのため、書いた JSON の文字列と読み戻した文字列を比べるテストは書かず、読み戻した event が元の event と等しいことで確かめます。
 
 ## なでしこ3 版での差分
 

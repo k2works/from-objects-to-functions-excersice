@@ -4,7 +4,7 @@ title: "第 8 章 ファンクタを使ってイベントを射影する"
 description: "Zettai Kotlin FP 版の第 8 章。ドメインの状態と画面が欲しい形が違うという困りごとから、イベントを表示用の行へ射影する。Either と List を重ねた map が満たす法則を Kotest property testing で確かめ、command 側と query 側を別の経路に分けて CQRS に到達する。"
 tags: [article, zettai, kotlin, functional-programming, arrow, projection, cqrs, functor]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T05:57:53Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:11:51Z }
 ---
 
 # 第 8 章 ファンクタを使ってイベントを射影する
@@ -203,7 +203,9 @@ FP 版の query は、失敗するかもしれない結果です。第 7 章の 
 
 ### 経路を分ける
 
-port は、何を読むかを名前で示します。
+port は、何を読むかを名前で示します。この章の時点では、読み出しは失敗しない `List` を返します。第 9 章で永続化を入れるとき、戻り値を `Either` に変えます。
+
+<!-- code-check: ignore 第 9 章で戻り値を Either にする前の形 -->
 
 ```kotlin
 /** command 側が読む。判断に必要な集約のイベントだけを返す。 */
@@ -224,6 +226,8 @@ data class ToDoListHub(
     val execute: CommandExecutor,
 )
 ```
+
+<!-- code-check: ignore 第 9 章で Either を返す port に合わせる前の形 -->
 
 ```kotlin
 fun todoListHub(

@@ -4,7 +4,7 @@ title: "バックエンドアーキテクチャ設計 - Zettai"
 description: "Zettai（Kotlin 版）のバックエンドアーキテクチャ設計。ドメインとアダプタの境界の定義と担保方法、Gradle マルチプロジェクトのモジュール分割と命名規約、パッケージ構成、依存の向き、関数の型による依存表現、章の進行にあわせた構造の変化を記述する。"
 tags: [design, architecture, zettai, kotlin]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T05:57:53Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:11:51Z }
 ---
 
 # バックエンドアーキテクチャ設計 - Zettai
@@ -453,6 +453,22 @@ package domain {
 ```
 
 一覧画面の HTTP route は追加せず、`listRows` は Hub の query として検証します。境界テストは `web` から `adapter` への依存と、`adapter` から `web`、http4k、coroutine runner への依存も禁止します。
+
+### 第 9 章：PostgreSQL の event store
+
+Unit 5 の後半で、driven adapter に `adapter.postgres` を足し、永続化の失敗を型に出します。
+
+| 変更 | 内容 |
+| :--- | :--- |
+| `adapter.postgres` | JDBC で `todo_list_event` に追記し、集約単位・ユーザー単位で読む。接続の作り方は `() -> Connection` を外から受け取る |
+| 読み出しと保存の port | 戻り値を `Either<PersistenceFailure, ...>` にする。起こり得る失敗を永続化の失敗だけに絞る |
+| `Hub` | 読み出しと保存の失敗を `bind()` で短絡し、失敗時に成功を返さない |
+| blocking | adapter の中で `Dispatchers.IO` に閉じ込める。`runBlocking` は web の最外周だけに残す |
+| HTTP | `PersistenceFailure` を 500 に写像する。本文は固定で、原因を含めない |
+
+`adapter.postgres` と `adapter.inmemory` は、どちらも `application` の port を実装し、`domain` を知ってよい driven adapter です。境界テストは、`adapter` が `web`、http4k、`runBlocking` に依存しないことを検査します。`withContext` と `Dispatchers` は adapter が使います。
+
+結合テストの DB は Testcontainers が起動する PostgreSQL で、`docker-compose.yml` に service を足しません。判断は [ADR-040](../adr/ADR-040-jdbc-blocking-boundary.md) に記録しています。transaction の境界は第 10 章で扱い、この段階の `persist` は 1 回の呼び出しの中で確定します。
 
 ### Kotlin FP 版の段階 module
 

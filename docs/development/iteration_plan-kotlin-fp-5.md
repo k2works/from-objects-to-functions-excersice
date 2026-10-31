@@ -4,7 +4,7 @@ title: "Unit 5 の Bolt 計画 - Zettai 連載（Kotlin FP 版）"
 description: "Kotlin FP 版 Unit 5 の射影と CQRS、集約単位の port、Testcontainers PostgreSQL による event store、永続化の typed error、第 8〜9 章を定義する Bolt 計画。"
 tags: [development, plan, ai-dlc, bolt, zettai, kotlin, arrow, postgresql, unit-5]
 status: stable
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:37:42Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:39:41Z }
 verified:
   - { by: human:kakimomokuri, at: 2026-10-31T05:49:29Z }
 ---
@@ -118,7 +118,7 @@ gantt
 
 ### Bolt 5-1: 第 8 章
 
-- [ ] **5-1.0** `gulp mkdocs:build` を CI と同じ `--strict` にするか判断する。変更する場合は `operating-script` スキルで正式なタスクとして直し、運用手順書にも記載する（**未実施**。この Unit では Docker 上で `mkdocs build --strict` を直接実行して確かめた。運用タスクの変更は Unit 6 の前に判断する）
+- [x] **5-1.0** `gulp mkdocs:build` を CI と同じ `--strict` にするか判断する。変更する場合は `operating-script` スキルで正式なタスクとして直し、運用手順書にも記載する（Unit のクローズ後に実施。`ops/scripts/mkdocs.js` に `--strict` を足し、`gulp mkdocs:build` が成功することを確かめた。運用手順書にこのタスクの記載は無いため、追記先は無い。CI の `npm run docs:build` も同じタスクを使うので、CI も strict の判定になる）
 - [x] **5-1.0a** ADR を 2 本作る：Arrow Core を domain と application に使う範囲（遡及）、関数型 DI と suspend port の形。Unit 3〜4 で決めた判断の記録なので、実装を始める前に置く
 - [x] **5-1.1** `zettai-step5-cqrs-persistence` module を新設する（**停止 1**：新規 ADR・新規ファイル・構造変更）。Unit 4 の production code と test を独立した snapshot としてコピーし、前段 module へ依存しない。`settings.gradle.kts` に `include` を足し、`build.gradle.kts` に Arrow Fx、PostgreSQL driver、Testcontainers、Cucumber の依存を足す。Unit 4 の module に Cucumber は無いので、feature・steps・runner は Unit 2 の module から移す
 - [x] **5-1.2** port を集約単位へ絞る Red を書き、Green にする。command 側が `(User, ListName)` のイベント列だけで判断すること、他の集約が混ざっても判断が変わらないことを表駆動で固定する
@@ -362,7 +362,8 @@ Unit 4 の再レビューで「記事の表の内訳が実際と合わない」�
 | 日付 | 内容 | 更新者 |
 | :--- | :--- | :--- |
 | 2026-10-31 | 初版。Unit 4 のふりかえりとレビューの引き継ぎ、設計 4 図の要否、ゲート密度を反映 | anthropic/claude-sonnet-5-5 |
-| 2026-10-31 | 実装、品質ゲート、5 観点レビューの完了を反映。永続化の失敗の型を `PersistenceFailure` に狭めたことを受入条件に記録。5-1.0 と push 後の CI は未実施 | anthropic/claude-sonnet-5-5 |
+| 2026-10-31 | 実装、品質ゲート、5 観点レビューの完了を反映。永続化の失敗の型を `PersistenceFailure` に狭めたことを受入条件に記録。push 後の CI は未実施 | anthropic/claude-sonnet-5-5 |
+| 2026-10-31 | 5-1.0 を実施。`gulp mkdocs:build` を `--strict` にした | anthropic/claude-sonnet-5-5 |
 
 ## 関連ドキュメント
 

@@ -46,12 +46,12 @@ export default function (gulp) {
   gulp.task('mkdocs:build', (done) => {
     if (!requireDocker()) { done(); return; }
     try {
-      console.log('Building MkDocs documentation...');
+      console.log('Building MkDocs documentation (--strict: CI と同じ判定)...');
       const siteDir = path.join(process.cwd(), 'site');
       if (fs.existsSync(siteDir)) {
         fs.rmSync(siteDir, { recursive: true, force: true });
       }
-      dockerCompose('run --rm mkdocs mkdocs build');
+      dockerCompose('run --rm mkdocs mkdocs build --strict');
       console.log('\nBuild completed.');
       done();
     } catch (error) {

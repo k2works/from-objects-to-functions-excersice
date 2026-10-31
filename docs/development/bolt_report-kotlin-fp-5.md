@@ -4,7 +4,7 @@ title: "Unit 5 の Bolt 終了報告 - Zettai 連載（Kotlin FP 版）"
 description: "Kotlin FP 版 Unit 5 の射影と CQRS、PostgreSQL の event store、永続化の typed error、第 8〜9 章の完了結果を記録する。"
 tags: [development, report, zettai, kotlin, arrow, postgresql, unit-5]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:37:42Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:39:41Z }
 ---
 
 # Unit 5 の Bolt 終了報告 - Zettai 連載（Kotlin FP 版）
@@ -17,7 +17,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:37:42Z }
 | Bolt | 5-1 第 8 章 / 5-2 第 9 章 |
 | 実施日 | 2026-10-31 |
 | 見積もり | US-008: 5 SP / US-009: 8 SP |
-| 状態 | **完了**（push 後の CI、5-1.0、ADR の承認を除く） |
+| 状態 | **完了**（push 後の CI と ADR の承認を除く。どちらも人の判断が要る） |
 
 ## 成果
 
@@ -71,7 +71,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:37:42Z }
 - port の Left の型を、`PersistenceFailure` から広げます（`ConcurrentModification` を足すため）。
 - `postgresEventStore(connect)` の「操作ごとに接続を開く」形の見直しと、`Resource` の採否。
 - in-memory adapter の同期（`Mutex`）。
-- 5-1.0（`gulp mkdocs:build` を CI と同じ判定にする）の判断。
+- 5-1.0（`gulp mkdocs:build` を CI と同じ判定にする）は、Unit のクローズ後に実施した。`ops/scripts/mkdocs.js` に `--strict` を足した。
 - ADR-038〜041 の承認と、push 後の CI の確認。
 - Docker が無い環境で、失敗がどう見えるかの確認。
 

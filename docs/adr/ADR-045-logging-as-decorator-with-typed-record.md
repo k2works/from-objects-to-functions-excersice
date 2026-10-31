@@ -3,8 +3,10 @@ type: ADR
 title: "ADR-045 ログは decorator で足し、載せるものを LogRecord の型で決める"
 description: "Zettai 連載 Kotlin FP 版の第 12 章で、構造化ログを Hub と event store を包む decorator と、HTTP の filter で足し、載せるものを LogRecord の型で決める決定。ログの枠組みを入れず、出力先と時刻を引数で与える理由、利用者名とリスト名を識別子として載せる判断、例外を記録しない範囲を記録する。"
 tags: [adr, kotlin-fp, zettai, logging, observability]
-status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T13:17:18Z }
+status: stable
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T13:24:35Z }
+verified:
+  - { by: human:kakimomokuri, at: 2026-10-31T13:21:16Z }
 ---
 
 # ADR-045 ログは decorator で足し、載せるものを LogRecord の型で決める
@@ -13,7 +15,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T13:17:18Z }
 
 ## ステータス
 
-2026-10-31 提案されました
+2026-10-31 承認されました
 
 ## コンテキスト
 

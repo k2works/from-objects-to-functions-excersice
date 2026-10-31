@@ -4,7 +4,7 @@ title: "リリース計画 - Zettai 連載（Kotlin FP 版）"
 description: "Kotlin、Arrow、kotlinx.coroutines を使う Zettai Kotlin FP 版を、前提整備と全 13 章の 7 Unit で公開する AI-DLC Level 1 計画。"
 tags: [development, plan, ai-dlc, zettai, kotlin, arrow]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T13:19:51Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T13:24:35Z }
 ---
 
 # リリース計画 - Zettai 連載（Kotlin FP 版）
@@ -30,7 +30,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T13:19:51Z }
 | 4 | 4-1 / 4-2 | 第 6〜7 章 | 状態遷移と Arrow typed error | **完了** |
 | 5 | 5-1 / 5-2 | 第 8〜9 章 | CQRS と PostgreSQL 結合テスト | **完了** |
 | 6 | 6-1 / 6-2 | 第 10〜11 章 | transaction とエラー蓄積 | **完了** |
-| 7 | 7-1 / 7-2 | 第 12〜13 章 | 監視、横断比較、全品質ゲート | **承認待ち**（実装・執筆・レビュー対応は完了。ADR-045 の承認と push が未了） |
+| 7 | 7-1 / 7-2 | 第 12〜13 章 | 監視、横断比較、全品質ゲート | **完了** |
 
 依存関係は `Unit 1 → 2 → 3 → 4 → 5 → 6 → 7` です。章の物語が設計の到達順序を固定するため、Unit は直列に進めます。
 

@@ -182,6 +182,7 @@ nav:
           - Release v1.0.0: development/release_report-1.0.0.md
           - 「なでしこ3」Release v1.0.0: development/release_report-nadesiko-1.0.0.md
           - 「Rust」Release v1.0.0: development/release_report-rust-1.0.0.md
+          - 「Kotlin FP」Release v1.0.0: development/release_report-kotlin-fp-1.0.0.md
   - 運用:
       - 概要: operation/index.md
   - ジャーナル:

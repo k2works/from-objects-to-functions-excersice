@@ -36,7 +36,7 @@
 | Unit 4 command と typed error | [Unit 4 の Bolt 計画](iteration_plan-kotlin-fp-4.md) | [ふりかえり](retrospective-kotlin-fp-4.md) | [Bolt 終了報告](bolt_report-kotlin-fp-4.md) | **完了** |
 | Unit 5 射影と永続化 | [Unit 5 の Bolt 計画](iteration_plan-kotlin-fp-5.md) | [ふりかえり](retrospective-kotlin-fp-5.md) | [Bolt 終了報告](bolt_report-kotlin-fp-5.md) | **完了** |
 | Unit 6 transaction と検証 | [Unit 6 の Bolt 計画](iteration_plan-kotlin-fp-6.md) | [ふりかえり](retrospective-kotlin-fp-6.md) | [Bolt 終了報告](bolt_report-kotlin-fp-6.md) | **完了** |
-| Unit 7 監視と総括 | [Unit 7 の Bolt 計画](iteration_plan-kotlin-fp-7.md) | [ふりかえり](retrospective-kotlin-fp-7.md) | [Bolt 終了報告](bolt_report-kotlin-fp-7.md) | **承認待ち**（ADR-045、push） |
+| Unit 7 監視と総括 | [Unit 7 の Bolt 計画](iteration_plan-kotlin-fp-7.md) | [ふりかえり](retrospective-kotlin-fp-7.md) | [Bolt 終了報告](bolt_report-kotlin-fp-7.md) | **完了** |
 
 ### Bolt 計画（なでしこ3 版）
 
@@ -103,3 +103,4 @@ AI-DLC ではベロシティの代わりに完了 Unit 数・承認ゲート通�
 * [Unit 2 の Bolt 終了報告 - Zettai 連載（Rust 版）](./bolt_report-rust-2.md) - Zettai 連載 Rust 版 Unit 2（ウォーキングスケルトンとドメイン分離）の終了報告。承認ゲートが 2 / 2 で同期停止したこと、境界検査を 1 行も書かずにコンパイラが守ったこと、CI の 2 案を実測して二重管理を検査で押さえたこと、Release v0.1.0 を記録する。
 * [Unit 2 のふりかえり（KPT）- Zettai 連載（Rust 版）](./retrospective-rust-2.md) - Zettai 連載 Rust 版 Unit 2 の KPT ふりかえり。ゲートが 2 / 2 で止まった理由、両方作って測る手が効いたこと、二重管理を検査で押さえたこと、計画の順序の誤りと持ち込みを 2 回送ったことを整理し、Unit 3 で試すことを決める。
 * [リリース完了報告書 v1.0.0 - Zettai 連載（Rust 版）](./release_report-rust-1.0.0.md) - Zettai 連載 Rust 版 v1.0.0 の完了報告。全 13 章の公開、承認ゲート 15 / 15、制約が設計を押した 7 回、既製品を 7 回判断して 1 回入れたこと、3 対象を通して見えたことを記録する。
+* [リリース完了報告書 v1.0.0 - Zettai 連載（Kotlin FP 版）](./release_report-kotlin-fp-1.0.0.md) - Zettai 連載 Kotlin FP 版 v1.0.0 の完了報告。全 13 章の公開、7 Unit の完了、8 件の ADR、ライブラリへ委ねる設計の観察と、確かめていないこと。

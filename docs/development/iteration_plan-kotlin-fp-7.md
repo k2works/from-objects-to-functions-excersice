@@ -4,7 +4,7 @@ title: "Unit 7 の Bolt 計画 - Zettai 連載（Kotlin FP 版）"
 description: "Kotlin FP 版 Unit 7 の構造化ロギング、関数型 JSON とプロファンクタ、データベース呼び出しのロギング、関数型アーキテクチャの総括、第 12〜13 章、連載全体の品質ゲートを定義する Bolt 計画。"
 tags: [development, plan, ai-dlc, zettai, kotlin, arrow, logging, json, unit-7]
 status: stable
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T13:04:15Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T13:24:35Z }
 verified:
   - { by: human:kakimomokuri, at: 2026-10-31T12:21:58Z }
 ---
@@ -114,25 +114,25 @@ Unit 6 の持ち越しと開発戦略から、この Unit が答える問いは 
 
 運用者として、command と store の操作が何をして、どう終わったかを、構造化されたログで知りたいです。それにより、障害の原因を、利用者の入力を見ずに追えます。
 
-- [ ] Hub を包む decorator が、command または query ごとに 1 行の構造化ログ（JSON）を出す。載せるものは上の表のとおり
-- [ ] ログに、項目の説明、`PersistenceFailure.reason`、例外のスタックトレースが載らない。機密を含む入力で、テストする
-- [ ] 失敗（`Left`）も、成功と同じく 1 行で出る。結果の型が載る
-- [ ] event store を包む decorator が、読み出しと追記を、stream の数と event の件数と所要時間で記録する。payload は載せない
-- [ ] 時刻は引数で与え、テストは決定的に書ける
-- [ ] decorator は domain と application の import を増やさない（`BoundaryTest`）。decorator は adapter 側に置く
-- [ ] 辞書と JSON の変換を `Converter<A, B>` で表し、`dimap` を持つ。恒等則と合成則、往復（`from(to(x)) == x`）を property test で満たす
-- [ ] HTTP の request log（method、path、status、所要時間）を出す。body と query は載せない
-- [ ] 節構成が既存 Kotlin 版の第 12 章（アプリケーションを監視する／構造化されたロギング／JSONを関数型にする／プロファンクタとの出会い／データベース呼び出しのロギング／まとめ）と一致する
+- [x] Hub を包む decorator が、command または query ごとに 1 行の構造化ログ（JSON）を出す。載せるものは上の表のとおり
+- [x] ログに、項目の説明、`PersistenceFailure.reason`、例外のスタックトレースが載らない。機密を含む入力で、テストする
+- [x] 失敗（`Left`）も、成功と同じく 1 行で出る。結果の型が載る
+- [x] event store を包む decorator が、読み出しと追記を、stream の数と event の件数と所要時間で記録する。payload は載せない
+- [x] 時刻は引数で与え、テストは決定的に書ける
+- [x] decorator は domain と application の import を増やさない（`BoundaryTest`）。decorator は adapter 側に置く
+- [x] 辞書と JSON の変換を `Encoder`、`Decoder`、`Converter` で表し、`Encoder` と `Decoder` が `dimap` を持つ。恒等則と合成則、往復（`from(to(x)) == x`）を property test で満たす（実装中に、束ねた `Converter` に一般の `dimap` は持てないと分かり、片方向ずつに持たせた。第 12 章に記載）
+- [x] HTTP の request log（method、path、status、所要時間）を出す。body と query は載せない
+- [x] 節構成が既存 Kotlin 版の第 12 章（アプリケーションを監視する／構造化されたロギング／JSONを関数型にする／プロファンクタとの出会い／データベース呼び出しのロギング／まとめ）と一致する
 
 ### US-013: 設計判断を総括する
 
 読者として、13 章で積み上げた設計判断を、ひとつの見取り図として知りたいです。それにより、自分のコードに、どの判断を持ち帰れるかを決められます。
 
-- [ ] 第 13 章の主張を、対応するテストとコードの箇所で裏付ける。5 つの代数構造（モノイド、ファンクタ、モナド、アプリカティブ、プロファンクタ）ごとに、どの章のどのテストが対応するかを表にする。対応が無いものは「無い」と書く
-- [ ] effect の境界（`runBlocking` は web だけ、JDBC は adapter だけ）を、`BoundaryTest` のテスト名で示す
-- [ ] 採用しなかった道具（`Resource`、Arrow の optics、既製の template エンジン、悲観ロックなど）を、理由つきで列挙する。確かめていないことは、確かめていないと書く
-- [ ] 既存 3 版との比較（横断比較）に、Kotlin FP 版を加える。「実測」は、章数、module ごとのテスト件数（Gradle の `test-results` の XML の合計）、本番コードの `.kt` の行数（`git ls-files` で数える）と定め、数えた日付とコミットを書く
-- [ ] 節構成が既存 Kotlin 版の第 13 章（シンプルさを追い求めて／システム全体の設計／コードへの翻訳／最後の考察）と一致する（章末の「連載を終えて」は検査の対象外）
+- [x] 第 13 章の主張を、対応するテストとコードの箇所で裏付ける。5 つの代数構造（モノイド、ファンクタ、モナド、アプリカティブ、プロファンクタ）ごとに、どの章のどのテストが対応するかを表にする。対応が無いものは「無い」と書く
+- [x] effect の境界（`runBlocking` は web だけ、JDBC は adapter だけ）を、`BoundaryTest` のテスト名で示す
+- [x] 採用しなかった道具（`Resource`、Arrow の optics、既製の template エンジン、悲観ロックなど）を、理由つきで列挙する。確かめていないことは、確かめていないと書く
+- [x] 既存 3 版との比較（横断比較）に、Kotlin FP 版を加える。「実測」は、章数、module ごとのテスト件数（Gradle の `test-results` の XML の合計）、本番コードの `.kt` の行数（`git ls-files` で数える）と定め、数えた日付とコミットを書く
+- [x] 節構成が既存 Kotlin 版の第 13 章（シンプルさを追い求めて／システム全体の設計／コードへの翻訳／最後の考察）と一致する（章末の「連載を終えて」は検査の対象外）
 - [ ] 連載全体の品質ゲート（全 13 章の記事検査、全 module の `clean check`、`mkdocs build --strict`、OKF、CI）が green
 
 ### 新規ファイルの扱い
@@ -200,8 +200,8 @@ gantt
 - [x] **7-2.3** 採用しなかった道具を、理由つきで列挙する。確かめていないことは、確かめていないと書く
 - [x] **7-2.4** 横断比較（`docs/article/zettai/comparison/index.md`）に Kotlin FP 版を加える。現在の構造は、列が Kotlin、なでしこ3、Rust の表の連続で、冒頭は「3 対象」と書いている。既存の表は書き換えず、末尾に「Kotlin FP 版を加えた比較」の節を新設し、冒頭の対象数と追記履歴を更新する。数は実測（章数、テスト件数、本番コードの行数）から書く
 - [x] **7-2.5** 第 13 章を執筆する（**条件付き停止 4**：総括の主張が、実装で裏付けられない行が出た場合だけ、人に判断を求める）
-- [ ] **7-2.6** 連載全体の品質ゲート：全 module の `clean check`（約 2 分。Testcontainers を含む）、全 13 章の記事検査、`mkdocs build --strict`、OKF、step7 の 3 回連続
-- [ ] **7-2.7** 5 観点レビュー、再レビュー、ふりかえり、Bolt 終了報告、連載の完了報告書（`creating-release-report`）。ADR の承認、push、CI は人の承認を得て行う
+- [x] **7-2.6** 連載全体の品質ゲート：全 module の `clean check`（約 2 分。Testcontainers を含む）、全 13 章の記事検査、`mkdocs build --strict`、OKF、step7 の 3 回連続
+- [x] **7-2.7** 5 観点レビュー、再レビュー、ふりかえり、Bolt 終了報告、連載の完了報告書（`creating-release-report`）。ADR の承認、push、CI は人の承認を得て行う
 
 ## 作業規則（ゲート）
 
@@ -216,28 +216,28 @@ gantt
 
 ## 完了の定義（DoD）
 
-- [ ] Unit 7 の decorator のテスト、converter の性質テスト、既存の契約テストと Cucumber の 3 経路が green
-- [ ] 同じ結合テストを 3 回連続で実行して green
-- [ ] Unit 1〜7 の `gradlew.bat clean check --no-daemon` が green
-- [ ] 第 12〜13 章のコード例が実装と一致する
-- [ ] 記事コード、節構成、件数、引用、ADR 参照の検査が全 13 章で green
-- [ ] `mkdocs build --strict` が green
-- [ ] 第 12〜13 章が索引と nav から到達可能。横断比較に Kotlin FP 版が載る
-- [ ] アーキテクチャ設計に Unit 7 の判断を反映する
-- [ ] ADR が作成され、人の承認を得ている
-- [ ] 受入条件の表の各セルが、テスト名と 1 対 1 で対応している
-- [ ] 5 観点の開発成果物レビューで高・中重要度の残件がない（再レビューで確認）
-- [ ] OKF 検査が ERROR 0
+- [x] Unit 7 の decorator のテスト、converter の性質テスト、既存の契約テストと Cucumber の 3 経路が green
+- [x] 同じ結合テストを 3 回連続で実行して green
+- [x] Unit 1〜7 の `gradlew.bat clean check --no-daemon` が green
+- [x] 第 12〜13 章のコード例が実装と一致する
+- [x] 記事コード、節構成、件数、引用、ADR 参照の検査が全 13 章で green
+- [x] `mkdocs build --strict` が green
+- [x] 第 12〜13 章が索引と nav から到達可能。横断比較に Kotlin FP 版が載る
+- [x] アーキテクチャ設計に Unit 7 の判断を反映する
+- [x] ADR が作成され、人の承認を得ている
+- [x] 受入条件の表の各セルが、テスト名と 1 対 1 で対応している
+- [x] 5 観点の開発成果物レビューで高・中重要度の残件がない（再レビューで確認）
+- [x] OKF 検査が ERROR 0
 - [ ] push 後の CI が green（push は人の承認を得て行う）
-- [ ] 連載の完了報告書がある
+- [x] 連載の完了報告書がある
 
 ### 受入条件（検証可能な表現）
 
-- [ ] 機密を含む入力を処理しても、ログに項目の説明、`reason`、スタックトレースが載らない
-- [ ] ログの各行が、特殊文字（引用符、バックスラッシュ、改行、絵文字）を含む入力でも、改行を含まず、JSON の parser で読み戻せる 1 行である（テストでは `Json.parseToJsonElement` で判定する）
-- [ ] `Converter` が恒等則、合成則、往復を満たす
-- [ ] decorator を外しても、Hub の振る舞いが変わらない（任意の command 列を、decorator ありと無しの 2 つの Hub に同じ in-memory の store で流し、結果の `Either` と event の列が一致することを、property test で確かめる）
-- [ ] 第 13 章の対応表の各行が、テスト名か「無い」で埋まっている
+- [x] 機密を含む入力を処理しても、ログに項目の説明、`reason`、スタックトレースが載らない
+- [x] ログの各行が、特殊文字（引用符、バックスラッシュ、改行、絵文字）を含む入力でも、改行を含まず、JSON の parser で読み戻せる 1 行である（テストでは `Json.parseToJsonElement` で判定する）
+- [x] `Converter` が恒等則、合成則、往復を満たす
+- [x] decorator を外しても、Hub の振る舞いが変わらない（任意の command 列を、decorator ありと無しの 2 つの Hub に同じ in-memory の store で流し、結果の `Either` と event の列が一致することを、property test で確かめる）
+- [x] 第 13 章の対応表の各行が、テスト名か「無い」で埋まっている
 
 ## リスク
 
@@ -274,3 +274,4 @@ gantt
 | 2026-10-31 | 停止 2：人（kakimomokuri）がログの内容を承認した。利用者名とリスト名を識別子として載せる | human:kakimomokuri |
 | 2026-10-31 | 実装中に、request log の filter を adapter に置くと既存の規則（driven adapter は http4k に依存しない）に違反すると分かり、`LogRecord` を中立の `zettai.logging`、filter を web に置いた | anthropic/claude-sonnet-5-5 |
 | 2026-10-31 | 停止 3：人（kakimomokuri）が第 12 章の構成と全文を確認した | human:kakimomokuri |
+| 2026-10-31 | 人（kakimomokuri）が ADR-045 を承認し、push を承認した | human:kakimomokuri |

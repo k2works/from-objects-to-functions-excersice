@@ -1,6 +1,18 @@
 # Docs Update Log
 
 ## 2026-10-31
+* **Update**: [release_report-kotlin-fp-1.0.0](/development/release_report-kotlin-fp-1.0.0.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [release_plan-kotlin-fp](/development/release_plan-kotlin-fp.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [iteration_plan-kotlin-fp-7](/development/iteration_plan-kotlin-fp-7.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [bolt_report-kotlin-fp-7](/development/bolt_report-kotlin-fp-7.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [ADR-045-logging-as-decorator-with-typed-record](/adr/ADR-045-logging-as-decorator-with-typed-record.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [release_report-kotlin-fp-1.0.0](/development/release_report-kotlin-fp-1.0.0.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [release_plan-kotlin-fp](/development/release_plan-kotlin-fp.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [iteration_plan-kotlin-fp-7](/development/iteration_plan-kotlin-fp-7.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [bolt_report-kotlin-fp-7](/development/bolt_report-kotlin-fp-7.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [ADR-045-logging-as-decorator-with-typed-record](/adr/ADR-045-logging-as-decorator-with-typed-record.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [ADR-045-logging-as-decorator-with-typed-record](/adr/ADR-045-logging-as-decorator-with-typed-record.md) を更新（anthropic/claude-sonnet-5-5）
+* **Verification**: [ADR-045-logging-as-decorator-with-typed-record](/adr/ADR-045-logging-as-decorator-with-typed-record.md) を human:kakimomokuri が検証
 * **Update**: [kotlin-fp-unit7_review_20261031](/review/kotlin-fp-unit7_review_20261031.md) を更新（anthropic/claude-sonnet-5-5）
 * **Update**: [kotlin-fp-unit7_review_20261031](/review/kotlin-fp-unit7_review_20261031.md) を更新（anthropic/claude-sonnet-5-5）
 * **Update**: [retrospective-kotlin-fp-7](/development/retrospective-kotlin-fp-7.md) を更新（anthropic/claude-sonnet-5-5）

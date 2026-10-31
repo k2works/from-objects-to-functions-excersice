@@ -4,7 +4,7 @@ title: "Unit 7 の Bolt 終了報告 - Zettai 連載（Kotlin FP 版）"
 description: "Kotlin FP 版 Unit 7 の構造化ログの decorator、JSON の Converter とプロファンクタ、request log、組み立て関数、第 12〜13 章、横断比較、連載全体の品質ゲートの完了結果を記録する。"
 tags: [development, report, zettai, kotlin, arrow, logging, unit-7]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T13:19:51Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T13:24:35Z }
 ---
 
 # Unit 7 の Bolt 終了報告 - Zettai 連載（Kotlin FP 版）
@@ -17,7 +17,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T13:19:51Z }
 | Bolt | 7-1 第 12 章 / 7-2 第 13 章 |
 | 実施日 | 2026-10-31 |
 | 見積もり | US-012: 5 SP / US-013: 3 SP |
-| 状態 | **実装・執筆・レビュー対応は完了。ADR-045 の承認と push が未了** |
+| 状態 | **完了**（ADR-045 は人が承認済み。push 後の CI の結果は、下の表に記録する） |
 
 ## 成果
 
@@ -35,7 +35,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T13:19:51Z }
 | :--- | :--- |
 | `gradlew.bat clean check --no-daemon`（全 module） | 成功（1 分 49 秒） |
 | Unit 7 のテスト（最終 module） | 220 件成功 |
-| step7 の `check` の 3 回連続 | 後述の更新のとおり |
+| step7 の `check` の 3 回連続 | 成功（29〜31 秒。最後のコード変更の後に実行） |
 | 記事検査（コード・コード形式・節構成・数値・引用・ADR 参照）、全 13 章 | 違反 0 |
 | OKF | ERROR 0、既存 WARN 10 |
 | `mkdocs build --strict` | 成功 |
@@ -73,8 +73,7 @@ decorator を外しても結果が変わらないことは、`decorator を付�
 
 ## 未了と持ち越し
 
-- ADR-045 は `draft` のままです。人の承認が必要です（承認で、第 12 章と第 13 章の承認の記述が事実になります）。
-- push と CI の確認が未了です。
+- ADR-045 は、人（kakimomokuri）が承認し、`stable` にしました。第 12 章と第 13 章の承認の記述は、これで事実になります。
 - 中の持ち越しは、`kind`・`name`・`outcome` の型化、encoder と decoder のキー名の重複、失敗応答の HTML 化、`U+2028` の扱い、`architecture_backend.md` の既存 Kotlin 版の記述との取り違えの恐れ、です。
 - 相関 ID、認証・認可、CSRF 対策は、扱っていません（第 13 章に記載）。
 - 他の 3 版が行った、法則を壊して検出率を数えることを、この版は行っていません。

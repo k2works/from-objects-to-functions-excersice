@@ -4,7 +4,7 @@ title: "Unit 5 の Bolt 計画 - Zettai 連載（Kotlin FP 版）"
 description: "Kotlin FP 版 Unit 5 の射影と CQRS、集約単位の port、Testcontainers PostgreSQL による event store、永続化の typed error、第 8〜9 章を定義する Bolt 計画。"
 tags: [development, plan, ai-dlc, bolt, zettai, kotlin, arrow, postgresql, unit-5]
 status: stable
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:45:16Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T10:33:19Z }
 verified:
   - { by: human:kakimomokuri, at: 2026-10-31T05:49:29Z }
 ---
@@ -295,7 +295,7 @@ Unit 4 の再レビューで「記事の表の内訳が実際と合わない」�
 
 | リスク | 対策 |
 | :--- | :--- |
-| Testcontainers が起動できない環境で `check` が環境依存になる | skip して green にしない。リリース計画のリスク欄は「必要条件と診断を表示する」としているが、Unit 1 の `PostgreSqlContainerTest` は接続の確認だけで診断を持たない。Docker が無い環境の失敗が原因を示すかを 5-2.3 で確認し、不足なら診断を足す |
+| Testcontainers が起動できない環境で `check` が環境依存になる | skip して green にしない。リリース計画のリスク欄は「必要条件と診断を表示する」としているが、Unit 1 の `PostgreSqlContainerTest` は接続の確認だけで診断を持たない。Docker が無い環境の失敗が原因を示すかを 5-2.3 で確認し、不足なら診断を足す（Unit のクローズ後に確認。Docker のソケットを渡さない container で起動処理を動かすと `Could not find a valid Docker environment` で失敗し、原因を示すので、診断は足さない） |
 | 結合テストが遅い、または相互に干渉する | container は suite で 1 つだけ起動し、テストごとにテーブルを初期化する。3 回連続で green を NFR にする |
 | `entity_id` の区切り文字で別の集約が衝突する | `a/b` と `c` の組と `a` と `b/c` の組を結合テストで固定する |
 | JSONB が payload を正規化して文字列比較が崩れる | JSON の文字列を直接比較せず、decode した値で比較する。既存 Kotlin 版で踏んだ失敗を第 9 章に書く |

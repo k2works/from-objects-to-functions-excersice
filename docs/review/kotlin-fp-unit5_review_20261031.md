@@ -4,7 +4,7 @@ title: "Kotlin FP 版 Unit 5 開発成果物レビュー"
 description: "Kotlin FP 版 Unit 5 の射影と CQRS、PostgreSQL の event store、永続化の typed error、第 8〜9 章を 5 観点でレビューした結果。"
 tags: [review, development, zettai, kotlin, arrow, postgresql, unit-5]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T10:27:41Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T10:33:19Z }
 ---
 
 # Kotlin FP 版 Unit 5 開発成果物レビュー
@@ -78,7 +78,7 @@ xp-programmer、xp-tester、xp-architect、xp-technical-writer、xp-user-represe
 
 ## 未確認のこと
 
-- **Docker が無い環境で、失敗がどう見えるか。** Testcontainers は成功した接続方法を `~/.testcontainers.properties` に記憶している。利用者の設定ファイルに触れずに再現を 3 通り試したが、どれも Docker が無い状態を作れなかった（接続先の環境変数、一時的な HOME、`user.home` の差し替え。最後は Gradle 自体が失敗した）。確認できていない。
+- **（解消）Docker が無い環境で、失敗がどう見えるか。** 環境変数、一時的な HOME、`user.home` の差し替えの 3 通りでは、Docker Desktop が入った PC で Docker が無い状態を作れなかった（設定した接続方法が失敗すると、既定の接続方法に切り替わると考えられる）。Docker のソケットを渡さない container の中で、テストと同じ container の起動処理を動かして確かめた。`IllegalStateException: Could not find a valid Docker environment. Please see logs and check configuration` で失敗し、skip にはならない。Gradle のテスト結果での見え方までは確かめていない。
 - **（解消）push 後の CI。** 人の承認を得て push し、GitHub Actions で Kotlin FP Zettai の `check` を含む 4 つの workflow が成功した。
 
 ## 検証結果
@@ -95,4 +95,4 @@ xp-programmer、xp-tester、xp-architect、xp-technical-writer、xp-user-represe
 
 高・中重要度の指摘（H1〜H7、M1〜M19）は、すべて修正済みです。独立した再レビュー（読み取り専用のエージェント 1 体）が、26 件の解消を実物で確認しました。再レビューで新たに出た指摘（第 9 章の `getList` と `listRows` の説明の不正確さ、他の集約を混ぜるテストの置き場所、ADR-041 の断定の強さ、表のセルの文体など）も修正しました。
 
-残るのは、第 10 章へ送る並行実行の競合と、Docker が無い環境での失敗の見え方です。ADR-038〜041 は人が承認しました。Unit 5 の完了条件を満たします。
+残るのは、第 10 章へ送る並行実行の競合です。ADR-038〜041 は人が承認しました。Docker が無い環境での失敗の見え方も確かめました。Unit 5 の完了条件を満たします。

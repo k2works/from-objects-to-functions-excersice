@@ -4,7 +4,7 @@ title: "Unit 5 の Bolt 終了報告 - Zettai 連載（Kotlin FP 版）"
 description: "Kotlin FP 版 Unit 5 の射影と CQRS、PostgreSQL の event store、永続化の typed error、第 8〜9 章の完了結果を記録する。"
 tags: [development, report, zettai, kotlin, arrow, postgresql, unit-5]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:45:16Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T10:33:19Z }
 ---
 
 # Unit 5 の Bolt 終了報告 - Zettai 連載（Kotlin FP 版）
@@ -72,7 +72,6 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:45:16Z }
 - `postgresEventStore(connect)` の「操作ごとに接続を開く」形の見直しと、`Resource` の採否。
 - in-memory adapter の同期（`Mutex`）。
 - 5-1.0（`gulp mkdocs:build` を CI と同じ判定にする）は、Unit のクローズ後に実施した。`ops/scripts/mkdocs.js` に `--strict` を足した。
-- Docker が無い環境で、失敗がどう見えるかの確認。
 
 ## 関連ドキュメント
 

@@ -4,7 +4,7 @@ title: "Unit 5 のふりかえり（KPT）- Zettai 連載（Kotlin FP 版）"
 description: "Kotlin FP 版 Unit 5 の射影と CQRS、PostgreSQL の event store、永続化の typed error、第 8〜9 章についての KPT ふりかえり。"
 tags: [development, retrospective, zettai, kotlin, arrow, postgresql, unit-5]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T10:27:41Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T10:33:19Z }
 ---
 
 # Unit 5 のふりかえり（KPT）- Zettai 連載（Kotlin FP 版）
@@ -24,7 +24,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T10:27:41Z }
 - 1 つの module に 2 つの章を持つため、第 8 章のコードが第 9 章で変わりました。第 8 章を書く時点で、後で `Either` に変わる型を一覧していませんでした。記事の中で「query は `Either` を返す」と「失敗しない `List` を返す」が矛盾しました。
 - 記事に、確かめていないことを断定する書き方が混ざりました。「必ず失敗します」「何も残りません」「再起動してもリストが残る」は、レビューで弱めました。
 - Docker を前提にすることの案内が不足していました。第 8 章の実行コマンドが、実際には Docker を必要としていました。
-- 計画のタスク 5-1.0（`gulp mkdocs:build` を CI と同じ判定にするか）は、Unit のクローズ時には実施せず、停止フックの指摘を受けて後から実施しました。Docker が無い環境での失敗メッセージは、環境変数、一時的な HOME、`user.home` の差し替えの 3 通りで再現を試みましたが、どれも Docker が無い状態を作れず、確認できませんでした。Testcontainers が接続方法を記憶するため、環境変数では再現できませんでした。
+- 計画のタスク 5-1.0（`gulp mkdocs:build` を CI と同じ判定にするか）は、Unit のクローズ時には実施せず、停止フックの指摘を受けて後から実施しました。Docker が無い環境での失敗メッセージは、環境変数、一時的な HOME、`user.home` の差し替えの 3 通りでは再現できませんでした。Docker Desktop が入った PC では、設定した接続方法が失敗しても既定の方法で見つかってしまうためです。最後に、Docker のソケットを渡さない container の中で起動処理を動かして確かめました。停止フックの指摘を受けるまで、この方法に気づけませんでした。
 - `/goal` に従い自律的に進めたため、計画の停止 6 箇所で、人の判断を同期的には求めませんでした。ADR は Unit のクローズ後に人が承認しましたが、データモデルの差分は `draft` のままです。
 - 一時スクリプトを、複雑な引用を含むままインラインで実行し、何度か失敗しました。ファイルに書いて実行する方が確実でした。
 
@@ -37,7 +37,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T10:27:41Z }
   - port の Left の型を広げる
   - 並行競合の再現から始める（テストを先に書く）
   - `Resource` の採否
-  - Docker が無い環境で、失敗がどう見えるかの確認
+- 「再現できない」で止まらず、条件を外側から作る方法を考えます。Docker が無い状態は、Docker の container の中で作れました。
 - 一時スクリプトは、ファイルに書いてから実行します。
 - 人の判断を同期的に求める停止点は、`/goal` のような自律実行でも、データベースのスキーマと新しい ADR の 2 点は承認の記録を残します。
 

@@ -4,7 +4,7 @@ title: "ADR-041 結合テストの DB は Testcontainers で用意する"
 description: "Zettai 連載 Kotlin FP 版の第 9 章で、結合テストの PostgreSQL を docker-compose の service ではなく Testcontainers で用意する決定。既存 Kotlin 版 ADR-009 が退けた 3 つの理由への答えと、失うものを記録する。"
 tags: [adr, kotlin-fp, zettai, postgresql, testcontainers]
 status: stable
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T10:27:41Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T10:33:19Z }
 verified:
   - { by: human:kakimomokuri, at: 2026-10-31T06:40:40Z }
 ---
@@ -34,7 +34,7 @@ Kotlin FP 版の Intent は、自前の抽象や手順を作る代わりに、�
 1. container は JVM で 1 つだけ起動し、全テストで共有する。起動に時間がかかるため
 2. 接続情報は container が公開する JDBC URL、ユーザー、パスワードだけを使い、ポートも認証情報もコードに書かない
 3. テストごとにテーブルを作り直し、他のテストの状態に依存しない。テストは逐次で実行する前提とし、並列に実行するなら spec ごとに schema を分ける
-4. Docker が使えず container を起動できないとき、テストは skip ではなく失敗するように作る。skip にすると、「DB が無いから通った」のか「実装が正しいから通った」のかが区別できない。実際の見え方は確認していない
+4. Docker が使えず container を起動できないとき、テストは skip ではなく失敗するように作る。skip にすると、「DB が無いから通った」のか「実装が正しいから通った」のかが区別できない。Docker のソケットを渡さない container の中で container の起動処理を動かすと、`IllegalStateException: Could not find a valid Docker environment. Please see logs and check configuration` で失敗することを確認した
 5. `docker-compose.yml` に service を足さず、CI にも固定の PostgreSQL service を定義しない
 
 ## 検討した案
@@ -52,7 +52,8 @@ Kotlin FP 版の Intent は、自前の抽象や手順を作る代わりに、�
 - ローカルと CI で、同じ手順で DB が用意される設計です。固定の値がコードに残りません。push 後の GitHub Actions（ubuntu-latest）で、結合テストを含む `check` が成功したことを確認しました（run 41177663644）。
 - **失うものがあります。** `docker compose up -d` で DB が動いている様子を見る機会が無くなります。読者が `check` を通すには Docker daemon が必要になり、初回は image の取得に時間とネットワークが要ります。
 - `postgres:18-alpine` は動く tag です。minor 版や digest で固定すると、再現性は上がります。
-- **Docker が無い環境で、失敗がどう見えるかは確認していません。** Testcontainers は成功した接続方法を記憶するため、環境変数や `user.home` の差し替えでは、Docker が無い状態を再現できませんでした。診断を足すかどうかは、実際に困った時点で判断します。
+- **Docker が無い環境での見え方を確かめました。** Docker のソケットを渡さない container の中で、テストと同じ container の起動処理（`PostgreSQLContainer` の `start`）を動かすと、`IllegalStateException: Could not find a valid Docker environment. Please see logs and check configuration` で失敗します。skip にはなりません。メッセージは、詳細をログで見るよう促します。この確認は起動処理だけを動かしたもので、Gradle のテスト結果での見え方までは確かめていません。診断を足すかどうかは、実際に困った時点で判断します。
+- **Docker Desktop が入った PC では、Docker が無い状態を、環境変数や設定の偽装では作れません。** 接続先の環境変数を偽り、設定した接続方法を最初に試す指定をしても、起動に成功しました。設定した方法が失敗すると、既定の接続方法に切り替わるためと考えられます。Docker が無い状態を確かめるには、Docker のソケットを渡さない container の中で実行します。
 
 ## 関連
 

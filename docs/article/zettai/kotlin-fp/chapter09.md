@@ -4,7 +4,7 @@ title: "第 9 章 モナドによる安全なデータ永続化"
 description: "Zettai Kotlin FP 版の第 9 章。イベントを PostgreSQL に追記する。JDBC の副作用と失敗を suspend と Either の境界に閉じ込め、flatMap の三法則を property test で確かめる。Testcontainers の結合テスト、jsonb の正規化、区切り文字による集約の衝突、3 経路目の受け入れテストを TDD で示す。"
 tags: [article, zettai, kotlin, functional-programming, arrow, postgresql, testcontainers, monad]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:37:42Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T10:33:19Z }
 ---
 
 # 第 9 章 モナドによる安全なデータ永続化
@@ -92,7 +92,7 @@ container は JVM で 1 つだけ起動し、全テストで共有します。�
     }
 ```
 
-結合テストは、Docker が使えず container を起動できないとき、skip ではなく失敗するように作りました。Docker が無い環境で実際にどう見えるかは、確かめていません。skip にすると、「DB が無いから通った」のか「実装が正しいから通った」のかが区別できません。結合テストは `./gradlew check` に含めます。別のジョブに分けると、ローカルの `check` と CI の判定が食い違うからです。
+結合テストは、Docker が使えず container を起動できないとき、skip ではなく失敗するように作りました。Docker が使えない環境では、Testcontainers が `Could not find a valid Docker environment. Please see logs and check configuration` という例外で container の起動に失敗します。この文言は、Docker のソケットを渡さない container の中で、テストと同じ起動処理（`PostgreSQLContainer` の `start`）を動かして確かめました。Gradle のテスト結果での見え方までは、確かめていません。skip にすると、「DB が無いから通った」のか「実装が正しいから通った」のかが区別できません。結合テストは `./gradlew check` に含めます。別のジョブに分けると、ローカルの `check` と CI の判定が食い違うからです。
 
 ### 手元で動かすために
 

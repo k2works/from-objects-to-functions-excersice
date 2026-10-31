@@ -35,6 +35,7 @@
 | Unit 3 関数型 DI とイベント | [Unit 3 の Bolt 計画](iteration_plan-kotlin-fp-3.md) | [ふりかえり](retrospective-kotlin-fp-3.md) | [Bolt 終了報告](bolt_report-kotlin-fp-3.md) | **完了** |
 | Unit 4 command と typed error | [Unit 4 の Bolt 計画](iteration_plan-kotlin-fp-4.md) | [ふりかえり](retrospective-kotlin-fp-4.md) | [Bolt 終了報告](bolt_report-kotlin-fp-4.md) | **完了** |
 | Unit 5 射影と永続化 | [Unit 5 の Bolt 計画](iteration_plan-kotlin-fp-5.md) | [ふりかえり](retrospective-kotlin-fp-5.md) | [Bolt 終了報告](bolt_report-kotlin-fp-5.md) | **完了** |
+| Unit 6 transaction と検証 | [Unit 6 の Bolt 計画](iteration_plan-kotlin-fp-6.md) | - | - | **計画済み** |
 
 ### Bolt 計画（なでしこ3 版）
 

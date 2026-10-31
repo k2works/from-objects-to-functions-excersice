@@ -1,6 +1,9 @@
 # Docs Update Log
 
 ## 2026-10-31
+* **Create**: [iteration_plan-kotlin-fp-6](/development/iteration_plan-kotlin-fp-6.md) を作成（anthropic/claude-sonnet-5-5）
+* **Update**: [development_strategy](/development/development_strategy.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [release_plan-kotlin-fp](/development/release_plan-kotlin-fp.md) を更新（anthropic/claude-sonnet-5-5）
 * **Verification**: [ADR-041-testcontainers-for-integration-tests](/adr/ADR-041-testcontainers-for-integration-tests.md) を human:kakimomokuri が検証
 * **Verification**: [ADR-040-jdbc-blocking-boundary](/adr/ADR-040-jdbc-blocking-boundary.md) を human:kakimomokuri が検証
 * **Verification**: [ADR-039-suspend-function-ports](/adr/ADR-039-suspend-function-ports.md) を human:kakimomokuri が検証

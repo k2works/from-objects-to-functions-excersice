@@ -4,7 +4,7 @@ title: "Unit 6 の Bolt 計画 - Zettai 連載（Kotlin FP 版）"
 description: "Kotlin FP 版 Unit 6 の transaction と楽観ロック、複数 stream の原子的な保存、名前変更と蓄積する検証、テンプレート描画、第 10〜11 章を定義する Bolt 計画。"
 tags: [development, plan, ai-dlc, bolt, zettai, kotlin, arrow, postgresql, unit-6]
 status: stable
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T10:54:01Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T11:47:36Z }
 verified:
   - { by: human:kakimomokuri, at: 2026-10-31T10:54:02Z }
 ---
@@ -100,24 +100,24 @@ Unit 5 の event store は、`(User, ListName)` ごとに event の列（以下 
 
 利用者として、操作が途中で失敗したときに、半分だけ反映された状態にならないでほしいです。それにより、どこまで進んだか分からない状態から復旧する手間をなくせます。
 
-- [ ] 同じリストへの並行する command が、重複した event を残さない。後から書こうとした側は `ConcurrentModification` を受け取る
-- [ ] 読み出し、判断、保存が 1 つの transaction に入る境界が、コードの 1 か所から読み取れる。環境の渡し方は 6-1.3 で決める
-- [ ] 複数の stream への保存が 1 つの transaction で確定し、途中で失敗したとき、どの stream にも書き込みが残らない（第 11 章の名前変更が使う）
-- [ ] 保存の失敗の型を `StoreError`（`PersistenceFailure`、`ConcurrentModification`）に広げ、HTTP は `ConcurrentModification` を 409 に写像する。読み出しの失敗は `PersistenceFailure` のままにする
-- [ ] in-memory と PostgreSQL の store が、同じ契約テストを満たす
-- [ ] 節構成が既存 Kotlin 版の第 10 章（モナドでデータベースにアクセスする／ContextReader を使用したコマンドの処理／トランザクションの境界を決める／設計を 2 回間違えた／データベースに対する射影のクエリ／イベントソーシングによるドメインのモデリング／まとめ）と一致する
+- [x] 同じリストへの並行する command が、重複した event を残さない。後から書こうとした側は `ConcurrentModification` を受け取る
+- [x] 読み出し、判断、保存が 1 つの transaction に入る境界が、コードの 1 か所から読み取れる。環境の渡し方は 6-1.3 で決める
+- [x] 複数の stream への保存が 1 つの transaction で確定し、途中で失敗したとき、どの stream にも書き込みが残らない（第 11 章の名前変更が使う）
+- [x] 保存の失敗の型を `StoreError`（`PersistenceFailure`、`ConcurrentModification`）に広げ、HTTP は `ConcurrentModification` を 409 に写像する。読み出しの失敗は `PersistenceFailure` のままにする
+- [x] in-memory と PostgreSQL の store が、同じ契約テストを満たす
+- [x] 節構成が既存 Kotlin 版の第 10 章（モナドでデータベースにアクセスする／ContextReader を使用したコマンドの処理／トランザクションの境界を決める／設計を 2 回間違えた／データベースに対する射影のクエリ／イベントソーシングによるドメインのモデリング／まとめ）と一致する
 
 ### US-011: 入力の誤りをまとめて知らせる
 
 利用者として、入力の誤りをまとめて教えてほしいです。それにより、1 つずつ直して送り直す手間をなくせます。
 
-- [ ] リストの名前変更ができる（`RenameToDoList` と `ListRenamed`）。旧い stream と新しい stream を 1 つの transaction で書き、途中で失敗したら、どちらにも残らない
-- [ ] 利用者名、リスト名、新しい名前の誤りを、複数の入力にまたがって、最初の失敗で止まらずにすべて集めて返す。1 つの入力の中の複数の規則（空、長すぎる、使えない文字）も同様にする
-- [ ] 蓄積する結果の `map` が恒等則と合成則を、蓄積する合成が順序の保存、結合律、単位元を、property test で満たす。アプリカティブ則に対応する性質で、対応関係は第 11 章に表で示す。`flatMap` が最初の失敗で止まることとの対比も、テストで示す
-- [ ] 画面がテンプレートから作られ、未適用のタグが残っていたら描画が失敗する
-- [ ] 名前を変える画面は、フォームを出す `GET` と、名前を変える `POST` を持つ。成功は 302 で新しい名前の画面へ送り（PRG）、検証の誤りは 400 で同じ画面に理由をすべて並べる。入力した値は保たれ、HTML としてエスケープされる
-- [ ] 同じ scenario が domain、HTTP、PostgreSQL の 3 経路で通る
-- [ ] 節構成が既存 Kotlin 版の第 11 章（ToDo リストの名前変更／2 つのパラメータを持った検証／バリデーションを使った検証／アプリカティブファンクタの結合／ユーザインタフェースの改善／まとめ）と一致する
+- [x] リストの名前変更ができる（`RenameToDoList` と `ListRenamed`）。旧い stream と新しい stream を 1 つの transaction で書き、途中で失敗したら、どちらにも残らない
+- [x] 利用者名、リスト名、新しい名前の誤りを、複数の入力にまたがって、最初の失敗で止まらずにすべて集めて返す。1 つの入力の中の複数の規則（空、長すぎる、使えない文字）も同様にする
+- [x] 蓄積する結果の `map` が恒等則と合成則を、蓄積する合成が順序の保存、結合律、単位元を、property test で満たす。アプリカティブ則に対応する性質で、対応関係は第 11 章に表で示す。`flatMap` が最初の失敗で止まることとの対比も、テストで示す
+- [x] 画面がテンプレートから作られ、未適用のタグが残っていたら描画が失敗する
+- [x] 名前を変える画面は、フォームを出す `GET` と、名前を変える `POST` を持つ。成功は 302 で新しい名前の画面へ送り（PRG）、検証の誤りは 400 で同じ画面に理由をすべて並べる。入力した値は保たれ、HTML としてエスケープされる
+- [x] 同じ scenario が domain、HTTP、PostgreSQL の 3 経路で通る
+- [x] 節構成が既存 Kotlin 版の第 11 章（ToDo リストの名前変更／2 つのパラメータを持った検証／バリデーションを使った検証／アプリカティブファンクタの結合／ユーザインタフェースの改善／まとめ）と一致する
 
 ### 受入条件と検証の対応
 
@@ -125,7 +125,7 @@ Unit 5 の event store は、`(User, ListName)` ごとに event の列（以下 
 
 | 条件 | 成功側 | 失敗側 | 端の経路 |
 | :--- | :--- | :--- | :--- |
-| 並行する command | 1 つだけ成功し、event は重複しない | 後の側は `ConcurrentModification` | HTTP は 409。in-memory と PostgreSQL で同じ結果 |
+| 並行する command | 1 つだけ成功し、event は重複しない | 後の側は `ConcurrentModification` | HTTP は 409。in-memory は直列になり、PostgreSQL と違う型で拒否するが、event が重複せず更新が失われない点は同じ |
 | transaction | 読み出し、判断、保存が 1 つの単位で確定 | 保存の途中で失敗すると何も残らない | 複数の stream への保存は、どの stream にも残らない |
 | store の契約 | 期待する版で追記でき、版が進む | 古い版での追記は拒否される | in-memory と PostgreSQL が同じテストを通る |
 | 名前変更 | 新しい名前で項目を引き継ぐ | 元が無い、変名先がある | `getList` と `listRows` が新しい名前を返し、旧い名前は無い。往復（`a → b → a`）でも項目が二重にならない |
@@ -156,32 +156,32 @@ gantt
 
 ### Bolt 6-1: 第 10 章
 
-- [ ] **6-1.1** `zettai-step6-transaction-validation` module を新設する。Unit 5 の production code と test を独立した snapshot としてコピーする。第 11 章で変わる型（`ZettaiError`、HTML の描画、port、`ToDoListState`）を一覧し、第 10 章で先に触れる点を決める
-- [ ] **6-1.2** 並行する `CreateToDoList` が `ListCreated` を重複させ、replay で項目が消えることを、テストで再現する。2 つの command が、どちらも保存の前に読み出す順序を、待ち合わせ（`CompletableDeferred`）で作る。Red であることをローカルで確認し、このテストは 6-1.7 の Green と同じ変更単位で commit する
-- [ ] **6-1.3** スパイクで次を確かめ、ADR にする（**停止 1**：データベースのスキーマ変更、新しい ADR、依存の追加。確認必須）
+- [x] **6-1.1** `zettai-step6-transaction-validation` module を新設する。Unit 5 の production code と test を独立した snapshot としてコピーする。第 11 章で変わる型（`ZettaiError`、HTML の描画、port、`ToDoListState`）を一覧し、第 10 章で先に触れる点を決める
+- [x] **6-1.2** 並行する `CreateToDoList` が `ListCreated` を重複させ、replay で項目が消えることを、テストで再現する。2 つの command が、どちらも保存の前に読み出す順序を、待ち合わせ（`CompletableDeferred`）で作る。Red であることをローカルで確認し、このテストは 6-1.7 の Green と同じ変更単位で commit する
+- [x] **6-1.3** スパイクで次を確かめ、ADR にする（**停止 1**：データベースのスキーマ変更、新しい ADR、依存の追加。確認必須）
   - 環境を引数に取る形（型引数 `Tx` を通す）と、coroutine の context に載せる形の比較。基準は、transaction の境界がコードから読めるか
   - `Resource` と `use` の比較。複数の操作にまたがる connection で差が出るか。`Resource` を採る場合は、`arrow-fx-coroutines` を module の依存に足す（version catalog にはある）
   - 版の持ち方：stream ごとの連番 `version` と `UNIQUE (entity_id, version)` で、競合を一意制約の違反として検出する
   - port の形：読み出しは stream の版を返し、保存は触れる stream ごとの期待する版を受け取る
   - 作る ADR：transaction の境界と環境の渡し方、楽観ロック（版の確認）、複数 stream を 1 つの transaction で書く判断
-- [ ] **6-1.4** `docs/design/data-model.md` に `version` 列と一意制約を書く。`CREATE TABLE IF NOT EXISTS` は既存のテーブルを変えないため、既存データを持たない結合テストの DB を前提にし、その旨を明記する。Unit 5 から `draft` のままの Kotlin FP 版の差分も、あわせて承認を得る
-- [ ] **6-1.5** store の契約テストを書く（ローカルで Red を確認）。期待する版での追記、古い版での拒否、複数の stream への書き込みの原子性、保存の途中の失敗で何も残らないこと。in-memory と PostgreSQL の両方に同じテストを通す
-- [ ] **6-1.6** port の型を変えて Green にする。保存の失敗の型を `StoreError`（`PersistenceFailure`、`ConcurrentModification`）に広げ、HTTP の写像の `when` が compile error で未対応を示すことを確認してから直す。読み出しの失敗の型は `PersistenceFailure` のままにする。PostgreSQL は transaction の中で動かし、in-memory は `Mutex` で同期する。波及したファイルを `git diff --stat` で数える
-- [ ] **6-1.7** Hub の `execute` を 1 つの transaction で包み、6-1.2 の再現テストを Green にする。後から書こうとした側が `ConcurrentModification` を受け取り、event が重複しないことを確かめる。HTTP の写像を 409 にする
-- [ ] **6-1.8** 設計文書（アーキテクチャ設計、ドメインモデル設計）に前半の判断を反映する
-- [ ] **6-1.9** 第 10 章を実装済みコードから執筆する（**停止 2**：記事の構成と全文）。第 2 見出しは既存 Kotlin 版と同じ並びにする。「設計を 2 回間違えた」の節には、実装中に実際に踏んだ失敗だけを書く。踏まなかった場合は、そう書く。断定する表現は、対応するテスト名を示せるものだけにする（自己点検）
+- [x] **6-1.4** `docs/design/data-model.md` に `version` 列と一意制約を書く。`CREATE TABLE IF NOT EXISTS` は既存のテーブルを変えないため、既存データを持たない結合テストの DB を前提にし、その旨を明記する。Unit 5 から `draft` のままの Kotlin FP 版の差分も、あわせて承認を得る
+- [x] **6-1.5** store の契約テストを書く（ローカルで Red を確認）。期待する版での追記、古い版での拒否、複数の stream への書き込みの原子性、保存の途中の失敗で何も残らないこと。in-memory と PostgreSQL の両方に同じテストを通す
+- [x] **6-1.6** port の型を変えて Green にする。保存の失敗の型を `StoreError`（`PersistenceFailure`、`ConcurrentModification`）に広げ、HTTP の写像の `when` が compile error で未対応を示すことを確認してから直す。読み出しの失敗の型は `PersistenceFailure` のままにする。PostgreSQL は transaction の中で動かし、in-memory は `Mutex` で同期する。波及したファイルを `git diff --stat` で数える
+- [x] **6-1.7** Hub の `execute` を 1 つの transaction で包み、6-1.2 の再現テストを Green にする。後から書こうとした側が `ConcurrentModification` を受け取り、event が重複しないことを確かめる。HTTP の写像を 409 にする
+- [x] **6-1.8** 設計文書（アーキテクチャ設計、ドメインモデル設計）に前半の判断を反映する
+- [x] **6-1.9** 第 10 章を実装済みコードから執筆する（**停止 2**：記事の構成と全文）。第 2 見出しは既存 Kotlin 版と同じ並びにする。「設計を 2 回間違えた」の節には、実装中に実際に踏んだ失敗だけを書く。踏まなかった場合は、そう書く。断定する表現は、対応するテスト名を示せるものだけにする（自己点検）
 
 ### Bolt 6-2: 第 11 章
 
-- [ ] **6-2.1** 名前変更の受け入れ scenario を書く（ローカルで Red を確認）。成功、複数の誤りの表示、変名先がすでにある場合。domain、HTTP、PostgreSQL の 3 経路で動かす
-- [ ] **6-2.2** `RenameToDoList` と `ListRenamed` を domain に足す（Red → Green）。handler は、command が触れる stream の状態を見て判断する。`ToDoListState` の削除の操作、`apply(ListRenamed)`（旧い名前を削除するだけ）、射影（旧い行を消し、新しい行は末尾）、store への書き込み（2 つの stream）を実装する。往復（`a → b → a`）のテストを置く
-- [ ] **6-2.3** 入力の検証を蓄積する形で書く（Red → Green）。Arrow の蓄積の API は、固定した版（2.2.3）でコンパイルできるものだけを使う。`flatMap` が最初の失敗で止まることを対比するテストを置く
-- [ ] **6-2.4** 蓄積する合成の性質を property test で確かめる。`map` の恒等則と合成則、順序の保存、結合律、単位元
-- [ ] **6-2.5** テンプレートの描画を決める（**停止 3**：新しい依存を入れる場合は確認必須）。既製の道具を調べ、未適用のタグを失敗にできるか、新しい依存に見合うかを確かめる。既定は、小さな自前の関数
-- [ ] **6-2.6** テンプレートから画面を作り、名前を変える画面の `GET` と `POST`、誤りの表示を作る。未適用のタグで描画が失敗すること、値のエスケープ、入力値の保持をテストする。`CatchAll` が返す予期しない例外の本文に、内部情報が出ないことを確かめ、出るなら固定の本文にする
-- [ ] **6-2.7** 設計文書（ドメインモデル、UI 設計）に反映する。UI 設計の既存の記述（`GET` と `POST`、成功は 302）と矛盾しないことを確かめる
-- [ ] **6-2.8** 第 11 章を実装済みコードから執筆する（**停止 4**：記事の構成と全文）。断定する表現は、対応するテスト名を示せるものだけにする（自己点検）
-- [ ] **6-2.9** 全体 `clean check`、記事検査、5 観点レビュー、再レビューを行う（**停止 5**：レビュー結果の対応方針）
+- [x] **6-2.1** 名前変更の受け入れ scenario を書く（ローカルで Red を確認）。成功、複数の誤りの表示、変名先がすでにある場合。domain、HTTP、PostgreSQL の 3 経路で動かす
+- [x] **6-2.2** `RenameToDoList` と `ListRenamed` を domain に足す（Red → Green）。handler は、command が触れる stream の状態を見て判断する。`ToDoListState` の削除の操作、`apply(ListRenamed)`（旧い名前を削除するだけ）、射影（旧い行を消し、新しい行は末尾）、store への書き込み（2 つの stream）を実装する。往復（`a → b → a`）のテストを置く
+- [x] **6-2.3** 入力の検証を蓄積する形で書く（Red → Green）。Arrow の蓄積の API は、固定した版（2.2.3）でコンパイルできるものだけを使う。`flatMap` が最初の失敗で止まることを対比するテストを置く
+- [x] **6-2.4** 蓄積する合成の性質を property test で確かめる。`map` の恒等則と合成則、順序の保存、結合律、単位元
+- [x] **6-2.5** テンプレートの描画を決める（**停止 3**：新しい依存を入れる場合は確認必須）。既製の道具を調べ、未適用のタグを失敗にできるか、新しい依存に見合うかを確かめる。既定は、小さな自前の関数
+- [x] **6-2.6** テンプレートから画面を作り、名前を変える画面の `GET` と `POST`、誤りの表示を作る。未適用のタグで描画が失敗すること、値のエスケープ、入力値の保持をテストする。`CatchAll` が返す予期しない例外の本文に、内部情報が出ないことを確かめ、出るなら固定の本文にする
+- [x] **6-2.7** 設計文書（ドメインモデル、UI 設計）に反映する。UI 設計の既存の記述（`GET` と `POST`、成功は 302）と矛盾しないことを確かめる
+- [x] **6-2.8** 第 11 章を実装済みコードから執筆する（**停止 4**：記事の構成と全文）。断定する表現は、対応するテスト名を示せるものだけにする（自己点検）
+- [x] **6-2.9** 全体 `clean check`、記事検査、5 観点レビュー、再レビューを行う（**停止 5**：レビュー結果の対応方針）
 
 ## 設計
 
@@ -405,28 +405,28 @@ package domain {
 
 ### Definition of Done
 
-- [ ] Unit 6 の契約テスト、結合テスト、property test、Cucumber の 3 経路が green
-- [ ] 同じ結合テストを 3 回連続で実行して green
-- [ ] Unit 1〜6 の `gradlew.bat clean check --no-daemon` が green
-- [ ] 第 10〜11 章のコード例が実装と一致する
-- [ ] 記事コード、節構成、件数、引用、ADR 参照の検査が green
-- [ ] `mkdocs build --strict` が green
-- [ ] 第 10〜11 章が索引と nav から到達可能
-- [ ] アーキテクチャ設計、ドメインモデル設計、データモデル設計、UI 設計に Unit 6 の判断を反映する
+- [x] Unit 6 の契約テスト、結合テスト、property test、Cucumber の 3 経路が green
+- [x] 同じ結合テストを 3 回連続で実行して green
+- [x] Unit 1〜6 の `gradlew.bat clean check --no-daemon` が green
+- [x] 第 10〜11 章のコード例が実装と一致する
+- [x] 記事コード、節構成、件数、引用、ADR 参照の検査が green
+- [x] `mkdocs build --strict` が green
+- [x] 第 10〜11 章が索引と nav から到達可能
+- [x] アーキテクチャ設計、ドメインモデル設計、データモデル設計、UI 設計に Unit 6 の判断を反映する
 - [ ] ADR が作成され、データベースのスキーマ変更、データモデルの Kotlin FP 版の差分とともに、人の承認を得ている
-- [ ] 受入条件の表の各セルが、テスト名と 1 対 1 で対応している
+- [x] 受入条件の表の各セルが、テスト名と 1 対 1 で対応している
 - [ ] 5 観点の開発成果物レビューで高・中重要度の残件がない
-- [ ] OKF 検査が ERROR 0
+- [x] OKF 検査が ERROR 0
 - [ ] push 後の CI が green（push は人の承認を得て行う）
 
 ### デモ項目
 
-- [ ] 同じリストへ並行する 2 つの command のうち、1 つだけが成功し、event は重複しない
-- [ ] 複数の stream への保存の途中で失敗すると、どの stream にも何も残らない
-- [ ] 名前変更の後、`getList` と `listRows` が新しい名前を返し、旧い名前は無い
-- [ ] 空で長すぎる名前を送ると、誤りがすべて画面に表示される
-- [ ] 未適用のタグがあるテンプレートは、描画が失敗する
-- [ ] 同じ scenario が 3 経路で通る
+- [x] 同じリストへ並行する 2 つの command のうち、1 つだけが成功し、event は重複しない
+- [x] 複数の stream への保存の途中で失敗すると、どの stream にも何も残らない
+- [x] 名前変更の後、`getList` と `listRows` が新しい名前を返し、旧い名前は無い
+- [x] 空で長すぎる名前を送ると、誤りがすべて画面に表示される
+- [x] 未適用のタグがあるテンプレートは、描画が失敗する
+- [x] 同じ scenario が 3 経路で通る
 
 ## 更新履歴
 

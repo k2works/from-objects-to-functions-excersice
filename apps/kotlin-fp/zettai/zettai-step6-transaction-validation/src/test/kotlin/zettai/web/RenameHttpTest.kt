@@ -101,7 +101,8 @@ class RenameHttpTest : StringSpec({
 
     "競合は 409 で、開き直す案内を同じ画面に出す" {
         val store = inMemoryEventStore()
-        val raced = store.copy(append = { _, _, _ -> ConcurrentModification(listOf(StreamId(alice, ListName("book")))).left() })
+        val conflict = ConcurrentModification(listOf(StreamId(alice, ListName("book"))))
+        val raced = store.copy(append = { _, _, _ -> conflict.left() })
         val hub = todoListHub(store).let { plain ->
             runBlocking { plain.execute(CreateToDoList(alice, ListName("book"))) }
             todoListHub(raced)
@@ -116,7 +117,9 @@ class RenameHttpTest : StringSpec({
 
     "予期しない例外の本文に、内部の情報を出さない" {
         val hub = ToDoListHub(
-            getList = { _, _ -> throw IllegalStateException("jdbc:postgresql://db.internal:5432/zettai password=secret") },
+            getList = { _, _ ->
+                throw IllegalStateException("jdbc:postgresql://db.internal:5432/zettai password=secret")
+            },
             listRows = { error("使わない") },
             execute = { error("使わない") },
         )

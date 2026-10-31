@@ -185,7 +185,7 @@ gantt
 - [x] **7-1.1** `zettai-step7-observability` module を新設する。Unit 6 の production code と test を独立した snapshot としてコピーする。第 12 章で変わる型（`ToDoListHub`、`EventStore<Tx>`、`ZettaiHttpApp`）を一覧し、decorator で包む点を決める。あわせて、持ち越し 7（`userAndList` に寄せる）、11（失敗応答を HTML にするかを決め、`ZettaiHttpAppTest` と計画に残す）、12（`rename` の分岐と `describeError` の `else`）を片づける
 - [ ] **7-1.2** ログに載せるもの、載せないものの表（本計画）をテストにする（ローカルで Red を確認）。決定的な時刻、1 行の JSON、機密の除外
 - [x] **7-1.3** 新しい依存を決める（**停止 1**：新しい依存の追加と、承認済みの ADR-040 の部分的な見直しは確認必須）。上の比較表の案 A を既定として提示する。スパイクで、Kotlin 2.4.21 と整合する版、`JsonElement` の往復、特殊文字（引用符、バックスラッシュ、改行、絵文字）の escape を確かめ、ADR にする。承認が得られないときは、案 B〜D の理由を示して止まる
-- [ ] **7-1.4** `Converter<A, B>` と `dimap` を作り、法則（`dimap id id = id`、`dimap (f ∘ g) (h ∘ k) = dimap g h ∘ dimap f k`、往復）を property test で確かめる。壊れた入力は `Left`。法則を満たさない部分があれば、第 12 章に「厳密なプロファンクタではない」理由として書く
+- [x] **7-1.4** `Converter<A, B>` と `dimap` を作り、法則（`dimap id id = id`、`dimap (f ∘ g) (h ∘ k) = dimap g h ∘ dimap f k`、往復）を property test で確かめる。壊れた入力は `Left`。法則を満たさない部分があれば、第 12 章に「厳密なプロファンクタではない」理由として書く
 - [ ] **7-1.5** Hub の decorator を `zettai.adapter.logging` に作る（Red → Green）。ログの出力先は `(String) -> Unit`、時刻は `() -> Instant` の引数で与える。1 行を 1 回の呼び出しで書き、並行しても行が混ざらないことをテストする。載せるものを確かめ、載せないものが載らないことをテストする。利用者名とリスト名を載せるかを確認する（**停止 2**：ログの内容の承認）
 - [ ] **7-1.6** `EventStore<Tx>` の decorator を `<Tx>` を持つ関数として作る。包むのは `readAggregate`、`readUser`、`readStream`、`append` で、`transaction` は包まない（読み出し、追記、失敗の記録。payload は載せない）
 - [ ] **7-1.7** HTTP の request log の filter を作る。body と query は載せない。404、400、409、500 も記録する

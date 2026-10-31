@@ -2,6 +2,9 @@
 
 ## 2026-10-31
 * **Update**: [chapter13](/article/zettai/kotlin-fp/chapter13.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [chapter12](/article/zettai/kotlin-fp/chapter12.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [ADR-045-logging-as-decorator-with-typed-record](/adr/ADR-045-logging-as-decorator-with-typed-record.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [chapter13](/article/zettai/kotlin-fp/chapter13.md) を更新（anthropic/claude-sonnet-5-5）
 * **Update**: [iteration_plan-kotlin-fp-7](/development/iteration_plan-kotlin-fp-7.md) を更新（anthropic/claude-sonnet-5-5）
 * **Update**: [outline](/article/outline.md) を更新（anthropic/claude-sonnet-5-5）
 * **Update**: [chapter13](/article/zettai/kotlin-fp/chapter13.md) を更新（anthropic/claude-sonnet-5-5）

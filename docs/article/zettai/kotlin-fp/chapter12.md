@@ -4,7 +4,7 @@ title: "第 12 章 監視と関数型JSON"
 description: "Zettai Kotlin FP 版の第 12 章。Hub と event store を包む decorator と HTTP の filter で、機密を含まない構造化ログを出す。載せるものを LogRecord の型で決め、辞書と JSON の双方向変換を純粋な Converter で表し、Encoder と Decoder がプロファンクタの形をしていることを法則のテストで確かめる。"
 tags: [article, zettai, kotlin, functional-programming, arrow, logging, json, profunctor]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T12:44:15Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T13:17:18Z }
 ---
 
 # 第 12 章 監視と関数型JSON
@@ -92,25 +92,36 @@ private suspend fun <E : ZettaiError, A> observe(
     operation: suspend () -> Either<E, A>,
 ): Either<E, A> {
     val startedAt = now()
-    val result = operation()
-    val finishedAt = now()
-    val record = LogRecord(
-        at = startedAt,
-        kind = kind,
-        name = name,
-        outcome = result.fold({ it::class.simpleName ?: "Error" }, { "success" }),
-        user = user?.name,
-        list = list?.name,
-        durationMs = Duration.between(startedAt, finishedAt).toMillis(),
-        streams = streams,
-        events = result.getOrNull()?.let(events),
-    )
-    log(logLine.encoder.run(record))
+
+    fun write(outcome: String, eventCount: Int?) {
+        val record = LogRecord(
+            at = startedAt,
+            kind = kind,
+            name = name,
+            outcome = outcome,
+            user = user?.name,
+            list = list?.name,
+            durationMs = Duration.between(startedAt, now()).toMillis(),
+            streams = streams,
+            events = eventCount,
+        )
+        log(logLine.encoder.run(record))
+    }
+
+    val result = try {
+        operation()
+    } catch (cancelled: CancellationException) {
+        throw cancelled
+    } catch (failure: Throwable) {
+        write("exception:" + (failure::class.simpleName ?: "Throwable"), null)
+        throw failure
+    }
+    write(result.fold({ it::class.simpleName ?: "Error" }, { "success" }), result.getOrNull()?.let(events))
     return result
 }
 ```
 
-時刻と出力先は引数です。出力先は `(String) -> Unit`、時刻は `() -> Instant` なので、テストでは時計を 25 ミリ秒ずつ進めて、所要時間まで決定的に確かめられます。1 回の操作は、`log` の 1 回の呼び出しで、1 行だけを書きます。例外は記録せず、そのまま投げ直します。
+時刻と出力先は引数です。出力先は `(String) -> Unit`、時刻は `() -> Instant` なので、テストでは時計を 25 ミリ秒ずつ進めて、所要時間まで決定的に確かめられます。1 回の操作は、`log` の 1 回の呼び出しで、1 行だけを書きます。例外が投げられたときは、例外の型名だけを `outcome` に載せた 1 行を書いて、そのまま投げ直します。メッセージとスタックトレースは載せません。出力先は、投げない契約です。
 
 Hub は、3 つの操作をこの関数で包みます。
 
@@ -155,7 +166,9 @@ fun ToDoListHub.logged(log: (String) -> Unit, now: () -> Instant): ToDoListHub {
 - 永続化の失敗の原因は載らない（テスト：`永続化の失敗の原因は、ログに載らない`）
 - 利用者名とリスト名に引用符、バックスラッシュ、改行、絵文字があっても、改行を含まない 1 行の JSON のまま、同じ値に読み戻せる（テスト：`利用者名とリスト名に特殊文字があっても、ログは改行を含まない 1 行の JSON のまま、同じ値に読み戻せる`）
 
-decorator が結果を変えないことも、確かめました。任意の command 列を、decorator ありと無しの Hub に流して、結果の `Either` が一致します（テスト：`decorator を付けても、任意の command 列に対する結果は変わらない`）。並行する command でも、行は壊れません（テスト：`並行する command でも、1 回の操作は 1 回の書き込みで、行が壊れない`）。
+例外が投げられた操作は、型名だけの 1 行になり、メッセージは載りません。例外はそのまま投げ直されます（テスト：`操作が例外を投げたら、型名だけを載せた 1 行を書いて、そのまま投げ直す`）。coroutine のキャンセルは失敗ではないので、記録せず投げ直します（テスト：`coroutine のキャンセルは、失敗として記録せず、そのまま投げ直す`）。
+
+decorator が結果を変えないことも、確かめました。Hub の `execute` について、任意の command 列を、decorator ありと無しの Hub に流して、結果の `Either` が一致します（テスト：`decorator を付けても、任意の command 列に対する結果は変わらない`）。並行する command でも、行は壊れません（テスト：`並行する command でも、1 回の操作は 1 回の書き込みで、行が壊れない`）。
 
 ## JSONを関数型にする
 
@@ -218,7 +231,7 @@ data class Decoder<B, A>(val run: (B) -> Either<ConversionFailure, A>) {
 }
 ```
 
-どちらも、プロファンクタの形をしています。求める法則は 2 つです。
+どちらも、プロファンクタの形をしています。反変は「入力を受け取る前に、別の型から写す」こと、共変は「出力を返したあとで、別の型へ写す」ことです。求める法則は 2 つです（`id` は何もしない関数、`∘` は関数の合成です）。
 
 - `dimap id id = id`
 - `dimap (f ∘ g) (h ∘ k) = dimap g h ∘ dimap f k`
@@ -257,6 +270,7 @@ event store の読み出しと追記も、同じ関数で包みます。包む�
 
 ```kotlin
         append = { tx, versions, events ->
+            // 識別子を載せるのは、stream が 1 つのときだけ。複数あるときは、利用者だけを載せ、リスト名は載せない
             val first = versions.keys.firstOrNull()
             observe(
                 log,
@@ -264,7 +278,7 @@ event store の読み出しと追記も、同じ関数で包みます。包む�
                 "store",
                 "append",
                 first?.user,
-                first?.listName,
+                first?.listName?.takeIf { versions.size == 1 },
                 streams = versions.size,
                 events = { events.size },
             ) { inner.append(tx, versions, events) }
@@ -308,6 +322,19 @@ fun requestLogged(log: (String) -> Unit, now: () -> Instant): Filter =
 
 404、400、409、500 も、status とともに記録されます（テスト：`404、400、409、500 も、status とともに記録される`）。path に query を含める変更を入れると、`query と body は、ログに載らない` が失敗することを確かめました。
 
+### 組み立てる
+
+この連載には、起動する `main` がありません。組み立ては関数として示し、結合して確かめました。
+
+```kotlin
+fun <Tx> observedApp(store: EventStore<Tx>, log: (String) -> Unit, now: () -> Instant): HttpHandler {
+    val hub = todoListHub(store.logged(log, now)).logged(log, now)
+    return requestLogged(log, now).then(zettaiHttpApp(hub))
+}
+```
+
+filter を最も外に付けるのは、`zettaiHttpApp` の `CatchAll` より外に置くためです。予期しない例外は、500 の request の行として残ります。1 回の request で、store、query、request の行が、内側から外側の順に出ます（テスト：`1 つの request で、store、query、request の行が、内側から外側の順に出る`）。原因を載せないことは、組み立てた app でも確かめました（テスト：`組み立てた app は、予期しない例外を 500 として request の行に残し、原因を載せない`）。
+
 ### 置き場所を間違えた
 
 最初、この filter を `zettai.adapter.logging` に置きました。境界テスト `driven adapter は driving adapter と HTTP と runBlocking に依存しない` が失敗しました。http4k に依存する filter は、driven adapter に置けません。web に置けば、`LogRecord` が adapter 側にあると、web が adapter に依存してしまいます。
@@ -321,8 +348,9 @@ fun requestLogged(log: (String) -> Unit, now: () -> Instant): Filter =
 - 時刻と出力先を引数にして、ログのテストを決定的にしました。1 回の操作は 1 回の書き込みで、並行しても行が壊れません。
 - JSON は、`kotlinx-serialization-json` の `JsonElement` の木だけを使いました。承認済みの ADR-040 を置き換えず、DB の payload の用途は変えずに、ログと変換の用途を足しました。人の承認を得ています。
 - `Encoder` と `Decoder` は、プロファンクタの形をしています。法則を property test で確かめました。束ねた `Converter` には、一般の `dimap` を持たせていません。
-- 間違えたことは 2 つです。合成則のテストの向き。filter の置き場所です。
-- 確かめていないことがあります。ログの枠組み（SLF4J など）との比較は、していません。分散トレースとメトリクスの収集は、扱っていません。
+- 間違えたことは 2 つです。合成則のテストの向き。filter の置き場所です。どちらも、コミットする前の作業中のことなので、履歴には残っていません。
+- 型で決めたのは、載せられる項目の種類で、値の集合ではありません。`kind`、`name`、`outcome` は文字列のままです。
+- 確かめていないことがあります。ログの枠組み（SLF4J など）との比較は、していません。分散トレースとメトリクスの収集は、扱っていません。相関 ID（request ID）は無く、1 回の request の複数の行は、時刻と利用者名でしか結べません。`append` の行は transaction の中で書かれるので、その後の rollback を反映せず、`success` のまま残りえます。この食い違いは、再現していません。
 
 次の章では、ここまでの設計判断を、ひとつの見取り図として振り返ります。
 

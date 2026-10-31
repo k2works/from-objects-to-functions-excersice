@@ -4,7 +4,7 @@ title: "第 13 章 関数型アーキテクチャの設計"
 description: "Zettai Kotlin FP 版の最終章。13 章で積み上げた設計判断を、5 つの代数構造と対応するテスト、effect の境界、8 件の ADR、採用しなかった道具として整理する。ライブラリへ委ねるほど設計の意図は明確になるのか、という問いに、実装から言えることと、言えないことを分けて答える。"
 tags: [article, zettai, kotlin, functional-programming, arrow, architecture]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T13:04:15Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T13:17:18Z }
 ---
 
 # 第 13 章 関数型アーキテクチャの設計
@@ -27,17 +27,17 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T13:04:15Z }
 
 | module | 章 | テスト件数 | 本番コードの行数 | 本番コードの `.kt` ファイル数 |
 | :--- | :--- | :--- | :--- | :--- |
-| `zettai-step1-foundation` | 1 | 7 | 31 | 1 |
-| `zettai-step2-http-domain` | 2〜3 | 9 | 88 | 4 |
-| `zettai-step3-domain-events` | 4〜5 | 17 | 226 | 8 |
-| `zettai-step4-command-errors` | 6〜7 | 30 | 484 | 12 |
-| `zettai-step5-cqrs-persistence` | 8〜9 | 89 | 791 | 15 |
-| `zettai-step6-transaction-validation` | 10〜11 | 165 | 1272 | 19 |
-| `zettai-step7-observability` | 12〜13 | 199 | 1576 | 23 |
+| `zettai-step1-foundation` | 1 | 7 | 30 | 1 |
+| `zettai-step2-http-domain` | 2〜3 | 9 | 84 | 4 |
+| `zettai-step3-domain-events` | 4〜5 | 17 | 218 | 8 |
+| `zettai-step4-command-errors` | 6〜7 | 30 | 472 | 12 |
+| `zettai-step5-cqrs-persistence` | 8〜9 | 89 | 776 | 15 |
+| `zettai-step6-transaction-validation` | 10〜11 | 165 | 1253 | 19 |
+| `zettai-step7-observability` | 12〜13 | 220 | 1599 | 24 |
 
-2026-10-31 に数えました。テスト件数は Gradle の `test-results` の合計で、Cucumber の scenario を含みます。行数は `git ls-files` で得た `src/main` の `.kt` ファイルの行数で、テンプレートなどの資源は含みません。既存 Kotlin 版は、最終章で「714 のテスト」と書いています。数え方が同じとは確かめていないので、並べて比べることはしません。
+2026-10-31 に数えました。テスト件数は Gradle の `test-results` の合計で、Cucumber の scenario を含みます。行数は、`git ls-files` で得た `src/main` の `.kt` ファイルの改行の数で、テンプレートなどの資源は含みません。既存 Kotlin 版は、最終章で「714 のテスト」と書いています。数え方が同じとは確かめていないので、並べて比べることはしません。
 
-コードは増え続けました。行数だけを見れば、素朴な実装より多いはずです。
+コードは増え続けました。素朴な実装との比較は、していません。
 
 ### 何をシンプルと呼んだか
 
@@ -88,9 +88,9 @@ web / adapter.logging ──▶ logging ──▶ json
 | :--- | :--- | :--- | :--- |
 | モノイド | 5 | `StateTransitionMonoidTest`（`状態変換の合成には結合律が成り立つ`、`identityTransition は左右の単位元である`） | `zettai-step3-domain-events` にある。step4 以降の module には持ち越していない |
 | ファンクタ | 7、8 | `EitherFunctorLawTest`（`Either map の恒等則が成り立つ`、`Either map の合成則が成り立つ`）、`ProjectionLawsTest`（`クエリ結果の map は恒等則を満たす`、`クエリ結果の map は合成則を満たす`） | |
-| モナド | 7、9 | `EitherMonadLawTest`（`左恒等則：pure(a).flatMap(f) は f(a) と同じ`、`右恒等則：m.flatMap(pure) は m と同じ`、`結合律：flatMap を続けても、中にまとめても同じ`） | `Raise` の `bind` の連鎖が `flatMap` と同じ結果になることも確かめた（`Raise の bind の連鎖は flatMap と同じ結果になる`） |
+| モナド | 8、9 | `EitherMonadLawTest`（`左恒等則：pure(a).flatMap(f) は f(a) と同じ`、`右恒等則：m.flatMap(pure) は m と同じ`、`結合律：flatMap を続けても、中にまとめても同じ`） | `Raise` の `bind` の連鎖が `flatMap` と同じ結果になることも確かめた（`Raise の bind の連鎖は flatMap と同じ結果になる`） |
 | アプリカティブ | 11 | `AccumulationLawsTest`（`結合律：どこから合成しても、成功の値も、誤りの並びも同じ`、`単位元：成功する Unit と合成しても、結果は変わらない`） | アプリカティブ則そのものを一般の形でテストしたのではなく、`zipAll` に求める性質を確かめた（第 11 章） |
-| プロファンクタ | 12 | `ConverterLawsTest`（`Encoder の dimap は恒等則を満たす`、`Encoder の dimap は合成則を満たす`、`Decoder の dimap は恒等則を満たす`、`Decoder の dimap は合成則を満たす`） | 同じ Unit で初めて作った。束ねた `Converter` には一般の `dimap` が無い |
+| プロファンクタ | 12 | `ConverterLawsTest`（`Encoder の dimap は恒等則を満たす`、`Encoder の dimap は合成則を満たす`、`Decoder の dimap は恒等則を満たす`、`Decoder の dimap は合成則を満たす`） | この版では第 12 章で初めて作った。束ねた `Converter` には一般の `dimap` が無い |
 
 確かめていないことがあります。既存の 3 版は、法則を壊して、何回検出するかを数えています。この版では、法則を壊した実装で何回失敗するかの率を、数えていません。法則が通ることは示しましたが、テストがどれだけ法則を見ているかの数字は、ありません。
 
@@ -183,6 +183,11 @@ data class EventStore<Tx>(
 | 6 | 分散トレース、メトリクスの収集基盤 | 12 | 扱っていない |
 | 7 | HTTP と PostgreSQL の組み合わせの受け入れ確認 | 11 | 確かめていない。HTTP の経路は in-memory の store で動く |
 | 8 | 失敗応答（404、500 など）の形式 | 11 | プレーンテキストのまま。HTML にしたのは、名前変更のフォームだけ |
+| 9 | 相関 ID（request ID） | 12 | 扱っていない。1 回の request で出る複数の行は、時刻と利用者名でしか結べない |
+| 10 | 識別子の扱い | 12 | リスト名は利用者が書く内容で、個人的な情報を含みうる。path にも利用者名とリスト名が入るので、request の行にも載る。載せる判断は人が承認したが、保管と閲覧の管理は運用の課題 |
+| 11 | ログの行区切りによる偽装 | 12 | 確かめていない。値に `U+2028` などが入ったときの、読む道具の側の扱い |
+| 12 | 例外と rollback の記録 | 12 | decorator を通らない経路の例外は記録されない。`append` の行は transaction の中で書かれ、その後の rollback を反映しない |
+| 13 | 起動する `main` | 12 | 連載には無い。組み立ては `observedApp` の関数で示し、結合して確かめた |
 
 HTML のエスケープと JSON のエスケープは、扱いました。入力の値は、テンプレートでエスケープして埋めます（第 11 章）。ログの JSON は、木から文字列にして、手で連結しません（第 12 章）。
 
@@ -196,21 +201,21 @@ HTML のエスケープと JSON のエスケープは、扱いました。入力
 
 委ねて、意図が明確になった場所があります。
 
-- 失敗の型を `Either` に、複数の誤りの集め方を `zipOrAccumulate` にしたところです。名前が、そのまま概念を指します。読む人は、Arrow を知っていれば、実装を読まずに意図が分かります。自前の型なら、読む人はまず定義を読む必要があります。
-- 法則のテストを、委ねた先の型に対して書けたところです。`EitherFunctorLawTest` と `EitherMonadLawTest` は、委ねた型が法則を満たすかを、使う側から確かめています。
+- 失敗の型を `Either` に、複数の誤りの集め方を `zipOrAccumulate` にしたところです。名前が、そのまま概念を指します。読む人が Arrow を知っていれば、実装を読まずに意図が分かります。この前提を満たさない読者には、自前の型と同じく、定義を読む必要があります。
+- 委ねた先の型が法則を満たすかを、使う側から確かめられたところです。`EitherFunctorLawTest` と `EitherMonadLawTest` が、それを確かめています。これは、法則を確かめられることの根拠です。意図が明確になったことの根拠は、前の項の、名前が概念と一致していることのほうです（自前の型にも、法則のテストは書けます）。
 
 委ねても、意図が明確にならなかった場所があります。
 
 - 境界の置き方です。transaction をどこで切るか、ログを何に載せないかは、ライブラリを使っても、自分で決める必要がありました。決めたことを記録したのは、ADR とテストです。
 - ログの枠組みや template エンジンのように、委ねる先を比べていないものがあります。比べていないので、委ねたほうがよかったかは、この連載から言えません。
 
-要するに、こう言えます。委ねるほど意図が明確になるとは限りません。名前が概念と一致していて、法則を使う側から確かめられるものは、委ねて明確になりました。何を載せるか、どこで切るかという、設計者が決める境界は、委ねる先が無いので、型とテストで自分で表しました。
+要するに、こう言えます。委ねるほど意図が明確になるとは限りません。名前が概念と一致していて、読む人がその名前を知っている場合は、委ねて明確になりました。何を載せるか、どこで切るかという、設計者が決める境界は、委ねる先が無いので、型とテストで自分で表しました。
 
 これは、1 つの題材、1 つの実装での観察です。一般論として言える根拠は、ありません。
 
 ## 連載を終えて
 
-13 章、7 つの module、8 件の ADR、199 件のテスト（最終 module）。
+13 章、7 つの module、8 件の ADR、220 件のテスト（最終 module）。
 
 この版で、最後に残る問いは、既存の 3 版と同じです。言語やライブラリが与えるほど、設計は楽になるのか。この版の実装から言えるのは、決めることが変わる、ということです。失敗の型や複数の誤りの集め方は、決めることが減りました。一方、境界の置き方、載せないものの決め方、何を比べて何を比べなかったかは、減りませんでした。
 

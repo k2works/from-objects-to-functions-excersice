@@ -526,10 +526,10 @@ Kotlin FP 版は、Kotlin 版と同じ言語で、**自前の抽象のかわり�
 | :--- | :--- |
 | 章 | 13 / 13 |
 | ADR | 8 件（[ADR-038](../../../adr/ADR-038-arrow-core-for-typed-errors.md) から [ADR-045](../../../adr/ADR-045-logging-as-decorator-with-typed-record.md)） |
-| テスト（最終 module `zettai-step7-observability`） | 199 件 |
-| 本番コードの `.kt` | 23 ファイル、1576 行（`src/main`。テンプレートなどの資源は含まない） |
+| テスト（最終 module `zettai-step7-observability`） | 220 件 |
+| 本番コードの `.kt` | 24 ファイル、1599 行（`src/main`。テンプレートなどの資源は含まない） |
 
-テストは Gradle の `test-results` の合計で、Cucumber の scenario を含みます。行数は `git ls-files` で数えました。Kotlin 版は最終章で「714 のテスト」と書いていますが、数え方が同じとは確かめていないので、並べて比べません。
+テストは Gradle の `test-results` の合計で、Cucumber の scenario を含みます。行数は、`git ls-files` で得たファイルの改行の数です。Kotlin 版は最終章で「714 のテスト」と書いていますが、数え方が同じとは確かめていないので、並べて比べません。
 
 ### 代数構造の確かめ方
 

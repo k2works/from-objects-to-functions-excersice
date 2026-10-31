@@ -1,9 +1,11 @@
 package zettai.domain.errors
 
+import arrow.core.NonEmptyList
 import zettai.domain.ListName
 import zettai.domain.StreamId
 import zettai.domain.ToDoStatus
 import zettai.domain.User
+import zettai.domain.validation.FieldProblem
 
 sealed interface ZettaiError {
     val message: String
@@ -51,6 +53,13 @@ data class ConcurrentModification(
 ) : StoreError {
     override val message: String =
         "Concurrent modification: ${streams.joinToString { "${it.user.name}/${it.listName.name}" }}"
+}
+
+/** 入力の検証に失敗した。誤りは `problems` に集まり、`message` には入力の値を含めない。 */
+data class InvalidInput(
+    val problems: NonEmptyList<FieldProblem>,
+) : ZettaiError {
+    override val message: String = "Invalid input"
 }
 
 data class InvalidTransition(

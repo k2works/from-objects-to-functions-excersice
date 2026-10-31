@@ -5,6 +5,10 @@ import arrow.core.NonEmptyList
 import arrow.core.left
 import arrow.core.nonEmptyListOf
 import arrow.core.right
+import zettai.domain.ListName
+import zettai.domain.User
+import zettai.domain.commands.RenameToDoList
+import zettai.domain.errors.InvalidInput
 
 const val MAX_NAME_LENGTH = 40
 
@@ -75,3 +79,9 @@ fun validateNames(
         validateName(InputField.ListName, rawList),
         validateName(InputField.NewName, rawNewName),
     ) { user, list, newName -> Triple(user, list, newName) }
+
+/** 生の入力から名前変更の command を作る。誤りは止まらずにすべて `InvalidInput` に集める。 */
+fun validateRename(rawUser: String, rawList: String, rawNewName: String): Either<InvalidInput, RenameToDoList> =
+    validateNames(rawUser, rawList, rawNewName)
+        .map { (user, list, newName) -> RenameToDoList(User(user), ListName(list), ListName(newName)) }
+        .mapLeft(::InvalidInput)

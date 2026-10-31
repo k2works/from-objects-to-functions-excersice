@@ -15,6 +15,7 @@ import zettai.application.ToDoListHub
 import zettai.domain.ListName
 import zettai.domain.User
 import zettai.domain.errors.ConcurrentModification
+import zettai.domain.errors.InvalidInput
 import zettai.domain.errors.InvalidTransition
 import zettai.domain.errors.ItemNotFound
 import zettai.domain.errors.ListAlreadyExists
@@ -59,6 +60,7 @@ private fun statusOf(error: ZettaiError): Status =
         -> Status.NOT_FOUND
 
         is ListAlreadyExists,
+        is InvalidInput,
         is InvalidTransition,
         -> Status.BAD_REQUEST
 

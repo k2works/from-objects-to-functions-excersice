@@ -4,7 +4,6 @@ plugins {
 
 dependencies {
     implementation(libs.arrow.core)
-    implementation(libs.arrow.fx.coroutines)
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.http4k.core)
     implementation(libs.postgresql)

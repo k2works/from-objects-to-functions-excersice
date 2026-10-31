@@ -9724,7 +9724,7 @@
 <li>ローカルと CI で、同じ手順で DB が用意される設計です。固定の値がコードに残りません。push 後の GitHub Actions（ubuntu-latest）で、結合テストを含む <code>check</code> が成功したことを確認しました（run 41177663644）。</li>
 <li><strong>失うものがあります。</strong> <code>docker compose up -d</code> で DB が動いている様子を見る機会が無くなります。読者が <code>check</code> を通すには Docker daemon が必要になり、初回は image の取得に時間とネットワークが要ります。</li>
 <li><code>postgres:18-alpine</code> は動く tag です。minor 版や digest で固定すると、再現性は上がります。</li>
-<li><strong>Docker が無い環境で、失敗がどう見えるかは確認していません。</strong> Testcontainers は成功した接続方法を記憶するため、環境変数だけでは Docker が無い状態を再現できませんでした。診断を足すかどうかは、実際に困った時点で判断します。</li>
+<li><strong>Docker が無い環境で、失敗がどう見えるかは確認していません。</strong> Testcontainers は成功した接続方法を記憶するため、環境変数や <code>user.home</code> の差し替えでは、Docker が無い状態を再現できませんでした。診断を足すかどうかは、実際に困った時点で判断します。</li>
 </ul>
 <h2 id="_6">関連<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
 <ul>

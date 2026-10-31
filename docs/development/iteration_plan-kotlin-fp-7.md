@@ -4,7 +4,7 @@ title: "Unit 7 の Bolt 計画 - Zettai 連載（Kotlin FP 版）"
 description: "Kotlin FP 版 Unit 7 の構造化ロギング、関数型 JSON とプロファンクタ、データベース呼び出しのロギング、関数型アーキテクチャの総括、第 12〜13 章、連載全体の品質ゲートを定義する Bolt 計画。"
 tags: [development, plan, ai-dlc, zettai, kotlin, arrow, logging, json, unit-7]
 status: stable
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T13:24:35Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T13:27:45Z }
 verified:
   - { by: human:kakimomokuri, at: 2026-10-31T12:21:58Z }
 ---
@@ -133,7 +133,7 @@ Unit 6 の持ち越しと開発戦略から、この Unit が答える問いは 
 - [x] 採用しなかった道具（`Resource`、Arrow の optics、既製の template エンジン、悲観ロックなど）を、理由つきで列挙する。確かめていないことは、確かめていないと書く
 - [x] 既存 3 版との比較（横断比較）に、Kotlin FP 版を加える。「実測」は、章数、module ごとのテスト件数（Gradle の `test-results` の XML の合計）、本番コードの `.kt` の行数（`git ls-files` で数える）と定め、数えた日付とコミットを書く
 - [x] 節構成が既存 Kotlin 版の第 13 章（シンプルさを追い求めて／システム全体の設計／コードへの翻訳／最後の考察）と一致する（章末の「連載を終えて」は検査の対象外）
-- [ ] 連載全体の品質ゲート（全 13 章の記事検査、全 module の `clean check`、`mkdocs build --strict`、OKF、CI）が green
+- [x] 連載全体の品質ゲート（全 13 章の記事検査、全 module の `clean check`、`mkdocs build --strict`、OKF、CI）が green
 
 ### 新規ファイルの扱い
 
@@ -228,7 +228,7 @@ gantt
 - [x] 受入条件の表の各セルが、テスト名と 1 対 1 で対応している
 - [x] 5 観点の開発成果物レビューで高・中重要度の残件がない（再レビューで確認）
 - [x] OKF 検査が ERROR 0
-- [ ] push 後の CI が green（push は人の承認を得て行う）
+- [x] push 後の CI が green（push は人の承認を得て行う）
 - [x] 連載の完了報告書がある
 
 ### 受入条件（検証可能な表現）

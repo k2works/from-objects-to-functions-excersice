@@ -4,7 +4,7 @@ title: "Unit 7 の Bolt 終了報告 - Zettai 連載（Kotlin FP 版）"
 description: "Kotlin FP 版 Unit 7 の構造化ログの decorator、JSON の Converter とプロファンクタ、request log、組み立て関数、第 12〜13 章、横断比較、連載全体の品質ゲートの完了結果を記録する。"
 tags: [development, report, zettai, kotlin, arrow, logging, unit-7]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T13:24:35Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T13:27:45Z }
 ---
 
 # Unit 7 の Bolt 終了報告 - Zettai 連載（Kotlin FP 版）
@@ -17,7 +17,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T13:24:35Z }
 | Bolt | 7-1 第 12 章 / 7-2 第 13 章 |
 | 実施日 | 2026-10-31 |
 | 見積もり | US-012: 5 SP / US-013: 3 SP |
-| 状態 | **完了**（ADR-045 は人が承認済み。push 後の CI の結果は、下の表に記録する） |
+| 状態 | **完了**（ADR-045 は人が承認済み。push 後の CI も成功） |
 
 ## 成果
 
@@ -41,7 +41,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T13:24:35Z }
 | `mkdocs build --strict` | 成功 |
 | 5 観点レビュー | 重複を含めて高 11 / 中 約 18 / 低 約 16。高の残件 0（ADR-045 の承認で解消する 2 件を除く）。[レビュー](../review/kotlin-fp-unit7_review_20261031.md) |
 | 変異による確認 | request の path に query を含めると `query と body は、ログに載らない` が失敗することを確認。`dimap` の実装を壊す変更は、型が合わず、コンパイルが通らなかった |
-| CI（push 後の GitHub Actions） | 未実施（push は人の承認を得て行う） |
+| CI（push 後の GitHub Actions） | 成功。`3867f12` に対し Kotlin FP Zettai、Kotlin Zettai、Nadesiko3 Zettai、Deploy MkDocs の 4 本（run 41205436678 ほか） |
 
 ## 受入条件とテストの対応
 

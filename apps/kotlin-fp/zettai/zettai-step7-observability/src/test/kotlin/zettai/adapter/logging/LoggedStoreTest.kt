@@ -94,6 +94,8 @@ class LoggedStoreTest : StringSpec({
         val append = records(lines).single { it.name == "append" }
         append.streams shouldBe 2
         append.events shouldBe 3
+        append.user shouldBe "alice"
+        append.list shouldBe null
         records(lines).count { it.name == "readStream" } shouldBe 2
     }
 
@@ -134,5 +136,43 @@ class LoggedStoreTest : StringSpec({
         appended.getOrElse { error(it.message) } shouldBe events
         logged.readAggregate(alice, book).getOrElse { error(it.message) } shouldBe events
         logged.readUser(alice).getOrElse { error(it.message) } shouldBe events
+    }
+
+    "stream が 1 つの追記は、その利用者とリスト名を載せる" {
+        val (lines, write) = logs()
+        val store = inMemoryEventStore().logged(write, clock())
+
+        todoListHub(store).execute(CreateToDoList(alice, book))
+
+        val append = records(lines).single { it.name == "append" }
+        append.user shouldBe "alice"
+        append.list shouldBe "book"
+    }
+
+    "stream が無い追記は、識別子を載せず、stream の数を 0 と記録する" {
+        val (lines, write) = logs()
+        val store = inMemoryEventStore().logged(write, clock())
+
+        store.transaction { tx -> store.append(tx, emptyMap(), emptyList()).map { emptyList() } }
+
+        val append = records(lines).single()
+        append.streams shouldBe 0
+        append.user shouldBe null
+        append.list shouldBe null
+    }
+
+    "readUser は利用者と件数を記録する" {
+        val (lines, write) = logs()
+        val store = inMemoryEventStore().logged(write, clock())
+        todoListHub(store).execute(CreateToDoList(alice, book))
+        lines.clear()
+
+        store.readUser(alice)
+
+        records(lines).single().let {
+            it.name shouldBe "readUser"
+            it.user shouldBe "alice"
+            it.events shouldBe 1
+        }
     }
 })

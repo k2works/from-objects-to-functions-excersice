@@ -7,7 +7,11 @@ import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
 import io.kotest.property.Arb
+import io.kotest.property.arbitrary.Codepoint
+import io.kotest.property.arbitrary.bind
+import io.kotest.property.arbitrary.filter
 import io.kotest.property.arbitrary.int
+import io.kotest.property.arbitrary.map
 import io.kotest.property.arbitrary.string
 import io.kotest.property.checkAll
 import kotlinx.serialization.json.JsonElement
@@ -22,6 +26,10 @@ import kotlinx.serialization.json.JsonPrimitive
  *   dimap (f ∘ g) (h ∘ k) = dimap g h ∘ dimap f k
  */
 class ConverterLawsTest : StringSpec({
+    // 制御文字、行区切り（U+2028）、絵文字を含む、サロゲートを除くすべてのコードポイント
+    val anyCodepoint: Arb<Codepoint> = Arb.int(0..0x10FFFF).filter { it !in 0xD800..0xDFFF }.map { Codepoint(it) }
+    // 傾きと切片を変えた一次関数の族。順序を取り違えると、結果が変わる
+    val linear: Arb<(Int) -> Int> = Arb.bind(Arb.int(-5..5), Arb.int(-5..5)) { a, b -> { n: Int -> n * a + b } }
     val plus = Encoder<Int, Int> { it + 1 }
     val decode = Decoder<Int, Int> { if (it >= 0) it.right() else ConversionFailure("負の数").left() }
 
@@ -32,12 +40,7 @@ class ConverterLawsTest : StringSpec({
     }
 
     "Encoder の dimap は合成則を満たす" {
-        checkAll(Arb.int(-1000..1000), Arb.int(-5..5), Arb.int(-5..5)) { x, a, b ->
-            val f = { n: Int -> n + a }
-            val g = { n: Int -> n * 2 }
-            val h = { n: Int -> n - b }
-            val k = { n: Int -> n * 3 }
-
+        checkAll(Arb.int(-1000..1000), linear, linear, linear, linear) { x, f, g, h, k ->
             val left = plus.dimap({ n: Int -> f(g(n)) }, { n: Int -> h(k(n)) })
             val right = plus.dimap(f, k).dimap(g, h)
 
@@ -52,12 +55,7 @@ class ConverterLawsTest : StringSpec({
     }
 
     "Decoder の dimap は合成則を満たす" {
-        checkAll(Arb.int(-1000..1000), Arb.int(-5..5), Arb.int(-5..5)) { x, a, b ->
-            val f = { n: Int -> n + a }
-            val g = { n: Int -> n * 2 }
-            val h = { n: Int -> n - b }
-            val k = { n: Int -> n * 3 }
-
+        checkAll(Arb.int(-1000..1000), linear, linear, linear, linear) { x, f, g, h, k ->
             val left = decode.dimap({ n: Int -> f(g(n)) }, { n: Int -> h(k(n)) })
             val right = decode.dimap(f, k).dimap(g, h)
 
@@ -71,7 +69,7 @@ class ConverterLawsTest : StringSpec({
     }
 
     "JSON の木と文字列の Converter は、任意の文字列を含む木を往復する" {
-        checkAll(Arb.string(0..40)) { text ->
+        checkAll(Arb.string(0..40, anyCodepoint)) { text ->
             val tree = JsonObject(mapOf("message" to JsonPrimitive(text)))
 
             jsonText.decoder.run(jsonText.encoder.run(tree)) shouldBe tree.right()
@@ -79,7 +77,7 @@ class ConverterLawsTest : StringSpec({
     }
 
     "JSON の文字列にした木は、改行を含まない 1 行になる" {
-        checkAll(Arb.string(0..40)) { text ->
+        checkAll(Arb.string(0..40, anyCodepoint)) { text ->
             val line = jsonText.encoder.run(JsonObject(mapOf("message" to JsonPrimitive(text + "\n" + text))))
 
             line.contains('\n') shouldBe false

@@ -70,6 +70,48 @@ class BoundaryTest : StringSpec({
         violations(sources, forbidden).shouldBeEmpty()
     }
 
+    "JSON の変換は、アプリの層にも adapter にも web にも HTTP にも JDBC にも依存しない" {
+        val sources = productionSources("json")
+        val forbidden = listOf(
+            "zettai.domain",
+            "zettai.application",
+            "zettai.adapter",
+            "zettai.web",
+            "zettai.logging",
+            "org.http4k",
+            "java.sql",
+            "org.postgresql",
+        )
+
+        violations(sources, forbidden).shouldBeEmpty()
+    }
+
+    "ログの記録の型は、domain と application にも依存しない" {
+        val sources = productionSources("logging")
+
+        violations(sources, listOf("zettai.domain", "zettai.application")).shouldBeEmpty()
+    }
+
+    "store の adapter は、ログの adapter に依存しない（組み立ては zettai.app で行う）" {
+        val sources = productionSources("adapter/postgres") + productionSources("adapter/inmemory")
+
+        violations(sources, listOf("zettai.adapter.logging", "zettai.app.")).shouldBeEmpty()
+    }
+
+    "app の層は、domain、application、adapter、web のどこからも import されない" {
+        val layers = listOf("domain", "application", "adapter", "web", "logging", "json")
+        val sources = layers.flatMap { productionSources(it) }
+
+        violations(sources, listOf("zettai.app.")).shouldBeEmpty()
+    }
+
+    "注釈による serializer（@Serializable）は使わない（ADR-044：JsonElement の木だけを使う）" {
+        val layers = listOf("domain", "application", "adapter", "web", "logging", "json", "app")
+        val sources = layers.flatMap { productionSources(it) }
+
+        violations(sources, listOf("kotlinx.serialization.Serializable")).shouldBeEmpty()
+    }
+
     "ログの adapter は、他の adapter と web に依存せず、JDBC も使わない" {
         val sources = productionSources("adapter/logging")
         val forbidden = listOf(

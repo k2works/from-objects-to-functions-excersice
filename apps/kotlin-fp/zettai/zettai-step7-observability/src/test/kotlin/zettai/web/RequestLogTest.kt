@@ -129,4 +129,14 @@ class RequestLogTest : StringSpec({
         logged.status shouldBe plain.status
         logged.bodyString() shouldBe plain.bodyString()
     }
+
+    "header は、ログに載らない" {
+        val lines = ConcurrentLinkedQueue<String>()
+
+        app(hubWithBook(), lines)(
+            Request(GET, "/todo/alice/book").header("Authorization", "Bearer secret-token-12345"),
+        )
+
+        lines.forEach { it shouldNotContain "secret-token-12345" }
+    }
 })

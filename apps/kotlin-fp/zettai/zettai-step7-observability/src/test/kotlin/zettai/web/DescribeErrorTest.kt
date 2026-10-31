@@ -15,12 +15,13 @@ class DescribeErrorTest : StringSpec({
     val book = ListName("book")
 
     "項目が見つからない理由を、利用者向けの日本語にする" {
-        describeError(ItemNotFound(alice, book, "write")) shouldBe "その項目は見つかりません"
+        describeError(ItemNotFound(alice, book, "write")) shouldBe
+            "その項目は見つかりません。すでに削除されたか、別の操作で変更された可能性があります。リストを開き直してください"
     }
 
     "許されない状態変更の理由を、利用者向けの日本語にする" {
         describeError(InvalidTransition("write", ToDoStatus.Done, ToDoStatus.Todo)) shouldBe
-            "その状態には変更できません"
+            "現在の状態では、この操作はできません。リストを開き直して、状態を確認してください"
     }
 
     "永続化の失敗の理由に、原因を含めない" {

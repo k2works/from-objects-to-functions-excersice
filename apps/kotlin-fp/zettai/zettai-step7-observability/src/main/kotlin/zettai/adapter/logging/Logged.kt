@@ -3,6 +3,7 @@ package zettai.adapter.logging
 import arrow.core.Either
 import java.time.Duration
 import java.time.Instant
+import kotlin.coroutines.cancellation.CancellationException
 import zettai.application.EventStore
 import zettai.application.ToDoListHub
 import zettai.domain.ListName
@@ -13,7 +14,10 @@ import zettai.logging.logLine
 
 /**
  * 操作を実行し、結果にかかわらず 1 行のログを 1 回の呼び出しで書く。結果はそのまま返す。
- * 時刻と出力先は引数で与えるので、テストは決定的に書ける。例外は記録せず、そのまま投げ直す。
+ * 時刻と出力先は引数で与えるので、テストは決定的に書ける。
+ * 例外が投げられたときは、例外の型名だけを `outcome` に載せた 1 行を書いて、そのまま投げ直す。
+ * メッセージとスタックトレースは載せない。coroutine のキャンセルは失敗ではないので、記録せず投げ直す。
+ * 出力先 [log] は投げない契約とする。
  */
 private suspend fun <E : ZettaiError, A> observe(
     log: (String) -> Unit,
@@ -27,20 +31,31 @@ private suspend fun <E : ZettaiError, A> observe(
     operation: suspend () -> Either<E, A>,
 ): Either<E, A> {
     val startedAt = now()
-    val result = operation()
-    val finishedAt = now()
-    val record = LogRecord(
-        at = startedAt,
-        kind = kind,
-        name = name,
-        outcome = result.fold({ it::class.simpleName ?: "Error" }, { "success" }),
-        user = user?.name,
-        list = list?.name,
-        durationMs = Duration.between(startedAt, finishedAt).toMillis(),
-        streams = streams,
-        events = result.getOrNull()?.let(events),
-    )
-    log(logLine.encoder.run(record))
+
+    fun write(outcome: String, eventCount: Int?) {
+        val record = LogRecord(
+            at = startedAt,
+            kind = kind,
+            name = name,
+            outcome = outcome,
+            user = user?.name,
+            list = list?.name,
+            durationMs = Duration.between(startedAt, now()).toMillis(),
+            streams = streams,
+            events = eventCount,
+        )
+        log(logLine.encoder.run(record))
+    }
+
+    val result = try {
+        operation()
+    } catch (cancelled: CancellationException) {
+        throw cancelled
+    } catch (failure: Throwable) {
+        write("exception:" + (failure::class.simpleName ?: "Throwable"), null)
+        throw failure
+    }
+    write(result.fold({ it::class.simpleName ?: "Error" }, { "success" }), result.getOrNull()?.let(events))
     return result
 }
 
@@ -89,6 +104,7 @@ fun <Tx> EventStore<Tx>.logged(log: (String) -> Unit, now: () -> Instant): Event
             }
         },
         append = { tx, versions, events ->
+            // 識別子を載せるのは、stream が 1 つのときだけ。複数あるときは、利用者だけを載せ、リスト名は載せない
             val first = versions.keys.firstOrNull()
             observe(
                 log,
@@ -96,7 +112,7 @@ fun <Tx> EventStore<Tx>.logged(log: (String) -> Unit, now: () -> Instant): Event
                 "store",
                 "append",
                 first?.user,
-                first?.listName,
+                first?.listName?.takeIf { versions.size == 1 },
                 streams = versions.size,
                 events = { events.size },
             ) { inner.append(tx, versions, events) }

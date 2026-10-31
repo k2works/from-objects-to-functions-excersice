@@ -7,6 +7,7 @@ import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldNotContain
+import io.kotest.matchers.types.shouldBeInstanceOf
 import io.kotest.property.Arb
 import io.kotest.property.arbitrary.list
 import io.kotest.property.checkAll
@@ -32,8 +33,8 @@ private val start: Instant = Instant.parse("2026-11-01T00:00:00Z")
 
 /** 呼ばれるたびに 25 ミリ秒進む時計。1 回の操作は、開始と終了で 2 回読むので、所要時間は 25 になる。 */
 private fun steppingClock(): () -> Instant {
-    var ticks = 0L
-    return { start.plusMillis(25 * ticks++) }
+    val ticks = java.util.concurrent.atomic.AtomicLong(0)
+    return { start.plusMillis(25 * ticks.getAndIncrement()) }
 }
 
 private class Sink {
@@ -149,6 +150,7 @@ class LoggedHubTest : StringSpec({
         }
 
         sink.lines shouldHaveSize 40
+        sink.lines.forEach { (it.startsWith("{") && it.endsWith("}")) shouldBe true }
         sink.records().map { it.user }.toSet() shouldBe (1..40).map { "user$it" }.toSet()
     }
 
@@ -158,5 +160,35 @@ class LoggedHubTest : StringSpec({
         hub.execute(CreateToDoList(alice, book)).isRight() shouldBe true
         hub.execute(CreateToDoList(alice, book)).isLeft() shouldBe true
         hub.getList(alice, book).map { it.items } shouldBe emptyList<ToDoItem>().right()
+    }
+
+    "操作が例外を投げたら、型名だけを載せた 1 行を書いて、そのまま投げ直す" {
+        val sink = Sink()
+        val store = inMemoryEventStore().copy(
+            readAggregate = { _, _ -> throw IllegalStateException("jdbc:postgresql://db.internal password=secret") },
+        )
+        val hub = todoListHub(store).logged(sink.write, steppingClock())
+
+        val thrown = runCatching { hub.getList(alice, book) }.exceptionOrNull()
+
+        thrown?.message shouldBe "jdbc:postgresql://db.internal password=secret"
+        sink.lines.single().let {
+            it shouldNotContain "secret"
+            it shouldNotContain "db.internal"
+        }
+        sink.records().single().outcome shouldBe "exception:IllegalStateException"
+    }
+
+    "coroutine のキャンセルは、失敗として記録せず、そのまま投げ直す" {
+        val sink = Sink()
+        val store = inMemoryEventStore().copy(
+            readAggregate = { _, _ -> throw kotlin.coroutines.cancellation.CancellationException("cancelled") },
+        )
+        val hub = todoListHub(store).logged(sink.write, steppingClock())
+
+        runCatching { hub.getList(alice, book) }.exceptionOrNull()
+            .shouldBeInstanceOf<kotlin.coroutines.cancellation.CancellationException>()
+
+        sink.lines shouldHaveSize 0
     }
 })

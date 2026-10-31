@@ -69,9 +69,10 @@ fun describeError(error: ZettaiError): String =
         is ListAlreadyExists -> "「${error.listName.name}」というリストはすでにあります。別の名前にしてください"
         is ListNotFound -> "このリストは見つかりません。名前が変わったか、無くなった可能性があります"
         is ConcurrentModification -> "このリストは別の操作で変更されました。開き直してから、もう一度お試しください"
-        is ItemNotFound -> "その項目は見つかりません"
-        is InvalidTransition -> "その状態には変更できません"
-        is InvalidInput -> "入力に誤りがあります"
+        is ItemNotFound ->
+            "その項目は見つかりません。すでに削除されたか、別の操作で変更された可能性があります。リストを開き直してください"
+        is InvalidTransition -> "現在の状態では、この操作はできません。リストを開き直して、状態を確認してください"
+        is InvalidInput -> "入力に誤りがあります。入力内容を確認してください"
         is PersistenceFailure -> "保存に失敗しました。しばらくしてから、もう一度お試しください"
     }
 

@@ -65,12 +65,21 @@ private fun Raise<ConversionFailure>.decodeRecord(json: JsonElement): LogRecord 
     fun text(key: String): String =
         ensureNotNull(primitive(key)?.takeIf { it.isString }?.content) { ConversionFailure("$key が文字列ではない") }
 
-    fun optionalText(key: String): String? = primitive(key)?.takeIf { it.isString }?.content
+    // キーが無ければ null。あるのに型が違えば、黙って null にせず失敗にする
+    fun optionalText(key: String): String? =
+        if (key in obj) text(key) else null
 
     fun number(key: String): Long =
-        ensureNotNull(primitive(key)?.longOrNull) { ConversionFailure("$key が整数ではない") }
+        ensureNotNull(primitive(key)?.takeIf { !it.isString }?.longOrNull) { ConversionFailure("$key が整数ではない") }
 
-    fun optionalNumber(key: String): Int? = primitive(key)?.longOrNull?.toInt()
+    fun optionalNumber(key: String): Int? =
+        if (key in obj) {
+            ensureNotNull(number(key).takeIf { it in Int.MIN_VALUE..Int.MAX_VALUE }?.toInt()) {
+                ConversionFailure("$key が Int の範囲を超えている")
+            }
+        } else {
+            null
+        }
 
     val atText = text("at")
     val at = Either.catch { Instant.parse(atText) }.getOrNull()

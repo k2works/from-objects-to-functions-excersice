@@ -3,8 +3,10 @@ type: ADR
 title: "ADR-038 Arrow Core を typed error の表現と合成に限って使う"
 description: "Zettai 連載 Kotlin FP 版で、Arrow Core の Either と Raise DSL を domain と application に入れる範囲を決める決定。既存 Kotlin 版 ADR-006 が既製品を使わなかった理由と逆の選択をする根拠と、Arrow を domain rule の代わりにしない制約を記録する。"
 tags: [adr, kotlin-fp, zettai, arrow]
-status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T05:57:53Z }
+status: stable
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:41:16Z }
+verified:
+  - { by: human:kakimomokuri, at: 2026-10-31T06:40:40Z }
 ---
 
 # ADR-038 Arrow Core を typed error の表現と合成に限って使う
@@ -14,6 +16,8 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T05:57:53Z }
 ## ステータス
 
 2026-10-31 提案されました
+
+2026-10-31 承認されました
 
 ## コンテキスト
 

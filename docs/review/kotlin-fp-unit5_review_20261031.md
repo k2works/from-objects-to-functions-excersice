@@ -4,7 +4,7 @@ title: "Kotlin FP 版 Unit 5 開発成果物レビュー"
 description: "Kotlin FP 版 Unit 5 の射影と CQRS、PostgreSQL の event store、永続化の typed error、第 8〜9 章を 5 観点でレビューした結果。"
 tags: [review, development, zettai, kotlin, arrow, postgresql, unit-5]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:37:42Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:41:16Z }
 ---
 
 # Kotlin FP 版 Unit 5 開発成果物レビュー
@@ -69,7 +69,7 @@ xp-programmer、xp-tester、xp-architect、xp-technical-writer、xp-user-represe
 | in-memory adapter の同期 | architect | 第 10 章で `transact` を入れるときに `Mutex` を検討する |
 | `PersistenceFailure.reason` の記録 | programmer、architect | 記録の仕組みは扱わない。第 10 章以降で web の最外周に置く案 |
 | `CatchAll` が捕まえるその他の例外の本文 | programmer | 第 4 章の時点から続く経路。command route を足す章で見直す |
-| ADR-038〜041 の承認 | architect | 4 本が draft のまま。人の承認を得て `verify` する |
+| ADR-038〜041 の承認 | architect | 人（kakimomokuri）が承認し、`verified` に記録した |
 
 ## 低優先度・保留
 
@@ -95,4 +95,4 @@ xp-programmer、xp-tester、xp-architect、xp-technical-writer、xp-user-represe
 
 高・中重要度の指摘（H1〜H7、M1〜M19）は、すべて修正済みです。独立した再レビュー（読み取り専用のエージェント 1 体）が、26 件の解消を実物で確認しました。再レビューで新たに出た指摘（第 9 章の `getList` と `listRows` の説明の不正確さ、他の集約を混ぜるテストの置き場所、ADR-041 の断定の強さ、表のセルの文体など）も修正しました。
 
-残るのは、第 10 章へ送る並行実行の競合と、人の判断が要る ADR-038〜041 の承認、push 後の CI、Docker が無い環境での失敗の見え方です。Unit 5 の完了条件を満たします。
+残るのは、第 10 章へ送る並行実行の競合と、Docker が無い環境での失敗の見え方です。ADR-038〜041 は人が承認しました。Unit 5 の完了条件を満たします。

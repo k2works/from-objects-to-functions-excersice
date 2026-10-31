@@ -3,8 +3,10 @@ type: ADR
 title: "ADR-039 関数型 DI は suspend の関数型と constructor function にし、runBlocking は web の最外周に置く"
 description: "Zettai 連載 Kotlin FP 版で、port を interface ではなく suspend の関数型で表し、Hub を関数プロパティを持つ値と constructor function で組み立てる決定。必須の port に既定値を置かない理由、末尾 lambda の落とし穴、runBlocking を同期 HTTP の境界だけに置く理由を記録する。"
 tags: [adr, kotlin-fp, zettai, coroutines]
-status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:37:42Z }
+status: stable
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:41:16Z }
+verified:
+  - { by: human:kakimomokuri, at: 2026-10-31T06:40:40Z }
 ---
 
 # ADR-039 関数型 DI は suspend の関数型と constructor function にし、runBlocking は web の最外周に置く
@@ -14,6 +16,8 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:37:42Z }
 ## ステータス
 
 2026-10-31 提案されました
+
+2026-10-31 承認されました
 
 ## コンテキスト
 

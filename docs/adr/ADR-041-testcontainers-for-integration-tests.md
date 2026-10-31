@@ -3,8 +3,10 @@ type: ADR
 title: "ADR-041 結合テストの DB は Testcontainers で用意する"
 description: "Zettai 連載 Kotlin FP 版の第 9 章で、結合テストの PostgreSQL を docker-compose の service ではなく Testcontainers で用意する決定。既存 Kotlin 版 ADR-009 が退けた 3 つの理由への答えと、失うものを記録する。"
 tags: [adr, kotlin-fp, zettai, postgresql, testcontainers]
-status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:37:42Z }
+status: stable
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:41:16Z }
+verified:
+  - { by: human:kakimomokuri, at: 2026-10-31T06:40:40Z }
 ---
 
 # ADR-041 結合テストの DB は Testcontainers で用意する
@@ -14,6 +16,8 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:37:42Z }
 ## ステータス
 
 2026-10-31 提案されました
+
+2026-10-31 承認されました
 
 ## コンテキスト
 

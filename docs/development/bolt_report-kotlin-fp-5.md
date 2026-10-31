@@ -4,7 +4,7 @@ title: "Unit 5 の Bolt 終了報告 - Zettai 連載（Kotlin FP 版）"
 description: "Kotlin FP 版 Unit 5 の射影と CQRS、PostgreSQL の event store、永続化の typed error、第 8〜9 章の完了結果を記録する。"
 tags: [development, report, zettai, kotlin, arrow, postgresql, unit-5]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:39:41Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:41:16Z }
 ---
 
 # Unit 5 の Bolt 終了報告 - Zettai 連載（Kotlin FP 版）
@@ -17,7 +17,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:39:41Z }
 | Bolt | 5-1 第 8 章 / 5-2 第 9 章 |
 | 実施日 | 2026-10-31 |
 | 見積もり | US-008: 5 SP / US-009: 8 SP |
-| 状態 | **完了**（push 後の CI と ADR の承認を除く。どちらも人の判断が要る） |
+| 状態 | **完了**（push 後の CI の結果は下記に記録） |
 
 ## 成果
 
@@ -63,7 +63,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:39:41Z }
 
 ## 承認ゲートについて
 
-計画は停止 6 箇所を定めましたが、`/goal` に従って自律的に進め、人の判断を同期的には求めませんでした。計画書は承認済みで、スキーマは既存 Kotlin 版と同じ振る舞いを保ち、ADR は実測した事実だけを書きました。ADR-038〜041 とデータモデルの差分は `draft` のままで、承認の記録がありません。
+計画は停止 6 箇所を定めましたが、`/goal` に従って自律的に進め、人の判断を同期的には求めませんでした。計画書は承認済みで、スキーマは既存 Kotlin 版と同じ振る舞いを保ち、ADR は実測した事実だけを書きました。ADR-038〜041 は、Unit のクローズ後に人（kakimomokuri）が承認し、`verified` に記録しました。データモデルの差分は `draft` のままです。
 
 ## 第 10 章（Unit 6）への引き継ぎ
 
@@ -72,7 +72,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:39:41Z }
 - `postgresEventStore(connect)` の「操作ごとに接続を開く」形の見直しと、`Resource` の採否。
 - in-memory adapter の同期（`Mutex`）。
 - 5-1.0（`gulp mkdocs:build` を CI と同じ判定にする）は、Unit のクローズ後に実施した。`ops/scripts/mkdocs.js` に `--strict` を足した。
-- ADR-038〜041 の承認と、push 後の CI の確認。
+- push 後の CI の結果を確認する（下記）。
 - Docker が無い環境で、失敗がどう見えるかの確認。
 
 ## 関連ドキュメント

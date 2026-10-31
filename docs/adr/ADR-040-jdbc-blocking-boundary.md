@@ -3,8 +3,10 @@ type: ADR
 title: "ADR-040 JDBC を直接使い、blocking は Dispatchers.IO に閉じ込め、connection は use で閉じる"
 description: "Zettai 連載 Kotlin FP 版の第 9 章で永続化の道具を決める決定。ORM と JSON ライブラリを入れず、jsonb_build_object と bind parameter で payload を組み立てる。blocking の JDBC は adapter の Dispatchers.IO に閉じ込め、connection は use で閉じる。Arrow の Resource を使わない理由と、使うべき条件を記録する。"
 tags: [adr, kotlin-fp, zettai, postgresql, jdbc, coroutines]
-status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:37:42Z }
+status: stable
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:41:16Z }
+verified:
+  - { by: human:kakimomokuri, at: 2026-10-31T06:40:40Z }
 ---
 
 # ADR-040 JDBC を直接使い、blocking は Dispatchers.IO に閉じ込め、connection は use で閉じる
@@ -14,6 +16,8 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:37:42Z }
 ## ステータス
 
 2026-10-31 提案されました
+
+2026-10-31 承認されました
 
 ## コンテキスト
 

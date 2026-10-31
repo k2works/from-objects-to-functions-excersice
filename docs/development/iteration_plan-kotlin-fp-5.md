@@ -4,7 +4,7 @@ title: "Unit 5 の Bolt 計画 - Zettai 連載（Kotlin FP 版）"
 description: "Kotlin FP 版 Unit 5 の射影と CQRS、集約単位の port、Testcontainers PostgreSQL による event store、永続化の typed error、第 8〜9 章を定義する Bolt 計画。"
 tags: [development, plan, ai-dlc, bolt, zettai, kotlin, arrow, postgresql, unit-5]
 status: stable
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:39:41Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:41:16Z }
 verified:
   - { by: human:kakimomokuri, at: 2026-10-31T05:49:29Z }
 ---
@@ -342,7 +342,7 @@ Unit 4 の再レビューで「記事の表の内訳が実際と合わない」�
 - [x] `mkdocs build --strict` が green
 - [x] 第 8〜9 章が索引と nav から到達可能
 - [x] アーキテクチャ設計、ドメインモデル設計、データモデル設計に Unit 5 の判断を反映する
-- [x] ADR 3 本（Arrow の採用範囲、関数型 DI と suspend port、JDBC と resource 境界）が作成されている。transaction 境界の ADR は Unit 6
+- [x] ADR 4 本（Arrow の採用範囲、関数型 DI と suspend port、JDBC と resource 境界、Testcontainers。4 本目は計画に無く、レビューで追加した）が作成され、人の承認を得ている。transaction 境界の ADR は Unit 6
 - [x] 計画のタスクに書いたテストが、テスト名と 1 対 1 で対応している
 - [x] 5 観点の開発成果物レビューで高・中重要度の残件がない
 - [x] OKF 検査が ERROR 0

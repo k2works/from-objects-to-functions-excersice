@@ -1,6 +1,10 @@
 # Docs Update Log
 
 ## 2026-10-31
+* **Verification**: [ADR-041-testcontainers-for-integration-tests](/adr/ADR-041-testcontainers-for-integration-tests.md) を human:kakimomokuri が検証
+* **Verification**: [ADR-040-jdbc-blocking-boundary](/adr/ADR-040-jdbc-blocking-boundary.md) を human:kakimomokuri が検証
+* **Verification**: [ADR-039-suspend-function-ports](/adr/ADR-039-suspend-function-ports.md) を human:kakimomokuri が検証
+* **Verification**: [ADR-038-arrow-core-for-typed-errors](/adr/ADR-038-arrow-core-for-typed-errors.md) を human:kakimomokuri が検証
 * **Create**: [kotlin-fp-unit5_review_20261031](/review/kotlin-fp-unit5_review_20261031.md) を作成（anthropic/claude-sonnet-5-5）
 * **Create**: [retrospective-kotlin-fp-5](/development/retrospective-kotlin-fp-5.md) を作成（anthropic/claude-sonnet-5-5）
 * **Create**: [bolt_report-kotlin-fp-5](/development/bolt_report-kotlin-fp-5.md) を作成（anthropic/claude-sonnet-5-5）

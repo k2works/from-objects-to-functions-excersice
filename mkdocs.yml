@@ -133,6 +133,7 @@ nav:
           - 「Kotlin FP」Unit 4 command と typed error: development/bolt_report-kotlin-fp-4.md
           - 「Kotlin FP」Unit 5 射影と永続化: development/bolt_report-kotlin-fp-5.md
           - 「Kotlin FP」Unit 6 transaction と検証: development/bolt_report-kotlin-fp-6.md
+          - 「Kotlin FP」Unit 7 監視と総括: development/bolt_report-kotlin-fp-7.md
           - Unit 1 実行環境と第 1 章: development/bolt_report-1.md
           - Unit 2 ウォーキングスケルトンとドメイン分離: development/bolt_report-2.md
           - Unit 3 関数型 DI とイベント: development/bolt_report-3.md
@@ -161,6 +162,7 @@ nav:
           - 「Kotlin FP」Unit 4 command と typed error: development/retrospective-kotlin-fp-4.md
           - 「Kotlin FP」Unit 5 射影と永続化: development/retrospective-kotlin-fp-5.md
           - 「Kotlin FP」Unit 6 transaction と検証: development/retrospective-kotlin-fp-6.md
+          - 「Kotlin FP」Unit 7 監視と総括: development/retrospective-kotlin-fp-7.md
           - Unit 7 監視とアーキテクチャ総括: development/retrospective-7.md
           - 「なでしこ3」Unit 1 実行環境・テスト基盤と第 1 章: development/retrospective-nadesiko-1.md
           - 「なでしこ3」Unit 2 ウォーキングスケルトンとドメイン分離: development/retrospective-nadesiko-2.md
@@ -195,6 +197,7 @@ nav:
       - 概要: review/index.md
       - Kotlin FP 版 Unit 1 開発成果物レビュー: review/kotlin-fp-unit1_review_20261030.md
       - Kotlin FP 版 Unit 2 開発成果物レビュー: review/kotlin-fp-unit2_review_20261030.md
+      - Kotlin FP 版 Unit 7 開発成果物レビュー: review/kotlin-fp-unit7_review_20261031.md
       - Kotlin FP 版 Unit 6 開発成果物レビュー: review/kotlin-fp-unit6_review_20261031.md
       - Kotlin FP 版 Unit 5 開発成果物レビュー: review/kotlin-fp-unit5_review_20261031.md
       - Kotlin FP 版 Unit 4 開発成果物レビュー: review/kotlin-fp-unit4_review_20261031.md

@@ -6,6 +6,7 @@
 
 | レビュー | 対象 | 日付 | 指摘（高 / 中 / 低） |
 | :--- | :--- | :--- | :--- |
+| [Kotlin FP 版 Unit 7 開発成果物レビュー](kotlin-fp-unit7_review_20261031.md) | 第 12〜13 章と `zettai-step7-observability` | 2026-10-31 | 11 / 約 18 / 約 16（低は重複を含む） |
 | [Kotlin FP 版 Unit 6 開発成果物レビュー](kotlin-fp-unit6_review_20261031.md) | 第 10〜11 章と `zettai-step6-transaction-validation` | 2026-10-31 | 8 / 約 18 / 約 18（低は重複を含む） |
 | [Kotlin FP 版 Unit 5 開発成果物レビュー](kotlin-fp-unit5_review_20261031.md) | 第 8〜9 章と `zettai-step5-cqrs-persistence` | 2026-10-31 | 7 / 19 / 24（低は重複を含む） |
 | [Kotlin FP 版 Unit 4 開発成果物レビュー](kotlin-fp-unit4_review_20261031.md) | 第 6〜7 章と `zettai-step4-command-errors` | 2026-10-31 | 6 / 9 / 12 |

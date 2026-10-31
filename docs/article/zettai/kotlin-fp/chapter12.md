@@ -4,7 +4,7 @@ title: "第 12 章 監視と関数型JSON"
 description: "Zettai Kotlin FP 版の第 12 章。Hub と event store を包む decorator と HTTP の filter で、機密を含まない構造化ログを出す。載せるものを LogRecord の型で決め、辞書と JSON の双方向変換を純粋な Converter で表し、Encoder と Decoder がプロファンクタの形をしていることを法則のテストで確かめる。"
 tags: [article, zettai, kotlin, functional-programming, arrow, logging, json, profunctor]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T13:17:18Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T13:19:51Z }
 ---
 
 # 第 12 章 監視と関数型JSON
@@ -73,7 +73,7 @@ data class LogRecord(
 
 自由な `Map<String, Any>` は持たせていません。項目の説明も、payload も、`reason` も、この型に持ち場所がありません。載せないものは、書かない規律ではなく、書けないことで守られます。
 
-利用者名とリスト名は載せます。個人を特定しうる識別子ですが、障害の追跡に必要で、人が承認しました。ログの保管とアクセスの管理は、運用で守る前提です。
+利用者名とリスト名は載せます。障害の追跡に必要な識別子だからです。項目の説明は、追跡に要らない内容なので、載せません。ただし、リスト名も利用者が自分で書く内容で、個人的な情報を含みうるため、個人を特定しうる識別子です。載せる判断は人が承認しました。ログの保管とアクセスの管理は、運用で守る前提です。
 
 ### 操作を包む
 

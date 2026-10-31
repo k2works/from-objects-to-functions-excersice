@@ -12,9 +12,9 @@ import zettai.domain.ListName
 import zettai.domain.ToDoItem
 import zettai.domain.ToDoStatus
 import zettai.domain.User
+import zettai.domain.errors.PersistenceFailure
 import zettai.domain.events.ItemAdded
 import zettai.domain.events.ItemStatusChanged
-import zettai.domain.errors.PersistenceFailure
 import zettai.domain.events.ListCreated
 import zettai.domain.events.ToDoListEvent
 import zettai.genUsers
@@ -183,7 +183,7 @@ class PostgresEventStoreTest : StringSpec({
             ),
         "不正な期日" to (
             "ItemAdded" to
-                """{"user":"alice","listName":"book","item":{"description":"x","dueDate":"not-a-date","status":"Todo"}}"""
+                """{"user":"alice","listName":"book","item":{"description":"x","dueDate":"bad","status":"Todo"}}"""
             ),
         "item が無い ItemAdded" to ("ItemAdded" to """{"user":"alice","listName":"book"}"""),
     ).forEach { (name, row) ->

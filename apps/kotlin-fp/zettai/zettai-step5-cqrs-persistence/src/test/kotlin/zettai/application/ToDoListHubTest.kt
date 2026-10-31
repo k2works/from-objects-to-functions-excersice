@@ -15,10 +15,10 @@ import zettai.domain.commands.ChangeItemStatus
 import zettai.domain.commands.CreateToDoList
 import zettai.domain.commands.ToDoListCommand
 import zettai.domain.errors.InvalidTransition
-import zettai.domain.errors.PersistenceFailure
 import zettai.domain.errors.ItemNotFound
 import zettai.domain.errors.ListAlreadyExists
 import zettai.domain.errors.ListNotFound
+import zettai.domain.errors.PersistenceFailure
 import zettai.domain.errors.ZettaiError
 import zettai.domain.events.ItemAdded
 import zettai.domain.events.ItemStatusChanged

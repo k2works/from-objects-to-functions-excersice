@@ -44,7 +44,8 @@ class InMemoryAdaptersTest : StringSpec({
                 ),
             )
 
-            store.readUser(alice).getOrElse { error(it.message) } shouldBe listOf(ListCreated(alice, book), ListCreated(alice, shop))
+            store.readUser(alice).getOrElse { error(it.message) } shouldBe
+                listOf(ListCreated(alice, book), ListCreated(alice, shop))
         }
     }
 

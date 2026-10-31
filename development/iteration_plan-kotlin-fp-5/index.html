@@ -10393,7 +10393,7 @@
 <tbody>
 <tr>
 <td style="text-align: left;">Testcontainers が起動できない環境で <code>check</code> が環境依存になる</td>
-<td style="text-align: left;">skip して green にしない。リリース計画のリスク欄は「必要条件と診断を表示する」としているが、Unit 1 の <code>PostgreSqlContainerTest</code> は接続の確認だけで診断を持たない。Docker が無い環境の失敗が原因を示すかを 5-2.3 で確認し、不足なら診断を足す</td>
+<td style="text-align: left;">skip して green にしない。リリース計画のリスク欄は「必要条件と診断を表示する」としているが、Unit 1 の <code>PostgreSqlContainerTest</code> は接続の確認だけで診断を持たない。Docker が無い環境の失敗が原因を示すかを 5-2.3 で確認し、不足なら診断を足す（Unit のクローズ後に確認。Docker のソケットを渡さない container で起動処理を動かすと <code>Could not find a valid Docker environment</code> で失敗し、原因を示すので、診断は足さない）</td>
 </tr>
 <tr>
 <td style="text-align: left;">結合テストが遅い、または相互に干渉する</td>

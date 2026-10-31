@@ -9692,7 +9692,7 @@
 <li>container は JVM で 1 つだけ起動し、全テストで共有する。起動に時間がかかるため</li>
 <li>接続情報は container が公開する JDBC URL、ユーザー、パスワードだけを使い、ポートも認証情報もコードに書かない</li>
 <li>テストごとにテーブルを作り直し、他のテストの状態に依存しない。テストは逐次で実行する前提とし、並列に実行するなら spec ごとに schema を分ける</li>
-<li>Docker が使えず container を起動できないとき、テストは skip ではなく失敗するように作る。skip にすると、「DB が無いから通った」のか「実装が正しいから通った」のかが区別できない。実際の見え方は確認していない</li>
+<li>Docker が使えず container を起動できないとき、テストは skip ではなく失敗するように作る。skip にすると、「DB が無いから通った」のか「実装が正しいから通った」のかが区別できない。Docker のソケットを渡さない container の中で container の起動処理を動かすと、<code>IllegalStateException: Could not find a valid Docker environment. Please see logs and check configuration</code> で失敗することを確認した</li>
 <li><code>docker-compose.yml</code> に service を足さず、CI にも固定の PostgreSQL service を定義しない</li>
 </ol>
 <h2 id="_4">検討した案<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
@@ -9724,7 +9724,8 @@
 <li>ローカルと CI で、同じ手順で DB が用意される設計です。固定の値がコードに残りません。push 後の GitHub Actions（ubuntu-latest）で、結合テストを含む <code>check</code> が成功したことを確認しました（run 41177663644）。</li>
 <li><strong>失うものがあります。</strong> <code>docker compose up -d</code> で DB が動いている様子を見る機会が無くなります。読者が <code>check</code> を通すには Docker daemon が必要になり、初回は image の取得に時間とネットワークが要ります。</li>
 <li><code>postgres:18-alpine</code> は動く tag です。minor 版や digest で固定すると、再現性は上がります。</li>
-<li><strong>Docker が無い環境で、失敗がどう見えるかは確認していません。</strong> Testcontainers は成功した接続方法を記憶するため、環境変数や <code>user.home</code> の差し替えでは、Docker が無い状態を再現できませんでした。診断を足すかどうかは、実際に困った時点で判断します。</li>
+<li><strong>Docker が無い環境での見え方を確かめました。</strong> Docker のソケットを渡さない container の中で、テストと同じ container の起動処理（<code>PostgreSQLContainer</code> の <code>start</code>）を動かすと、<code>IllegalStateException: Could not find a valid Docker environment. Please see logs and check configuration</code> で失敗します。skip にはなりません。メッセージは、詳細をログで見るよう促します。この確認は起動処理だけを動かしたもので、Gradle のテスト結果での見え方までは確かめていません。診断を足すかどうかは、実際に困った時点で判断します。</li>
+<li><strong>Docker Desktop が入った PC では、Docker が無い状態を、環境変数や設定の偽装では作れません。</strong> 接続先の環境変数を偽り、設定した接続方法を最初に試す指定をしても、起動に成功しました。設定した方法が失敗すると、既定の接続方法に切り替わるためと考えられます。Docker が無い状態を確かめるには、Docker のソケットを渡さない container の中で実行します。</li>
 </ul>
 <h2 id="_6">関連<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
 <ul>

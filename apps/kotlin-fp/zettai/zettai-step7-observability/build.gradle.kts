@@ -6,6 +6,7 @@ dependencies {
     implementation(libs.arrow.core)
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.http4k.core)
+    implementation(libs.kotlinx.serialization.json)
     implementation(libs.postgresql)
 
     testImplementation(libs.kotlinx.coroutines.test)

@@ -49,5 +49,6 @@
 | [ADR-041](ADR-041-testcontainers-for-integration-tests.md) | 結合テストの DB は Testcontainers で用意する | 承認 |
 | [ADR-042](ADR-042-transaction-scope-and-environment.md) | transaction の境界を command 1 つの処理に置き、環境を型引数で通す | 承認 |
 | [ADR-043](ADR-043-optimistic-locking-by-version.md) | 楽観ロックを stream ごとの版と一意制約で行い、複数の stream を 1 つの transaction で書く | 承認 |
+| [ADR-044](ADR-044-json-tree-for-logs-and-converters.md) | ログと converter の JSON に kotlinx-serialization-json の JsonElement だけを使う | 承認 |
 
 ADR の作成には `creating-adr` スキルを使用してください。

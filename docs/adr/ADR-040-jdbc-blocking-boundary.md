@@ -4,7 +4,7 @@ title: "ADR-040 JDBC を直接使い、blocking は Dispatchers.IO に閉じ込�
 description: "Zettai 連載 Kotlin FP 版の第 9 章で永続化の道具を決める決定。ORM と JSON ライブラリを入れず、jsonb_build_object と bind parameter で payload を組み立てる。blocking の JDBC は adapter の Dispatchers.IO に閉じ込め、connection は use で閉じる。Arrow の Resource を使わない理由と、使うべき条件を記録する。"
 tags: [adr, kotlin-fp, zettai, postgresql, jdbc, coroutines]
 status: stable
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:41:16Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T12:28:33Z }
 verified:
   - { by: human:kakimomokuri, at: 2026-10-31T06:40:40Z }
 ---
@@ -75,4 +75,5 @@ verified:
 
 - [ADR-039 関数型 DI は suspend の関数型と constructor function にし、runBlocking は web の最外周に置く](ADR-039-suspend-function-ports.md)
 - [ADR-008 イベントストアを 1 テーブルにする](ADR-008-event-store-single-table.md)（既存 Kotlin 版。スキーマの元）
+- [ADR-044 ログと converter の JSON に kotlinx-serialization-json の JsonElement だけを使う](ADR-044-json-tree-for-logs-and-converters.md)（この ADR の「JSON ライブラリを採らない」は、DB の payload の用途について変わらない。ログと converter の用途は ADR-044 が決める）
 - [データモデル設計](../design/data-model.md)

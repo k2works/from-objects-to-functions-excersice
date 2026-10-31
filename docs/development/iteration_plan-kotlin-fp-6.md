@@ -3,8 +3,10 @@ type: Bolt Plan
 title: "Unit 6 の Bolt 計画 - Zettai 連載（Kotlin FP 版）"
 description: "Kotlin FP 版 Unit 6 の transaction と楽観ロック、複数 stream の原子的な保存、名前変更と蓄積する検証、テンプレート描画、第 10〜11 章を定義する Bolt 計画。"
 tags: [development, plan, ai-dlc, bolt, zettai, kotlin, arrow, postgresql, unit-6]
-status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T10:46:10Z }
+status: stable
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T10:54:01Z }
+verified:
+  - { by: human:kakimomokuri, at: 2026-10-31T10:54:02Z }
 ---
 
 # Unit 6 の Bolt 計画 - Zettai 連載（Kotlin FP 版）
@@ -432,6 +434,7 @@ package domain {
 | :--- | :--- | :--- |
 | 2026-10-31 | 初版。Unit 5 の保留、名前変更が集約の境界を越える発見、設計 4 図、ゲート密度を反映 | anthropic/claude-sonnet-5-5 |
 | 2026-10-31 | 独立した検証の 16 件を反映。名前変更の command を第 11 章に置き、第 10 章は複数 stream の原子的な保存までとした。仕様の表、画面の記述、番号の食い違いを直した | anthropic/claude-sonnet-5-5 |
+| 2026-10-31 | 人（kakimomokuri）が計画を承認した。あわせて、`todo_list_event` への `version` 列（INTEGER NOT NULL）と `UNIQUE (entity_id, version)` の追加を承認した。対象は新しい module の Testcontainers の DB だけ。スパイクで使えないと分かったら、あらためて確認する | anthropic/claude-sonnet-5-5 |
 
 ## 関連ドキュメント
 

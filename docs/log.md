@@ -1,6 +1,7 @@
 # Docs Update Log
 
 ## 2026-10-31
+* **Verification**: [iteration_plan-kotlin-fp-6](/development/iteration_plan-kotlin-fp-6.md) を human:kakimomokuri が検証
 * **Create**: [iteration_plan-kotlin-fp-6](/development/iteration_plan-kotlin-fp-6.md) を作成（anthropic/claude-sonnet-5-5）
 * **Update**: [development_strategy](/development/development_strategy.md) を更新（anthropic/claude-sonnet-5-5）
 * **Update**: [release_plan-kotlin-fp](/development/release_plan-kotlin-fp.md) を更新（anthropic/claude-sonnet-5-5）

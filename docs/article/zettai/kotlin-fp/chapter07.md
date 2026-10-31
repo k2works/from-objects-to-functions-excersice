@@ -4,7 +4,7 @@ title: "第 7 章 関数型手法によるエラーハンドリング"
 description: "Zettai Kotlin FP 版の第 7 章。Arrow Either と Raise で業務エラーを型にし、map のファンクタ則を Kotest property testing で確かめる。"
 tags: [article, zettai, kotlin, functional-programming, arrow, either, raise, functor]
 status: draft
-generated: { by: openai-codex/gpt-5, at: 2026-10-31T05:09:20Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T05:57:53Z }
 ---
 
 # 第 7 章 関数型手法によるエラーハンドリング
@@ -330,6 +330,7 @@ Windows PowerShell:
 
 - Uberto Barbini『From Objects to Functions』第 7 章
 - Michał Płachta『Grokking Functional Programming』Kotlin 版。`Either`、typed error、functor law、property-based testing の説明を参照しました
+- [ADR-038 Arrow Core を typed error の表現と合成に限って使う](../../../adr/ADR-038-arrow-core-for-typed-errors.md)
 - [Arrow Either](https://arrow-kt.io/learn/typed-errors/either-and-ior/)
 - [Arrow Raise](https://arrow-kt.io/learn/typed-errors/working-with-typed-errors/)
 - [Kotest property testing](https://kotest.io/docs/proptest/property-based-testing.html)

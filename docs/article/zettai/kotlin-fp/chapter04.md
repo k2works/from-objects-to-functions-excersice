@@ -4,7 +4,7 @@ title: "第 4 章 ドメインとアダプタのモデリング"
 description: "Zettai Kotlin FP 版の第 4 章。小さな関数型と constructor function で依存を渡し、fetcher を差し替えた Hub を HTTP adapter から利用する。"
 tags: [article, zettai, kotlin, functional-programming, dependency-injection]
 status: draft
-generated: { by: openai-codex/gpt-5, at: 2026-10-31T00:15:57Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T05:57:53Z }
 ---
 
 # 第 4 章 ドメインとアダプタのモデリング
@@ -163,4 +163,5 @@ data class ToDoItem(
 
 - Uberto Barbini『From Objects to Functions』第 4 章
 - Michał Płachta『Grokking Functional Programming』Kotlin 版。関数を値として渡し、小さな純粋関数を合成する方針を参照しました
+- [ADR-039 関数型 DI は suspend の関数型と constructor function にし、runBlocking は web の最外周に置く](../../../adr/ADR-039-suspend-function-ports.md)
 

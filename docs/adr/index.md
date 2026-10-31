@@ -43,5 +43,7 @@
 | [ADR-035](ADR-035-validated-applicative.md) | 複数の理由を集める型を別に作る | 提案 |
 | [ADR-036](ADR-036-tera.md) | テンプレートに tera を入れる | 提案 |
 | [ADR-037](ADR-037-own-logging.md) | 記録と JSON を自前で書き、tracing と serde を入れない | 提案 |
+| [ADR-038](ADR-038-arrow-core-for-typed-errors.md) | Arrow Core を typed error の表現と合成に限って使う | 提案 |
+| [ADR-039](ADR-039-suspend-function-ports.md) | 関数型 DI は suspend の関数型と constructor function にし、runBlocking は web の最外周に置く | 提案 |
 
 ADR の作成には `creating-adr` スキルを使用してください。

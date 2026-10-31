@@ -107,6 +107,7 @@ nav:
           - Unit 7 監視とアーキテクチャ総括: development/iteration_plan-7.md
           - 「Kotlin FP」Unit 1 実行環境と第 1 章: development/iteration_plan-kotlin-fp-1.md
           - 「Kotlin FP」Unit 2 ウォーキングスケルトンとドメイン分離: development/iteration_plan-kotlin-fp-2.md
+          - 「Kotlin FP」Unit 3 関数型 DI とイベント: development/iteration_plan-kotlin-fp-3.md
           - 「なでしこ3」Unit 1 実行環境・テスト基盤と第 1 章: development/iteration_plan-nadesiko-1.md
           - 「なでしこ3」Unit 2 ウォーキングスケルトンとドメイン分離: development/iteration_plan-nadesiko-2.md
           - 「なでしこ3」Unit 3 関数型 DI とイベント: development/iteration_plan-nadesiko-3.md
@@ -124,6 +125,7 @@ nav:
       - Bolt 終了報告:
           - 「Kotlin FP」Unit 1 実行環境と第 1 章: development/bolt_report-kotlin-fp-1.md
           - 「Kotlin FP」Unit 2 ウォーキングスケルトンとドメイン分離: development/bolt_report-kotlin-fp-2.md
+          - 「Kotlin FP」Unit 3 関数型 DI とイベント: development/bolt_report-kotlin-fp-3.md
           - Unit 1 実行環境と第 1 章: development/bolt_report-1.md
           - Unit 2 ウォーキングスケルトンとドメイン分離: development/bolt_report-2.md
           - Unit 3 関数型 DI とイベント: development/bolt_report-3.md
@@ -148,6 +150,7 @@ nav:
       - ふりかえり:
           - 「Kotlin FP」Unit 1 実行環境と第 1 章: development/retrospective-kotlin-fp-1.md
           - 「Kotlin FP」Unit 2 ウォーキングスケルトンとドメイン分離: development/retrospective-kotlin-fp-2.md
+          - 「Kotlin FP」Unit 3 関数型 DI とイベント: development/retrospective-kotlin-fp-3.md
           - Unit 7 監視とアーキテクチャ総括: development/retrospective-7.md
           - 「なでしこ3」Unit 1 実行環境・テスト基盤と第 1 章: development/retrospective-nadesiko-1.md
           - 「なでしこ3」Unit 2 ウォーキングスケルトンとドメイン分離: development/retrospective-nadesiko-2.md
@@ -182,6 +185,7 @@ nav:
       - 概要: review/index.md
       - Kotlin FP 版 Unit 1 開発成果物レビュー: review/kotlin-fp-unit1_review_20261030.md
       - Kotlin FP 版 Unit 2 開発成果物レビュー: review/kotlin-fp-unit2_review_20261030.md
+      - Kotlin FP 版 Unit 3 開発成果物レビュー: review/kotlin-fp-unit3_review_20261031.md
       - Unit 7 開発成果物レビュー: review/unit7_review_20260927.md
   - ADR:
       - 概要: adr/index.md
@@ -223,6 +227,8 @@ nav:
               - 第 1 章 新しいアプリケーションを準備する: article/zettai/kotlin-fp/chapter01.md
               - 第 2 章 関数を使って HTTP を扱う: article/zettai/kotlin-fp/chapter02.md
               - 第 3 章 ドメインの定義とテスト: article/zettai/kotlin-fp/chapter03.md
+              - 第 4 章 ドメインとアダプタのモデリング: article/zettai/kotlin-fp/chapter04.md
+              - 第 5 章 イベントで状態を変更する: article/zettai/kotlin-fp/chapter05.md
           - なでしこ3 版:
               - 概要: article/zettai/nadesiko/index.md
               - 第 1 章 新しいアプリケーションを準備する: article/zettai/nadesiko/chapter01.md

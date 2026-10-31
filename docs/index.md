@@ -24,9 +24,9 @@ okf_version: "0.2"
 | [設計](./design/index.md) | アーキテクチャ、モデル、テスト、非機能の整理              | `index.md` を整備済み |
 | [開発](./development/index.md) | リリース計画、イテレーション計画、進捗管理               | Release v1.0.0 完了（7 Unit / 7・Bolt 計画 7 件・終了報告 7 件） |
 | [運用](./operation/index.md) | 環境構築、デプロイ、運用手順の整理                   | `index.md` を整備済み |
-| [レビュー](./review/index.md) | 分析・開発レビュー結果の記録                      | 開発成果物レビュー 1 件（Unit 7） |
+| [レビュー](./review/index.md) | 分析・開発レビュー結果の記録                      | 開発成果物レビュー 4 件 |
 | [ADR](./adr/index.md) | Architecture Decision Records の管理   | 37 件を記録済み |
-| [記事](./article/index.md) | 学習用の記事シリーズ一覧                        | Zettai 連載が **3 言語とも全 13 章完結** |
+| [記事](./article/index.md) | 学習用の記事シリーズ一覧                        | 既存 3 言語は全 13 章完結、Kotlin FP 版は 5 / 13 章公開 |
 | [リファレンス](./reference/index.md) | 開発ガイドラインやベストプラクティス                  | 39 件のドキュメントを配置 |
 | [テンプレート](./template/index.md) | 各種ドキュメントの作成テンプレート                   | 18 件のテンプレートを配置 |
 

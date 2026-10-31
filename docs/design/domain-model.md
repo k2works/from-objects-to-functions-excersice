@@ -4,7 +4,7 @@ title: "ドメインモデル設計 - Zettai"
 description: "Zettai（Kotlin 版）のドメインモデル設計。ユビキタス言語の対訳表、集約・エンティティ・値オブジェクト・列挙型の要素表、イベントと状態の関係、ToDo 項目の状態遷移、状態変換がモノイドであること、章の進行にあわせたモデルの成長を記述する。"
 tags: [design, domain-model, zettai, kotlin]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-29T05:08:41Z }
+generated: { by: openai-codex/gpt-5, at: 2026-10-31T00:15:57Z }
 ---
 
 # ドメインモデル設計 - Zettai
@@ -459,6 +459,57 @@ Kotlin の関数型は 1 種類、なでしこ3 の関数値も 1 種類です�
 代わりに押されるのが所有権です。クロージャに閉じ込める値は**借りずに所有します**（`Box<dyn Fn>` が既定で `+ 'static` のため）。イベントは保存して後から畳み込むので、**持つほうが形に合っています**。
 
 ---
+
+## Kotlin FP 版での差分
+
+Kotlin FP 版 Unit 3 は、既存 Kotlin 版と同じユビキタス言語を保ちつつ、依存と状態変換を関数値として明示します。
+
+| 要素 | 種別 | 定義 |
+| :--- | :--- | :--- |
+| `User` | 値オブジェクト | 利用者名を持つ `value class` |
+| `ListName` | 値オブジェクト | リスト名を持つ `value class` |
+| `ToDoItem` | immutable value | `description`、nullable な `dueDate`、`ToDoStatus` を持つ `data class` |
+| `ToDoStatus` | enum | `Todo`、`InProgress`、`Done`、`Blocked`。業務遷移は第 6 章で導入 |
+| `ToDoList` | immutable value | `ListName` と read-only な項目列を持つ |
+| `ToDoListHub` | application service value | `getList` 関数を持ち、constructor function で `ToDoListFetcher` を注入する |
+| `ToDoListEvent` | sealed event | `User` と `ListName` を共通に持つ |
+| `ListCreated` | event | リストが作成された事実 |
+| `ItemAdded` | event | 項目が追加された事実 |
+| `ToDoListState` | immutable state | `(User, ListName)` をキーにしたリストの read-only map |
+| `StateTransition` | 関数型 | `(ToDoListState) -> ToDoListState`。`andThen` と単位元で合成する |
+
+```plantuml
+@startuml
+hide methods
+
+class User <<value object>>
+class ListName <<value object>>
+class ToDoItem <<value>>
+enum ToDoStatus
+class ToDoList <<value>>
+class ToDoListState <<value>>
+interface ToDoListEvent <<sealed>>
+class ListCreated <<event>>
+class ItemAdded <<event>>
+
+ToDoList "1" *-- "0..*" ToDoItem
+ToDoItem --> ToDoStatus
+ToDoListState "1" o-- "0..*" ToDoList
+ToDoListEvent <|-- ListCreated
+ToDoListEvent <|-- ItemAdded
+ItemAdded --> ToDoItem
+@enduml
+```
+
+`ToDoListState` は constructor を閉じ、factory が入力 map と項目列を copy します。イベント適用は内部の `put`、`Map.plus`、`List.plus` で新しい値を返します。未作成のリストへ `ItemAdded` を適用した場合は状態を変えず、重複する `ListCreated` は同じ key のリストを空へ戻します。イベント列の replay は、まず再帰の形をテストし、その後 `fold` と同値であることを示します。
+
+状態変換には次の法則を要求します。
+
+- 結合律: `(a andThen b) andThen c` と `a andThen (b andThen c)` は、任意の初期状態へ適用すると同じ結果になる
+- 左右単位元: `identityTransition andThen a` と `a andThen identityTransition` は `a` と同じ結果になる
+- 列連結との対応: `(a + b).asTransition()` と `a.asTransition() andThen b.asTransition()` は同じ結果になる
+
+関数そのものの参照同値性ではなく、Kotest property testing が生成した状態へ適用した観測結果で法則を検証します。
 
 ## 関連ドキュメント
 

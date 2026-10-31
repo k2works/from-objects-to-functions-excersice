@@ -4,7 +4,7 @@ title: "リリース計画 - Zettai 連載（Kotlin FP 版）"
 description: "Kotlin、Arrow、kotlinx.coroutines を使う Zettai Kotlin FP 版を、前提整備と全 13 章の 7 Unit で公開する AI-DLC Level 1 計画。"
 tags: [development, plan, ai-dlc, zettai, kotlin, arrow]
 status: draft
-generated: { by: openai-codex/gpt-5, at: 2026-10-30T05:24:30Z }
+generated: { by: openai-codex/gpt-5, at: 2026-10-31T00:15:57Z }
 ---
 
 # リリース計画 - Zettai 連載（Kotlin FP 版）
@@ -26,7 +26,7 @@ generated: { by: openai-codex/gpt-5, at: 2026-10-30T05:24:30Z }
 | :--- | :--- | :--- | :--- | :--- |
 | 1 | 1-1 / 1-2 | 前提整備 / 第 1 章 | 最小構成の `check` と CI、記事形式 | **完了** |
 | 2 | 2-1 / 2-2 | 第 2〜3 章 | HTTP の縦串と Cucumber の 2 経路 | **完了** |
-| 3 | 3-1 / 3-2 | 第 4〜5 章 | 関数型 DI とイベント畳み込み | 未着手 |
+| 3 | 3-1 / 3-2 | 第 4〜5 章 | 関数型 DI とイベント畳み込み | **完了** |
 | 4 | 4-1 / 4-2 | 第 6〜7 章 | 状態遷移と Arrow typed error | 未着手 |
 | 5 | 5-1 / 5-2 | 第 8〜9 章 | CQRS と PostgreSQL 結合テスト | 未着手 |
 | 6 | 6-1 / 6-2 | 第 10〜11 章 | transaction とエラー蓄積 | 未着手 |
@@ -60,3 +60,4 @@ generated: { by: openai-codex/gpt-5, at: 2026-10-30T05:24:30Z }
 - [開発戦略](development_strategy.md)
 - [Unit 1 の Bolt 計画](iteration_plan-kotlin-fp-1.md)
 - [Unit 2 の Bolt 計画](iteration_plan-kotlin-fp-2.md)
+- [Unit 3 の Bolt 計画](iteration_plan-kotlin-fp-3.md)

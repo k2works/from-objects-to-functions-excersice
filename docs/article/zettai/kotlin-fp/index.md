@@ -7,11 +7,22 @@
 1. [第 1 章 新しいアプリケーションを準備する](chapter01.md)
 2. [第 2 章 関数を使って HTTP を扱う](chapter02.md)
 3. [第 3 章 ドメインの定義とテスト](chapter03.md)
+4. [第 4 章 ドメインとアダプタのモデリング](chapter04.md)
+5. [第 5 章 イベントで状態を変更する](chapter05.md)
 
 ## 実行方法
+
+JDK 25 と Docker daemon が必要です。Docker は `check` に含まれる Testcontainers PostgreSQL テストで使います。
 
 ```bash
 nix develop .#kotlin-fp
 cd apps/kotlin-fp/zettai
 bash ./gradlew check
+```
+
+Windows PowerShell では project root から次を実行します。
+
+```powershell
+cd apps/kotlin-fp/zettai
+.\gradlew.bat check
 ```

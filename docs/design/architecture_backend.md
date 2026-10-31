@@ -4,7 +4,7 @@ title: "バックエンドアーキテクチャ設計 - Zettai"
 description: "Zettai（Kotlin 版）のバックエンドアーキテクチャ設計。ドメインとアダプタの境界の定義と担保方法、Gradle マルチプロジェクトのモジュール分割と命名規約、パッケージ構成、依存の向き、関数の型による依存表現、章の進行にあわせた構造の変化を記述する。"
 tags: [design, architecture, zettai, kotlin]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-29T06:50:32Z }
+generated: { by: openai-codex/gpt-5, at: 2026-10-31T00:15:57Z }
 ---
 
 # バックエンドアーキテクチャ設計 - Zettai
@@ -347,6 +347,59 @@ Kotlin 版は `HubAction`（`ContextReader`）を導入した結果、ポート�
 ### 品質ゲート
 
 `just check`（`fmt` / `clippy` / `test`）と `just check-all`（+ `cov` / `test-db`）の 2 段構えです（[ADR-026](../adr/ADR-026-just-and-coverage.md)）。**DB を使う検査は別ジョブ**にしています（[ADR-033](../adr/ADR-033-db-check-as-separate-job.md)）。Kotlin 版は `check` に含めており、判断が分かれました。理由は `check` の所要時間の割合です。
+
+## Kotlin FP 版での差分
+
+Kotlin FP 版は、既存 Kotlin 版と同じヘキサゴナルな依存方向を、interface より小さい関数型で表します。Unit 3 の package 依存は **`web -> application -> domain`** であり、逆方向の import を許しません。
+
+| package | 責務 | 知ってよいもの |
+| :--- | :--- | :--- |
+| `zettai.domain` | immutable な値、イベント、純粋な replay | Kotlin 標準ライブラリ |
+| `zettai.application` | `ToDoListFetcher` と Hub の constructor function | `zettai.domain` |
+| `zettai.adapter.inmemory` | 入力を snapshot 化する fetcher 実装 | `zettai.application`、`zettai.domain` |
+| `zettai.web` | http4k の request / response、同期境界 | `zettai.application`、`zettai.domain`、http4k、coroutine runner |
+
+```plantuml
+@startuml
+package web {
+  [ZettaiHttpApp]
+}
+package application {
+  [ToDoListHub]
+  [ToDoListFetcher]
+}
+package adapter.inmemory {
+  [InMemoryToDoListFetcher]
+}
+package domain {
+  [ToDoList]
+  [ToDoListEvent]
+  [Replay]
+}
+
+[ZettaiHttpApp] --> [ToDoListHub]
+[InMemoryToDoListFetcher] --> [ToDoListFetcher]
+[InMemoryToDoListFetcher] --> [ToDoList]
+[ToDoListHub] --> [ToDoListFetcher]
+[ToDoListFetcher] --> [ToDoList]
+[Replay] --> [ToDoListEvent]
+[Replay] --> [ToDoList]
+@enduml
+```
+
+`ToDoListHub` は関数プロパティを持つ immutable な値で、`todoListHub(fetchList)` という constructor function が配線します。関数値として差し替えるのは driven adapter の in-memory fetcher / test lambda で、HTTP は同じ Hub を利用する driving adapter です。`runBlocking` は同期 http4k adapter の最外周だけに置き、domain と application へは漏らしません。
+
+第 5 章の replay と状態変換の合成は Kotlin 標準の `fold` で十分です。Arrow の typed error は第 7 章まで導入せず、章の到達順序を守ります。
+
+### Kotlin FP 版の段階 module
+
+| module | 章 | 状態 |
+| :--- | :--- | :--- |
+| `zettai-step1-foundation` | 1 | 作成済み |
+| `zettai-step2-http-domain` | 2〜3 | 作成済み |
+| `zettai-step3-domain-events` | 4〜5 | Unit 3 で作成 |
+
+各 module は記事時点の snapshot として独立させ、後続 module から前段 module の production code へ依存しません。これにより、後章のリファクタリングで前章のコード例を壊しません。
 
 ## 関連ドキュメント
 

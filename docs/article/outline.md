@@ -4,7 +4,7 @@ title: "執筆計画：関数型プログラミングで作る変更を楽に安
 description: "Uberto Barbini 著『From Objects to Functions』を下敷きにした Zettai 連載の執筆計画。既存 3 言語版に加え、Grokking Functional Programming の Kotlin + Arrow 解説を基礎にした Kotlin FP 版について、全 13 章の移植方針、記事と実装の同期、前提整備、品質ゲートを定義する。"
 tags: [article, plan, zettai]
 status: draft
-generated: { by: openai-codex/gpt-5, at: 2026-10-30T05:24:30Z }
+generated: { by: openai-codex/gpt-5, at: 2026-10-31T00:15:57Z }
 ---
 
 # 執筆計画：関数型プログラミングで作る変更を楽に安全にできるソフトウェア
@@ -24,7 +24,7 @@ generated: { by: openai-codex/gpt-5, at: 2026-10-30T05:24:30Z }
 | 対象 | 実行環境 | 章数 | 記事 | サンプル実装 | 状態 |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | Kotlin | Nix devShell `kotlin`（JDK 21 / Gradle） | 13 | `docs/article/zettai/kotlin/` | `apps/kotlin/zettai/` | **完結**（13 / 13 章公開） |
-| Kotlin FP | Nix devShell `kotlin-fp`（JDK 25 / Gradle） | 13 | `docs/article/zettai/kotlin-fp/` | `apps/kotlin-fp/zettai/` | **執筆中**（3 / 13 章公開） |
+| Kotlin FP | Nix devShell `kotlin-fp`（JDK 25 / Gradle） | 13 | `docs/article/zettai/kotlin-fp/` | `apps/kotlin-fp/zettai/` | **執筆中**（5 / 13 章公開） |
 | なでしこ3 | Nix devShell `nadesiko`（Node 22 / cnako3 3.8.7） | 13 | `docs/article/zettai/nadesiko/` | `apps/nadesiko/zettai/` | **完結**（13 / 13 章公開） |
 | Rust | Nix devShell `rust`（rustc 1.91.1 / cargo 1.91.0） | 13 | `docs/article/zettai/rust/` | `apps/rust/zettai/` | **完結**（13 / 13 章公開） |
 
@@ -242,7 +242,7 @@ Arrow に型クラスが存在することを前提にしません。モノイ�
 | 1 | `chapter01.md` | 純粋関数、参照透過性、式本体関数、`val` をテストから導く | Kotest で最小の純粋関数テストが通る |
 | 2 | `chapter02.md` | functional core / effectful shell として HTTP を組み立てる | http4k のウォーキングスケルトンと boundary test が通る |
 | 3 | `chapter03.md` | Gherkin でシナリオを表し、Cucumber の step definitions から実行 adapter を差し替える | 同じ feature / scenario が domain / HTTP の 2 経路で通る |
-| 4 | `chapter04.md` | interface より小さい関数型と constructor function で依存を渡す | in-memory adapter と HTTP adapter を関数で差し替えられる |
+| 4 | `chapter04.md` | interface より小さい関数型と constructor function で依存を渡す | in-memory / test fetcher を差し替えた Hub を HTTP adapter から利用できる |
 | 5 | `chapter05.md` | immutable event list と `fold`、結合則・単位元を property test する | イベントの畳み込みとモノイド則が通る |
 | 6 | `chapter06.md` | sealed ADT と純粋な `State -> Command -> Either<Error, Events>` | すべての状態遷移と拒否理由を型で検証できる |
 | 7 | `chapter07.md` | 自前 `Outcome` を Arrow `Either` / Raise DSL に読み替える | typed error、`map` / `flatMap`、ファンクタ則が通る |

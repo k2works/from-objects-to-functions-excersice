@@ -1,5 +1,26 @@
 # Docs Update Log
 
+## 2026-10-31
+* **Update**: [kotlin-fp-unit3_review_20261031](/review/kotlin-fp-unit3_review_20261031.md) を更新（openai-codex/gpt-5）
+* **Update**: [retrospective-kotlin-fp-3](/development/retrospective-kotlin-fp-3.md) を更新（openai-codex/gpt-5）
+* **Update**: [iteration_plan-kotlin-fp-3](/development/iteration_plan-kotlin-fp-3.md) を更新（openai-codex/gpt-5）
+* **Update**: [bolt_report-kotlin-fp-3](/development/bolt_report-kotlin-fp-3.md) を更新（openai-codex/gpt-5）
+* **Update**: [chapter05](/article/zettai/kotlin-fp/chapter05.md) を更新（openai-codex/gpt-5）
+* **Update**: [chapter04](/article/zettai/kotlin-fp/chapter04.md) を更新（openai-codex/gpt-5）
+* **Update**: [release_plan-kotlin-fp](/development/release_plan-kotlin-fp.md) を更新（openai-codex/gpt-5）
+* **Update**: [development_strategy](/development/development_strategy.md) を更新（openai-codex/gpt-5）
+* **Update**: [domain-model](/design/domain-model.md) を更新（openai-codex/gpt-5）
+* **Update**: [architecture_backend](/design/architecture_backend.md) を更新（openai-codex/gpt-5）
+* **Update**: [outline](/article/outline.md) を更新（openai-codex/gpt-5）
+* **Update**: [iteration_plan-kotlin-fp-3](/development/iteration_plan-kotlin-fp-3.md) を更新（openai-codex/gpt-5）
+* **Update**: [chapter05](/article/zettai/kotlin-fp/chapter05.md) を更新（openai-codex/gpt-5）
+* **Update**: [chapter04](/article/zettai/kotlin-fp/chapter04.md) を更新（openai-codex/gpt-5）
+* **Update**: [release_plan-kotlin-fp](/development/release_plan-kotlin-fp.md) を更新（openai-codex/gpt-5）
+* **Update**: [development_strategy](/development/development_strategy.md) を更新（openai-codex/gpt-5）
+* **Update**: [domain-model](/design/domain-model.md) を更新（openai-codex/gpt-5）
+* **Update**: [architecture_backend](/design/architecture_backend.md) を更新（openai-codex/gpt-5）
+* **Update**: [outline](/article/outline.md) を更新（openai-codex/gpt-5）
+
 ## 2026-10-30
 * **Update**: [chapter03](/article/zettai/kotlin-fp/chapter03.md) を更新（openai-codex/gpt-5）
 * **Update**: [kotlin-fp-unit2_review_20261030](/review/kotlin-fp-unit2_review_20261030.md) を更新（openai-codex/gpt-5）

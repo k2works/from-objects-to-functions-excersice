@@ -4,7 +4,7 @@ title: "開発戦略 - Zettai 連載"
 description: "Zettai 連載の Kotlin、Kotlin FP、なでしこ3、Rust 各版に共通する局面別 TDD アプローチと、対象ごとの差分を定義する開発戦略。"
 tags: [development, strategy, zettai, kotlin, arrow, nadesiko, rust]
 status: draft
-generated: { by: openai-codex/gpt-5, at: 2026-10-30T00:00:00Z }
+generated: { by: openai-codex/gpt-5, at: 2026-10-31T00:15:57Z }
 ---
 
 # 開発戦略 - Zettai 連載
@@ -27,7 +27,7 @@ generated: { by: openai-codex/gpt-5, at: 2026-10-30T00:00:00Z }
 | テスト種別・テストピラミッド | [テスト戦略ガイド](../reference/テスト戦略ガイド.md) |
 | 受け入れテストを Gherkin で書く場合の記法・処理系 | [BDD 導入ガイド](../reference/BDD導入ガイド.md)（本プロジェクトでは不採用。理由は後述） |
 
-本戦略は Bolt 計画を前提とします。現時点で確定しているのは Unit 1（完了）と Unit 2 です。Unit 3 以降の局面割り当ては**暫定案**であり、各 Bolt 計画が確定した時点で、対象ストーリーとデモ項目を本ドキュメントに追従させます。
+本戦略は Bolt 計画を前提とします。Kotlin FP 版は Unit 1〜2 が完了し、Unit 3 の [Bolt 計画](iteration_plan-kotlin-fp-3.md) まで確定しています。Unit 4 以降の局面割り当ては**暫定案**であり、各 Bolt 計画が確定した時点で、対象ストーリーとデモ項目を本ドキュメントに追従させます。
 
 **本ドキュメントは 2 つの対象を扱います。** 「## 戦略の全体像」から「## 局面移行時の一貫性維持」までは **Kotlin 版**（完結済み）の戦略です。シリーズ 2 言語目の **なでしこ3 版** の戦略は「[なでしこ3 版の局面別アプローチ](#なでしこ3-版の局面別アプローチ)」の節にまとめ、Kotlin 版との差分だけを書きます。差分に書いていない事項は Kotlin 版の記述をそのまま適用します。
 
@@ -724,12 +724,15 @@ Kotlin FP 版は既存 Kotlin 版と同じ 7 Unit・13 章・局面割り当て�
 - 純粋関数を core、`suspend`・HTTP・DB を shell とし、`runBlocking` は同期 adapter の境界に限定します
 - Unit 2〜5 は既存戦略どおりアウトサイドイン → インサイドアウト、Unit 6〜7 はアウトサイドインへ戻します
 
-Unit 1 のゲート密度は密です。JDK 25、Gradle、Arrow、Cucumber、Testcontainers の組み合わせが後続 Unit 全体を拘束するためです。Unit 2 以降は、Unit 1 の変更依頼実績を見て密度を見直します。
+Unit 1 のゲート密度は密です。JDK 25、Gradle、Arrow、Cucumber、Testcontainers の組み合わせが後続 Unit 全体を拘束するためです。Unit 2 も HTTP と Cucumber の境界を固めるため密に進めました。Unit 2 のレビューでは依存方向と高階関数の表現に修正が入ったため、Unit 3 は設計整合、各 Bolt、最終品質ゲートの 3 箇所で検証する中密度とします。
+
+Unit 3 は [Bolt 計画](iteration_plan-kotlin-fp-3.md) に従い、`web -> application -> domain` の依存方向を先に固定してからインサイドアウトで進めます。第 5 章の法則は Kotest property testing へ委ねますが、状態変換と合成そのものは Kotlin 標準機能で実装し、Arrow の抽象を先回りして導入しません。
 
 ## 更新履歴
 
 | 日付 | 更新内容 | 更新者 |
 |------|---------|--------|
+| 2026-10-31 | Kotlin FP 版 Unit 3 の中密度ゲート、package 依存、Kotest property testing の方針を確定 | openai-codex/gpt-5 |
 | 2026-10-30 | Kotlin FP 版の差分を追加。Cucumber、Testcontainers、functional core / effectful shell、Unit 1 のゲート方針を定義 | openai-codex/gpt-5 |
 | 2026-09-28 | Unit 7 の Bolt 計画作成時の整合性検証で、ゲート箇所を 3 + 条件付き 1 に修正（下記の決定からの変更。理由はゲート密度表に記載） | claude-code/claude-opus-5 |
 | 2026-09-28 | **Rust 版（3 言語目）の局面別アプローチを追記。** 局面割り当ては 2 対象と同一に保ちつつ、ゲート密度を局面ではなく「制約（所有権）の効き方」で決める方針とし、「既製品を先に調べる」を全 Bolt 共通のゲート項目に置いた。ゲートの書き方そのものを規約化した | claude-code/claude-opus-5 |

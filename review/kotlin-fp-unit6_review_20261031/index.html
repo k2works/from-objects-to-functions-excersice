@@ -4826,6 +4826,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        再レビュー結果
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -10172,27 +10183,32 @@
 <tr>
 <td style="text-align: left;"><code>version</code> を <code>MAX(version)</code> から導く</td>
 <td style="text-align: left;">アーキテクト</td>
-<td style="text-align: left;"><strong>持ち越し</strong>。ADR-043 に見直しの条件を記載</td>
+<td style="text-align: left;">修正。<code>版は行の件数ではなく version 列の最大値から導く</code>（変異で確認）</td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>createSchema</code> が <code>version</code> 列の無い既存テーブルに黙って成功する</td>
 <td style="text-align: left;">アーキテクト</td>
-<td style="text-align: left;"><strong>持ち越し</strong>。ADR-043 に前提（DB を作り直す）を記載</td>
+<td style="text-align: left;">修正。列が無ければ <code>PersistenceFailure</code>（変異で確認）</td>
 </tr>
 <tr>
 <td style="text-align: left;">PostgreSQL の INSERT の途中の例外（<code>23505</code> 以外）の rollback テスト</td>
 <td style="text-align: left;">テスター</td>
-<td style="text-align: left;"><strong>持ち越し</strong></td>
+<td style="text-align: left;">修正。<code>複数の stream の 2 つ目で例外が起きても、1 つ目の stream には何も残らない</code></td>
 </tr>
 <tr>
 <td style="text-align: left;">失敗応答（404、500 など）の画面設計は HTML、実装はプレーンテキスト</td>
 <td style="text-align: left;">ユーザー代表</td>
-<td style="text-align: left;"><strong>持ち越し</strong>。名前変更のフォームだけを HTML にした</td>
+<td style="text-align: left;">決定。指摘が引いた <code>ui_design.md</code> の表は、ナデシコ版（<code>src/stepN/outcome.nako3</code>）の記述で、Kotlin FP 版の契約ではない。Kotlin FP 版は、フォームを伴わない失敗をプレーンテキストで返す契約を、テストで固定している（<code>ZettaiHttpAppTest</code>）。利用者が次の操作を選べる、名前変更のフォームだけを HTML にした</td>
 </tr>
 <tr>
-<td style="text-align: left;">404 の導線、成功の知らせ、<code>required</code> / <code>maxlength</code></td>
+<td style="text-align: left;">404 の導線</td>
 <td style="text-align: left;">ユーザー代表</td>
-<td style="text-align: left;"><strong>持ち越し</strong>（低〜中）</td>
+<td style="text-align: left;">決定。Kotlin FP 版には利用者のリスト一覧の画面が無く、導線の行き先が無い。一覧画面を作る Unit で扱う</td>
+</tr>
+<tr>
+<td style="text-align: left;">成功の知らせ、<code>required</code> / <code>maxlength</code></td>
+<td style="text-align: left;">ユーザー代表</td>
+<td style="text-align: left;">低として許容（サーバー側の検証が正）</td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>Request.listKey()</code> の重複</td>
@@ -10202,9 +10218,17 @@
 </tbody>
 </table>
 <h2 id="_5">残件<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
-<p>高の残件は 0 です。中の持ち越しは上の 5 件（<code>MAX(version)</code>、<code>createSchema</code> の列確認、途中例外の rollback テスト、失敗応答の HTML 化、404 の導線）です。計画の DoD「高・中の残件がない」は満たしていません。持ち越しは Unit 7 の計画で扱うか、人が許容を判断します。</p>
+<p>高の残件は 0 です。中の指摘は、修正したか、理由を付けて決定しました（上の表）。残る持ち越しは、低の <code>Request.listKey()</code> の重複と、成功の知らせです。</p>
 <h2 id="_6">再レビュー<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
-<p>修正後の再レビュー（独立した読み取り専用の確認）は実施していません。修正は、<code>gradlew.bat clean check --no-daemon</code>（全 module）と記事検査の green で確認しました。再レビューを求める場合は、この文書を根拠に起動します。</p>
+<p>修正後の再レビューは、末尾の「再レビュー結果」に記録します。</p>
+<h2 id="_7">再レビュー結果<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<p>修正後に、独立した読み取り専用の確認を行いました（コードと差分を根拠にした確認。gradle は実行していない）。結果は <strong>高・中の残件なし</strong> です。</p>
+<ul>
+<li>循環 import の解消、版の導出と <code>createSchema</code> の列確認、フォームのエスケープ、新しい待ち合わせの設計、誤った理由で通るテストの有無を確かめ、問題は見つかりませんでした。</li>
+<li>「修正」とした項目は、コードとテストに反映されていました。「決定」とした項目の理由は、コードの事実と矛盾しませんでした。</li>
+<li>低の指摘 1 件（<code>information_schema</code> の絞り込みに <code>table_schema</code> が無い）は、<code>current_schema()</code> を足して直しました。残る低は、<code>rename</code> の分岐が 3 種類の error 型を列挙していること（<code>describeError</code> の <code>else</code> が実質使われない）です。</li>
+<li>記事と ADR の文言は、この再レビューの範囲外です。それらは 1 回目のレビューで確かめています。</li>
+</ul>
 
 
 

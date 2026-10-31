@@ -9896,7 +9896,7 @@
 <p>名前変更（第 11 章）は、旧い名前の stream と新しい名前の stream の 2 つに書きます。2 つへの書き込みは、どちらも成功するか、どちらも残らないかのどちらかでなければなりません。</p>
 <h2 id="_3">決定<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <ol>
-<li><strong>stream ごとに連番の版を持つ。</strong> 版は、その stream に追記済みの event の件数に等しい。読み出しは event と一緒に版を返す</li>
+<li><strong>stream ごとに連番の版を持つ。</strong> 版は、その stream の <code>version</code> 列の最大値（event がなければ 0）。読み出しは event と一緒に版を返す。通常は追記済みの event の件数に等しい</li>
 <li><strong>保存は、触れる stream ごとに「読んだ時点の版」を受け取る。</strong> 追記する event には、<code>読んだ版 + 1</code> からの連番を付ける</li>
 <li><strong>競合は <code>UNIQUE (entity_id, version)</code> の違反として検出する。</strong> 読んだ後に別の command が追記していれば、同じ版の挿入が衝突する。SQLState <code>23505</code> を <code>ConcurrentModification</code> にし、それ以外の失敗は <code>PersistenceFailure</code> にする</li>
 <li><strong>複数の stream への書き込みは、1 つの transaction で行う。</strong> どれか 1 つでも衝突したら、すべて rollback する。<code>ConcurrentModification</code> には、衝突を検出した stream を持たせる。PostgreSQL は最初の衝突で transaction が中断されるため、持つのは最初に検出した 1 つ。in-memory は版の古い stream をすべて持つ。件数は store ごとに異なり、契約テストは件数ではなく型で比べる</li>
@@ -9939,8 +9939,8 @@
 <ul>
 <li>競合は型（<code>ConcurrentModification</code>）で現れ、HTTP は 409 に写像できます。</li>
 <li>同じ stream に並行して追記する command は、片方が拒否されます。追記の内容が互いに干渉しない場合（別々の項目の追加）も拒否します。楽観ロックは保守的です。</li>
-<li>版の件数は、event を数える以上の意味を持ちません。stream に event を削除する操作は無いので、件数と最後の版は一致します。手作業の修復などで版に欠番ができると、件数から導いた版では追記が衝突し続けます。その場合は <code>MAX(version)</code> から導く形に見直します。</li>
-<li><code>CREATE TABLE IF NOT EXISTS</code> は、<code>version</code> 列を持たない既存のテーブルを変えません。そのようなテーブルに対しては、最初の追記が実行時に <code>PersistenceFailure</code> になります。移行は扱わない決定なので、この連載では、DB を作り直すことを前提にします。</li>
+<li>stream に event を削除する操作は無いので、通常は件数と最後の版は一致します。版は件数ではなく <code>version</code> 列の最大値から導くので、手作業の修復などで欠番ができても、追記が衝突し続けることはありません（<code>版は行の件数ではなく version 列の最大値から導く</code>）。</li>
+<li><code>CREATE TABLE IF NOT EXISTS</code> は、<code>version</code> 列を持たない既存のテーブルを変えません。そのようなテーブルに対しては、最初の追記が実行時に <code>PersistenceFailure</code> になります。移行は扱わない決定なので、この連載では、DB を作り直すことを前提にします。<code>createSchema</code> は <code>version</code> 列の有無を確かめ、無ければ <code>PersistenceFailure</code> を返して、黙って成功しません（<code>version 列の無い既存のテーブルに対して、createSchema は黙って成功せず PersistenceFailure を返す</code>）。</li>
 <li>名前変更は、旧い stream と新しい stream の両方の版を確認します。変名先が同時に作られた場合も、競合として検出されます。</li>
 </ul>
 <h2 id="_6">関連<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>

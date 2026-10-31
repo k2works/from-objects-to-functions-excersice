@@ -49,10 +49,7 @@ fun domainActions(hub: ToDoListHub = freshHub()): ZettaiActions =
  */
 fun postgresActions(): ZettaiActions {
     runBlocking { SharedPostgres.reset() }
-    fun newHub(): ToDoListHub {
-        val store = postgresEventStore(SharedPostgres::connect)
-        return todoListHub(store.readAggregate, store.readUser, store.persist)
-    }
+    fun newHub(): ToDoListHub = todoListHub(postgresEventStore(SharedPostgres::connect))
     val writer = newHub()
     return ZettaiActions(
         name = "PostgreSQL",
@@ -68,22 +65,21 @@ fun httpActions(hub: ToDoListHub = freshHub()): ZettaiActions {
         setUp = hub::setUpWithCommands,
         getToDoList = { user, listName ->
             val response = app(Request(GET, "/todo/${user.name}/${listName.name}"))
-            if (response.status != Status.OK) {
-                null
-            } else {
-                "<li>(.*?)</li>".toRegex()
-                    .findAll(response.bodyString())
-                    .map { ToDoItem(it.groupValues[1].decodeHtmlEntities()) }
-                    .toList()
+            when (response.status) {
+                Status.OK ->
+                    "<li>(.*?)</li>".toRegex()
+                        .findAll(response.bodyString())
+                        .map { ToDoItem(it.groupValues[1].decodeHtmlEntities()) }
+                        .toList()
+                // 500 などを「見つからない」に紛れさせない
+                Status.NOT_FOUND -> null
+                else -> error("HTTP ${response.status}: ${response.bodyString()}")
             }
         },
     )
 }
 
-private fun freshHub(): ToDoListHub {
-    val store = inMemoryEventStore()
-    return todoListHub(store.readAggregate, store.readUser, store.persist)
-}
+private fun freshHub(): ToDoListHub = todoListHub(inMemoryEventStore())
 
 private fun String.decodeHtmlEntities(): String = this
     .replace("&lt;", "<")

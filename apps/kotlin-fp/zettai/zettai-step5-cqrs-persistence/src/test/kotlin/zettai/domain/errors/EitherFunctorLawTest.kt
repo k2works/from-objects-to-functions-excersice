@@ -8,30 +8,17 @@ import io.kotest.matchers.shouldBe
 import io.kotest.property.Arb
 import io.kotest.property.arbitrary.bind
 import io.kotest.property.arbitrary.choice
-import io.kotest.property.arbitrary.enum
 import io.kotest.property.arbitrary.int
 import io.kotest.property.arbitrary.map
 import io.kotest.property.arbitrary.string
 import io.kotest.property.checkAll
-import zettai.domain.ListName
-import zettai.domain.ToDoStatus
-import zettai.domain.User
+import zettai.arbError
 
 class EitherFunctorLawTest : StringSpec({
     val names = Arb.string(1..12)
-    val errors: Arb<ZettaiError> = Arb.choice(
-        Arb.bind(names, names) { user, list -> ListNotFound(User(user), ListName(list)) },
-        Arb.bind(names, names) { user, list -> ListAlreadyExists(User(user), ListName(list)) },
-        Arb.bind(names, names, names) { user, list, description ->
-            ItemNotFound(User(user), ListName(list), description)
-        },
-        Arb.bind(names, Arb.enum<ToDoStatus>(), Arb.enum<ToDoStatus>()) { description, from, to ->
-            InvalidTransition(description, from, to)
-        },
-    )
     val outcomes: Arb<Either<ZettaiError, Int>> = Arb.choice(
         Arb.int().map { it.right() },
-        errors.map { it.left() },
+        arbError.map { it.left() },
     )
     val intFunctions: Arb<(Int) -> Int> =
         Arb.bind(Arb.int(), Arb.int()) { k, c -> { x: Int -> x * k + c } }

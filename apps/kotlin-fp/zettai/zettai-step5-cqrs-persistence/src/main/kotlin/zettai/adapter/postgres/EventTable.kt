@@ -58,13 +58,13 @@ internal object EventTable {
 
     private const val SELECT_COLUMNS = """
         SELECT event_type,
-               payload ->> 'user',
-               payload ->> 'listName',
-               payload ->> 'description',
-               payload ->> 'newStatus',
-               payload #>> '{item,description}',
-               payload #>> '{item,dueDate}',
-               payload #>> '{item,status}'
+               payload ->> 'user' AS user_name,
+               payload ->> 'listName' AS list_name,
+               payload ->> 'description' AS description,
+               payload ->> 'newStatus' AS new_status,
+               payload #>> '{item,description}' AS item_description,
+               payload #>> '{item,dueDate}' AS item_due_date,
+               payload #>> '{item,status}' AS item_status
         FROM todo_list_event
     """
 

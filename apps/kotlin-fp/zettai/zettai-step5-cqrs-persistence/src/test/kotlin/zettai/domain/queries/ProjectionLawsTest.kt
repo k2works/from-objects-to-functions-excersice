@@ -18,6 +18,7 @@ import zettai.domain.errors.ZettaiError
 import zettai.domain.events.replayFrom
 import zettai.genListNames
 import zettai.genUsers
+import zettai.interleave
 
 class ProjectionLawsTest : StringSpec({
     "射影の行は、replay した状態から数えた行と一致する" {
@@ -48,7 +49,7 @@ class ProjectionLawsTest : StringSpec({
             val ownEvents = own.filter { it.user == user }
             val foreign = others.filter { it.user != user }
 
-            projectFrom(user, ownEvents + foreign) shouldBe projectFrom(user, ownEvents)
+            projectFrom(user, interleave(ownEvents, foreign)) shouldBe projectFrom(user, ownEvents)
         }
     }
 
@@ -65,6 +66,12 @@ class ProjectionLawsTest : StringSpec({
     "クエリ結果の map は恒等則を満たす" {
         checkAll(results) { result ->
             result.map { it } shouldBe result
+        }
+    }
+
+    "クエリ結果の内側の map も恒等則を満たす" {
+        checkAll(results) { result ->
+            result.map { rows -> rows.map { it } } shouldBe result
         }
     }
 

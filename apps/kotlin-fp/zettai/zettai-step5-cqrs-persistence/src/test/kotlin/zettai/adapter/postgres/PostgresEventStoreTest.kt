@@ -1,12 +1,19 @@
 package zettai.adapter.postgres
 
 import arrow.core.getOrElse
+import arrow.core.right
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
+import io.kotest.property.Arb
+import io.kotest.property.arbitrary.bind
+import io.kotest.property.arbitrary.choice
+import io.kotest.property.arbitrary.element
+import io.kotest.property.arbitrary.list
 import io.kotest.property.checkAll
 import java.sql.SQLException
 import java.time.LocalDate
+import zettai.application.EventStore
 import zettai.arbEvents
 import zettai.domain.ListName
 import zettai.domain.ToDoItem
@@ -19,10 +26,14 @@ import zettai.domain.events.ListCreated
 import zettai.domain.events.ToDoListEvent
 import zettai.genUsers
 
-private suspend fun PostgresEventStore.events(user: User, listName: ListName): List<ToDoListEvent> =
+private suspend fun EventStore.events(user: User, listName: ListName): List<ToDoListEvent> =
     readAggregate(user, listName).getOrElse { error(it.message) }
 
-private suspend fun PostgresEventStore.eventsOf(user: User): List<ToDoListEvent> =
+private suspend fun EventStore.append(events: List<ToDoListEvent>) {
+    persist(events).getOrElse { error(it.reason) }
+}
+
+private suspend fun EventStore.eventsOf(user: User): List<ToDoListEvent> =
     readUser(user).getOrElse { error(it.message) }
 
 private fun insertRaw(eventType: String, payload: String) {
@@ -53,16 +64,34 @@ class PostgresEventStoreTest : StringSpec({
             ItemStatusChanged(alice, book, "write chapter", ToDoStatus.InProgress),
         )
 
-        store.persist(events)
+        store.append(events)
 
         store.events(alice, book) shouldBe events
+    }
+
+    "追記は成功を返す" {
+        val store = postgresEventStore(SharedPostgres::connect)
+
+        store.persist(listOf(ListCreated(alice, book))) shouldBe Unit.right()
+        createSchema(SharedPostgres::connect) shouldBe Unit.right()
+    }
+
+    "途中で失敗した batch は 1 件も残らない" {
+        val store = postgresEventStore(SharedPostgres::connect)
+        // NUL 文字は PostgreSQL の text に入らないので、2 件目の INSERT が失敗する
+        val result = store.persist(
+            listOf(ListCreated(alice, book), ItemAdded(alice, book, ToDoItem("a\u0000b"))),
+        )
+
+        result.leftOrNull().shouldBeInstanceOf<PersistenceFailure>()
+        store.events(alice, book) shouldBe emptyList()
     }
 
     "複数回に分けて追記しても追記順に読み戻す" {
         val store = postgresEventStore(SharedPostgres::connect)
 
-        store.persist(listOf(ListCreated(alice, book)))
-        store.persist(listOf(ItemAdded(alice, book, ToDoItem("a")), ItemAdded(alice, book, ToDoItem("b"))))
+        store.append(listOf(ListCreated(alice, book)))
+        store.append(listOf(ItemAdded(alice, book, ToDoItem("a")), ItemAdded(alice, book, ToDoItem("b"))))
 
         store.events(alice, book) shouldBe listOf(
             ListCreated(alice, book),
@@ -73,7 +102,7 @@ class PostgresEventStoreTest : StringSpec({
 
     "別の集約の event は混ざらない" {
         val store = postgresEventStore(SharedPostgres::connect)
-        store.persist(
+        store.append(
             listOf(
                 ListCreated(alice, book),
                 ListCreated(alice, shop),
@@ -87,7 +116,7 @@ class PostgresEventStoreTest : StringSpec({
 
     "readUser は user の event だけを追記順に返す" {
         val store = postgresEventStore(SharedPostgres::connect)
-        store.persist(
+        store.append(
             listOf(
                 ListCreated(alice, book),
                 ListCreated(bob, book),
@@ -102,7 +131,7 @@ class PostgresEventStoreTest : StringSpec({
         val store = postgresEventStore(SharedPostgres::connect)
         val slashUser = User("a/b")
         val plainUser = User("a")
-        store.persist(
+        store.append(
             listOf(
                 ListCreated(slashUser, ListName("c")),
                 ListCreated(plainUser, ListName("b/c")),
@@ -127,14 +156,14 @@ class PostgresEventStoreTest : StringSpec({
             ItemStatusChanged(User(nasty), ListName(nasty), nasty, ToDoStatus.Done),
         )
 
-        store.persist(events)
+        store.append(events)
 
         store.events(User(nasty), ListName(nasty)) shouldBe events
     }
 
-    "接続を作り直しても（再起動に相当）追記済みの event を読める" {
+    "スキーマを作り直す処理を再実行しても、追記済みの event は消えない" {
         val first = postgresEventStore(SharedPostgres::connect)
-        first.persist(listOf(ListCreated(alice, book), ItemAdded(alice, book, ToDoItem("kept"))))
+        first.append(listOf(ListCreated(alice, book), ItemAdded(alice, book, ToDoItem("kept"))))
 
         createSchema(SharedPostgres::connect)
         val restarted = postgresEventStore(SharedPostgres::connect)
@@ -145,12 +174,36 @@ class PostgresEventStoreTest : StringSpec({
         )
     }
 
+    "区切り文字や空文字を含む名前の任意の event 列を往復でき、集約ごとに追記順が保たれる" {
+        val names = Arb.element("a", "a/b", "b/c", "100%", "%25", "", "日本語")
+        val nastyEvents: Arb<List<ToDoListEvent>> = Arb.list(
+            Arb.choice(
+                Arb.bind(names, names) { u, l -> ListCreated(User(u), ListName(l)) },
+                Arb.bind(names, names, names) { u, l, d -> ItemAdded(User(u), ListName(l), ToDoItem(d)) },
+            ),
+            0..20,
+        )
+
+        checkAll(25, nastyEvents) { events ->
+            SharedPostgres.reset()
+            val store = postgresEventStore(SharedPostgres::connect)
+            store.append(events)
+
+            events.map { it.user to it.listName }.distinct().forEach { (user, listName) ->
+                store.events(user, listName) shouldBe events.filter { it.user == user && it.listName == listName }
+            }
+            events.map { it.user }.distinct().forEach { user ->
+                store.eventsOf(user) shouldBe events.filter { it.user == user }
+            }
+        }
+    }
+
     "任意の event 列を往復でき、user ごとに追記順が保たれる" {
         checkAll(25, arbEvents) { events ->
             SharedPostgres.reset()
             val store = postgresEventStore(SharedPostgres::connect)
 
-            store.persist(events)
+            store.append(events)
 
             genUsers.forEach { user ->
                 store.eventsOf(user) shouldBe events.filter { it.user == user }
@@ -189,7 +242,7 @@ class PostgresEventStoreTest : StringSpec({
     ).forEach { (name, row) ->
         "壊れた行（$name）は読み出し時に PersistenceFailure を返し、正しい行も黙って捨てない" {
             val store = postgresEventStore(SharedPostgres::connect)
-            store.persist(listOf(ListCreated(alice, book)))
+            store.append(listOf(ListCreated(alice, book)))
             insertRaw(row.first, row.second)
 
             store.readAggregate(alice, book).leftOrNull().shouldBeInstanceOf<PersistenceFailure>()

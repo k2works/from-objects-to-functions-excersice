@@ -8,6 +8,7 @@ import zettai.domain.events.ItemAdded
 import zettai.domain.events.ItemStatusChanged
 import zettai.domain.events.ListCreated
 import zettai.domain.events.ToDoListEvent
+import zettai.domain.withStatusChanged
 
 /** 一覧画面が欲しい形。業務ルールを判断する `ToDoListState` とは別に持つ。 */
 data class ToDoListRow(
@@ -18,7 +19,7 @@ data class ToDoListRow(
 
 /**
  * イベントから表示用の行を作る射影。`replayFrom` と同じ `fold` で、畳み込み先が行になる。
- * 行はリストの作成順に並ぶ。
+ * 行はリストの作成順に並ぶ。入力がすでにユーザーで絞られていても、単独で正しく動くよう、ここでも絞る。
  */
 fun projectFrom(user: User, events: List<ToDoListEvent>): List<ToDoListRow> =
     events
@@ -42,16 +43,7 @@ private fun Map<ListName, List<ToDoItem>>.step(event: ToDoListEvent): Map<ListNa
         }
 
         is ItemStatusChanged -> {
-            val items = this[event.listName]
-            val target = items?.indexOfFirst { it.description == event.description } ?: -1
-            if (items == null || target < 0) {
-                this
-            } else {
-                this + (
-                    event.listName to items.mapIndexed { index, item ->
-                        if (index == target) item.copy(status = event.newStatus) else item
-                    }
-                    )
-            }
+            val updated = this[event.listName]?.withStatusChanged(event.description, event.newStatus)
+            if (updated == null) this else this + (event.listName to updated)
         }
     }

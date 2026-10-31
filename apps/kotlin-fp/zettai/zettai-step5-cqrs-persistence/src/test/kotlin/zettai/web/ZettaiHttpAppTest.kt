@@ -1,5 +1,6 @@
 package zettai.web
 
+import arrow.core.left
 import arrow.core.right
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
@@ -79,6 +80,24 @@ class ZettaiHttpAppTest : StringSpec({
             response.header("X-Content-Type-Options") shouldBe "nosniff"
             response.bodyString() shouldBe error.message
         }
+    }
+
+    "読み出しの失敗は app 経由でも 500 になり、原因を漏らさない" {
+        val app = zettaiHttpApp(
+            todoListHub(
+                readAggregate = { _, _ ->
+                    PersistenceFailure("jdbc:postgresql://db.internal/zettai password=secret").left()
+                },
+                readUser = { error("使わない") },
+                persist = { error("使わない") },
+            ),
+        )
+
+        val response = app(request)
+
+        response.status shouldBe Status.INTERNAL_SERVER_ERROR
+        response.header("Content-Type") shouldBe "text/plain; charset=utf-8"
+        response.bodyString() shouldBe "Persistence failure"
     }
 
     "PersistenceFailure の原因は response に含めない" {

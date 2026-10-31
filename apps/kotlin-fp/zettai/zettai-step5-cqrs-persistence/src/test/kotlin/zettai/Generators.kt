@@ -6,14 +6,20 @@ import io.kotest.property.arbitrary.choice
 import io.kotest.property.arbitrary.element
 import io.kotest.property.arbitrary.enum
 import io.kotest.property.arbitrary.list
+import io.kotest.property.arbitrary.map
 import zettai.domain.ListName
 import zettai.domain.ToDoItem
 import zettai.domain.ToDoStatus
 import zettai.domain.User
+import zettai.domain.commands.AddToDoItem
+import zettai.domain.commands.ChangeItemStatus
+import zettai.domain.commands.CreateToDoList
+import zettai.domain.commands.ToDoListCommand
 import zettai.domain.errors.InvalidTransition
 import zettai.domain.errors.ItemNotFound
 import zettai.domain.errors.ListAlreadyExists
 import zettai.domain.errors.ListNotFound
+import zettai.domain.errors.PersistenceFailure
 import zettai.domain.errors.ZettaiError
 import zettai.domain.events.ItemAdded
 import zettai.domain.events.ItemStatusChanged
@@ -71,4 +77,28 @@ val arbError: Arb<ZettaiError> = Arb.choice(
     ) { description, from, to ->
         InvalidTransition(description, from, to)
     },
+    Arb.element("connection refused", "disk full").map { PersistenceFailure(it) },
 )
+
+val arbCommand: Arb<ToDoListCommand> = Arb.choice(
+    Arb.bind(Arb.element(genUsers), Arb.element(genListNames)) { user, listName ->
+        CreateToDoList(user, listName)
+    },
+    Arb.bind(Arb.element(genUsers), Arb.element(genListNames), Arb.element(genDescriptions)) { user, listName, d ->
+        AddToDoItem(user, listName, ToDoItem(d))
+    },
+    Arb.bind(
+        Arb.element(genUsers),
+        Arb.element(genListNames),
+        Arb.element(genDescriptions),
+        Arb.enum<ToDoStatus>(),
+    ) { user, listName, description, status ->
+        ChangeItemStatus(user, listName, description, status)
+    },
+)
+
+/** 2 つの列を交互に混ぜる。末尾の連結だけでは見つからない、途中に挟まる event を作る。 */
+fun <T> interleave(first: List<T>, second: List<T>): List<T> =
+    (0 until maxOf(first.size, second.size)).flatMap { index ->
+        listOfNotNull(first.getOrNull(index), second.getOrNull(index))
+    }

@@ -3,6 +3,7 @@ package zettai.domain.events
 import zettai.domain.ListName
 import zettai.domain.ToDoList
 import zettai.domain.User
+import zettai.domain.withStatusChanged
 
 class ToDoListState private constructor(
     private val lists: Map<Pair<User, ListName>, ToDoList>,
@@ -43,17 +44,7 @@ fun ToDoListState.apply(event: ToDoListEvent): ToDoListState =
 
         is ItemStatusChanged -> {
             val current = listFor(event.user, event.listName) ?: return this
-            val targetIndex = current.items.indexOfFirst {
-                it.description == event.description
-            }
-            if (targetIndex < 0) return this
-            val updated = current.items.mapIndexed { index, item ->
-                if (index == targetIndex) {
-                    item.copy(status = event.newStatus)
-                } else {
-                    item
-                }
-            }
+            val updated = current.items.withStatusChanged(event.description, event.newStatus) ?: return this
             put(event.key(), current.copy(items = updated))
         }
     }

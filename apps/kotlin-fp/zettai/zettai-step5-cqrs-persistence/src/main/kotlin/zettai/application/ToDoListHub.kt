@@ -24,6 +24,13 @@ typealias UserEventReader = suspend (User) -> Either<PersistenceFailure, List<To
 
 typealias EventPersister = suspend (List<ToDoListEvent>) -> Either<PersistenceFailure, Unit>
 
+/** 追記だけの event store の三つの口。adapter が実装して返し、Hub が使う。 */
+data class EventStore(
+    val readAggregate: AggregateEventReader,
+    val readUser: UserEventReader,
+    val persist: EventPersister,
+)
+
 typealias ListQuery = suspend (User, ListName) -> Either<ZettaiError, ToDoList>
 
 typealias RowsQuery = suspend (User) -> Either<ZettaiError, List<ToDoListRow>>
@@ -39,6 +46,9 @@ data class ToDoListHub(
     val listRows: RowsQuery,
     val execute: CommandExecutor,
 )
+
+fun todoListHub(store: EventStore): ToDoListHub =
+    todoListHub(store.readAggregate, store.readUser, store.persist)
 
 fun todoListHub(
     readAggregate: AggregateEventReader,

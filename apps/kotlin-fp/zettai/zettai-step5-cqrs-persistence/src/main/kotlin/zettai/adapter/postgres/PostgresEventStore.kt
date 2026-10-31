@@ -6,9 +6,7 @@ import java.sql.ResultSet
 import java.time.LocalDate
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import zettai.application.AggregateEventReader
-import zettai.application.EventPersister
-import zettai.application.UserEventReader
+import zettai.application.EventStore
 import zettai.domain.ListName
 import zettai.domain.ToDoItem
 import zettai.domain.ToDoStatus
@@ -18,12 +16,6 @@ import zettai.domain.events.ItemAdded
 import zettai.domain.events.ItemStatusChanged
 import zettai.domain.events.ListCreated
 import zettai.domain.events.ToDoListEvent
-
-data class PostgresEventStore(
-    val readAggregate: AggregateEventReader,
-    val readUser: UserEventReader,
-    val persist: EventPersister,
-)
 
 /** テーブルとインデックスを作る。何度呼んでも同じ結果になる。 */
 suspend fun createSchema(connect: () -> Connection): Either<PersistenceFailure, Unit> =
@@ -41,8 +33,8 @@ suspend fun createSchema(connect: () -> Connection): Either<PersistenceFailure, 
  * 接続の作り方は外から関数で受け取る。blocking の JDBC は `Dispatchers.IO` に閉じ込め、
  * connection は操作ごとに開いて `use` で閉じる。JDBC の例外と壊れた行は `PersistenceFailure` にして返す。
  */
-fun postgresEventStore(connect: () -> Connection): PostgresEventStore =
-    PostgresEventStore(
+fun postgresEventStore(connect: () -> Connection): EventStore =
+    EventStore(
         readAggregate = { user, listName ->
             query(connect, EventTable.SELECT_BY_ENTITY, entityId(user, listName))
         },
@@ -67,8 +59,14 @@ private suspend fun append(
     blocking {
         connect().use { connection ->
             connection.autoCommit = false
-            events.forEach { event -> connection.insert(event) }
-            connection.commit()
+            try {
+                events.forEach { event -> connection.insert(event) }
+                connection.commit()
+            } catch (failure: Throwable) {
+                // close に任せず、確定していない書き込みを明示的に取り消す。pool の接続でも前提が崩れない。
+                runCatching { connection.rollback() }.onFailure(failure::addSuppressed)
+                throw failure
+            }
         }
     }
 
@@ -121,28 +119,28 @@ private fun ResultSet.toEvents(): List<ToDoListEvent> =
 
 /** 列が無い、未知の種類、不正な値は例外になり、`blocking` が `PersistenceFailure` にする。 */
 private fun ResultSet.decode(): ToDoListEvent {
-    val user = User(required(2, "user"))
-    val listName = ListName(required(3, "listName"))
-    return when (val type = getString(1)) {
+    val user = User(required("user_name"))
+    val listName = ListName(required("list_name"))
+    return when (val type = getString("event_type")) {
         "ListCreated" -> ListCreated(user, listName)
         "ItemAdded" -> ItemAdded(
             user,
             listName,
             ToDoItem(
-                description = required(6, "item.description"),
-                dueDate = getString(7)?.let(LocalDate::parse),
-                status = ToDoStatus.valueOf(required(8, "item.status")),
+                description = required("item_description"),
+                dueDate = getString("item_due_date")?.let(LocalDate::parse),
+                status = ToDoStatus.valueOf(required("item_status")),
             ),
         )
         "ItemStatusChanged" -> ItemStatusChanged(
             user,
             listName,
-            required(4, "description"),
-            ToDoStatus.valueOf(required(5, "newStatus")),
+            required("description"),
+            ToDoStatus.valueOf(required("new_status")),
         )
         else -> error("未知の event_type: $type")
     }
 }
 
-private fun ResultSet.required(column: Int, name: String): String =
-    requireNotNull(getString(column)) { "payload に $name が無い" }
+private fun ResultSet.required(column: String): String =
+    requireNotNull(getString(column)) { "payload に $column が無い" }

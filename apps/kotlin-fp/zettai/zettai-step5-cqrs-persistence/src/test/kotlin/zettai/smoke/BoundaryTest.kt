@@ -14,6 +14,8 @@ class BoundaryTest : StringSpec({
             "zettai.web",
             "org.http4k",
             "kotlinx.coroutines",
+            "java.sql",
+            "org.postgresql",
         )
 
         violations(sources, forbidden).shouldBeEmpty()
@@ -26,6 +28,8 @@ class BoundaryTest : StringSpec({
             "zettai.web",
             "org.http4k",
             "kotlinx.coroutines",
+            "java.sql",
+            "org.postgresql",
         )
 
         violations(sources, forbidden).shouldBeEmpty()
@@ -36,6 +40,26 @@ class BoundaryTest : StringSpec({
         val forbidden = listOf("zettai.adapter")
 
         violations(sources, forbidden).shouldBeEmpty()
+    }
+
+    "in-memory の adapter は PostgreSQL の adapter と JDBC に依存しない" {
+        val sources = productionSources("adapter/inmemory")
+        val forbidden = listOf("zettai.adapter.postgres", "java.sql", "org.postgresql")
+
+        violations(sources, forbidden).shouldBeEmpty()
+    }
+
+    "PostgreSQL の adapter は in-memory の adapter に依存しない" {
+        val sources = productionSources("adapter/postgres")
+        val forbidden = listOf("zettai.adapter.inmemory")
+
+        violations(sources, forbidden).shouldBeEmpty()
+    }
+
+    "domain と application と adapter に runBlocking が現れない" {
+        val sources = listOf("domain", "application", "adapter").flatMap { productionSources(it) }
+
+        sources.filter { it.readText().contains("runBlocking") }.map { it.name }.shouldBeEmpty()
     }
 
     // adapter は blocking の I/O を Dispatchers.IO に閉じ込めるため、withContext と Dispatchers は使ってよい。

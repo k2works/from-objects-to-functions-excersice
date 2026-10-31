@@ -4,7 +4,7 @@ title: "Unit 7 の Bolt 計画 - Zettai 連載（Kotlin FP 版）"
 description: "Kotlin FP 版 Unit 7 の構造化ロギング、関数型 JSON とプロファンクタ、データベース呼び出しのロギング、関数型アーキテクチャの総括、第 12〜13 章、連載全体の品質ゲートを定義する Bolt 計画。"
 tags: [development, plan, ai-dlc, zettai, kotlin, arrow, logging, json, unit-7]
 status: stable
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T12:40:39Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T12:44:15Z }
 verified:
   - { by: human:kakimomokuri, at: 2026-10-31T12:21:58Z }
 ---
@@ -190,7 +190,7 @@ gantt
 - [x] **7-1.6** `EventStore<Tx>` の decorator を `<Tx>` を持つ関数として作る。包むのは `readAggregate`、`readUser`、`readStream`、`append` で、`transaction` は包まない（読み出し、追記、失敗の記録。payload は載せない）
 - [x] **7-1.7** HTTP の request log の filter を作る。body と query は載せない。404、400、409、500 も記録する
 - [x] **7-1.8** `BoundaryTest` に、`zettai.adapter.logging` が `zettai.adapter.postgres`、`zettai.adapter.inmemory`、`zettai.web` に依存しないことを足す。domain と application が `zettai.adapter.logging` を import しないことは、既存の禁止リストが `zettai.adapter` 全体を禁じているので、追加の検査は要らない
-- [ ] **7-1.9** 設計文書（アーキテクチャ設計）に、前半の判断を反映する。開発戦略の Unit 7 の行（「`logger/`、Kondor による JSON」。Kondor は既存 Kotlin 版で採った道具で、この版では採らない）を、実際の到達点に直す
+- [x] **7-1.9** 設計文書（アーキテクチャ設計）に、前半の判断を反映する。開発戦略の Unit 7 の行（「`logger/`、Kondor による JSON」。Kondor は既存 Kotlin 版で採った道具で、この版では採らない）を、実際の到達点に直す
 - [ ] **7-1.10** 第 12 章を実装済みコードから執筆する（**停止 3**：記事の構成と全文）。第 2 見出しは既存 Kotlin 版と同じ並び。断定する表現は、対応するテスト名を示せるものだけに使う
 
 ### Bolt 7-2：第 13 章「関数型アーキテクチャの設計」

@@ -4,7 +4,7 @@ title: "バックエンドアーキテクチャ設計 - Zettai"
 description: "Zettai（Kotlin 版）のバックエンドアーキテクチャ設計。ドメインとアダプタの境界の定義と担保方法、Gradle マルチプロジェクトのモジュール分割と命名規約、パッケージ構成、依存の向き、関数の型による依存表現、章の進行にあわせた構造の変化を記述する。"
 tags: [design, architecture, zettai, kotlin]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T11:25:25Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T12:44:15Z }
 ---
 
 # バックエンドアーキテクチャ設計 - Zettai
@@ -500,6 +500,19 @@ Unit 6 の後半で、`RenameToDoList` と `ListRenamed` を加え、入力の�
 
 `CatchAll` は、予期しない例外の詳細を本文に出さず、固定の本文 `Internal server error` を返します。依存の方向は変わりません（`web -> application -> domain`）。
 
+### 第 12 章：構造化ログと JSON の変換
+
+Unit 7 で、ログを decorator と filter で足し、辞書と JSON の変換を純粋な `Converter` で表します（[ADR-044](../adr/ADR-044-json-tree-for-logs-and-converters.md)、[ADR-045](../adr/ADR-045-logging-as-decorator-with-typed-record.md)）。
+
+| 場所 | 内容 | 依存してよいもの |
+| :--- | :--- | :--- |
+| `zettai.json` | `Encoder`、`Decoder`、`Converter`、`jsonText`。純粋な変換。`dimap` を持つ | kotlinx-serialization-json、Arrow |
+| `zettai.logging` | `LogRecord`（載せるものを型で決める）と、`logLine`（1 行の JSON との双方向変換） | `zettai.json` |
+| `zettai.adapter.logging` | `ToDoListHub.logged`、`EventStore<Tx>.logged`。結果を変えずに 1 行のログを書く | application、domain、`zettai.logging` |
+| `zettai.web` | `requestLogged`（method、path、status、所要時間。query と body は載せない） | `zettai.logging`、http4k |
+
+依存の方向は変わりません。domain と application は、ログの package を import しません。`LogRecord` を adapter でも web でもない場所に置くのは、web が adapter に依存できない既存の境界テストと両立するためです。組み立ては、アプリの組み立て箇所とテストで行います。
+
 ### Kotlin FP 版の段階 module
 
 | module | 章 | 状態 |
@@ -510,6 +523,7 @@ Unit 6 の後半で、`RenameToDoList` と `ListRenamed` を加え、入力の�
 | `zettai-step4-command-errors` | 6〜7 | Unit 4 で作成 |
 | `zettai-step5-cqrs-persistence` | 8〜9 | Unit 5 で作成 |
 | `zettai-step6-transaction-validation` | 10〜11 | Unit 6 で作成 |
+| `zettai-step7-observability` | 12〜13 | Unit 7 で作成 |
 
 各 module は記事時点の snapshot として独立させ、後続 module から前段 module の production code へ依存しません。これにより、後章のリファクタリングで前章のコード例を壊しません。
 

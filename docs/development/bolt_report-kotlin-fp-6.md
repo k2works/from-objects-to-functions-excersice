@@ -4,7 +4,7 @@ title: "Unit 6 の Bolt 終了報告 - Zettai 連載（Kotlin FP 版）"
 description: "Kotlin FP 版 Unit 6 の transaction と楽観ロック、複数 stream の原子的な保存、名前変更、蓄積する検証、テンプレート描画、第 10〜11 章の完了結果を記録する。"
 tags: [development, report, zettai, kotlin, arrow, postgresql, applicative, unit-6]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T11:58:16Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T12:04:22Z }
 ---
 
 # Unit 6 の Bolt 終了報告 - Zettai 連載（Kotlin FP 版）
@@ -36,7 +36,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T11:58:16Z }
 | :--- | :--- |
 | `gradlew.bat clean check --no-daemon`（全 module） | 成功（1 分 29 秒。その後、テストの行の折り返しだけを変更し、step6 の `check` を再実行して成功） |
 | Unit 6 のテスト | 162 件成功（Kotest、Cucumber 6 scenario × 3 経路、Testcontainers 結合テストを含む） |
-| step6 の `check` の 3 回連続 | 成功（31〜45 秒。最後のコード変更の後に再実行） |
+| step6 の `check` の 3 回連続 | 成功（32〜42 秒。`45c5911` 以降の最終コードで再実行） |
 | 記事検査（コード・コード形式・節構成・数値・引用・ADR 参照） | 違反 0 |
 | OKF | ERROR 0、既存 WARN 10 |
 | `mkdocs build --strict` | 成功（最後のドキュメント変更の後に実行） |

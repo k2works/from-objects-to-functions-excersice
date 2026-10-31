@@ -25,6 +25,8 @@ import zettai.domain.User
 import zettai.domain.commands.AddToDoItem
 import zettai.domain.commands.CreateToDoList
 import zettai.domain.errors.PersistenceFailure
+import zettai.logging.LogRecord
+import zettai.logging.logLine
 
 private val start: Instant = Instant.parse("2026-11-01T00:00:00Z")
 

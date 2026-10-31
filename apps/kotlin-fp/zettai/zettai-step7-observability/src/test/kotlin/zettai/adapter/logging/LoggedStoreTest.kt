@@ -20,6 +20,8 @@ import zettai.domain.commands.RenameToDoList
 import zettai.domain.errors.ConcurrentModification
 import zettai.domain.events.ItemAdded
 import zettai.domain.events.ListCreated
+import zettai.logging.LogRecord
+import zettai.logging.logLine
 
 private val epoch: Instant = Instant.parse("2026-11-01T00:00:00Z")
 

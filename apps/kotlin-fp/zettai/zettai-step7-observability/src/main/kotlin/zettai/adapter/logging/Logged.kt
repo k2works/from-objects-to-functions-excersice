@@ -8,6 +8,8 @@ import zettai.application.ToDoListHub
 import zettai.domain.ListName
 import zettai.domain.User
 import zettai.domain.errors.ZettaiError
+import zettai.logging.LogRecord
+import zettai.logging.logLine
 
 /**
  * 操作を実行し、結果にかかわらず 1 行のログを 1 回の呼び出しで書く。結果はそのまま返す。

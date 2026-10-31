@@ -63,6 +63,27 @@ class BoundaryTest : StringSpec({
         violations(sources, forbidden).shouldBeEmpty()
     }
 
+    "ログの記録の型は、adapter と web と HTTP と JDBC に依存しない（どちらからも使える中立の場所）" {
+        val sources = productionSources("logging")
+        val forbidden = listOf("zettai.adapter", "zettai.web", "org.http4k", "java.sql", "org.postgresql")
+
+        violations(sources, forbidden).shouldBeEmpty()
+    }
+
+    "ログの adapter は、他の adapter と web に依存せず、JDBC も使わない" {
+        val sources = productionSources("adapter/logging")
+        val forbidden = listOf(
+            "zettai.adapter.postgres",
+            "zettai.adapter.inmemory",
+            "zettai.web",
+            "java.sql",
+            "org.postgresql",
+        )
+
+        sources.isNotEmpty() shouldBe true
+        violations(sources, forbidden).shouldBeEmpty()
+    }
+
     "domain と application と adapter に runBlocking が現れない" {
         val sources = listOf("domain", "application", "adapter").flatMap { productionSources(it) }
 

@@ -4,7 +4,7 @@ title: "Unit 7 の Bolt 計画 - Zettai 連載（Kotlin FP 版）"
 description: "Kotlin FP 版 Unit 7 の構造化ロギング、関数型 JSON とプロファンクタ、データベース呼び出しのロギング、関数型アーキテクチャの総括、第 12〜13 章、連載全体の品質ゲートを定義する Bolt 計画。"
 tags: [development, plan, ai-dlc, zettai, kotlin, arrow, logging, json, unit-7]
 status: stable
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T12:37:18Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T12:40:39Z }
 verified:
   - { by: human:kakimomokuri, at: 2026-10-31T12:21:58Z }
 ---
@@ -57,7 +57,7 @@ Unit 6 の持ち越しと開発戦略から、この Unit が答える問いは 
 
 - `ToDoListHub` は `getList`、`listRows`、`execute` の 3 つの関数を持つ data class。decorator は、この 3 つを包む。command または query の種類は、`execute` が受ける command の型名と、`getList`、`listRows` という関数の別から決める。
 - `EventStore<Tx>` は interface ではなく、`readAggregate`、`readUser`、`transaction`、`readStream`、`append` を持つ data class。`Tx` は総称なので、store の decorator も `<Tx>` を持つ。包む対象は、transaction の外の `readAggregate`、`readUser` と、transaction の中の `readStream`、`append`。`transaction` 自体は包まない。
-- decorator は新しい package `zettai.adapter.logging` に置く。依存の向きは adapter → application / domain で、既存の依存方向に合う。`zettai.adapter.postgres`、`zettai.adapter.inmemory`、`zettai.web` には依存しない。HTTP の request log の filter は web に置く。application と domain は decorator を知らない（組み立ては、アプリの組み立て箇所とテストで行う）。
+- decorator は新しい package `zettai.adapter.logging` に置く。依存の向きは adapter → application / domain で、既存の依存方向に合う。`zettai.adapter.postgres`、`zettai.adapter.inmemory`、`zettai.web` には依存しない。HTTP の request log の filter は web に置く。ログの 1 行の型 `LogRecord` と変換は、adapter にも web にも属さない中立の package `zettai.logging` に置く（実装中に、driven adapter が http4k に依存しない既存の規則と衝突して分かった。web は adapter に依存できない）。application と domain は decorator を知らない（組み立ては、アプリの組み立て箇所とテストで行う）。
 
 ## JSON の道具の決定（停止 1 に出す比較）
 
@@ -188,8 +188,8 @@ gantt
 - [x] **7-1.4** `Converter<A, B>` と `dimap` を作り、法則（`dimap id id = id`、`dimap (f ∘ g) (h ∘ k) = dimap g h ∘ dimap f k`、往復）を property test で確かめる。壊れた入力は `Left`。法則を満たさない部分があれば、第 12 章に「厳密なプロファンクタではない」理由として書く
 - [x] **7-1.5** Hub の decorator を `zettai.adapter.logging` に作る（Red → Green）。ログの出力先は `(String) -> Unit`、時刻は `() -> Instant` の引数で与える。1 行を 1 回の呼び出しで書き、並行しても行が混ざらないことをテストする。載せるものを確かめ、載せないものが載らないことをテストする。利用者名とリスト名を載せるかを確認する（**停止 2**：ログの内容の承認）
 - [x] **7-1.6** `EventStore<Tx>` の decorator を `<Tx>` を持つ関数として作る。包むのは `readAggregate`、`readUser`、`readStream`、`append` で、`transaction` は包まない（読み出し、追記、失敗の記録。payload は載せない）
-- [ ] **7-1.7** HTTP の request log の filter を作る。body と query は載せない。404、400、409、500 も記録する
-- [ ] **7-1.8** `BoundaryTest` に、`zettai.adapter.logging` が `zettai.adapter.postgres`、`zettai.adapter.inmemory`、`zettai.web` に依存しないことを足す。domain と application が `zettai.adapter.logging` を import しないことは、既存の禁止リストが `zettai.adapter` 全体を禁じているので、追加の検査は要らない
+- [x] **7-1.7** HTTP の request log の filter を作る。body と query は載せない。404、400、409、500 も記録する
+- [x] **7-1.8** `BoundaryTest` に、`zettai.adapter.logging` が `zettai.adapter.postgres`、`zettai.adapter.inmemory`、`zettai.web` に依存しないことを足す。domain と application が `zettai.adapter.logging` を import しないことは、既存の禁止リストが `zettai.adapter` 全体を禁じているので、追加の検査は要らない
 - [ ] **7-1.9** 設計文書（アーキテクチャ設計）に、前半の判断を反映する。開発戦略の Unit 7 の行（「`logger/`、Kondor による JSON」。Kondor は既存 Kotlin 版で採った道具で、この版では採らない）を、実際の到達点に直す
 - [ ] **7-1.10** 第 12 章を実装済みコードから執筆する（**停止 3**：記事の構成と全文）。第 2 見出しは既存 Kotlin 版と同じ並び。断定する表現は、対応するテスト名を示せるものだけに使う
 
@@ -272,3 +272,4 @@ gantt
 | 2026-10-31 | 独立した検証（高 4 / 中 6 / 低 4）を反映。ADR-040 との関係と JSON の比較表、実在しない `listKey` の訂正、漏れていた持ち越し 2 件、`EventStore` の実際の型と decorator の置き場所、プロファンクタとモノイドの根拠、横断比較の構造、新規ファイルの扱い、受入条件の検証方法を直した | anthropic/claude-sonnet-5-5 |
 | 2026-10-31 | 人（kakimomokuri）が計画を承認した。新規ファイルの扱いを含む。JSON の依存と ADR-040 の部分的な見直しは停止 1 で確認する | human:kakimomokuri |
 | 2026-10-31 | 停止 2：人（kakimomokuri）がログの内容を承認した。利用者名とリスト名を識別子として載せる | human:kakimomokuri |
+| 2026-10-31 | 実装中に、request log の filter を adapter に置くと既存の規則（driven adapter は http4k に依存しない）に違反すると分かり、`LogRecord` を中立の `zettai.logging`、filter を web に置いた | anthropic/claude-sonnet-5-5 |

@@ -2,6 +2,7 @@
 
 ## 2026-10-31
 * **Update**: [iteration_plan-kotlin-fp-7](/development/iteration_plan-kotlin-fp-7.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [iteration_plan-kotlin-fp-7](/development/iteration_plan-kotlin-fp-7.md) を更新（anthropic/claude-sonnet-5-5）
 * **Update**: [ADR-044-json-tree-for-logs-and-converters](/adr/ADR-044-json-tree-for-logs-and-converters.md) を更新（anthropic/claude-sonnet-5-5）
 * **Update**: [iteration_plan-kotlin-fp-7](/development/iteration_plan-kotlin-fp-7.md) を更新（anthropic/claude-sonnet-5-5）
 * **Update**: [ADR-040-jdbc-blocking-boundary](/adr/ADR-040-jdbc-blocking-boundary.md) を更新（anthropic/claude-sonnet-5-5）

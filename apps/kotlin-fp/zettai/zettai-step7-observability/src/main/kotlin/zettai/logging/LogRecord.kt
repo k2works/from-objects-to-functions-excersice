@@ -1,4 +1,4 @@
-package zettai.adapter.logging
+package zettai.logging
 
 import arrow.core.Either
 import arrow.core.raise.Raise
@@ -16,7 +16,8 @@ import zettai.json.Encoder
 import zettai.json.jsonText
 
 /**
- * 構造化ログの 1 行。載せるのは、操作の種類、結果の型、識別子（利用者名とリスト名）、所要時間、件数だけ。
+ * 構造化ログの 1 行。載せるのは、操作の種類、結果の型、識別子（利用者名とリスト名）、所要時間、件数と、
+ * request の method、path（query は含めない）、status だけ。
  * 項目の説明、event の payload、`PersistenceFailure.reason`、例外のスタックトレースは、この型に持ち場所が無い。
  * 載せないものを、書かない規律ではなく、型で表す。
  */
@@ -30,6 +31,8 @@ data class LogRecord(
     val durationMs: Long,
     val streams: Int? = null,
     val events: Int? = null,
+    val path: String? = null,
+    val status: Int? = null,
 )
 
 private val logRecordJson: Converter<LogRecord, JsonElement> =
@@ -46,6 +49,8 @@ private val logRecordJson: Converter<LogRecord, JsonElement> =
                     put("durationMs", JsonPrimitive(record.durationMs))
                     record.streams?.let { put("streams", JsonPrimitive(it)) }
                     record.events?.let { put("events", JsonPrimitive(it)) }
+                    record.path?.let { put("path", JsonPrimitive(it)) }
+                    record.status?.let { put("status", JsonPrimitive(it)) }
                 },
             )
         },
@@ -79,6 +84,8 @@ private fun Raise<ConversionFailure>.decodeRecord(json: JsonElement): LogRecord 
         durationMs = number("durationMs"),
         streams = optionalNumber("streams"),
         events = optionalNumber("events"),
+        path = optionalText("path"),
+        status = optionalNumber("status"),
     )
 }
 

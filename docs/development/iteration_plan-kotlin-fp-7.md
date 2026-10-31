@@ -3,8 +3,10 @@ type: Plan
 title: "Unit 7 の Bolt 計画 - Zettai 連載（Kotlin FP 版）"
 description: "Kotlin FP 版 Unit 7 の構造化ロギング、関数型 JSON とプロファンクタ、データベース呼び出しのロギング、関数型アーキテクチャの総括、第 12〜13 章、連載全体の品質ゲートを定義する Bolt 計画。"
 tags: [development, plan, ai-dlc, zettai, kotlin, arrow, logging, json, unit-7]
-status: draft
+status: stable
 generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T12:20:46Z }
+verified:
+  - { by: human:kakimomokuri, at: 2026-10-31T12:21:58Z }
 ---
 
 # Unit 7 の Bolt 計画 - Zettai 連載（Kotlin FP 版）
@@ -268,3 +270,4 @@ gantt
 | :--- | :--- | :--- |
 | 2026-10-31 | 初版。Unit 6 の持ち越しと開発戦略を反映し、ログの内容、依存、停止の位置を定めた | anthropic/claude-sonnet-5-5 |
 | 2026-10-31 | 独立した検証（高 4 / 中 6 / 低 4）を反映。ADR-040 との関係と JSON の比較表、実在しない `listKey` の訂正、漏れていた持ち越し 2 件、`EventStore` の実際の型と decorator の置き場所、プロファンクタとモノイドの根拠、横断比較の構造、新規ファイルの扱い、受入条件の検証方法を直した | anthropic/claude-sonnet-5-5 |
+| 2026-10-31 | 人（kakimomokuri）が計画を承認した。新規ファイルの扱いを含む。JSON の依存と ADR-040 の部分的な見直しは停止 1 で確認する | human:kakimomokuri |

@@ -4,7 +4,7 @@ title: "第 11 章 アプリカティブによるデータバリデーション"
 description: "Zettai Kotlin FP 版の第 11 章。ToDo リストの名前変更を、旧い stream と新しい stream の event で表す。複数の入力の誤りを最初の失敗で止めずにすべて集める検証を、Either.zipOrAccumulate で作り、蓄積する合成が満たす性質を property test で確かめる。自前の小さなテンプレート関数で誤りを画面に並べ、予期しない例外の本文から内部情報を取り除く。"
 tags: [article, zettai, kotlin, functional-programming, arrow, applicative, validation]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T11:25:25Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T11:37:33Z }
 ---
 
 # 第 11 章 アプリカティブによるデータバリデーション
@@ -67,6 +67,8 @@ data class RenameToDoList(
 
 ### 入力の誤りは 1 つとは限らない
 
+（この見出しは、原書の章立てに合わせたものです。実装では、入力は 3 つです。）
+
 名前変更の入力は、利用者名、リスト名、新しい名前の 3 つです。それぞれに規則があります。
 
 | 規則 | 誤り |
@@ -83,7 +85,7 @@ data class RenameToDoList(
 
 ### 誤りを集める合成
 
-誤りを集めるには、失敗した側の誤りを捨てずに、左から順に連結します。Arrow の `Either.zipOrAccumulate` が、これをします。連結の方法を渡して、独立した結果を合成します。
+誤りを集めるには、失敗した側の誤りを捨てずに、左から順に連結します。Arrow の `Either.zipOrAccumulate` が、これをします。連結の方法を渡して、独立した結果を合成します。次は 2 つの結果を合成する形で、3 つを合成する形も同じ書き方で用意しています（`Either.zipOrAccumulate({ x, y -> x + y }, first, second, third, transform)`）。
 
 ```kotlin
 fun <P, A, B, R> zipAll(
@@ -119,7 +121,7 @@ fun validateRename(rawUser: String, rawList: String, rawNewName: String): Either
 
 ### 合成が満たす性質
 
-`zipAll` は、独立した計算を合成する、アプリカティブの形をしています。標準の `Either` の `flatMap`（モナドの束縛）と違い、前の結果を使いません。そのかわり、すべての誤りを見ることができます。
+`zipAll` は、独立した計算を合成する、アプリカティブの形をしています。`Either` の `flatMap`（モナドの束縛）と違い、前の結果を使いません。そのかわり、すべての誤りを見ることができます。
 
 性質は、property test で確かめました。求める性質と対応するテストは、次のとおりです。
 
@@ -147,27 +149,43 @@ fun validateRename(rawUser: String, rawList: String, rawNewName: String): Either
 | :--- | :--- |
 | 成功 | `302`。新しい名前のリスト画面へ移る（PRG） |
 | 検証の誤り | `400`。誤りをすべて並べ、入力を保持して、画面を再表示する |
-| 元のリストが無い | `404` |
-| 変名先がすでにある | `400` |
-| 競合 | `409` |
+| 元のリストが無い | `404`。日本語の理由を添えて、同じ画面を再表示する |
+| 変名先がすでにある | `400`。日本語の理由を添えて、同じ画面を再表示する。入力の誤りと同じく、利用者が入力を直せば解決するため `409` にはしない |
+| 競合 | `409`。「別の操作で変更されました。開き直してから、もう一度お試しください」を添えて、同じ画面を再表示する |
 
-`POST` の処理は、検証に成功したときだけ command を実行します。
+`POST` の処理は、検証に成功したときだけ command を実行します。業務のルールで断られたときも、英語の内部の文言ではなく、次にすることが分かる日本語を同じ画面に出します（テスト：`変名先がすでにあれば拒否する` の scenario、`変名先がすでにあれば 400、元が無ければ 404`）。
 
 ```kotlin
         validateRename(rawUser, rawList, rawNewName).fold(
             ifLeft = { invalid ->
                 html(
                     Status.BAD_REQUEST,
-                    renderRenameForm(User(rawUser), ListName(rawList), rawNewName, invalid.problems),
+                    renderRenameForm(
+                        User(rawUser),
+                        ListName(rawList),
+                        rawNewName,
+                        invalid.problems.map(::describeProblem),
+                    ),
                 )
             },
             ifRight = { command ->
                 hub.execute(command).fold(
-                    ifLeft = ::toResponse,
-                    ifRight = {
-                        Response(Status.FOUND).header("Location", listPath(command.user, command.newName))
+                    ifLeft = { error ->
+                        if (error is ListAlreadyExists || error is ListNotFound || error is ConcurrentModification) {
+                            html(
+                                statusOf(error),
+                                renderRenameForm(
+                                    command.user,
+                                    command.listName,
+                                    rawNewName,
+                                    listOf(describeError(error)),
+                                ),
+                            )
+                        } else {
+                            toResponse(error)
+                        }
                     },
-                )
+                    ifRight = {
 ```
 
 画面は、テンプレートから作ります。既製の template エンジンは比べていません。必要なのは、値を埋める、エスケープする、値の無いタグを見逃さない、の 3 つで、小さな関数で足りる範囲に絞りました。
@@ -202,7 +220,7 @@ fun renderTemplate(template: String, values: Map<String, String>): Either<Unappl
 
 画面のテストを書く途中で、予期しない例外の本文を確かめるテストを足しました。`CatchAll` の既定の応答は、例外のスタックトレースを本文に含めます。例外の message に接続文字列があれば、それも本文に出ます。第 9 章で `PersistenceFailure` の message を固定にしたのと同じ種類の漏れが、別の経路に残っていました。
 
-テストは、先に失敗しました。固定の本文を返すように直しました。
+このテストは、直す前に失敗しました。固定の本文を返すように直しました。
 
 ```kotlin
 private fun unexpectedFailure(@Suppress("UNUSED_PARAMETER") failure: Throwable): Response =
@@ -221,6 +239,7 @@ private fun unexpectedFailure(@Suppress("UNUSED_PARAMETER") failure: Throwable):
 - `flatMap` との違いを、テストで示しました。検証は前の結果を使わないので、モナドの束縛ではなく、アプリカティブの合成で足ります。
 - 蓄積する合成に求める性質を、property test で確かめました。アプリカティブ則そのものを一般の形でテストしたのではありません。
 - 自前の小さなテンプレート関数で、値の無いタグを描画の失敗にし、値をエスケープしました。既製の template エンジンとは比べていません。
+- Cucumber の 3 経路のうち、HTTP は in-memory の store で動きます。PostgreSQL の経路は、画面を通さずに Hub を直接呼びます。HTTP と PostgreSQL の組み合わせは、この章では確かめていません。
 - 実装中に見つけた漏れは 1 つです。`CatchAll` の応答が、内部の情報を本文に出していました。
 
 ## この章で書いたコード

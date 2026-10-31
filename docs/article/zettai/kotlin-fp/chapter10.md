@@ -4,7 +4,7 @@ title: "第 10 章 コンテキストを読み込み、コマンドを処理す�
 description: "Zettai Kotlin FP 版の第 10 章。並行する command が event を重複させる問題を、待ち合わせで再現してから直す。環境を型引数と関数の引数で通す transaction、stream ごとの版と一意制約による楽観ロック、複数の stream を 1 つの transaction で書く契約を、in-memory と PostgreSQL で同じテストに通す。"
 tags: [article, zettai, kotlin, functional-programming, arrow, postgresql, transaction, optimistic-locking]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T11:07:55Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T11:37:33Z }
 ---
 
 # 第 10 章 コンテキストを読み込み、コマンドを処理する
@@ -29,14 +29,14 @@ private fun <Tx> bothReadBeforeEitherWrites(store: EventStore<Tx>): EventStore<T
         readStream = { tx, stream ->
             val events = store.readStream(tx, stream)
             if (arrived.incrementAndGet() >= 2) gate.complete(Unit)
-            gate.await()
+            withTimeout(GATE_TIMEOUT_MS) { gate.await() }
             events
         },
     )
 }
 ```
 
-読み出しの口を包んで、2 つ目の command が読み終えるまで、どちらも先へ進ませません。この状態で、同じ `CreateToDoList` を 2 つ並行して走らせます。この仕組みを入れる前の store（前章の形）に対して書いた最初のテストは、4 件とも失敗しました。2 つの command が、どちらも成功していました。
+読み出しの口を包んで、2 つ目の command が読み終えるまで、どちらも先へ進ませません。待ち合わせには時間切れを付けてあります。片方が先へ進めなくなる変更が入ったとき、テストが止まったままにならず、失敗として報告されるためです。この状態で、同じ `CreateToDoList` を 2 つ並行して走らせます。この仕組みを入れる前の store（前章の形）に対して、同じ `CreateToDoList` の並行実行を試すと、2 つの command がどちらも成功しました。当時のテストは、片方だけが成功することを期待して書いたものです。
 
 ### 何をすればいいか
 
@@ -52,7 +52,7 @@ private fun <Tx> bothReadBeforeEitherWrites(store: EventStore<Tx>): EventStore<T
 
 既存 Kotlin 版は、接続を持ち回る計算を `ContextReader` という型で自作し、その `flatMap` が同じ接続を 2 つの計算に渡す形にしました。
 
-Kotlin FP 版は、新しい型を作りません。環境（transaction の接続）は、関数の引数として渡します。環境を引数に取る関数は、環境を持たない場所から呼べません。それだけで、`ContextReader` が型で守ろうとしたことを守れます。
+Kotlin FP 版は、新しい型を作りません。環境（transaction の接続）は、関数の引数として渡します。環境を引数に取る関数は、環境を持たない場所（Hub や domain）から呼べません。`Tx` が `java.sql.Connection` のように具体的な型のときは、それだけで、`ContextReader` が型で守ろうとしたことを守れます。ただし、`Tx` の値を持っている adapter の内側では、transaction の外へ持ち出して呼ぶことを、型では防げません。in-memory の `Tx` は `Unit` なので、この保護は働きません。
 
 ### 環境を型引数で通す
 
@@ -109,7 +109,7 @@ command の処理は、1 つの `transaction` の中に入ります。
 
 読み出し、判断、保存が、1 つの `either` の中に並びます。読んだ版は、そのまま保存に渡されます。前章の `bind()` の連鎖と形は同じで、違うのは外側に `transaction` があること、環境 `tx` が見えることだけです。
 
-Hub を組み立てるときにだけ `Tx` が現れます。組み立てた `ToDoListHub` の型には、`Tx` が出ません。web 層の変更は、エラーの写像の 1 行だけです。Cucumber の経路は、変更していません。
+Hub を組み立てるときにだけ `Tx` が現れます。組み立てた `ToDoListHub` の型には、`Tx` が出ません。web 層の変更は、エラーの写像を 1 つ足しただけです。Cucumber の経路は、変更していません。
 
 ## トランザクションの境界を決める
 
@@ -147,7 +147,7 @@ connection は関数の中で開き、`use` で閉じます。Arrow の `Resourc
 
 ### 版を確かめる
 
-transaction だけでは、前節の問題は直りません。PostgreSQL の既定の隔離水準では、2 つの transaction が、どちらも「リストが無い」と読んでから、両方が書けてしまいます。そこで、版を持ちます。
+transaction だけでは、前節の問題は直りません。PostgreSQL の既定の隔離水準（READ COMMITTED）では、2 つの transaction が、どちらも「リストが無い」と読んでから、両方が書けてしまいます。そこで、版を持ちます。
 
 stream ごとに連番の `version` を持ち、`UNIQUE (entity_id, version)` を付けます。
 

@@ -4,7 +4,7 @@ title: "ドメインモデル設計 - Zettai"
 description: "Zettai（Kotlin 版）のドメインモデル設計。ユビキタス言語の対訳表、集約・エンティティ・値オブジェクト・列挙型の要素表、イベントと状態の関係、ToDo 項目の状態遷移、状態変換がモノイドであること、章の進行にあわせたモデルの成長を記述する。"
 tags: [design, domain-model, zettai, kotlin]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T11:25:25Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T11:37:33Z }
 ---
 
 # ドメインモデル設計 - Zettai
@@ -550,6 +550,12 @@ Unit 4 の command handler は `ToDoListCommand` と `ToDoListState` を受け�
 Unit 5 の第 8 章で、イベントから表示用の `ToDoListRow` を作る射影 `projectFrom(user, events)` を足します。`replayFrom` と同じ `fold` で、畳み込み先が状態ではなく行になります。行はリストの作成順に並び、他のユーザーのイベントは含みません。`Either<ZettaiError, List<ToDoListRow>>` の `map` には、`Either` と `List` を重ねた形でも恒等則と合成則を要求します。また、射影の行は同じイベント列を replay した状態から数えた行と一致することを要求します。ファンクタは自作せず、標準の `List.map` と Arrow の `Either.map` に委ねます。
 
 Unit 5 の第 9 章で、読み出しと保存の失敗を `Either<PersistenceFailure, A>` で port の型に出します。起こり得る失敗を永続化の失敗に絞るため、`ZettaiError` 全体ではなく `PersistenceFailure` を使います。`flatMap` には左恒等則、右恒等則、結合律を要求し、Raise の `bind()` の連鎖が `flatMap` と同じ結果になることも要求します。壊れた行（未知の `event_type`、必須の項目が無い payload、不正な値）は、読み出し時に `PersistenceFailure` として返し、黙って捨てません。一方、domain の `apply` は存在しない対象への event を無視する規則のままです。これを残すのは、replay を失敗しない関数に保ち、壊れた入力の検出を読み出しの境界に任せるためです。domain の規則と、入力の検査を分けています。
+
+名前変更（第 11 章）には、次の性質があります。
+
+- 新しい名前の stream には、現在の状態だけを `ListCreated` と `ItemAdded` で書きます。旧い stream の `ItemStatusChanged` の履歴は引き継がれず、旧い stream への逆向きの参照もありません。
+- 一覧の射影は stream の追記順に畳み込むので、名前を変えたリストは一覧の末尾に移ります。
+- `ListRenamed` は旧い stream の終端ですが、旧い名前は名前変更の直後から空き名になり、同じ名前で作り直せます。名前を変えて元に戻す往復（`名前を変えて戻しても、項目が二重にならない`）は、command の判断と射影の両方で成り立ちます。
 
 Unit 6 の第 10 章で、command 1 つの処理を 1 つの transaction に入れます。command は、触れる stream を `streams` で示します（既定は `(user, listName)` の 1 つ）。保存は、触れる stream ごとに読んだ版を受け取り、版が古ければ `ConcurrentModification` になります。stream の版は、その stream に追記済みの event の件数に等しく、domain の規則（状態、射影、遷移表）は変わりません。
 

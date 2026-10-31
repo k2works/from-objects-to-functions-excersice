@@ -4,7 +4,7 @@ title: "ADR-042 transaction の境界を command 1 つの処理に置き、環�
 description: "Zettai 連載 Kotlin FP 版の第 10 章で、transaction の境界を command 1 つの処理に置く決定と、transaction の環境を暗黙の context ではなく型引数と関数の引数として通す決定。Resource を使わず use で足りる理由と、既存 Kotlin 版 ADR-011 との違いを記録する。"
 tags: [adr, kotlin-fp, zettai, transaction, postgresql]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T11:07:55Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T11:37:33Z }
 ---
 
 # ADR-042 transaction の境界を command 1 つの処理に置き、環境を型引数で通す
@@ -46,7 +46,9 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T11:07:55Z }
 
 ## 結果
 
-- transaction の中か外かが型に現れ、store を作り間違えた場合は compile error になります。
+- transaction の中か外かが型に現れます。ただし守られるのは、`Tx` の値を持たない場所（Hub と domain）から読み出しと追記を呼べない、という範囲です。`Tx` の値を持つ adapter の内側で、transaction の外へ持ち出して呼ぶことは、型では防げません。in-memory の `Tx` は `Unit` なので、この保護は働きません。
+- `Transaction<Tx>` の戻り値は `Either<ZettaiError, List<ToDoListEvent>>` に固定しています。typealias では総称の関数型を表せないためです。command 以外の用途が現れたら、interface にして総称にします。
+- query 側の `readAggregate`、`readUser` は、transaction の外で読みます（CQRS として分けています）。command 側の `readStream` は、版を返すために別に持ちます。
 - `Tx` の型引数が port の型に広がります。波及の範囲は実装時に `git diff --stat` で数え、第 10 章に書きます。
 - 組み立てた Hub は `Tx` を知らないので、web 層と Cucumber の経路には波及しません。
 - `Resource` が必要になるのは、connection を複数の transaction にまたがって貸し出す場合（connection pool の自作など）です。その場合に見直します。

@@ -13,7 +13,7 @@ import zettai.domain.ToDoList
 import zettai.domain.User
 
 class ZettaiSteps {
-    private val actionPaths = listOf(domainActions(), httpActions())
+    private val actionPaths = listOf(domainActions(), httpActions(), postgresActions())
     private var user: User? = null
     private var actual: Map<String, List<ToDoItem>?> = emptyMap()
 

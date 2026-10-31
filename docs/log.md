@@ -1,6 +1,9 @@
 # Docs Update Log
 
 ## 2026-10-31
+* **Create**: [iteration_plan-kotlin-fp-5](/development/iteration_plan-kotlin-fp-5.md) を作成（anthropic/claude-sonnet-5-5）
+* **Update**: [development_strategy](/development/development_strategy.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [release_plan-kotlin-fp](/development/release_plan-kotlin-fp.md) を更新（anthropic/claude-sonnet-5-5）
 * **Create**: [kotlin-fp-unit4_review_20261031](/review/kotlin-fp-unit4_review_20261031.md) を作成（anthropic/claude-opus-5-5）
 * **Create**: [retrospective-kotlin-fp-4](/development/retrospective-kotlin-fp-4.md) を作成（anthropic/claude-opus-5-5）
 * **Create**: [bolt_report-kotlin-fp-4](/development/bolt_report-kotlin-fp-4.md) を作成（anthropic/claude-opus-5-5）

@@ -109,6 +109,7 @@ nav:
           - 「Kotlin FP」Unit 2 ウォーキングスケルトンとドメイン分離: development/iteration_plan-kotlin-fp-2.md
           - 「Kotlin FP」Unit 3 関数型 DI とイベント: development/iteration_plan-kotlin-fp-3.md
           - 「Kotlin FP」Unit 4 command と typed error: development/iteration_plan-kotlin-fp-4.md
+          - 「Kotlin FP」Unit 5 射影と永続化: development/iteration_plan-kotlin-fp-5.md
           - 「なでしこ3」Unit 1 実行環境・テスト基盤と第 1 章: development/iteration_plan-nadesiko-1.md
           - 「なでしこ3」Unit 2 ウォーキングスケルトンとドメイン分離: development/iteration_plan-nadesiko-2.md
           - 「なでしこ3」Unit 3 関数型 DI とイベント: development/iteration_plan-nadesiko-3.md

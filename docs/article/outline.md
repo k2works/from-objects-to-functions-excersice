@@ -4,7 +4,7 @@ title: "執筆計画：関数型プログラミングで作る変更を楽に安
 description: "Uberto Barbini 著『From Objects to Functions』を下敷きにした Zettai 連載の執筆計画。既存 3 言語版に加え、Grokking Functional Programming の Kotlin + Arrow 解説を基礎にした Kotlin FP 版について、全 13 章の移植方針、記事と実装の同期、前提整備、品質ゲートを定義する。"
 tags: [article, plan, zettai]
 status: draft
-generated: { by: openai-codex/gpt-5, at: 2026-10-31T05:09:20Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T05:47:36Z }
 ---
 
 # 執筆計画：関数型プログラミングで作る変更を楽に安全にできるソフトウェア
@@ -247,7 +247,7 @@ Arrow に型クラスが存在することを前提にしません。モノイ�
 | 6 | `chapter06.md` | sealed ADT と純粋な `State -> Command -> Either<Error, Events>` | すべての状態遷移と拒否理由を型で検証できる |
 | 7 | `chapter07.md` | 自前 `Outcome` を Arrow `Either` / Raise DSL に読み替える | typed error、`map` / `flatMap`、ファンクタ則が通る |
 | 8 | `chapter08.md` | 射影を純粋関数として合成し、`Either.map` と CQRS の境界を示す | command / query の経路が分かれ、射影の性質テストが通る |
-| 9 | `chapter09.md` | JDBC の副作用を `suspend` と resource boundary に閉じ込め、PostgreSQL を Testcontainers でテストごとに隔離する | container が公開する接続情報を使う event store 結合テスト、rollback、モナド則が通る |
+| 9 | `chapter09.md` | JDBC の副作用を `suspend` と resource boundary に閉じ込め、PostgreSQL を Testcontainers でテストごとに隔離する | container が公開する接続情報を使う event store 結合テスト、追記順の読み戻し、モナド則が通る |
 | 10 | `chapter10.md` | 自前 `ContextReader` を環境引数を持つ suspend 関数として表す | 1 transaction で command 処理が完結し、失敗時に rollback する |
 | 11 | `chapter11.md` | Arrow のエラー蓄積で独立した検証を合成する | 全エラーを返す validation とアプリカティブ則が通る |
 | 12 | `chapter12.md` | ロギングを effectful decorator、Converter を純粋な双方向変換として扱う | 機密情報を除外した構造化ログと converter の性質テストが通る |

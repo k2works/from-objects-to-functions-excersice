@@ -57,10 +57,18 @@ val arbError: Arb<ZettaiError> = Arb.choice(
     Arb.bind(Arb.element(genUsers), Arb.element(genListNames)) { user, listName ->
         ListAlreadyExists(user, listName)
     },
-    Arb.bind(Arb.element(genUsers), Arb.element(genListNames), Arb.element(genDescriptions)) { user, listName, description ->
+    Arb.bind(
+        Arb.element(genUsers),
+        Arb.element(genListNames),
+        Arb.element(genDescriptions),
+    ) { user, listName, description ->
         ItemNotFound(user, listName, description)
     },
-    Arb.bind(Arb.element(genDescriptions), Arb.enum<ToDoStatus>(), Arb.enum<ToDoStatus>()) { description, from, to ->
+    Arb.bind(
+        Arb.element(genDescriptions),
+        Arb.enum<ToDoStatus>(),
+        Arb.enum<ToDoStatus>(),
+    ) { description, from, to ->
         InvalidTransition(description, from, to)
     },
 )

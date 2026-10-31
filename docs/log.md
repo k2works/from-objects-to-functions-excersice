@@ -2,6 +2,7 @@
 
 ## 2026-10-31
 * **Update**: [kotlin-fp-unit7_review_20261031](/review/kotlin-fp-unit7_review_20261031.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [kotlin-fp-unit7_review_20261031](/review/kotlin-fp-unit7_review_20261031.md) を更新（anthropic/claude-sonnet-5-5）
 * **Update**: [retrospective-kotlin-fp-7](/development/retrospective-kotlin-fp-7.md) を更新（anthropic/claude-sonnet-5-5）
 * **Update**: [bolt_report-kotlin-fp-7](/development/bolt_report-kotlin-fp-7.md) を更新（anthropic/claude-sonnet-5-5）
 * **Update**: [release_plan-kotlin-fp](/development/release_plan-kotlin-fp.md) を更新（anthropic/claude-sonnet-5-5）

@@ -4,7 +4,7 @@ title: "Kotlin FP 版 Unit 7 開発成果物レビュー"
 description: "Kotlin FP 版 Unit 7（第 12〜13 章、zettai-step7-observability）を 5 観点（プログラマー、テスター、アーキテクト、テクニカルライター、ユーザー代表）で並列レビューした結果と、指摘ごとの対応方針。"
 tags: [review, zettai, kotlin, unit-7]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T13:19:51Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T13:20:55Z }
 ---
 
 # Kotlin FP 版 Unit 7 開発成果物レビュー
@@ -68,4 +68,9 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T13:19:51Z }
 
 ## 再レビュー結果
 
-（再レビューの後に記入します。）
+修正後に、独立した読み取り専用の確認を行いました（コードと差分、既存の `test-results` を根拠にした確認。Gradle は実行していない）。結果は **高・中の残件なし** です。
+
+- 「修正」とした項目は、コード、テスト、文書に反映されていました（例外の記録、`observedApp`、decode の厳格化、許可キー、境界テスト 5 件、法則テストの Arb、文言、ADR-045）。
+- 修正による回帰は見つかりませんでした。`observe` の `now()` の呼び出しは 2 回、`'zettai.app.'` の前置一致は `zettai.application` に当たらず、`optionalNumber` の範囲チェックも正しい、と確認されました。
+- 数値は一致しました。各 module の `.kt` のファイル数と改行数、テスト件数（7、9、17、30、89、165、220）が、第 13 章と横断比較の表に一致します。
+- 残る指摘は、ADR-045 が未承認のため、第 12 章の「人が承認しました」と第 13 章の「承認の記録は `verified`」が先行した記述であることです。ADR-045 の人の承認で解消します。

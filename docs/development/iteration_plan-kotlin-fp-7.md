@@ -4,7 +4,7 @@ title: "Unit 7 の Bolt 計画 - Zettai 連載（Kotlin FP 版）"
 description: "Kotlin FP 版 Unit 7 の構造化ロギング、関数型 JSON とプロファンクタ、データベース呼び出しのロギング、関数型アーキテクチャの総括、第 12〜13 章、連載全体の品質ゲートを定義する Bolt 計画。"
 tags: [development, plan, ai-dlc, zettai, kotlin, arrow, logging, json, unit-7]
 status: stable
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T12:44:15Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T13:04:15Z }
 verified:
   - { by: human:kakimomokuri, at: 2026-10-31T12:21:58Z }
 ---
@@ -191,15 +191,15 @@ gantt
 - [x] **7-1.7** HTTP の request log の filter を作る。body と query は載せない。404、400、409、500 も記録する
 - [x] **7-1.8** `BoundaryTest` に、`zettai.adapter.logging` が `zettai.adapter.postgres`、`zettai.adapter.inmemory`、`zettai.web` に依存しないことを足す。domain と application が `zettai.adapter.logging` を import しないことは、既存の禁止リストが `zettai.adapter` 全体を禁じているので、追加の検査は要らない
 - [x] **7-1.9** 設計文書（アーキテクチャ設計）に、前半の判断を反映する。開発戦略の Unit 7 の行（「`logger/`、Kondor による JSON」。Kondor は既存 Kotlin 版で採った道具で、この版では採らない）を、実際の到達点に直す
-- [ ] **7-1.10** 第 12 章を実装済みコードから執筆する（**停止 3**：記事の構成と全文）。第 2 見出しは既存 Kotlin 版と同じ並び。断定する表現は、対応するテスト名を示せるものだけに使う
+- [x] **7-1.10** 第 12 章を実装済みコードから執筆する（**停止 3**：記事の構成と全文）。第 2 見出しは既存 Kotlin 版と同じ並び。断定する表現は、対応するテスト名を示せるものだけに使う
 
 ### Bolt 7-2：第 13 章「関数型アーキテクチャの設計」
 
-- [ ] **7-2.1** 5 つの代数構造と、各章のテストの対応表を、実装から作る。確認済みの現状：モノイドは step3 の `StateTransitionMonoidTest` だけで、step4 以降の module には持ち越されていない（表には module を書く）。ファンクタは `EitherFunctorLawTest`、モナドは `EitherMonadLawTest`、アプリカティブは `AccumulationLawsTest`。プロファンクタは step6 までに存在せず、7-1.4 で初めて作る。同じ Unit の成果物が根拠になることを、表に書く
-- [ ] **7-2.2** effect の境界を、`BoundaryTest` のテスト名で示す表を作る
-- [ ] **7-2.3** 採用しなかった道具を、理由つきで列挙する。確かめていないことは、確かめていないと書く
-- [ ] **7-2.4** 横断比較（`docs/article/zettai/comparison/index.md`）に Kotlin FP 版を加える。現在の構造は、列が Kotlin、なでしこ3、Rust の表の連続で、冒頭は「3 対象」と書いている。既存の表は書き換えず、末尾に「Kotlin FP 版を加えた比較」の節を新設し、冒頭の対象数と追記履歴を更新する。数は実測（章数、テスト件数、本番コードの行数）から書く
-- [ ] **7-2.5** 第 13 章を執筆する（**条件付き停止 4**：総括の主張が、実装で裏付けられない行が出た場合だけ、人に判断を求める）
+- [x] **7-2.1** 5 つの代数構造と、各章のテストの対応表を、実装から作る。確認済みの現状：モノイドは step3 の `StateTransitionMonoidTest` だけで、step4 以降の module には持ち越されていない（表には module を書く）。ファンクタは `EitherFunctorLawTest`、モナドは `EitherMonadLawTest`、アプリカティブは `AccumulationLawsTest`。プロファンクタは step6 までに存在せず、7-1.4 で初めて作る。同じ Unit の成果物が根拠になることを、表に書く
+- [x] **7-2.2** effect の境界を、`BoundaryTest` のテスト名で示す表を作る
+- [x] **7-2.3** 採用しなかった道具を、理由つきで列挙する。確かめていないことは、確かめていないと書く
+- [x] **7-2.4** 横断比較（`docs/article/zettai/comparison/index.md`）に Kotlin FP 版を加える。現在の構造は、列が Kotlin、なでしこ3、Rust の表の連続で、冒頭は「3 対象」と書いている。既存の表は書き換えず、末尾に「Kotlin FP 版を加えた比較」の節を新設し、冒頭の対象数と追記履歴を更新する。数は実測（章数、テスト件数、本番コードの行数）から書く
+- [x] **7-2.5** 第 13 章を執筆する（**条件付き停止 4**：総括の主張が、実装で裏付けられない行が出た場合だけ、人に判断を求める）
 - [ ] **7-2.6** 連載全体の品質ゲート：全 module の `clean check`（約 2 分。Testcontainers を含む）、全 13 章の記事検査、`mkdocs build --strict`、OKF、step7 の 3 回連続
 - [ ] **7-2.7** 5 観点レビュー、再レビュー、ふりかえり、Bolt 終了報告、連載の完了報告書（`creating-release-report`）。ADR の承認、push、CI は人の承認を得て行う
 
@@ -273,3 +273,4 @@ gantt
 | 2026-10-31 | 人（kakimomokuri）が計画を承認した。新規ファイルの扱いを含む。JSON の依存と ADR-040 の部分的な見直しは停止 1 で確認する | human:kakimomokuri |
 | 2026-10-31 | 停止 2：人（kakimomokuri）がログの内容を承認した。利用者名とリスト名を識別子として載せる | human:kakimomokuri |
 | 2026-10-31 | 実装中に、request log の filter を adapter に置くと既存の規則（driven adapter は http4k に依存しない）に違反すると分かり、`LogRecord` を中立の `zettai.logging`、filter を web に置いた | anthropic/claude-sonnet-5-5 |
+| 2026-10-31 | 停止 3：人（kakimomokuri）が第 12 章の構成と全文を確認した | human:kakimomokuri |

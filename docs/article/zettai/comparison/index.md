@@ -1,6 +1,6 @@
 # 対象言語の横断比較
 
-Zettai を複数の言語で書くと、同じ設計が言語ごとに違う形で現れます。**3 対象とも全 13 章を書き終えました。** 章を閉じるたびに足してきた違いを、ここにまとめています。
+Zettai を複数の言語で書くと、同じ設計が言語ごとに違う形で現れます。**3 対象とも全 13 章を書き終えました。** 4 対象目の Kotlin FP 版も全 13 章を書き終え、末尾の[別の節](#kotlin-fp-版を加えた比較)に足しています。 章を閉じるたびに足してきた違いを、ここにまとめています。
 
 当初の比較軸は 1 つでした。**Kotlin 版は「型で保証する」、なでしこ3 版は「約束とテストで保証する」。**
 
@@ -499,3 +499,54 @@ Rust で押された例を 2 つ挙げます。
 Rust 版では**期待値と標準偏差を計算してから置き**、**4σ** 取りました。それでも実測が **1.8σ** ずれたことがあり、生成器を疑って種を 20 通り変えて数え直しています（平均 50.1 で偏りなし）。
 
 **「ずれた」と「間違っている」は別物です。** 区別するには数え直すしかありません。
+
+## Kotlin FP 版を加えた比較
+
+> **Kotlin FP 版を 2026-10-31 に足しました。** 以上の表は 3 対象で書いたもので、Kotlin FP 版は、ここに別の節として加えます。既存の表は書き換えていません。**4 対象とも全 13 章を書き終えました。**
+
+- [Kotlin FP 版](../kotlin-fp/index.md)（完結・13 / 13 章）
+
+Kotlin FP 版は、Kotlin 版と同じ言語で、**自前の抽象のかわりに、ライブラリへ委ねる**版です。比べる相手は、主に Kotlin 版です。
+
+### 自前をライブラリに置き換えた場所
+
+| 論点 | Kotlin 版 | Kotlin FP 版 |
+| :--- | :--- | :--- |
+| 失敗の型 | 自前の `Outcome` | Arrow の `Either`（[ADR-038](../../../adr/ADR-038-arrow-core-for-typed-errors.md)） |
+| 文脈の持ち回り | 自前の `ContextReader`。文脈は不透明な型 | 型引数 `Tx` と関数の引数（[ADR-042](../../../adr/ADR-042-transaction-scope-and-environment.md)） |
+| 複数の誤り | 自前の `Validation` | `Either.zipOrAccumulate` |
+| JSON | 手書きから自前の `Converter`。Kondor は入れない | `JsonElement` の木と、自前の `Encoder` / `Decoder`（[ADR-044](../../../adr/ADR-044-json-tree-for-logs-and-converters.md)） |
+| ログ | （比較していない） | decorator と filter。載せるものを `LogRecord` の型で決める（[ADR-045](../../../adr/ADR-045-logging-as-decorator-with-typed-record.md)） |
+
+この表の Kotlin 版の列は、既存の記事と、この文書の前の節に書かれたことに基づきます。Kotlin 版のコードを、Kotlin FP 版のために読み直して確かめたものではありません。ログの行は、Kotlin 版の実装と比べていません。
+
+### 実測（2026-10-31）
+
+| 項目 | Kotlin FP 版 |
+| :--- | :--- |
+| 章 | 13 / 13 |
+| ADR | 8 件（[ADR-038](../../../adr/ADR-038-arrow-core-for-typed-errors.md) から [ADR-045](../../../adr/ADR-045-logging-as-decorator-with-typed-record.md)） |
+| テスト（最終 module `zettai-step7-observability`） | 199 件 |
+| 本番コードの `.kt` | 23 ファイル、1576 行（`src/main`。テンプレートなどの資源は含まない） |
+
+テストは Gradle の `test-results` の合計で、Cucumber の scenario を含みます。行数は `git ls-files` で数えました。Kotlin 版は最終章で「714 のテスト」と書いていますが、数え方が同じとは確かめていないので、並べて比べません。
+
+### 代数構造の確かめ方
+
+3 対象は、法則を壊して、何回検出するかを数えています（[ADR-017](../../../adr/ADR-017-own-property-testing.md)）。**Kotlin FP 版は、検出率を数えていません。** 法則が通ることを property test で示しただけで、テストが法則をどれだけ見ているかの数字は、ありません。
+
+| 構造 | 章 | Kotlin FP 版の確かめ方 |
+| :--- | :--- | :--- |
+| モノイド | 5 | `StateTransitionMonoidTest`（`zettai-step3-domain-events` のみ） |
+| ファンクタ | 7、8 | `EitherFunctorLawTest`、`ProjectionLawsTest` |
+| モナド | 7、9 | `EitherMonadLawTest` |
+| アプリカティブ | 11 | `AccumulationLawsTest`（`zipAll` に求める性質。則そのものの一般形ではない） |
+| プロファンクタ | 12 | `ConverterLawsTest`（`Encoder` と `Decoder`。束ねた `Converter` には一般の `dimap` が無い） |
+
+### 「既製品を入れるか」
+
+Kotlin FP 版は、Arrow、kotlinx-serialization-json、Kotest、http4k、Testcontainers、Cucumber を入れました。毎章これを判断した Rust 版のように、入れた場合と入れない場合の依存の数や、ビルド時間を測っていません。**入れなかったもの**は、Arrow の `Resource`、悲観ロック、DB の payload のための JSON ライブラリです。**試していない・比べていないもの**は、Kondor、ログの枠組み（SLF4J など）、既製の template エンジン、Arrow の optics です。
+
+### 4 本目の問い
+
+「ライブラリへ委ねるほど、設計の意図は明確になるのか」。実装から言えるのは、名前が概念と一致し、法則を使う側から確かめられるもの（`Either`、`zipOrAccumulate`）は、委ねて明確になったことです。transaction をどこで切るか、ログに何を載せないかのような境界は、委ねる先が無く、型とテストで自分で表しました。**1 つの題材、1 つの実装での観察で、一般論の根拠はありません。**（[第 13 章](../kotlin-fp/chapter13.md)）

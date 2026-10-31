@@ -1,6 +1,15 @@
 # Docs Update Log
 
 ## 2026-10-31
+* **Create**: [kotlin-fp-unit5_review_20261031](/review/kotlin-fp-unit5_review_20261031.md) を作成（anthropic/claude-sonnet-5-5）
+* **Create**: [retrospective-kotlin-fp-5](/development/retrospective-kotlin-fp-5.md) を作成（anthropic/claude-sonnet-5-5）
+* **Create**: [bolt_report-kotlin-fp-5](/development/bolt_report-kotlin-fp-5.md) を作成（anthropic/claude-sonnet-5-5）
+* **Create**: [ADR-041](/adr/ADR-041-testcontainers-for-integration-tests.md) を作成（anthropic/claude-sonnet-5-5）
+* **Create**: [ADR-040](/adr/ADR-040-jdbc-blocking-boundary.md) を作成（anthropic/claude-sonnet-5-5）
+* **Create**: [chapter09](/article/zettai/kotlin-fp/chapter09.md) を作成（anthropic/claude-sonnet-5-5）
+* **Create**: [chapter08](/article/zettai/kotlin-fp/chapter08.md) を作成（anthropic/claude-sonnet-5-5）
+* **Update**: [iteration_plan-kotlin-fp-5](/development/iteration_plan-kotlin-fp-5.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [data-model](/design/data-model.md) を更新（anthropic/claude-sonnet-5-5）
 * **Verification**: [iteration_plan-kotlin-fp-5](/development/iteration_plan-kotlin-fp-5.md) を human:kakimomokuri が検証
 * **Create**: [iteration_plan-kotlin-fp-5](/development/iteration_plan-kotlin-fp-5.md) を作成（anthropic/claude-sonnet-5-5）
 * **Update**: [development_strategy](/development/development_strategy.md) を更新（anthropic/claude-sonnet-5-5）

@@ -4,7 +4,7 @@ title: "バックエンドアーキテクチャ設計 - Zettai"
 description: "Zettai（Kotlin 版）のバックエンドアーキテクチャ設計。ドメインとアダプタの境界の定義と担保方法、Gradle マルチプロジェクトのモジュール分割と命名規約、パッケージ構成、依存の向き、関数の型による依存表現、章の進行にあわせた構造の変化を記述する。"
 tags: [design, architecture, zettai, kotlin]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:11:51Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:37:42Z }
 ---
 
 # バックエンドアーキテクチャ設計 - Zettai
@@ -350,13 +350,14 @@ Kotlin 版は `HubAction`（`ContextReader`）を導入した結果、ポート�
 
 ## Kotlin FP 版での差分
 
-Kotlin FP 版は、既存 Kotlin 版と同じヘキサゴナルな依存方向を、interface より小さい関数型で表します。Unit 4 の package 依存は **`web -> application -> domain`**、**`adapter.inmemory -> application / domain`** であり、逆方向の import を許しません。
+Kotlin FP 版は、既存 Kotlin 版と同じヘキサゴナルな依存方向を、interface より小さい関数型で表します。Unit 4 時点の package 依存は **`web -> application -> domain`**、**`adapter.inmemory -> application / domain`** であり、逆方向の import を許しません。Unit 5 で driven adapter に `adapter.postgres` が加わります。
 
 | package | 責務 | 知ってよいもの |
 | :--- | :--- | :--- |
 | `zettai.domain` | immutable な値、command、event、typed error、純粋な replay / command handler | Kotlin 標準ライブラリ、Arrow Core |
 | `zettai.application` | suspend function port と Hub の constructor function | `zettai.domain`、Arrow Core |
-| `zettai.adapter.inmemory` | snapshot fetcher と event store の実装 | `zettai.application`、`zettai.domain`、Arrow Core |
+| `zettai.adapter.inmemory` | in-memory の event store の実装 | `zettai.application`、`zettai.domain`、Arrow Core |
+| `zettai.adapter.postgres` | PostgreSQL の event store の実装（第 9 章） | `zettai.application`、`zettai.domain`、Arrow Core、JDBC（`java.sql`、`org.postgresql`）、`kotlinx.coroutines` の `withContext` と `Dispatchers` |
 | `zettai.web` | http4k の request / response、同期境界 | `zettai.application`、`zettai.domain`、http4k、coroutine runner |
 
 ```plantuml
@@ -405,11 +406,13 @@ package domain {
 
 Unit 4 の in-memory event store は単一実行用の学習 adapter であり、`fetchState` と `persist` をまたぐ atomicity を保証しません。transaction scope は PostgreSQL 永続化と command route を扱う後続 Unit で定義します。
 
-第 5 章の replay と状態変換の合成は Kotlin 標準の `fold` で十分です。第 7 章では Arrow Core の `Either` / Raise を domain と application に導入します。これは typed error の表現と合成のためであり、http4k と coroutine runner は引き続き adapter に閉じ込めます。境界テストは domain から application / adapter / HTTP / coroutine runner への依存、および application から adapter への依存を禁止します。
+第 5 章の replay と状態変換の合成は Kotlin 標準の `fold` で十分です。第 7 章では Arrow Core の `Either` / Raise を domain と application に導入します。これは typed error の表現と合成のためであり、http4k と coroutine runner は引き続き adapter に閉じ込めます。Unit 4 時点の境界テストは、domain から application / adapter / HTTP / coroutine runner への依存、および application から adapter への依存を禁止します。
 
 ### 第 8 章：command 側と query 側の分離
 
 Unit 5 の前半で、port を集約単位に絞り、command 側と query 側を別の経路に分けます。Unit 4 の `StateFetcher`（全ユーザー・全リストの状態を毎回 replay する）と `ToDoListFetcher`（`ToDoList` を直接返す）は廃止し、event store をただ 1 つの源とします。
+
+この節の型は第 8 章時点の形です。第 9 章で、読み出しと保存の戻り値が `Either<PersistenceFailure, ...>` に変わります。
 
 | port | 型 | 使う側 |
 | :--- | :--- | :--- |
@@ -452,7 +455,7 @@ package domain {
 @enduml
 ```
 
-一覧画面の HTTP route は追加せず、`listRows` は Hub の query として検証します。境界テストは `web` から `adapter` への依存と、`adapter` から `web`、http4k、coroutine runner への依存も禁止します。
+一覧画面の HTTP route は追加せず、`listRows` は Hub の query として検証します。境界テストは `web` から `adapter` への依存と、`adapter` から `web`、http4k、`runBlocking` への依存も禁止します。
 
 ### 第 9 章：PostgreSQL の event store
 
@@ -466,7 +469,7 @@ Unit 5 の後半で、driven adapter に `adapter.postgres` を足し、永続�
 | blocking | adapter の中で `Dispatchers.IO` に閉じ込める。`runBlocking` は web の最外周だけに残す |
 | HTTP | `PersistenceFailure` を 500 に写像する。本文は固定で、原因を含めない |
 
-`adapter.postgres` と `adapter.inmemory` は、どちらも `application` の port を実装し、`domain` を知ってよい driven adapter です。境界テストは、`adapter` が `web`、http4k、`runBlocking` に依存しないことを検査します。`withContext` と `Dispatchers` は adapter が使います。
+`adapter.postgres` と `adapter.inmemory` は、どちらも `application` の port を実装し、`domain` を知ってよい driven adapter です。境界テストは、`adapter` が `web`、http4k、`runBlocking` に依存しないことを検査します。`withContext` と `Dispatchers` は adapter が使います。あわせて、JDBC（`java.sql`、`org.postgresql`）を domain と application に持ち込まないこと、in-memory と PostgreSQL の adapter が互いに依存しないこと、domain・application・adapter のソースに `runBlocking` が現れないことも検査します。
 
 結合テストの DB は Testcontainers が起動する PostgreSQL で、`docker-compose.yml` に service を足しません。判断は [ADR-040](../adr/ADR-040-jdbc-blocking-boundary.md) に記録しています。transaction の境界は第 10 章で扱い、この段階の `persist` は 1 回の呼び出しの中で確定します。
 

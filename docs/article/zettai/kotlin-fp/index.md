@@ -30,3 +30,5 @@ Windows PowerShell では project root から次を実行します。
 cd apps/kotlin-fp/zettai
 .\gradlew.bat check
 ```
+
+第 9 章から、`check` は PostgreSQL の結合テストを含みます。`docker version` で Client と Server の両方が表示される状態にしてください。Windows と macOS では Docker Desktop を起動しておきます。Docker を使えない場合は、PostgreSQL に触れない範囲のテストに絞って実行できます。コマンドは [第 9 章](chapter09.md) にあります。

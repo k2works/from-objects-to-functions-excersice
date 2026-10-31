@@ -6,6 +6,7 @@
 
 | レビュー | 対象 | 日付 | 指摘（高 / 中 / 低） |
 | :--- | :--- | :--- | :--- |
+| [Kotlin FP 版 Unit 5 開発成果物レビュー](kotlin-fp-unit5_review_20261031.md) | 第 8〜9 章と `zettai-step5-cqrs-persistence` | 2026-10-31 | 7 / 19 / 24（低は重複を含む） |
 | [Kotlin FP 版 Unit 4 開発成果物レビュー](kotlin-fp-unit4_review_20261031.md) | 第 6〜7 章と `zettai-step4-command-errors` | 2026-10-31 | 6 / 9 / 12 |
 | [Kotlin FP 版 Unit 3 開発成果物レビュー](kotlin-fp-unit3_review_20261031.md) | 第 4〜5 章と `zettai-step3-domain-events` | 2026-10-31 | 4 / 14 / 7 |
 | [Kotlin FP 版 Unit 2 開発成果物レビュー](kotlin-fp-unit2_review_20261030.md) | 第 2〜3 章と `zettai-step2-http-domain` | 2026-10-30 | 6 / 7 / 2 |

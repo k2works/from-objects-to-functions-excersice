@@ -4,7 +4,7 @@ title: "ADR-040 JDBC を直接使い、blocking は Dispatchers.IO に閉じ込�
 description: "Zettai 連載 Kotlin FP 版の第 9 章で永続化の道具を決める決定。ORM と JSON ライブラリを入れず、jsonb_build_object と bind parameter で payload を組み立てる。blocking の JDBC は adapter の Dispatchers.IO に閉じ込め、connection は use で閉じる。Arrow の Resource を使わない理由と、使うべき条件を記録する。"
 tags: [adr, kotlin-fp, zettai, postgresql, jdbc, coroutines]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:11:51Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:37:42Z }
 ---
 
 # ADR-040 JDBC を直接使い、blocking は Dispatchers.IO に閉じ込め、connection は use で閉じる
@@ -43,6 +43,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:11:51Z }
 2. **payload は `jsonb_build_object` と bind parameter で組み立て、`payload->>'key'` で読む。** JSON ライブラリを足さない。JSON の文字列を手で組み立てて文字列として比較すると、`jsonb` の正規化で崩れる。JSON を本格的に扱う第 12 章で、改めて道具を選ぶ
 3. **blocking の JDBC は adapter の中で `withContext(Dispatchers.IO)` に閉じ込める。** port は `suspend` のままにし、domain と application を変えない。同期の port に戻す案は、第 4 章から使ってきた port の型をすべて書き換えるので採らない
 4. **connection は操作ごとに開き、`use` で閉じる。** Arrow の `Resource` は使わない。上のとおり `use` と結果が同じで、この章の操作は 1 回の呼び出しで完結するため、寿命を持ち回る必要がない
+5. **追記の途中で失敗したら、明示的に rollback する。** 複数の event を 1 回の呼び出しで追記するとき、`autoCommit` を切って commit し、失敗したら rollback して例外を投げ直す。close に任せると、接続を pool に替えたとき前提が崩れる
 
 `Resource` は、1 つの connection を複数の操作にまたがって貸す必要が出た時点で使う候補にします。第 10 章で transaction の境界を決めるときが、その時点です。
 
@@ -61,7 +62,10 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:11:51Z }
 - 追記と読み出しに必要な道具は JDBC と SQL だけになります。event の種類ごとに、payload を組み立てる SQL と読む SQL を書く手間は増えます。
 - blocking の呼び出しは adapter の 1 か所に集まり、`Dispatchers.IO` という名前で読めます。
 - **ただし HTTP の thread は、まだふさがれます。** web の `runBlocking` が同期の http4k handler で結果を待つためです。`Dispatchers.IO` に出す利点は、blocking を adapter に隠し、非同期の server に替えたときに port をそのまま使えることです。同期の server のままでは、スレッドの総数は減りません。
-- 読み出しは `entity_id` の前方一致で行うため、全件走査になる可能性があります。この連載の規模では問題にせず、性能の議論は扱いません。
+- ユーザー単位の読み出し（`readUser`）は `entity_id` の前方一致で行うため、既定の照合順序では btree の `(entity_id, id)` を使えず、全件走査になる可能性があります（未検証）。集約単位の読み出しは完全一致で、インデックスが使えます。この連載の規模では問題にせず、性能の議論は扱いません。
+- 実行中の JDBC の呼び出しは、coroutine をキャンセルしても止まりません。キャンセルは、呼び出しが終わって coroutine に戻った時点で効きます。
+- **並行実行で状態が壊れる経路があります。** 読み出し、判断、保存は別の接続で行われ、版の確認がありません。`CreateToDoList` が同時に走ると `ListCreated` が 2 件記録され、間に `ItemAdded` が入ると、重複した `ListCreated` はリストを空へ戻す規則により、replay で項目が消えます。`ChangeItemStatus` が同時に走ると、遷移表で許されない経路を通った状態にもなりえます。実装を読んだ上での推論で、テストでは再現していません。command 1 つの処理を 1 つの transaction にして競合を検出する仕組みは、第 10 章で扱います。
+- `PersistenceFailure.reason` はどこにも記録していません。500 を返した原因は、運用では追えません。記録の仕組みは扱いません。
 
 ## 関連
 

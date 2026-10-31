@@ -46,5 +46,6 @@
 | [ADR-038](ADR-038-arrow-core-for-typed-errors.md) | Arrow Core を typed error の表現と合成に限って使う | 提案 |
 | [ADR-039](ADR-039-suspend-function-ports.md) | 関数型 DI は suspend の関数型と constructor function にし、runBlocking は web の最外周に置く | 提案 |
 | [ADR-040](ADR-040-jdbc-blocking-boundary.md) | JDBC を直接使い、blocking は Dispatchers.IO に閉じ込め、connection は use で閉じる | 提案 |
+| [ADR-041](ADR-041-testcontainers-for-integration-tests.md) | 結合テストの DB は Testcontainers で用意する | 提案 |
 
 ADR の作成には `creating-adr` スキルを使用してください。

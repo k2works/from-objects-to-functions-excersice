@@ -4,7 +4,7 @@ title: "ADR-039 関数型 DI は suspend の関数型と constructor function �
 description: "Zettai 連載 Kotlin FP 版で、port を interface ではなく suspend の関数型で表し、Hub を関数プロパティを持つ値と constructor function で組み立てる決定。必須の port に既定値を置かない理由、末尾 lambda の落とし穴、runBlocking を同期 HTTP の境界だけに置く理由を記録する。"
 tags: [adr, kotlin-fp, zettai, coroutines]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T05:57:53Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:37:42Z }
 ---
 
 # ADR-039 関数型 DI は suspend の関数型と constructor function にし、runBlocking は web の最外周に置く
@@ -27,6 +27,8 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T05:57:53Z }
 4. **呼び出し側は名前付き引数を使う。** 末尾 lambda は最後の parameter に束縛される。parameter を 3 つに増やした結果、前の `todoListHub { ... }` という呼び出しは `persist` に渡る形になり、型が合わず compile error になった
 5. **domain の純粋関数は `suspend` にしない。** `handle` と `replayFrom` は通常の関数のままにし、`suspend` は application の port と adapter の境界だけにする
 6. **`runBlocking` は同期の http4k handler と `suspend` の port をつなぐ web の最外周 1 箇所だけに置く。** domain と application には coroutine runner を持ち込まない
+
+この ADR の例は、第 4〜7 章の形（`ToDoListFetcher`、`todoListHub(fetchList, fetchState, persist)`）です。第 8・9 章で port の名前と型を変えました（`ToDoListFetcher` の廃止、読み出しの port の集約単位化、戻り値の `Either<PersistenceFailure, ...>`）が、port を `suspend` の関数型にし、constructor function で配線する考え方は変わっていません。
 
 ## 検討した案
 

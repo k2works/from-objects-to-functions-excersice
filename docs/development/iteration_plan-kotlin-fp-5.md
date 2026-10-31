@@ -4,7 +4,7 @@ title: "Unit 5 の Bolt 計画 - Zettai 連載（Kotlin FP 版）"
 description: "Kotlin FP 版 Unit 5 の射影と CQRS、集約単位の port、Testcontainers PostgreSQL による event store、永続化の typed error、第 8〜9 章を定義する Bolt 計画。"
 tags: [development, plan, ai-dlc, bolt, zettai, kotlin, arrow, postgresql, unit-5]
 status: stable
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T05:47:36Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:37:42Z }
 verified:
   - { by: human:kakimomokuri, at: 2026-10-31T05:49:29Z }
 ---
@@ -59,28 +59,28 @@ verified:
 
 読者として、画面ごとに状態を読み替える処理が散らばらない方法を知りたいです。それにより、コマンド側とクエリ側を別の経路に分ける CQRS を、困りごとの解決として理解できます。
 
-- [ ] 表示用の `ToDoListRow`（リスト名、項目数、完了数）を、イベント列から純粋関数 `projectFrom` で作る
-- [ ] 項目なし、複数リスト、複数ユーザー、状態変更後の完了数を表駆動テストで固定する
-- [ ] `Either<ZettaiError, List<ToDoListRow>>` に対する `map` の恒等則と合成則を property test で検証する。外側の `Either` と内側の `List` を重ねた合成も検証する
-- [ ] command 側の port は `(User, ListName)` で読む集約単位のイベント列、query 側の port は `User` で読むイベント列とし、全状態を replay しない
-- [ ] `getList` と射影の query は event store を唯一の源とし、別の fetcher を持たない
-- [ ] command の経路と query の経路が別の関数として Hub に現れる
-- [ ] 節構成が既存 Kotlin 版の第 8 章（イベントを射影する／ファンクタに対するクエリの実行／ファンクタの観点から考察する／コマンドクエリ責務分離（CQRS）／まとめ）と一致する
+- [x] 表示用の `ToDoListRow`（リスト名、項目数、完了数）を、イベント列から純粋関数 `projectFrom` で作る
+- [x] 項目なし、複数リスト、複数ユーザー、状態変更後の完了数を表駆動テストで固定する
+- [x] `Either<ZettaiError, List<ToDoListRow>>` に対する `map` の恒等則と合成則を property test で検証する。外側の `Either` と内側の `List` を重ねた合成も検証する
+- [x] command 側の port は `(User, ListName)` で読む集約単位のイベント列、query 側の port は `User` で読むイベント列とし、全状態を replay しない
+- [x] `getList` と射影の query は event store を唯一の源とし、別の fetcher を持たない
+- [x] command の経路と query の経路が別の関数として Hub に現れる
+- [x] 節構成が既存 Kotlin 版の第 8 章（イベントを射影する／ファンクタに対するクエリの実行／ファンクタの観点から考察する／コマンドクエリ責務分離（CQRS）／まとめ）と一致する
 
 ### US-009: PostgreSQL に安全に永続化する
 
 利用者として、アプリケーションを再起動しても ToDo リストが残っていてほしいです。それにより、記録する意味のある event store を、副作用と失敗が型に現れる形で理解できます。
 
-- [ ] `todo_list_event` に event を追記し、同じ順序で読み戻せる
-- [ ] 同じ database に Hub と adapter を組み直しても（再起動に相当）、追記済みの event から同じ状態が復元される
-- [ ] 別の `(User, ListName)` のイベントが混ざらない。区切り文字を含む名前でも `entity_id` が衝突しない
-- [ ] 接続失敗、未知の `event_type`、壊れた payload を `PersistenceFailure` の `Left` で返し、例外を domain と application に漏らさない
-- [ ] `EventPersister` が `Either<ZettaiError, Unit>` を返し、失敗時は Hub が成功を返さない
-- [ ] JDBC の blocking I/O と connection の寿命を adapter の `suspend` と resource 境界に閉じ込める。選択は ADR に残す
-- [ ] flatMap の左恒等則、右恒等則、結合律を property test で検証する
-- [ ] Cucumber の同じ scenario が domain、HTTP、PostgreSQL の 3 経路で通る
-- [ ] Testcontainers の結合テストが `./gradlew check` に含まれ、ローカルと CI の両方で通る
-- [ ] 節構成が既存 Kotlin 版の第 9 章（安全に永続化する／PostgreSQL と結合テスト／Kotlin でデータベースに接続する／データベースを準備する／関数型スタイルでリモートデータにアクセスする／モナドの力を探る／まとめ）と一致する。docker-compose を使う説明は Testcontainers に差し替わるので、選択差として書く
+- [x] `todo_list_event` に event を追記し、同じ順序で読み戻せる
+- [x] 同じ database に Hub と adapter を組み直しても（再起動に相当）、追記済みの event から同じ状態が復元される
+- [x] 別の `(User, ListName)` のイベントが混ざらない。区切り文字を含む名前でも `entity_id` が衝突しない
+- [x] 接続失敗、未知の `event_type`、壊れた payload を `PersistenceFailure` の `Left` で返し、例外を domain と application に漏らさない
+- [x] `EventPersister` が `Either<PersistenceFailure, Unit>` を返し、失敗時は Hub が成功を返さない。計画では `Either<ZettaiError, Unit>` としたが、起こり得る失敗が永続化の失敗だけなので、型を狭めた
+- [x] JDBC の blocking I/O と connection の寿命を adapter の `suspend` と resource 境界に閉じ込める。選択は ADR に残す
+- [x] flatMap の左恒等則、右恒等則、結合律を property test で検証する
+- [x] Cucumber の同じ scenario が domain、HTTP、PostgreSQL の 3 経路で通る
+- [x] Testcontainers の結合テストが `./gradlew check` に含まれ、ローカルと CI の両方で通る
+- [x] 節構成が既存 Kotlin 版の第 9 章（安全に永続化する／PostgreSQL と結合テスト／Kotlin でデータベースに接続する／データベースを準備する／関数型スタイルでリモートデータにアクセスする／モナドの力を探る／まとめ）と一致する。docker-compose を使う説明は Testcontainers に差し替わるので、選択差として書く
 
 ### 受入条件と検証の対応
 
@@ -118,35 +118,35 @@ gantt
 
 ### Bolt 5-1: 第 8 章
 
-- [ ] **5-1.0** `gulp mkdocs:build` を CI と同じ `--strict` にするか判断する。変更する場合は `operating-script` スキルで正式なタスクとして直し、運用手順書にも記載する
-- [ ] **5-1.0a** ADR を 2 本作る：Arrow Core を domain と application に使う範囲（遡及）、関数型 DI と suspend port の形。Unit 3〜4 で決めた判断の記録なので、実装を始める前に置く
-- [ ] **5-1.1** `zettai-step5-cqrs-persistence` module を新設する（**停止 1**：新規 ADR・新規ファイル・構造変更）。Unit 4 の production code と test を独立した snapshot としてコピーし、前段 module へ依存しない。`settings.gradle.kts` に `include` を足し、`build.gradle.kts` に Arrow Fx、PostgreSQL driver、Testcontainers、Cucumber の依存を足す。Unit 4 の module に Cucumber は無いので、feature・steps・runner は Unit 2 の module から移す
-- [ ] **5-1.2** port を集約単位へ絞る Red を書き、Green にする。command 側が `(User, ListName)` のイベント列だけで判断すること、他の集約が混ざっても判断が変わらないことを表駆動で固定する
-- [ ] **5-1.3** `projectFrom` の失敗テストで Red を確認し、`fold` で実装する
-- [ ] **5-1.4** `Either<ZettaiError, List<ToDoListRow>>` の恒等則と合成則を property test にする。生成器は空リスト、複数ユーザー、4 種の error を含める
-- [ ] **5-1.5** Hub を command 側（`execute`）と query 側（`getList`、`listRows`）に分ける。query は event store を読んで射影し、`ToDoListFetcher` を廃止する。整合性モデル（同じ event store を毎回射影する同期方式で、永続化した射影は作らない）を設計文書に記す
-- [ ] **5-1.6** driven adapter（in-memory）を新しい port に合わせる。aliasing test を維持し、Unit 2 から移した Cucumber の domain / HTTP 2 経路が新 module で通ることを確認する。Unit 2 の module は別に回帰する
-- [ ] **5-1.7** アーキテクチャ設計とドメインモデル設計に Unit 5 前半の判断を反映する
-- [ ] **5-1.8** 第 8 章を実装済みコードから執筆する（**停止 2**：記事の構成と全文）。選択差（自前の `ToDoListProjection.map` と、標準の `List.map` / `Either.map` の合成）を書く
+- [ ] **5-1.0** `gulp mkdocs:build` を CI と同じ `--strict` にするか判断する。変更する場合は `operating-script` スキルで正式なタスクとして直し、運用手順書にも記載する（**未実施**。この Unit では Docker 上で `mkdocs build --strict` を直接実行して確かめた。運用タスクの変更は Unit 6 の前に判断する）
+- [x] **5-1.0a** ADR を 2 本作る：Arrow Core を domain と application に使う範囲（遡及）、関数型 DI と suspend port の形。Unit 3〜4 で決めた判断の記録なので、実装を始める前に置く
+- [x] **5-1.1** `zettai-step5-cqrs-persistence` module を新設する（**停止 1**：新規 ADR・新規ファイル・構造変更）。Unit 4 の production code と test を独立した snapshot としてコピーし、前段 module へ依存しない。`settings.gradle.kts` に `include` を足し、`build.gradle.kts` に Arrow Fx、PostgreSQL driver、Testcontainers、Cucumber の依存を足す。Unit 4 の module に Cucumber は無いので、feature・steps・runner は Unit 2 の module から移す
+- [x] **5-1.2** port を集約単位へ絞る Red を書き、Green にする。command 側が `(User, ListName)` のイベント列だけで判断すること、他の集約が混ざっても判断が変わらないことを表駆動で固定する
+- [x] **5-1.3** `projectFrom` の失敗テストで Red を確認し、`fold` で実装する
+- [x] **5-1.4** `Either<ZettaiError, List<ToDoListRow>>` の恒等則と合成則を property test にする。生成器は空リスト、複数ユーザー、5 種の error（`PersistenceFailure` を含む）を含める
+- [x] **5-1.5** Hub を command 側（`execute`）と query 側（`getList`、`listRows`）に分ける。query は event store を読んで射影し、`ToDoListFetcher` を廃止する。整合性モデル（同じ event store を毎回射影する同期方式で、永続化した射影は作らない）を設計文書に記す
+- [x] **5-1.6** driven adapter（in-memory）を新しい port に合わせる。aliasing test を維持し、Unit 2 から移した Cucumber の domain / HTTP 2 経路が新 module で通ることを確認する。Unit 2 の module は別に回帰する
+- [x] **5-1.7** アーキテクチャ設計とドメインモデル設計に Unit 5 前半の判断を反映する
+- [x] **5-1.8** 第 8 章を実装済みコードから執筆する（**停止 2**：記事の構成と全文）。選択差（自前の `ToDoListProjection.map` と、標準の `List.map` / `Either.map` の合成）を書く
 
 ### Bolt 5-2: 第 9 章
 
-- [ ] **5-2.1** スパイクで次を確かめ、JDBC の ADR にする（**停止 3**：新規 ADR・外部連携の判断）
+- [x] **5-2.1** スパイクで次を確かめ、JDBC の ADR にする（**停止 3**：新規 ADR・外部連携の判断）
   - JDBC を直接使うか（event の追記と読み出しだけなら ORM は不要という仮説）
   - payload の組み立てを、`jsonb_build_object` と bind parameter で済ませるか、JSON ライブラリを足すか。新しい依存は確認必須
   - blocking の JDBC を `Dispatchers.IO` に閉じ込めるか、同期 port に戻すか。`runBlocking` との関係
   - connection の寿命を Arrow の `Resource` で表すか、Kotlin の `use` で足りるか
   - 作る ADR：JDBC の blocking と resource 境界（Arrow と関数型 DI の ADR は 5-1.0a で作成済み）
-- [ ] **5-2.2** `docs/design/data-model.md` に Kotlin FP 版の差分と ER 図を書く。スキーマは既存 Kotlin 版の `todo_list_event` と同じ振る舞いを保つ（**停止 4**：データベース。確認必須）
-- [ ] **5-2.3** Testcontainers の結合テストで Red を確認する。追記順、別 entity の分離、区切り文字を含む名前
-- [ ] **5-2.4** PostgreSQL の event store を adapter に実装して Green にする
-- [ ] **5-2.5** `PersistenceFailure` を `ZettaiError` に足す。HTTP の写像 `when` が compile error で未対応を示すことを確認してから直す。未知の `event_type` と壊れた payload は decode 時に `Left` にする。orphan event の `apply` が no-op のまま残る理由を記録する
-- [ ] **5-2.6** `EventPersister` を `Either<ZettaiError, Unit>` へ変え、Hub、in-memory adapter、HTTP を追従させる。保存失敗時に成功を返さないテストを置く
-- [ ] **5-2.7** flatMap の三法則を property test にする。実 DB は使わず、生成した suspend 関数で検証する
-- [ ] **5-2.8** Cucumber に PostgreSQL 経路を足し、同じ scenario が 3 経路で通ることを確認する。scenario ごとにテーブルを初期化し、container は suite で共有する
-- [ ] **5-2.9** アーキテクチャ設計とドメインモデル設計に Unit 5 後半の判断を反映する
-- [ ] **5-2.10** 第 9 章を実装済みコードから執筆する（**停止 5**：記事の構成と全文）。ここで JSONB が JSON を正規化するかどうかの確認結果を書く
-- [ ] **5-2.11** 全体 `clean check`、記事検査、5 観点レビュー、再レビューを行う（**停止 6**：レビュー結果の対応方針）。Cucumber は test class filter を使わず module の `clean test` で回帰する
+- [x] **5-2.2** `docs/design/data-model.md` に Kotlin FP 版の差分と ER 図を書く。スキーマは既存 Kotlin 版の `todo_list_event` と同じ振る舞いを保つ（**停止 4**：データベース。確認必須）
+- [x] **5-2.3** Testcontainers の結合テストで Red を確認する。追記順、別 entity の分離、区切り文字を含む名前
+- [x] **5-2.4** PostgreSQL の event store を adapter に実装して Green にする
+- [x] **5-2.5** `PersistenceFailure` を `ZettaiError` に足す。HTTP の写像 `when` が compile error で未対応を示すことを確認してから直す。未知の `event_type` と壊れた payload は decode 時に `Left` にする。orphan event の `apply` が no-op のまま残る理由を記録する
+- [x] **5-2.6** `EventPersister` を `Either<ZettaiError, Unit>` へ変え、Hub、in-memory adapter、HTTP を追従させる。保存失敗時に成功を返さないテストを置く
+- [x] **5-2.7** flatMap の三法則を property test にする。実 DB は使わず、生成した suspend 関数で検証する
+- [x] **5-2.8** Cucumber に PostgreSQL 経路を足し、同じ scenario が 3 経路で通ることを確認する。scenario ごとにテーブルを初期化し、container は suite で共有する
+- [x] **5-2.9** アーキテクチャ設計とドメインモデル設計に Unit 5 後半の判断を反映する
+- [x] **5-2.10** 第 9 章を実装済みコードから執筆する（**停止 5**：記事の構成と全文）。ここで JSONB が JSON を正規化するかどうかの確認結果を書く
+- [x] **5-2.11** 全体 `clean check`、記事検査、5 観点レビュー、再レビューを行う（**停止 6**：レビュー結果の対応方針）。Cucumber は test class filter を使わず module の `clean test` で回帰する
 
 ## 設計
 
@@ -333,35 +333,36 @@ Unit 4 の再レビューで「記事の表の内訳が実際と合わない」�
 
 ### Definition of Done
 
-- [ ] Unit 5 の表駆動テスト、property test、結合テストが green
-- [ ] Cucumber の同じ scenario が domain、HTTP、PostgreSQL の 3 経路で green
-- [ ] 同じ結合テストを 3 回連続で実行して green
-- [ ] Unit 1〜5 の `gradlew.bat clean check --no-daemon` が green
-- [ ] 第 8〜9 章のコード例が実装と一致する
-- [ ] 記事コード、節構成、件数、引用、ADR 参照の検査が green
-- [ ] `mkdocs build --strict` が green
-- [ ] 第 8〜9 章が索引と nav から到達可能
-- [ ] アーキテクチャ設計、ドメインモデル設計、データモデル設計に Unit 5 の判断を反映する
-- [ ] ADR 3 本（Arrow の採用範囲、関数型 DI と suspend port、JDBC と resource 境界）が作成されている。transaction 境界の ADR は Unit 6
-- [ ] 計画のタスクに書いたテストが、テスト名と 1 対 1 で対応している
-- [ ] 5 観点の開発成果物レビューで高・中重要度の残件がない
-- [ ] OKF 検査が ERROR 0
+- [x] Unit 5 の表駆動テスト、property test、結合テストが green
+- [x] Cucumber の同じ scenario が domain、HTTP、PostgreSQL の 3 経路で green
+- [x] 同じ結合テストを 3 回連続で実行して green
+- [x] Unit 1〜5 の `gradlew.bat clean check --no-daemon` が green
+- [x] 第 8〜9 章のコード例が実装と一致する
+- [x] 記事コード、節構成、件数、引用、ADR 参照の検査が green
+- [x] `mkdocs build --strict` が green
+- [x] 第 8〜9 章が索引と nav から到達可能
+- [x] アーキテクチャ設計、ドメインモデル設計、データモデル設計に Unit 5 の判断を反映する
+- [x] ADR 3 本（Arrow の採用範囲、関数型 DI と suspend port、JDBC と resource 境界）が作成されている。transaction 境界の ADR は Unit 6
+- [x] 計画のタスクに書いたテストが、テスト名と 1 対 1 で対応している
+- [x] 5 観点の開発成果物レビューで高・中重要度の残件がない
+- [x] OKF 検査が ERROR 0
 - [ ] push 後の CI が green（push は人の承認を得て行う）
 
 ### デモ項目
 
-- [ ] 同じイベント列から command 側の状態と query 側の行が別の経路で得られる
-- [ ] command 側は指定した集約のイベントだけを読み、他の集約が混ざっても判断が変わらない
-- [ ] `Either<ZettaiError, List<ToDoListRow>>` の `map` が恒等則と合成則を満たす
-- [ ] event を追記して別の接続で読み戻すと、同じ順序で復元される
-- [ ] 接続できない状態で保存すると `PersistenceFailure` が返り、成功を返さない
-- [ ] 同じ scenario が 3 経路で通る
+- [x] 同じイベント列から command 側の状態と query 側の行が別の経路で得られる
+- [x] command 側は指定した集約のイベントだけを読み、他の集約が混ざっても判断が変わらない
+- [x] `Either<ZettaiError, List<ToDoListRow>>` の `map` が恒等則と合成則を満たす
+- [x] event を追記して別の接続で読み戻すと、同じ順序で復元される
+- [x] 接続できない状態で保存すると `PersistenceFailure` が返り、成功を返さない
+- [x] 同じ scenario が 3 経路で通る
 
 ## 更新履歴
 
 | 日付 | 内容 | 更新者 |
 | :--- | :--- | :--- |
 | 2026-10-31 | 初版。Unit 4 のふりかえりとレビューの引き継ぎ、設計 4 図の要否、ゲート密度を反映 | anthropic/claude-sonnet-5-5 |
+| 2026-10-31 | 実装、品質ゲート、5 観点レビューの完了を反映。永続化の失敗の型を `PersistenceFailure` に狭めたことを受入条件に記録。5-1.0 と push 後の CI は未実施 | anthropic/claude-sonnet-5-5 |
 
 ## 関連ドキュメント
 

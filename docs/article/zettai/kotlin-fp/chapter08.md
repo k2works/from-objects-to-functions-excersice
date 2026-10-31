@@ -4,7 +4,7 @@ title: "第 8 章 ファンクタを使ってイベントを射影する"
 description: "Zettai Kotlin FP 版の第 8 章。ドメインの状態と画面が欲しい形が違うという困りごとから、イベントを表示用の行へ射影する。Either と List を重ねた map が満たす法則を Kotest property testing で確かめ、command 側と query 側を別の経路に分けて CQRS に到達する。"
 tags: [article, zettai, kotlin, functional-programming, arrow, projection, cqrs, functor]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:11:51Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:37:42Z }
 ---
 
 # 第 8 章 ファンクタを使ってイベントを射影する
@@ -97,22 +97,23 @@ private fun Map<ListName, List<ToDoItem>>.step(event: ToDoListEvent): Map<ListNa
 
 ```kotlin
         is ItemStatusChanged -> {
-            val items = this[event.listName]
-            val target = items?.indexOfFirst { it.description == event.description } ?: -1
-            if (items == null || target < 0) {
-                this
-            } else {
-                this + (
-                    event.listName to items.mapIndexed { index, item ->
-                        if (index == target) item.copy(status = event.newStatus) else item
-                    }
-                    )
-            }
+            val updated = this[event.listName]?.withStatusChanged(event.description, event.newStatus)
+            if (updated == null) this else this + (event.listName to updated)
         }
     }
 ```
 
-これは第 5 章の `apply` と同じ規則です。規則を 2 か所に書いたので、食い違う危険があります。そこで 2 つが一致することを、後で property test にします。
+「説明が最初に一致した項目だけを変える」規則は、状態の `apply` と射影の両方に必要です。同じ規則を 2 か所に書くと食い違うので、小さな関数に抜き出して共有しました。
+
+```kotlin
+fun List<ToDoItem>.withStatusChanged(description: String, newStatus: ToDoStatus): List<ToDoItem>? {
+    val target = indexOfFirst { it.description == description }
+    if (target < 0) return null
+    return mapIndexed { index, item -> if (index == target) item.copy(status = newStatus) else item }
+}
+```
+
+それでも畳み込みの骨格は、状態と射影で 2 か所に残ります。2 つが一致することを、後で property test にします。なお、`ToDoListState.apply` は Kotlin 標準のスコープ関数 `apply` と同じ名前です。第 5 章のコード例と揃えるため、改名していません。
 
 ### 既存 Kotlin 版との違い
 
@@ -121,6 +122,7 @@ private fun Map<ListName, List<ToDoItem>>.step(event: ToDoListEvent): Map<ListNa
 | 表示用の型 | `ToDoListProjection` というクラス。行の Map と項目の Map を持つ | `ToDoListRow` と関数 `projectFrom` だけ。クラスを増やさない |
 | 行の並び | リスト名の昇順 | リストの作成順 |
 | 集計のタイミング | event を適用するたびに集計し直す | 畳み込みの最後に数える |
+| 同じ説明の項目が複数あるとき | 説明が一致する項目をすべて変える | 最初に一致した 1 件だけを変える。状態の `apply` と同じ規則 |
 
 FP 版は、集計を畳み込みの最後に 1 回だけ行います。そのぶん途中の状態に集計値を持たず、`Map` と `List` だけで済みます。
 
@@ -128,7 +130,7 @@ FP 版は、集計を畳み込みの最後に 1 回だけ行います。その�
 
 射影した結果を、画面向けの別の値に変換することを考えます。取り出した行に `map` をかけます。
 
-FP 版の query は、失敗するかもしれない結果です。第 7 章の `Either` の中に `List` が入ります。
+この章の時点では、読み出しは失敗しません。第 9 章でデータベースから読むようになると、読み出しが失敗しうるようになり、query の結果は `Either<ZettaiError, List<ToDoListRow>>` になります。第 7 章の `Either` の中に `List` が入る形です。その二重の文脈でも `map` の法則が保たれることを、先に確かめておきます。
 
 ```kotlin
     val results: Arb<Either<ZettaiError, List<ToDoListRow>>> = Arb.choice(
@@ -160,7 +162,7 @@ FP 版の query は、失敗するかもしれない結果です。第 7 章の 
     }
 ```
 
-関数 `f` と `g` も生成します。成功と失敗の両方が生成されるので、失敗がそのまま流れることも確かめられます。
+`arbEvents`（イベント列）と `arbError`（error）は、テスト全体で共有する生成器です。関数 `f` と `g` も生成します。失敗がそのまま流れることは、第 7 章で確かめました。ここでは、`Either` と `List` を重ねても法則が保たれることを確かめます。
 
 ```kotlin
     val rowToInt: Arb<(ToDoListRow) -> Int> =
@@ -183,16 +185,30 @@ FP 版の query は、失敗するかもしれない結果です。第 7 章の 
 
 既存 Kotlin 版は、`ToDoListProjection` に自作の `map` を持たせ、その法則を確かめました。FP 版では、ファンクタ自体を作りません。標準の `List.map` と Arrow の `Either.map` に委ね、確かめるのは「重ねても法則が保たれる」ことと、「射影の結果が replay した状態と一致する」ことです。
 
-一致は次の property test で確かめます。
+一致は次の property test で確かめます。`fromState` は、replay した状態から行を数え直したものです。
 
 ```kotlin
     "射影の行は、replay した状態から数えた行と一致する" {
         checkAll(arbEvents) { events ->
             val state = events.replayFrom()
-```
 
-```kotlin
+            genUsers.forEach { user ->
+                val fromState = genListNames
+                    .mapNotNull { name ->
+                        state.listFor(user, name)?.let { list ->
+                            ToDoListRow(
+                                listName = name,
+                                itemCount = list.items.size,
+                                doneCount = list.items.count { it.status == ToDoStatus.Done },
+                            )
+                        }
+                    }
+                    .associateBy { it.listName }
+
                 projectFrom(user, events).associateBy { it.listName } shouldBe fromState
+            }
+        }
+    }
 ```
 
 任意のイベント列で、command 側の状態から数えた行と、query 側の射影が一致します。ここに「未作成のリストへの event」や「複数のユーザー」が混ざるように生成器を作っています。
@@ -203,7 +219,7 @@ FP 版の query は、失敗するかもしれない結果です。第 7 章の 
 
 ### 経路を分ける
 
-port は、何を読むかを名前で示します。この章の時点では、読み出しは失敗しない `List` を返します。第 9 章で永続化を入れるとき、戻り値を `Either` に変えます。
+ここで集約とは、`User` と `ListName` の組で決まる 1 つのリストを、判断の単位として呼ぶ名前です。port は、何を読むかを名前で示します。この章の時点では、読み出しは失敗しない `List` を返します。第 9 章で永続化を入れるとき、戻り値を `Either` に変えます。
 
 <!-- code-check: ignore 第 9 章で戻り値を Either にする前の形 -->
 
@@ -225,6 +241,18 @@ data class ToDoListHub(
     val listRows: RowsQuery,
     val execute: CommandExecutor,
 )
+```
+
+`ListQuery`、`RowsQuery`、`CommandExecutor` は、それぞれの関数型に付けた名前です。
+
+<!-- code-check: ignore 第 9 章で RowsQuery の戻り値を Either にする前の形 -->
+
+```kotlin
+typealias ListQuery = suspend (User, ListName) -> Either<ZettaiError, ToDoList>
+
+typealias RowsQuery = suspend (User) -> List<ToDoListRow>
+
+typealias CommandExecutor = suspend (ToDoListCommand) -> Either<ZettaiError, List<ToDoListEvent>>
 ```
 
 <!-- code-check: ignore 第 9 章で Either を返す port に合わせる前の形 -->
@@ -307,20 +335,20 @@ query 側が event から導くようになったので、`ToDoList` を直接�
 - 射影のテスト: `apps/kotlin-fp/zettai/zettai-step5-cqrs-persistence/src/test/kotlin/zettai/domain/queries/ProjectionTest.kt`
 - 法則のテスト: `apps/kotlin-fp/zettai/zettai-step5-cqrs-persistence/src/test/kotlin/zettai/domain/queries/ProjectionLawsTest.kt`
 
-この章から `zettai-step5-cqrs-persistence` module に移ります。第 5・6 章の Cucumber の scenario も、この module で通ります。前提は command で用意し、domain と HTTP の 2 経路で同じ scenario を確かめます。
+この章から `zettai-step5-cqrs-persistence` module に移ります。第 3 章の Cucumber の scenario も、この module に移しました。前提は command で用意し、domain と HTTP の 2 経路で同じ scenario を確かめます。第 9 章で 3 経路目を足します。コードの一部は第 9 章で変わるため、ここに挙げるファイルは第 9 章の変更を含む最新の形です。
 
-`apps/kotlin-fp/zettai/` で、この章の module のテストを実行できます。
+この module には、第 9 章で足す PostgreSQL の結合テストも含まれます。module 全体のテストは Docker daemon を必要とします。Docker を使わずにこの章の範囲を確かめるには、`apps/kotlin-fp/zettai/` で次のように絞り込みます。
 
 Unix / Nix shell:
 
 ```text
-bash ./gradlew :zettai-step5-cqrs-persistence:test
+bash ./gradlew :zettai-step5-cqrs-persistence:test --tests "zettai.domain.*" --tests "zettai.application.ToDoListHubTest" --tests "zettai.web.*" --tests "zettai.adapter.inmemory.*" --tests "zettai.smoke.*"
 ```
 
 Windows PowerShell:
 
 ```text
-.\gradlew.bat :zettai-step5-cqrs-persistence:test
+.\gradlew.bat :zettai-step5-cqrs-persistence:test --tests "zettai.domain.*" --tests "zettai.application.ToDoListHubTest" --tests "zettai.web.*" --tests "zettai.adapter.inmemory.*" --tests "zettai.smoke.*"
 ```
 
 ## 参照

@@ -4,7 +4,7 @@ title: "Unit 6 の Bolt 終了報告 - Zettai 連載（Kotlin FP 版）"
 description: "Kotlin FP 版 Unit 6 の transaction と楽観ロック、複数 stream の原子的な保存、名前変更、蓄積する検証、テンプレート描画、第 10〜11 章の完了結果を記録する。"
 tags: [development, report, zettai, kotlin, arrow, postgresql, applicative, unit-6]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T11:54:52Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T11:58:16Z }
 ---
 
 # Unit 6 の Bolt 終了報告 - Zettai 連載（Kotlin FP 版）
@@ -81,8 +81,7 @@ Docker を使わない絞り込み（`web`、`domain`、`smoke`）は 11 秒で�
 ## 未了と持ち越し
 
 - ADR-042、ADR-043、データモデルの Kotlin FP 版の差分は、人（kakimomokuri）が承認し、`stable` にしました。
-- レビューの中の持ち越し 5 件（`MAX(version)`、`createSchema` の列確認、途中例外の rollback テスト、失敗応答の HTML 化、404 の導線）があります。
-- 修正後の再レビューは実施していません。
+- レビューの中の指摘は、修正したか、理由を付けて決定しました。低の `Request.listKey()` の重複と成功の知らせが残ります。
 
 ## 関連ドキュメント
 

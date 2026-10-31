@@ -17,6 +17,11 @@ internal object EventTable {
         )
     """
 
+    const val HAS_VERSION_COLUMN = """
+        SELECT 1 FROM information_schema.columns
+        WHERE table_name = 'todo_list_event' AND column_name = 'version'
+    """
+
     const val CREATE_INDEX = """
         CREATE INDEX IF NOT EXISTS idx_todo_list_event_entity
             ON todo_list_event (entity_id, id)
@@ -72,6 +77,7 @@ internal object EventTable {
 
     private const val SELECT_COLUMNS = """
         SELECT event_type,
+               version,
                payload ->> 'user' AS user_name,
                payload ->> 'listName' AS list_name,
                payload ->> 'newName' AS new_name,

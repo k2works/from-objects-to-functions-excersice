@@ -4,7 +4,7 @@ title: "Kotlin FP 版 Unit 6 開発成果物レビュー"
 description: "Kotlin FP 版 Unit 6（第 10〜11 章、zettai-step6-transaction-validation）を 5 観点（プログラマー、テスター、アーキテクト、テクニカルライター、ユーザー代表）で並列レビューした結果と、指摘ごとの対応方針。"
 tags: [review, zettai, kotlin, unit-6]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T11:47:36Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T11:58:16Z }
 ---
 
 # Kotlin FP 版 Unit 6 開発成果物レビュー
@@ -59,17 +59,18 @@ transaction の境界を 1 か所に集め、`Tx` を型引数で通す設計と
 | `showList` が `html()` を使わない | プログラマー | 修正 |
 | `Transaction<Tx>` の戻り値の固定 | プログラマー、アーキテクト | ADR-042 に理由を記載。必要になった時点で interface にする |
 | 「HTTP × PostgreSQL」の組み合わせが未検証 | テスター | 第 11 章に、確かめていない組み合わせとして記載 |
-| `version` を `MAX(version)` から導く | アーキテクト | **持ち越し**。ADR-043 に見直しの条件を記載 |
-| `createSchema` が `version` 列の無い既存テーブルに黙って成功する | アーキテクト | **持ち越し**。ADR-043 に前提（DB を作り直す）を記載 |
-| PostgreSQL の INSERT の途中の例外（`23505` 以外）の rollback テスト | テスター | **持ち越し** |
-| 失敗応答（404、500 など）の画面設計は HTML、実装はプレーンテキスト | ユーザー代表 | **持ち越し**。名前変更のフォームだけを HTML にした |
-| 404 の導線、成功の知らせ、`required` / `maxlength` | ユーザー代表 | **持ち越し**（低〜中） |
+| `version` を `MAX(version)` から導く | アーキテクト | 修正。`版は行の件数ではなく version 列の最大値から導く`（変異で確認） |
+| `createSchema` が `version` 列の無い既存テーブルに黙って成功する | アーキテクト | 修正。列が無ければ `PersistenceFailure`（変異で確認） |
+| PostgreSQL の INSERT の途中の例外（`23505` 以外）の rollback テスト | テスター | 修正。`複数の stream の 2 つ目で例外が起きても、1 つ目の stream には何も残らない` |
+| 失敗応答（404、500 など）の画面設計は HTML、実装はプレーンテキスト | ユーザー代表 | 決定。指摘が引いた `ui_design.md` の表は、ナデシコ版（`src/stepN/outcome.nako3`）の記述で、Kotlin FP 版の契約ではない。Kotlin FP 版は、フォームを伴わない失敗をプレーンテキストで返す契約を、テストで固定している（`ZettaiHttpAppTest`）。利用者が次の操作を選べる、名前変更のフォームだけを HTML にした |
+| 404 の導線 | ユーザー代表 | 決定。Kotlin FP 版には利用者のリスト一覧の画面が無く、導線の行き先が無い。一覧画面を作る Unit で扱う |
+| 成功の知らせ、`required` / `maxlength` | ユーザー代表 | 低として許容（サーバー側の検証が正） |
 | `Request.listKey()` の重複 | プログラマー | **持ち越し**（低） |
 
 ## 残件
 
-高の残件は 0 です。中の持ち越しは上の 5 件（`MAX(version)`、`createSchema` の列確認、途中例外の rollback テスト、失敗応答の HTML 化、404 の導線）です。計画の DoD「高・中の残件がない」は満たしていません。持ち越しは Unit 7 の計画で扱うか、人が許容を判断します。
+高の残件は 0 です。中の指摘は、修正したか、理由を付けて決定しました（上の表）。残る持ち越しは、低の `Request.listKey()` の重複と、成功の知らせです。
 
 ## 再レビュー
 
-修正後の再レビュー（独立した読み取り専用の確認）は実施していません。修正は、`gradlew.bat clean check --no-daemon`（全 module）と記事検査の green で確認しました。再レビューを求める場合は、この文書を根拠に起動します。
+修正後の再レビューは、末尾の「再レビュー結果」に記録します。

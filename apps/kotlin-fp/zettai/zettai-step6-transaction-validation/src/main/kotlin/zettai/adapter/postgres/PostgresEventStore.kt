@@ -38,6 +38,9 @@ suspend fun createSchema(connect: () -> Connection): Either<PersistenceFailure, 
                 statement.execute(EventTable.CREATE_TABLE)
                 statement.execute(EventTable.CREATE_INDEX)
             }
+            check(connection.hasVersionColumn()) {
+                "todo_list_event に version 列が無い。既存のテーブルは移行しないので、作り直す"
+            }
         }
         Unit
     }
@@ -94,13 +97,18 @@ private suspend fun inTransaction(
         }.fold({ it.toFailure().left() }, { it })
     }
 
+private fun Connection.hasVersionColumn(): Boolean =
+    prepareStatement(EventTable.HAS_VERSION_COLUMN).use { statement ->
+        statement.executeQuery().use { rows -> rows.next() }
+    }
+
 private fun readStream(connection: Connection, stream: StreamId): Either<PersistenceFailure, StreamEvents> =
     Either.catch {
         connection.prepareStatement(EventTable.SELECT_BY_ENTITY).use { statement ->
             statement.setString(1, entityId(stream.user, stream.listName))
-            statement.executeQuery().use { rows -> rows.toEvents() }
+            statement.executeQuery().use { rows -> rows.toStreamEvents() }
         }
-    }.map { StreamEvents(it, it.size) }.mapLeft { it.toFailure() }
+    }.mapLeft { it.toFailure() }
 
 /**
  * event を入力の順に、stream ごとに、読んだ版の次から連番を付けて挿入する。
@@ -171,6 +179,17 @@ private suspend fun query(
             }
         }
     }
+
+/** 版は行の件数ではなく、`version` 列の最大値。追記は、この版の次から連番を付ける。 */
+private fun ResultSet.toStreamEvents(): StreamEvents {
+    val events = mutableListOf<ToDoListEvent>()
+    var version = 0
+    while (next()) {
+        events.add(decode())
+        version = maxOf(version, getInt("version"))
+    }
+    return StreamEvents(events, version)
+}
 
 private fun ResultSet.toEvents(): List<ToDoListEvent> =
     buildList {

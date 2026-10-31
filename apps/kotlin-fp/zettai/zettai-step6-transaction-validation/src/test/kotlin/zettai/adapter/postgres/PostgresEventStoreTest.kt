@@ -17,6 +17,7 @@ import zettai.application.EventStore
 import zettai.application.appendAuto
 import zettai.arbEvents
 import zettai.domain.ListName
+import zettai.domain.StreamId
 import zettai.domain.ToDoItem
 import zettai.domain.ToDoStatus
 import zettai.domain.User
@@ -249,6 +250,54 @@ class PostgresEventStoreTest : StringSpec({
 
             store.readAggregate(alice, book).leftOrNull().shouldBeInstanceOf<PersistenceFailure>()
         }
+    }
+
+    "version 列の無い既存のテーブルに対して、createSchema は黙って成功せず PersistenceFailure を返す" {
+        SharedPostgres.connect().use { connection ->
+            connection.createStatement().use {
+                it.execute("DROP TABLE todo_list_event")
+                it.execute("CREATE TABLE todo_list_event (id BIGSERIAL PRIMARY KEY, entity_id TEXT NOT NULL)")
+            }
+        }
+
+        createSchema(SharedPostgres::connect).leftOrNull().shouldBeInstanceOf<PersistenceFailure>()
+    }
+
+    "版は行の件数ではなく version 列の最大値から導く" {
+        val store = postgresEventStore(SharedPostgres::connect)
+        store.append(listOf(ListCreated(alice, book)))
+        SharedPostgres.connect().use { connection ->
+            connection.createStatement().use {
+                it.execute(
+                    """
+                    INSERT INTO todo_list_event (entity_id, version, event_type, payload)
+                    VALUES ('alice/book', 5, 'ItemAdded',
+                        '{"user":"alice","listName":"book","item":{"description":"x","dueDate":null,"status":"Todo"}}')
+                    """.trimIndent(),
+                )
+            }
+        }
+
+        var read = -1
+        store.transaction { tx ->
+            read = store.readStream(tx, StreamId(alice, book)).getOrElse { error(it.reason) }.version
+            emptyList<ToDoListEvent>().right()
+        }
+
+        read shouldBe 5
+    }
+
+    "複数の stream の 2 つ目で例外が起きても、1 つ目の stream には何も残らない" {
+        val store = postgresEventStore(SharedPostgres::connect)
+        val result = store.transaction { tx ->
+            val broken = ItemAdded(alice, shop, ToDoItem("a" + Char(0) + "b"))
+            val events = listOf(ListCreated(alice, book), ListCreated(alice, shop), broken)
+            store.append(tx, mapOf(StreamId(alice, book) to 0, StreamId(alice, shop) to 0), events).map { events }
+        }
+
+        result.leftOrNull().shouldBeInstanceOf<PersistenceFailure>()
+        store.events(alice, book) shouldBe emptyList()
+        store.events(alice, shop) shouldBe emptyList()
     }
 
     "PersistenceFailure は原因を reason に持つ" {

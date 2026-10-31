@@ -4,7 +4,7 @@ title: "執筆計画：関数型プログラミングで作る変更を楽に安
 description: "Uberto Barbini 著『From Objects to Functions』を下敷きにした Zettai 連載の執筆計画。既存 3 言語版に加え、Grokking Functional Programming の Kotlin + Arrow 解説を基礎にした Kotlin FP 版について、全 13 章の移植方針、記事と実装の同期、前提整備、品質ゲートを定義する。"
 tags: [article, plan, zettai]
 status: draft
-generated: { by: openai-codex/gpt-5, at: 2026-10-31T00:15:57Z }
+generated: { by: openai-codex/gpt-5, at: 2026-10-31T05:09:20Z }
 ---
 
 # 執筆計画：関数型プログラミングで作る変更を楽に安全にできるソフトウェア
@@ -24,7 +24,7 @@ generated: { by: openai-codex/gpt-5, at: 2026-10-31T00:15:57Z }
 | 対象 | 実行環境 | 章数 | 記事 | サンプル実装 | 状態 |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | Kotlin | Nix devShell `kotlin`（JDK 21 / Gradle） | 13 | `docs/article/zettai/kotlin/` | `apps/kotlin/zettai/` | **完結**（13 / 13 章公開） |
-| Kotlin FP | Nix devShell `kotlin-fp`（JDK 25 / Gradle） | 13 | `docs/article/zettai/kotlin-fp/` | `apps/kotlin-fp/zettai/` | **執筆中**（5 / 13 章公開） |
+| Kotlin FP | Nix devShell `kotlin-fp`（JDK 25 / Gradle） | 13 | `docs/article/zettai/kotlin-fp/` | `apps/kotlin-fp/zettai/` | **執筆中**（7 / 13 章公開） |
 | なでしこ3 | Nix devShell `nadesiko`（Node 22 / cnako3 3.8.7） | 13 | `docs/article/zettai/nadesiko/` | `apps/nadesiko/zettai/` | **完結**（13 / 13 章公開） |
 | Rust | Nix devShell `rust`（rustc 1.91.1 / cargo 1.91.0） | 13 | `docs/article/zettai/rust/` | `apps/rust/zettai/` | **完結**（13 / 13 章公開） |
 

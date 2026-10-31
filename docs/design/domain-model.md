@@ -4,7 +4,7 @@ title: "ドメインモデル設計 - Zettai"
 description: "Zettai（Kotlin 版）のドメインモデル設計。ユビキタス言語の対訳表、集約・エンティティ・値オブジェクト・列挙型の要素表、イベントと状態の関係、ToDo 項目の状態遷移、状態変換がモノイドであること、章の進行にあわせたモデルの成長を記述する。"
 tags: [design, domain-model, zettai, kotlin]
 status: draft
-generated: { by: openai-codex/gpt-5, at: 2026-10-31T00:15:57Z }
+generated: { by: openai-codex/gpt-5, at: 2026-10-31T05:09:20Z }
 ---
 
 # ドメインモデル設計 - Zettai
@@ -462,19 +462,22 @@ Kotlin の関数型は 1 種類、なでしこ3 の関数値も 1 種類です�
 
 ## Kotlin FP 版での差分
 
-Kotlin FP 版 Unit 3 は、既存 Kotlin 版と同じユビキタス言語を保ちつつ、依存と状態変換を関数値として明示します。
+Kotlin FP 版 Unit 3〜4 は、既存 Kotlin 版と同じユビキタス言語を保ちつつ、依存と状態変換を関数値として明示します。Unit 4 では利用者の意図、拒否理由、状態遷移を closed な型にします。
 
 | 要素 | 種別 | 定義 |
 | :--- | :--- | :--- |
 | `User` | 値オブジェクト | 利用者名を持つ `value class` |
 | `ListName` | 値オブジェクト | リスト名を持つ `value class` |
 | `ToDoItem` | immutable value | `description`、nullable な `dueDate`、`ToDoStatus` を持つ `data class` |
-| `ToDoStatus` | enum | `Todo`、`InProgress`、`Done`、`Blocked`。業務遷移は第 6 章で導入 |
+| `ToDoStatus` | enum | `Todo`、`InProgress`、`Done`、`Blocked`。4 × 4 の遷移表は 5 組を許可し、11 組を拒否する |
 | `ToDoList` | immutable value | `ListName` と read-only な項目列を持つ |
-| `ToDoListHub` | application service value | `getList` 関数を持ち、constructor function で `ToDoListFetcher` を注入する |
+| `ToDoListHub` | application service value | `getList` / `execute` 関数を持ち、constructor function で三つの suspend function port を注入する |
+| `ToDoListCommand` | sealed command | `CreateToDoList`、`AddToDoItem`、`ChangeItemStatus` で利用者の意図を表す |
 | `ToDoListEvent` | sealed event | `User` と `ListName` を共通に持つ |
 | `ListCreated` | event | リストが作成された事実 |
 | `ItemAdded` | event | 項目が追加された事実 |
+| `ItemStatusChanged` | event | 許可された状態変更が起きた事実 |
+| `ZettaiError` | sealed error | `ListNotFound`、`ListAlreadyExists`、`ItemNotFound`、`InvalidTransition` で拒否理由を表す |
 | `ToDoListState` | immutable state | `(User, ListName)` をキーにしたリストの read-only map |
 | `StateTransition` | 関数型 | `(ToDoListState) -> ToDoListState`。`andThen` と単位元で合成する |
 
@@ -491,13 +494,32 @@ class ToDoListState <<value>>
 interface ToDoListEvent <<sealed>>
 class ListCreated <<event>>
 class ItemAdded <<event>>
+class ItemStatusChanged <<event>>
+interface ToDoListCommand <<sealed>>
+class CreateToDoList <<command>>
+class AddToDoItem <<command>>
+class ChangeItemStatus <<command>>
+interface ZettaiError <<sealed>>
+class ListNotFound <<error>>
+class ListAlreadyExists <<error>>
+class ItemNotFound <<error>>
+class InvalidTransition <<error>>
 
 ToDoList "1" *-- "0..*" ToDoItem
 ToDoItem --> ToDoStatus
 ToDoListState "1" o-- "0..*" ToDoList
 ToDoListEvent <|-- ListCreated
 ToDoListEvent <|-- ItemAdded
+ToDoListEvent <|-- ItemStatusChanged
+ToDoListCommand <|-- CreateToDoList
+ToDoListCommand <|-- AddToDoItem
+ToDoListCommand <|-- ChangeItemStatus
+ZettaiError <|-- ListNotFound
+ZettaiError <|-- ListAlreadyExists
+ZettaiError <|-- ItemNotFound
+ZettaiError <|-- InvalidTransition
 ItemAdded --> ToDoItem
+ItemStatusChanged --> ToDoStatus
 @enduml
 ```
 
@@ -510,6 +532,10 @@ ItemAdded --> ToDoItem
 - 列連結との対応: `(a + b).asTransition()` と `a.asTransition() andThen b.asTransition()` は同じ結果になる
 
 関数そのものの参照同値性ではなく、Kotest property testing が生成した状態へ適用した観測結果で法則を検証します。
+
+Unit 4 の command handler は `ToDoListCommand` と `ToDoListState` を受け取り、`Either<ZettaiError, List<ToDoListEvent>>` を返す純粋関数です。Arrow Raise の `ensure` / `ensureNotNull` は閉じた error hierarchy で fail-fast し、成功したときだけ event を生成します。Hub が event の永続化を担当するため、domain rule は database や HTTP を知りません。
+
+`Either.map` には恒等則と合成則を要求します。成功値と失敗値を生成する Kotest property testing で両方を検証し、自作 `Outcome` を増やさず Arrow の抽象へ委ねます。
 
 ## 関連ドキュメント
 

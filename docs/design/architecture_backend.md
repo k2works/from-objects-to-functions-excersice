@@ -4,7 +4,7 @@ title: "バックエンドアーキテクチャ設計 - Zettai"
 description: "Zettai（Kotlin 版）のバックエンドアーキテクチャ設計。ドメインとアダプタの境界の定義と担保方法、Gradle マルチプロジェクトのモジュール分割と命名規約、パッケージ構成、依存の向き、関数の型による依存表現、章の進行にあわせた構造の変化を記述する。"
 tags: [design, architecture, zettai, kotlin]
 status: draft
-generated: { by: openai-codex/gpt-5, at: 2026-10-31T00:15:57Z }
+generated: { by: openai-codex/gpt-5, at: 2026-10-31T05:09:20Z }
 ---
 
 # バックエンドアーキテクチャ設計 - Zettai
@@ -350,13 +350,13 @@ Kotlin 版は `HubAction`（`ContextReader`）を導入した結果、ポート�
 
 ## Kotlin FP 版での差分
 
-Kotlin FP 版は、既存 Kotlin 版と同じヘキサゴナルな依存方向を、interface より小さい関数型で表します。Unit 3 の package 依存は **`web -> application -> domain`** であり、逆方向の import を許しません。
+Kotlin FP 版は、既存 Kotlin 版と同じヘキサゴナルな依存方向を、interface より小さい関数型で表します。Unit 4 の package 依存は **`web -> application -> domain`**、**`adapter.inmemory -> application / domain`** であり、逆方向の import を許しません。
 
 | package | 責務 | 知ってよいもの |
 | :--- | :--- | :--- |
-| `zettai.domain` | immutable な値、イベント、純粋な replay | Kotlin 標準ライブラリ |
-| `zettai.application` | `ToDoListFetcher` と Hub の constructor function | `zettai.domain` |
-| `zettai.adapter.inmemory` | 入力を snapshot 化する fetcher 実装 | `zettai.application`、`zettai.domain` |
+| `zettai.domain` | immutable な値、command、event、typed error、純粋な replay / command handler | Kotlin 標準ライブラリ、Arrow Core |
+| `zettai.application` | suspend function port と Hub の constructor function | `zettai.domain`、Arrow Core |
+| `zettai.adapter.inmemory` | snapshot fetcher と event store の実装 | `zettai.application`、`zettai.domain`、Arrow Core |
 | `zettai.web` | http4k の request / response、同期境界 | `zettai.application`、`zettai.domain`、http4k、coroutine runner |
 
 ```plantuml
@@ -367,29 +367,45 @@ package web {
 package application {
   [ToDoListHub]
   [ToDoListFetcher]
+  [StateFetcher]
+  [EventPersister]
 }
 package adapter.inmemory {
   [InMemoryToDoListFetcher]
+  [InMemoryEventStore]
 }
 package domain {
   [ToDoList]
+  [ToDoListCommand]
   [ToDoListEvent]
+  [CommandHandler]
+  [ZettaiError]
   [Replay]
 }
 
 [ZettaiHttpApp] --> [ToDoListHub]
 [InMemoryToDoListFetcher] --> [ToDoListFetcher]
 [InMemoryToDoListFetcher] --> [ToDoList]
+[InMemoryEventStore] --> [StateFetcher]
+[InMemoryEventStore] --> [EventPersister]
 [ToDoListHub] --> [ToDoListFetcher]
+[ToDoListHub] --> [StateFetcher]
+[ToDoListHub] --> [EventPersister]
+[ToDoListHub] --> [CommandHandler]
 [ToDoListFetcher] --> [ToDoList]
+[CommandHandler] --> [ToDoListCommand]
+[CommandHandler] --> [ToDoListEvent]
+[CommandHandler] --> [ZettaiError]
 [Replay] --> [ToDoListEvent]
 [Replay] --> [ToDoList]
 @enduml
 ```
 
-`ToDoListHub` は関数プロパティを持つ immutable な値で、`todoListHub(fetchList)` という constructor function が配線します。関数値として差し替えるのは driven adapter の in-memory fetcher / test lambda で、HTTP は同じ Hub を利用する driving adapter です。`runBlocking` は同期 http4k adapter の最外周だけに置き、domain と application へは漏らしません。
+`ToDoListHub` は関数プロパティを持つ immutable な値で、`todoListHub(fetchList, fetchState, persist)` という constructor function が配線します。三つの port は suspend function type で、command 用の `fetchState` と `persist` は必須です。command handler の `Left` は `bind` で短絡し、検証に成功した event だけを `EventPersister` へ渡します。HTTP は同じ Hub を利用する driving adapter です。`runBlocking` は同期 http4k adapter の最外周だけに置き、domain と application へは漏らしません。
 
-第 5 章の replay と状態変換の合成は Kotlin 標準の `fold` で十分です。Arrow の typed error は第 7 章まで導入せず、章の到達順序を守ります。
+Unit 4 の in-memory event store は単一実行用の学習 adapter であり、`fetchState` と `persist` をまたぐ atomicity を保証しません。transaction scope は PostgreSQL 永続化と command route を扱う後続 Unit で定義します。
+
+第 5 章の replay と状態変換の合成は Kotlin 標準の `fold` で十分です。第 7 章では Arrow Core の `Either` / Raise を domain と application に導入します。これは typed error の表現と合成のためであり、http4k と coroutine runner は引き続き adapter に閉じ込めます。境界テストは domain から application / adapter / HTTP / coroutine runner への依存、および application から adapter への依存を禁止します。
 
 ### Kotlin FP 版の段階 module
 
@@ -398,6 +414,7 @@ package domain {
 | `zettai-step1-foundation` | 1 | 作成済み |
 | `zettai-step2-http-domain` | 2〜3 | 作成済み |
 | `zettai-step3-domain-events` | 4〜5 | Unit 3 で作成 |
+| `zettai-step4-command-errors` | 6〜7 | Unit 4 で作成 |
 
 各 module は記事時点の snapshot として独立させ、後続 module から前段 module の production code へ依存しません。これにより、後章のリファクタリングで前章のコード例を壊しません。
 

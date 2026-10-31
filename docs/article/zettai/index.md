@@ -12,7 +12,7 @@ ToDo リストアプリケーション **Zettai** を TDD で一から作りな�
 | 対象 | 記事 | サンプル実装 | 実行環境 | 状態 |
 | :--- | :--- | :--- | :--- | :--- |
 | Kotlin | [Kotlin 版](kotlin/index.md) | `apps/kotlin/zettai/` | Nix devShell `kotlin`（JDK 21 / Gradle） | **完結（13 / 13 章）** |
-| Kotlin FP | [Kotlin FP 版](kotlin-fp/index.md) | `apps/kotlin-fp/zettai/` | Nix devShell `kotlin-fp`（JDK 25 / Gradle） | **執筆中（5 / 13 章）** |
+| Kotlin FP | [Kotlin FP 版](kotlin-fp/index.md) | `apps/kotlin-fp/zettai/` | Nix devShell `kotlin-fp`（JDK 25 / Gradle） | **執筆中（7 / 13 章）** |
 | なでしこ3 | [なでしこ3 版](nadesiko/index.md) | `apps/nadesiko/zettai/` | Nix devShell `nadesiko`（Node 22 / cnako3 3.8.7） | **完結（13 / 13 章）** |
 | Rust | [Rust 版](rust/index.md) | `apps/rust/zettai/` | Nix devShell `rust`（rustc 1.91.1 / cargo 1.91.0） | **完結（13 / 13 章）** |
 
@@ -38,8 +38,8 @@ ToDo リストアプリケーション **Zettai** を TDD で一から作りな�
 | 3 | ドメインの定義とテスト | [公開済み](kotlin/chapter03.md) | [公開済み](kotlin-fp/chapter03.md) | [公開済み](nadesiko/chapter03.md) | [公開済み](rust/chapter03.md) |
 | 4 | ドメインとアダプタのモデリング | [公開済み](kotlin/chapter04.md) | [公開済み](kotlin-fp/chapter04.md) | [公開済み](nadesiko/chapter04.md) | [公開済み](rust/chapter04.md) |
 | 5 | イベントで状態を変更する | [公開済み](kotlin/chapter05.md) | [公開済み](kotlin-fp/chapter05.md) | [公開済み](nadesiko/chapter05.md) | [公開済み](rust/chapter05.md) |
-| 6 | コマンドを実行してイベントを生成する | [公開済み](kotlin/chapter06.md) | 未着手 | [公開済み](nadesiko/chapter06.md) | [公開済み](rust/chapter06.md) |
-| 7 | 関数型手法によるエラーハンドリング | [公開済み](kotlin/chapter07.md) | 未着手 | [公開済み](nadesiko/chapter07.md) | [公開済み](rust/chapter07.md) |
+| 6 | コマンドを実行してイベントを生成する | [公開済み](kotlin/chapter06.md) | [公開済み](kotlin-fp/chapter06.md) | [公開済み](nadesiko/chapter06.md) | [公開済み](rust/chapter06.md) |
+| 7 | 関数型手法によるエラーハンドリング | [公開済み](kotlin/chapter07.md) | [公開済み](kotlin-fp/chapter07.md) | [公開済み](nadesiko/chapter07.md) | [公開済み](rust/chapter07.md) |
 | 8 | ファンクタを使ってイベントを射影する | [公開済み](kotlin/chapter08.md) | 未着手 | [公開済み](nadesiko/chapter08.md) | [公開済み](rust/chapter08.md) |
 | 9 | モナドによる安全なデータ永続化 | [公開済み](kotlin/chapter09.md) | 未着手 | [公開済み](nadesiko/chapter09.md) | [公開済み](rust/chapter09.md) |
 | 10 | コンテキストを読み込み、コマンドを処理する | [公開済み](kotlin/chapter10.md) | 未着手 | [公開済み](nadesiko/chapter10.md) | [公開済み](rust/chapter10.md) |
@@ -56,11 +56,11 @@ ToDo リストアプリケーション **Zettai** を TDD で一から作りな�
 | 実行環境（Nix devShell） | **完了** | **定義済み** | **完了** | **完了** |
 | サンプル実装の雛形 | **完了** | **完了** | **完了** | **完了** |
 | CI | **完了** | **定義済み（同等コマンド green）** | **完了** | **完了** |
-| 公開済みの章 | **13 / 13（完結）** | **5 / 13** | **13 / 13（完結）** | **13 / 13（完結）** |
+| 公開済みの章 | **13 / 13（完結）** | **7 / 13** | **13 / 13（完結）** | **13 / 13（完結）** |
 | ADR | 12 件 | — | 11 件 | **14 件** |
 | 計画した承認ゲート | 47 箇所 | 8 箇所 | 41 箇所 | 15 箇所 |
 | **うち同期停止した回数** | 記録なし | 0 | **1** | **15** |
-| 性質テストで確かめた代数構造 | 5 | 1 | **7** | 5 |
+| 性質テストで確かめた代数構造 | 5 | 2 | **7** | 5 |
 
 > **承認ゲートの数字は、対象ごとに測り方が違います。** Kotlin 版の報告書は「**通過** 47 / 47」で、**人が同期的に停止した回数を記録していません**。「通過」は「ゲートを通った」であって「人が止まった」ではありません。なでしこ3 版が指標を「同期停止」と定義し直し、41 箇所中 1 回と記録しました。Rust 版はその定義を引き継いでいます。
 

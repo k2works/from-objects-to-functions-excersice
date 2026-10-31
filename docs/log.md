@@ -1,6 +1,24 @@
 # Docs Update Log
 
 ## 2026-10-31
+* **Create**: [kotlin-fp-unit4_review_20261031](/review/kotlin-fp-unit4_review_20261031.md) を作成（anthropic/claude-opus-5-5）
+* **Create**: [retrospective-kotlin-fp-4](/development/retrospective-kotlin-fp-4.md) を作成（anthropic/claude-opus-5-5）
+* **Create**: [bolt_report-kotlin-fp-4](/development/bolt_report-kotlin-fp-4.md) を作成（anthropic/claude-opus-5-5）
+* **Update**: [iteration_plan-kotlin-fp-4](/development/iteration_plan-kotlin-fp-4.md) を更新（anthropic/claude-opus-5-5）
+* **Update**: [release_plan-kotlin-fp](/development/release_plan-kotlin-fp.md) を更新（anthropic/claude-opus-5-5）
+* **Update**: [chapter07](/article/zettai/kotlin-fp/chapter07.md) を更新（anthropic/claude-opus-5-5）
+* **Update**: [chapter06](/article/zettai/kotlin-fp/chapter06.md) を更新（anthropic/claude-opus-5-5）
+* **Update**: [iteration_plan-kotlin-fp-4](/development/iteration_plan-kotlin-fp-4.md) を更新（openai-codex/gpt-5）
+* **Update**: [chapter07](/article/zettai/kotlin-fp/chapter07.md) を更新（openai-codex/gpt-5）
+* **Update**: [chapter06](/article/zettai/kotlin-fp/chapter06.md) を更新（openai-codex/gpt-5）
+* **Update**: [release_plan-kotlin-fp](/development/release_plan-kotlin-fp.md) を更新（openai-codex/gpt-5）
+* **Update**: [development_strategy](/development/development_strategy.md) を更新（openai-codex/gpt-5）
+* **Update**: [domain-model](/design/domain-model.md) を更新（openai-codex/gpt-5）
+* **Update**: [architecture_backend](/design/architecture_backend.md) を更新（openai-codex/gpt-5）
+* **Update**: [outline](/article/outline.md) を更新（openai-codex/gpt-5）
+* **Update**: [iteration_plan-kotlin-fp-4](/development/iteration_plan-kotlin-fp-4.md) を更新（openai-codex/gpt-5）
+* **Update**: [release_plan-kotlin-fp](/development/release_plan-kotlin-fp.md) を更新（openai-codex/gpt-5）
+* **Update**: [development_strategy](/development/development_strategy.md) を更新（openai-codex/gpt-5）
 * **Update**: [kotlin-fp-unit3_review_20261031](/review/kotlin-fp-unit3_review_20261031.md) を更新（openai-codex/gpt-5）
 * **Update**: [retrospective-kotlin-fp-3](/development/retrospective-kotlin-fp-3.md) を更新（openai-codex/gpt-5）
 * **Update**: [iteration_plan-kotlin-fp-3](/development/iteration_plan-kotlin-fp-3.md) を更新（openai-codex/gpt-5）

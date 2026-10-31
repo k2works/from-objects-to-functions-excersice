@@ -9861,7 +9861,7 @@
 </tr>
 <tr>
 <td style="text-align: left;">状態</td>
-<td style="text-align: left;"><strong>完了</strong>（push 後の CI の結果は下記に記録）</td>
+<td style="text-align: left;"><strong>完了</strong></td>
 </tr>
 </tbody>
 </table>
@@ -9922,8 +9922,8 @@
 <td style="text-align: left;"><code>entity_id</code> の escape、Cucumber の PostgreSQL 経路、batch の原子性で確認</td>
 </tr>
 <tr>
-<td style="text-align: left;">CI</td>
-<td style="text-align: left;">未 push のため未実行</td>
+<td style="text-align: left;">CI（push 後の GitHub Actions）</td>
+<td style="text-align: left;">成功。Kotlin FP Zettai は <code>check</code>（Testcontainers の結合テストを含む）と article の 2 job、Deploy MkDocs は strict ビルド。Kotlin Zettai とナデシコ版の workflow も成功（run 41177663644 ほか）</td>
 </tr>
 </tbody>
 </table>
@@ -9985,7 +9985,6 @@
 <li><code>postgresEventStore(connect)</code> の「操作ごとに接続を開く」形の見直しと、<code>Resource</code> の採否。</li>
 <li>in-memory adapter の同期（<code>Mutex</code>）。</li>
 <li>5-1.0（<code>gulp mkdocs:build</code> を CI と同じ判定にする）は、Unit のクローズ後に実施した。<code>ops/scripts/mkdocs.js</code> に <code>--strict</code> を足した。</li>
-<li>push 後の CI の結果を確認する（下記）。</li>
 <li>Docker が無い環境で、失敗がどう見えるかの確認。</li>
 </ul>
 <h2 id="_6">関連ドキュメント<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>

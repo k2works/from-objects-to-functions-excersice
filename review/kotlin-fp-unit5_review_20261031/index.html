@@ -10090,7 +10090,7 @@
 <h2 id="_6">未確認のこと<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>Docker が無い環境で、失敗がどう見えるか。</strong> Testcontainers は成功した接続方法を <code>~/.testcontainers.properties</code> に記憶するため、環境変数では再現できなかった。利用者の設定ファイルを書き換えてまでは試していない。</li>
-<li><strong>push 後の CI。</strong> まだ push していない。ローカルでは <code>clean check</code> と、step5 の <code>check</code> の 3 回連続の成功を確かめた。</li>
+<li><strong>（解消）push 後の CI。</strong> 人の承認を得て push し、GitHub Actions で Kotlin FP Zettai の <code>check</code> を含む 4 つの workflow が成功した。</li>
 </ul>
 <h2 id="_7">検証結果<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
 <ul>

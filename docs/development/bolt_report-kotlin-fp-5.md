@@ -4,7 +4,7 @@ title: "Unit 5 の Bolt 終了報告 - Zettai 連載（Kotlin FP 版）"
 description: "Kotlin FP 版 Unit 5 の射影と CQRS、PostgreSQL の event store、永続化の typed error、第 8〜9 章の完了結果を記録する。"
 tags: [development, report, zettai, kotlin, arrow, postgresql, unit-5]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:41:16Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:45:16Z }
 ---
 
 # Unit 5 の Bolt 終了報告 - Zettai 連載（Kotlin FP 版）
@@ -17,7 +17,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:41:16Z }
 | Bolt | 5-1 第 8 章 / 5-2 第 9 章 |
 | 実施日 | 2026-10-31 |
 | 見積もり | US-008: 5 SP / US-009: 8 SP |
-| 状態 | **完了**（push 後の CI の結果は下記に記録） |
+| 状態 | **完了** |
 
 ## 成果
 
@@ -43,7 +43,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:41:16Z }
 | `mkdocs build --strict` | 成功（Docker 上で実行） |
 | 5 観点レビュー | 重複を含めて高 8 / 中 28 / 低 24、統合後 高 7 / 中 19。修正後の高・中の残件 0（再レビューで確認）。並行実行の競合は第 10 章へ |
 | 変異による確認 | `entity_id` の escape、Cucumber の PostgreSQL 経路、batch の原子性で確認 |
-| CI | 未 push のため未実行 |
+| CI（push 後の GitHub Actions） | 成功。Kotlin FP Zettai は `check`（Testcontainers の結合テストを含む）と article の 2 job、Deploy MkDocs は strict ビルド。Kotlin Zettai とナデシコ版の workflow も成功（run 41177663644 ほか） |
 
 カバレッジ計測は本 project で未設定です。Unit 2 の画面と HTTP 契約を変更していないため、UI / manual の更新は対象外です。
 
@@ -72,7 +72,6 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:41:16Z }
 - `postgresEventStore(connect)` の「操作ごとに接続を開く」形の見直しと、`Resource` の採否。
 - in-memory adapter の同期（`Mutex`）。
 - 5-1.0（`gulp mkdocs:build` を CI と同じ判定にする）は、Unit のクローズ後に実施した。`ops/scripts/mkdocs.js` に `--strict` を足した。
-- push 後の CI の結果を確認する（下記）。
 - Docker が無い環境で、失敗がどう見えるかの確認。
 
 ## 関連ドキュメント

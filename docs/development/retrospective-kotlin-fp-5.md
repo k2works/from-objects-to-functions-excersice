@@ -4,7 +4,7 @@ title: "Unit 5 のふりかえり（KPT）- Zettai 連載（Kotlin FP 版）"
 description: "Kotlin FP 版 Unit 5 の射影と CQRS、PostgreSQL の event store、永続化の typed error、第 8〜9 章についての KPT ふりかえり。"
 tags: [development, retrospective, zettai, kotlin, arrow, postgresql, unit-5]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:41:16Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:45:16Z }
 ---
 
 # Unit 5 のふりかえり（KPT）- Zettai 連載（Kotlin FP 版）
@@ -37,8 +37,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:41:16Z }
   - port の Left の型を広げる
   - 並行競合の再現から始める（テストを先に書く）
   - `Resource` の採否
-  - 5-1.0 の判断
-  - push 後の CI の確認
+  - Docker が無い環境で、失敗がどう見えるかの確認
 - 一時スクリプトは、ファイルに書いてから実行します。
 - 人の判断を同期的に求める停止点は、`/goal` のような自律実行でも、データベースのスキーマと新しい ADR の 2 点は承認の記録を残します。
 

@@ -4,7 +4,7 @@ title: "Unit 5 の Bolt 計画 - Zettai 連載（Kotlin FP 版）"
 description: "Kotlin FP 版 Unit 5 の射影と CQRS、集約単位の port、Testcontainers PostgreSQL による event store、永続化の typed error、第 8〜9 章を定義する Bolt 計画。"
 tags: [development, plan, ai-dlc, bolt, zettai, kotlin, arrow, postgresql, unit-5]
 status: stable
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:41:16Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:45:16Z }
 verified:
   - { by: human:kakimomokuri, at: 2026-10-31T05:49:29Z }
 ---
@@ -346,7 +346,7 @@ Unit 4 の再レビューで「記事の表の内訳が実際と合わない」�
 - [x] 計画のタスクに書いたテストが、テスト名と 1 対 1 で対応している
 - [x] 5 観点の開発成果物レビューで高・中重要度の残件がない
 - [x] OKF 検査が ERROR 0
-- [ ] push 後の CI が green（push は人の承認を得て行う）
+- [x] push 後の CI が green（人の承認を得て push した。Kotlin FP Zettai の `check` と article の 2 job が成功）
 
 ### デモ項目
 
@@ -364,6 +364,7 @@ Unit 4 の再レビューで「記事の表の内訳が実際と合わない」�
 | 2026-10-31 | 初版。Unit 4 のふりかえりとレビューの引き継ぎ、設計 4 図の要否、ゲート密度を反映 | anthropic/claude-sonnet-5-5 |
 | 2026-10-31 | 実装、品質ゲート、5 観点レビューの完了を反映。永続化の失敗の型を `PersistenceFailure` に狭めたことを受入条件に記録。push 後の CI は未実施 | anthropic/claude-sonnet-5-5 |
 | 2026-10-31 | 5-1.0 を実施。`gulp mkdocs:build` を `--strict` にした | anthropic/claude-sonnet-5-5 |
+| 2026-10-31 | ADR-038〜041 の承認を記録。人の承認を得て push し、CI が green であることを確認 | anthropic/claude-sonnet-5-5 |
 
 ## 関連ドキュメント
 

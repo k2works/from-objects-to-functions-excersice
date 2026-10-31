@@ -4,7 +4,7 @@ title: "Kotlin FP 版 Unit 5 開発成果物レビュー"
 description: "Kotlin FP 版 Unit 5 の射影と CQRS、PostgreSQL の event store、永続化の typed error、第 8〜9 章を 5 観点でレビューした結果。"
 tags: [review, development, zettai, kotlin, arrow, postgresql, unit-5]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:41:16Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T06:45:16Z }
 ---
 
 # Kotlin FP 版 Unit 5 開発成果物レビュー
@@ -79,7 +79,7 @@ xp-programmer、xp-tester、xp-architect、xp-technical-writer、xp-user-represe
 ## 未確認のこと
 
 - **Docker が無い環境で、失敗がどう見えるか。** Testcontainers は成功した接続方法を `~/.testcontainers.properties` に記憶するため、環境変数では再現できなかった。利用者の設定ファイルを書き換えてまでは試していない。
-- **push 後の CI。** まだ push していない。ローカルでは `clean check` と、step5 の `check` の 3 回連続の成功を確かめた。
+- **（解消）push 後の CI。** 人の承認を得て push し、GitHub Actions で Kotlin FP Zettai の `check` を含む 4 つの workflow が成功した。
 
 ## 検証結果
 

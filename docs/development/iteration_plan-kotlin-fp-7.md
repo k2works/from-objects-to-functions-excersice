@@ -4,7 +4,7 @@ title: "Unit 7 の Bolt 計画 - Zettai 連載（Kotlin FP 版）"
 description: "Kotlin FP 版 Unit 7 の構造化ロギング、関数型 JSON とプロファンクタ、データベース呼び出しのロギング、関数型アーキテクチャの総括、第 12〜13 章、連載全体の品質ゲートを定義する Bolt 計画。"
 tags: [development, plan, ai-dlc, zettai, kotlin, arrow, logging, json, unit-7]
 status: stable
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T12:28:33Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T12:37:18Z }
 verified:
   - { by: human:kakimomokuri, at: 2026-10-31T12:21:58Z }
 ---
@@ -183,11 +183,11 @@ gantt
 ### Bolt 7-1：第 12 章「監視と関数型JSON」
 
 - [x] **7-1.1** `zettai-step7-observability` module を新設する。Unit 6 の production code と test を独立した snapshot としてコピーする。第 12 章で変わる型（`ToDoListHub`、`EventStore<Tx>`、`ZettaiHttpApp`）を一覧し、decorator で包む点を決める。あわせて、持ち越し 7（`userAndList` に寄せる）、11（失敗応答を HTML にするかを決め、`ZettaiHttpAppTest` と計画に残す）、12（`rename` の分岐と `describeError` の `else`）を片づける
-- [ ] **7-1.2** ログに載せるもの、載せないものの表（本計画）をテストにする（ローカルで Red を確認）。決定的な時刻、1 行の JSON、機密の除外
+- [x] **7-1.2** ログに載せるもの、載せないものの表（本計画）をテストにする（ローカルで Red を確認）。決定的な時刻、1 行の JSON、機密の除外
 - [x] **7-1.3** 新しい依存を決める（**停止 1**：新しい依存の追加と、承認済みの ADR-040 の部分的な見直しは確認必須）。上の比較表の案 A を既定として提示する。スパイクで、Kotlin 2.4.21 と整合する版、`JsonElement` の往復、特殊文字（引用符、バックスラッシュ、改行、絵文字）の escape を確かめ、ADR にする。承認が得られないときは、案 B〜D の理由を示して止まる
 - [x] **7-1.4** `Converter<A, B>` と `dimap` を作り、法則（`dimap id id = id`、`dimap (f ∘ g) (h ∘ k) = dimap g h ∘ dimap f k`、往復）を property test で確かめる。壊れた入力は `Left`。法則を満たさない部分があれば、第 12 章に「厳密なプロファンクタではない」理由として書く
-- [ ] **7-1.5** Hub の decorator を `zettai.adapter.logging` に作る（Red → Green）。ログの出力先は `(String) -> Unit`、時刻は `() -> Instant` の引数で与える。1 行を 1 回の呼び出しで書き、並行しても行が混ざらないことをテストする。載せるものを確かめ、載せないものが載らないことをテストする。利用者名とリスト名を載せるかを確認する（**停止 2**：ログの内容の承認）
-- [ ] **7-1.6** `EventStore<Tx>` の decorator を `<Tx>` を持つ関数として作る。包むのは `readAggregate`、`readUser`、`readStream`、`append` で、`transaction` は包まない（読み出し、追記、失敗の記録。payload は載せない）
+- [x] **7-1.5** Hub の decorator を `zettai.adapter.logging` に作る（Red → Green）。ログの出力先は `(String) -> Unit`、時刻は `() -> Instant` の引数で与える。1 行を 1 回の呼び出しで書き、並行しても行が混ざらないことをテストする。載せるものを確かめ、載せないものが載らないことをテストする。利用者名とリスト名を載せるかを確認する（**停止 2**：ログの内容の承認）
+- [x] **7-1.6** `EventStore<Tx>` の decorator を `<Tx>` を持つ関数として作る。包むのは `readAggregate`、`readUser`、`readStream`、`append` で、`transaction` は包まない（読み出し、追記、失敗の記録。payload は載せない）
 - [ ] **7-1.7** HTTP の request log の filter を作る。body と query は載せない。404、400、409、500 も記録する
 - [ ] **7-1.8** `BoundaryTest` に、`zettai.adapter.logging` が `zettai.adapter.postgres`、`zettai.adapter.inmemory`、`zettai.web` に依存しないことを足す。domain と application が `zettai.adapter.logging` を import しないことは、既存の禁止リストが `zettai.adapter` 全体を禁じているので、追加の検査は要らない
 - [ ] **7-1.9** 設計文書（アーキテクチャ設計）に、前半の判断を反映する。開発戦略の Unit 7 の行（「`logger/`、Kondor による JSON」。Kondor は既存 Kotlin 版で採った道具で、この版では採らない）を、実際の到達点に直す
@@ -271,3 +271,4 @@ gantt
 | 2026-10-31 | 初版。Unit 6 の持ち越しと開発戦略を反映し、ログの内容、依存、停止の位置を定めた | anthropic/claude-sonnet-5-5 |
 | 2026-10-31 | 独立した検証（高 4 / 中 6 / 低 4）を反映。ADR-040 との関係と JSON の比較表、実在しない `listKey` の訂正、漏れていた持ち越し 2 件、`EventStore` の実際の型と decorator の置き場所、プロファンクタとモノイドの根拠、横断比較の構造、新規ファイルの扱い、受入条件の検証方法を直した | anthropic/claude-sonnet-5-5 |
 | 2026-10-31 | 人（kakimomokuri）が計画を承認した。新規ファイルの扱いを含む。JSON の依存と ADR-040 の部分的な見直しは停止 1 で確認する | human:kakimomokuri |
+| 2026-10-31 | 停止 2：人（kakimomokuri）がログの内容を承認した。利用者名とリスト名を識別子として載せる | human:kakimomokuri |

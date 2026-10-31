@@ -1,6 +1,7 @@
 package zettai.domain.errors
 
 import zettai.domain.ListName
+import zettai.domain.StreamId
 import zettai.domain.ToDoStatus
 import zettai.domain.User
 
@@ -31,14 +32,25 @@ data class ItemNotFound(
         "ToDo item not found: ${user.name}/${listName.name}/$description"
 }
 
+/** 永続化に関わる失敗。 */
+sealed interface StoreError : ZettaiError
+
 /**
  * 永続化の失敗。原因は `reason` に持ち、`message` には含めない。
  * `message` は利用者向けの response の本文になり、接続先などの内部情報を漏らさないため。
  */
 data class PersistenceFailure(
     val reason: String,
-) : ZettaiError {
+) : StoreError {
     override val message: String = "Persistence failure"
+}
+
+/** 読んだ後に、別の command が同じ stream へ追記した。検出した stream を持つ。 */
+data class ConcurrentModification(
+    val streams: List<StreamId>,
+) : StoreError {
+    override val message: String =
+        "Concurrent modification: ${streams.joinToString { "${it.user.name}/${it.listName.name}" }}"
 }
 
 data class InvalidTransition(

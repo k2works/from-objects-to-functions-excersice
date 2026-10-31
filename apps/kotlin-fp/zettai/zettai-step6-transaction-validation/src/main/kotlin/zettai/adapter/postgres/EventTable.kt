@@ -9,9 +9,11 @@ internal object EventTable {
         CREATE TABLE IF NOT EXISTS todo_list_event (
             id          BIGSERIAL PRIMARY KEY,
             entity_id   TEXT        NOT NULL,
+            version     INTEGER     NOT NULL,
             event_type  TEXT        NOT NULL,
             payload     JSONB       NOT NULL,
-            recorded_at TIMESTAMPTZ NOT NULL DEFAULT now()
+            recorded_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+            UNIQUE (entity_id, version)
         )
     """
 
@@ -21,13 +23,14 @@ internal object EventTable {
     """
 
     const val INSERT_LIST_CREATED = """
-        INSERT INTO todo_list_event (entity_id, event_type, payload)
-        VALUES (?, 'ListCreated', jsonb_build_object('user', ?::text, 'listName', ?::text))
+        INSERT INTO todo_list_event (entity_id, version, event_type, payload)
+        VALUES (?, ?, 'ListCreated', jsonb_build_object('user', ?::text, 'listName', ?::text))
     """
 
     const val INSERT_ITEM_ADDED = """
-        INSERT INTO todo_list_event (entity_id, event_type, payload)
+        INSERT INTO todo_list_event (entity_id, version, event_type, payload)
         VALUES (
+            ?,
             ?,
             'ItemAdded',
             jsonb_build_object(
@@ -43,8 +46,9 @@ internal object EventTable {
     """
 
     const val INSERT_ITEM_STATUS_CHANGED = """
-        INSERT INTO todo_list_event (entity_id, event_type, payload)
+        INSERT INTO todo_list_event (entity_id, version, event_type, payload)
         VALUES (
+            ?,
             ?,
             'ItemStatusChanged',
             jsonb_build_object(

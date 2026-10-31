@@ -8,6 +8,7 @@ import io.kotest.property.arbitrary.enum
 import io.kotest.property.arbitrary.list
 import io.kotest.property.arbitrary.map
 import zettai.domain.ListName
+import zettai.domain.StreamId
 import zettai.domain.ToDoItem
 import zettai.domain.ToDoStatus
 import zettai.domain.User
@@ -15,6 +16,7 @@ import zettai.domain.commands.AddToDoItem
 import zettai.domain.commands.ChangeItemStatus
 import zettai.domain.commands.CreateToDoList
 import zettai.domain.commands.ToDoListCommand
+import zettai.domain.errors.ConcurrentModification
 import zettai.domain.errors.InvalidTransition
 import zettai.domain.errors.ItemNotFound
 import zettai.domain.errors.ListAlreadyExists
@@ -78,6 +80,9 @@ val arbError: Arb<ZettaiError> = Arb.choice(
         InvalidTransition(description, from, to)
     },
     Arb.element("connection refused", "disk full").map { PersistenceFailure(it) },
+    Arb.bind(Arb.element(genUsers), Arb.element(genListNames)) { user, listName ->
+        ConcurrentModification(listOf(StreamId(user, listName)))
+    },
 )
 
 val arbCommand: Arb<ToDoListCommand> = Arb.choice(

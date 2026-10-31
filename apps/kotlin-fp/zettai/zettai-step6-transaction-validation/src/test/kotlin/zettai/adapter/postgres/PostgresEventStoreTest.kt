@@ -14,6 +14,7 @@ import io.kotest.property.checkAll
 import java.sql.SQLException
 import java.time.LocalDate
 import zettai.application.EventStore
+import zettai.application.appendAuto
 import zettai.arbEvents
 import zettai.domain.ListName
 import zettai.domain.ToDoItem
@@ -26,20 +27,21 @@ import zettai.domain.events.ListCreated
 import zettai.domain.events.ToDoListEvent
 import zettai.genUsers
 
-private suspend fun EventStore.events(user: User, listName: ListName): List<ToDoListEvent> =
+private suspend fun EventStore<*>.events(user: User, listName: ListName): List<ToDoListEvent> =
     readAggregate(user, listName).getOrElse { error(it.message) }
 
-private suspend fun EventStore.append(events: List<ToDoListEvent>) {
-    persist(events).getOrElse { error(it.reason) }
+private suspend fun <Tx> EventStore<Tx>.append(events: List<ToDoListEvent>) {
+    appendAuto(events).getOrElse { error(it.message) }
 }
 
-private suspend fun EventStore.eventsOf(user: User): List<ToDoListEvent> =
+private suspend fun EventStore<*>.eventsOf(user: User): List<ToDoListEvent> =
     readUser(user).getOrElse { error(it.message) }
 
 private fun insertRaw(eventType: String, payload: String) {
     SharedPostgres.connect().use { connection ->
         connection.prepareStatement(
-            "INSERT INTO todo_list_event (entity_id, event_type, payload) VALUES ('alice/book', ?, ?::jsonb)",
+            "INSERT INTO todo_list_event (entity_id, version, event_type, payload) " +
+                "VALUES ('alice/book', 2, ?, ?::jsonb)",
         ).use { statement ->
             statement.setString(1, eventType)
             statement.setString(2, payload)
@@ -72,14 +74,14 @@ class PostgresEventStoreTest : StringSpec({
     "追記は成功を返す" {
         val store = postgresEventStore(SharedPostgres::connect)
 
-        store.persist(listOf(ListCreated(alice, book))) shouldBe Unit.right()
+        store.appendAuto(listOf(ListCreated(alice, book))) shouldBe Unit.right()
         createSchema(SharedPostgres::connect) shouldBe Unit.right()
     }
 
     "途中で失敗した batch は 1 件も残らない" {
         val store = postgresEventStore(SharedPostgres::connect)
         // NUL 文字は PostgreSQL の text に入らないので、2 件目の INSERT が失敗する
-        val result = store.persist(
+        val result = store.appendAuto(
             listOf(ListCreated(alice, book), ItemAdded(alice, book, ToDoItem("a\u0000b"))),
         )
 
@@ -216,14 +218,14 @@ class PostgresEventStoreTest : StringSpec({
 
         store.readAggregate(alice, book).leftOrNull().shouldBeInstanceOf<PersistenceFailure>()
         store.readUser(alice).leftOrNull().shouldBeInstanceOf<PersistenceFailure>()
-        store.persist(listOf(ListCreated(alice, book))).leftOrNull().shouldBeInstanceOf<PersistenceFailure>()
+        store.appendAuto(listOf(ListCreated(alice, book))).leftOrNull().shouldBeInstanceOf<PersistenceFailure>()
     }
 
     "テーブルがないときは追記も読み出しも PersistenceFailure を返す" {
         SharedPostgres.connect().use { it.createStatement().use { s -> s.execute("DROP TABLE todo_list_event") } }
         val store = postgresEventStore(SharedPostgres::connect)
 
-        store.persist(listOf(ListCreated(alice, book))).leftOrNull().shouldBeInstanceOf<PersistenceFailure>()
+        store.appendAuto(listOf(ListCreated(alice, book))).leftOrNull().shouldBeInstanceOf<PersistenceFailure>()
         store.readAggregate(alice, book).leftOrNull().shouldBeInstanceOf<PersistenceFailure>()
     }
 

@@ -1,6 +1,7 @@
 package zettai.domain.events
 
 import zettai.domain.ListName
+import zettai.domain.StreamId
 import zettai.domain.ToDoItem
 import zettai.domain.ToDoStatus
 import zettai.domain.User
@@ -27,3 +28,5 @@ data class ItemStatusChanged(
     val description: String,
     val newStatus: ToDoStatus,
 ) : ToDoListEvent
+
+fun ToDoListEvent.streamId(): StreamId = StreamId(user, listName)

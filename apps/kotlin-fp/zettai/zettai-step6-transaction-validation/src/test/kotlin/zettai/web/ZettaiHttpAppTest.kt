@@ -10,9 +10,11 @@ import org.http4k.core.Request
 import org.http4k.core.Status
 import zettai.application.todoListHub
 import zettai.domain.ListName
+import zettai.domain.StreamId
 import zettai.domain.ToDoItem
 import zettai.domain.ToDoStatus
 import zettai.domain.User
+import zettai.domain.errors.ConcurrentModification
 import zettai.domain.errors.InvalidTransition
 import zettai.domain.errors.ItemNotFound
 import zettai.domain.errors.ListAlreadyExists
@@ -71,6 +73,7 @@ class ZettaiHttpAppTest : StringSpec({
         ListAlreadyExists(user, listName) to Status.BAD_REQUEST,
         InvalidTransition("write chapter", ToDoStatus.Done, ToDoStatus.InProgress) to Status.BAD_REQUEST,
         PersistenceFailure("connection refused") to Status.INTERNAL_SERVER_ERROR,
+        ConcurrentModification(listOf(StreamId(user, listName))) to Status.CONFLICT,
     ).forEach { (error, status) ->
         "${error::class.simpleName} を ${status.code} の plain text に写像する" {
             val response = toResponse(error)

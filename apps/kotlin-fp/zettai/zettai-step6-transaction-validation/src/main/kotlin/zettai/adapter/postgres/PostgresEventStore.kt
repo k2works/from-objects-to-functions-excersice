@@ -1,21 +1,33 @@
 package zettai.adapter.postgres
 
 import arrow.core.Either
+import arrow.core.left
+import arrow.core.right
 import java.sql.Connection
 import java.sql.ResultSet
+import java.sql.SQLException
 import java.time.LocalDate
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import zettai.application.EventStore
+import zettai.application.StreamEvents
 import zettai.domain.ListName
+import zettai.domain.StreamId
 import zettai.domain.ToDoItem
 import zettai.domain.ToDoStatus
 import zettai.domain.User
+import zettai.domain.errors.ConcurrentModification
 import zettai.domain.errors.PersistenceFailure
+import zettai.domain.errors.StoreError
+import zettai.domain.errors.ZettaiError
 import zettai.domain.events.ItemAdded
 import zettai.domain.events.ItemStatusChanged
 import zettai.domain.events.ListCreated
 import zettai.domain.events.ToDoListEvent
+import zettai.domain.events.streamId
+
+/** PostgreSQL の一意制約の違反。同じ stream の同じ版への挿入が衝突したときに起きる。 */
+private const val UNIQUE_VIOLATION = "23505"
 
 /** テーブルとインデックスを作る。何度呼んでも同じ結果になる。 */
 suspend fun createSchema(connect: () -> Connection): Either<PersistenceFailure, Unit> =
@@ -30,10 +42,11 @@ suspend fun createSchema(connect: () -> Connection): Either<PersistenceFailure, 
     }
 
 /**
- * 接続の作り方は外から関数で受け取る。blocking の JDBC は `Dispatchers.IO` に閉じ込め、
- * connection は操作ごとに開いて `use` で閉じる。JDBC の例外と壊れた行は `PersistenceFailure` にして返す。
+ * 環境 [Connection] を transaction の中で渡す event store。
+ * query は transaction の外で、操作ごとに connection を開いて `use` で閉じる。
+ * blocking の JDBC は `Dispatchers.IO` に閉じ込め、JDBC の例外と壊れた行は `PersistenceFailure` にして返す。
  */
-fun postgresEventStore(connect: () -> Connection): EventStore =
+fun postgresEventStore(connect: () -> Connection): EventStore<Connection> =
     EventStore(
         readAggregate = { user, listName ->
             query(connect, EventTable.SELECT_BY_ENTITY, entityId(user, listName))
@@ -41,7 +54,9 @@ fun postgresEventStore(connect: () -> Connection): EventStore =
         readUser = { user ->
             query(connect, EventTable.SELECT_BY_USER, userPrefix(user))
         },
-        persist = { events -> append(connect, events) },
+        transaction = { block -> inTransaction(connect, block) },
+        readStream = { connection, stream -> readStream(connection, stream) },
+        append = { connection, expected, events -> appendTo(connection, expected, events) },
     )
 
 /**
@@ -50,27 +65,70 @@ fun postgresEventStore(connect: () -> Connection): EventStore =
  */
 private suspend fun <A> blocking(block: () -> A): Either<PersistenceFailure, A> =
     withContext(Dispatchers.IO) { Either.catch(block) }
-        .mapLeft { PersistenceFailure("${it::class.simpleName}: ${it.message}") }
+        .mapLeft { it.toFailure() }
 
-private suspend fun append(
+private fun Throwable.toFailure() = PersistenceFailure("${this::class.simpleName}: $message")
+
+/**
+ * 1 つの transaction。block が `Right` を返したときだけ commit し、`Left` や例外のときは rollback する。
+ * 境界は、この関数の中に 1 か所だけある。
+ */
+private suspend fun inTransaction(
     connect: () -> Connection,
+    block: suspend (Connection) -> Either<ZettaiError, List<ToDoListEvent>>,
+): Either<ZettaiError, List<ToDoListEvent>> =
+    withContext(Dispatchers.IO) {
+        Either.catch {
+            connect().use { connection ->
+                connection.autoCommit = false
+                try {
+                    val result = block(connection)
+                    if (result.isRight()) connection.commit() else connection.rollback()
+                    result
+                } catch (failure: Throwable) {
+                    runCatching { connection.rollback() }.onFailure(failure::addSuppressed)
+                    throw failure
+                }
+            }
+        }.fold({ it.toFailure().left() }, { it })
+    }
+
+private fun readStream(connection: Connection, stream: StreamId): Either<PersistenceFailure, StreamEvents> =
+    Either.catch {
+        connection.prepareStatement(EventTable.SELECT_BY_ENTITY).use { statement ->
+            statement.setString(1, entityId(stream.user, stream.listName))
+            statement.executeQuery().use { rows -> rows.toEvents() }
+        }
+    }.map { StreamEvents(it, it.size) }.mapLeft { it.toFailure() }
+
+/**
+ * event を入力の順に、stream ごとに、読んだ版の次から連番を付けて挿入する。
+ * 一意制約の違反は `ConcurrentModification` にする。呼ぶ側の transaction が、失敗したとき全体を rollback する。
+ */
+private fun appendTo(
+    connection: Connection,
+    expected: Map<StreamId, Int>,
     events: List<ToDoListEvent>,
-): Either<PersistenceFailure, Unit> =
-    blocking {
-        connect().use { connection ->
-            connection.autoCommit = false
-            try {
-                events.forEach { event -> connection.insert(event) }
-                connection.commit()
-            } catch (failure: Throwable) {
-                // close に任せず、確定していない書き込みを明示的に取り消す。pool の接続でも前提が崩れない。
-                runCatching { connection.rollback() }.onFailure(failure::addSuppressed)
-                throw failure
+): Either<StoreError, Unit> {
+    val appended = mutableMapOf<StreamId, Int>()
+    for (event in events) {
+        val stream = event.streamId()
+        val base = expected[stream] ?: return PersistenceFailure("期待する版が無い stream: $stream").left()
+        val version = base + (appended.merge(stream, 1, Int::plus) ?: 1)
+        try {
+            connection.insert(event, version)
+        } catch (failure: SQLException) {
+            return if (failure.sqlState == UNIQUE_VIOLATION) {
+                ConcurrentModification(listOf(stream)).left()
+            } else {
+                failure.toFailure().left()
             }
         }
     }
+    return Unit.right()
+}
 
-private fun Connection.insert(event: ToDoListEvent) {
+private fun Connection.insert(event: ToDoListEvent, version: Int) {
     val sql = when (event) {
         is ListCreated -> EventTable.INSERT_LIST_CREATED
         is ItemAdded -> EventTable.INSERT_ITEM_ADDED
@@ -78,18 +136,19 @@ private fun Connection.insert(event: ToDoListEvent) {
     }
     prepareStatement(sql).use { statement ->
         statement.setString(1, entityId(event.user, event.listName))
-        statement.setString(2, event.user.name)
-        statement.setString(3, event.listName.name)
+        statement.setInt(2, version)
+        statement.setString(3, event.user.name)
+        statement.setString(4, event.listName.name)
         when (event) {
             is ListCreated -> Unit
             is ItemAdded -> {
-                statement.setString(4, event.item.description)
-                statement.setString(5, event.item.dueDate?.toString())
-                statement.setString(6, event.item.status.name)
+                statement.setString(5, event.item.description)
+                statement.setString(6, event.item.dueDate?.toString())
+                statement.setString(7, event.item.status.name)
             }
             is ItemStatusChanged -> {
-                statement.setString(4, event.description)
-                statement.setString(5, event.newStatus.name)
+                statement.setString(5, event.description)
+                statement.setString(6, event.newStatus.name)
             }
         }
         statement.executeUpdate()
@@ -117,7 +176,7 @@ private fun ResultSet.toEvents(): List<ToDoListEvent> =
         }
     }
 
-/** 列が無い、未知の種類、不正な値は例外になり、`blocking` が `PersistenceFailure` にする。 */
+/** 列が無い、未知の種類、不正な値は例外になり、呼び出し側が `PersistenceFailure` にする。 */
 private fun ResultSet.decode(): ToDoListEvent {
     val user = User(required("user_name"))
     val listName = ListName(required("list_name"))

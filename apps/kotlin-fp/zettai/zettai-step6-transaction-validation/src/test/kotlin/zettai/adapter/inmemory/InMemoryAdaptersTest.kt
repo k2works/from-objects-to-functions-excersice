@@ -4,6 +4,7 @@ import arrow.core.getOrElse
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.test.runTest
+import zettai.application.appendAuto
 import zettai.domain.ListName
 import zettai.domain.ToDoItem
 import zettai.domain.User
@@ -56,7 +57,7 @@ class InMemoryAdaptersTest : StringSpec({
             initial.clear()
 
             val batch = mutableListOf(ItemAdded(alice, book, ToDoItem("write chapter")))
-            store.persist(batch)
+            store.appendAuto(batch)
             batch.clear()
 
             store.readAggregate(alice, book).getOrElse { error(it.message) } shouldBe listOf(

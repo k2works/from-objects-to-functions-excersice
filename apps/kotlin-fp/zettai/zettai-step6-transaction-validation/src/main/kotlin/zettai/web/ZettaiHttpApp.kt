@@ -14,6 +14,7 @@ import org.http4k.routing.routes
 import zettai.application.ToDoListHub
 import zettai.domain.ListName
 import zettai.domain.User
+import zettai.domain.errors.ConcurrentModification
 import zettai.domain.errors.InvalidTransition
 import zettai.domain.errors.ItemNotFound
 import zettai.domain.errors.ListAlreadyExists
@@ -60,6 +61,8 @@ private fun statusOf(error: ZettaiError): Status =
         is ListAlreadyExists,
         is InvalidTransition,
         -> Status.BAD_REQUEST
+
+        is ConcurrentModification -> Status.CONFLICT
 
         is PersistenceFailure -> Status.INTERNAL_SERVER_ERROR
     }

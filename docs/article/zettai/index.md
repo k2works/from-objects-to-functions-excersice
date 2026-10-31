@@ -12,7 +12,7 @@ ToDo リストアプリケーション **Zettai** を TDD で一から作りな�
 | 対象 | 記事 | サンプル実装 | 実行環境 | 状態 |
 | :--- | :--- | :--- | :--- | :--- |
 | Kotlin | [Kotlin 版](kotlin/index.md) | `apps/kotlin/zettai/` | Nix devShell `kotlin`（JDK 21 / Gradle） | **完結（13 / 13 章）** |
-| Kotlin FP | [Kotlin FP 版](kotlin-fp/index.md) | `apps/kotlin-fp/zettai/` | Nix devShell `kotlin-fp`（JDK 25 / Gradle） | **執筆中（7 / 13 章）** |
+| Kotlin FP | [Kotlin FP 版](kotlin-fp/index.md) | `apps/kotlin-fp/zettai/` | Nix devShell `kotlin-fp`（JDK 25 / Gradle） | **執筆中（8 / 13 章）** |
 | なでしこ3 | [なでしこ3 版](nadesiko/index.md) | `apps/nadesiko/zettai/` | Nix devShell `nadesiko`（Node 22 / cnako3 3.8.7） | **完結（13 / 13 章）** |
 | Rust | [Rust 版](rust/index.md) | `apps/rust/zettai/` | Nix devShell `rust`（rustc 1.91.1 / cargo 1.91.0） | **完結（13 / 13 章）** |
 
@@ -40,7 +40,7 @@ ToDo リストアプリケーション **Zettai** を TDD で一から作りな�
 | 5 | イベントで状態を変更する | [公開済み](kotlin/chapter05.md) | [公開済み](kotlin-fp/chapter05.md) | [公開済み](nadesiko/chapter05.md) | [公開済み](rust/chapter05.md) |
 | 6 | コマンドを実行してイベントを生成する | [公開済み](kotlin/chapter06.md) | [公開済み](kotlin-fp/chapter06.md) | [公開済み](nadesiko/chapter06.md) | [公開済み](rust/chapter06.md) |
 | 7 | 関数型手法によるエラーハンドリング | [公開済み](kotlin/chapter07.md) | [公開済み](kotlin-fp/chapter07.md) | [公開済み](nadesiko/chapter07.md) | [公開済み](rust/chapter07.md) |
-| 8 | ファンクタを使ってイベントを射影する | [公開済み](kotlin/chapter08.md) | 未着手 | [公開済み](nadesiko/chapter08.md) | [公開済み](rust/chapter08.md) |
+| 8 | ファンクタを使ってイベントを射影する | [公開済み](kotlin/chapter08.md) | [公開済み](kotlin-fp/chapter08.md) | [公開済み](nadesiko/chapter08.md) | [公開済み](rust/chapter08.md) |
 | 9 | モナドによる安全なデータ永続化 | [公開済み](kotlin/chapter09.md) | 未着手 | [公開済み](nadesiko/chapter09.md) | [公開済み](rust/chapter09.md) |
 | 10 | コンテキストを読み込み、コマンドを処理する | [公開済み](kotlin/chapter10.md) | 未着手 | [公開済み](nadesiko/chapter10.md) | [公開済み](rust/chapter10.md) |
 | 11 | アプリカティブによるデータバリデーション | [公開済み](kotlin/chapter11.md) | 未着手 | [公開済み](nadesiko/chapter11.md) | [公開済み](rust/chapter11.md) |
@@ -56,7 +56,7 @@ ToDo リストアプリケーション **Zettai** を TDD で一から作りな�
 | 実行環境（Nix devShell） | **完了** | **定義済み** | **完了** | **完了** |
 | サンプル実装の雛形 | **完了** | **完了** | **完了** | **完了** |
 | CI | **完了** | **定義済み（同等コマンド green）** | **完了** | **完了** |
-| 公開済みの章 | **13 / 13（完結）** | **7 / 13** | **13 / 13（完結）** | **13 / 13（完結）** |
+| 公開済みの章 | **13 / 13（完結）** | **8 / 13** | **13 / 13（完結）** | **13 / 13（完結）** |
 | ADR | 12 件 | — | 11 件 | **14 件** |
 | 計画した承認ゲート | 47 箇所 | 8 箇所 | 41 箇所 | 15 箇所 |
 | **うち同期停止した回数** | 記録なし | 0 | **1** | **15** |

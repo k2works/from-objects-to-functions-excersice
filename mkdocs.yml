@@ -236,6 +236,7 @@ nav:
               - 第 5 章 イベントで状態を変更する: article/zettai/kotlin-fp/chapter05.md
               - 第 6 章 コマンドを実行してイベントを生成する: article/zettai/kotlin-fp/chapter06.md
               - 第 7 章 関数型手法によるエラーハンドリング: article/zettai/kotlin-fp/chapter07.md
+              - 第 8 章 ファンクタを使ってイベントを射影する: article/zettai/kotlin-fp/chapter08.md
           - なでしこ3 版:
               - 概要: article/zettai/nadesiko/index.md
               - 第 1 章 新しいアプリケーションを準備する: article/zettai/nadesiko/chapter01.md

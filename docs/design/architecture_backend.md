@@ -4,7 +4,7 @@ title: "バックエンドアーキテクチャ設計 - Zettai"
 description: "Zettai（Kotlin 版）のバックエンドアーキテクチャ設計。ドメインとアダプタの境界の定義と担保方法、Gradle マルチプロジェクトのモジュール分割と命名規約、パッケージ構成、依存の向き、関数の型による依存表現、章の進行にあわせた構造の変化を記述する。"
 tags: [design, architecture, zettai, kotlin]
 status: draft
-generated: { by: openai-codex/gpt-5, at: 2026-10-31T05:09:20Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T05:57:53Z }
 ---
 
 # バックエンドアーキテクチャ設計 - Zettai
@@ -407,6 +407,53 @@ Unit 4 の in-memory event store は単一実行用の学習 adapter であり�
 
 第 5 章の replay と状態変換の合成は Kotlin 標準の `fold` で十分です。第 7 章では Arrow Core の `Either` / Raise を domain と application に導入します。これは typed error の表現と合成のためであり、http4k と coroutine runner は引き続き adapter に閉じ込めます。境界テストは domain から application / adapter / HTTP / coroutine runner への依存、および application から adapter への依存を禁止します。
 
+### 第 8 章：command 側と query 側の分離
+
+Unit 5 の前半で、port を集約単位に絞り、command 側と query 側を別の経路に分けます。Unit 4 の `StateFetcher`（全ユーザー・全リストの状態を毎回 replay する）と `ToDoListFetcher`（`ToDoList` を直接返す）は廃止し、event store をただ 1 つの源とします。
+
+| port | 型 | 使う側 |
+| :--- | :--- | :--- |
+| `AggregateEventReader` | `suspend (User, ListName) -> List<ToDoListEvent>` | command。判断に必要な集約のイベントだけを読む |
+| `UserEventReader` | `suspend (User) -> List<ToDoListEvent>` | query。射影の入力 |
+| `EventPersister` | `suspend (List<ToDoListEvent>) -> Unit` | command。検証に成功した event を 1 回保存する |
+
+`ToDoListHub` は `execute`（command）と `getList`、`listRows`（query）を別の関数プロパティとして持ち、`todoListHub(readAggregate, readUser, persist)` が配線します。`getList` は集約のイベントを replay して `ToDoList` を導き、`listRows` は `projectFrom` で `ToDoListRow` に射影します。どちらも毎回 event から作るので、射影を保存した場合に起きる古い値は見えません。永続化した射影（read model）は作りません。
+
+```plantuml
+@startuml
+package web <<driving adapter>> {
+  [ZettaiHttpApp]
+}
+package application {
+  [ToDoListHub]
+  [AggregateEventReader]
+  [UserEventReader]
+  [EventPersister]
+}
+package adapter.inmemory <<driven adapter>> {
+  [InMemoryEventStore]
+}
+package domain {
+  [CommandHandler]
+  [Replay]
+  [Projection]
+}
+
+[ZettaiHttpApp] --> [ToDoListHub]
+[ToDoListHub] --> [CommandHandler] : execute
+[ToDoListHub] --> [Replay] : getList
+[ToDoListHub] --> [Projection] : listRows
+[ToDoListHub] --> [AggregateEventReader]
+[ToDoListHub] --> [UserEventReader]
+[ToDoListHub] --> [EventPersister]
+[InMemoryEventStore] --> [AggregateEventReader]
+[InMemoryEventStore] --> [UserEventReader]
+[InMemoryEventStore] --> [EventPersister]
+@enduml
+```
+
+一覧画面の HTTP route は追加せず、`listRows` は Hub の query として検証します。境界テストは `web` から `adapter` への依存と、`adapter` から `web`、http4k、coroutine runner への依存も禁止します。
+
 ### Kotlin FP 版の段階 module
 
 | module | 章 | 状態 |
@@ -415,6 +462,7 @@ Unit 4 の in-memory event store は単一実行用の学習 adapter であり�
 | `zettai-step2-http-domain` | 2〜3 | 作成済み |
 | `zettai-step3-domain-events` | 4〜5 | Unit 3 で作成 |
 | `zettai-step4-command-errors` | 6〜7 | Unit 4 で作成 |
+| `zettai-step5-cqrs-persistence` | 8〜9 | Unit 5 で作成 |
 
 各 module は記事時点の snapshot として独立させ、後続 module から前段 module の production code へ依存しません。これにより、後章のリファクタリングで前章のコード例を壊しません。
 

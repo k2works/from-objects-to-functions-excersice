@@ -27,6 +27,16 @@ internal object EventTable {
         VALUES (?, ?, 'ListCreated', jsonb_build_object('user', ?::text, 'listName', ?::text))
     """
 
+    const val INSERT_LIST_RENAMED = """
+        INSERT INTO todo_list_event (entity_id, version, event_type, payload)
+        VALUES (
+            ?,
+            ?,
+            'ListRenamed',
+            jsonb_build_object('user', ?::text, 'listName', ?::text, 'newName', ?::text)
+        )
+    """
+
     const val INSERT_ITEM_ADDED = """
         INSERT INTO todo_list_event (entity_id, version, event_type, payload)
         VALUES (
@@ -64,6 +74,7 @@ internal object EventTable {
         SELECT event_type,
                payload ->> 'user' AS user_name,
                payload ->> 'listName' AS list_name,
+               payload ->> 'newName' AS new_name,
                payload ->> 'description' AS description,
                payload ->> 'newStatus' AS new_status,
                payload #>> '{item,description}' AS item_description,

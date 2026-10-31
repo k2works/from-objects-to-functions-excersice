@@ -25,6 +25,14 @@ data class AddToDoItem(
     val item: ToDoItem,
 ) : ToDoListCommand
 
+data class RenameToDoList(
+    override val user: User,
+    override val listName: ListName,
+    val newName: ListName,
+) : ToDoListCommand {
+    override val streams: List<StreamId> = listOf(StreamId(user, listName), StreamId(user, newName))
+}
+
 data class ChangeItemStatus(
     override val user: User,
     override val listName: ListName,

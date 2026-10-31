@@ -23,6 +23,7 @@ import zettai.domain.errors.ZettaiError
 import zettai.domain.events.ItemAdded
 import zettai.domain.events.ItemStatusChanged
 import zettai.domain.events.ListCreated
+import zettai.domain.events.ListRenamed
 import zettai.domain.events.ToDoListEvent
 import zettai.domain.events.streamId
 
@@ -131,6 +132,7 @@ private fun appendTo(
 private fun Connection.insert(event: ToDoListEvent, version: Int) {
     val sql = when (event) {
         is ListCreated -> EventTable.INSERT_LIST_CREATED
+        is ListRenamed -> EventTable.INSERT_LIST_RENAMED
         is ItemAdded -> EventTable.INSERT_ITEM_ADDED
         is ItemStatusChanged -> EventTable.INSERT_ITEM_STATUS_CHANGED
     }
@@ -141,6 +143,7 @@ private fun Connection.insert(event: ToDoListEvent, version: Int) {
         statement.setString(4, event.listName.name)
         when (event) {
             is ListCreated -> Unit
+            is ListRenamed -> statement.setString(5, event.newName.name)
             is ItemAdded -> {
                 statement.setString(5, event.item.description)
                 statement.setString(6, event.item.dueDate?.toString())
@@ -182,6 +185,7 @@ private fun ResultSet.decode(): ToDoListEvent {
     val listName = ListName(required("list_name"))
     return when (val type = getString("event_type")) {
         "ListCreated" -> ListCreated(user, listName)
+        "ListRenamed" -> ListRenamed(user, listName, ListName(required("new_name")))
         "ItemAdded" -> ItemAdded(
             user,
             listName,

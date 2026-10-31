@@ -29,4 +29,11 @@ data class ItemStatusChanged(
     val newStatus: ToDoStatus,
 ) : ToDoListEvent
 
+/** `listName` が旧い名前。旧い stream に追記され、新しい名前の stream には別に `ListCreated` が追記される。 */
+data class ListRenamed(
+    override val user: User,
+    override val listName: ListName,
+    val newName: ListName,
+) : ToDoListEvent
+
 fun ToDoListEvent.streamId(): StreamId = StreamId(user, listName)

@@ -7,6 +7,7 @@ import zettai.domain.User
 import zettai.domain.events.ItemAdded
 import zettai.domain.events.ItemStatusChanged
 import zettai.domain.events.ListCreated
+import zettai.domain.events.ListRenamed
 import zettai.domain.events.ToDoListEvent
 import zettai.domain.withStatusChanged
 
@@ -36,6 +37,8 @@ fun projectFrom(user: User, events: List<ToDoListEvent>): List<ToDoListRow> =
 private fun Map<ListName, List<ToDoItem>>.step(event: ToDoListEvent): Map<ListName, List<ToDoItem>> =
     when (event) {
         is ListCreated -> this + (event.listName to emptyList())
+
+        is ListRenamed -> this - event.listName
 
         is ItemAdded -> {
             val items = this[event.listName]

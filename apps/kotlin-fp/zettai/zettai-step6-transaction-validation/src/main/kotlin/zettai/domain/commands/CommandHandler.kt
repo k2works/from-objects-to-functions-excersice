@@ -13,6 +13,7 @@ import zettai.domain.errors.ZettaiError
 import zettai.domain.events.ItemAdded
 import zettai.domain.events.ItemStatusChanged
 import zettai.domain.events.ListCreated
+import zettai.domain.events.ListRenamed
 import zettai.domain.events.ToDoListEvent
 import zettai.domain.events.ToDoListState
 
@@ -34,6 +35,19 @@ fun handle(
                     ListNotFound(command.user, command.listName)
                 }
                 listOf(ItemAdded(command.user, command.listName, command.item))
+            }
+
+            is RenameToDoList -> {
+                val list = ensureNotNull(state.listFor(command.user, command.listName)) {
+                    ListNotFound(command.user, command.listName)
+                }
+                ensure(state.listFor(command.user, command.newName) == null) {
+                    ListAlreadyExists(command.user, command.newName)
+                }
+                listOf(
+                    ListRenamed(command.user, command.listName, command.newName),
+                    ListCreated(command.user, command.newName),
+                ) + list.items.map { ItemAdded(command.user, command.newName, it) }
             }
 
             is ChangeItemStatus -> {

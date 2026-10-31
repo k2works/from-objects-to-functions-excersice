@@ -13,6 +13,9 @@ class ToDoListState private constructor(
     internal fun put(key: Pair<User, ListName>, list: ToDoList): ToDoListState =
         ToDoListState(lists + (key to list))
 
+    internal fun remove(key: Pair<User, ListName>): ToDoListState =
+        ToDoListState(lists - key)
+
     override fun equals(other: Any?): Boolean =
         other is ToDoListState && lists == other.lists
 
@@ -36,6 +39,8 @@ fun ToDoListState.apply(event: ToDoListEvent): ToDoListState =
     when (event) {
         is ListCreated ->
             put(event.key(), ToDoList(event.listName, emptyList()))
+
+        is ListRenamed -> remove(event.key())
 
         is ItemAdded -> {
             val current = listFor(event.user, event.listName) ?: return this

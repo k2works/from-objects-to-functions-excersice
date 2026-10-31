@@ -26,6 +26,7 @@ import zettai.domain.errors.ZettaiError
 import zettai.domain.events.ItemAdded
 import zettai.domain.events.ItemStatusChanged
 import zettai.domain.events.ListCreated
+import zettai.domain.events.ListRenamed
 import zettai.domain.events.ToDoListEvent
 
 val genUsers = listOf(User("alice"), User("bob"))
@@ -52,6 +53,9 @@ val arbEvent: Arb<ToDoListEvent> = Arb.choice(
         Arb.enum<ToDoStatus>(),
     ) { user, listName, description, status ->
         ItemStatusChanged(user, listName, description, status)
+    },
+    Arb.bind(Arb.element(genUsers), Arb.element(genListNames), Arb.element(genListNames)) { user, from, to ->
+        ListRenamed(user, from, to)
     },
 )
 

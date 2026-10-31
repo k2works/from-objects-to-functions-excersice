@@ -52,15 +52,15 @@ class Zettai(private val fetchList: ToDoListFetcher) : HttpHandler {
 title ハブを置く前と後
 
 package "前" {
-  object Zettai1 as "Zettai"
-  object Fetcher1 as "fetchList"
+  object "Zettai" as Zettai1
+  object "fetchList" as Fetcher1
   Zettai1 --> Fetcher1
 }
 
 package "後" {
-  object Zettai2 as "Zettai"
-  object Hub as "ToDoListHub"
-  object Fetcher2 as "fetchList"
+  object "Zettai" as Zettai2
+  object "ToDoListHub" as Hub
+  object "fetchList" as Fetcher2
   Zettai2 --> Hub
   Hub --> Fetcher2
 }

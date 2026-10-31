@@ -870,7 +870,7 @@
     
   
   
-    <span class="md-status md-status--draft"></span>
+    <span class="md-status md-status--stable"></span>
   
 
   
@@ -895,7 +895,7 @@
     
   
   
-    <span class="md-status md-status--draft"></span>
+    <span class="md-status md-status--stable"></span>
   
 
   
@@ -1056,6 +1056,17 @@
     <span class="md-ellipsis">
       
         jsonb の正規化
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        版と楽観ロック（第 10 章）
       
     </span>
   </a>
@@ -1928,6 +1939,41 @@
   
   
     <li class="md-nav__item">
+      <a href="../../development/iteration_plan-kotlin-fp-6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「Kotlin FP」Unit 6 transaction と検証
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../development/iteration_plan-nadesiko-1/" class="md-nav__link">
         
   
@@ -2626,6 +2672,41 @@
     
   
     「Kotlin FP」Unit 5 射影と永続化
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/bolt_report-kotlin-fp-6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「Kotlin FP」Unit 6 transaction と検証
   
 
     
@@ -3596,6 +3677,41 @@
     
   
     「Kotlin FP」Unit 5 射影と永続化
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/retrospective-kotlin-fp-6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「Kotlin FP」Unit 6 transaction と検証
   
 
     
@@ -4870,6 +4986,41 @@
     
   
     Kotlin FP 版 Unit 2 開発成果物レビュー
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../review/kotlin-fp-unit6_review_20261031/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kotlin FP 版 Unit 6 開発成果物レビュー
   
 
     
@@ -6692,6 +6843,76 @@
     
   
     第 9 章 モナドによる安全なデータ永続化
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/kotlin-fp/chapter10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 10 章 コンテキストを読み込み、コマンドを処理する
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/kotlin-fp/chapter11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 11 章 アプリカティブによるデータバリデーション
   
 
     
@@ -10244,6 +10465,39 @@
 <p><code>dueDate</code> は ISO 8601 の文字列で、ない場合は JSON の null です。未知の <code>event_type</code>、必須キーの欠落、不正な <code>status</code> は、読み出し時に <code>PersistenceFailure</code> として返します。</p>
 <h3 id="jsonb">jsonb の正規化<a class="headerlink" href="#jsonb" title="Permanent link">&para;</a></h3>
 <p><code>jsonb</code> は入れた文字列を保ちません。空白が消え、キーが並べ替えられます。そのため、書いた JSON の文字列と読み戻した文字列を比べるテストは書かず、読み戻した event が元の event と等しいことで確かめます。</p>
+<h3 id="10">版と楽観ロック（第 10 章）<a class="headerlink" href="#10" title="Permanent link">&para;</a></h3>
+<p>並行する command の競合を検出するため、<code>todo_list_event</code> に <code>version</code> 列と一意制約を足します（<a href="../../adr/ADR-043-optimistic-locking-by-version/">ADR-043</a>）。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">変更</th>
+<th style="text-align: left;">内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>version INTEGER NOT NULL</code></td>
+<td style="text-align: left;"><code>entity_id</code> ごとの連番（1 から）。その stream に追記済みの event の件数に等しい</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>UNIQUE (entity_id, version)</code></td>
+<td style="text-align: left;">同じ stream の同じ版への挿入を拒否する。競合の検出は、この制約の違反（SQLState <code>23505</code>）で行う</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">todo_list_event</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">id</span><span class="w">          </span><span class="n">BIGSERIAL</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
+<span class="w">    </span><span class="n">entity_id</span><span class="w">   </span><span class="nb">TEXT</span><span class="w">        </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="k">version</span><span class="w">     </span><span class="nb">INTEGER</span><span class="w">     </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">event_type</span><span class="w">  </span><span class="nb">TEXT</span><span class="w">        </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">payload</span><span class="w">     </span><span class="n">JSONB</span><span class="w">       </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">recorded_at</span><span class="w"> </span><span class="n">TIMESTAMPTZ</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">now</span><span class="p">(),</span>
+<span class="w">    </span><span class="k">UNIQUE</span><span class="w"> </span><span class="p">(</span><span class="n">entity_id</span><span class="p">,</span><span class="w"> </span><span class="k">version</span><span class="p">)</span>
+<span class="p">);</span>
+</code></pre></div>
+<p>読み出しは event と一緒に、その stream の版を返します。保存は、触れる stream ごとに読んだ時点の版を受け取り、<code>読んだ版 + 1</code> からの連番を付けて挿入します。複数の stream への書き込みは 1 つの transaction で行い、どれか 1 つでも衝突すれば、すべて rollback します。</p>
+<p><code>CREATE TABLE IF NOT EXISTS</code> は、すでにあるテーブルを変更しません。この列を足す前のテーブルを持つ DB には使えません。結合テストの DB は Testcontainers がテストごとに作るので、既存のデータは無く、移行は要りません。実際の運用で既存のテーブルを持つ場合は、<code>ALTER TABLE</code> と既存の event への版の採番が別に要ります。この連載では扱いません。</p>
+<p><code>UNIQUE (entity_id, version)</code> は、<code>(entity_id, version)</code> の索引を暗黙に作ります。読み出しの索引 <code>(entity_id, id)</code> は、そのまま残します。</p>
 <h2 id="3">なでしこ3 版での差分<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
 <p><strong>データベースを使いません。</strong> 判断（状態を保存せず出来事だけを追記する）は同じで、保存先だけが違います（<a href="../../adr/ADR-019-file-event-log/">ADR-019</a>）。</p>
 <table>

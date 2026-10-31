@@ -1280,7 +1280,7 @@
     
   
   
-    <span class="md-status md-status--draft"></span>
+    <span class="md-status md-status--stable"></span>
   
 
   
@@ -2032,6 +2032,41 @@
   
   
     <li class="md-nav__item">
+      <a href="../../development/iteration_plan-kotlin-fp-6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「Kotlin FP」Unit 6 transaction と検証
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../development/iteration_plan-nadesiko-1/" class="md-nav__link">
         
   
@@ -2730,6 +2765,41 @@
     
   
     「Kotlin FP」Unit 5 射影と永続化
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/bolt_report-kotlin-fp-6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「Kotlin FP」Unit 6 transaction と検証
   
 
     
@@ -3700,6 +3770,41 @@
     
   
     「Kotlin FP」Unit 5 射影と永続化
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/retrospective-kotlin-fp-6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「Kotlin FP」Unit 6 transaction と検証
   
 
     
@@ -4974,6 +5079,41 @@
     
   
     Kotlin FP 版 Unit 2 開発成果物レビュー
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../review/kotlin-fp-unit6_review_20261031/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kotlin FP 版 Unit 6 開発成果物レビュー
   
 
     
@@ -6796,6 +6936,76 @@
     
   
     第 9 章 モナドによる安全なデータ永続化
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/kotlin-fp/chapter10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 10 章 コンテキストを読み込み、コマンドを処理する
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/kotlin-fp/chapter11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 11 章 アプリカティブによるデータバリデーション
   
 
     
@@ -10358,6 +10568,12 @@
 </tr>
 <tr>
 <td style="text-align: left;"><code>ListRenamed</code></td>
+<td style="text-align: left;"><code>user</code>、<code>listName</code>（旧い名前）、<code>newName</code></td>
+<td style="text-align: left;">リストの旧い名前が無くなった。新しい名前のリストは、別の stream の <code>ListCreated</code> と <code>ItemAdded</code> が作る</td>
+<td style="text-align: left;">11</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>ListRenamed</code></td>
 <td style="text-align: left;"><code>user</code>、<code>listName</code>、<code>newName</code></td>
 <td style="text-align: left;">リスト名が変わった</td>
 <td style="text-align: left;">11</td>
@@ -10392,6 +10608,12 @@
 <td style="text-align: left;"><code>user</code>、<code>listName</code>、<code>description</code>、<code>newStatus</code></td>
 <td style="text-align: left;">項目の状態を変えよ</td>
 <td style="text-align: left;">6</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>RenameToDoList</code></td>
+<td style="text-align: left;"><code>user</code>、<code>listName</code>、<code>newName</code></td>
+<td style="text-align: left;">リストの名前を変えよ。旧い名前と新しい名前の 2 つの stream に触れる</td>
+<td style="text-align: left;">11</td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>RenameToDoList</code></td>
@@ -11173,6 +11395,31 @@
 <td style="text-align: left;">永続化の失敗。原因は <code>reason</code> に持ち、利用者向けの <code>message</code> には含めない（第 9 章）</td>
 </tr>
 <tr>
+<td style="text-align: left;"><code>StoreError</code></td>
+<td style="text-align: left;">sealed error</td>
+<td style="text-align: left;">永続化に関わる失敗。<code>PersistenceFailure</code> と <code>ConcurrentModification</code> を持つ（第 10 章）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>ConcurrentModification</code></td>
+<td style="text-align: left;">error</td>
+<td style="text-align: left;">読んだ後に別の command が同じ stream へ追記した。検出した <code>StreamId</code> を持つ（第 10 章）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>InvalidInput</code></td>
+<td style="text-align: left;">error</td>
+<td style="text-align: left;">入力の検証に失敗した。誤りを <code>FieldProblem</code> の <code>NonEmptyList</code> で持ち、<code>message</code> には入力の値を含めない（第 11 章）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>FieldProblem</code></td>
+<td style="text-align: left;">値</td>
+<td style="text-align: left;">誤りが起きた入力（<code>InputField</code>）と、誤りの種類（<code>Blank</code>、<code>TooLong</code>、<code>ForbiddenCharacter</code>）（第 11 章）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>StreamId</code></td>
+<td style="text-align: left;">値</td>
+<td style="text-align: left;"><code>User</code> と <code>ListName</code> の組。event の列（stream）を決める（第 10 章）</td>
+</tr>
+<tr>
 <td style="text-align: left;"><code>ToDoListRow</code></td>
 <td style="text-align: left;">read model</td>
 <td style="text-align: left;"><code>ListName</code>、項目数、完了数。画面が欲しい形で、<code>ToDoListState</code> とは別に持つ（第 8 章）</td>
@@ -11231,6 +11478,13 @@
 <p>Unit 4 の command handler は <code>ToDoListCommand</code> と <code>ToDoListState</code> を受け取り、<code>Either&lt;ZettaiError, List&lt;ToDoListEvent&gt;&gt;</code> を返す純粋関数です。Arrow Raise の <code>ensure</code> / <code>ensureNotNull</code> は閉じた error hierarchy で fail-fast し、成功したときだけ event を生成します。Hub が event の永続化を担当するため、domain rule は database や HTTP を知りません。</p>
 <p>Unit 5 の第 8 章で、イベントから表示用の <code>ToDoListRow</code> を作る射影 <code>projectFrom(user, events)</code> を足します。<code>replayFrom</code> と同じ <code>fold</code> で、畳み込み先が状態ではなく行になります。行はリストの作成順に並び、他のユーザーのイベントは含みません。<code>Either&lt;ZettaiError, List&lt;ToDoListRow&gt;&gt;</code> の <code>map</code> には、<code>Either</code> と <code>List</code> を重ねた形でも恒等則と合成則を要求します。また、射影の行は同じイベント列を replay した状態から数えた行と一致することを要求します。ファンクタは自作せず、標準の <code>List.map</code> と Arrow の <code>Either.map</code> に委ねます。</p>
 <p>Unit 5 の第 9 章で、読み出しと保存の失敗を <code>Either&lt;PersistenceFailure, A&gt;</code> で port の型に出します。起こり得る失敗を永続化の失敗に絞るため、<code>ZettaiError</code> 全体ではなく <code>PersistenceFailure</code> を使います。<code>flatMap</code> には左恒等則、右恒等則、結合律を要求し、Raise の <code>bind()</code> の連鎖が <code>flatMap</code> と同じ結果になることも要求します。壊れた行（未知の <code>event_type</code>、必須の項目が無い payload、不正な値）は、読み出し時に <code>PersistenceFailure</code> として返し、黙って捨てません。一方、domain の <code>apply</code> は存在しない対象への event を無視する規則のままです。これを残すのは、replay を失敗しない関数に保ち、壊れた入力の検出を読み出しの境界に任せるためです。domain の規則と、入力の検査を分けています。</p>
+<p>名前変更（第 11 章）には、次の性質があります。</p>
+<ul>
+<li>新しい名前の stream には、現在の状態だけを <code>ListCreated</code> と <code>ItemAdded</code> で書きます。旧い stream の <code>ItemStatusChanged</code> の履歴は引き継がれず、旧い stream への逆向きの参照もありません。</li>
+<li>一覧の射影は stream の追記順に畳み込むので、名前を変えたリストは一覧の末尾に移ります。</li>
+<li><code>ListRenamed</code> は旧い stream の終端ですが、旧い名前は名前変更の直後から空き名になり、同じ名前で作り直せます。名前を変えて元に戻す往復（<code>名前を変えて戻しても、項目が二重にならない</code>）は、command の判断と射影の両方で成り立ちます。</li>
+</ul>
+<p>Unit 6 の第 10 章で、command 1 つの処理を 1 つの transaction に入れます。command は、触れる stream を <code>streams</code> で示します（既定は <code>(user, listName)</code> の 1 つ）。保存は、触れる stream ごとに読んだ版を受け取り、版が古ければ <code>ConcurrentModification</code> になります。stream の版は、その stream に追記済みの event の件数に等しく、domain の規則（状態、射影、遷移表）は変わりません。</p>
 <p><code>Either.map</code> には恒等則と合成則を要求します。成功値と失敗値を生成する Kotest property testing で両方を検証し、自作 <code>Outcome</code> を増やさず Arrow の抽象へ委ねます。</p>
 <h2 id="_24">関連ドキュメント<a class="headerlink" href="#_24" title="Permanent link">&para;</a></h2>
 <ul>

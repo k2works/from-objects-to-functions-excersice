@@ -287,6 +287,7 @@ nav:
           - Flix 版:
               - 概要: article/zettai/flix/index.md
               - 第 1 章 新しいアプリケーションを準備する: article/zettai/flix/chapter01.md
+              - 第 2 章 関数を使って HTTP を扱う: article/zettai/flix/chapter02.md
           - 横断比較: article/zettai/comparison/index.md
   - リファレンス:
       - 概要: reference/index.md

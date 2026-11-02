@@ -122,7 +122,7 @@ object Main extends IOApp:
 | [ADR-049](../../../adr/ADR-049-scala-acceptance-by-case-class-of-functions.md) | 受け入れテストの経路を、関数値を持つケースクラスで差し替える | 承認 |
 | [ADR-050](../../../adr/ADR-050-scala-either-for-domain-failures.md) | 業務の失敗は `Either`、`IO` の失敗は想定外に限る | 承認 |
 | [ADR-051](../../../adr/ADR-051-scala-doobie-and-testcontainers.md) | doobie 1.0.0-RC13 と Testcontainers | 承認 |
-| [ADR-052](../../../adr/ADR-052-scala-own-json-and-typed-log-record.md) | JSON と `LogRecord` を自作する | 提案（承認待ち） |
+| [ADR-052](../../../adr/ADR-052-scala-own-json-and-typed-log-record.md) | JSON と `LogRecord` を自作する | 承認 |
 
 ### 他の対象との違い
 

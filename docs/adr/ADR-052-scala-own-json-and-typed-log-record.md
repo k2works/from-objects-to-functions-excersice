@@ -3,8 +3,10 @@ type: ADR
 title: "ADR-052 Scala 版は JSON と型付きのログ記録を自作し、circe と log4cats を入れない"
 description: "Zettai 連載 Scala 版で、JSON の木と双方向変換、ログの 1 行を表す型 LogRecord、操作を包むデコレータを自作する決定。circe と log4cats は試していないことを明記し、決定が解かないことを記録する。"
 tags: [adr, scala, zettai, logging, json]
-status: draft
+status: stable
 generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-02T16:00:00Z }
+verified:
+  - { by: human:kakimomokuri, at: 2026-11-02T12:05:35Z }
 ---
 
 # ADR-052 Scala 版は JSON と型付きのログ記録を自作し、circe と log4cats を入れない
@@ -13,7 +15,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-02T16:00:00Z }
 
 ## ステータス
 
-提案（人の承認待ち）
+2026-11-02 承認されました
 
 ## コンテキスト
 

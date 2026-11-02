@@ -670,7 +670,7 @@ Scala 版は、**副作用を `IO` の値にし、型クラスを標準の語彙
 | 項目 | Scala 版 |
 | :--- | :--- |
 | 章 | 13 / 13 |
-| ADR | 4 件（[ADR-049](../../../adr/ADR-049-scala-acceptance-by-case-class-of-functions.md) から [ADR-052](../../../adr/ADR-052-scala-own-json-and-typed-log-record.md)）。3 件承認済み、1 件承認待ち |
+| ADR | 4 件（[ADR-049](../../../adr/ADR-049-scala-acceptance-by-case-class-of-functions.md) から [ADR-052](../../../adr/ADR-052-scala-own-json-and-typed-log-record.md)）。4 件とも承認済み |
 | テスト | 130 件（`test(...)`）。PostgreSQL の結合テスト（Testcontainers）を含む |
 | 本番コードの `.scala` | 26 ファイル、1,000 行（`src/main/scala/`） |
 | `cats.effect` を取り込む本番コード | 12 ファイル（残り 14 ファイルは使わない） |

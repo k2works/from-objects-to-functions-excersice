@@ -19,7 +19,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-02T17:40:00Z }
 | CI | Unit 1 から Unit 7 の各 push で、Scala Zettai の `check` と `article` を含む 4 本が成功した。最終コミット `7862b71` でも、Scala Zettai を含む 4 本が成功した |
 | 本番コード | 26 ファイル、1,000 行 |
 | テストコード | 43 ファイル、1,875 行 |
-| ADR | 4 件（[ADR-049](../adr/ADR-049-scala-acceptance-by-case-class-of-functions.md) から [ADR-052](../adr/ADR-052-scala-own-json-and-typed-log-record.md)）。3 件は承認済み、**ADR-052 は承認待ち** |
+| ADR | 4 件（[ADR-049](../adr/ADR-049-scala-acceptance-by-case-class-of-functions.md) から [ADR-052](../adr/ADR-052-scala-own-json-and-typed-log-record.md)）。4 件とも承認済み |
 
 計画は [リリース計画](release_plan-scala.md) にあります。
 
@@ -74,7 +74,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-02T17:40:00Z }
 
 ## 次に人がすること
 
-1. ADR-052 を確認し、承認するか判断する
+1. ~~ADR-052 を確認し、承認するか判断する~~ 承認済み（2026-11-02）
 2. `nix develop .#scala` を、Linux 以外の Nix で確かめる（必要なら）
 3. 記事のコード例を、読者の立場で通して実行する（第 1 章の手順から）
 4. 他の対象のように、Unit ごとの Bolt 計画・終了報告・ふりかえりを、必要なら書き起こす。**ただし、記録していない指標は、後から作らない**

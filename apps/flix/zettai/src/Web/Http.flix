@@ -1,9 +1,9 @@
-mod Http {
+pub mod Web.Http {
 
     use Domain.{User, ListName, ToDoList}
-    use Errors.ZettaiError
-    use Commands.ToDoListCommand
-    use Hub.ToDoListHub
+    use Domain.Errors.ZettaiError
+    use Domain.Commands.ToDoListCommand
+    use Application.Hub.ToDoListHub
 
     pub type alias Request = { method = String, path = String, body = String }
 
@@ -40,7 +40,7 @@ mod Http {
     def failure(error: ZettaiError): Response =
         match error {
             case ZettaiError.InvalidInput(problems) =>
-                { status = statusOf(error), contentType = "text/plain; charset=utf-8", body = Validate.explain(problems) }
+                { status = statusOf(error), contentType = "text/plain; charset=utf-8", body = Domain.Validation.Validate.explain(problems) }
             // 保存の失敗の理由には、SQL 文・テーブル名・接続先などが入りうる。応答には出さない
             case ZettaiError.StorageFailure(_) =>
                 { status = statusOf(error), contentType = "text/plain; charset=utf-8", body = "Internal Server Error" }
@@ -50,7 +50,7 @@ mod Http {
 
     def respond(found: Result[ZettaiError, ToDoList]): Response =
         match found {
-            case Ok(todoList) => html(200, Html.render(todoList))
+            case Ok(todoList) => html(200, Web.Html.render(todoList))
             case Err(error)   => failure(error)
         }
 
@@ -68,7 +68,7 @@ mod Http {
     pub def routeRename(execute: ToDoListCommand -> Result[ZettaiError, Unit] \ ef, request: Request): Response \ ef =
         match String.splitOn(substr = "/", request#path) {
             case "" :: "todo" :: user :: list :: "rename" :: Nil =>
-                match Validate.toZettai(Validate.validateRename(user, list, request#body)) {
+                match Domain.Validation.Validate.toZettai(Domain.Validation.Validate.validateRename(user, list, request#body)) {
                     case Err(error)   => failure(error)
                     case Ok(command)  =>
                         match execute(command) {
@@ -84,12 +84,12 @@ mod Http {
         if (request#method == "POST") routeRename(execute, request) else route(hub, request)
 
     /// 依存を、効果として型に現す版。ハンドラが無いと実行できない。
-    pub def routeWithEffect(request: Request): Response \ Lookup.ToDoLists =
+    pub def routeWithEffect(request: Request): Response \ Application.Lookup.ToDoLists =
         if (request#method != "GET")
             methodNotAllowed()
         else
             match parse(request#path) {
-                case Some((user, list)) => respond(Lookup.ToDoLists.getList(user, list))
+                case Some((user, list)) => respond(Application.Lookup.ToDoLists.getList(user, list))
                 case None               => notFound()
             }
 

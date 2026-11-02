@@ -1,7 +1,7 @@
 mod TestEffectDi {
 
     use Domain.{User, ListName, ToDoList}
-    use Http.{Request, Response}
+    use Web.Http.{Request, Response}
 
     def lists(): Map[User, List[ToDoList]] =
         Map#{
@@ -14,11 +14,11 @@ mod TestEffectDi {
 
     /// 関数値のレコードで依存を渡す版
     def byHub(path: String): Response =
-        Http.route(Hub.inMemory(lists()), get(path))
+        Web.Http.route(Application.Hub.inMemory(lists()), get(path))
 
     /// 効果ハンドラで依存を差し替える版
     def byHandler(path: String): Response =
-        Lookup.handleInMemory(lists(), () -> Http.routeWithEffect(get(path)))
+        Application.Lookup.handleInMemory(lists(), () -> Web.Http.routeWithEffect(get(path)))
 
     @Test
     def theHandlerSuppliesTheDependency(): Unit \ Assert =

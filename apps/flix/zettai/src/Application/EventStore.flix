@@ -1,7 +1,7 @@
-mod EventStore {
+pub mod Application.EventStore {
 
-    use Errors.ZettaiError
-    use Events.ToDoListEvent
+    use Domain.Errors.ZettaiError
+    use Domain.Events.ToDoListEvent
 
     /// 読んだ時点のイベントと、その版。版は、これまでに書かれたイベントの数。
     pub type alias Versioned = { events = List[ToDoListEvent], version = Int32 }

@@ -1,7 +1,7 @@
-mod Projection {
+pub mod Domain.Queries.Projection {
 
     use Domain.{User, ListName, ToDoItem, ToDoStatus}
-    use Events.ToDoListEvent
+    use Domain.Events.ToDoListEvent
 
     /// 画面に出したい形。業務の判断に使う状態とは別に持つ。
     pub enum ToDoListRow(ListName, Int32, Int32) with Eq, ToString

@@ -1,7 +1,7 @@
 mod TestResultFunctor {
 
     use Domain.{User, ListName, ToDoStatus}
-    use Errors.ZettaiError
+    use Domain.Errors.ZettaiError
 
     /// Right に相当する値を端の値まで含めて、Left に相当する値を 4 種類すべて並べる。
     def outcomes(): List[Result[ZettaiError, Int32]] = List#{

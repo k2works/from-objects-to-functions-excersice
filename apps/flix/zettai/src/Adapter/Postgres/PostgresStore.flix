@@ -1,4 +1,4 @@
-mod PostgresStore {
+pub mod Adapter.Postgres.PostgresStore {
 
     import java.lang.Object
     import java.lang.System
@@ -10,9 +10,9 @@ mod PostgresStore {
     import java.util.UUID
     import org.postgresql.Driver
 
-    use Errors.ZettaiError
-    use Events.ToDoListEvent
-    use EventStore.{EventStore, Versioned}
+    use Domain.Errors.ZettaiError
+    use Domain.Events.ToDoListEvent
+    use Application.EventStore.{EventStore, Versioned}
 
     pub type alias Config = { url = String, user = String, password = String }
 
@@ -70,7 +70,7 @@ mod PostgresStore {
         if (validTableName(table)) execute(config, "drop table if exists ${table}")
         else Err(ZettaiError.StorageFailure("invalid table name: ${table}"))
 
-    def readRows(rs: ResultSet): List[Codec.EventRow] \ IO =
+    def readRows(rs: ResultSet): List[Adapter.Postgres.Codec.EventRow] \ IO =
         if (rs.next()) {
             let row = {
                 kind = rs.getString("kind"),
@@ -89,7 +89,7 @@ mod PostgresStore {
         try {
             let st = conn.prepareStatement("select kind, user_name, list_name, description, status from ${table} order by version");
             let rows = readRows(st.executeQuery());
-            Result.map(events -> { events = events, version = List.length(events) }, Traversable.traverse(Codec.decode, rows))
+            Result.map(events -> { events = events, version = List.length(events) }, Traversable.traverse(Adapter.Postgres.Codec.decode, rows))
         } catch {
             case ex: SQLException => Err(failure(ex))
         }
@@ -122,7 +122,7 @@ mod PostgresStore {
                     let st = conn.prepareStatement("insert into ${table} (version, kind, user_name, list_name, description, status) values (?, ?, ?, ?, ?, ?)");
                     List.forEach(entry -> match entry {
                         case (event, version) => {
-                            let row = Codec.encode(event);
+                            let row = Adapter.Postgres.Codec.encode(event);
                             st.setInt(1, version);
                             st.setString(2, row#kind);
                             st.setString(3, row#user);
@@ -156,12 +156,12 @@ mod PostgresStore {
 
     /// 1 つの接続とトランザクションの中で、効果 EventLog を処理する。
     /// 成功したときだけコミットし、失敗したときは、中で書いたものをすべて取り消す。
-    pub def transactional(config: Config, table: String, f: Unit -> Result[ZettaiError, a] \ Process.EventLog): Result[ZettaiError, a] \ IO =
+    pub def transactional(config: Config, table: String, f: Unit -> Result[ZettaiError, a] \ Application.Process.EventLog): Result[ZettaiError, a] \ IO =
         withConnection(config, conn -> {
             conn.setAutoCommit(false);
             let result = run {
                 f()
-            } with handler Process.EventLog {
+            } with handler Application.Process.EventLog {
                 def load(resume) = resume(readEvents(conn, table))
                 def append(expected, events, resume) = resume(insertEvents(conn, table, expected, events))
             };

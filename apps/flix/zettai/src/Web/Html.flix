@@ -1,4 +1,4 @@
-mod Html {
+pub mod Web.Html {
 
     use Domain.{ToDoItem, ToDoList}
     use Domain.ListName.ListName

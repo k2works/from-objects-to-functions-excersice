@@ -1,8 +1,8 @@
-mod Validate {
+pub mod Domain.Validation.Validate {
 
     use Domain.{User, ListName}
-    use Errors.{InputField, FieldProblem, ZettaiError}
-    use Commands.ToDoListCommand
+    use Domain.Errors.{InputField, FieldProblem, ZettaiError}
+    use Domain.Commands.ToDoListCommand
 
     pub def maxLength(): Int32 = 40
 

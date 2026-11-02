@@ -6,8 +6,8 @@ mod TestRealConflict {
     import java.util.concurrent.atomic.AtomicReference
 
     use Domain.{User, ListName}
-    use Errors.ZettaiError
-    use Events.ToDoListEvent
+    use Domain.Errors.ZettaiError
+    use Domain.Events.ToDoListEvent
 
     def uberto(): User = User.User("uberto")
 
@@ -22,12 +22,12 @@ mod TestRealConflict {
     /// 3 で B が終わっていないことを確かめるので、「版の確認で断られた」経路とは区別できる。
     @Test
     def aRealRaceEndsInAVersionConflictThroughTheUniqueConstraint(): Unit \ {Assert, IO} = {
-        let config = PostgresStore.configFromEnv();
-        let table = PostgresStore.freshTableName();
-        match PostgresStore.open(config, table) {
+        let config = Adapter.Postgres.PostgresStore.configFromEnv();
+        let table = Adapter.Postgres.PostgresStore.freshTableName();
+        match Adapter.Postgres.PostgresStore.open(config, table) {
             case Err(e)    => Assert.assertEq(expected = "opened", ToString.toString(e))
             case Ok(store) => {
-                let a = PostgresStore.connect(config);
+                let a = Adapter.Postgres.PostgresStore.connect(config);
                 a.setAutoCommit(false);
                 a.prepareStatement("insert into ${table} (version, kind, user_name, list_name, description, status) values (1, 'ListCreated', 'uberto', 'winner', '', '')").executeUpdate();
                 let result = new AtomicReference();
@@ -56,7 +56,7 @@ mod TestRealConflict {
                 }
             }
         };
-        let _ = PostgresStore.dropTable(config, table);
+        let _ = Adapter.Postgres.PostgresStore.dropTable(config, table);
         ()
     }
 

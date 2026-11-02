@@ -1,8 +1,8 @@
 mod Routes {
 
     use Domain.{User, ListName, ToDoItem, ToDoList}
-    use Errors.ZettaiError
-    use Events.ToDoListEvent
+    use Domain.Errors.ZettaiError
+    use Domain.Events.ToDoListEvent
     use ZettaiActions.ZettaiActions
 
     /// 純粋な値を、IO を持つ枠に入れる。経路を同じ型に揃えるための、テスト側だけの宣言。
@@ -19,9 +19,9 @@ mod Routes {
 
     /// 実際の HTTP サーバーを起動し、HTML を読み戻す経路。
     pub def httpActions(lists: Map[User, List[ToDoList]]): ZettaiActions \ IO = {
-        let server = JdkServer.start(0, request ->
-            Http.route(Hub.inMemory(lists), request));
-        let port = JdkServer.port(server);
+        let server = Web.JdkServer.start(0, request ->
+            Web.Http.route(Application.Hub.inMemory(lists), request));
+        let port = Web.JdkServer.port(server);
         {
             name = "http",
             getToDoList = (user, listName) -> {
@@ -30,7 +30,7 @@ mod Routes {
                 let (status, body) = HttpTestClient.get(port, "/todo/${u}/${l}");
                 if (status == 200) Some(HtmlReader.items(body)) else None
             },
-            close = () -> JdkServer.stop(server)
+            close = () -> Web.JdkServer.stop(server)
         }
     }
 
@@ -47,10 +47,10 @@ mod Routes {
 
     /// 実際の PostgreSQL にイベントを書き、読み戻して状態を作る経路。
     pub def databaseActions(lists: Map[User, List[ToDoList]]): Result[ZettaiError, ZettaiActions] \ IO = {
-        let config = PostgresStore.configFromEnv();
-        let table = PostgresStore.freshTableName();
+        let config = Adapter.Postgres.PostgresStore.configFromEnv();
+        let table = Adapter.Postgres.PostgresStore.freshTableName();
         forM (
-            store <- PostgresStore.open(config, table);
+            store <- Adapter.Postgres.PostgresStore.open(config, table);
             _     <- store#append(0, eventsOf(lists))
         ) yield {
             name = "database",
@@ -58,9 +58,9 @@ mod Routes {
                 case Err(_)      => None
                 case Ok(read) =>
                     Option.map(l -> match l { case ToDoList.ToDoList(_, items) => items },
-                        Events.listFor(Replay.replayFrom(Events.empty(), read#events), user, listName))
+                        Domain.Events.listFor(Domain.Events.Replay.replayFrom(Domain.Events.empty(), read#events), user, listName))
             },
-            close = () -> { let _ = PostgresStore.dropTable(config, table); () }
+            close = () -> { let _ = Adapter.Postgres.PostgresStore.dropTable(config, table); () }
         }
     }
 

@@ -1,4 +1,4 @@
-mod Logs {
+pub mod Logging.Logs {
 
     use Json.JsonTree
     use Json.JsonTree.{JNull, JInt, JString, JObject}

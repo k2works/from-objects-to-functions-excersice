@@ -1,4 +1,4 @@
-mod Errors {
+pub mod Domain.Errors {
 
     use Domain.{User, ListName, ToDoStatus}
 

@@ -1,8 +1,8 @@
-mod Hub {
+pub mod Application.Hub {
 
     use Domain.{User, ListName, ToDoList}
-    use Errors.ZettaiError
-    use EventStore.EventStore
+    use Domain.Errors.ZettaiError
+    use Application.EventStore.EventStore
 
     /// アプリケーションが公開する操作。各操作は関数値のフィールドで、効果 ef を引き継ぐ。
     pub type alias ToDoListHub[ef: Eff] = {
@@ -17,7 +17,7 @@ mod Hub {
         todoListHub((user, name) -> match store#load() {
             case Err(e)   => Err(e)
             case Ok(read) =>
-                match Events.listFor(Replay.replayFrom(Events.empty(), read#events), user, name) {
+                match Domain.Events.listFor(Domain.Events.Replay.replayFrom(Domain.Events.empty(), read#events), user, name) {
                     case Some(list) => Ok(list)
                     case None       => Err(ZettaiError.ListNotFound(user, name))
                 }

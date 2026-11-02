@@ -1,9 +1,9 @@
 mod TestRenameRoute {
 
     use Domain.{User, ListName}
-    use Errors.ZettaiError
-    use Commands.ToDoListCommand
-    use Http.Request
+    use Domain.Errors.ZettaiError
+    use Domain.Commands.ToDoListCommand
+    use Web.Http.Request
 
     def post(path: String, body: String): Request = { method = "POST", path = path, body = body }
 
@@ -15,7 +15,7 @@ mod TestRenameRoute {
 
     @Test
     def everyProblemIsReportedInOneResponse(): Unit \ Assert = {
-        let response = Http.routeRename(executing(Ok(())), post("/todo/ /a/rename", String.repeat(41, "/")));
+        let response = Web.Http.routeRename(executing(Ok(())), post("/todo/ /a/rename", String.repeat(41, "/")));
         Assert.assertEq(expected = 400, response#status);
         // 利用者名・リスト名・新しい名前の誤りが、1 回の応答にすべて入る
         Assert.assertTrue(contains(response#body, "利用者名"));
@@ -25,14 +25,14 @@ mod TestRenameRoute {
 
     @Test
     def theResponseNeverEchoesTheInput(): Unit \ Assert = {
-        let response = Http.routeRename(executing(Ok(())), post("/todo/uberto/book/rename", "secret/name"));
+        let response = Web.Http.routeRename(executing(Ok(())), post("/todo/uberto/book/rename", "secret/name"));
         Assert.assertEq(expected = 400, response#status);
         Assert.assertFalse(contains(response#body, "secret"))
     }
 
     @Test
     def aValidRequestRunsTheRenameCommand(): Unit \ Assert = {
-        let response = Http.routeRename(executing(Ok(())), post("/todo/uberto/book/rename", "shop"));
+        let response = Web.Http.routeRename(executing(Ok(())), post("/todo/uberto/book/rename", "shop"));
         Assert.assertEq(expected = 200, response#status)
     }
 
@@ -40,12 +40,12 @@ mod TestRenameRoute {
     def aRefusalFromTheDomainKeepsItsOwnStatus(): Unit \ Assert = {
         let missing = Err(ZettaiError.ListNotFound(User.User("uberto"), ListName.ListName("book")));
         let taken = Err(ZettaiError.ListAlreadyExists(User.User("uberto"), ListName.ListName("shop")));
-        Assert.assertEq(expected = 404, Http.routeRename(executing(missing), post("/todo/uberto/book/rename", "shop"))#status);
-        Assert.assertEq(expected = 400, Http.routeRename(executing(taken), post("/todo/uberto/book/rename", "shop"))#status)
+        Assert.assertEq(expected = 404, Web.Http.routeRename(executing(missing), post("/todo/uberto/book/rename", "shop"))#status);
+        Assert.assertEq(expected = 400, Web.Http.routeRename(executing(taken), post("/todo/uberto/book/rename", "shop"))#status)
     }
 
     @Test
     def anotherPathIsNotARenameRequest(): Unit \ Assert =
-        Assert.assertEq(expected = 404, Http.routeRename(executing(Ok(())), post("/todo/uberto/book", "shop"))#status)
+        Assert.assertEq(expected = 404, Web.Http.routeRename(executing(Ok(())), post("/todo/uberto/book", "shop"))#status)
 
 }

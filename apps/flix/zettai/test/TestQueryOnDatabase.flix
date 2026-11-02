@@ -1,8 +1,8 @@
 mod TestQueryOnDatabase {
 
     use Domain.{User, ListName, ToDoStatus}
-    use Commands.ToDoListCommand.{CreateToDoList, AddToDoItem, ChangeItemStatus}
-    use Projection.ToDoListRow
+    use Domain.Commands.ToDoListCommand.{CreateToDoList, AddToDoItem, ChangeItemStatus}
+    use Domain.Queries.Projection.ToDoListRow
 
     def uberto(): User = User.User("uberto")
 
@@ -10,13 +10,13 @@ mod TestQueryOnDatabase {
 
     @Test
     def theQuerySideReadsRowsFromEventsStoredInPostgres(): Unit \ {Assert, IO} = {
-        let config = PostgresStore.configFromEnv();
-        let table = PostgresStore.freshTableName();
-        match PostgresStore.open(config, table) {
+        let config = Adapter.Postgres.PostgresStore.configFromEnv();
+        let table = Adapter.Postgres.PostgresStore.freshTableName();
+        match Adapter.Postgres.PostgresStore.open(config, table) {
             case Err(e)    => Assert.assertEq(expected = "opened", ToString.toString(e))
             case Ok(store) => {
-                let commandHub = CommandHub.commandHub(store);
-                let queryHub = QueryHub.queryHub(store);
+                let commandHub = Application.CommandHub.commandHub(store);
+                let queryHub = Application.QueryHub.queryHub(store);
                 List.forEach(c -> { let _ = commandHub#execute(c); () }, List#{
                     CreateToDoList(uberto(), book()),
                     AddToDoItem(uberto(), book(), Domain.todo("a")),
@@ -29,7 +29,7 @@ mod TestQueryOnDatabase {
                 )
             }
         };
-        let _ = PostgresStore.dropTable(config, table);
+        let _ = Adapter.Postgres.PostgresStore.dropTable(config, table);
         ()
     }
 

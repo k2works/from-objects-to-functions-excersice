@@ -1,9 +1,9 @@
 mod TestProjection {
 
     use Domain.{User, ListName, ToDoStatus}
-    use Events.ToDoListEvent
-    use Events.ToDoListEvent.{ListCreated, ItemAdded, ItemStatusChanged}
-    use Projection.ToDoListRow
+    use Domain.Events.ToDoListEvent
+    use Domain.Events.ToDoListEvent.{ListCreated, ItemAdded, ItemStatusChanged}
+    use Domain.Queries.Projection.ToDoListRow
 
     def uberto(): User = User.User("uberto")
 
@@ -23,7 +23,7 @@ mod TestProjection {
         };
         Assert.assertEq(
             expected = List#{ToDoListRow.ToDoListRow(book(), 2, 1)},
-            Projection.projectFrom(uberto(), events)
+            Domain.Queries.Projection.projectFrom(uberto(), events)
         )
     }
 
@@ -32,20 +32,20 @@ mod TestProjection {
         let events = List#{ListCreated(uberto(), shop()), ListCreated(uberto(), book())};
         Assert.assertEq(
             expected = List#{ToDoListRow.ToDoListRow(book(), 0, 0), ToDoListRow.ToDoListRow(shop(), 0, 0)},
-            Projection.projectFrom(uberto(), events)
+            Domain.Queries.Projection.projectFrom(uberto(), events)
         )
     }
 
     @Test
     def onlyTheListsOfTheGivenUserAppear(): Unit \ Assert = {
         let events = List#{ListCreated(uberto(), book()), ListCreated(alice(), shop())};
-        Assert.assertEq(expected = List#{ToDoListRow.ToDoListRow(book(), 0, 0)}, Projection.projectFrom(uberto(), events));
-        Assert.assertEq(expected = List#{ToDoListRow.ToDoListRow(shop(), 0, 0)}, Projection.projectFrom(alice(), events))
+        Assert.assertEq(expected = List#{ToDoListRow.ToDoListRow(book(), 0, 0)}, Domain.Queries.Projection.projectFrom(uberto(), events));
+        Assert.assertEq(expected = List#{ToDoListRow.ToDoListRow(shop(), 0, 0)}, Domain.Queries.Projection.projectFrom(alice(), events))
     }
 
     @Test
     def anItemAddedToAMissingListMakesNoRow(): Unit \ Assert =
-        Assert.assertEq(expected = Nil, Projection.projectFrom(uberto(), List#{ItemAdded(uberto(), book(), Domain.todo("a"))}))
+        Assert.assertEq(expected = Nil, Domain.Queries.Projection.projectFrom(uberto(), List#{ItemAdded(uberto(), book(), Domain.todo("a"))}))
 
     @Test
     def aStatusChangeCountsOnlyTheFirstItemWithThatDescription(): Unit \ Assert = {
@@ -55,13 +55,13 @@ mod TestProjection {
             ItemAdded(uberto(), book(), Domain.todo("a")),
             ItemStatusChanged(uberto(), book(), "a", ToDoStatus.Done)
         };
-        Assert.assertEq(expected = List#{ToDoListRow.ToDoListRow(book(), 2, 1)}, Projection.projectFrom(uberto(), events))
+        Assert.assertEq(expected = List#{ToDoListRow.ToDoListRow(book(), 2, 1)}, Domain.Queries.Projection.projectFrom(uberto(), events))
     }
 
     /// 状態を再生してから数え直した行。射影と同じ答えになるはず。
     def rowsFromState(user: User, events: List[ToDoListEvent]): List[ToDoListRow] = {
-        let state = Replay.replayFrom(Events.empty(), events);
-        match Events.listFor(state, user, book()) {
+        let state = Domain.Events.Replay.replayFrom(Domain.Events.empty(), events);
+        match Domain.Events.listFor(state, user, book()) {
             case None => Nil
             case Some(Domain.ToDoList.ToDoList(name, items)) =>
                 List#{ToDoListRow.ToDoListRow(
@@ -76,7 +76,7 @@ mod TestProjection {
     def theProjectionMatchesTheCountsOfTheReplayedState(): Unit \ Assert =
         List.forEach(events ->
             List.forEach(user ->
-                Assert.assertEq(expected = rowsFromState(user, events), Projection.projectFrom(user, events)),
+                Assert.assertEq(expected = rowsFromState(user, events), Domain.Queries.Projection.projectFrom(user, events)),
                 List#{uberto(), alice()}),
             Gen.projectionListsUpTo(4))
 

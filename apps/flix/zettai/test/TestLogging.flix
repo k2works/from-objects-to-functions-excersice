@@ -1,9 +1,9 @@
 mod TestLogging {
 
     use Domain.{User, ListName, ToDoStatus}
-    use Errors.ZettaiError
-    use Commands.ToDoListCommand.{CreateToDoList, AddToDoItem, ChangeItemStatus, RenameToDoList}
-    use Logs.LogRecord
+    use Domain.Errors.ZettaiError
+    use Domain.Commands.ToDoListCommand.{CreateToDoList, AddToDoItem, ChangeItemStatus, RenameToDoList}
+    use Logging.Logs.LogRecord
 
     def uberto(): User = User.User("uberto")
 
@@ -46,7 +46,7 @@ mod TestLogging {
     }
 
     def decode(line: String): Result[String, LogRecord] =
-        Result.flatMap(Logs.fromJson, Json.parse(line))
+        Result.flatMap(Logging.Logs.fromJson, Json.parse(line))
 
     def decodeAll(lines: List[String]): List[Result[String, LogRecord]] =
         List.map(decode, lines)
@@ -54,11 +54,11 @@ mod TestLogging {
     @Test
     def aReadIsLoggedWithItsOutcomeAndDuration(): Unit \ Assert = {
         let lines = region rc {
-            let hub = Logging.observeHub(steppingClock(rc, 7i64), Hub.inMemory(Map#{}));
+            let hub = Adapter.Logging.observeHub(steppingClock(rc, 7i64), Application.Hub.inMemory(Map#{}));
             linesOf(rc, () -> hub#getList(uberto(), book()))
         };
         Assert.assertEq(
-            expected = List#{Ok(Logs.LogRecord.LogRecord("hub", "getList", "ListNotFound", Some("uberto"), Some("book"), 7))},
+            expected = List#{Ok(Logging.Logs.LogRecord.LogRecord("hub", "getList", "ListNotFound", Some("uberto"), Some("book"), 7))},
             decodeAll(lines)
         )
     }
@@ -67,11 +67,11 @@ mod TestLogging {
     def aSuccessfulReadIsLoggedAsOk(): Unit \ Assert = {
         let lists = Map#{uberto() => List#{Domain.ToDoList.ToDoList(book(), Nil)}};
         let lines = region rc {
-            let hub = Logging.observeHub(steppingClock(rc, 3i64), Hub.inMemory(lists));
+            let hub = Adapter.Logging.observeHub(steppingClock(rc, 3i64), Application.Hub.inMemory(lists));
             linesOf(rc, () -> hub#getList(uberto(), book()))
         };
         Assert.assertEq(
-            expected = List#{Ok(Logs.LogRecord.LogRecord("hub", "getList", "ok", Some("uberto"), Some("book"), 3))},
+            expected = List#{Ok(Logging.Logs.LogRecord.LogRecord("hub", "getList", "ok", Some("uberto"), Some("book"), 3))},
             decodeAll(lines)
         )
     }
@@ -79,8 +79,8 @@ mod TestLogging {
     @Test
     def eachCommandIsLoggedByKindUserAndListOnly(): Unit \ Assert = {
         let lines = region rc {
-            let commands = CommandHub.commandHub(EventStore.inMemory(rc));
-            let observed = Logging.observeCommandHub(steppingClock(rc, 1i64), commands);
+            let commands = Application.CommandHub.commandHub(Application.EventStore.inMemory(rc));
+            let observed = Adapter.Logging.observeCommandHub(steppingClock(rc, 1i64), commands);
             linesOf(rc, () -> List.map(observed#execute, List#{
                 CreateToDoList(uberto(), book()),
                 AddToDoItem(uberto(), book(), Domain.todo("secret item")),
@@ -90,10 +90,10 @@ mod TestLogging {
         };
         Assert.assertEq(
             expected = List#{
-                Ok(Logs.LogRecord.LogRecord("command", "CreateToDoList", "ok", Some("uberto"), Some("book"), 1)),
-                Ok(Logs.LogRecord.LogRecord("command", "AddToDoItem", "ok", Some("uberto"), Some("book"), 1)),
-                Ok(Logs.LogRecord.LogRecord("command", "ChangeItemStatus", "InvalidTransition", Some("uberto"), Some("book"), 1)),
-                Ok(Logs.LogRecord.LogRecord("command", "RenameToDoList", "ok", Some("uberto"), Some("book"), 1))
+                Ok(Logging.Logs.LogRecord.LogRecord("command", "CreateToDoList", "ok", Some("uberto"), Some("book"), 1)),
+                Ok(Logging.Logs.LogRecord.LogRecord("command", "AddToDoItem", "ok", Some("uberto"), Some("book"), 1)),
+                Ok(Logging.Logs.LogRecord.LogRecord("command", "ChangeItemStatus", "InvalidTransition", Some("uberto"), Some("book"), 1)),
+                Ok(Logging.Logs.LogRecord.LogRecord("command", "RenameToDoList", "ok", Some("uberto"), Some("book"), 1))
             },
             decodeAll(lines)
         );
@@ -102,7 +102,7 @@ mod TestLogging {
     }
 
     /// 呼ぶたびに失敗する、読み書きのストア。失敗の理由に、漏らしたくない値が入っている。
-    def failingStore(): EventStore.EventStore[{}] = {
+    def failingStore(): Application.EventStore.EventStore[{}] = {
         load = () -> Err(ZettaiError.StorageFailure("password=hunter2 host=db.internal")),
         append = (_expected, _events) -> Err(ZettaiError.StorageFailure("password=hunter2 host=db.internal"))
     }
@@ -110,7 +110,7 @@ mod TestLogging {
     @Test
     def aStorageFailureIsLoggedByCategoryNotByReason(): Unit \ Assert = {
         let lines = region rc {
-            let store = Logging.observeStore(steppingClock(rc, 5i64), failingStore());
+            let store = Adapter.Logging.observeStore(steppingClock(rc, 5i64), failingStore());
             linesOf(rc, () -> {
                 let _ = store#load();
                 store#append(0, Nil)
@@ -118,8 +118,8 @@ mod TestLogging {
         };
         Assert.assertEq(
             expected = List#{
-                Ok(Logs.LogRecord.LogRecord("store", "load", "StorageFailure", None, None, 5)),
-                Ok(Logs.LogRecord.LogRecord("store", "append", "StorageFailure", None, None, 5))
+                Ok(Logging.Logs.LogRecord.LogRecord("store", "load", "StorageFailure", None, None, 5)),
+                Ok(Logging.Logs.LogRecord.LogRecord("store", "append", "StorageFailure", None, None, 5))
             },
             decodeAll(lines)
         );
@@ -130,38 +130,38 @@ mod TestLogging {
     def everyKindOfFailureHasAFixedCategoryName(): Unit \ Assert = {
         let u = uberto();
         let l = book();
-        Assert.assertEq(expected = "ListNotFound", Logging.category(ZettaiError.ListNotFound(u, l)));
-        Assert.assertEq(expected = "ListAlreadyExists", Logging.category(ZettaiError.ListAlreadyExists(u, l)));
-        Assert.assertEq(expected = "ItemNotFound", Logging.category(ZettaiError.ItemNotFound(u, l, "x")));
-        Assert.assertEq(expected = "InvalidTransition", Logging.category(ZettaiError.InvalidTransition("x", ToDoStatus.Todo, ToDoStatus.Done)));
-        Assert.assertEq(expected = "StorageFailure", Logging.category(ZettaiError.StorageFailure("anything")));
-        Assert.assertEq(expected = "VersionConflict", Logging.category(ZettaiError.VersionConflict(1, 2)));
-        Assert.assertEq(expected = "InvalidInput", Logging.category(ZettaiError.InvalidInput(Nil)))
+        Assert.assertEq(expected = "ListNotFound", Adapter.Logging.category(ZettaiError.ListNotFound(u, l)));
+        Assert.assertEq(expected = "ListAlreadyExists", Adapter.Logging.category(ZettaiError.ListAlreadyExists(u, l)));
+        Assert.assertEq(expected = "ItemNotFound", Adapter.Logging.category(ZettaiError.ItemNotFound(u, l, "x")));
+        Assert.assertEq(expected = "InvalidTransition", Adapter.Logging.category(ZettaiError.InvalidTransition("x", ToDoStatus.Todo, ToDoStatus.Done)));
+        Assert.assertEq(expected = "StorageFailure", Adapter.Logging.category(ZettaiError.StorageFailure("anything")));
+        Assert.assertEq(expected = "VersionConflict", Adapter.Logging.category(ZettaiError.VersionConflict(1, 2)));
+        Assert.assertEq(expected = "InvalidInput", Adapter.Logging.category(ZettaiError.InvalidInput(Nil)))
     }
 
     @Test
     def decoratingDoesNotChangeTheResult(): Unit \ Assert = {
         let lists = Map#{uberto() => List#{Domain.ToDoList.ToDoList(book(), List#{Domain.todo("a")})}};
-        let plain = Hub.inMemory(lists);
+        let plain = Application.Hub.inMemory(lists);
         let observed = region rc {
-            let hub = Logging.observeHub(steppingClock(rc, 1i64), plain);
+            let hub = Adapter.Logging.observeHub(steppingClock(rc, 1i64), plain);
             valueOf(rc, () -> hub#getList(uberto(), book()))
         };
         Assert.assertEq(expected = plain#getList(uberto(), book()), observed)
     }
 
-    def notFoundApp(_request: Http.Request): Http.Response =
+    def notFoundApp(_request: Web.Http.Request): Web.Http.Response =
         { status = 404, contentType = "text/plain", body = "missing" }
 
     @Test
     def aRequestIsLoggedByMethodAndStatusClassOnly(): Unit \ Assert = {
         
         let lines = region rc {
-            let app = Logging.observeApp(steppingClock(rc, 2i64), notFoundApp);
+            let app = Adapter.Logging.observeApp(steppingClock(rc, 2i64), notFoundApp);
             linesOf(rc, () -> app({ method = "GET", path = "/todo/secret-user/secret-list", body = "secret body" }))
         };
         Assert.assertEq(
-            expected = List#{Ok(Logs.LogRecord.LogRecord("http", "GET", "4xx", None, None, 2))},
+            expected = List#{Ok(Logging.Logs.LogRecord.LogRecord("http", "GET", "4xx", None, None, 2))},
             decodeAll(lines)
         );
         // 経路にも本文にも利用者の入力が入る。行には、どちらも現れない
@@ -172,15 +172,15 @@ mod TestLogging {
     def readingTheCurrentStateTouchesTheStoreOnce(): Unit \ Assert = {
         let lines = region rc {
             let clock = steppingClock(rc, 1i64);
-            let store = Logging.observeStore(clock, EventStore.inMemory(rc));
-            let commands = Logging.observeCommandHub(clock, CommandHub.commandHub(store));
+            let store = Adapter.Logging.observeStore(clock, Application.EventStore.inMemory(rc));
+            let commands = Adapter.Logging.observeCommandHub(clock, Application.CommandHub.commandHub(store));
             linesOf(rc, () -> commands#current())
         };
         // ストアの読み出し 1 回と、コマンド側の 1 回。結果を捨てて、もう一度呼んではいけない
         Assert.assertEq(
             expected = List#{
-                Ok(Logs.LogRecord.LogRecord("store", "load", "ok", None, None, 1)),
-                Ok(Logs.LogRecord.LogRecord("command", "current", "ok", None, None, 3))
+                Ok(Logging.Logs.LogRecord.LogRecord("store", "load", "ok", None, None, 1)),
+                Ok(Logging.Logs.LogRecord.LogRecord("command", "current", "ok", None, None, 3))
             },
             decodeAll(lines)
         )

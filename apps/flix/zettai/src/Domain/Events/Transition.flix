@@ -1,7 +1,7 @@
-mod Transition {
+pub mod Domain.Events.Transition {
 
-    use Events.ToDoListEvent
-    use Events.ToDoListState
+    use Domain.Events.ToDoListEvent
+    use Domain.Events.ToDoListState
 
     /// 状態を受け取り、状態を返す関数。イベントを 1 つ固定すると、この形になる。
     pub enum StateTransition(ToDoListState -> ToDoListState)
@@ -10,7 +10,7 @@ mod Transition {
         match transition { case StateTransition.StateTransition(f) => f(state) }
 
     pub def fromEvent(event: ToDoListEvent): StateTransition =
-        StateTransition.StateTransition(state -> Events.apply(state, event))
+        StateTransition.StateTransition(state -> Domain.Events.apply(state, event))
 
     /// 何もしない変換。合成の単位元になる。
     pub def identity(): StateTransition =

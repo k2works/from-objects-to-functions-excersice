@@ -24,7 +24,7 @@ mod TestHtmlReader {
     def roundTripsWhatHtmlRenders(): Unit \ Assert = {
         let items = List#{Domain.todo("a & b"), Domain.todo("<i>c</i>")};
         let list = Domain.ToDoList.ToDoList(Domain.ListName.ListName("x"), items);
-        Assert.assertEq(expected = items, HtmlReader.items(Html.render(list)))
+        Assert.assertEq(expected = items, HtmlReader.items(Web.Html.render(list)))
     }
 
 }

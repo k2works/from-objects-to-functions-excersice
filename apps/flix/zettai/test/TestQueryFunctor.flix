@@ -1,15 +1,15 @@
 mod TestQueryFunctor {
 
     use Domain.{User, ListName, ToDoStatus}
-    use Errors.ZettaiError
-    use Projection.ToDoListRow
+    use Domain.Errors.ZettaiError
+    use Domain.Queries.Projection.ToDoListRow
 
     /// 第 9 章で読み出しが失敗しうるようになったときの、query の結果の形。
     type alias QueryResult = Result[ZettaiError, List[ToDoListRow]]
 
     def results(): List[QueryResult] = {
         let user = User.User("uberto");
-        let rows = List.map(events -> Ok(Projection.projectFrom(user, events)), Gen.projectionListsUpTo(2));
+        let rows = List.map(events -> Ok(Domain.Queries.Projection.projectFrom(user, events)), Gen.projectionListsUpTo(2));
         let errors = List#{
             Err(ZettaiError.ListNotFound(user, ListName.ListName("book"))),
             Err(ZettaiError.InvalidTransition("a", ToDoStatus.Todo, ToDoStatus.Blocked))

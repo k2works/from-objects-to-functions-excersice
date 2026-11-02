@@ -1,7 +1,7 @@
-mod Lookup {
+pub mod Application.Lookup {
 
     use Domain.{User, ListName, ToDoList}
-    use Errors.ZettaiError
+    use Domain.Errors.ZettaiError
 
     /// 依存を「効果」として宣言する。実装は呼び出し側のハンドラが与える。
     pub eff ToDoLists {

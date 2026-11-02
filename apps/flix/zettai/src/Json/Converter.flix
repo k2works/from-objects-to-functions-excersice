@@ -1,4 +1,4 @@
-mod Converter {
+pub mod Json.Converter {
 
     use Json.JsonTree
     use Json.JsonTree.{JInt, JString}

@@ -1,7 +1,7 @@
 mod TestErrorMapping {
 
     use Domain.{User, ListName, ToDoStatus}
-    use Errors.ZettaiError
+    use Domain.Errors.ZettaiError
 
     def uberto(): User = User.User("uberto")
 
@@ -9,18 +9,18 @@ mod TestErrorMapping {
 
     @Test
     def aMissingListOrItemIsNotFound(): Unit \ Assert = {
-        Assert.assertEq(expected = 404, Http.statusOf(ZettaiError.ListNotFound(uberto(), book())));
-        Assert.assertEq(expected = 404, Http.statusOf(ZettaiError.ItemNotFound(uberto(), book(), "x")))
+        Assert.assertEq(expected = 404, Web.Http.statusOf(ZettaiError.ListNotFound(uberto(), book())));
+        Assert.assertEq(expected = 404, Web.Http.statusOf(ZettaiError.ItemNotFound(uberto(), book(), "x")))
     }
 
     @Test
     def aRequestTheDomainRefusesIsABadRequest(): Unit \ Assert = {
-        Assert.assertEq(expected = 400, Http.statusOf(ZettaiError.ListAlreadyExists(uberto(), book())));
-        Assert.assertEq(expected = 400, Http.statusOf(ZettaiError.InvalidTransition("x", ToDoStatus.Todo, ToDoStatus.Blocked)))
+        Assert.assertEq(expected = 400, Web.Http.statusOf(ZettaiError.ListAlreadyExists(uberto(), book())));
+        Assert.assertEq(expected = 400, Web.Http.statusOf(ZettaiError.InvalidTransition("x", ToDoStatus.Todo, ToDoStatus.Blocked)))
     }
 
     @Test
     def aStorageFailureIsAServerError(): Unit \ Assert =
-        Assert.assertEq(expected = 500, Http.statusOf(ZettaiError.StorageFailure("connection refused")))
+        Assert.assertEq(expected = 500, Web.Http.statusOf(ZettaiError.StorageFailure("connection refused")))
 
 }

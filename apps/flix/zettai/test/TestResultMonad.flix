@@ -1,7 +1,7 @@
 mod TestResultMonad {
 
     use Domain.{User, ListName}
-    use Errors.ZettaiError
+    use Domain.Errors.ZettaiError
 
     def failure(): ZettaiError = ZettaiError.ListNotFound(User.User("u"), ListName.ListName("l"))
 

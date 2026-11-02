@@ -1,9 +1,9 @@
-mod Commands {
+pub mod Domain.Commands {
 
     use Domain.{User, ListName, ToDoItem, ToDoList, ToDoStatus}
-    use Errors.ZettaiError
-    use Events.ToDoListEvent
-    use Events.ToDoListState
+    use Domain.Errors.ZettaiError
+    use Domain.Events.ToDoListEvent
+    use Domain.Events.ToDoListState
 
     /// これから行いたい意図。イベントと違い、拒否されうる。
     pub enum ToDoListCommand with Eq, ToString {
@@ -14,7 +14,7 @@ mod Commands {
     }
 
     def requireList(state: ToDoListState, user: User, name: ListName): Result[ZettaiError, ToDoList] =
-        match Events.listFor(state, user, name) {
+        match Domain.Events.listFor(state, user, name) {
             case Some(list) => Ok(list)
             case None       => Err(ZettaiError.ListNotFound(user, name))
         }
@@ -32,7 +32,7 @@ mod Commands {
     pub def handle(command: ToDoListCommand, state: ToDoListState): Result[ZettaiError, List[ToDoListEvent]] =
         match command {
             case ToDoListCommand.CreateToDoList(user, name) =>
-                match Events.listFor(state, user, name) {
+                match Domain.Events.listFor(state, user, name) {
                     case Some(_) => Err(ZettaiError.ListAlreadyExists(user, name))
                     case None    => Ok(ToDoListEvent.ListCreated(user, name) :: Nil)
                 }
@@ -54,7 +54,7 @@ mod Commands {
         }
 
     def requireAbsent(state: ToDoListState, user: User, name: ListName): Result[ZettaiError, Unit] =
-        match Events.listFor(state, user, name) {
+        match Domain.Events.listFor(state, user, name) {
             case Some(_) => Err(ZettaiError.ListAlreadyExists(user, name))
             case None    => Ok(())
         }

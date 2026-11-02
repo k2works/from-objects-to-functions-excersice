@@ -1,8 +1,8 @@
 mod Gen {
 
     use Domain.{User, ListName}
-    use Events.ToDoListEvent
-    use Events.ToDoListEvent.{ListCreated, ItemAdded}
+    use Domain.Events.ToDoListEvent
+    use Domain.Events.ToDoListEvent.{ListCreated, ItemAdded}
 
     /// 乱数ではなく、小さな範囲の全パターンを並べる。
     /// 2 人の利用者・2 つのリスト名・2 つの項目から作った、起こりうるイベントの全体。
@@ -32,7 +32,7 @@ mod Gen {
         let name = ListName.ListName("book");
         let created = List.map(u -> ListCreated(u, name), users);
         let added = List.map(u -> ItemAdded(u, name, Domain.todo("a")), users);
-        let changed = List.flatMap(u -> List.map(s -> Events.ToDoListEvent.ItemStatusChanged(u, name, "a", s),
+        let changed = List.flatMap(u -> List.map(s -> Domain.Events.ToDoListEvent.ItemStatusChanged(u, name, "a", s),
             List#{Domain.ToDoStatus.InProgress, Domain.ToDoStatus.Done}), users);
         created ::: added ::: changed
     }

@@ -1,8 +1,8 @@
-mod Process {
+pub mod Application.Process {
 
-    use Errors.ZettaiError
-    use EventStore.{EventStore, Versioned}
-    use Events.ToDoListEvent
+    use Domain.Errors.ZettaiError
+    use Application.EventStore.{EventStore, Versioned}
+    use Domain.Events.ToDoListEvent
 
     /// コマンドの処理が必要とする文脈。実装は、呼び出し側のハンドラが与える。
     pub eff EventLog {
@@ -11,10 +11,10 @@ mod Process {
     }
 
     /// 読む、判断する、書く。文脈は引数に現れず、型の効果にだけ現れる。
-    pub def process(command: Commands.ToDoListCommand): Result[ZettaiError, Unit] \ EventLog =
+    pub def process(command: Domain.Commands.ToDoListCommand): Result[ZettaiError, Unit] \ EventLog =
         forM (
             read   <- EventLog.load();
-            events <- Commands.handle(command, Replay.replayFrom(Events.empty(), read#events));
+            events <- Domain.Commands.handle(command, Domain.Events.Replay.replayFrom(Domain.Events.empty(), read#events));
             _      <- EventLog.append(read#version, events)
         ) yield ()
 

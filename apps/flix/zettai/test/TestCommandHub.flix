@@ -1,21 +1,21 @@
 mod TestCommandHub {
 
     use Domain.{User, ListName, ToDoList, ToDoStatus}
-    use Errors.ZettaiError
-    use Events.ToDoListEvent.{ListCreated, ItemAdded, ItemStatusChanged}
-    use Commands.ToDoListCommand.{CreateToDoList, AddToDoItem, ChangeItemStatus}
+    use Domain.Errors.ZettaiError
+    use Domain.Events.ToDoListEvent.{ListCreated, ItemAdded, ItemStatusChanged}
+    use Domain.Commands.ToDoListCommand.{CreateToDoList, AddToDoItem, ChangeItemStatus}
 
     def uberto(): User = User.User("uberto")
 
     def book(): ListName = ListName.ListName("book")
 
     /// 領域の中でだけ変わるストアを使うので、関数は純粋なまま。
-    def scenario(commands: List[Commands.ToDoListCommand]): (List[Result[ZettaiError, Unit]], Option[ToDoList], List[Events.ToDoListEvent]) = {
+    def scenario(commands: List[Domain.Commands.ToDoListCommand]): (List[Result[ZettaiError, Unit]], Option[ToDoList], List[Domain.Events.ToDoListEvent]) = {
         region rc {
-            let store = EventStore.inMemory(rc);
-            let hub = CommandHub.commandHub(store);
+            let store = Application.EventStore.inMemory(rc);
+            let hub = Application.CommandHub.commandHub(store);
             let results = List.map(hub#execute, commands);
-            (results, Events.listFor(Result.getWithDefault(Events.empty(), hub#current()), uberto(), book()), Result.getWithDefault(Nil, Result.map(read -> read#events, store#load())))
+            (results, Domain.Events.listFor(Result.getWithDefault(Domain.Events.empty(), hub#current()), uberto(), book()), Result.getWithDefault(Nil, Result.map(read -> read#events, store#load())))
         }
     }
 

@@ -1,9 +1,9 @@
 mod TestPostgresStore {
 
     use Domain.{User, ListName, ToDoStatus}
-    use Errors.ZettaiError
-    use Events.ToDoListEvent
-    use Events.ToDoListEvent.{ListCreated, ItemAdded, ItemStatusChanged}
+    use Domain.Errors.ZettaiError
+    use Domain.Events.ToDoListEvent
+    use Domain.Events.ToDoListEvent.{ListCreated, ItemAdded, ItemStatusChanged}
 
     def uberto(): User = User.User("uberto")
 
@@ -16,18 +16,18 @@ mod TestPostgresStore {
     }
 
     /// テストごとに専用のテーブルを使い、終わったら捨てる。
-    def withTable(f: (PostgresStore.Config, String) -> Unit \ {Assert, IO}): Unit \ {Assert, IO} = {
-        let config = PostgresStore.configFromEnv();
-        let table = PostgresStore.freshTableName();
+    def withTable(f: (Adapter.Postgres.PostgresStore.Config, String) -> Unit \ {Assert, IO}): Unit \ {Assert, IO} = {
+        let config = Adapter.Postgres.PostgresStore.configFromEnv();
+        let table = Adapter.Postgres.PostgresStore.freshTableName();
         f(config, table);
-        let _ = PostgresStore.dropTable(config, table);
+        let _ = Adapter.Postgres.PostgresStore.dropTable(config, table);
         ()
     }
 
     @Test
     def aTableNameThatIsNotPlainIsRejectedBeforeAnyQuery(): Unit \ {Assert, IO} = {
-        let config = PostgresStore.configFromEnv();
-        match PostgresStore.open(config, "events; drop table users") {
+        let config = Adapter.Postgres.PostgresStore.configFromEnv();
+        match Adapter.Postgres.PostgresStore.open(config, "events; drop table users") {
             case Err(ZettaiError.StorageFailure(_)) => ()
             case _                                  => Assert.assertTrue(false)
         }
@@ -35,7 +35,7 @@ mod TestPostgresStore {
 
     @Test
     def eventsComeBackInTheOrderTheyWereAppended(): Unit \ {Assert, IO} =
-        withTable((config, table) -> match PostgresStore.open(config, table) {
+        withTable((config, table) -> match Adapter.Postgres.PostgresStore.open(config, table) {
             case Err(e)    => Assert.assertEq(expected = "opened", ToString.toString(e))
             case Ok(store) => {
                 Assert.assertEq(expected = Ok(()), store#append(0, history()));
@@ -45,7 +45,7 @@ mod TestPostgresStore {
 
     @Test
     def anotherConnectionReadsWhatWasWritten(): Unit \ {Assert, IO} =
-        withTable((config, table) -> match (PostgresStore.open(config, table), PostgresStore.open(config, table)) {
+        withTable((config, table) -> match (Adapter.Postgres.PostgresStore.open(config, table), Adapter.Postgres.PostgresStore.open(config, table)) {
             case (Ok(writer), Ok(reader)) => {
                 Assert.assertEq(expected = Ok(()), writer#append(0, List#{ListCreated(uberto(), book())}));
                 Assert.assertEq(expected = Ok(List#{ListCreated(uberto(), book())}), Result.map(read -> read#events, reader#load()))
@@ -55,10 +55,10 @@ mod TestPostgresStore {
 
     @Test
     def aRowThatCannotBeReadIsAFailureNotAnException(): Unit \ {Assert, IO} =
-        withTable((config, table) -> match PostgresStore.open(config, table) {
+        withTable((config, table) -> match Adapter.Postgres.PostgresStore.open(config, table) {
             case Err(_)    => Assert.assertTrue(false)
             case Ok(store) => {
-                let inserted = PostgresStore.execute(config,
+                let inserted = Adapter.Postgres.PostgresStore.execute(config,
                     "insert into ${table} (version, kind, user_name, list_name, description, status) values (1, 'Deleted', 'u', 'l', '', '')");
                 Assert.assertEq(expected = Ok(()), inserted);
                 Assert.assertEq(expected = Err(ZettaiError.StorageFailure("unknown event kind: Deleted")), Result.map(read -> read#version, store#load()))
@@ -68,7 +68,7 @@ mod TestPostgresStore {
     @Test
     def anUnreachableDatabaseIsAFailureNotAnException(): Unit \ {Assert, IO} = {
         let config = { url = "jdbc:postgresql://localhost:1/zettai", user = "zettai", password = "zettai" };
-        match PostgresStore.open(config, "events_unreachable") {
+        match Adapter.Postgres.PostgresStore.open(config, "events_unreachable") {
             case Err(ZettaiError.StorageFailure(_)) => ()
             case _                                  => Assert.assertTrue(false)
         }

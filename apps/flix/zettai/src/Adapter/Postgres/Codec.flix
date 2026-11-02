@@ -1,8 +1,8 @@
-mod Codec {
+pub mod Adapter.Postgres.Codec {
 
     use Domain.{User, ListName, ToDoItem, ToDoStatus}
-    use Errors.ZettaiError
-    use Events.ToDoListEvent
+    use Domain.Errors.ZettaiError
+    use Domain.Events.ToDoListEvent
 
     /// データベースの 1 行。型を持たない文字列だけで、外の世界との境界を表す。
     pub type alias EventRow = {

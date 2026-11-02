@@ -33,6 +33,32 @@ ZETTAI_DB_URL=jdbc:postgresql://localhost:55433/zettai flix test
 
 JDBC ドライバ（`org.postgresql:postgresql`）は `flix.toml` の `mvn-dependencies` に書いてあり、初回の `flix test` で Maven から取得されます。
 
+## モジュールの構成
+
+Scala 版・Kotlin FP 版の層に合わせて、モジュール名とディレクトリを層ごとの階層にしています。
+
+| モジュール | 中身 |
+| :--- | :--- |
+| `Foundation` | 第 1 章の最小の例 |
+| `Domain` | `User`、`ListName`、`ToDoItem`、`ToDoList` と規則 |
+| `Domain.Events`（`Replay`、`Transition`） | イベント、状態、畳み込み、状態変換 |
+| `Domain.Commands` | コマンドと `handle` |
+| `Domain.Errors` | `ZettaiError` |
+| `Domain.Queries.Projection` | 射影 |
+| `Domain.Validation.Validate` | `Validation` による検証 |
+| `Application`（`Hub`、`CommandHub`、`QueryHub`、`EventStore`、`Process`、`Lookup`） | 入口と文脈 |
+| `Web`（`Http`、`Html`、`JdkServer`） | HTTP の殻 |
+| `Adapter.Postgres`（`PostgresStore`、`Codec`） / `Adapter.Logging` | 外との接続 |
+| `Json`（`Converter`、`Profunctor`） / `Logging.Logs` | JSON とログの記録 |
+
+Flix の規則で、入れ子のモジュールには次が要ります。
+
+- 他のモジュールから使うモジュールは `pub mod` で宣言する
+- 親のモジュールも宣言する（`Application`、`Adapter`、`Adapter.Postgres`、`Web`、`Logging`、`Domain.Queries`、`Domain.Validation` は、空の宣言のファイル）
+- モジュール `A.B` は、ファイル `A/B.flix` に置く（ディレクトリ名は大文字始まり）
+
+テスト（`test/`）は、モジュール名もディレクトリも分けていません。
+
 ## コマンド
 
 ```bash

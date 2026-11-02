@@ -1,10 +1,10 @@
 mod TestVersionedStore {
 
     use Domain.{User, ListName}
-    use Errors.ZettaiError
-    use EventStore.EventStore
-    use Events.ToDoListEvent
-    use Events.ToDoListEvent.{ListCreated, ItemAdded}
+    use Domain.Errors.ZettaiError
+    use Application.EventStore.EventStore
+    use Domain.Events.ToDoListEvent
+    use Domain.Events.ToDoListEvent.{ListCreated, ItemAdded}
 
     def uberto(): User = User.User("uberto")
 
@@ -34,19 +34,19 @@ mod TestVersionedStore {
     @Test
     def theInMemoryStoreKeepsTheContract(): Unit \ Assert = {
         region rc {
-            contract(EventStore.inMemory(rc))
+            contract(Application.EventStore.inMemory(rc))
         }
     }
 
     @Test
     def thePostgresStoreKeepsTheContract(): Unit \ {Assert, IO} = {
-        let config = PostgresStore.configFromEnv();
-        let table = PostgresStore.freshTableName();
-        match PostgresStore.open(config, table) {
+        let config = Adapter.Postgres.PostgresStore.configFromEnv();
+        let table = Adapter.Postgres.PostgresStore.freshTableName();
+        match Adapter.Postgres.PostgresStore.open(config, table) {
             case Ok(store) => contract(store)
             case Err(e)    => Assert.assertEq(expected = "opened", ToString.toString(e))
         };
-        let _ = PostgresStore.dropTable(config, table);
+        let _ = Adapter.Postgres.PostgresStore.dropTable(config, table);
         ()
     }
 

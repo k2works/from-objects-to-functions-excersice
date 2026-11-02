@@ -1,9 +1,9 @@
 mod TestHttpOverPostgres {
 
     use Domain.{User, ListName}
-    use Errors.ZettaiError
-    use Commands.ToDoListCommand.{CreateToDoList, AddToDoItem}
-    use Events.ToDoListEvent
+    use Domain.Errors.ZettaiError
+    use Domain.Commands.ToDoListCommand.{CreateToDoList, AddToDoItem}
+    use Domain.Events.ToDoListEvent
 
     def uberto(): User = User.User("uberto")
 
@@ -12,16 +12,16 @@ mod TestHttpOverPostgres {
     /// HTTP から PostgreSQL までを通す。読み取りもコマンドも、同じ表のイベントを見る。
     @Test
     def requestsThroughARealServerReachPostgres(): Unit \ {Assert, IO} = {
-        let config = PostgresStore.configFromEnv();
-        let table = PostgresStore.freshTableName();
-        match (PostgresStore.open(config, table), PostgresStore.open(config, table)) {
+        let config = Adapter.Postgres.PostgresStore.configFromEnv();
+        let table = Adapter.Postgres.PostgresStore.freshTableName();
+        match (Adapter.Postgres.PostgresStore.open(config, table), Adapter.Postgres.PostgresStore.open(config, table)) {
             case (Ok(store), Ok(other)) => {
-                let commands = CommandHub.commandHub(store);
-                let hub = Hub.fromStore(store);
+                let commands = Application.CommandHub.commandHub(store);
+                let hub = Application.Hub.fromStore(store);
                 let _ = commands#execute(CreateToDoList(uberto(), book()));
                 let _ = commands#execute(AddToDoItem(uberto(), book(), Domain.todo("write chapter & <publish>")));
-                let server = JdkServer.start(0, request -> Http.application(hub, commands#execute, request));
-                let port = JdkServer.port(server);
+                let server = Web.JdkServer.start(0, request -> Web.Http.application(hub, commands#execute, request));
+                let port = Web.JdkServer.port(server);
                 // 読む: データベースのイベントから作った HTML が、特殊文字をエスケープして返る
                 let (readStatus, readBody) = HttpTestClient.get(port, "/todo/uberto/book");
                 // 書く: 名前を変えると、PostgreSQL に 3 件のイベントが足される
@@ -32,7 +32,7 @@ mod TestHttpOverPostgres {
                 let (badStatus, badBody) = HttpTestClient.post(port, "/todo/uberto/shop/rename", String.repeat(41, "/"));
                 // 存在しないリストは 404
                 let (missingStatus, _) = HttpTestClient.post(port, "/todo/uberto/nothing/rename", "x");
-                JdkServer.stop(server);
+                Web.JdkServer.stop(server);
                 Assert.assertEq(expected = 200, readStatus);
                 Assert.assertTrue(String.contains(substr = "<li>write chapter &amp; &lt;publish&gt;</li>", readBody));
                 Assert.assertEq(expected = 200, renamed);
@@ -67,7 +67,7 @@ mod TestHttpOverPostgres {
             }
             case _ => Assert.assertEq(expected = "opened", "not opened")
         };
-        let _ = PostgresStore.dropTable(config, table);
+        let _ = Adapter.Postgres.PostgresStore.dropTable(config, table);
         ()
     }
 

@@ -1,7 +1,7 @@
 mod TestHttpApp {
 
     use Domain.{User, ListName, ToDoItem, ToDoList}
-    use Http.{Request, Response}
+    use Web.Http.{Request, Response}
 
     def book(): ToDoList =
         ToDoList.ToDoList(
@@ -9,13 +9,13 @@ mod TestHttpApp {
             List#{Domain.todo("write chapter"), Domain.todo("publish book")}
         )
 
-    def hub(): Hub.ToDoListHub[{}] = Hub.inMemory(Map#{User.User("uberto") => List#{book()}})
+    def hub(): Application.Hub.ToDoListHub[{}] = Application.Hub.inMemory(Map#{User.User("uberto") => List#{book()}})
 
     def get(path: String): Request = { method = "GET", path = path, body = "" }
 
     @Test
     def returnsTheListAsHtml(): Unit \ Assert = {
-        let response = Http.route(hub(), get("/todo/uberto/book"));
+        let response = Web.Http.route(hub(), get("/todo/uberto/book"));
         Assert.assertEq(expected = 200, response#status);
         Assert.assertEq(expected = "text/html; charset=utf-8", response#contentType);
         Assert.assertTrue(String.contains(substr = "<li>write chapter</li>", response#body))
@@ -23,14 +23,14 @@ mod TestHttpApp {
 
     @Test
     def returnsNotFoundForAMissingList(): Unit \ Assert =
-        Assert.assertEq(expected = 404, Http.route(hub(), get("/todo/uberto/missing"))#status)
+        Assert.assertEq(expected = 404, Web.Http.route(hub(), get("/todo/uberto/missing"))#status)
 
     @Test
     def returnsNotFoundForAnUnknownPath(): Unit \ Assert =
-        Assert.assertEq(expected = 404, Http.route(hub(), get("/other"))#status)
+        Assert.assertEq(expected = 404, Web.Http.route(hub(), get("/other"))#status)
 
     @Test
     def returnsMethodNotAllowedForNonGet(): Unit \ Assert =
-        Assert.assertEq(expected = 405, Http.route(hub(), { method = "POST", path = "/todo/uberto/book", body = "" })#status)
+        Assert.assertEq(expected = 405, Web.Http.route(hub(), { method = "POST", path = "/todo/uberto/book", body = "" })#status)
 
 }

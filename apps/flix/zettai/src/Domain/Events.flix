@@ -1,4 +1,4 @@
-mod Events {
+pub mod Domain.Events {
 
     use Domain.{User, ListName, ToDoItem, ToDoList, ToDoStatus}
 

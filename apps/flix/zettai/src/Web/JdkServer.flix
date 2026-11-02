@@ -1,4 +1,4 @@
-mod JdkServer {
+pub mod Web.JdkServer {
 
     import com.sun.net.httpserver.HttpExchange
     import com.sun.net.httpserver.HttpHandler
@@ -7,7 +7,7 @@ mod JdkServer {
     import java.lang.{String => JString}
     import java.nio.charset.StandardCharsets
 
-    use Http.{Request, Response}
+    use Web.Http.{Request, Response}
 
     pub def start(port: Int32, app: Request -> Response \ ef): HttpServer \ IO = {
         let server = HttpServer.create(new InetSocketAddress(port), 0);

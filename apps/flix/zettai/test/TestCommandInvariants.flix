@@ -1,10 +1,10 @@
 mod TestCommandInvariants {
 
     use Domain.{User, ListName, ToDoStatus}
-    use Commands.ToDoListCommand
-    use Commands.ToDoListCommand.{CreateToDoList, AddToDoItem, ChangeItemStatus}
-    use Events.ToDoListEvent
-    use Events.ToDoListEvent.ItemStatusChanged
+    use Domain.Commands.ToDoListCommand
+    use Domain.Commands.ToDoListCommand.{CreateToDoList, AddToDoItem, ChangeItemStatus}
+    use Domain.Events.ToDoListEvent
+    use Domain.Events.ToDoListEvent.ItemStatusChanged
 
     def uberto(): User = User.User("uberto")
 
@@ -38,8 +38,8 @@ mod TestCommandInvariants {
     /// コマンド列を順に実行し、(受理されたか, 最終のイベント履歴) を返す。
     def execute(sequence: List[ToDoListCommand]): (List[Bool], List[ToDoListEvent]) = {
         region rc {
-            let store = EventStore.inMemory(rc);
-            let hub = CommandHub.commandHub(store);
+            let store = Application.EventStore.inMemory(rc);
+            let hub = Application.CommandHub.commandHub(store);
             let results = List.map(command -> accepted(hub#execute(command)), sequence);
             (results, Result.getWithDefault(Nil, Result.map(read -> read#events, store#load())))
         }

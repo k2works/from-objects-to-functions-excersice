@@ -1,7 +1,7 @@
 ---
 type: Writing Plan
 title: "執筆計画：関数型プログラミングで作る変更を楽に安全にできるソフトウェア"
-description: "Uberto Barbini 著『From Objects to Functions』を下敷きにした Zettai 連載の執筆計画。既存 3 言語版に加え、Grokking Functional Programming の Kotlin + Arrow 解説を基礎にした Kotlin FP 版について、全 13 章の移植方針、記事と実装の同期、前提整備、品質ゲートを定義する。"
+description: "Uberto Barbini 著『From Objects to Functions』を下敷きにした Zettai 連載の執筆計画。既存 3 言語版に加え、Grokking Functional Programming の Kotlin + Arrow 解説を基礎にした Kotlin FP 版、効果システムを持つ Flix 版について、全 13 章の移植方針、記事と実装の同期、前提整備、品質ゲートを定義する。"
 tags: [article, plan, zettai]
 status: draft
 generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T13:04:15Z }
@@ -19,7 +19,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T13:04:15Z }
 
 ## 対象一覧
 
-本シリーズは同じ 13 章構成を対象ごとに書き起こす比較シリーズです。現在の対象は **3 言語・4 実装方針** です。章の番号・タイトル・焦点は対象をまたいで共通とし、対象ごとに変えるのは実現手段だけです。Kotlin FP 版は言語を増やすのではなく、同じ Kotlin で「自前の関数型抽象」と「Arrow / coroutine を使う実装」を比較する対象です。
+本シリーズは同じ 13 章構成を対象ごとに書き起こす比較シリーズです。現在の対象は **4 言語・5 実装方針** です（Flix 版は計画のみで、着手前です）。章の番号・タイトル・焦点は対象をまたいで共通とし、対象ごとに変えるのは実現手段だけです。Kotlin FP 版は言語を増やすのではなく、同じ Kotlin で「自前の関数型抽象」と「Arrow / coroutine を使う実装」を比較する対象です。
 
 | 対象 | 実行環境 | 章数 | 記事 | サンプル実装 | 状態 |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -27,6 +27,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T13:04:15Z }
 | Kotlin FP | Nix devShell `kotlin-fp`（JDK 25 / Gradle） | 13 | `docs/article/zettai/kotlin-fp/` | `apps/kotlin-fp/zettai/` | **完結**（13 / 13 章公開） |
 | なでしこ3 | Nix devShell `nadesiko`（Node 22 / cnako3 3.8.7） | 13 | `docs/article/zettai/nadesiko/` | `apps/nadesiko/zettai/` | **完結**（13 / 13 章公開） |
 | Rust | Nix devShell `rust`（rustc 1.91.1 / cargo 1.91.0） | 13 | `docs/article/zettai/rust/` | `apps/rust/zettai/` | **完結**（13 / 13 章公開） |
+| Flix | Nix devShell `flix`（JDK 21 以上 / Flix。版は Unit 1 で確定） | 13 | `docs/article/zettai/flix/` | `apps/flix/zettai/` | **計画中**（0 / 13 章公開） |
 
 横断比較コンテンツ [`docs/article/zettai/comparison/`](zettai/comparison/index.md) は、なでしこ3 版が Phase 1（第 3 章）を終えた 2026-09-28 に新設しました。当初の比較軸は「**型で保証する**（Kotlin）」と「**約束とテストで保証する**（なでしこ3）」の 2 点でした。
 
@@ -38,6 +39,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T13:04:15Z }
 | Kotlin FP | あり | Arrow / coroutine を利用 | **`Either` / Raise を使う** | `sealed interface` |
 | なでしこ3 | なし | なし | **辞書で作る** | 無い（`種別` キーの約束） |
 | Rust | あり | あり | **`Result` が言語にある** | `enum` |
+| Flix（計画） | あり（効果も型に載る） | あり | **`Result` 相当は標準にある見込み（Unit 1 で確認）。副作用は効果で表す** | `enum`（確認中） |
 
 既存 3 対象を並べると、**「言語が与えるほど、設計は楽になるのか」**という問いが立ちます。**答えは「楽にはならない。決めることが変わる」**でした（[第 13 章](zettai/rust/chapter13.md)・[横断比較](zettai/comparison/index.md)）。Kotlin FP 版では、ここへ **「ライブラリへ委ねるほど、設計の意図は明確になるのか」**という 4 点目の問いを加えます。
 
@@ -56,8 +58,14 @@ docs/article/
 │   ├── kotlin-fp/
 │   │   ├── index.md      # Kotlin FP 版トップ
 │   │   └── chapter01.md … chapter13.md
-│   └── nadesiko/
-│       ├── index.md      # なでしこ3 版トップ
+│   ├── nadesiko/
+│   │   ├── index.md      # なでしこ3 版トップ
+│   │   └── chapter01.md … chapter13.md
+│   ├── rust/
+│   │   ├── index.md      # Rust 版トップ
+│   │   └── chapter01.md … chapter13.md
+│   └── flix/             # 計画中（Unit 1 で作成）
+│       ├── index.md      # Flix 版トップ
 │       └── chapter01.md … chapter13.md
 
 references/
@@ -76,13 +84,17 @@ apps/
 │       ├── build.gradle.kts
 │       ├── gradle/libs.versions.toml
 │       └── zettai-stepN-*/
-└── nadesiko/
-    └── zettai/           # 自作実装（cnako3）
-        ├── package.json  # cnako3 のバージョン固定
-        ├── Makefile      # テストランナーを兼ねるタスクランナー
-        ├── src/*.nako3
-        ├── test/*.nako3  # helper.nako3 に検証関数を置く
-        └── doctest/      # 受け入れテスト
+├── nadesiko/
+│   └── zettai/           # 自作実装（cnako3）
+│       ├── package.json  # cnako3 のバージョン固定
+│       ├── Makefile      # テストランナーを兼ねるタスクランナー
+│       ├── src/*.nako3
+│       ├── test/*.nako3  # helper.nako3 に検証関数を置く
+│       └── doctest/      # 受け入れテスト
+├── rust/
+│   └── zettai/           # 自作実装（cargo workspace）
+└── flix/                 # 計画中
+    └── zettai/           # Flix 版の自作実装（構成は Unit 1 で決める）
 ```
 
 記事は `docs/article/zettai/{target}/`、実装は `apps/{target}/zettai/` の対称構成とし、言語または実装方針を追加してもこの形を崩しません。
@@ -554,11 +566,110 @@ Unit・Bolt・ストーリーの割り当ては 2 対象と同一（1 Unit = 2 �
 2. 以降は 2 対象と同じく「実装 → 記事執筆 → サイト反映 → コミット」を 1 Bolt として、章 2 本で 1 Unit を閉じる
 3. Phase 1 の完了時に `comparison/` に Rust の列を足す
 
+## Flix 追加執筆計画
+
+4 言語目として **Flix** で同じ 13 章を書き起こします。**本節は計画です。環境・実装・記事は未着手で、下記の「確認する事実」を Unit 1 で確かめるまで、技術選定は仮置きです。**
+
+Kotlin 版は `Outcome` を自前で作り、Rust 版は `Result` が言語にありました。Flix では、これまでの対象のどれにも無かったものが言語に入っています。**副作用が型の一部（効果）として追跡される**ことです。連載の主題である「関数型の核と副作用の殻を分ける」が、規約ではなく型検査で守られるかを見ます。
+
+### 採用理由と確認する事実
+
+| 項目 | 内容 |
+| :--- | :--- |
+| 採用理由 | 純粋と副作用の分離を、Kotlin FP 版は設計（functional core / effectful shell）で、Rust 版は所有権で守った。**Flix は効果システムで型に載せる。** 設計の規律が言語に移ると、章の主題がどう変わるかを見る |
+| 実行基盤 | JVM 言語。公式ドキュメントでは Java 21 以降が必要と読める（Unit 1 で一次情報を再確認する） |
+| Java 相互運用 | 公式ドキュメントによれば、Java オブジェクトの生成・メソッド呼び出し・例外処理ができ、パッケージマネージャは Maven に対応している。**HTTP と DB の章はこれで書く**（決定済み） |
+| 効果システム | 型と効果で純粋・非純粋を区別する。IO は独立した効果。効果多相もある |
+| 確認する事実（Unit 1） | ①現行安定版と必要な JDK ②Nix での入手可否 ③`com.sun.net.httpserver` と JDBC を呼べること ④テスト機構の仕様 ⑤コードブロックの言語タグ（`flix` で扱えるか） ⑥Gherkin / Cucumber を使えるか |
+
+### 章の読み替え
+
+章の番号・タイトル・焦点は Kotlin 版と一致させ、実現手段だけを差し替えます。節名の読み替えが必要な箇所は、記事を書く前に [draft.md](draft.md) の表へ登録します（登録しないと `check_sections.py` が落ちます）。
+
+| 章 | テーマ（Kotlin 版と共通） | Flix での実現手段・焦点 | 到達点 |
+| :--- | :--- | :--- | :--- |
+| 1 | 新しいアプリケーションを準備する | Flix プロジェクトの初期化と組み込みのテスト。**純粋関数は効果が空であることを型で確かめる** | テスト 1 本が通る |
+| 2 | 関数を使って HTTP を扱う | JDK の `com.sun.net.httpserver` を Java 相互運用で呼ぶ。**IO 効果を殻に閉じ込める** | ウォーキングスケルトン |
+| 3 | ドメインの定義とテスト | 受け入れテストの抽象化。Gherkin の可否は Unit 1 の確認結果で決める | ドメインとアダプタの分離 |
+| 4 | ドメインとアダプタのモデリング | 関数型 DI を **効果多相**で表せるか、関数引数で表すか | 依存の差し替え |
+| 5 | イベントで状態を変更する | `fold` とモノイド。純粋な状態遷移 | イベントの畳み込み |
+| 6 | コマンドを実行してイベントを生成する | 代数的データ型とパターンマッチによるステートマシン | 網羅性の検査を確かめる |
+| 7 | 関数型手法によるエラーハンドリング | 標準の結果型を使うか、効果（例外相当）で表すか。**使う判断・作る判断の両方を記録する** | ファンクタ |
+| 8 | ファンクタを使ってイベントを射影する | 射影は自前。`map` の扱い | CQRS |
+| 9 | モナドによる安全なデータ永続化 | JDBC を相互運用で呼び、**DB アクセスを効果で包む** | モナド則と結合テスト |
+| 10 | コンテキストを読み込み、コマンドを処理する | 文脈の持ち回りを効果ハンドラで表せるか | 文脈によるコマンド処理 |
+| 11 | アプリカティブによるデータバリデーション | 複数エラーの集約型 | 最初の失敗で止めない |
+| 12 | 監視と関数型 JSON | ログ・JSON を相互運用で借りるか自前か。採否を先に判断する | プロファンクタ |
+| 13 | 関数型アーキテクチャの設計 | 総括と **4 言語の対比** | 「設計の規律が言語に移ると何が変わるか」に答える |
+
+### この対象で新しく問われること
+
+| 問い | 章 | なぜ新しいか |
+| :--- | :--- | :--- |
+| **副作用を型で追跡すると、殻と核の分離は楽になるか** | 2・4・9・10 | Kotlin FP 版は設計で、Rust 版は所有権で分離を守った。Flix は効果で守る |
+| **Java 相互運用の境界で、型と効果の保証はどこまで届くか** | 2・9・12 | Java 側の呼び出しは効果を持つ扱いになる見込み。**保証が切れる場所を記録する** |
+| **効果多相は、関数型 DI の代わりになるか** | 4・10 | 依存を値で渡す方式と、効果ハンドラで差し替える方式を比べる |
+
+### 前提整備（Flix 版）
+
+最初の Bolt はウォーキングスケルトンです。Kotlin FP 版の前提整備と同じ形で、次を順に満たします。
+
+- [ ] 上記「確認する事実」①〜⑥を一次情報で確かめ、結果を本節に反映する
+- [ ] `ops/nix/environments/flix/shell.nix` を追加し、`flake.nix` の `devShells.flix` に登録する（Nix に Flix が無ければ、JDK だけ提供して初期化時に取得するラッパー方式にする。回避策は第 1 章にも書く）
+- [ ] `apps/flix/zettai/` に雛形を作り、復元可能な成果物を `.gitignore` で除外する
+- [ ] 最小のテスト 1 本が通ることを確認する
+- [ ] `.github/workflows/flix-zettai.yml` を追加する（`kotlin-fp-zettai.yml` を雛形にする）
+- [ ] `ops/scripts/article/check_sections.py` の対象名に `flix` を登録する
+- [ ] `ops/scripts/article/check_article_code.py` の `CHECKED_LANGUAGES` と `SOURCE_GLOBS` に Flix を追加する
+- [ ] `check_numbers.py` が `apps/flix/zettai/` を探索できることと、`check_adr_references.py` のパス正規表現を確認する
+- [ ] `docs/article/draft.md` に Flix 固有の節名読み替えを登録する
+- [ ] `docs/article/zettai/flix/index.md` を作る。あわせて `zettai/index.md` の全章表・進捗管理表・実行環境一覧、`comparison/index.md`、`docs/index.md`、`mkdocs.yml` の nav を揃える（章が公開できる段階で行う）
+- [ ] 既知の制約の一覧を `apps/flix/zettai/README.md` に Unit 1 から置く
+
+### 章別計画（Flix 版）
+
+Unit・Bolt の割り当ては既存対象と同一（1 Unit = 2 章、Unit 1 のみ前提整備＋第 1 章）とします。ストーリー番号と検証負荷は Flix 版リリース計画（`docs/development/release_plan-flix.md`。着手時に `planning-releases` で作成）を一次情報とし、本表には置きません。
+
+| 章 | ファイル | Unit | Bolt | その章の焦点 |
+| :--- | :--- | :--- | :--- | :--- |
+| — | （前提整備） | Unit 1 | 1-1 | 環境・雛形・CI・検査スクリプト。確認する事実のスパイク |
+| 1 | `chapter01.md` | Unit 1 | 1-2 | 題材設定と、純粋関数の効果が空であることの確認 |
+| 2 | `chapter02.md` | Unit 2 | 2-1 | JDK の HTTP サーバーを呼び、縦串を通す |
+| 3 | `chapter03.md` | Unit 2 | 2-2 | 受け入れテストの抽象化とドメインの分離 |
+| 4 | `chapter04.md` | Unit 3 | 3-1 | 関数型 DI を効果多相か関数引数で表す |
+| 5 | `chapter05.md` | Unit 3 | 3-2 | 畳み込みとモノイド |
+| 6 | `chapter06.md` | Unit 4 | 4-1 | 代数的データ型によるステートマシン |
+| 7 | `chapter07.md` | Unit 4 | 4-2 | 結果型と効果によるエラー表現 |
+| 8 | `chapter08.md` | Unit 5 | 5-1 | 射影と CQRS |
+| 9 | `chapter09.md` | Unit 5 | 5-2 | JDBC を効果で包む永続化 |
+| 10 | `chapter10.md` | Unit 6 | 6-1 | 文脈と効果ハンドラ |
+| 11 | `chapter11.md` | Unit 6 | 6-2 | エラーを集約するバリデーション |
+| 12 | `chapter12.md` | Unit 7 | 7-1 | ログと JSON の採否判断 |
+| 13 | `chapter13.md` | Unit 7 | 7-2 | 4 言語の対比 |
+
+バージョンは既存対象と独立に振ります。`comparison/` は既にあるので、Phase 1（前提整備・1〜3 章）の完了時に Flix の列を足します。
+
+### 既知の制約とリスク
+
+| 制約・リスク | 影響 | 対策 | 判断する時期 |
+| :--- | :--- | :--- | :--- |
+| **言語・標準ライブラリの変更が速い** | 記事のコードが新しい版で動かなくなる | 版を固定して記事に明記し、CI で検証する | 1-1 |
+| **Nix に Flix の定義が無い可能性** | 環境構築が他対象より重くなる | JDK のみ提供し、jar を初期化時に取得するラッパー方式にする | 1-1 |
+| **Cucumber 相当を使えない可能性** | 第 3 章の Gherkin による受け入れテストが成立しない | Java 相互運用で動くかをスパイクで確かめる。動かなければ代替を決め、書かない部分は理由ごと本節に残す | 1-1 |
+| **Java 相互運用の注釈が冗長** | 境界のコードが読みにくくなる | 境界を薄い層に閉じ込め、記事では差分だけを載せる | 2-1 |
+| **Java 側の副作用が型で保証されない** | 効果システムの保証が境界で切れる | 切れる場所を各章で記録し、第 13 章で総括する | 各章 |
+
+### 進め方
+
+1. Unit 1 で「確認する事実」を確かめ、環境・雛形・CI・検査スクリプトを整えて、第 1 章を書く
+2. 以降は既存対象と同じく「実装 → 記事執筆 → サイト反映 → コミット」を 1 Bolt として、章 2 本で 1 Unit を閉じる
+3. Phase 1 の完了時に `comparison/` に Flix の列を足す
+
 ## 執筆規約
 
 - 見出しは階層を飛ばさない。章内の節は [draft.md](draft.md) のマインドマップに一致させる
 - コードブロックには言語を明示する。差分を示すときは変更箇所が分かる粒度で切る
-- **記事のコード例は必ず対象のサンプル実装（`apps/kotlin/zettai/`・`apps/kotlin-fp/zettai/`・`apps/nadesiko/zettai/`・`apps/rust/zettai/`）の動作確認済み実装から転記する。** 憶測で書いたコードを載せない
+- **記事のコード例は必ず対象のサンプル実装（`apps/kotlin/zettai/`・`apps/kotlin-fp/zettai/`・`apps/nadesiko/zettai/`・`apps/rust/zettai/`・`apps/flix/zettai/`）の動作確認済み実装から転記する。** 憶測で書いたコードを載せない
 - 長い完成コードは `<details>` に入れ、本文には差分だけを載せる
 - 日本語と半角英数字の間に半角スペース。文体はですます調。技術用語は英語のまま
 - 読者が実行するコマンドは、プロンプト記号を混ぜず、コピーしてそのまま動く形で書く
@@ -576,5 +687,6 @@ Unit・Bolt・ストーリーの割り当ては 2 対象と同一（1 Unit = 2 �
 | Kotlin FP | 言語タグは `kotlin`。Arrow / coroutine の API を載せる前に実装とテストを通し、既存 Kotlin 版から置き換えた抽象と置き換えなかった抽象を各章で明記する |
 | なでしこ3 | 識別子にひらがなを使わない（助詞として切られる）。言語タグは `nako3`。Red の直後に実際のエラー出力を `bash` ブロックで貼る |
 | Rust | 言語タグは `rust`。**所有権で書き直した箇所は、書き直す前のコードも載せる**（`<!-- code-check: ignore わざと壊したコード -->` を付ける）。`cargo` の出力は `bash` ブロックで貼る |
+| Flix | 言語タグは Unit 1 で確定（仮に `flix`）。Java 相互運用の呼び出しは、効果の保証が切れる境界であることを本文で明記する。Flix の実行出力は `bash` ブロックで貼る |
 
-**対象に固有の語（ライブラリ名・言語名・製品名）を含む節名は読み替える**という規則は 4 対象に共通です。読み替えた対応は [draft.md](draft.md) の表に登録します。**登録しないと `check_sections.py` が落ちます。**
+**対象に固有の語（ライブラリ名・言語名・製品名）を含む節名は読み替える**という規則は 5 対象に共通です。読み替えた対応は [draft.md](draft.md) の表に登録します。**登録しないと `check_sections.py` が落ちます。**

@@ -19,4 +19,8 @@ mod TestErrorMapping {
         Assert.assertEq(expected = 400, Http.statusOf(ZettaiError.InvalidTransition("x", ToDoStatus.Todo, ToDoStatus.Blocked)))
     }
 
+    @Test
+    def aStorageFailureIsAServerError(): Unit \ Assert =
+        Assert.assertEq(expected = 500, Http.statusOf(ZettaiError.StorageFailure("connection refused")))
+
 }

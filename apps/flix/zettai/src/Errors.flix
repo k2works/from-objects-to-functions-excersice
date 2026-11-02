@@ -8,6 +8,7 @@ mod Errors {
         case ListAlreadyExists(User, ListName)
         case ItemNotFound(User, ListName, String)
         case InvalidTransition(String, ToDoStatus, ToDoStatus)
+        case StorageFailure(String)
     }
 
 }

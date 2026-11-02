@@ -23,11 +23,34 @@ sbt test
 
 Nix を使わない場合は、JDK 21 以降と sbt を自分で用意して同じコマンドを実行します。初回は依存ライブラリの取得で時間がかかります。
 
+## パッケージ構成
+
+Kotlin FP 版（`apps/kotlin-fp/zettai/`）の層に合わせて、`zettai` の下を層ごとのサブパッケージに分けています。
+
+| パッケージ | 中身 |
+| :--- | :--- |
+| `zettai` | 第 1 章の `Foundation` |
+| `zettai.domain` | `User`、`ListName`、`ToDoItem`、`ToDoList` と規則 |
+| `zettai.domain.events` | イベント、状態、`Replay`、`StateTransition` |
+| `zettai.domain.commands` | コマンドと `handle` |
+| `zettai.domain.errors` | `ZettaiError` |
+| `zettai.domain.queries` | 射影（`Projection`） |
+| `zettai.domain.validation` | `Validated` による検証 |
+| `zettai.application` | `Hub`、`CommandHub`、`QueryHub`、`EventStore`、`Process` |
+| `zettai.web` | `ZettaiRoutes`、`Html`、`Server` |
+| `zettai.adapter.postgres` | `PostgresStore`（doobie） |
+| `zettai.adapter.logging` | `Logging`、`LogSink` |
+| `zettai.json` / `zettai.logging` | `Json`、`Converter`、`Dimap` / `LogRecord` |
+| `zettai.app` | `Main` |
+
+Kotlin FP 版との違い: インメモリの実装は `adapter.inmemory` に分けず、`EventStore` と `Hub` のコンパニオンに置いています。テストは、対象と同じパッケージに置き、受け入れテストの部品は `zettai.acceptance` にあります。
+
 ## コマンド
 
 ```bash
 sbt test      # テストの実行（コンパイルを含む）
 sbt compile   # 本体のコンパイル
+sbt "Test/runMain io.cucumber.core.cli.Main --glue zettai.acceptance.steps classpath:features"   # Cucumber（確認用）
 ```
 
 ## データベース（第 9 章から）

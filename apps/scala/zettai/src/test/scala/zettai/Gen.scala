@@ -1,5 +1,8 @@
 package zettai
 
+import zettai.domain.{ListName, ToDoItem, ToDoStatus, User}
+import zettai.domain.events.ToDoListEvent
+
 /** 乱数ではなく、小さな範囲のすべてのパターンを並べる。 */
 object Gen:
 

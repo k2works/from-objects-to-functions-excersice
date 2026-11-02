@@ -8395,6 +8395,76 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 6 章 コマンドを実行してイベントを生成する
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 7 章 関数型手法によるエラーハンドリング
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -10602,26 +10672,31 @@
 
 <h1 id="4">第 4 章 ドメインとアダプタのモデリング<a class="headerlink" href="#4" title="Permanent link">&para;</a></h1>
 <p>第 3 章では、同じシナリオを domain と HTTP の 2 経路で実行しました。ただし、<code>route</code> が外部の取得方法を受け取る形は、まだ関数を 1 つ渡すだけでした。この章では、ドメインの操作とアダプタの配線を分けます。</p>
+<p>後の章で書き換わったコードのブロックには、この章を書いた時点のコミットを示してあります。</p>
 <p>Flix 版には、他の対象に無い問いがあります。<strong>依存を「引数」で渡すか、「効果」として型に現すか</strong>です。同じ <code>route</code> を両方の書き方で作り、並べて比べます。</p>
 <h2 id="todo">ToDo リストを変更するための新しいストーリーを始める<a class="headerlink" href="#todo" title="Permanent link">&para;</a></h2>
 <p>これから ToDo リストの作成や項目追加へ進みます。その前に、読み取り側の依存関係を整理します。HTTP のルーティングがデータの置き場所を知っていると、変更操作を加えるたびに HTTP と保存の都合が絡みます。</p>
 <p>必要な契約は「利用者とリスト名を受け取り、見つかればリストを返す」だけです。第 2 章の <code>route</code> は、これを関数型の引数として受け取っていました。</p>
 <h2 id="_1">関数型の「依存性の注入」を使う<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <p>アプリケーションが公開する操作を、関数値のフィールドを持つレコードで表します。</p>
+<!-- code-check: ignore この章を書いた時点のコード（コミット 2d25366）。第 7 章で getList の戻り値を Result に変えた -->
 <div class="highlight"><pre><span></span><code>    pub type alias ToDoListHub[ef: Eff] = {
         getList = (User, ListName) -&gt; Option[ToDoList] \ ef
     }
 </code></pre></div>
 <p><code>[ef: Eff]</code> は、型の別名が<strong>効果を引数に取る</strong>ことを表します。<code>getList</code> の効果は <code>Hub</code> を使う側が決めます。インメモリの実装なら効果なし（<code>{}</code>）、データベースなら <code>IO</code> です。</p>
 <p>Hub を組み立てるのは、関数を受け取る関数です。</p>
+<!-- code-check: ignore この章を書いた時点のコード（コミット 2d25366）。第 7 章で getList の戻り値を Result に変えた -->
 <div class="highlight"><pre><span></span><code>    pub def todoListHub(fetch: (User, ListName) -&gt; Option[ToDoList] \ ef): ToDoListHub[ef] =
         { getList = fetch }
 </code></pre></div>
 <p>インメモリの実装は、同じ型を効果なしで返します。</p>
+<!-- code-check: ignore この章を書いた時点のコード（コミット 2d25366）。第 7 章で getList の戻り値を Result に変えた -->
 <div class="highlight"><pre><span></span><code>    pub def inMemory(lists: Map[User, List[ToDoList]]): ToDoListHub[{}] =
         todoListHub((user, name) -&gt; Domain.findToDoList(lists, user, name))
 </code></pre></div>
 <p>テストでは、ラムダをそのまま渡せます。</p>
+<!-- code-check: ignore この章を書いた時点のコード（コミット 2d25366）。第 7 章で getList の戻り値を Result に変えた -->
 <div class="highlight"><pre><span></span><code>    @Test
     def aHubIsBuiltFromAnyFunctionOfTheRightType(): Unit \ Assert = {
         let hub = Hub.todoListHub((user, name) -&gt;
@@ -10643,11 +10718,13 @@
 <p>パスの解釈と、リストの有無からレスポンスへの変換は、<code>parse</code> と <code>respond</code> に切り出しました。次に書く効果版と共有するためです。</p>
 <h3 id="_2">依存を効果として型に現す<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
 <p>Flix には、もう 1 つの方法があります。<strong>効果そのものを依存として宣言する</strong>方法です。</p>
+<!-- code-check: ignore この章を書いた時点のコード（コミット 2d25366）。第 7 章で getList の戻り値を Result に変えた -->
 <div class="highlight"><pre><span></span><code>    pub eff ToDoLists {
         def getList(user: User, name: ListName): Option[ToDoList]
     }
 </code></pre></div>
 <p><code>eff</code> は「こういう操作ができる」という宣言だけで、実装を持ちません。実装は、呼び出し側が<strong>ハンドラ</strong>で与えます。</p>
+<!-- code-check: ignore この章を書いた時点のコード（コミット 2d25366）。第 7 章で getList の戻り値を Result に変えた -->
 <div class="highlight"><pre><span></span><code>    pub def handleInMemory(lists: Map[User, List[ToDoList]], f: Unit -&gt; a \ ef): a \ (ef - ToDoLists) =
         run {
             f()
@@ -10741,6 +10818,7 @@
 <p><strong>この連載では、Hub を採ります。</strong> 他の対象と同じ形で比較できることと、第 2 章の <code>\ ef</code> の続きとして読めることが理由です。効果ハンドラ版は、比較のために残しました。第 10 章で文脈を持ち回るときに、改めて効果ハンドラを検討します。</p>
 <h2 id="_4">関数型コードをデバックする<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <p>関数値を渡す設計では、呼び出し先のクラス名から処理を追う方法が使えません。代わりに、関数の入力と出力を観測します。</p>
+<!-- code-check: ignore この章を書いた時点のコード（コミット 2d25366）。第 7 章で getList の戻り値を Result に変えた -->
 <div class="highlight"><pre><span></span><code>    @Test
     def theInMemoryHubFindsTheListOfTheUser(): Unit \ Assert = {
         let hub = Hub.inMemory(Map#{User.User("uberto") =&gt; List#{book()}});

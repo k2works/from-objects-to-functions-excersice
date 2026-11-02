@@ -16,7 +16,7 @@
         <link rel="prev" href="../chapter04/">
       
       
-        <link rel="next" href="../../comparison/">
+        <link rel="next" href="../chapter06/">
       
       
         
@@ -8395,6 +8395,76 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 6 章 コマンドを実行してイベントを生成する
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 7 章 関数型手法によるエラーハンドリング
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -10602,8 +10672,10 @@
 
 <h1 id="5">第 5 章 イベントで状態を変更する<a class="headerlink" href="#5" title="Permanent link">&para;</a></h1>
 <p>前章では、依存を関数値のレコードで渡しました。この章では、ToDo リストの変更そのものを関数で扱います。現在の状態を上書きせず、起きた出来事を不変の列に残し、その列から状態を計算します。</p>
+<p>後の章で書き換わったコードのブロックには、この章を書いた時点のコミットを示してあります。</p>
 <h2 id="todo">ToDo リストの作成の表示<a class="headerlink" href="#todo" title="Permanent link">&para;</a></h2>
 <p>最初の出来事は、リストが作られたことです。命令の <code>CreateList</code> ではなく、すでに起きた事実なので、過去形の <code>ListCreated</code> と名付けます。</p>
+<!-- code-check: ignore この章を書いた時点のコード（コミット 530b4a8）。第 6 章で ItemStatusChanged を追加した -->
 <div class="highlight"><pre><span></span><code>    pub enum ToDoListEvent with Eq, ToString {
         case ListCreated(User, ListName)
         case ItemAdded(User, ListName, ToDoItem)
@@ -10617,6 +10689,7 @@
 </code></pre></div>
 <p>キーは <code>(User, ListName)</code> の組です。Flix では組にも <code>Order</code> が自動で備わっているので、そのまま <code>Map</code> のキーにできます。</p>
 <p>1 つの出来事を適用する関数は、新しい状態を返します。</p>
+<!-- code-check: ignore この章を書いた時点のコード（コミット 530b4a8）。第 6 章で ItemStatusChanged を追加した -->
 <div class="highlight"><pre><span></span><code>    pub def apply(state: ToDoListState, event: ToDoListEvent): ToDoListState =
         match event {
             case ToDoListEvent.ListCreated(user, name) =&gt;

@@ -1,0 +1,62 @@
+mod TestCommandHub {
+
+    use Domain.{User, ListName, ToDoList, ToDoStatus}
+    use Errors.ZettaiError
+    use Events.ToDoListEvent.{ListCreated, ItemAdded, ItemStatusChanged}
+    use Commands.ToDoListCommand.{CreateToDoList, AddToDoItem, ChangeItemStatus}
+
+    def uberto(): User = User.User("uberto")
+
+    def book(): ListName = ListName.ListName("book")
+
+    /// 領域の中でだけ変わるストアを使うので、関数は純粋なまま。
+    def scenario(commands: List[Commands.ToDoListCommand]): (List[Result[ZettaiError, Unit]], Option[ToDoList], List[Events.ToDoListEvent]) = {
+        region rc {
+            let store = EventStore.inMemory(rc);
+            let hub = CommandHub.commandHub(store);
+            let results = List.map(hub#execute, commands);
+            (results, Events.listFor(hub#current(), uberto(), book()), store#load())
+        }
+    }
+
+    @Test
+    def commandsBuildUpTheStateThroughEvents(): Unit \ Assert = {
+        let (results, list, history) = scenario(List#{
+            CreateToDoList(uberto(), book()),
+            AddToDoItem(uberto(), book(), Domain.todo("write chapter")),
+            ChangeItemStatus(uberto(), book(), "write chapter", ToDoStatus.Done)
+        });
+        Assert.assertEq(expected = List#{Ok(()), Ok(()), Ok(())}, results);
+        Assert.assertEq(
+            expected = Some(ToDoList.ToDoList(book(), List#{Domain.ToDoItem.ToDoItem("write chapter", ToDoStatus.Done)})),
+            list
+        );
+        Assert.assertEq(
+            expected = List#{
+                ListCreated(uberto(), book()),
+                ItemAdded(uberto(), book(), Domain.todo("write chapter")),
+                ItemStatusChanged(uberto(), book(), "write chapter", ToDoStatus.Done)
+            },
+            history
+        )
+    }
+
+    @Test
+    def aRejectedCommandLeavesNoEventBehind(): Unit \ Assert = {
+        let (results, _, history) = scenario(List#{
+            CreateToDoList(uberto(), book()),
+            CreateToDoList(uberto(), book())
+        });
+        Assert.assertEq(expected = List#{Ok(()), Err(ZettaiError.ListAlreadyExists(uberto(), book()))}, results);
+        Assert.assertEq(expected = List#{ListCreated(uberto(), book())}, history)
+    }
+
+    @Test
+    def aCommandOnAMissingListIsRejected(): Unit \ Assert = {
+        let (results, list, history) = scenario(List#{AddToDoItem(uberto(), book(), Domain.todo("read"))});
+        Assert.assertEq(expected = List#{Err(ZettaiError.ListNotFound(uberto(), book()))}, results);
+        Assert.assertEq(expected = None, list);
+        Assert.assertEq(expected = Nil, history)
+    }
+
+}

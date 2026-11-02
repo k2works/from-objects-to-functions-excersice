@@ -11027,8 +11027,8 @@
 <tbody>
 <tr>
 <td style="text-align: left;">1</td>
-<td style="text-align: left;">Nix の devShell（<code>nix develop .#flix</code>）</td>
-<td style="text-align: left;"><code>nix</code> が無い環境で作業した。CI は JDK と <code>flix.jar</code> で動く</td>
+<td style="text-align: left;">Windows / macOS の Nix の devShell</td>
+<td style="text-align: left;">Linux の Nix（Docker）では確かめた（2026-11-02）。他の OS の Nix は確かめていない</td>
 </tr>
 <tr>
 <td style="text-align: left;">2</td>
@@ -11075,7 +11075,7 @@
 <h2 id="_6">次に人がすること<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
 <ol>
 <li>~~ADR-046、047、048 を確認し、承認するか判断する~~ 承認済み（2026-11-02）</li>
-<li><code>nix develop .#flix</code> を、Nix のある環境で確かめる</li>
+<li>~~<code>nix develop .#flix</code> を、Nix のある環境で確かめる~~ Docker 上の Nix で確かめた（2026-11-02）</li>
 <li>記事のコード例を、読者の立場で通して実行する（第 1 章の手順から）</li>
 <li>他の対象のように、Unit ごとの Bolt 計画・終了報告・ふりかえりを、必要なら書き起こす。<strong>ただし、記録していない指標は、後から作らない</strong></li>
 </ol>

@@ -11006,7 +11006,7 @@
 <span class="n">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"0.1.0"</span>
 <span class="n">flix</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="s2">"0.79.0"</span>
 </code></pre></div>
-<p>Nix を使う場合は、devShell に入ってから <code>flix</code> を実行します。<code>flix</code> は devShell が定義するシェル関数で、初回に公式リリースの <code>flix.jar</code> を取得します。</p>
+<p>Nix を使う場合は、devShell に入ってから <code>flix</code> を実行します。<code>flix</code> は devShell が提供する実行可能なスクリプトで、初回に公式リリースの <code>flix.jar</code> を <code>~/.cache/flix/</code> に取得します。</p>
 <div class="highlight"><pre><span></span><code>nix<span class="w"> </span>develop<span class="w"> </span>.#flix
 <span class="nb">cd</span><span class="w"> </span>apps/flix/zettai
 flix<span class="w"> </span><span class="nb">test</span>
@@ -11016,7 +11016,7 @@ flix<span class="w"> </span><span class="nb">test</span>
 java<span class="w"> </span>-jar<span class="w"> </span>flix.jar<span class="w"> </span><span class="nb">test</span>
 </code></pre></div>
 <p>第 9 章以降のコードでは、<code>flix test</code> に PostgreSQL が要ります。第 1 章の時点のコード（3 本のテスト）を試すときは、<a href="../">Flix 版のトップ</a> の「章ごとのコードを再現する」の手順で、コミットを切り替えてください。</p>
-<p>この記事は Nix の入っていない環境で書いたため、<code>nix develop .#flix</code> は未検証です。確認できているのは、<code>java -jar</code> で同じコマンドを実行した結果です。</p>
+<p><code>nix develop .#flix</code> は、Docker 上の Nix で確かめました（2026-11-02）。<code>nix develop --command</code> から <code>flix --version</code> と <code>flix test</code> が動き、JDK は 21.0.9 でした。確かめたのは Linux の Nix で、Windows や macOS の Nix では確かめていません。</p>
 <p>品質ゲートは次の 2 つです。</p>
 <ul>
 <li><code>flix check</code>: 型と効果の検査</li>

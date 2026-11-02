@@ -10966,7 +10966,7 @@
 </tr>
 <tr>
 <td style="text-align: left;">実行環境</td>
-<td style="text-align: left;">Flix 0.79.0 / JDK 21。Nix の devShell <code>flix</code> を定義したが、<strong><code>nix</code> が無い環境で作業したため、動かしていない</strong></td>
+<td style="text-align: left;">Flix 0.79.0 / JDK 21。Nix の devShell <code>flix</code> を定義したが、手元に <code>nix</code> が無いため、Docker 上の Nix で確かめた（2026-11-02）</td>
 </tr>
 <tr>
 <td style="text-align: left;">章数</td>
@@ -11112,7 +11112,7 @@
 </tr>
 <tr>
 <td style="text-align: left;">Nix に Flix の定義が無い可能性</td>
-<td style="text-align: left;">JDK のみ提供し、<code>flix.jar</code> を取得するラッパー方式にした。<strong>動かしていない</strong></td>
+<td style="text-align: left;">JDK のみ提供し、<code>flix.jar</code> を取得するラッパー方式にした。Docker 上の Nix で動かした（2026-11-02）。最初のラッパーは、シェル関数で非対話の使い方ができず、<code>flix.jar</code> の保存先もカレントディレクトリ依存だったため、実行可能なスクリプトとキャッシュ置き場に直した</td>
 </tr>
 <tr>
 <td style="text-align: left;">Cucumber を使えない可能性</td>

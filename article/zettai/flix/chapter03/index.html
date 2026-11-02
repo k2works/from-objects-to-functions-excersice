@@ -8500,6 +8500,41 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 9 章 モナドによる安全なデータ永続化
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -10775,6 +10810,7 @@
 <p><code>unchecked_cast</code> は「コンパイラは確かめられないが、私が保証する」という宣言です。ここでは、純粋な値に <code>IO</code> の効果を<strong>足す</strong>だけなので、安全です。逆に、<code>IO</code> を持つ関数を純粋に見せかける向きは、嘘になるので使いません。使う場所がテストの 1 箇所に限られるよう、<code>Routes</code> の中に閉じ込めました。</p>
 <h3 id="_4">同じシナリオをすべての経路で実行する<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <p>反復は <code>Routes.onEveryRoute</code> に閉じ込めます。</p>
+<!-- code-check: ignore この章を書いた時点のコード（コミット 7d2dd0f）。第 9 章で経路が 3 つになり、onEveryRoute を書き換えた -->
 <div class="highlight"><pre><span></span><code>    pub def onEveryRoute(lists: Map[User, List[ToDoList]], scenario: ZettaiActions -&gt; Unit \ {Assert, IO}): Unit \ {Assert, IO} = {
         let routes = domainActions(lists) :: httpActions(lists) :: Nil;
         List.forEach(actions -&gt; {

@@ -8483,6 +8483,41 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 9 章 モナドによる安全なデータ永続化
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -10875,12 +10910,14 @@
 </code></pre></div>
 <h2 id="_4">ハブと接続する<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <p><code>handle</code> を実際に使うには、過去のイベントを読み、現在状態を作り、コマンドを実行し、新しいイベントを書き足す、という流れが要ります。保管場所は、追記だけができるイベントストアとして、関数値のレコードで表します。</p>
+<!-- code-check: ignore この章を書いた時点のコード（コミット 658d9c5）。第 9 章で EventStore と CommandHub の戻り値を Result に変えた -->
 <div class="highlight"><pre><span></span><code>    pub type alias EventStore[ef: Eff] = {
         load = Unit -&gt; List[ToDoListEvent] \ ef,
         append = List[ToDoListEvent] -&gt; Unit \ ef
     }
 </code></pre></div>
 <p>第 4 章の Hub と同じく、効果 <code>ef</code> は使う側が決めます。インメモリの実装は、<strong>領域</strong>（<code>region</code>）の中にだけ存在する可変の <code>Ref</code> を使います。</p>
+<!-- code-check: ignore この章を書いた時点のコード（コミット 658d9c5）。第 9 章で EventStore と CommandHub の戻り値を Result に変えた -->
 <div class="highlight"><pre><span></span><code>    pub def inMemory(rc: Region[r]): EventStore[r] \ r = {
         let history = Ref.fresh(rc, Nil);
         {
@@ -10894,6 +10931,7 @@
 </code></pre></div>
 <p>メッセージは分かりにくいのですが、領域の効果 <code>rc</code> と <code>IO</code> が合わない、という意味です。そのため、領域を開いて閉じるまでの処理は、外から見ると純粋な関数として扱えます。</p>
 <p>コマンドの入口は、このストアの上に作ります。</p>
+<!-- code-check: ignore この章を書いた時点のコード（コミット 658d9c5）。第 9 章で EventStore と CommandHub の戻り値を Result に変えた -->
 <div class="highlight"><pre><span></span><code>    pub def commandHub(store: EventStore[ef]): CommandHub[ef] = {
         execute = command -&gt; {
             let state = Replay.replayFrom(Events.empty(), store#load());
@@ -10906,6 +10944,7 @@
     }
 </code></pre></div>
 <p>拒否されたときは、何も書き足しません。テストでは、領域の中でストアと Hub を作り、コマンドを順に実行して、結果と最終状態と履歴を返します。</p>
+<!-- code-check: ignore この章を書いた時点のコード（コミット 658d9c5）。第 9 章で EventStore と CommandHub の戻り値を Result に変えた -->
 <div class="highlight"><pre><span></span><code>    def scenario(commands: List[Commands.ToDoListCommand]): (List[Result[ZettaiError, Unit]], Option[ToDoList], List[Events.ToDoListEvent]) = {
         region rc {
             let store = EventStore.inMemory(rc);

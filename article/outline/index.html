@@ -8962,6 +8962,41 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../zettai/flix/chapter09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 9 章 モナドによる安全なデータ永続化
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -11228,7 +11263,7 @@
 <td style="text-align: left;">13</td>
 <td style="text-align: left;"><code>docs/article/zettai/flix/</code></td>
 <td style="text-align: left;"><code>apps/flix/zettai/</code></td>
-<td style="text-align: left;"><strong>執筆中</strong>（8 / 13 章公開）</td>
+<td style="text-align: left;"><strong>執筆中</strong>（9 / 13 章公開）</td>
 </tr>
 </tbody>
 </table>
@@ -13026,7 +13061,7 @@ apps/
 </tr>
 <tr>
 <td style="text-align: left;">確認する事実（Unit 1）</td>
-<td style="text-align: left;">①現行安定版と必要な JDK: <strong>確認済み</strong>（0.79.0 / JDK 21）②Nix での入手可否: <strong>未確認</strong>（<code>nix</code> の無い環境で作業した。標準配布に無い前提で、JDK のみ提供し <code>flix.jar</code> を取得するラッパー方式にした）③<code>com.sun.net.httpserver</code> を呼べること: <strong>確認済み</strong>（匿名クラスで <code>HttpHandler</code> を実装し、実サーバーで 200 / 404 を確認。JDBC は第 9 章で確かめる）④テスト機構: <strong>確認済み</strong>（<code>@Test</code> と <code>Assert.assertEq</code>。<code>flix test</code>。Red はコンパイルエラーとして現れる）⑤コードブロックの言語タグ: <strong>確認済み</strong>（<code>flix</code> を検査スクリプトに登録し、既存 53 章が違反 0）⑥Gherkin / Cucumber: <strong>試していない</strong>（Flix でアノテーション付きクラスを定義する手段が公式ドキュメントに見つからなかった。使えないと確かめたわけではなく、<a href="../../adr/ADR-046-flix-acceptance-by-record-of-functions/">ADR-046</a> で関数値のレコードを採った）</td>
+<td style="text-align: left;">①現行安定版と必要な JDK: <strong>確認済み</strong>（0.79.0 / JDK 21）②Nix での入手可否: <strong>未確認</strong>（<code>nix</code> の無い環境で作業した。標準配布に無い前提で、JDK のみ提供し <code>flix.jar</code> を取得するラッパー方式にした）③<code>com.sun.net.httpserver</code> を呼べること: <strong>確認済み</strong>（匿名クラスで <code>HttpHandler</code> を実装し、実サーバーで 200 / 404 を確認。JDBC も第 9 章で確認済み。<code>DriverManager</code> は使えず <code>new Driver().connect</code> で接続した）④テスト機構: <strong>確認済み</strong>（<code>@Test</code> と <code>Assert.assertEq</code>。<code>flix test</code>。Red はコンパイルエラーとして現れる）⑤コードブロックの言語タグ: <strong>確認済み</strong>（<code>flix</code> を検査スクリプトに登録し、既存 53 章が違反 0）⑥Gherkin / Cucumber: <strong>試していない</strong>（Flix でアノテーション付きクラスを定義する手段が公式ドキュメントに見つからなかった。使えないと確かめたわけではなく、<a href="../../adr/ADR-046-flix-acceptance-by-record-of-functions/">ADR-046</a> で関数値のレコードを採った）</td>
 </tr>
 </tbody>
 </table>

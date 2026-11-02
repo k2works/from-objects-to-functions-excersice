@@ -16,7 +16,7 @@
         <link rel="prev" href="../chapter07/">
       
       
-        <link rel="next" href="../../comparison/">
+        <link rel="next" href="../chapter09/">
       
       
         
@@ -8522,6 +8522,41 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 9 章 モナドによる安全なデータ永続化
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -10730,6 +10765,7 @@
 <h1 id="8">第 8 章 ファンクタを使ってイベントを射影する<a class="headerlink" href="#8" title="Permanent link">&para;</a></h1>
 <p>前章で失敗を型に載せました。この章では、表示のしかたを見直します。</p>
 <p>きっかけは困りごとです。<strong>ドメインの状態と、画面が欲しい形が違う</strong>のです。</p>
+<p>後の章で書き換わったコードのブロックには、この章を書いた時点のコミットを示してあります。</p>
 <h2 id="_1">イベントを射影する<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <p>第 5 章から、状態を <code>ToDoListState</code> という 1 つの型で持ってきました。コマンドを判断するとき、この形は都合がよいです。「同名のリストがすでにあるか」「その項目は今どの状態か」を判断する情報がそろっています。</p>
 <h3 id="_2">画面が欲しいものは違う<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
@@ -10950,10 +10986,12 @@
 <li>読む側: イベントを、画面向けの行に畳み込む（この章の <code>QueryHub</code>）</li>
 </ul>
 <p>読む側の入口は、読み取り専用です。</p>
+<!-- code-check: ignore この章を書いた時点のコード（コミット 37daacd）。第 9 章で EventStore と QueryHub の戻り値を Result に変えた -->
 <div class="highlight"><pre><span></span><code>    pub type alias QueryHub[ef: Eff] = {
         listRows = User -&gt; List[ToDoListRow] \ ef
     }
 </code></pre></div>
+<!-- code-check: ignore この章を書いた時点のコード（コミット 37daacd）。第 9 章で EventStore と QueryHub の戻り値を Result に変えた -->
 <div class="highlight"><pre><span></span><code>    pub def queryHub(store: EventStore[ef]): QueryHub[ef] = {
         listRows = user -&gt; Projection.projectFrom(user, store#load())
     }
@@ -10963,6 +11001,7 @@
 </code></pre></div>
 <p><code>QueryHub</code> の型 <code>{ listRows = ... }</code> に、<code>execute</code> が無いという意味です。</p>
 <p>2 つの入口は、同じイベントストアを、別々の窓から見ます。</p>
+<!-- code-check: ignore この章を書いた時点のコード（コミット 37daacd）。第 9 章で EventStore と QueryHub の戻り値を Result に変えた -->
 <div class="highlight"><pre><span></span><code>    def rowsAfter(commands: List[Commands.ToDoListCommand]): List[ToDoListRow] = {
         region rc {
             let store = EventStore.inMemory(rc);
@@ -10974,6 +11013,7 @@
     }
 </code></pre></div>
 <p>書いた結果は、読む側から見えます。拒否されたコマンドは、読む側にも現れません。</p>
+<!-- code-check: ignore この章を書いた時点のコード（コミット 37daacd）。第 9 章で EventStore と QueryHub の戻り値を Result に変えた -->
 <div class="highlight"><pre><span></span><code>    @Test
     def aRejectedCommandDoesNotShowUpInTheRows(): Unit \ Assert =
         Assert.assertEq(

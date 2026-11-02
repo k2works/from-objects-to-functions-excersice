@@ -55,7 +55,7 @@ Flix 版は、1 つのプロジェクトを章ごとに育てています。**�
 | 11 | `ae7eef8` | 129 | 必要 |
 | 12 | `55227c5` | 157 | 必要 |
 | 13 | `9ec6c9c` | 157 | 必要 |
-| （最新の `main`） | 公開後に `TestHttpOverPostgres` を追加 | 158 | 必要 |
+| （最新の `main`） | 公開後に `TestHttpOverPostgres`、`TestLoggerPlacement` を追加 | 159 | 必要 |
 
 2026-11-03 に、新しく clone したリポジトリで、全 13 の時点を実行して確かめました。第 9 章以降は、使い捨ての PostgreSQL を別のポートで起動し、`ZETTAI_DB_URL` で向けました。
 

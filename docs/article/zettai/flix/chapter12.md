@@ -381,7 +381,24 @@ HTTP の要求も、包みます。メソッドと、状態コードの区分（
 
 ### 組み立てる
 
-実サーバーでは、サーバーのコールバックが、`Logger` を処理するハンドラの外で動きます。第 2 章で見た、効果の保証が Java のコールバックで切れる場所と同じです。**`Logger` の処理は、コールバックの内側に置きます。** 外側に置いたときに何が起きるかは、確かめていません。
+実サーバーでは、サーバーのコールバックが、`Logger` を処理するハンドラの外で動きます。第 2 章で見た、効果の保証が Java のコールバックで切れる場所と同じです。**`Logger` の処理は、コールバックの内側に置きます。**
+
+### 外側に置くとどうなるか（公開後に確かめたこと）
+
+ハンドラを `JdkServer.start` を呼ぶ側（コールバックの外）に置くと、**コンパイルは通り、型検査は何も警告しません。** 実行すると、コールバックの中で `Logger` を呼んだところで処理が止まり、応答が返らずに接続が切れます。クライアントには `Unexpected end of file from server` が届きます。`Logger` を呼んだ後ろの処理は実行されず、コールバックの中の `try` / `catch` でも例外は捕まりませんでした（`HttpURLConnection` が GET を自動で再送するため、コールバックは 2 回呼ばれます）。仕組みまでは確かめていません。
+
+この落とし穴は、回帰テストとして残しました。
+
+```flix
+                let answered = try {
+                    let (status, _) = HttpTestClient.get(port, "/todo/uberto/book");
+                    Ok(status)
+                } catch {
+                    case ex: IOException => Err("no response: ${ex.getMessage()}")
+                };
+```
+
+**第 2 章で見た「効果の保証が Java のコールバックで切れる」ことの、具体的な形です。** 切れた先で、エラーにならず、黙って応答が消えます。
 
 ```flix
             let app = Logging.observeApp(now, request -> Http.application(hub, commands#execute, request));

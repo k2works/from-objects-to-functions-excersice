@@ -33,16 +33,16 @@
 | [ADR-025](ADR-025-tiny-http.md) | HTTP クレートに tiny_http を採用する | 提案 |
 | [ADR-026](ADR-026-just-and-coverage.md) | タスクランナーに Just を使い、カバレッジを検査に入れる | 提案 |
 | [ADR-027](ADR-027-crate-boundary.md) | 境界をクレートで分け、境界検査を書かない | 提案 |
-| [ADR-028](ADR-028-own-acceptance-trait.md) | 受け入れテストの経路をトレイトで差し替え、cucumber を入れない | 提案 |
+| [ADR-028](ADR-028-own-acceptance-trait.md) | 受け入れテストの経路をトレイトで差し替え、cucumber を入れない | 承認 |
 | [ADR-029](ADR-029-cutting-a-step.md) | 段階を切る手順を決める | 提案 |
 | [ADR-030](ADR-030-functional-di-shape.md) | 関数型 DI は impl Fn、並びに入れる変換は Box<dyn Fn> にする | 提案 |
-| [ADR-031](ADR-031-own-error-enum.md) | 失敗を自前の enum で表し、エラー用のクレートを入れない | 提案 |
+| [ADR-031](ADR-031-own-error-enum.md) | 失敗を自前の enum で表し、エラー用のクレートを入れない | 承認 |
 | [ADR-032](ADR-032-postgres-event-store.md) | イベントを 1 テーブルに追記し、外のエラーを境界で包む | 提案 |
 | [ADR-033](ADR-033-db-check-as-separate-job.md) | DB を使う検査を別ジョブに分ける | 提案 |
 | [ADR-034](ADR-034-transaction-as-scope.md) | トランザクションの境界を区間として貸す | 提案 |
 | [ADR-035](ADR-035-validated-applicative.md) | 複数の理由を集める型を別に作る | 提案 |
 | [ADR-036](ADR-036-tera.md) | テンプレートに tera を入れる | 提案 |
-| [ADR-037](ADR-037-own-logging.md) | 記録と JSON を自前で書き、tracing と serde を入れない | 提案 |
+| [ADR-037](ADR-037-own-logging.md) | 記録と JSON を自前で書き、tracing と serde を入れない | 承認 |
 | [ADR-038](ADR-038-arrow-core-for-typed-errors.md) | Arrow Core を typed error の表現と合成に限って使う | 承認 |
 | [ADR-039](ADR-039-suspend-function-ports.md) | 関数型 DI は suspend の関数型と constructor function にし、runBlocking は web の最外周に置く | 承認 |
 | [ADR-040](ADR-040-jdbc-blocking-boundary.md) | JDBC を直接使い、blocking は Dispatchers.IO に閉じ込め、connection は use で閉じる | 承認 |
@@ -54,6 +54,6 @@
 | [ADR-046](ADR-046-flix-acceptance-by-record-of-functions.md) | Flix 版は受け入れテストの経路を関数値のレコードで差し替え、Cucumber を入れない | 承認 |
 | [ADR-047](ADR-047-flix-use-standard-result.md) | Flix 版は標準の Result を使い、Outcome を作らない | 承認 |
 | [ADR-048](ADR-048-flix-logger-effect-and-own-json.md) | Flix 版のログは標準の Logger 効果を借り、JSON は自作する | 承認 |
-| [ADR-049](ADR-049-scala-acceptance-by-case-class-of-functions.md) | Scala 版は受け入れテストの経路を関数値のケースクラスで差し替え、Cucumber を入れない | 提案 |
+| [ADR-049](ADR-049-scala-acceptance-by-case-class-of-functions.md) | Scala 版は受け入れテストの経路を関数値のケースクラスで差し替え、Cucumber を入れない | 承認 |
 
 ADR の作成には `creating-adr` スキルを使用してください。

@@ -16,9 +16,9 @@ ToDo リストアプリケーション **Zettai** を TDD で一から作りな�
 | なでしこ3 | [なでしこ3 版](nadesiko/index.md) | `apps/nadesiko/zettai/` | Nix devShell `nadesiko`（Node 22 / cnako3 3.8.7） | **完結（13 / 13 章）** |
 | Rust | [Rust 版](rust/index.md) | `apps/rust/zettai/` | Nix devShell `rust`（rustc 1.91.1 / cargo 1.91.0） | **完結（13 / 13 章）** |
 | Flix | [Flix 版](flix/index.md) | `apps/flix/zettai/` | Nix devShell `flix`（JDK 21 / Flix 0.79.0） | **完結（13 / 13 章）** |
-| Scala | [Scala 版](scala/index.md) | `apps/scala/zettai/` | Nix devShell `scala`（JDK 21 / Scala 3.3.9 / sbt） | **執筆中（3 / 13 章）** |
+| Scala | [Scala 版](scala/index.md) | `apps/scala/zettai/` | Nix devShell `scala`（JDK 21 / Scala 3.3.9 / sbt） | **執筆中（5 / 13 章）** |
 
-**既存の 3 言語版は完結し、4 対象目の Kotlin FP 版、5 対象目の Flix 版も 13 章を書き終えました。6 対象目の Scala（Cats Effect）版は執筆中です（第 3 章まで公開）。** 同じ題材・同じ 13 章を 3 言語で書いた結果は [対象言語の横断比較](comparison/index.md) にまとめています。Kotlin FP 版の完結後、ライブラリへ委ねる範囲を 4 本目の比較軸として反映します。
+**既存の 3 言語版は完結し、4 対象目の Kotlin FP 版、5 対象目の Flix 版も 13 章を書き終えました。6 対象目の Scala（Cats Effect）版は執筆中です（第 5 章まで公開）。** 同じ題材・同じ 13 章を 3 言語で書いた結果は [対象言語の横断比較](comparison/index.md) にまとめています。Kotlin FP 版の完結後、ライブラリへ委ねる範囲を 4 本目の比較軸として反映します。
 
 当初の比較軸は「型で保証する（Kotlin）」と「約束とテストで保証する（なでしこ3）」の 2 点でした。**Rust 版で軸が「言語がどこまで与えるか」に広がりました。**
 
@@ -40,8 +40,8 @@ ToDo リストアプリケーション **Zettai** を TDD で一から作りな�
 | 1 | 新しいアプリケーションを準備する | [公開済み](kotlin/chapter01.md) | [公開済み](kotlin-fp/chapter01.md) | [公開済み](nadesiko/chapter01.md) | [公開済み](rust/chapter01.md) | [公開済み](flix/chapter01.md) | [公開済み](scala/chapter01.md) |
 | 2 | 関数を使って HTTP を扱う | [公開済み](kotlin/chapter02.md) | [公開済み](kotlin-fp/chapter02.md) | [公開済み](nadesiko/chapter02.md) | [公開済み](rust/chapter02.md) | [公開済み](flix/chapter02.md) | [公開済み](scala/chapter02.md) |
 | 3 | ドメインの定義とテスト | [公開済み](kotlin/chapter03.md) | [公開済み](kotlin-fp/chapter03.md) | [公開済み](nadesiko/chapter03.md) | [公開済み](rust/chapter03.md) | [公開済み](flix/chapter03.md) | [公開済み](scala/chapter03.md) |
-| 4 | ドメインとアダプタのモデリング | [公開済み](kotlin/chapter04.md) | [公開済み](kotlin-fp/chapter04.md) | [公開済み](nadesiko/chapter04.md) | [公開済み](rust/chapter04.md) | [公開済み](flix/chapter04.md) | 執筆中 |
-| 5 | イベントで状態を変更する | [公開済み](kotlin/chapter05.md) | [公開済み](kotlin-fp/chapter05.md) | [公開済み](nadesiko/chapter05.md) | [公開済み](rust/chapter05.md) | [公開済み](flix/chapter05.md) | 執筆中 |
+| 4 | ドメインとアダプタのモデリング | [公開済み](kotlin/chapter04.md) | [公開済み](kotlin-fp/chapter04.md) | [公開済み](nadesiko/chapter04.md) | [公開済み](rust/chapter04.md) | [公開済み](flix/chapter04.md) | [公開済み](scala/chapter04.md) |
+| 5 | イベントで状態を変更する | [公開済み](kotlin/chapter05.md) | [公開済み](kotlin-fp/chapter05.md) | [公開済み](nadesiko/chapter05.md) | [公開済み](rust/chapter05.md) | [公開済み](flix/chapter05.md) | [公開済み](scala/chapter05.md) |
 | 6 | コマンドを実行してイベントを生成する | [公開済み](kotlin/chapter06.md) | [公開済み](kotlin-fp/chapter06.md) | [公開済み](nadesiko/chapter06.md) | [公開済み](rust/chapter06.md) | [公開済み](flix/chapter06.md) | 執筆中 |
 | 7 | 関数型手法によるエラーハンドリング | [公開済み](kotlin/chapter07.md) | [公開済み](kotlin-fp/chapter07.md) | [公開済み](nadesiko/chapter07.md) | [公開済み](rust/chapter07.md) | [公開済み](flix/chapter07.md) | 執筆中 |
 | 8 | ファンクタを使ってイベントを射影する | [公開済み](kotlin/chapter08.md) | [公開済み](kotlin-fp/chapter08.md) | [公開済み](nadesiko/chapter08.md) | [公開済み](rust/chapter08.md) | [公開済み](flix/chapter08.md) | 執筆中 |
@@ -60,7 +60,7 @@ ToDo リストアプリケーション **Zettai** を TDD で一から作りな�
 | 実行環境（Nix devShell） | **完了** | **定義済み** | **完了** | **完了** | **完了（Docker 上の Nix で確認）** | **完了（Docker 上の Nix で確認）** |
 | サンプル実装の雛形 | **完了** | **完了** | **完了** | **完了** | **完了** | **完了** |
 | CI | **完了** | **定義済み（同等コマンド green）** | **完了** | **完了** | **定義済み（同等コマンド green。Actions は未実行）** | **定義済み（同等コマンド green。Actions は未実行）** |
-| 公開済みの章 | **13 / 13（完結）** | **13 / 13（完結）** | **13 / 13（完結）** | **13 / 13（完結）** | **13 / 13（完結）** | 3 / 13 |
+| 公開済みの章 | **13 / 13（完結）** | **13 / 13（完結）** | **13 / 13（完結）** | **13 / 13（完結）** | **13 / 13（完結）** | 5 / 13 |
 | ADR | 12 件 | 8 件 | 11 件 | **14 件** | 3 件 | 1 件 |
 | 計画した承認ゲート | 47 箇所 | 8 箇所 | 41 箇所 | 15 箇所 | 未計画 | 未計画 |
 | **うち同期停止した回数** | 記録なし | 0 | **1** | **15** | 記録中 | 記録中 |

@@ -26,7 +26,7 @@ okf_version: "0.2"
 | [運用](./operation/index.md) | 環境構築、デプロイ、運用手順の整理                   | `index.md` を整備済み |
 | [レビュー](./review/index.md) | 分析・開発レビュー結果の記録                      | 開発成果物レビュー 4 件 |
 | [ADR](./adr/index.md) | Architecture Decision Records の管理   | 49 件を記録済み |
-| [記事](./article/index.md) | 学習用の記事シリーズ一覧                        | 既存 3 言語は全 13 章完結、Kotlin FP 版・Flix 版も 13 / 13 章公開、Scala 版は執筆中（3 / 13 章） |
+| [記事](./article/index.md) | 学習用の記事シリーズ一覧                        | 既存 3 言語は全 13 章完結、Kotlin FP 版・Flix 版も 13 / 13 章公開、Scala 版は執筆中（5 / 13 章） |
 | [リファレンス](./reference/index.md) | 開発ガイドラインやベストプラクティス                  | 39 件のドキュメントを配置 |
 | [テンプレート](./template/index.md) | 各種ドキュメントの作成テンプレート                   | 18 件のテンプレートを配置 |
 

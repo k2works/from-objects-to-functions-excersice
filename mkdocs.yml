@@ -306,6 +306,8 @@ nav:
               - 第 1 章 新しいアプリケーションを準備する: article/zettai/scala/chapter01.md
               - 第 2 章 関数を使って HTTP を扱う: article/zettai/scala/chapter02.md
               - 第 3 章 ドメインの定義とテスト: article/zettai/scala/chapter03.md
+              - 第 4 章 ドメインとアダプタのモデリング: article/zettai/scala/chapter04.md
+              - 第 5 章 イベントで状態を変更する: article/zettai/scala/chapter05.md
           - 横断比較: article/zettai/comparison/index.md
   - リファレンス:
       - 概要: reference/index.md

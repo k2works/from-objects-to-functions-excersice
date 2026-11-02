@@ -3,8 +3,10 @@ type: ADR
 title: "ADR-049 Scala 版は受け入れテストの経路を関数値のケースクラスで差し替え、Cucumber を入れない"
 description: "Zettai 連載 Scala 版で、受け入れテストの経路の差し替えを関数値を持つケースクラスで表し、Cucumber を導入しない決定。存在を確かめたことと試していないことを分けて記録し、この決定が解かないことを明記する。"
 tags: [adr, scala, zettai]
-status: draft
+status: stable
 generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-02T21:00:00Z }
+verified:
+  - { by: human:kakimomokuri, at: 2026-11-02T12:30:00Z }
 ---
 
 # ADR-049 Scala 版は受け入れテストの経路を関数値のケースクラスで差し替え、Cucumber を入れない
@@ -13,7 +15,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-02T21:00:00Z }
 
 ## ステータス
 
-提案（人の承認待ち）
+2026-11-02 承認されました
 
 ## コンテキスト
 

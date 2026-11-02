@@ -11296,7 +11296,7 @@
 <li>設計を 2 回直しました（トランザクションで足りるという見立て、競合に現在の版を添えられるという見立て）。</li>
 <li><code>flix test</code> は 101 本が通ります。</li>
 </ul>
-<p>つまずきとして、<code>getSQLState()</code> は <code>IO</code> でした。前章で <code>getMessage()</code> が <code>IO</code> にならなかったことと並べると、同じ例外のメソッドでも効果の扱いが違います。理由は確かめていません。</p>
+<p>つまずきとして、<code>getSQLState()</code> は <code>IO</code> でした。前章で <code>getMessage()</code> が <code>IO</code> にならなかったことと並べると、同じ例外のメソッドでも効果の扱いが違います。理由は、公開後に分かりました（<a href="../chapter13/">第 13 章</a>）。コンパイラが、Java のクラス・メソッドごとの効果の表を持っていて、表に無い呼び出しは <code>IO</code> になるためです。</p>
 <p>次章では、リスト名の変更を作ります。入力の誤りを最初の 1 つで止めず、すべてまとめて知らせるために、<code>Result</code> では足りない場面が出てきます。</p>
 <h2 id="_11">この章で書いたコード<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
 <ul>

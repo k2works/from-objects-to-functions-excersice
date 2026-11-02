@@ -11052,7 +11052,7 @@
         Objects.isNull(unchecked_cast(value as Object))
 </code></pre></div>
 <h3 id="_2">効果の観察<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
-<p>実装の途中で、気づいたことがあります。<code>Objects.isNull</code> と、例外から <code>getMessage()</code> を取り出す呼び出しに <code>\ IO</code> を付けたところ、「使っていない効果」としてコンパイラに拒否されました。第 2 章で見た <code>System.currentTimeMillis()</code> は <code>IO</code> と判定されたので、<strong>Java の呼び出しがすべて <code>IO</code></strong> というわけではないようです。なぜ違うのかは確かめていません。公式ドキュメントの「Java とのやりとりは常に <code>IO</code>」と合わない観察なので、事実として書き留めておきます。</p>
+<p>実装の途中で、気づいたことがあります。<code>Objects.isNull</code> と、例外から <code>getMessage()</code> を取り出す呼び出しに <code>\ IO</code> を付けたところ、「使っていない効果」としてコンパイラに拒否されました。第 2 章で見た <code>System.currentTimeMillis()</code> は <code>IO</code> と判定されたので、<strong>Java の呼び出しがすべて <code>IO</code></strong> というわけではないようです。なぜ違うのかは、この時点では確かめていませんでした。公式ドキュメントの「Java とのやりとりは常に <code>IO</code>」と合わない観察なので、事実として書き留めておきました。理由は、公開後に分かりました（<a href="../chapter13/">第 13 章</a>）。コンパイラが、Java のクラス・メソッドごとの効果の表を持っていて、表に無い呼び出しは <code>IO</code> になるためです。</p>
 <h3 id="_3">例外を値にする<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <p>JDBC は <code>SQLException</code> を投げます。接続を開き、処理し、必ず閉じる関数で、例外を <code>Result</code> の失敗に変えます。</p>
 <div class="highlight"><pre><span></span><code>    def withConnection(config: Config, f: Connection -&gt; Result[ZettaiError, a] \ IO): Result[ZettaiError, a] \ IO =

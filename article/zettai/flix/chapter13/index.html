@@ -8788,6 +8788,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#java" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Java の呼び出しの効果は、どう決まるか（公開後に確かめたこと）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#5_1" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -11559,7 +11570,7 @@ Json ◀── Logs ◀── Logging
 <td style="text-align: left;">13</td>
 <td style="text-align: left;">Java の呼び出しの効果の分類</td>
 <td style="text-align: left;">9、10、12</td>
-<td style="text-align: left;">一部が <code>IO</code> にならない理由を確かめていない（下で述べる）</td>
+<td style="text-align: left;"><strong>確かめた</strong>（公開後）。コンパイラの効果の表に載ったものだけが純粋になる。表そのものの正しさは確かめていない（下で述べる）</td>
 </tr>
 </tbody>
 </table>
@@ -11582,7 +11593,7 @@ Json ◀── Logs ◀── Logging
 <li>Java が呼ぶコールバックの中身は、<code>start</code> の型から見えません。引数の効果が、起動の型に現れませんでした（第 2 章）。
   取りこぼした効果は、型検査で警告されません。<code>Logger</code> を外側で処理すると、コンパイルは通り、実行時に応答が黙って消えました（第 12 章）。</li>
 <li><code>Logger</code> の処理は、サーバーのコールバックの内側に置く必要がありました（第 12 章）。</li>
-<li>Java の呼び出しの効果は、<strong>一律ではありませんでした。</strong> 公式ドキュメントの「Java とのやりとりは常に <code>IO</code>」と合わず、<code>Objects.isNull</code>、<code>Throwable.getMessage</code>、<code>Character.hashCode</code> は <code>IO</code> と判定されず、<code>System.currentTimeMillis()</code> と <code>getSQLState()</code> は <code>IO</code> でした。理由は確かめていません。<strong>型の保証は、コンパイラの分類が正しいことに依存します。</strong></li>
+<li>Java の呼び出しの効果は、<strong>一律ではありませんでした。</strong> 公式ドキュメントの「Java とのやりとりは常に <code>IO</code>」と合わず、<code>Objects.isNull</code>、<code>Throwable.getMessage</code>、<code>Character.hashCode</code> は <code>IO</code> と判定されず、<code>System.currentTimeMillis()</code> と <code>getSQLState()</code> は <code>IO</code> でした。理由は、公開後に確かめました（次の節）。<strong>型の保証は、コンパイラの分類が正しいことに依存します。</strong></li>
 </ul>
 <p>境界の外へ出す手段は、<strong>例外を値にする</strong>ことでした（第 9 章）。<code>SQLException</code> を <code>Result</code> の失敗にしたので、境界の内側では、例外が型の外に出ません。</p>
 <p><strong>問い 3: 効果多相や効果ハンドラは、関数型 DI の代わりになるか。</strong></p>
@@ -11593,6 +11604,71 @@ Json ◀── Logs ◀── Logging
 <li>ハンドラを忘れると、型検査が拒否します（第 4 章）。</li>
 </ul>
 <p>一方で、連載の本流では、関数値のレコードを採りました。他の対象と形を揃えて比べられることが理由です。<strong>代わりになるが、置き換えなければならない理由は、見つかりませんでした。</strong></p>
+<h3 id="java">Java の呼び出しの効果は、どう決まるか（公開後に確かめたこと）<a class="headerlink" href="#java" title="Permanent link">&para;</a></h3>
+<p>Flix の公式リポジトリの 0.79.0 のタグで、コンパイラの <code>PrimitiveEffects</code>（型検査の段階の <code>typer/jvm/</code>）を読みました。Java の呼び出しの効果は、次の順で決まります。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">順</th>
+<th style="text-align: left;">参照する表</th>
+<th style="text-align: left;">例（0.79.0）</th>
+<th style="text-align: left;">見つかったら</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">メソッドの表（<code>クラス::メソッド名</code>。すべての多重定義に適用）</td>
+<td style="text-align: left;"><code>Objects::isNull</code>、<code>Throwable::getMessage</code>、<code>Math::abs</code>、<code>System::lineSeparator</code>、<code>String::length</code> など</td>
+<td style="text-align: left;">その効果（空なら純粋）</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">クラスの表</td>
+<td style="text-align: left;"><code>Character</code>、<code>Integer</code>、<code>Long</code>、<code>Double</code>、<code>Boolean</code>、<code>URLEncoder</code>、<code>StandardCharsets</code> など</td>
+<td style="text-align: left;">その効果（空なら純粋）</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">パッケージの表</td>
+<td style="text-align: left;"><code>java.util.random</code>（<code>NonDet</code> と <code>IO</code>）</td>
+<td style="text-align: left;">その効果</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">どれにも無い</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><strong><code>IO</code></strong></td>
+</tr>
+</tbody>
+</table>
+<p>表は、コンパイラに同梱された JSON のファイルです。つまり、<strong>「Java の呼び出しは常に <code>IO</code>」が既定で、コンパイラの作者が手で選んだ呼び出しだけが、純粋として例外になります。</strong></p>
+<p>この説明が当たるかを、表を読んだあとで、新しい 14 通りの呼び出しで予測してから確かめました。14 通りすべてが、予測どおりでした。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">予測</th>
+<th style="text-align: left;">呼び出し</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">純粋</td>
+<td style="text-align: left;"><code>Math.floor</code>、<code>Long.toString</code>、<code>Double.parseDouble</code>、<code>String.toLowerCase</code>、<code>BigInteger.valueOf</code>、<code>Pattern.compile</code>、<code>URLEncoder.encode</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>IO</code></td>
+<td style="text-align: left;"><code>Math.max</code>、<code>Objects.requireNonNull</code>、<code>Objects.hashCode</code>、<code>String.getBytes</code>、<code>String.toCharArray</code>、<code>new ArrayList</code>、<code>Instant.now</code></td>
+</tr>
+</tbody>
+</table>
+<p>今までの観察も、すべて説明できます。<code>Objects::isNull</code> と <code>Throwable::getMessage</code> は表にあり、<code>Objects.hashCode</code> と <code>SQLException.getSQLState</code> は表に無いので <code>IO</code> です。<code>Character</code> はクラスごと純粋なので、<code>Character.hashCode</code> も <code>Character.toString</code> も純粋です。</p>
+<p>表の内容には、注意が要ります。</p>
+<ul>
+<li><strong>純粋と分類されることは、例外を投げないこととは別です。</strong> <code>Integer.parseInt</code> は表で純粋ですが、<code>Integer.parseInt("x")</code> を注釈のない関数から呼ぶとコンパイルは通り、実行時に <code>NumberFormatException</code> が投げられます。効果システムは、例外を追跡しません</li>
+<li>表は、コンパイラの作者の判断です。JDK の実装を解析した結果ではありません。たとえば <code>System.lineSeparator()</code> は、実行環境に依存して結果が変わりえますが、純粋です</li>
+<li>表は、0.79.0 のものです。新しい版との差は、比べていません</li>
+</ul>
 <p>要するに、こう言えます。副作用を型で追跡すると、<strong>守りたいことの一部を、規約からコンパイラに移せました。</strong> 移せなかったのは、効果の分類そのものの正しさと、境界の置き方、載せないものの決め方です。</p>
 <p>これは、1 つの題材、1 つの実装、1 つのバージョン（Flix 0.79.0）での観察です。一般論として言える根拠は、ありません。</p>
 <h3 id="5_1">5 つの実装を並べて<a class="headerlink" href="#5_1" title="Permanent link">&para;</a></h3>

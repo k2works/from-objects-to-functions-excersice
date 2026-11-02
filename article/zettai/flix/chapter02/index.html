@@ -10925,7 +10925,7 @@
 <h1 id="2-http">第 2 章 関数を使って HTTP を扱う<a class="headerlink" href="#2-http" title="Permanent link">&para;</a></h1>
 <p>第 1 章では、純粋関数と効果の関係を小さな例で確かめました。この章ではその考え方を HTTP に持ち込みます。リクエストが入り、ドメインの値を取得し、HTML が返る最小の縦串を通します。</p>
 <p>Flix 版は 1 つのプロジェクトを章ごとに育てていくため、後の章で書き換わったコードがあります。そのコードブロックには、この章を書いた時点のコミットを示してあります。</p>
-<p>Flix には HTTP サーバーの標準ライブラリがありません。この版では JDK の <code>com.sun.net.httpserver</code> を <strong>Java 相互運用で呼びます</strong>。公式ドキュメントには「Java とのやりとりは常に <code>IO</code> 効果を持つ」とあり、効果の保証は Java の境界で切れます。この章はその切れ目を、実際にコンパイラの出力で確かめる章です。</p>
+<p>Flix には HTTP サーバーの標準ライブラリがありません。この版では JDK の <code>com.sun.net.httpserver</code> を <strong>Java 相互運用で呼びます</strong>。公式ドキュメントには「Java とのやりとりは常に <code>IO</code> 効果を持つ」とあり、効果の保証は Java の境界で切れます。（公開後に分かったこと: 実際は、既定が <code>IO</code> で、コンパイラが表で純粋と分類した呼び出しだけが例外です。<a href="../chapter13/">第 13 章</a>）この章はその切れ目を、実際にコンパイラの出力で確かめる章です。</p>
 <h2 id="_1">プロジェクトのキックオフ<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <p>最初の到達点は <code>GET /todo/uberto/book</code> です。<code>uberto</code> の <code>book</code> リストがあれば項目を HTML で返し、なければ <code>404 Not Found</code> を返します。作成、更新、データベースはまだ扱いません。</p>
 <p>この薄い縦串はウォーキングスケルトンです。HTTP、ドメイン、表示の接続を早く確かめ、後の章で安全に太くできる骨格を作ります。</p>

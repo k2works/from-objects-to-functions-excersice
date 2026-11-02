@@ -11,10 +11,13 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-02T19:00:00Z }
 
 前章では、依存を関数値のレコードで渡しました。この章では、ToDo リストの変更そのものを関数で扱います。現在の状態を上書きせず、起きた出来事を不変の列に残し、その列から状態を計算します。
 
+後の章で書き換わったコードのブロックには、この章を書いた時点のコミットを示してあります。
+
 ## ToDo リストの作成の表示
 
 最初の出来事は、リストが作られたことです。命令の `CreateList` ではなく、すでに起きた事実なので、過去形の `ListCreated` と名付けます。
 
+<!-- code-check: ignore この章を書いた時点のコード（コミット 530b4a8）。第 6 章で ItemStatusChanged を追加した -->
 ```flix
     pub enum ToDoListEvent with Eq, ToString {
         case ListCreated(User, ListName)
@@ -38,6 +41,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-02T19:00:00Z }
 
 1 つの出来事を適用する関数は、新しい状態を返します。
 
+<!-- code-check: ignore この章を書いた時点のコード（コミット 530b4a8）。第 6 章で ItemStatusChanged を追加した -->
 ```flix
     pub def apply(state: ToDoListState, event: ToDoListEvent): ToDoListState =
         match event {

@@ -291,6 +291,7 @@ nav:
               - 第 3 章 ドメインの定義とテスト: article/zettai/flix/chapter03.md
               - 第 4 章 ドメインとアダプタのモデリング: article/zettai/flix/chapter04.md
               - 第 5 章 イベントで状態を変更する: article/zettai/flix/chapter05.md
+              - 第 6 章 コマンドを実行してイベントを生成する: article/zettai/flix/chapter06.md
           - 横断比較: article/zettai/comparison/index.md
   - リファレンス:
       - 概要: reference/index.md

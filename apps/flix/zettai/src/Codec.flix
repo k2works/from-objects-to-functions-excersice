@@ -38,6 +38,8 @@ mod Codec {
                 { kind = "ItemAdded", user = u, list = l, description = d, status = statusName(s) }
             case ToDoListEvent.ItemStatusChanged(User.User(u), ListName.ListName(l), d, s) =>
                 { kind = "ItemStatusChanged", user = u, list = l, description = d, status = statusName(s) }
+            case ToDoListEvent.ListRenamed(User.User(u), ListName.ListName(l), ListName.ListName(n)) =>
+                { kind = "ListRenamed", user = u, list = l, description = n, status = "" }
         }
 
     /// 行をイベントに戻す。読めない行は、例外ではなく値として失敗にする。
@@ -52,6 +54,7 @@ mod Codec {
             case "ItemStatusChanged" =>
                 forM (s <- parseStatus(row#status))
                     yield ToDoListEvent.ItemStatusChanged(user, list, row#description, s)
+            case "ListRenamed" => Ok(ToDoListEvent.ListRenamed(user, list, ListName.ListName(row#description)))
             case other => Err(ZettaiError.StorageFailure("unknown event kind: ${other}"))
         }
     }

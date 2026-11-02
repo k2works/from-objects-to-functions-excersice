@@ -12,6 +12,7 @@ mod Projection {
     def step(lists: Lists, event: ToDoListEvent): Lists =
         match event {
             case ToDoListEvent.ListCreated(_, name) => Map.insert(name, Nil, lists)
+            case ToDoListEvent.ListRenamed(_, name, _) => Map.remove(name, lists)
             case ToDoListEvent.ItemAdded(_, name, item) =>
                 match Map.get(name, lists) {
                     case Some(items) => Map.insert(name, items ::: item :: Nil, lists)
@@ -29,6 +30,7 @@ mod Projection {
             case ToDoListEvent.ListCreated(user, _)            => user
             case ToDoListEvent.ItemAdded(user, _, _)           => user
             case ToDoListEvent.ItemStatusChanged(user, _, _, _) => user
+            case ToDoListEvent.ListRenamed(user, _, _)          => user
         }
 
     def isDone(item: ToDoItem): Bool =

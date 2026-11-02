@@ -6,10 +6,11 @@ mod Commands {
     use Events.ToDoListState
 
     /// これから行いたい意図。イベントと違い、拒否されうる。
-    pub enum ToDoListCommand {
+    pub enum ToDoListCommand with Eq, ToString {
         case CreateToDoList(User, ListName)
         case AddToDoItem(User, ListName, ToDoItem)
         case ChangeItemStatus(User, ListName, String, ToDoStatus)
+        case RenameToDoList(User, ListName, ListName)
     }
 
     def requireList(state: ToDoListState, user: User, name: ListName): Result[ZettaiError, ToDoList] =
@@ -39,12 +40,32 @@ mod Commands {
                 forM (
                     _ <- requireList(state, user, name)
                 ) yield ToDoListEvent.ItemAdded(user, name, item) :: Nil
+            case ToDoListCommand.RenameToDoList(user, name, newName) =>
+                forM (
+                    list <- requireList(state, user, name);
+                    _    <- requireAbsent(state, user, newName)
+                ) yield renamedEvents(user, name, newName, list)
             case ToDoListCommand.ChangeItemStatus(user, name, description, newStatus) =>
                 forM (
                     list    <- requireList(state, user, name);
                     item    <- requireItem(user, name, description, list);
                     allowed <- checkTransition(description, item, newStatus)
                 ) yield ToDoListEvent.ItemStatusChanged(user, name, allowed, newStatus) :: Nil
+        }
+
+    def requireAbsent(state: ToDoListState, user: User, name: ListName): Result[ZettaiError, Unit] =
+        match Events.listFor(state, user, name) {
+            case Some(_) => Err(ZettaiError.ListAlreadyExists(user, name))
+            case None    => Ok(())
+        }
+
+    /// 旧い名前のリストを消し、新しい名前で作り直して、項目を状態ごと引き継ぐ。
+    def renamedEvents(user: User, name: ListName, newName: ListName, list: ToDoList): List[ToDoListEvent] =
+        match list {
+            case ToDoList.ToDoList(_, items) =>
+                ToDoListEvent.ListRenamed(user, name, newName) ::
+                    ToDoListEvent.ListCreated(user, newName) ::
+                    List.map(item -> ToDoListEvent.ItemAdded(user, newName, item), items)
         }
 
     def checkTransition(description: String, item: ToDoItem, newStatus: ToDoStatus): Result[ZettaiError, String] =

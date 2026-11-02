@@ -7,6 +7,7 @@ mod Events {
         case ListCreated(User, ListName)
         case ItemAdded(User, ListName, ToDoItem)
         case ItemStatusChanged(User, ListName, String, ToDoStatus)
+        case ListRenamed(User, ListName, ListName)
     }
 
     /// イベントから導出される現在の状態。
@@ -23,6 +24,12 @@ mod Events {
                 ToDoListState.ToDoListState(Map.insert((user, name), list, lists))
         }
 
+    def remove(state: ToDoListState, user: User, name: ListName): ToDoListState =
+        match state {
+            case ToDoListState.ToDoListState(lists) =>
+                ToDoListState.ToDoListState(Map.remove((user, name), lists))
+        }
+
     /// 1 つのイベントを適用し、新しい状態を返す。元の状態は変わらない。
     pub def apply(state: ToDoListState, event: ToDoListEvent): ToDoListState =
         match event {
@@ -34,6 +41,7 @@ mod Events {
                         put(state, user, name, ToDoList.ToDoList(name, items ::: item :: Nil))
                     case None => state
                 }
+            case ToDoListEvent.ListRenamed(user, name, _) => remove(state, user, name)
             case ToDoListEvent.ItemStatusChanged(user, name, description, status) =>
                 match listFor(state, user, name) {
                     case Some(ToDoList.ToDoList(_, items)) =>

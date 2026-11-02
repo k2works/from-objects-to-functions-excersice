@@ -14,7 +14,7 @@ mod TestCodec {
         let statuses = Domain.allStatuses();
         let added = List.map(s -> ItemAdded(uberto(), book(), Domain.ToDoItem.ToDoItem("a & <b>", s)), statuses);
         let changed = List.map(s -> ItemStatusChanged(uberto(), book(), "a & <b>", s), statuses);
-        ListCreated(uberto(), book()) :: (added ::: changed)
+        ListCreated(uberto(), book()) :: Events.ToDoListEvent.ListRenamed(uberto(), book(), ListName.ListName("shop & <co>")) :: (added ::: changed)
     }
 
     @Test

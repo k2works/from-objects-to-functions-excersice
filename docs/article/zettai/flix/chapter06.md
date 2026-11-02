@@ -15,6 +15,8 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-02T21:00:00Z }
 
 最初の要求は、新しいリストを作ることです。同じ名前のリストがすでにあれば拒否しなければなりません。項目の追加と、項目の状態変更も同じ入口に集めます。この章で作るのはドメインとアプリケーションの部分で、公開済みの HTTP の入口はリストを読む GET だけのままです。
 
+後の章で書き換わったコードのブロックには、この章を書いた時点のコミットを示してあります。
+
 できる操作だけでなく、次の拒否もテストから書きました。
 
 - 既存リストの再作成
@@ -118,6 +120,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-02T21:00:00Z }
 
 適用は、対象の項目だけを新しい状態の項目に置き換えます。
 
+<!-- code-check: ignore この章を書いた時点のコード（コミット 658d9c5）。第 8 章で Domain.changeStatus に置き換えた。同じ説明の項目すべてを変える規則を、最初の 1 件だけを変える規則に直した -->
 ```flix
     def withStatus(description: String, status: ToDoStatus): ToDoItem -> ToDoItem =
         item -> match item {

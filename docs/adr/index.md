@@ -51,5 +51,6 @@
 | [ADR-043](ADR-043-optimistic-locking-by-version.md) | 楽観ロックを stream ごとの版と一意制約で行い、複数の stream を 1 つの transaction で書く | 承認 |
 | [ADR-044](ADR-044-json-tree-for-logs-and-converters.md) | ログと converter の JSON に kotlinx-serialization-json の JsonElement だけを使う | 承認 |
 | [ADR-045](ADR-045-logging-as-decorator-with-typed-record.md) | ログは decorator で足し、載せるものを LogRecord の型で決める | 承認 |
+| [ADR-046](ADR-046-flix-acceptance-by-record-of-functions.md) | Flix 版は受け入れテストの経路を関数値のレコードで差し替え、Cucumber を入れない | 提案 |
 
 ADR の作成には `creating-adr` スキルを使用してください。

@@ -8980,6 +8980,76 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 6 章 コマンドを実行してイベントを生成する
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 7 章 関数型手法によるエラーハンドリング
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -11248,6 +11318,7 @@
 <span class="w">    </span><span class="s">s"&lt;html&gt;&lt;body&gt;&lt;h1&gt;Zettai&lt;/h1&gt;&lt;h2&gt;</span><span class="si">${</span><span class="n">escape</span><span class="p">(</span><span class="n">list</span><span class="p">.</span><span class="n">name</span><span class="p">.</span><span class="n">name</span><span class="p">)</span><span class="si">}</span><span class="s">&lt;/h2&gt;&lt;ul&gt;</span><span class="si">$</span><span class="n">lis</span><span class="s">&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;"</span>
 </code></pre></div>
 <p>ルートは、パスのパターンで <code>Hub</code> に問い合わせ、見つかれば HTML を返します。</p>
+<!-- code-check: ignore この章を書いた時点のコード（コミット 6c4d383）。第 7 章で Hub.getList の戻り値を Either に変えた -->
 <div class="highlight"><pre><span></span><code><span class="w">  </span><span class="k">def</span><span class="w"> </span><span class="nf">routes</span><span class="p">(</span><span class="n">hub</span><span class="p">:</span><span class="w"> </span><span class="nc">Hub</span><span class="p">):</span><span class="w"> </span><span class="nc">HttpRoutes</span><span class="p">[</span><span class="nc">IO</span><span class="p">]</span><span class="w"> </span><span class="o">=</span>
 <span class="w">    </span><span class="nc">HttpRoutes</span><span class="p">.</span><span class="n">of</span><span class="p">[</span><span class="nc">IO</span><span class="p">]</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="k">case</span><span class="w"> </span><span class="nc">GET</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nc">Root</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="s">"todo"</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">user</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">list</span><span class="w"> </span><span class="o">=&gt;</span>
@@ -11278,9 +11349,11 @@
 </code></pre></div>
 <h2 id="_2">矢印で設計する<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>読み取りの依存を、関数を持つ値として渡します。<code>Hub</code> は「利用者とリスト名から、リストを探す <code>IO</code>」を持つだけの値です。</p>
+<!-- code-check: ignore この章を書いた時点のコード（コミット 6c4d383）。第 7 章で Hub.getList の戻り値を Either に変えた -->
 <div class="highlight"><pre><span></span><code><span class="k">final</span><span class="w"> </span><span class="k">case</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Hub</span><span class="p">(</span><span class="n">getList</span><span class="p">:</span><span class="w"> </span><span class="p">(</span><span class="nc">User</span><span class="p">,</span><span class="w"> </span><span class="nc">ListName</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="nc">IO</span><span class="p">[</span><span class="nc">Option</span><span class="p">[</span><span class="nc">ToDoList</span><span class="p">]])</span>
 </code></pre></div>
 <p>メモリ上の実装は、純粋な <code>findToDoList</code> を <code>IO.pure</code> で包みます。</p>
+<!-- code-check: ignore この章を書いた時点のコード（コミット 6c4d383）。第 7 章で Hub.getList の戻り値を Either に変えた -->
 <div class="highlight"><pre><span></span><code><span class="w">  </span><span class="k">def</span><span class="w"> </span><span class="nf">inMemory</span><span class="p">(</span><span class="n">lists</span><span class="p">:</span><span class="w"> </span><span class="nc">Map</span><span class="p">[</span><span class="nc">User</span><span class="p">,</span><span class="w"> </span><span class="nc">List</span><span class="p">[</span><span class="nc">ToDoList</span><span class="p">]]):</span><span class="w"> </span><span class="nc">Hub</span><span class="w"> </span><span class="o">=</span>
 <span class="w">    </span><span class="nc">Hub</span><span class="p">((</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="nc">IO</span><span class="p">.</span><span class="n">pure</span><span class="p">(</span><span class="nc">Domain</span><span class="p">.</span><span class="n">findToDoList</span><span class="p">(</span><span class="n">lists</span><span class="p">,</span><span class="w"> </span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">)))</span>
 </code></pre></div>

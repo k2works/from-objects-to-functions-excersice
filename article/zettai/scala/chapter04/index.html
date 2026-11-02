@@ -9030,6 +9030,76 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 6 章 コマンドを実行してイベントを生成する
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 7 章 関数型手法によるエラーハンドリング
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -11240,11 +11310,13 @@
 <h2 id="todo">ToDo リストを変更するための新しいストーリーを始める<a class="headerlink" href="#todo" title="Permanent link">&para;</a></h2>
 <p>これから ToDo リストの作成や項目追加へ進みます。その前に、読み取り側の依存関係を整理します。HTTP のルーティングがデータの置き場所を知っていると、変更操作を加えるたびに HTTP と保存の都合が絡みます。</p>
 <p>必要な契約は「利用者とリスト名を受け取り、見つかればリストを返す」だけです。第 2 章の <code>Hub</code> は、これを関数を持つ値として表していました。</p>
+<!-- code-check: ignore この章を書いた時点のコード（コミット 296e924）。第 7 章で Hub.getList の戻り値を Either に変えた -->
 <div class="highlight"><pre><span></span><code><span class="k">final</span><span class="w"> </span><span class="k">case</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Hub</span><span class="p">(</span><span class="n">getList</span><span class="p">:</span><span class="w"> </span><span class="p">(</span><span class="nc">User</span><span class="p">,</span><span class="w"> </span><span class="nc">ListName</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="nc">IO</span><span class="p">[</span><span class="nc">Option</span><span class="p">[</span><span class="nc">ToDoList</span><span class="p">]])</span>
 </code></pre></div>
 <h2 id="_1">関数型の「依存性の注入」を使う<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <p>「リストを HTML にする」処理を、依存の渡し方を変えて 3 通りに書きます。結果は同じで、依存の見え方が違います。</p>
 <h3 id="1">1. 関数を持つ値を、引数で渡す<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<!-- code-check: ignore この章を書いた時点のコード（コミット 296e924）。第 7 章で Hub.getList の戻り値を Either に変えた -->
 <div class="highlight"><pre><span></span><code><span class="w">  </span><span class="k">def</span><span class="w"> </span><span class="nf">byHub</span><span class="p">(</span><span class="n">hub</span><span class="p">:</span><span class="w"> </span><span class="nc">Hub</span><span class="p">,</span><span class="w"> </span><span class="n">user</span><span class="p">:</span><span class="w"> </span><span class="nc">User</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="nc">ListName</span><span class="p">):</span><span class="w"> </span><span class="nc">IO</span><span class="p">[</span><span class="nc">Option</span><span class="p">[</span><span class="nc">String</span><span class="p">]]</span><span class="w"> </span><span class="o">=</span>
 <span class="w">    </span><span class="n">hub</span><span class="p">.</span><span class="n">getList</span><span class="p">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">).</span><span class="n">map</span><span class="p">(</span><span class="n">_</span><span class="p">.</span><span class="n">map</span><span class="p">(</span><span class="nc">Html</span><span class="p">.</span><span class="n">render</span><span class="p">))</span>
 </code></pre></div>

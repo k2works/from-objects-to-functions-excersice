@@ -8960,6 +8960,76 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="chapter08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 8 章 ファンクタを使ってイベントを射影する
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="chapter09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 9 章 モナドによる安全なデータ永続化
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -11177,10 +11247,12 @@
 <li><a href="chapter05/">第 5 章 イベントで状態を変更する</a></li>
 <li><a href="chapter06/">第 6 章 コマンドを実行してイベントを生成する</a></li>
 <li><a href="chapter07/">第 7 章 関数型手法によるエラーハンドリング</a></li>
+<li><a href="chapter08/">第 8 章 ファンクタを使ってイベントを射影する</a></li>
+<li><a href="chapter09/">第 9 章 モナドによる安全なデータ永続化</a></li>
 </ol>
-<p>第 8 章以降は執筆中です。計画は <a href="../../outline/">執筆計画</a> の「Scala 追加執筆計画」にあります。</p>
+<p>第 10 章以降は執筆中です。計画は <a href="../../outline/">執筆計画</a> の「Scala 追加執筆計画」にあります。</p>
 <h2 id="_2">実行方法<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<p>JDK 21 以降が必要です。Scala の版は <code>apps/scala/zettai/build.sbt</code> で 3.3.9 に固定しています。</p>
+<p>JDK 21 以降が必要です。第 9 章以降のテストは、PostgreSQL を Testcontainers で起動するため Docker も必要です。Scala の版は <code>apps/scala/zettai/build.sbt</code> で 3.3.9 に固定しています。</p>
 <div class="highlight"><pre><span></span><code>nix<span class="w"> </span>develop<span class="w"> </span>.#scala
 <span class="nb">cd</span><span class="w"> </span>apps/scala/zettai
 sbt<span class="w"> </span><span class="nb">test</span>

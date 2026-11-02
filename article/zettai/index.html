@@ -8980,6 +8980,76 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="scala/chapter08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 8 章 ファンクタを使ってイベントを射影する
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="scala/chapter09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 9 章 モナドによる安全なデータ永続化
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -11245,11 +11315,11 @@
 <td style="text-align: left;"><a href="scala/">Scala 版</a></td>
 <td style="text-align: left;"><code>apps/scala/zettai/</code></td>
 <td style="text-align: left;">Nix devShell <code>scala</code>（JDK 21 / Scala 3.3.9 / sbt）</td>
-<td style="text-align: left;"><strong>執筆中（7 / 13 章）</strong></td>
+<td style="text-align: left;"><strong>執筆中（9 / 13 章）</strong></td>
 </tr>
 </tbody>
 </table>
-<p><strong>既存の 3 言語版は完結し、4 対象目の Kotlin FP 版、5 対象目の Flix 版も 13 章を書き終えました。6 対象目の Scala（Cats Effect）版は執筆中です（第 7 章まで公開）。</strong> 同じ題材・同じ 13 章を 3 言語で書いた結果は <a href="comparison/">対象言語の横断比較</a> にまとめています。Kotlin FP 版の完結後、ライブラリへ委ねる範囲を 4 本目の比較軸として反映します。</p>
+<p><strong>既存の 3 言語版は完結し、4 対象目の Kotlin FP 版、5 対象目の Flix 版も 13 章を書き終えました。6 対象目の Scala（Cats Effect）版は執筆中です（第 9 章まで公開）。</strong> 同じ題材・同じ 13 章を 3 言語で書いた結果は <a href="comparison/">対象言語の横断比較</a> にまとめています。Kotlin FP 版の完結後、ライブラリへ委ねる範囲を 4 本目の比較軸として反映します。</p>
 <p>当初の比較軸は「型で保証する（Kotlin）」と「約束とテストで保証する（なでしこ3）」の 2 点でした。<strong>Rust 版で軸が「言語がどこまで与えるか」に広がりました。</strong></p>
 <table>
 <thead>
@@ -11400,7 +11470,7 @@
 <td style="text-align: left;"><a href="nadesiko/chapter08/">公開済み</a></td>
 <td style="text-align: left;"><a href="rust/chapter08/">公開済み</a></td>
 <td style="text-align: left;"><a href="flix/chapter08/">公開済み</a></td>
-<td style="text-align: left;">執筆中</td>
+<td style="text-align: left;"><a href="scala/chapter08/">公開済み</a></td>
 </tr>
 <tr>
 <td style="text-align: left;">9</td>
@@ -11410,7 +11480,7 @@
 <td style="text-align: left;"><a href="nadesiko/chapter09/">公開済み</a></td>
 <td style="text-align: left;"><a href="rust/chapter09/">公開済み</a></td>
 <td style="text-align: left;"><a href="flix/chapter09/">公開済み</a></td>
-<td style="text-align: left;">執筆中</td>
+<td style="text-align: left;"><a href="scala/chapter09/">公開済み</a></td>
 </tr>
 <tr>
 <td style="text-align: left;">10</td>
@@ -11503,7 +11573,7 @@
 <td style="text-align: left;"><strong>13 / 13（完結）</strong></td>
 <td style="text-align: left;"><strong>13 / 13（完結）</strong></td>
 <td style="text-align: left;"><strong>13 / 13（完結）</strong></td>
-<td style="text-align: left;">7 / 13</td>
+<td style="text-align: left;">9 / 13</td>
 </tr>
 <tr>
 <td style="text-align: left;">ADR</td>
@@ -11512,7 +11582,7 @@
 <td style="text-align: left;">11 件</td>
 <td style="text-align: left;"><strong>14 件</strong></td>
 <td style="text-align: left;">3 件</td>
-<td style="text-align: left;">2 件</td>
+<td style="text-align: left;">3 件</td>
 </tr>
 <tr>
 <td style="text-align: left;">計画した承認ゲート</td>
@@ -11584,7 +11654,7 @@
 <tr>
 <td style="text-align: left;">Scala</td>
 <td style="text-align: left;"><code>nix develop .#scala</code></td>
-<td style="text-align: left;">Scala 3.3.9、sbt 1.10.11、JDK 21、Cats 2.13.0、Cats Effect 3.7.1、MUnit 1.3.6。タスクは <code>sbt test</code>（コンパイルを含む）。第 9 章以降の PostgreSQL の扱いは未定</td>
+<td style="text-align: left;">Scala 3.3.9、sbt 1.10.11、JDK 21、Cats 2.13.0、Cats Effect 3.7.1、MUnit 1.3.6、doobie 1.0.0-RC13（RC 版）、Testcontainers 2.0.5。タスクは <code>sbt test</code>（コンパイルを含む）。第 9 章以降のテストは Docker が要り、PostgreSQL はテスト自身が Testcontainers で起動する</td>
 </tr>
 </tbody>
 </table>

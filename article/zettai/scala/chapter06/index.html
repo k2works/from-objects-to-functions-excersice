@@ -9061,6 +9061,76 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 8 章 ファンクタを使ってイベントを射影する
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 9 章 モナドによる安全なデータ永続化
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -11406,12 +11476,14 @@
 </code></pre></div>
 <h2 id="_4">ハブと接続する<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <p><code>handle</code> を実際に使うには、過去のイベントを読み、現在状態を作り、コマンドを実行し、新しいイベントを書き足す、という手順が要ります。保存先との出入りを、関数を持つ値にまとめます。</p>
+<!-- code-check: ignore この章を書いた時点のコード（コミット c406142）。第 9 章で EventStore に版を持たせ、append の戻り値を Either にした -->
 <div class="highlight"><pre><span></span><code><span class="k">final</span><span class="w"> </span><span class="k">case</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">EventStore</span><span class="p">(</span>
 <span class="w">    </span><span class="n">load</span><span class="p">:</span><span class="w"> </span><span class="nc">IO</span><span class="p">[</span><span class="nc">List</span><span class="p">[</span><span class="nc">ToDoListEvent</span><span class="p">]],</span>
 <span class="w">    </span><span class="n">append</span><span class="p">:</span><span class="w"> </span><span class="nc">List</span><span class="p">[</span><span class="nc">ToDoListEvent</span><span class="p">]</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="nc">IO</span><span class="p">[</span><span class="nc">Unit</span><span class="p">]</span>
 <span class="p">)</span>
 </code></pre></div>
 <p>インメモリの実装は、<code>Ref</code> を使います。<code>Ref</code> は書き換えられる箱で、Cats Effect では操作が <code>IO</code> になります。</p>
+<!-- code-check: ignore この章を書いた時点のコード（コミット c406142）。第 9 章で EventStore に版を持たせ、append の戻り値を Either にした -->
 <div class="highlight"><pre><span></span><code><span class="w">  </span><span class="k">def</span><span class="w"> </span><span class="nf">inMemory</span><span class="p">:</span><span class="w"> </span><span class="nc">IO</span><span class="p">[</span><span class="nc">EventStore</span><span class="p">]</span><span class="w"> </span><span class="o">=</span>
 <span class="w">    </span><span class="nc">Ref</span><span class="p">.</span><span class="n">of</span><span class="p">[</span><span class="nc">IO</span><span class="p">,</span><span class="w"> </span><span class="nc">List</span><span class="p">[</span><span class="nc">ToDoListEvent</span><span class="p">]](</span><span class="nc">Nil</span><span class="p">).</span><span class="n">map</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">history</span><span class="w"> </span><span class="o">=&gt;</span>
 <span class="w">      </span><span class="nc">EventStore</span><span class="p">(</span><span class="n">history</span><span class="p">.</span><span class="n">get</span><span class="p">,</span><span class="w"> </span><span class="n">events</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">history</span><span class="p">.</span><span class="n">update</span><span class="p">(</span><span class="n">_</span><span class="w"> </span><span class="o">:::</span><span class="w"> </span><span class="n">events</span><span class="p">))</span>
@@ -11419,6 +11491,7 @@
 </code></pre></div>
 <p>Flix 版では、可変な箱は領域（<code>region</code>）の中にだけ存在でき、持ち出すとコンパイルが止まりました。Scala には領域がありません。その代わり、<strong>箱を作ること自体を <code>IO</code> にしました。</strong> 戻り値が <code>IO[EventStore]</code> なので、ストアを作る手順は、実行するまで何も起きません。</p>
 <p>コマンドの入口は、このストアの上に作ります。</p>
+<!-- code-check: ignore この章を書いた時点のコード（コミット c406142）。第 9 章で EventStore に版を持たせ、append の戻り値を Either にした -->
 <div class="highlight"><pre><span></span><code><span class="w">  </span><span class="k">def</span><span class="w"> </span><span class="nf">commandHub</span><span class="p">(</span><span class="n">store</span><span class="p">:</span><span class="w"> </span><span class="nc">EventStore</span><span class="p">):</span><span class="w"> </span><span class="nc">CommandHub</span><span class="w"> </span><span class="o">=</span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">state</span><span class="p">:</span><span class="w"> </span><span class="nc">IO</span><span class="p">[</span><span class="nc">ToDoListState</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">store</span><span class="p">.</span><span class="n">load</span><span class="p">.</span><span class="n">map</span><span class="p">(</span><span class="nc">Replay</span><span class="p">.</span><span class="n">replayFrom</span><span class="p">(</span><span class="nc">Events</span><span class="p">.</span><span class="n">empty</span><span class="p">,</span><span class="w"> </span><span class="n">_</span><span class="p">))</span>
 <span class="w">    </span><span class="nc">CommandHub</span><span class="p">(</span>
@@ -11432,6 +11505,7 @@
 <span class="w">    </span><span class="p">)</span>
 </code></pre></div>
 <p>拒否されたときは、何も書き足しません。</p>
+<!-- code-check: ignore この章を書いた時点のコード（コミット c406142）。第 9 章で EventStore に版を持たせ、append の戻り値を Either にした -->
 <div class="highlight"><pre><span></span><code><span class="w">  </span><span class="n">test</span><span class="p">(</span><span class="s">"拒否されたコマンドは、何も書き足さない"</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">withHub</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">(</span><span class="n">store</span><span class="p">,</span><span class="w"> </span><span class="n">commands</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span>
 <span class="w">      </span><span class="k">for</span>

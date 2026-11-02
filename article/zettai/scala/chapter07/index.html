@@ -16,7 +16,7 @@
         <link rel="prev" href="../chapter06/">
       
       
-        <link rel="next" href="../../comparison/">
+        <link rel="next" href="../chapter08/">
       
       
         
@@ -9067,6 +9067,76 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 8 章 ファンクタを使ってイベントを射影する
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 9 章 モナドによる安全なデータ永続化
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -11379,6 +11449,7 @@ Left(e).map(x =&gt; x + 3)    -&gt; Left(e)
 </code></pre></div>
 <p><code>Domain.findToDoList</code> は <code>Option</code> のままです。ドメインの検索は「あるか、ないか」を答えるだけで、「見つからなかったことが失敗か」は、呼び出し側の文脈が決めるからです。</p>
 <p>HTTP 側では、<code>Either</code> の両方を応答に変えます。</p>
+<!-- code-check: ignore この章を書いた時点のコード（コミット 785548f）。第 9 章で想定外の失敗を 500 にする処理を足した -->
 <div class="highlight"><pre><span></span><code><span class="w">        </span><span class="n">hub</span><span class="p">.</span><span class="n">getList</span><span class="p">(</span><span class="nc">User</span><span class="p">(</span><span class="n">user</span><span class="p">),</span><span class="w"> </span><span class="nc">ListName</span><span class="p">(</span><span class="n">list</span><span class="p">)).</span><span class="n">flatMap</span><span class="w"> </span><span class="p">{</span>
 <span class="w">          </span><span class="k">case</span><span class="w"> </span><span class="nc">Right</span><span class="p">(</span><span class="n">found</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="nc">Ok</span><span class="p">(</span><span class="nc">Html</span><span class="p">.</span><span class="n">render</span><span class="p">(</span><span class="n">found</span><span class="p">)).</span><span class="n">map</span><span class="p">(</span><span class="n">_</span><span class="p">.</span><span class="n">withContentType</span><span class="p">(</span><span class="n">html</span><span class="p">))</span>
 <span class="w">          </span><span class="k">case</span><span class="w"> </span><span class="nc">Left</span><span class="p">(</span><span class="n">error</span><span class="p">)</span><span class="w">  </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">failure</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>

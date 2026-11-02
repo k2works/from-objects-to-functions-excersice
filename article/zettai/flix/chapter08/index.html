@@ -11642,7 +11642,7 @@
 <h3 id="5">第 5 章と同じ形<a class="headerlink" href="#5" title="Permanent link">&para;</a></h3>
 <p>第 5 章の <code>replayFrom</code> を思い出してください。</p>
 <div class="highlight"><pre><span></span><code>    pub def replayFrom(initial: ToDoListState, events: List[ToDoListEvent]): ToDoListState =
-        List.foldLeft(Events.apply, initial, events)
+        List.foldLeft(Domain.Events.apply, initial, events)
 </code></pre></div>
 <p>射影も同じ <code>foldLeft</code> です。</p>
 <div class="highlight"><pre><span></span><code>    pub def projectFrom(user: User, events: List[ToDoListEvent]): List[ToDoListRow] =
@@ -11687,20 +11687,20 @@
 <p>テストを先に書くと、本物の Red になりました。</p>
 <div class="highlight"><pre><span></span><code>    @Test
     def aStatusChangeAppliesOnlyToTheFirstItemWithThatDescription(): Unit \ Assert = {
-        use Events.ToDoListEvent.ItemStatusChanged;
+        use Domain.Events.ToDoListEvent.ItemStatusChanged;
         let events = List#{
             ListCreated(uberto(), book()),
             ItemAdded(uberto(), book(), Domain.todo("a")),
             ItemAdded(uberto(), book(), Domain.todo("a")),
             ItemStatusChanged(uberto(), book(), "a", Domain.ToDoStatus.Done)
         };
-        let state = List.foldLeft(Events.apply, Events.empty(), events);
+        let state = List.foldLeft(Domain.Events.apply, Domain.Events.empty(), events);
         Assert.assertEq(
             expected = Some(ToDoList.ToDoList(book(), List#{
                 Domain.ToDoItem.ToDoItem("a", Domain.ToDoStatus.Done),
                 Domain.todo("a")
             })),
-            Events.listFor(state, uberto(), book())
+            Domain.Events.listFor(state, uberto(), book())
         )
     }
 </code></pre></div>
@@ -11783,14 +11783,14 @@
     def theProjectionMatchesTheCountsOfTheReplayedState(): Unit \ Assert =
         List.forEach(events -&gt;
             List.forEach(user -&gt;
-                Assert.assertEq(expected = rowsFromState(user, events), Projection.projectFrom(user, events)),
+                Assert.assertEq(expected = rowsFromState(user, events), Domain.Queries.Projection.projectFrom(user, events)),
                 List#{uberto(), alice()}),
             Gen.projectionListsUpTo(4))
 </code></pre></div>
 <p><code>rowsFromState</code> は、イベントを再生した状態から、行を数え直したものです。</p>
 <div class="highlight"><pre><span></span><code>    def rowsFromState(user: User, events: List[ToDoListEvent]): List[ToDoListRow] = {
-        let state = Replay.replayFrom(Events.empty(), events);
-        match Events.listFor(state, user, book()) {
+        let state = Domain.Events.Replay.replayFrom(Domain.Events.empty(), events);
+        match Domain.Events.listFor(state, user, book()) {
             case None =&gt; Nil
             case Some(Domain.ToDoList.ToDoList(name, items)) =&gt;
                 List#{ToDoListRow.ToDoListRow(
@@ -11816,7 +11816,7 @@
 </code></pre></div>
 <!-- code-check: ignore この章を書いた時点のコード（コミット 37daacd）。第 9 章で EventStore と QueryHub の戻り値を Result に変えた -->
 <div class="highlight"><pre><span></span><code>    pub def queryHub(store: EventStore[ef]): QueryHub[ef] = {
-        listRows = user -&gt; Projection.projectFrom(user, store#load())
+        listRows = user -&gt; Domain.Queries.Projection.projectFrom(user, store#load())
     }
 </code></pre></div>
 <p><code>QueryHub</code> のレコードには、コマンドを実行するフィールドがありません。<strong>読む側から書く操作を呼ぶことは、型として書けません。</strong> <code>QueryHub</code> に <code>execute</code> を呼ぼうとすると、コンパイルが次のように拒否します。</p>
@@ -11825,11 +11825,11 @@
 <p><code>QueryHub</code> の型 <code>{ listRows = ... }</code> に、<code>execute</code> が無いという意味です。</p>
 <p>2 つの入口は、同じイベントストアを、別々の窓から見ます。</p>
 <!-- code-check: ignore この章を書いた時点のコード（コミット 37daacd）。第 9 章で EventStore と QueryHub の戻り値を Result に変えた -->
-<div class="highlight"><pre><span></span><code>    def rowsAfter(commands: List[Commands.ToDoListCommand]): List[ToDoListRow] = {
+<div class="highlight"><pre><span></span><code>    def rowsAfter(commands: List[Domain.Commands.ToDoListCommand]): List[ToDoListRow] = {
         region rc {
-            let store = EventStore.inMemory(rc);
-            let commandHub = CommandHub.commandHub(store);
-            let queryHub = QueryHub.queryHub(store);
+            let store = Application.EventStore.inMemory(rc);
+            let commandHub = Application.CommandHub.commandHub(store);
+            let queryHub = Application.QueryHub.queryHub(store);
             List.forEach(c -&gt; { let _ = commandHub#execute(c); () }, commands);
             queryHub#listRows(uberto())
         }
@@ -11859,8 +11859,8 @@
 <p>次章では、イベントストアをデータベースに替えます。JDBC を Java 相互運用で呼び、<strong>効果の保証が切れる場所</strong>がもう 1 つ増えます。</p>
 <h2 id="_10">この章で書いたコード<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
 <ul>
-<li>射影: <code>apps/flix/zettai/src/Projection.flix</code></li>
-<li>読み取り専用の入口: <code>apps/flix/zettai/src/QueryHub.flix</code></li>
+<li>射影: <code>apps/flix/zettai/src/Domain.Queries.Projection.flix</code></li>
+<li>読み取り専用の入口: <code>apps/flix/zettai/src/Application.QueryHub.flix</code></li>
 <li>共有する規則: <code>apps/flix/zettai/src/Domain.flix</code></li>
 <li>テスト: <code>apps/flix/zettai/test/TestProjection.flix</code>、<code>TestQueryHub.flix</code>、<code>TestQueryFunctor.flix</code>、<code>TestEvents.flix</code></li>
 </ul>

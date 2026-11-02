@@ -8869,6 +8869,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        層ごとのモジュールに分ける（公開後にしたこと）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#5_1" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -8885,7 +8896,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_14" class="md-nav__link">
+  <a href="#_15" class="md-nav__link">
     <span class="md-ellipsis">
       
         連載を終えて
@@ -8896,7 +8907,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_15" class="md-nav__link">
+  <a href="#_16" class="md-nav__link">
     <span class="md-ellipsis">
       
         この章で書いたコード
@@ -8907,7 +8918,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_16" class="md-nav__link">
+  <a href="#_17" class="md-nav__link">
     <span class="md-ellipsis">
       
         参照
@@ -11826,22 +11837,22 @@
 <tr>
 <td style="text-align: left;">9</td>
 <td style="text-align: left;"><code>StorageFailure</code></td>
-<td style="text-align: left;"><code>Http.statusOf</code></td>
+<td style="text-align: left;"><code>Web.Http.statusOf</code></td>
 </tr>
 <tr>
 <td style="text-align: left;">10</td>
 <td style="text-align: left;"><code>VersionConflict</code></td>
-<td style="text-align: left;"><code>Http.statusOf</code></td>
+<td style="text-align: left;"><code>Web.Http.statusOf</code></td>
 </tr>
 <tr>
 <td style="text-align: left;">11</td>
 <td style="text-align: left;"><code>ListRenamed</code>、<code>RenameToDoList</code></td>
-<td style="text-align: left;"><code>Events.apply</code>、<code>Commands.handle</code>、<code>Projection</code> の 2 関数、<code>Codec.encode</code> の 5 か所</td>
+<td style="text-align: left;"><code>Domain.Events.apply</code>、<code>Domain.Commands.handle</code>、<code>Projection</code> の 2 関数、<code>Adapter.Postgres.Codec.encode</code> の 5 か所</td>
 </tr>
 <tr>
 <td style="text-align: left;">11</td>
 <td style="text-align: left;"><code>InvalidInput</code></td>
-<td style="text-align: left;"><code>Http.statusOf</code></td>
+<td style="text-align: left;"><code>Web.Http.statusOf</code></td>
 </tr>
 </tbody>
 </table>
@@ -12284,6 +12295,32 @@ Json ◀── Logs ◀── Logging
 </ul>
 <p>要するに、こう言えます。副作用を型で追跡すると、<strong>守りたいことの一部を、規約からコンパイラに移せました。</strong> 移せなかったのは、効果の分類そのものの正しさと、境界の置き方、載せないものの決め方です。</p>
 <p>これは、1 つの題材、1 つの実装、1 つのバージョン（Flix 0.79.0）での観察です。一般論として言える根拠は、ありません。</p>
+<h3 id="_14">層ごとのモジュールに分ける（公開後にしたこと）<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
+<p>公開後に、本番コードを Scala 版・Kotlin FP 版の層に合わせて、モジュールの階層とディレクトリに分けました。<code>Domain.Events</code>、<code>Application.Hub</code>、<code>Web.Http</code>、<code>Adapter.Postgres.PostgresStore</code> のような名前です。分けたあとも、<code>flix test</code> は 162 本が通りました。</p>
+<p>Flix には、分けるために守る規則が 3 つありました。どれも、最初に分けたときのコンパイルエラーで知りました。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">規則</th>
+<th style="text-align: left;">守らないと</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">他のモジュールから使う入れ子のモジュールは <code>pub mod</code> で宣言する</td>
+<td style="text-align: left;"><code>Module 'Domain.Events' is not accessible from the module …</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">親のモジュールも宣言する（中身が空でよい）</td>
+<td style="text-align: left;">入れ子の中の名前が <code>Undefined name</code> になる</td>
+</tr>
+<tr>
+<td style="text-align: left;">モジュール <code>A.B</code> は、ファイル <code>A/B.flix</code> に置く</td>
+<td style="text-align: left;"><code>Mismatched module and file</code></td>
+</tr>
+</tbody>
+</table>
+<p>Windows のファイルシステムは大文字と小文字を区別しないので、ディレクトリ名の大文字小文字は、Linux の CI でだけ問題になりえます。Git の索引に入れるパスの大文字小文字を確かめました。テストのモジュールは、分けていません。</p>
 <h3 id="5_1">5 つの実装を並べて<a class="headerlink" href="#5_1" title="Permanent link">&para;</a></h3>
 <p>連載は、5 つの実装を書きました。Kotlin、Kotlin FP、なでしこ3、Rust、Flix です。共通の問いは、<strong>言語が与えるほど、設計は楽になるのか</strong>でした。</p>
 <p>Flix 版の答えは、他の版と同じ形をしています。決めることが変わります。</p>
@@ -12309,7 +12346,7 @@ Json ◀── Logs ◀── Logging
 </tr>
 </tbody>
 </table>
-<h2 id="_14">連載を終えて<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h2>
+<h2 id="_15">連載を終えて<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h2>
 <p>13 章、25 の本番モジュール、3 件の ADR、162 件のテスト。</p>
 <p>実装の途中と公開後に、テストが見つけた欠陥が 4 つありました。</p>
 <table>
@@ -12348,17 +12385,17 @@ Json ◀── Logs ◀── Logging
 <blockquote>
 <p>必要な強さを選ぶ。</p>
 </blockquote>
-<h2 id="_15">この章で書いたコード<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h2>
+<h2 id="_16">この章で書いたコード<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h2>
 <p>この章は、実装を足していません。</p>
 <ul>
-<li>入口の型: <code>apps/flix/zettai/src/Hub.flix</code>、<code>apps/flix/zettai/src/EventStore.flix</code></li>
-<li>効果としての文脈: <code>apps/flix/zettai/src/Process.flix</code></li>
+<li>入口の型: <code>apps/flix/zettai/src/Application.Hub.flix</code>、<code>apps/flix/zettai/src/Application.EventStore.flix</code></li>
+<li>効果としての文脈: <code>apps/flix/zettai/src/Application.Process.flix</code></li>
 <li>代数構造のテスト: <code>apps/flix/zettai/test/TestTransition.flix</code>、<code>TestResultFunctor.flix</code>、<code>TestResultMonad.flix</code>、<code>TestApplicativeLaws.flix</code>、<code>TestProfunctor.flix</code></li>
 </ul>
 <p><code>apps/flix/zettai/</code> で、全テストを実行します。PostgreSQL の結合テストを含むため、Docker などで PostgreSQL を起動しておく必要があります（第 9 章を参照）。</p>
 <div class="highlight"><pre><span></span><code>flix<span class="w"> </span><span class="nb">test</span>
 </code></pre></div>
-<h2 id="_16">参照<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h2>
+<h2 id="_17">参照<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Uberto Barbini『From Objects to Functions』第 13 章</li>
 <li><a href="../../comparison/">横断比較</a></li>

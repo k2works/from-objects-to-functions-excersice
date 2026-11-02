@@ -11545,10 +11545,10 @@
 <p>まず外側から受入テストを書きました。サーバーを起動して本物の HTTP で叩きます。</p>
 <div class="highlight"><pre><span></span><code>    @Test
     def servesTheListOverRealHttp(): Unit \ {Assert, IO} = {
-        let server = JdkServer.start(0, app);
-        let port = JdkServer.port(server);
+        let server = Web.JdkServer.start(0, app);
+        let port = Web.JdkServer.port(server);
         let (status, body) = HttpTestClient.get(port, "/todo/uberto/book");
-        JdkServer.stop(server);
+        Web.JdkServer.stop(server);
         Assert.assertEq(expected = 200, status);
         Assert.assertTrue(String.contains(substr = "&lt;li&gt;write chapter&lt;/li&gt;", body))
     }
@@ -11578,7 +11578,7 @@ Compilation<span class="w"> </span>failed<span class="w"> </span>with<span class
             match String.splitOn(substr = "/", request#path) {
                 case "" :: "todo" :: user :: list :: Nil =&gt;
                     match fetch(User.User(user), ListName.ListName(list)) {
-                        case Some(todoList) =&gt; html(200, Html.render(todoList))
+                        case Some(todoList) =&gt; html(200, Web.Html.render(todoList))
                         case None           =&gt; notFound()
                     }
                 case _ =&gt; notFound()
@@ -11589,7 +11589,7 @@ Compilation<span class="w"> </span>failed<span class="w"> </span>with<span class
 <!-- code-check: ignore この章を書いた時点のコード（コミット 398e0e6）。第 4 章で Hub（関数値のレコード）に置き換えた -->
 <div class="highlight"><pre><span></span><code>    @Test
     def returnsTheListAsHtml(): Unit \ Assert = {
-        let response = Http.route(fetcher, get("/todo/uberto/book"));
+        let response = Web.Http.route(fetcher, get("/todo/uberto/book"));
         Assert.assertEq(expected = 200, response#status);
         Assert.assertEq(expected = "text/html; charset=utf-8", response#contentType);
         Assert.assertTrue(String.contains(substr = "&lt;li&gt;write chapter&lt;/li&gt;", response#body))
@@ -11703,7 +11703,7 @@ or<span class="w"> </span>use<span class="w"> </span>the<span class="w"> </span>
 <!-- code-check: ignore この章を書いた時点のコード（コミット 398e0e6）。第 4 章で Hub（関数値のレコード）に置き換えた -->
 <div class="highlight"><pre><span></span><code>    @Test
     def returnsNotFoundForAMissingList(): Unit \ Assert =
-        Assert.assertEq(expected = 404, Http.route(fetcher, get("/todo/uberto/missing"))#status)
+        Assert.assertEq(expected = 404, Web.Http.route(fetcher, get("/todo/uberto/missing"))#status)
 </code></pre></div>
 <p>実サーバーを通す 404 のテストも 1 本あります。ステータスコードが 400 以上のときは、<code>getInputStream()</code> ではなく <code>getErrorStream()</code> から本体を読む必要があります。これは <code>HttpTestClient</code> の中に閉じ込めました。</p>
 <div class="highlight"><pre><span></span><code>        let stream = if (code &lt; 400) conn.getInputStream() else conn.getErrorStream();
@@ -11721,9 +11721,9 @@ or<span class="w"> </span>use<span class="w"> </span>the<span class="w"> </span>
 <h2 id="_5">この章で書いたコード<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
 <ul>
 <li>ドメイン: <code>apps/flix/zettai/src/Domain.flix</code></li>
-<li>HTML: <code>apps/flix/zettai/src/Html.flix</code></li>
-<li>ルーティング: <code>apps/flix/zettai/src/Http.flix</code></li>
-<li>JDK のサーバーを包むアダプタ: <code>apps/flix/zettai/src/JdkServer.flix</code></li>
+<li>HTML: <code>apps/flix/zettai/src/Web.Html.flix</code></li>
+<li>ルーティング: <code>apps/flix/zettai/src/Web.Http.flix</code></li>
+<li>JDK のサーバーを包むアダプタ: <code>apps/flix/zettai/src/Web.JdkServer.flix</code></li>
 <li>テスト: <code>apps/flix/zettai/test/TestDomain.flix</code>、<code>TestHtml.flix</code>、<code>TestHttpApp.flix</code>、<code>TestJdkServer.flix</code>、<code>HttpTestClient.flix</code></li>
 </ul>
 <h2 id="_6">参照<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>

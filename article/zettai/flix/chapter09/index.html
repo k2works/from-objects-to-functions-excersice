@@ -11615,7 +11615,7 @@
 <p>これらすべてを、<code>ZettaiError</code> の新しいケースにまとめます。</p>
 <div class="highlight"><pre><span></span><code>        case StorageFailure(String)
 </code></pre></div>
-<p>ケースを足すと、コンパイラが更新漏れを教えてくれます。<code>Http.statusOf</code> はすべてのケースを列挙する <code>match</code> なので、足した直後にコンパイルが落ちました。</p>
+<p>ケースを足すと、コンパイラが更新漏れを教えてくれます。<code>Web.Http.statusOf</code> はすべてのケースを列挙する <code>match</code> なので、足した直後にコンパイルが落ちました。</p>
 <div class="highlight"><pre><span></span><code>&gt;&gt;<span class="w"> </span>Non-exhaustive<span class="w"> </span>match:<span class="w"> </span>missing<span class="w"> </span><span class="k">case</span><span class="w"> </span><span class="s1">'StorageFailure(_)'</span>.
 </code></pre></div>
 <p>保存の失敗は、利用者の誤りではなくサーバー側の問題なので、500 に写しました。</p>
@@ -11690,7 +11690,7 @@
 <div class="highlight"><pre><span></span><code>    @Test
     def anUnreachableDatabaseIsAFailureNotAnException(): Unit \ {Assert, IO} = {
         let config = { url = "jdbc:postgresql://localhost:1/zettai", user = "zettai", password = "zettai" };
-        match PostgresStore.open(config, "events_unreachable") {
+        match Adapter.Postgres.PostgresStore.open(config, "events_unreachable") {
             case Err(ZettaiError.StorageFailure(_)) =&gt; ()
             case _                                  =&gt; Assert.assertTrue(false)
         }
@@ -11708,8 +11708,8 @@
 <p>不正な名前は、データベースに触れる前に拒否します。</p>
 <div class="highlight"><pre><span></span><code>    @Test
     def aTableNameThatIsNotPlainIsRejectedBeforeAnyQuery(): Unit \ {Assert, IO} = {
-        let config = PostgresStore.configFromEnv();
-        match PostgresStore.open(config, "events; drop table users") {
+        let config = Adapter.Postgres.PostgresStore.configFromEnv();
+        match Adapter.Postgres.PostgresStore.open(config, "events; drop table users") {
             case Err(ZettaiError.StorageFailure(_)) =&gt; ()
             case _                                  =&gt; Assert.assertTrue(false)
         }
@@ -11720,11 +11720,11 @@
         "events_${String.replace(src = "-", dst = "_", UUID.randomUUID().toString())}"
 </code></pre></div>
 <p>終わったら捨てます。</p>
-<div class="highlight"><pre><span></span><code>    def withTable(f: (PostgresStore.Config, String) -&gt; Unit \ {Assert, IO}): Unit \ {Assert, IO} = {
-        let config = PostgresStore.configFromEnv();
-        let table = PostgresStore.freshTableName();
+<div class="highlight"><pre><span></span><code>    def withTable(f: (Adapter.Postgres.PostgresStore.Config, String) -&gt; Unit \ {Assert, IO}): Unit \ {Assert, IO} = {
+        let config = Adapter.Postgres.PostgresStore.configFromEnv();
+        let table = Adapter.Postgres.PostgresStore.freshTableName();
         f(config, table);
-        let _ = PostgresStore.dropTable(config, table);
+        let _ = Adapter.Postgres.PostgresStore.dropTable(config, table);
         ()
     }
 </code></pre></div>
@@ -11747,15 +11747,15 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><code>src/EventStore.flix</code></td>
+<td style="text-align: left;"><code>src/Application.EventStore.flix</code></td>
 <td style="text-align: left;">型の別名と、インメモリの実装</td>
 </tr>
 <tr>
-<td style="text-align: left;"><code>src/CommandHub.flix</code></td>
+<td style="text-align: left;"><code>src/Application.CommandHub.flix</code></td>
 <td style="text-align: left;"><code>forM</code> で書き直した</td>
 </tr>
 <tr>
-<td style="text-align: left;"><code>src/QueryHub.flix</code></td>
+<td style="text-align: left;"><code>src/Application.QueryHub.flix</code></td>
 <td style="text-align: left;">戻り値を <code>Result</code> に</td>
 </tr>
 <tr>
@@ -11785,7 +11785,7 @@
 <!-- code-check: ignore この章を書いた時点のコード（コミット 623a592）。第 10 章で EventStore に版を足し、読んだ版を添えて書く形に変えた -->
 <div class="highlight"><pre><span></span><code>        execute = command -&gt; forM (
             history &lt;- store#load();
-            events  &lt;- Commands.handle(command, Replay.replayFrom(Events.empty(), history));
+            events  &lt;- Domain.Commands.handle(command, Domain.Events.Replay.replayFrom(Domain.Events.empty(), history));
             _       &lt;- store#append(events)
         ) yield (),
 </code></pre></div>
@@ -11837,15 +11837,15 @@
 <p>左単位元と右単位元の両方が破れます。なお、これらの法則のテストは、書いた時点ですでに通りました。確かめている対象が標準の <code>Result</code> で、新しく作った実装ではないためです。</p>
 <p>もう 1 つの連鎖は、読んだ行をイベントに戻す部分です。行は複数あり、どれかが読めなければ全体が失敗です。標準の <code>Traversable.traverse</code> が、それを 1 行で表します。</p>
 <!-- code-check: ignore この章を書いた時点のコード（コミット 623a592）。第 10 章で EventStore に版を足し、読んだ版を添えて書く形に変えた -->
-<div class="highlight"><pre><span></span><code>            case Ok(rows) =&gt; Traversable.traverse(Codec.decode, rows)
+<div class="highlight"><pre><span></span><code>            case Ok(rows) =&gt; Traversable.traverse(Adapter.Postgres.Codec.decode, rows)
 </code></pre></div>
-<p><code>Codec.decode</code> は、1 行を <code>Result[ZettaiError, ToDoListEvent]</code> に変える関数です。<code>traverse</code> は、それを全行に当て、すべて成功ならイベントのリスト、1 つでも失敗なら最初の失敗を返します。</p>
+<p><code>Adapter.Postgres.Codec.decode</code> は、1 行を <code>Result[ZettaiError, ToDoListEvent]</code> に変える関数です。<code>traverse</code> は、それを全行に当て、すべて成功ならイベントのリスト、1 つでも失敗なら最初の失敗を返します。</p>
 <h2 id="_7">読み戻す<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
 <p>書いたものが、順序も含めて、そのまま読み戻せることを確かめます。特殊文字を含む項目で確かめます。</p>
 <!-- code-check: ignore この章を書いた時点のコード（コミット 623a592）。第 10 章で EventStore に版を足し、読んだ版を添えて書く形に変えた -->
 <div class="highlight"><pre><span></span><code>    @Test
     def eventsComeBackInTheOrderTheyWereAppended(): Unit \ {Assert, IO} =
-        withTable((config, table) -&gt; match PostgresStore.open(config, table) {
+        withTable((config, table) -&gt; match Adapter.Postgres.PostgresStore.open(config, table) {
             case Err(e)    =&gt; Assert.assertEq(expected = "opened", ToString.toString(e))
             case Ok(store) =&gt; {
                 Assert.assertEq(expected = Ok(()), store#append(history()));
@@ -11857,7 +11857,7 @@
 <!-- code-check: ignore この章を書いた時点のコード（コミット 623a592）。第 10 章で EventStore に版を足し、読んだ版を添えて書く形に変えた -->
 <div class="highlight"><pre><span></span><code>    @Test
     def anotherConnectionReadsWhatWasWritten(): Unit \ {Assert, IO} =
-        withTable((config, table) -&gt; match (PostgresStore.open(config, table), PostgresStore.open(config, table)) {
+        withTable((config, table) -&gt; match (Adapter.Postgres.PostgresStore.open(config, table), Adapter.Postgres.PostgresStore.open(config, table)) {
             case (Ok(writer), Ok(reader)) =&gt; {
                 Assert.assertEq(expected = Ok(()), writer#append(List#{ListCreated(uberto(), book())}));
                 Assert.assertEq(expected = Ok(List#{ListCreated(uberto(), book())}), reader#load())
@@ -11869,10 +11869,10 @@
 <!-- code-check: ignore この章を書いた時点のコード（コミット 623a592）。第 10 章で EventStore に版を足し、読んだ版を添えて書く形に変えた -->
 <div class="highlight"><pre><span></span><code>    @Test
     def aRowThatCannotBeReadIsAFailureNotAnException(): Unit \ {Assert, IO} =
-        withTable((config, table) -&gt; match PostgresStore.open(config, table) {
+        withTable((config, table) -&gt; match Adapter.Postgres.PostgresStore.open(config, table) {
             case Err(_)    =&gt; Assert.assertTrue(false)
             case Ok(store) =&gt; {
-                let inserted = PostgresStore.execute(config,
+                let inserted = Adapter.Postgres.PostgresStore.execute(config,
                     "insert into ${table} (kind, user_name, list_name, description, status) values ('Deleted', 'u', 'l', '', '')");
                 Assert.assertEq(expected = Ok(()), inserted);
                 Assert.assertEq(expected = Err(ZettaiError.StorageFailure("unknown event kind: Deleted")), store#load())
@@ -11894,10 +11894,10 @@
 </code></pre></div>
 <!-- code-check: ignore この章を書いた時点のコード（コミット 623a592）。第 10 章で EventStore に版を足し、読んだ版を添えて書く形に変えた -->
 <div class="highlight"><pre><span></span><code>    pub def databaseActions(lists: Map[User, List[ToDoList]]): Result[ZettaiError, ZettaiActions] \ IO = {
-        let config = PostgresStore.configFromEnv();
-        let table = PostgresStore.freshTableName();
+        let config = Adapter.Postgres.PostgresStore.configFromEnv();
+        let table = Adapter.Postgres.PostgresStore.freshTableName();
         forM (
-            store &lt;- PostgresStore.open(config, table);
+            store &lt;- Adapter.Postgres.PostgresStore.open(config, table);
             _     &lt;- store#append(eventsOf(lists))
         ) yield {
             name = "database",
@@ -11938,10 +11938,10 @@
 <p>次章では、コマンドの処理に文脈を持ち回ります。データベースの接続やトランザクションを、引数ではなく効果として渡せるかを検討します。</p>
 <h2 id="_9">この章で書いたコード<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
 <ul>
-<li>PostgreSQL のストア: <code>apps/flix/zettai/src/PostgresStore.flix</code></li>
-<li>コーデック: <code>apps/flix/zettai/src/Codec.flix</code></li>
-<li>イベントストアの型: <code>apps/flix/zettai/src/EventStore.flix</code></li>
-<li>コマンドの入口: <code>apps/flix/zettai/src/CommandHub.flix</code></li>
+<li>PostgreSQL のストア: <code>apps/flix/zettai/src/Adapter.Postgres.PostgresStore.flix</code></li>
+<li>コーデック: <code>apps/flix/zettai/src/Adapter.Postgres.Codec.flix</code></li>
+<li>イベントストアの型: <code>apps/flix/zettai/src/Application.EventStore.flix</code></li>
+<li>コマンドの入口: <code>apps/flix/zettai/src/Application.CommandHub.flix</code></li>
 <li>依存: <code>apps/flix/zettai/flix.toml</code></li>
 <li>テスト: <code>apps/flix/zettai/test/TestPostgresStore.flix</code>、<code>TestCodec.flix</code>、<code>TestResultMonad.flix</code>、<code>Routes.flix</code></li>
 </ul>

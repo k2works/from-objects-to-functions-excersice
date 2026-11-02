@@ -11696,7 +11696,7 @@
 <div class="highlight"><pre><span></span><code>    pub def handle(command: ToDoListCommand, state: ToDoListState): Result[ZettaiError, List[ToDoListEvent]] =
         match command {
             case ToDoListCommand.CreateToDoList(user, name) =&gt;
-                match Events.listFor(state, user, name) {
+                match Domain.Events.listFor(state, user, name) {
                     case Some(_) =&gt; Err(ZettaiError.ListAlreadyExists(user, name))
                     case None    =&gt; Ok(ToDoListEvent.ListCreated(user, name) :: Nil)
                 }
@@ -11728,7 +11728,7 @@
     def rejectsATransitionTheTableDoesNotAllow(): Unit \ Assert =
         Assert.assertEq(
             expected = Err(ZettaiError.InvalidTransition("write chapter", ToDoStatus.Todo, ToDoStatus.Blocked)),
-            Commands.handle(ChangeItemStatus(uberto(), book(), "write chapter", ToDoStatus.Blocked), withItem())
+            Domain.Commands.handle(ChangeItemStatus(uberto(), book(), "write chapter", ToDoStatus.Blocked), withItem())
         )
 </code></pre></div>
 <h2 id="_4">ハブと接続する<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
@@ -11757,23 +11757,23 @@
 <!-- code-check: ignore この章を書いた時点のコード（コミット 658d9c5）。第 9 章で EventStore と CommandHub の戻り値を Result に変えた -->
 <div class="highlight"><pre><span></span><code>    pub def commandHub(store: EventStore[ef]): CommandHub[ef] = {
         execute = command -&gt; {
-            let state = Replay.replayFrom(Events.empty(), store#load());
-            match Commands.handle(command, state) {
+            let state = Domain.Events.Replay.replayFrom(Domain.Events.empty(), store#load());
+            match Domain.Commands.handle(command, state) {
                 case Ok(events) =&gt; { store#append(events); Ok(()) }
                 case Err(e)     =&gt; Err(e)
             }
         },
-        current = () -&gt; Replay.replayFrom(Events.empty(), store#load())
+        current = () -&gt; Domain.Events.Replay.replayFrom(Domain.Events.empty(), store#load())
     }
 </code></pre></div>
 <p>拒否されたときは、何も書き足しません。テストでは、領域の中でストアと Hub を作り、コマンドを順に実行して、結果と最終状態と履歴を返します。</p>
 <!-- code-check: ignore この章を書いた時点のコード（コミット 658d9c5）。第 9 章で EventStore と CommandHub の戻り値を Result に変えた -->
-<div class="highlight"><pre><span></span><code>    def scenario(commands: List[Commands.ToDoListCommand]): (List[Result[ZettaiError, Unit]], Option[ToDoList], List[Events.ToDoListEvent]) = {
+<div class="highlight"><pre><span></span><code>    def scenario(commands: List[Domain.Commands.ToDoListCommand]): (List[Result[ZettaiError, Unit]], Option[ToDoList], List[Domain.Events.ToDoListEvent]) = {
         region rc {
-            let store = EventStore.inMemory(rc);
-            let hub = CommandHub.commandHub(store);
+            let store = Application.EventStore.inMemory(rc);
+            let hub = Application.CommandHub.commandHub(store);
             let results = List.map(hub#execute, commands);
-            (results, Events.listFor(hub#current(), uberto(), book()), store#load())
+            (results, Domain.Events.listFor(hub#current(), uberto(), book()), store#load())
         }
     }
 </code></pre></div>
@@ -11862,11 +11862,11 @@
 <p>次章では、<code>Result</code> に載せた失敗を、HTTP の応答へ写します。<code>Result</code> を作らずに標準のものを使う判断と、その判断で何を確かめたかを記録します。</p>
 <h2 id="_8">この章で書いたコード<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
 <ul>
-<li>コマンドと <code>handle</code>: <code>apps/flix/zettai/src/Commands.flix</code></li>
-<li>失敗の型: <code>apps/flix/zettai/src/Errors.flix</code></li>
+<li>コマンドと <code>handle</code>: <code>apps/flix/zettai/src/Domain.Commands.flix</code></li>
+<li>失敗の型: <code>apps/flix/zettai/src/Domain.Errors.flix</code></li>
 <li>遷移表: <code>apps/flix/zettai/src/Domain.flix</code></li>
-<li>イベントストア: <code>apps/flix/zettai/src/EventStore.flix</code></li>
-<li>コマンドの入口: <code>apps/flix/zettai/src/CommandHub.flix</code></li>
+<li>イベントストア: <code>apps/flix/zettai/src/Application.EventStore.flix</code></li>
+<li>コマンドの入口: <code>apps/flix/zettai/src/Application.CommandHub.flix</code></li>
 <li>テスト: <code>apps/flix/zettai/test/TestCommands.flix</code>、<code>TestStatusRules.flix</code>、<code>TestCommandHub.flix</code>、<code>TestCommandInvariants.flix</code></li>
 </ul>
 <h2 id="_9">参照<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>

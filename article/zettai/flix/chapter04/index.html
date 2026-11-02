@@ -11592,7 +11592,7 @@
 <!-- code-check: ignore この章を書いた時点のコード（コミット 2d25366）。第 7 章で getList の戻り値を Result に変えた -->
 <div class="highlight"><pre><span></span><code>    @Test
     def aHubIsBuiltFromAnyFunctionOfTheRightType(): Unit \ Assert = {
-        let hub = Hub.todoListHub((user, name) -&gt;
+        let hub = Application.Hub.todoListHub((user, name) -&gt;
             if (user == User.User("uberto") and name == ListName.ListName("book")) Some(book()) else None);
         Assert.assertEq(expected = Some(book()), hub#getList(User.User("uberto"), ListName.ListName("book")));
         Assert.assertEq(expected = None, hub#getList(User.User("alice"), ListName.ListName("book")))
@@ -11627,16 +11627,16 @@
 </code></pre></div>
 <p>戻り値の効果 <code>ef - ToDoLists</code> は、「<code>f</code> の効果から <code>ToDoLists</code> を取り除いたもの」です。ハンドラが依存を満たしたので、その効果は型から消えます。</p>
 <p>この版の <code>route</code> は、Hub を受け取りません。依存は型に現れます。</p>
-<div class="highlight"><pre><span></span><code>    pub def routeWithEffect(request: Request): Response \ Lookup.ToDoLists =
+<div class="highlight"><pre><span></span><code>    pub def routeWithEffect(request: Request): Response \ Application.Lookup.ToDoLists =
         if (request#method != "GET")
             methodNotAllowed()
         else
             match parse(request#path) {
-                case Some((user, list)) =&gt; respond(Lookup.ToDoLists.getList(user, list))
+                case Some((user, list)) =&gt; respond(Application.Lookup.ToDoLists.getList(user, list))
                 case None               =&gt; notFound()
             }
 </code></pre></div>
-<p>シグネチャの <code>\ Lookup.ToDoLists</code> が、「この関数は <code>ToDoLists</code> の実装を必要とする」と宣言しています。ハンドラ無しで呼ぶと、コンパイルが通りません。</p>
+<p>シグネチャの <code>\ Application.Lookup.ToDoLists</code> が、「この関数は <code>ToDoLists</code> の実装を必要とする」と宣言しています。ハンドラ無しで呼ぶと、コンパイルが通りません。</p>
 <div class="highlight"><pre><span></span><code>--<span class="w"> </span>Type<span class="w"> </span>Error<span class="w"> </span><span class="o">[</span>E6216<span class="o">]</span><span class="w"> </span>--------------------------------------------<span class="w"> </span>test/Tmp.flix
 
 &gt;&gt;<span class="w"> </span>Unexpected<span class="w"> </span>effect<span class="w"> </span><span class="s1">'ToDoLists'</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">function</span><span class="w"> </span>declared<span class="w"> </span>as<span class="w"> </span><span class="o">{</span><span class="s1">'Assert'</span><span class="o">}</span>.
@@ -11654,11 +11654,11 @@
 <p>両方を同じ入力で動かし、レスポンスが一致することを確かめます。</p>
 <div class="highlight"><pre><span></span><code>    /// 関数値のレコードで依存を渡す版
     def byHub(path: String): Response =
-        Http.route(Hub.inMemory(lists()), get(path))
+        Web.Http.route(Application.Hub.inMemory(lists()), get(path))
 
     /// 効果ハンドラで依存を差し替える版
     def byHandler(path: String): Response =
-        Lookup.handleInMemory(lists(), () -&gt; Http.routeWithEffect(get(path)))
+        Application.Lookup.handleInMemory(lists(), () -&gt; Web.Http.routeWithEffect(get(path)))
 </code></pre></div>
 <div class="highlight"><pre><span></span><code>    @Test
     def bothStylesGiveTheSameResponse(): Unit \ Assert = {
@@ -11714,7 +11714,7 @@
 <!-- code-check: ignore この章を書いた時点のコード（コミット 2d25366）。第 7 章で getList の戻り値を Result に変えた -->
 <div class="highlight"><pre><span></span><code>    @Test
     def theInMemoryHubFindsTheListOfTheUser(): Unit \ Assert = {
-        let hub = Hub.inMemory(Map#{User.User("uberto") =&gt; List#{book()}});
+        let hub = Application.Hub.inMemory(Map#{User.User("uberto") =&gt; List#{book()}});
         Assert.assertEq(expected = Some(book()), hub#getList(User.User("uberto"), ListName.ListName("book")));
         Assert.assertEq(expected = None, hub#getList(User.User("uberto"), ListName.ListName("missing")))
     }
@@ -11756,7 +11756,7 @@
 <p>状態遷移の規則はまだ実装しません。第 6 章でコマンドを導入するまで、型に場所を作るだけに留めます。章の説明より先に、ドメインを完成させないためです。期日も、この章では入れませんでした。</p>
 <h3 id="_6">不変性は、境界で切る必要がない<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
 <p>Kotlin FP 版では、インメモリの取得関数を作るときに、受け取った <code>Map</code> と <code>List</code> を <code>copy</code> しました。外側の <code>MutableMap</code> が後から変わっても、渡し済みの結果が変わらないようにするためです。</p>
-<p>Flix の <code>Map</code> と <code>List</code> は不変です。可変な参照を受け取る口がそもそも無いので、<strong>境界で切る処理が要りません。</strong> <code>Hub.inMemory</code> は、受け取った <code>lists</code> をそのまま閉じ込めています。</p>
+<p>Flix の <code>Map</code> と <code>List</code> は不変です。可変な参照を受け取る口がそもそも無いので、<strong>境界で切る処理が要りません。</strong> <code>Application.Hub.inMemory</code> は、受け取った <code>lists</code> をそのまま閉じ込めています。</p>
 <h2 id="_7">まとめ<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
 <ul>
 <li>依存を関数値のレコード <code>ToDoListHub[ef]</code> で渡し、効果を引数に取る型の別名にしました。</li>
@@ -11769,9 +11769,9 @@
 <p>次章では、変更後の値を直接上書きせず、何が起きたかをイベントとして残します。イベント列を再帰と <code>fold</code> で状態へ畳み込み、Flix 標準の <code>Monoid</code> で合成します。</p>
 <h2 id="_8">この章で書いたコード<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Hub: <code>apps/flix/zettai/src/Hub.flix</code></li>
-<li>効果としての依存: <code>apps/flix/zettai/src/Lookup.flix</code></li>
-<li>ルーティング: <code>apps/flix/zettai/src/Http.flix</code></li>
+<li>Hub: <code>apps/flix/zettai/src/Application.Hub.flix</code></li>
+<li>効果としての依存: <code>apps/flix/zettai/src/Application.Lookup.flix</code></li>
+<li>ルーティング: <code>apps/flix/zettai/src/Web.Http.flix</code></li>
 <li>ドメイン: <code>apps/flix/zettai/src/Domain.flix</code></li>
 <li>テスト: <code>apps/flix/zettai/test/TestHub.flix</code>、<code>TestEffectDi.flix</code>、<code>TestDomainModel.flix</code></li>
 </ul>

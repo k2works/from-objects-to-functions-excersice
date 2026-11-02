@@ -11609,9 +11609,9 @@
 <p>HTTP 経路は、実際のサーバーを起動してパスを組み立て、返ってきた HTML から項目を読み戻します。</p>
 <!-- code-check: ignore この章を書いた時点のコード（コミット 7d2dd0f）。第 4 章で ToDoItem と Http.route の型が変わった -->
 <div class="highlight"><pre><span></span><code>    pub def httpActions(lists: Map[User, List[ToDoList]]): ZettaiActions \ IO = {
-        let server = JdkServer.start(0, request -&gt;
-            Http.route((user, listName) -&gt; Domain.findToDoList(lists, user, listName), request));
-        let port = JdkServer.port(server);
+        let server = Web.JdkServer.start(0, request -&gt;
+            Web.Http.route((user, listName) -&gt; Domain.findToDoList(lists, user, listName), request));
+        let port = Web.JdkServer.port(server);
         {
             name = "http",
             getToDoList = (user, listName) -&gt; {
@@ -11620,7 +11620,7 @@
                 let (status, body) = HttpTestClient.get(port, "/todo/${u}/${l}");
                 if (status == 200) Some(HtmlReader.items(body)) else None
             },
-            close = () -&gt; JdkServer.stop(server)
+            close = () -&gt; Web.JdkServer.stop(server)
         }
     }
 </code></pre></div>
@@ -11656,18 +11656,18 @@
             case Nil            =&gt; Nil
         }
 </code></pre></div>
-<p>この関数自体にもテストがあります。<code>Html.render</code> が出力した HTML を <code>HtmlReader.items</code> が読み戻すと、元の項目に戻ることを確かめています。</p>
+<p>この関数自体にもテストがあります。<code>Web.Html.render</code> が出力した HTML を <code>HtmlReader.items</code> が読み戻すと、元の項目に戻ることを確かめています。</p>
 <!-- code-check: ignore この章を書いた時点のコード（コミット 7d2dd0f）。第 4 章で ToDoItem と Http.route の型が変わった -->
 <div class="highlight"><pre><span></span><code>    @Test
     def roundTripsWhatHtmlRenders(): Unit \ Assert = {
         let items = List#{ToDoItem.ToDoItem("a &amp; b"), ToDoItem.ToDoItem("&lt;i&gt;c&lt;/i&gt;")};
         let list = Domain.ToDoList.ToDoList(Domain.ListName.ListName("x"), items);
-        Assert.assertEq(expected = items, HtmlReader.items(Html.render(list)))
+        Assert.assertEq(expected = items, HtmlReader.items(Web.Html.render(list)))
     }
 </code></pre></div>
 <p>以後の検証は、HTML の文字列ではなく <code>ToDoItem</code> のリスト同士で行います。</p>
 <h3 id="_6">経路が失敗を絞り込む<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
-<p>実際に HTTP 経路だけを壊して確かめました。<code>Http.route</code> のパスの照合を <code>"todo"</code> から <code>"todos"</code> に変えると、受け入れテストは次のように落ちます。domain 経路は通ったままです。</p>
+<p>実際に HTTP 経路だけを壊して確かめました。<code>Web.Http.route</code> のパスの照合を <code>"todo"</code> から <code>"todos"</code> に変えると、受け入れテストは次のように落ちます。domain 経路は通ったままです。</p>
 <div class="highlight"><pre><span></span><code>TestAcceptance.seeTheItemsOfAList<span class="w">   </span>FAIL<span class="w">  </span><span class="o">(</span>Assertion<span class="w"> </span>failed:<span class="w"> </span>expected<span class="w"> </span><span class="sb">`</span><span class="o">(</span>http,<span class="w"> </span>Some<span class="o">(</span>ToDoItem<span class="o">(</span>write<span class="w"> </span>chapter<span class="o">)</span><span class="w"> </span>::<span class="w"> </span>ToDoItem<span class="o">(</span>publish<span class="w"> </span>book<span class="o">)</span><span class="w"> </span>::<span class="w"> </span>ToDoItem<span class="o">(</span><span class="nb">read</span><span class="w"> </span>&lt;today&gt;<span class="w"> </span><span class="p">&amp;</span><span class="w"> </span><span class="s2">"FP"</span><span class="o">)</span><span class="w"> </span>::<span class="w"> </span>Nil<span class="o">))</span><span class="sb">`</span>,<span class="w"> </span>but<span class="w"> </span>got<span class="w"> </span><span class="sb">`</span><span class="o">(</span>http,<span class="w"> </span>None<span class="o">)</span><span class="sb">`</span><span class="o">)</span>
 </code></pre></div>
 <p>失敗メッセージの先頭に <code>http</code> と出ています。シナリオ側で、経路の名前と結果を組にして比べているからです。</p>
@@ -11676,7 +11676,7 @@
 </code></pre></div>
 <p><code>Assert.assertEq</code> はメッセージを付けられないので、組にして比べる方法を採りました。</p>
 <p>なお、この壊し方で落ちたのは受け入れテストだけではありません。第 2 章の <code>TestHttpApp.returnsTheListAsHtml</code> と <code>TestJdkServer.servesTheListOverRealHttp</code> も落ちました。受け入れテストが他のテストの代わりをするのではなく、重なりを持って守っています。</p>
-<p>一方で、<code>Html.render</code> から <code>&amp;</code> のエスケープを外してみたときは、落ちたのはエスケープの単体テスト 1 本だけで、受け入れテストは通りました。<code>HtmlReader</code> の復元が対称に作ってあるので、往復すると元に戻ってしまうためです。<strong>受け入れテストは、単体テストの代わりにはなりません。</strong></p>
+<p>一方で、<code>Web.Html.render</code> から <code>&amp;</code> のエスケープを外してみたときは、落ちたのはエスケープの単体テスト 1 本だけで、受け入れテストは通りました。<code>HtmlReader</code> の復元が対称に作ってあるので、往復すると元に戻ってしまうためです。<strong>受け入れテストは、単体テストの代わりにはなりません。</strong></p>
 <h2 id="ddt">DDT を関数値のレコードに変換する<a class="headerlink" href="#ddt" title="Permanent link">&para;</a></h2>
 <p>既存の Kotlin 版は DDT を Pesticide で実行し、Kotlin FP 版は Gherkin と Cucumber を使いました。Flix 版は、どちらも使いません。関数値のレコードで経路を差し替えます。</p>
 <p>判断の記録は <a href="../../adr/ADR-046-flix-acceptance-by-record-of-functions.md">ADR-046</a> にあります。要点は次のとおりです。</p>

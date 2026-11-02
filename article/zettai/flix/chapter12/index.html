@@ -11818,7 +11818,7 @@
 <div class="highlight"><pre><span></span><code>    @Test
     def thereIsNoFieldForFreeFormContent(): Unit \ Assert = {
         // 項目の説明や理由を入れる場所が、型に無い。出力に現れるキーは固定の 6 つだけ。
-        let keys = match Logs.toJson(Logs.LogRecord.LogRecord("a", "b", "c", None, None, 0)) {
+        let keys = match Logging.Logs.toJson(Logging.Logs.LogRecord.LogRecord("a", "b", "c", None, None, 0)) {
             case JObject(kvs) =&gt; List.map(kv -&gt; match kv { case (k, _) =&gt; k }, kvs)
             case _            =&gt; Nil
         };
@@ -11945,7 +11945,7 @@
     def aFieldOfTheWrongTypeIsRejected(): Unit \ Assert =
         Assert.assertEq(
             expected = Err("field durationMs is not an integer"),
-            Logs.fromJson(JObject(
+            Logging.Logs.fromJson(JObject(
                 ("kind", JString("hub")) :: ("name", JString("x")) :: ("outcome", JString("ok"))
                 :: ("user", JNull) :: ("list", JNull) :: ("durationMs", JString("12")) :: Nil))
         )
@@ -11961,7 +11961,7 @@
 <div class="highlight"><pre><span></span><code>    @Test
     def theInputIsMappedBackwardsAndTheOutputForwards(): Unit \ Assert = {
         // 文字列を受け取り、文字列を返す関数に見せかける。入力は読み替え、出力は書き換える
-        let length = Profunctor.dimap(s -&gt; String.length(s), n -&gt; "length=${n}", n -&gt; n * 2);
+        let length = Json.Profunctor.dimap(s -&gt; String.length(s), n -&gt; "length=${n}", n -&gt; n * 2);
         Assert.assertEq(expected = "length=8", length("abcd"))
     }
 </code></pre></div>
@@ -11969,7 +11969,7 @@
 <div class="highlight"><pre><span></span><code>    @Test
     def dimapWithIdentitiesChangesNothing(): Unit \ Assert =
         List.forEach(f -&gt;
-            List.forEach(x -&gt; Assert.assertEq(expected = f(x), Profunctor.dimap(a -&gt; a, b -&gt; b, f)(x)), domain()),
+            List.forEach(x -&gt; Assert.assertEq(expected = f(x), Json.Profunctor.dimap(a -&gt; a, b -&gt; b, f)(x)), domain()),
             base())
 </code></pre></div>
 <p>入力の写像 4 つ × 4 つ、出力の写像 4 つ × 4 つ、元の関数 3 つ、定義域の点 8 つの組み合わせを、すべて確かめます。</p>
@@ -11990,7 +11990,7 @@
 <div class="highlight"><pre><span></span><code>    @Test
     def aConverterNeedsBothDirectionsToChangeItsType(): Unit \ Assert = {
         // 長さ 3 の文字列を包む型。書く向きと読む向きの、2 つの写像を渡す
-        let lengthOf = Converter.imap(s -&gt; String.length(s), n -&gt; String.repeat(n, "x"), stringConverter());
+        let lengthOf = Json.Converter.imap(s -&gt; String.length(s), n -&gt; String.repeat(n, "x"), stringConverter());
         Assert.assertEq(expected = JString("xxx"), lengthOf#encode(3));
         Assert.assertEq(expected = Ok(3), lengthOf#decode(JString("xxx")))
     }
@@ -12005,7 +12005,7 @@
     }
 </code></pre></div>
 <p>失敗の理由に、漏らしたくない値を入れた、わざと失敗するストアで確かめます。</p>
-<div class="highlight"><pre><span></span><code>    def failingStore(): EventStore.EventStore[{}] = {
+<div class="highlight"><pre><span></span><code>    def failingStore(): Application.EventStore.EventStore[{}] = {
         load = () -&gt; Err(ZettaiError.StorageFailure("password=hunter2 host=db.internal")),
         append = (_expected, _events) -&gt; Err(ZettaiError.StorageFailure("password=hunter2 host=db.internal"))
     }
@@ -12024,7 +12024,7 @@
 <h3 id="_16">組み立てる<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h3>
 <p>実サーバーでは、サーバーのコールバックが、<code>Logger</code> を処理するハンドラの外で動きます。第 2 章で見た、効果の保証が Java のコールバックで切れる場所と同じです。<strong><code>Logger</code> の処理は、コールバックの内側に置きます。</strong></p>
 <h3 id="_17">外側に置くとどうなるか（公開後に確かめたこと）<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h3>
-<p>ハンドラを <code>JdkServer.start</code> を呼ぶ側（コールバックの外）に置くと、<strong>コンパイルは通り、型検査は何も警告しません。</strong> 実行すると、コールバックの中で <code>Logger</code> を呼んだところで処理が止まり、応答が返らずに接続が切れます。クライアントには <code>Unexpected end of file from server</code> が届きます。<code>Logger</code> を呼んだ後ろの処理は実行されず、コールバックの中の <code>try</code> / <code>catch</code> でも例外は捕まりませんでした（<code>HttpURLConnection</code> が GET を自動で再送するため、コールバックは 2 回呼ばれます）。仕組みは、次の節で述べます。</p>
+<p>ハンドラを <code>Web.JdkServer.start</code> を呼ぶ側（コールバックの外）に置くと、<strong>コンパイルは通り、型検査は何も警告しません。</strong> 実行すると、コールバックの中で <code>Logger</code> を呼んだところで処理が止まり、応答が返らずに接続が切れます。クライアントには <code>Unexpected end of file from server</code> が届きます。<code>Logger</code> を呼んだ後ろの処理は実行されず、コールバックの中の <code>try</code> / <code>catch</code> でも例外は捕まりませんでした（<code>HttpURLConnection</code> が GET を自動で再送するため、コールバックは 2 回呼ばれます）。仕組みは、次の節で述べます。</p>
 <p>この落とし穴は、回帰テストとして残しました。</p>
 <div class="highlight"><pre><span></span><code>                let answered = try {
                     let (status, _) = HttpTestClient.get(port, "/todo/uberto/book");
@@ -12050,7 +12050,7 @@
 Explanation: Methods in a 'new' expression must be pure or have
 primitive effects. Control effects cannot escape to Java.
 </code></pre></div>
-<p>ところが <code>JdkServer.start</code> は、アプリケーションの効果を型変数 <code>ef</code> で受けます。メソッドの効果が <code>IO + ef</code> と書かれていると、定義の時点では <code>ef</code> が何になるか分からないので、検査は通ります。呼び出し側が <code>ef</code> に <code>Logger</code> を入れても、再び検査されません。<strong>検査はあるが、型変数を通り抜ける</strong>、というのが実態です。</p>
+<p>ところが <code>Web.JdkServer.start</code> は、アプリケーションの効果を型変数 <code>ef</code> で受けます。メソッドの効果が <code>IO + ef</code> と書かれていると、定義の時点では <code>ef</code> が何になるか分からないので、検査は通ります。呼び出し側が <code>ef</code> に <code>Logger</code> を入れても、再び検査されません。<strong>検査はあるが、型変数を通り抜ける</strong>、というのが実態です。</p>
 <p>直し方の候補は 2 つです。ここでは直していません。</p>
 <ol>
 <li><code>start</code> の引数の効果を <code>IO</code> に固定する。<code>Logger</code> を渡すとコンパイルで拒否されるが、純粋なアプリケーションも渡せなくなり、<code>inIO</code> のような持ち上げが要る（第 3 章）</li>
@@ -12058,9 +12058,9 @@ primitive effects. Control effects cannot escape to Java.
 </ol>
 <p>仕組みの確認は、0.79.0 のタグのソースと、上の実験に基づきます。コンパイラの全体を読んだわけではありません。</p>
 <p><strong>第 2 章で見た「効果の保証が Java のコールバックで切れる」ことの、具体的な形です。</strong> 切れた先で、エラーにならず、黙って応答が消えます。</p>
-<div class="highlight"><pre><span></span><code>            let app = Logging.observeApp(now, request -&gt; Http.application(hub, commands#execute, request));
+<div class="highlight"><pre><span></span><code>            let app = Adapter.Logging.observeApp(now, request -&gt; Web.Http.application(hub, commands#execute, request));
             // サーバーのコールバックは、ハンドラの外で動く。Logger は、コールバックの内側で処理する
-            let server = JdkServer.start(0, request -&gt; run { app(request) } with Logger.runWithIO);
+            let server = Web.JdkServer.start(0, request -&gt; run { app(request) } with Logger.runWithIO);
 </code></pre></div>
 <p>時計は、<code>System.currentTimeMillis()</code> を呼ぶ関数です。この呼び出しは <code>IO</code> で、ログの所要時間が、本物の時刻から作られます。</p>
 <h3 id="_19">置き場所を間違えた<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h3>
@@ -12086,10 +12086,10 @@ primitive effects. Control effects cannot escape to Java.
 <p>次章では、4 つの言語（Kotlin、なでしこ3、Rust、Flix）に Kotlin FP 版の実装方針を加えた、5 つの実装を並べて総括します。</p>
 <h2 id="_21">この章で書いたコード<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h2>
 <ul>
-<li>ログのデコレータ: <code>apps/flix/zettai/src/Logging.flix</code></li>
-<li>ログの 1 行の型: <code>apps/flix/zettai/src/Logs.flix</code></li>
+<li>ログのデコレータ: <code>apps/flix/zettai/src/Adapter.Logging.flix</code></li>
+<li>ログの 1 行の型: <code>apps/flix/zettai/src/Logging.Logs.flix</code></li>
 <li>JSON の木と変換: <code>apps/flix/zettai/src/Json.flix</code></li>
-<li>プロファンクタとコンバータ: <code>apps/flix/zettai/src/Profunctor.flix</code>、<code>Converter.flix</code></li>
+<li>プロファンクタとコンバータ: <code>apps/flix/zettai/src/Json.Profunctor.flix</code>、<code>Json.Converter.flix</code></li>
 <li>テスト: <code>apps/flix/zettai/test/TestLogging.flix</code>、<code>TestLogRecord.flix</code>、<code>TestJson.flix</code>、<code>TestProfunctor.flix</code>、<code>TestLoggingOverHttp.flix</code></li>
 </ul>
 <h2 id="_22">参照<a class="headerlink" href="#_22" title="Permanent link">&para;</a></h2>

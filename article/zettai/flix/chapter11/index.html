@@ -11661,7 +11661,7 @@
 <div class="highlight"><pre><span></span><code>&gt;&gt;<span class="w"> </span>Non-exhaustive<span class="w"> </span>match:<span class="w"> </span>missing<span class="w"> </span><span class="k">case</span><span class="w"> </span><span class="s1">'ListRenamed(_, _, _)'</span>.
 &gt;&gt;<span class="w"> </span>Non-exhaustive<span class="w"> </span>match:<span class="w"> </span>missing<span class="w"> </span><span class="k">case</span><span class="w"> </span><span class="s1">'RenameToDoList(_, _, _)'</span>.
 </code></pre></div>
-<p>指摘された 5 か所は、<code>Events.apply</code>（状態への適用）、<code>Commands.handle</code>（判断）、<code>Projection</code> の 2 つの関数（射影と持ち主の取り出し）、<code>Codec.encode</code>（データベースの行への変換）です。足したイベント 1 つの影響範囲を、コンパイラが一覧にしてくれました。</p>
+<p>指摘された 5 か所は、<code>Domain.Events.apply</code>（状態への適用）、<code>Domain.Commands.handle</code>（判断）、<code>Projection</code> の 2 つの関数（射影と持ち主の取り出し）、<code>Adapter.Postgres.Codec.encode</code>（データベースの行への変換）です。足したイベント 1 つの影響範囲を、コンパイラが一覧にしてくれました。</p>
 <p>判断は、これまでと同じ形です。</p>
 <div class="highlight"><pre><span></span><code>            case ToDoListCommand.RenameToDoList(user, name, newName) =&gt;
                 forM (
@@ -11671,7 +11671,7 @@
 </code></pre></div>
 <p>元のリストが無ければ <code>ListNotFound</code>、新しい名前がすでにあれば <code>ListAlreadyExists</code> です。</p>
 <div class="highlight"><pre><span></span><code>    def requireAbsent(state: ToDoListState, user: User, name: ListName): Result[ZettaiError, Unit] =
-        match Events.listFor(state, user, name) {
+        match Domain.Events.listFor(state, user, name) {
             case Some(_) =&gt; Err(ZettaiError.ListAlreadyExists(user, name))
             case None    =&gt; Ok(())
         }
@@ -11689,12 +11689,12 @@
 <p>項目は <code>ItemAdded</code> が状態ごと運ぶので、完了した項目は完了のまま引き継がれます。名前を変えて元に戻しても、項目は二重になりません。</p>
 <div class="highlight"><pre><span></span><code>    @Test
     def renamingAndRenamingBackDoesNotDuplicateItems(): Unit \ Assert = {
-        let first = history() ::: Result.getWithDefault(Nil, Commands.handle(RenameToDoList(uberto(), book(), shop()), state()));
+        let first = history() ::: Result.getWithDefault(Nil, Domain.Commands.handle(RenameToDoList(uberto(), book(), shop()), state()));
         let second = first ::: Result.getWithDefault(Nil,
-            Commands.handle(RenameToDoList(uberto(), shop(), book()), Replay.replayFrom(Events.empty(), first)));
+            Domain.Commands.handle(RenameToDoList(uberto(), shop(), book()), Domain.Events.Replay.replayFrom(Domain.Events.empty(), first)));
         Assert.assertEq(
-            expected = Events.listFor(state(), uberto(), book()),
-            Events.listFor(Replay.replayFrom(Events.empty(), second), uberto(), book())
+            expected = Domain.Events.listFor(state(), uberto(), book()),
+            Domain.Events.listFor(Domain.Events.Replay.replayFrom(Domain.Events.empty(), second), uberto(), book())
         )
     }
 </code></pre></div>
@@ -11735,9 +11735,9 @@
 <p>最初の誤りで止まる検証は、<code>Result</code> の連鎖で書けます。<code>forM</code> は前の結果を使って次を決める形なので、前が失敗すれば次は実行されません。</p>
 <div class="highlight"><pre><span></span><code>    def stopsAtTheFirstProblem(field: InputField, raw: String): Result[FieldProblem, String] =
         forM (
-            _ &lt;- Validate.toResult(Validate.notBlank(field, raw));
-            _ &lt;- Validate.toResult(Validate.withinLength(field, raw));
-            _ &lt;- Validate.toResult(Validate.noForbiddenCharacter(field, raw))
+            _ &lt;- Domain.Validation.Validate.toResult(Domain.Validation.Validate.notBlank(field, raw));
+            _ &lt;- Domain.Validation.Validate.toResult(Domain.Validation.Validate.withinLength(field, raw));
+            _ &lt;- Domain.Validation.Validate.toResult(Domain.Validation.Validate.noForbiddenCharacter(field, raw))
         ) yield raw
 </code></pre></div>
 <p>ところが、この検証は、前の結果を使っていません。空かどうかと、長さと、使えない文字は、<strong>互いに独立</strong>です。独立した検証が、1 つ失敗した途端に止まる理由はありません。</p>
@@ -11746,7 +11746,7 @@
     def chainingWithFlatMapHidesTheSecondProblem(): Unit \ Assert = {
         let raw = String.repeat(41, "/");
         Assert.assertEq(expected = Err(TooLong(NewName, 40)), stopsAtTheFirstProblem(NewName, raw));
-        Assert.assertEq(expected = 2, List.length(problems(Validate.validateName(NewName, raw))))
+        Assert.assertEq(expected = 2, List.length(problems(Domain.Validation.Validate.validateName(NewName, raw))))
     }
 </code></pre></div>
 <p>連鎖は <code>TooLong</code> だけを返し、<code>ForbiddenCharacter</code> が隠れます。利用者は、長さを直して再送信してから、初めて使えない文字を知ることになります。</p>
@@ -11778,7 +11778,7 @@
     def everyBrokenRuleOfOneInputIsReportedInRuleOrder(): Unit \ Assert =
         Assert.assertEq(
             expected = List#{TooLong(NewName, 40), ForbiddenCharacter(NewName)},
-            problems(Validate.validateName(NewName, String.repeat(41, "/")))
+            problems(Domain.Validation.Validate.validateName(NewName, String.repeat(41, "/")))
         )
 </code></pre></div>
 <p>3 つの入力にまたがる合成も、同じ形です。誤りは入力の順に集まります。</p>
@@ -11793,7 +11793,7 @@
     def everyBrokenInputOfOneRequestIsReportedInInputOrder(): Unit \ Assert =
         Assert.assertEq(
             expected = List#{Blank(UserName), ForbiddenCharacter(ListNameField), TooLong(NewName, 40)},
-            problems(Validate.validateRename(" ", "a/b", tooLongName()))
+            problems(Domain.Validation.Validate.validateRename(" ", "a/b", tooLongName()))
         )
 </code></pre></div>
 <p>すべての入力が正しければ、名前変更のコマンドができます。誤りがあれば、コマンドは作られません。</p>
@@ -11849,9 +11849,9 @@
 <div class="highlight"><pre><span></span><code>    @Test
     def groupingTheCombinationDifferentlyDoesNotChangeTheProblems(): Unit \ Assert =
         each3((a, b, c) -&gt; {
-            let va = Validate.validateName(UserName, a);
-            let vb = Validate.validateName(ListNameField, b);
-            let vc = Validate.validateName(NewName, c);
+            let va = Domain.Validation.Validate.validateName(UserName, a);
+            let vb = Domain.Validation.Validate.validateName(ListNameField, b);
+            let vc = Domain.Validation.Validate.validateName(NewName, c);
             let leftFirst = forA (ab &lt;- forA (x &lt;- va; y &lt;- vb) yield (x, y); z &lt;- vc) yield (ab, z);
             let rightFirst = forA (x &lt;- va; bc &lt;- forA (y &lt;- vb; z &lt;- vc) yield (y, z)) yield (x, bc);
             Assert.assertEq(expected = problems(leftFirst), problems(rightFirst))
@@ -11869,8 +11869,8 @@
 <p>誤りの個数のテストは、この違いを見分けます。</p>
 <div class="highlight"><pre><span></span><code>    @Test
     def theCountTestTellsAFirstOnlyCombinationApart(): Unit \ Assert = {
-        let a = Validate.validateName(UserName, "");
-        let b = Validate.validateName(NewName, "");
+        let a = Domain.Validation.Validate.validateName(UserName, "");
+        let b = Domain.Validation.Validate.validateName(NewName, "");
         Assert.assertEq(expected = 2, List.length(problems(forA (x &lt;- a; y &lt;- b) yield x + y)));
         Assert.assertEq(expected = 1, List.length(problems(firstOnly(a, b))))
     }
@@ -11902,7 +11902,7 @@
 <div class="highlight"><pre><span></span><code>    pub def routeRename(execute: ToDoListCommand -&gt; Result[ZettaiError, Unit] \ ef, request: Request): Response \ ef =
         match String.splitOn(substr = "/", request#path) {
             case "" :: "todo" :: user :: list :: "rename" :: Nil =&gt;
-                match Validate.toZettai(Validate.validateRename(user, list, request#body)) {
+                match Domain.Validation.Validate.toZettai(Domain.Validation.Validate.validateRename(user, list, request#body)) {
                     case Err(error)   =&gt; failure(error)
                     case Ok(command)  =&gt;
                         match execute(command) {
@@ -11916,7 +11916,7 @@
 <p>3 つの欄に誤りがあるとき、応答は 1 回で、すべてを伝えます。</p>
 <div class="highlight"><pre><span></span><code>    @Test
     def everyProblemIsReportedInOneResponse(): Unit \ Assert = {
-        let response = Http.routeRename(executing(Ok(())), post("/todo/ /a/rename", String.repeat(41, "/")));
+        let response = Web.Http.routeRename(executing(Ok(())), post("/todo/ /a/rename", String.repeat(41, "/")));
         Assert.assertEq(expected = 400, response#status);
         // 利用者名・リスト名・新しい名前の誤りが、1 回の応答にすべて入る
         Assert.assertTrue(contains(response#body, "利用者名"));
@@ -11927,7 +11927,7 @@
 <p>入力の値が応答に混ざらないことも、確かめます。</p>
 <div class="highlight"><pre><span></span><code>    @Test
     def theResponseNeverEchoesTheInput(): Unit \ Assert = {
-        let response = Http.routeRename(executing(Ok(())), post("/todo/uberto/book/rename", "secret/name"));
+        let response = Web.Http.routeRename(executing(Ok(())), post("/todo/uberto/book/rename", "secret/name"));
         Assert.assertEq(expected = 400, response#status);
         Assert.assertFalse(contains(response#body, "secret"))
     }
@@ -11939,7 +11939,7 @@
         todoListHub((user, name) -&gt; match store#load() {
             case Err(e)   =&gt; Err(e)
             case Ok(read) =&gt;
-                match Events.listFor(Replay.replayFrom(Events.empty(), read#events), user, name) {
+                match Domain.Events.listFor(Domain.Events.Replay.replayFrom(Domain.Events.empty(), read#events), user, name) {
                     case Some(list) =&gt; Ok(list)
                     case None       =&gt; Err(ZettaiError.ListNotFound(user, name))
                 }
@@ -11973,10 +11973,10 @@
 <p>次章では、アプリケーションを監視します。ログに何を載せるかを、型で決められるかを考えます。誤りの型が値を持たなかった設計が、ここでも効いてきます。</p>
 <h2 id="_11">この章で書いたコード<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
 <ul>
-<li>バリデーション: <code>apps/flix/zettai/src/Validate.flix</code></li>
-<li>誤りの型: <code>apps/flix/zettai/src/Errors.flix</code></li>
-<li>名前変更の判断: <code>apps/flix/zettai/src/Commands.flix</code></li>
-<li>HTTP の入口: <code>apps/flix/zettai/src/Http.flix</code></li>
+<li>バリデーション: <code>apps/flix/zettai/src/Domain.Validation.Validate.flix</code></li>
+<li>誤りの型: <code>apps/flix/zettai/src/Domain.Errors.flix</code></li>
+<li>名前変更の判断: <code>apps/flix/zettai/src/Domain.Commands.flix</code></li>
+<li>HTTP の入口: <code>apps/flix/zettai/src/Web.Http.flix</code></li>
 <li>テスト: <code>apps/flix/zettai/test/TestValidation.flix</code>、<code>TestApplicativeLaws.flix</code>、<code>TestRename.flix</code>、<code>TestRenameRoute.flix</code>、<code>TestRenameOverHttp.flix</code></li>
 </ul>
 <h2 id="_12">参照<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>

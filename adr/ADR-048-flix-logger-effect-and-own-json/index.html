@@ -11499,7 +11499,7 @@
 <ul>
 <li>ドメインの関数（<code>Commands</code>、<code>Events</code>、<code>Projection</code>、<code>Domain</code>）に、<code>Logger</code> の効果を足さないこと（コンパイラが検査する）</li>
 <li><code>LogRecord</code> に、自由な <code>Map</code> や文字列の欄を足さないこと</li>
-<li>失敗は <code>Logging.category</code> で種類の名前だけにすること。足した失敗の種類には、<code>match</code> が全ケースを求めるので、更新漏れはコンパイルで見つかる</li>
+<li>失敗は <code>Adapter.Logging.category</code> で種類の名前だけにすること。足した失敗の種類には、<code>match</code> が全ケースを求めるので、更新漏れはコンパイルで見つかる</li>
 <li>JSON の往復のテストが、<code>Int32</code> の最小値と最大値を含むこと</li>
 </ul>
 

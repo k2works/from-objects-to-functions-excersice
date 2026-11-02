@@ -11601,8 +11601,8 @@
 <p>テストは、404 になる失敗と 400 になる失敗を、それぞれ確かめます。</p>
 <div class="highlight"><pre><span></span><code>    @Test
     def aRequestTheDomainRefusesIsABadRequest(): Unit \ Assert = {
-        Assert.assertEq(expected = 400, Http.statusOf(ZettaiError.ListAlreadyExists(uberto(), book())));
-        Assert.assertEq(expected = 400, Http.statusOf(ZettaiError.InvalidTransition("x", ToDoStatus.Todo, ToDoStatus.Blocked)))
+        Assert.assertEq(expected = 400, Web.Http.statusOf(ZettaiError.ListAlreadyExists(uberto(), book())));
+        Assert.assertEq(expected = 400, Web.Http.statusOf(ZettaiError.InvalidTransition("x", ToDoStatus.Todo, ToDoStatus.Blocked)))
     }
 </code></pre></div>
 <h2 id="_2">ファンクタと圏を学ぶ<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
@@ -11704,7 +11704,7 @@ Err(e) |&gt; map(x -&gt; x + 3)   -&gt; Err(e)
 
     def respond(found: Result[ZettaiError, ToDoList]): Response =
         match found {
-            case Ok(todoList) =&gt; html(200, Html.render(todoList))
+            case Ok(todoList) =&gt; html(200, Web.Html.render(todoList))
             case Err(error)   =&gt; failure(error)
         }
 </code></pre></div>
@@ -11722,15 +11722,15 @@ Err(e) |&gt; map(x -&gt; x + 3)   -&gt; Err(e)
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><code>src/Hub.flix</code></td>
+<td style="text-align: left;"><code>src/Application.Hub.flix</code></td>
 <td style="text-align: left;">型の別名と、インメモリの実装</td>
 </tr>
 <tr>
-<td style="text-align: left;"><code>src/Lookup.flix</code></td>
+<td style="text-align: left;"><code>src/Application.Lookup.flix</code></td>
 <td style="text-align: left;">効果の操作の戻り値と、ハンドラ</td>
 </tr>
 <tr>
-<td style="text-align: left;"><code>src/Http.flix</code></td>
+<td style="text-align: left;"><code>src/Web.Http.flix</code></td>
 <td style="text-align: left;"><code>respond</code> が <code>Result</code> を受け取り、ステータスの写像を追加</td>
 </tr>
 <tr>
@@ -11765,9 +11765,9 @@ Err(e) |&gt; map(x -&gt; x + 3)   -&gt; Err(e)
 <p>次章では、イベントを読み取り専用のビューに射影します。<code>map</code> が、イベントのリストから表示用の値を作る道具になります。</p>
 <h2 id="_8">この章で書いたコード<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
 <ul>
-<li>ステータスへの写像: <code>apps/flix/zettai/src/Http.flix</code></li>
-<li>Hub の型: <code>apps/flix/zettai/src/Hub.flix</code></li>
-<li>効果としての依存: <code>apps/flix/zettai/src/Lookup.flix</code></li>
+<li>ステータスへの写像: <code>apps/flix/zettai/src/Web.Http.flix</code></li>
+<li>Hub の型: <code>apps/flix/zettai/src/Application.Hub.flix</code></li>
+<li>効果としての依存: <code>apps/flix/zettai/src/Application.Lookup.flix</code></li>
 <li>テスト: <code>apps/flix/zettai/test/TestErrorMapping.flix</code>、<code>TestResultFunctor.flix</code>、<code>TestHub.flix</code></li>
 </ul>
 <h2 id="_9">参照<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>

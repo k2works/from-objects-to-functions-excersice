@@ -11598,20 +11598,20 @@
 <p><code>Map.insert</code> も <code>:::</code> も元の値を書き換えません。テストでは、空の状態、作成後、追加後の 3 つを同時に持ち、前の 2 つが変わっていないことを確かめます。</p>
 <div class="highlight"><pre><span></span><code>    @Test
     def applyingAnEventDoesNotChangeThePreviousState(): Unit \ Assert = {
-        let empty = Events.empty();
-        let created = Events.apply(empty, ListCreated(uberto(), book()));
-        let added = Events.apply(created, ItemAdded(uberto(), book(), Domain.todo("write chapter")));
-        Assert.assertEq(expected = None, Events.listFor(empty, uberto(), book()));
-        Assert.assertEq(expected = Some(ToDoList.ToDoList(book(), Nil)), Events.listFor(created, uberto(), book()));
-        Assert.assertEq(expected = Some(ToDoList.ToDoList(book(), List#{Domain.todo("write chapter")})), Events.listFor(added, uberto(), book()))
+        let empty = Domain.Events.empty();
+        let created = Domain.Events.apply(empty, ListCreated(uberto(), book()));
+        let added = Domain.Events.apply(created, ItemAdded(uberto(), book(), Domain.todo("write chapter")));
+        Assert.assertEq(expected = None, Domain.Events.listFor(empty, uberto(), book()));
+        Assert.assertEq(expected = Some(ToDoList.ToDoList(book(), Nil)), Domain.Events.listFor(created, uberto(), book()));
+        Assert.assertEq(expected = Some(ToDoList.ToDoList(book(), List#{Domain.todo("write chapter")})), Domain.Events.listFor(added, uberto(), book()))
     }
 </code></pre></div>
 <p>Kotlin FP 版では、状態を作るときに <code>copy</code> で別名を切る必要がありました。Flix の <code>Map</code> と <code>List</code> は不変なので、この処理は要りません。</p>
 <p>作成されていないリストへの <code>ItemAdded</code> は、状態を変えずに返します。</p>
 <div class="highlight"><pre><span></span><code>    @Test
     def anItemAddedToAMissingListIsIgnored(): Unit \ Assert = {
-        let state = Events.apply(Events.empty(), ItemAdded(uberto(), book(), Domain.todo("write chapter")));
-        Assert.assertEq(expected = None, Events.listFor(state, uberto(), book()))
+        let state = Domain.Events.apply(Domain.Events.empty(), ItemAdded(uberto(), book(), Domain.todo("write chapter")));
+        Assert.assertEq(expected = None, Domain.Events.listFor(state, uberto(), book()))
     }
 </code></pre></div>
 <p>これは、不正な履歴を拒否する仕組みではありません。出来事の列が正しいかどうかを検証するのは、コマンドを導入する第 6 章の仕事です。この章の <code>apply</code> は、渡された出来事を決定的に適用することだけに集中します。</p>
@@ -11620,7 +11620,7 @@
 <div class="highlight"><pre><span></span><code>    pub def replayByRecursion(initial: ToDoListState, events: List[ToDoListEvent]): ToDoListState =
         match events {
             case Nil     =&gt; initial
-            case e :: es =&gt; replayByRecursion(Events.apply(initial, e), es)
+            case e :: es =&gt; replayByRecursion(Domain.Events.apply(initial, e), es)
         }
 </code></pre></div>
 <p>空なら初期状態を返します。空でなければ、先頭の出来事を適用した状態と、残りの出来事で同じ関数を呼びます。終了条件と、1 つ進めて残りを処理する形です。</p>
@@ -11628,7 +11628,7 @@
 <h2 id="_3">イベントを畳み込む<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <p>再帰の定型を、標準の <code>List.foldLeft</code> に置き換えます。</p>
 <div class="highlight"><pre><span></span><code>    pub def replayFrom(initial: ToDoListState, events: List[ToDoListEvent]): ToDoListState =
-        List.foldLeft(Events.apply, initial, events)
+        List.foldLeft(Domain.Events.apply, initial, events)
 </code></pre></div>
 <p><code>foldLeft</code> は初期値から始め、左から順に出来事を現在の状態へ取り込みます。可変の蓄積変数は見えません。各ステップは古い状態を受け取り、新しい状態を返します。</p>
 <p>再帰版と <code>foldLeft</code> 版が同じ状態を返すことを、テストで確かめます。</p>
@@ -11636,7 +11636,7 @@
     def recursionAndFoldGiveTheSameState(): Unit \ Assert =
         List.forEach(seed -&gt;
             List.forEach(events -&gt;
-                Assert.assertEq(expected = Replay.replayByRecursion(seed, events), Replay.replayFrom(seed, events)),
+                Assert.assertEq(expected = Domain.Events.Replay.replayByRecursion(seed, events), Domain.Events.Replay.replayFrom(seed, events)),
                 Gen.eventListsUpTo(3)),
             seeds())
 </code></pre></div>
@@ -11665,7 +11665,7 @@
 <div class="highlight"><pre><span></span><code>    pub enum StateTransition(ToDoListState -&gt; ToDoListState)
 </code></pre></div>
 <div class="highlight"><pre><span></span><code>    pub def fromEvent(event: ToDoListEvent): StateTransition =
-        StateTransition.StateTransition(state -&gt; Events.apply(state, event))
+        StateTransition.StateTransition(state -&gt; Domain.Events.apply(state, event))
 </code></pre></div>
 <p>2 つの状態変換は、順番につなげられます。何もしない変換もあります。</p>
 <div class="highlight"><pre><span></span><code>    pub def identity(): StateTransition =
@@ -11702,8 +11702,8 @@
             List.forEach(b -&gt;
                 List.forEach(c -&gt;
                     Assert.assertTrue(sameOnEverySeed(
-                        Transition.andThen(Transition.andThen(a, b), c),
-                        Transition.andThen(a, Transition.andThen(b, c)))),
+                        Domain.Events.Transition.andThen(Domain.Events.Transition.andThen(a, b), c),
+                        Domain.Events.Transition.andThen(a, Domain.Events.Transition.andThen(b, c)))),
                     transitions()),
                 transitions()),
             transitions())
@@ -11711,13 +11711,13 @@
 <div class="highlight"><pre><span></span><code>    @Test
     def identityOnTheLeftAndOnTheRight(): Unit \ Assert =
         List.forEach(t -&gt; {
-            Assert.assertTrue(sameOnEverySeed(Transition.andThen(Transition.identity(), t), t));
-            Assert.assertTrue(sameOnEverySeed(Transition.andThen(t, Transition.identity()), t))
+            Assert.assertTrue(sameOnEverySeed(Domain.Events.Transition.andThen(Domain.Events.Transition.identity(), t), t));
+            Assert.assertTrue(sameOnEverySeed(Domain.Events.Transition.andThen(t, Domain.Events.Transition.identity()), t))
         }, transitions())
 </code></pre></div>
 <p>関数は <code>==</code> で比べられないので、<strong>用意した初期状態のすべてで同じ結果を返す</strong>ことを、等しいことの定義にしました。</p>
 <div class="highlight"><pre><span></span><code>    def sameOnEverySeed(a: StateTransition, b: StateTransition): Bool =
-        List.forAll(seed -&gt; Transition.applyTo(a, seed) == Transition.applyTo(b, seed), seeds())
+        List.forAll(seed -&gt; Domain.Events.Transition.applyTo(a, seed) == Domain.Events.Transition.applyTo(b, seed), seeds())
 </code></pre></div>
 <p>畳み込んだ変換が、出来事を順に適用した結果と等しいことも確かめます。</p>
 <div class="highlight"><pre><span></span><code>    @Test
@@ -11725,8 +11725,8 @@
         List.forEach(events -&gt;
             List.forEach(seed -&gt;
                 Assert.assertEq(
-                    expected = Replay.replayFrom(seed, events),
-                    Transition.applyTo(Transition.fromEvents(events), seed)),
+                    expected = Domain.Events.Replay.replayFrom(seed, events),
+                    Domain.Events.Transition.applyTo(Domain.Events.Transition.fromEvents(events), seed)),
                 seeds()),
             Gen.eventListsUpTo(3))
 </code></pre></div>
@@ -11735,9 +11735,9 @@
 <p>モノイドには、<strong>交換律を求められません</strong>。順番が結果を変える場合があり、それが正しい動作です。</p>
 <div class="highlight"><pre><span></span><code>    @Test
     def theOrderOfCompositionMatters(): Unit \ Assert = {
-        let created = Transition.fromEvent(ToDoListEvent.ListCreated(User.User("uberto"), ListName.ListName("book")));
-        let added = Transition.fromEvent(ToDoListEvent.ItemAdded(User.User("uberto"), ListName.ListName("book"), Domain.todo("a")));
-        Assert.assertFalse(sameOnEverySeed(Transition.andThen(created, added), Transition.andThen(added, created)))
+        let created = Domain.Events.Transition.fromEvent(ToDoListEvent.ListCreated(User.User("uberto"), ListName.ListName("book")));
+        let added = Domain.Events.Transition.fromEvent(ToDoListEvent.ItemAdded(User.User("uberto"), ListName.ListName("book"), Domain.todo("a")));
+        Assert.assertFalse(sameOnEverySeed(Domain.Events.Transition.andThen(created, added), Domain.Events.Transition.andThen(added, created)))
     }
 </code></pre></div>
 <p>「作成してから追加」と「追加してから作成」は結果が違います。後者では、リストがないまま追加が無視されるからです。</p>
@@ -11747,8 +11747,8 @@
         List.forEach(a -&gt;
             List.forEach(b -&gt;
                 Assert.assertEq(
-                    expected = Replay.replayFrom(Events.empty(), a ::: b),
-                    Replay.replayFrom(Replay.replayFrom(Events.empty(), a), b)),
+                    expected = Domain.Events.Replay.replayFrom(Domain.Events.empty(), a ::: b),
+                    Domain.Events.Replay.replayFrom(Domain.Events.Replay.replayFrom(Domain.Events.empty(), a), b)),
                 Gen.eventListsUpTo(2)),
             Gen.eventListsUpTo(2))
 </code></pre></div>
@@ -11762,13 +11762,13 @@
 <li>交換律は成り立たず、順番が結果を変えることをテストにしました。</li>
 <li><code>flix test</code> は 40 本が通ります。</li>
 </ul>
-<p>つまずきとして、<code>from</code> と <code>run</code> は Flix の予約語で、引数名や関数名に使えませんでした。<code>run</code> は <code>Transition.run</code> と書いた箇所が「<code>,</code> が来るはずです」というパースエラーになり、原因に気づきにくいものでした。<code>initial</code> と <code>applyTo</code> に改名しました。</p>
+<p>つまずきとして、<code>from</code> と <code>run</code> は Flix の予約語で、引数名や関数名に使えませんでした。<code>run</code> は <code>Domain.Events.Transition.run</code> と書いた箇所が「<code>,</code> が来るはずです」というパースエラーになり、原因に気づきにくいものでした。<code>initial</code> と <code>applyTo</code> に改名しました。</p>
 <p>次章では、命令を実行して出来事を生成します。出来事の列が正しいかをコマンドが検証し、状態遷移を代数的データ型で表します。</p>
 <h2 id="_9">この章で書いたコード<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
 <ul>
-<li>イベントと状態: <code>apps/flix/zettai/src/Events.flix</code></li>
-<li>畳み込み: <code>apps/flix/zettai/src/Replay.flix</code></li>
-<li>状態変換のモノイド: <code>apps/flix/zettai/src/Transition.flix</code></li>
+<li>イベントと状態: <code>apps/flix/zettai/src/Domain.Events.flix</code></li>
+<li>畳み込み: <code>apps/flix/zettai/src/Domain.Events.Replay.flix</code></li>
+<li>状態変換のモノイド: <code>apps/flix/zettai/src/Domain.Events.Transition.flix</code></li>
 <li>全パターンの生成: <code>apps/flix/zettai/test/Gen.flix</code></li>
 <li>テスト: <code>apps/flix/zettai/test/TestEvents.flix</code>、<code>TestReplay.flix</code>、<code>TestTransition.flix</code></li>
 </ul>

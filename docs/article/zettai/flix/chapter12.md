@@ -385,7 +385,7 @@ HTTP の要求も、包みます。メソッドと、状態コードの区分（
 
 ### 外側に置くとどうなるか（公開後に確かめたこと）
 
-ハンドラを `JdkServer.start` を呼ぶ側（コールバックの外）に置くと、**コンパイルは通り、型検査は何も警告しません。** 実行すると、コールバックの中で `Logger` を呼んだところで処理が止まり、応答が返らずに接続が切れます。クライアントには `Unexpected end of file from server` が届きます。`Logger` を呼んだ後ろの処理は実行されず、コールバックの中の `try` / `catch` でも例外は捕まりませんでした（`HttpURLConnection` が GET を自動で再送するため、コールバックは 2 回呼ばれます）。仕組みまでは確かめていません。
+ハンドラを `JdkServer.start` を呼ぶ側（コールバックの外）に置くと、**コンパイルは通り、型検査は何も警告しません。** 実行すると、コールバックの中で `Logger` を呼んだところで処理が止まり、応答が返らずに接続が切れます。クライアントには `Unexpected end of file from server` が届きます。`Logger` を呼んだ後ろの処理は実行されず、コールバックの中の `try` / `catch` でも例外は捕まりませんでした（`HttpURLConnection` が GET を自動で再送するため、コールバックは 2 回呼ばれます）。仕組みは、次の節で述べます。
 
 この落とし穴は、回帰テストとして残しました。
 
@@ -397,6 +397,40 @@ HTTP の要求も、包みます。メソッドと、状態コードの区分（
                     case ex: IOException => Err("no response: ${ex.getMessage()}")
                 };
 ```
+
+### 止まる仕組み（公開後に確かめたこと）
+
+Flix の 0.79.0 のコンパイラのソースを読み、実験で確かめました。
+
+- **効果の操作は、例外ではなく、値として返ります。** 制御効果を持つ関数は、ハンドラに渡すための「中断」を返し、呼び出し側がそれを受けて、ハンドラのところまで戻ります。ハンドラが無ければ、中断は戻り続けます
+- **Java から呼ばれるメソッドの入口で、中断は例外に変わります。** `new HttpHandler { def handle(...) }` が生成するメソッドは、Flix の本体を呼び、結果が中断なら `UnhandledEffectError` を投げます（コンパイラの `GenResult` と `GenUnhandledEffectError`）。この例外は `java.lang.Error` の子です
+- 本体は、中断が返った時点で途中のまま放棄されています。**`Logger` を呼んだ後ろの処理が実行されない**のも、本体の中の `try` / `catch` に例外が届かないのも、これが理由です。例外は、本体の**外**の入口で投げられるからです
+- JDK の `HttpServer` には、`Error` が届きます。応答は返らず、接続が切れます。クライアントには `Unexpected end of file` が届きます
+
+例外の実体は、サーバーの実行器（`Executor`）を自作して、タスクを実行する側で `Throwable` を捕まえて確かめました。
+
+```text
+executor caught: dev.flix.runtime.UnhandledEffectError$ | superclass=dev.flix.runtime.FlixError$ | message=Unhandled effect 'Logger' (in anonymous class method handle) at ...:19:13
+```
+
+メッセージには、効果の名前と、メソッドの場所が入っています。ふつうの実行では、この例外は JDK のスレッドが握りつぶし、テストの出力にも出ません。
+
+**コンパイラの検査は、あるのに、通りました。** `new` 式のメソッドの効果が制御効果（`Logger` など）を含むと、コンパイラは `Unexpected method effect … Control effects cannot escape to Java.`（`E4243`）で拒否します。実際、メソッドの効果を具体的に書くと拒否されました。
+
+```text
+>> Unexpected method effect: 'Logger + IO'.
+Explanation: Methods in a 'new' expression must be pure or have
+primitive effects. Control effects cannot escape to Java.
+```
+
+ところが `JdkServer.start` は、アプリケーションの効果を型変数 `ef` で受けます。メソッドの効果が `IO + ef` と書かれていると、定義の時点では `ef` が何になるか分からないので、検査は通ります。呼び出し側が `ef` に `Logger` を入れても、再び検査されません。**検査はあるが、型変数を通り抜ける**、というのが実態です。
+
+直し方の候補は 2 つです。ここでは直していません。
+
+1. `start` の引数の効果を `IO` に固定する。`Logger` を渡すとコンパイルで拒否されるが、純粋なアプリケーションも渡せなくなり、`inIO` のような持ち上げが要る（第 3 章）
+2. `Logger` を処理する関数を `Logging` に用意し、置き場所を呼び出し側に任せない。効果の引き算を含む型を書く必要があり、第 12 章で型が合わなかった経験から、簡単ではない見込み
+
+仕組みの確認は、0.79.0 のタグのソースと、上の実験に基づきます。コンパイラの全体を読んだわけではありません。
 
 **第 2 章で見た「効果の保証が Java のコールバックで切れる」ことの、具体的な形です。** 切れた先で、エラーにならず、黙って応答が消えます。
 

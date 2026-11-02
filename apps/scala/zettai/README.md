@@ -53,6 +53,14 @@ sbt compile   # 本体のコンパイル
 sbt "Test/runMain io.cucumber.core.cli.Main --glue zettai.acceptance.steps classpath:features"   # Cucumber（確認用）
 ```
 
+## アプリケーションの起動
+
+`zettai.app.Main` を実行すると、8080 番で起動します。他のプロセスが使っているときは、環境変数 `ZETTAI_PORT` で変えられます。
+
+```bash
+ZETTAI_PORT=9090 sbt run
+```
+
 ## データベース（第 9 章から）
 
 結合テストは、PostgreSQL（`postgres:17-alpine`）をテスト自身が Testcontainers で起動します。**Docker が動いている必要があります。** 接続先を環境変数で指定する必要はありません。

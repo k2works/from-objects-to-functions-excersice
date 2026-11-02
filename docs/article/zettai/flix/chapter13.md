@@ -211,7 +211,7 @@ Json ◀── Logs ◀── Logging
 | 10 | JSON の仕様のすべて | 12 | 数は `Int32` の整数だけ。小数・指数・BMP 外の文字は扱わない |
 | 11 | 起動する `main` | 12 | 連載には無い。組み立てはテストの中で示した |
 | 12 | ADR の承認後の見直し | 全章 | 承認済み。試していない道具を試したときは、ADR ではなく記事を直す扱い（ADR-046） |
-| 13 | Java の呼び出しの効果の分類 | 9、10、12 | 一部が `IO` にならない理由を確かめていない（下で述べる） |
+| 13 | Java の呼び出しの効果の分類 | 9、10、12 | **確かめた**（公開後）。コンパイラの効果の表に載ったものだけが純粋になる。表そのものの正しさは確かめていない（下で述べる） |
 
 1 番目が、いちばん重大です。認証が無いので、Zettai は、誰でも誰のリストでも操作できるアプリケーションです。
 
@@ -236,7 +236,7 @@ Json ◀── Logs ◀── Logging
 - Java が呼ぶコールバックの中身は、`start` の型から見えません。引数の効果が、起動の型に現れませんでした（第 2 章）。
   取りこぼした効果は、型検査で警告されません。`Logger` を外側で処理すると、コンパイルは通り、実行時に応答が黙って消えました（第 12 章）。
 - `Logger` の処理は、サーバーのコールバックの内側に置く必要がありました（第 12 章）。
-- Java の呼び出しの効果は、**一律ではありませんでした。** 公式ドキュメントの「Java とのやりとりは常に `IO`」と合わず、`Objects.isNull`、`Throwable.getMessage`、`Character.hashCode` は `IO` と判定されず、`System.currentTimeMillis()` と `getSQLState()` は `IO` でした。理由は確かめていません。**型の保証は、コンパイラの分類が正しいことに依存します。**
+- Java の呼び出しの効果は、**一律ではありませんでした。** 公式ドキュメントの「Java とのやりとりは常に `IO`」と合わず、`Objects.isNull`、`Throwable.getMessage`、`Character.hashCode` は `IO` と判定されず、`System.currentTimeMillis()` と `getSQLState()` は `IO` でした。理由は、公開後に確かめました（次の節）。**型の保証は、コンパイラの分類が正しいことに依存します。**
 
 境界の外へ出す手段は、**例外を値にする**ことでした（第 9 章）。`SQLException` を `Result` の失敗にしたので、境界の内側では、例外が型の外に出ません。
 
@@ -250,6 +250,34 @@ Json ◀── Logs ◀── Logging
 - ハンドラを忘れると、型検査が拒否します（第 4 章）。
 
 一方で、連載の本流では、関数値のレコードを採りました。他の対象と形を揃えて比べられることが理由です。**代わりになるが、置き換えなければならない理由は、見つかりませんでした。**
+
+### Java の呼び出しの効果は、どう決まるか（公開後に確かめたこと）
+
+Flix の公式リポジトリの 0.79.0 のタグで、コンパイラの `PrimitiveEffects`（型検査の段階の `typer/jvm/`）を読みました。Java の呼び出しの効果は、次の順で決まります。
+
+| 順 | 参照する表 | 例（0.79.0） | 見つかったら |
+| :--- | :--- | :--- | :--- |
+| 1 | メソッドの表（`クラス::メソッド名`。すべての多重定義に適用） | `Objects::isNull`、`Throwable::getMessage`、`Math::abs`、`System::lineSeparator`、`String::length` など | その効果（空なら純粋） |
+| 2 | クラスの表 | `Character`、`Integer`、`Long`、`Double`、`Boolean`、`URLEncoder`、`StandardCharsets` など | その効果（空なら純粋） |
+| 3 | パッケージの表 | `java.util.random`（`NonDet` と `IO`） | その効果 |
+| 4 | どれにも無い | | **`IO`** |
+
+表は、コンパイラに同梱された JSON のファイルです。つまり、**「Java の呼び出しは常に `IO`」が既定で、コンパイラの作者が手で選んだ呼び出しだけが、純粋として例外になります。**
+
+この説明が当たるかを、表を読んだあとで、新しい 14 通りの呼び出しで予測してから確かめました。14 通りすべてが、予測どおりでした。
+
+| 予測 | 呼び出し |
+| :--- | :--- |
+| 純粋 | `Math.floor`、`Long.toString`、`Double.parseDouble`、`String.toLowerCase`、`BigInteger.valueOf`、`Pattern.compile`、`URLEncoder.encode` |
+| `IO` | `Math.max`、`Objects.requireNonNull`、`Objects.hashCode`、`String.getBytes`、`String.toCharArray`、`new ArrayList`、`Instant.now` |
+
+今までの観察も、すべて説明できます。`Objects::isNull` と `Throwable::getMessage` は表にあり、`Objects.hashCode` と `SQLException.getSQLState` は表に無いので `IO` です。`Character` はクラスごと純粋なので、`Character.hashCode` も `Character.toString` も純粋です。
+
+表の内容には、注意が要ります。
+
+- **純粋と分類されることは、例外を投げないこととは別です。** `Integer.parseInt` は表で純粋ですが、`Integer.parseInt("x")` を注釈のない関数から呼ぶとコンパイルは通り、実行時に `NumberFormatException` が投げられます。効果システムは、例外を追跡しません
+- 表は、コンパイラの作者の判断です。JDK の実装を解析した結果ではありません。たとえば `System.lineSeparator()` は、実行環境に依存して結果が変わりえますが、純粋です
+- 表は、0.79.0 のものです。新しい版との差は、比べていません
 
 要するに、こう言えます。副作用を型で追跡すると、**守りたいことの一部を、規約からコンパイラに移せました。** 移せなかったのは、効果の分類そのものの正しさと、境界の置き方、載せないものの決め方です。
 

@@ -11,6 +11,9 @@ lazy val root = (project in file("."))
       "org.http4s"    %% "http4s-ember-server"  % "0.23.38",
       "org.http4s"    %% "http4s-ember-client"  % "0.23.38",
       "org.slf4j"      % "slf4j-nop"          % "2.0.17" % Test,
+      "org.typelevel" %% "doobie-core"         % "1.0.0-RC13",
+      "org.typelevel" %% "doobie-postgres"     % "1.0.0-RC13",
+      "org.testcontainers" % "testcontainers-postgresql" % "2.0.5" % Test,
       "org.scalameta" %% "munit"               % "1.3.6"  % Test,
       "org.typelevel" %% "munit-cats-effect"   % "2.2.1"  % Test
     ),

@@ -32,6 +32,28 @@ object Routes:
           }
       )
 
+  /** 実際の PostgreSQL にイベントを書き、読み戻して状態を作る経路。 */
+  def databaseActions(lists: Map[User, List[ToDoList]]): Resource[IO, ZettaiActions] =
+    val xa = PostgresStore.transactor(TestDatabase.config)
+    for
+      table <- Resource.eval(PostgresStore.freshTableName)
+      store <- Resource.make(PostgresStore.open(xa, table))(_ => PostgresStore.dropTable(xa, table))
+      _     <- Resource.eval(store.append(0, eventsOf(lists)))
+    yield
+      val hub = Hub.fromStore(store)
+      ZettaiActions(
+        "database",
+        (user, name) => hub.getList(user, name).map(_.toOption.map(_.items))
+      )
+
+  /** リストの集まりを、それを作ったイベントの列に戻す。 */
+  private def eventsOf(lists: Map[User, List[ToDoList]]): List[ToDoListEvent] =
+    lists.toList.flatMap { (user, userLists) =>
+      userLists.flatMap { list =>
+        ToDoListEvent.ListCreated(user, list.name) :: list.items.map(ToDoListEvent.ItemAdded(user, list.name, _))
+      }
+    }
+
   /** 同じシナリオを、すべての経路で実行する。 */
   def onEveryRoute(lists: Map[User, List[ToDoList]])(scenario: ZettaiActions => IO[Unit]): IO[Unit] =
     List(domainActions(lists), httpActions(lists)).foldLeft(IO.unit) { (done, route) =>

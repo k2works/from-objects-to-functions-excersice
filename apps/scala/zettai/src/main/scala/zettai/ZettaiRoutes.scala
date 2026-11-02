@@ -24,8 +24,12 @@ object ZettaiRoutes:
   def routes(hub: Hub): HttpRoutes[IO] =
     HttpRoutes.of[IO] {
       case GET -> Root / "todo" / user / list =>
-        hub.getList(User(user), ListName(list)).flatMap {
-          case Right(found) => Ok(Html.render(found)).map(_.withContentType(html))
-          case Left(error)  => failure(error)
-        }
+        hub
+          .getList(User(user), ListName(list))
+          .flatMap {
+            case Right(found) => Ok(Html.render(found)).map(_.withContentType(html))
+            case Left(error)  => failure(error)
+          }
+          // 想定外の失敗（接続切れなど）。理由には接続先や SQL が入りうるので、本文には出さない
+          .handleErrorWith(_ => InternalServerError("Internal Server Error"))
     }

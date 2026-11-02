@@ -11,6 +11,8 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-02T18:00:00Z }
 
 第 3 章では、同じシナリオを domain と HTTP の 2 経路で実行しました。ただし、`route` が外部の取得方法を受け取る形は、まだ関数を 1 つ渡すだけでした。この章では、ドメインの操作とアダプタの配線を分けます。
 
+後の章で書き換わったコードのブロックには、この章を書いた時点のコミットを示してあります。
+
 Flix 版には、他の対象に無い問いがあります。**依存を「引数」で渡すか、「効果」として型に現すか**です。同じ `route` を両方の書き方で作り、並べて比べます。
 
 ## ToDo リストを変更するための新しいストーリーを始める
@@ -23,6 +25,7 @@ Flix 版には、他の対象に無い問いがあります。**依存を「引�
 
 アプリケーションが公開する操作を、関数値のフィールドを持つレコードで表します。
 
+<!-- code-check: ignore この章を書いた時点のコード（コミット 2d25366）。第 7 章で getList の戻り値を Result に変えた -->
 ```flix
     pub type alias ToDoListHub[ef: Eff] = {
         getList = (User, ListName) -> Option[ToDoList] \ ef
@@ -33,6 +36,7 @@ Flix 版には、他の対象に無い問いがあります。**依存を「引�
 
 Hub を組み立てるのは、関数を受け取る関数です。
 
+<!-- code-check: ignore この章を書いた時点のコード（コミット 2d25366）。第 7 章で getList の戻り値を Result に変えた -->
 ```flix
     pub def todoListHub(fetch: (User, ListName) -> Option[ToDoList] \ ef): ToDoListHub[ef] =
         { getList = fetch }
@@ -40,6 +44,7 @@ Hub を組み立てるのは、関数を受け取る関数です。
 
 インメモリの実装は、同じ型を効果なしで返します。
 
+<!-- code-check: ignore この章を書いた時点のコード（コミット 2d25366）。第 7 章で getList の戻り値を Result に変えた -->
 ```flix
     pub def inMemory(lists: Map[User, List[ToDoList]]): ToDoListHub[{}] =
         todoListHub((user, name) -> Domain.findToDoList(lists, user, name))
@@ -47,6 +52,7 @@ Hub を組み立てるのは、関数を受け取る関数です。
 
 テストでは、ラムダをそのまま渡せます。
 
+<!-- code-check: ignore この章を書いた時点のコード（コミット 2d25366）。第 7 章で getList の戻り値を Result に変えた -->
 ```flix
     @Test
     def aHubIsBuiltFromAnyFunctionOfTheRightType(): Unit \ Assert = {
@@ -76,6 +82,7 @@ Hub を組み立てるのは、関数を受け取る関数です。
 
 Flix には、もう 1 つの方法があります。**効果そのものを依存として宣言する**方法です。
 
+<!-- code-check: ignore この章を書いた時点のコード（コミット 2d25366）。第 7 章で getList の戻り値を Result に変えた -->
 ```flix
     pub eff ToDoLists {
         def getList(user: User, name: ListName): Option[ToDoList]
@@ -84,6 +91,7 @@ Flix には、もう 1 つの方法があります。**効果そのものを依�
 
 `eff` は「こういう操作ができる」という宣言だけで、実装を持ちません。実装は、呼び出し側が**ハンドラ**で与えます。
 
+<!-- code-check: ignore この章を書いた時点のコード（コミット 2d25366）。第 7 章で getList の戻り値を Result に変えた -->
 ```flix
     pub def handleInMemory(lists: Map[User, List[ToDoList]], f: Unit -> a \ ef): a \ (ef - ToDoLists) =
         run {
@@ -170,6 +178,7 @@ Flix には、もう 1 つの方法があります。**効果そのものを依�
 
 関数値を渡す設計では、呼び出し先のクラス名から処理を追う方法が使えません。代わりに、関数の入力と出力を観測します。
 
+<!-- code-check: ignore この章を書いた時点のコード（コミット 2d25366）。第 7 章で getList の戻り値を Result に変えた -->
 ```flix
     @Test
     def theInMemoryHubFindsTheListOfTheUser(): Unit \ Assert = {

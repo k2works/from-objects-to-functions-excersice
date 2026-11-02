@@ -186,6 +186,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-02T21:00:00Z }
 
 `handle` を実際に使うには、過去のイベントを読み、現在状態を作り、コマンドを実行し、新しいイベントを書き足す、という流れが要ります。保管場所は、追記だけができるイベントストアとして、関数値のレコードで表します。
 
+<!-- code-check: ignore この章を書いた時点のコード（コミット 658d9c5）。第 9 章で EventStore と CommandHub の戻り値を Result に変えた -->
 ```flix
     pub type alias EventStore[ef: Eff] = {
         load = Unit -> List[ToDoListEvent] \ ef,
@@ -195,6 +196,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-02T21:00:00Z }
 
 第 4 章の Hub と同じく、効果 `ef` は使う側が決めます。インメモリの実装は、**領域**（`region`）の中にだけ存在する可変の `Ref` を使います。
 
+<!-- code-check: ignore この章を書いた時点のコード（コミット 658d9c5）。第 9 章で EventStore と CommandHub の戻り値を Result に変えた -->
 ```flix
     pub def inMemory(rc: Region[r]): EventStore[r] \ r = {
         let history = Ref.fresh(rc, Nil);
@@ -215,6 +217,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-02T21:00:00Z }
 
 コマンドの入口は、このストアの上に作ります。
 
+<!-- code-check: ignore この章を書いた時点のコード（コミット 658d9c5）。第 9 章で EventStore と CommandHub の戻り値を Result に変えた -->
 ```flix
     pub def commandHub(store: EventStore[ef]): CommandHub[ef] = {
         execute = command -> {
@@ -230,6 +233,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-02T21:00:00Z }
 
 拒否されたときは、何も書き足しません。テストでは、領域の中でストアと Hub を作り、コマンドを順に実行して、結果と最終状態と履歴を返します。
 
+<!-- code-check: ignore この章を書いた時点のコード（コミット 658d9c5）。第 9 章で EventStore と CommandHub の戻り値を Result に変えた -->
 ```flix
     def scenario(commands: List[Commands.ToDoListCommand]): (List[Result[ZettaiError, Unit]], Option[ToDoList], List[Events.ToDoListEvent]) = {
         region rc {

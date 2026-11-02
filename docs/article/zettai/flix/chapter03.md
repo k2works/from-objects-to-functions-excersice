@@ -111,6 +111,7 @@ domain 経路だけが失敗すれば、ドメインの振る舞いに問題が�
 
 反復は `Routes.onEveryRoute` に閉じ込めます。
 
+<!-- code-check: ignore この章を書いた時点のコード（コミット 7d2dd0f）。第 9 章で経路が 3 つになり、onEveryRoute を書き換えた -->
 ```flix
     pub def onEveryRoute(lists: Map[User, List[ToDoList]], scenario: ZettaiActions -> Unit \ {Assert, IO}): Unit \ {Assert, IO} = {
         let routes = domainActions(lists) :: httpActions(lists) :: Nil;

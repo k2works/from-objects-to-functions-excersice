@@ -13,6 +13,8 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-02T23:00:00Z }
 
 きっかけは困りごとです。**ドメインの状態と、画面が欲しい形が違う**のです。
 
+後の章で書き換わったコードのブロックには、この章を書いた時点のコミットを示してあります。
+
 ## イベントを射影する
 
 第 5 章から、状態を `ToDoListState` という 1 つの型で持ってきました。コマンドを判断するとき、この形は都合がよいです。「同名のリストがすでにあるか」「その項目は今どの状態か」を判断する情報がそろっています。
@@ -251,12 +253,14 @@ Kotlin 版は、`ToDoListProjection` に自作の `map` を持たせ、その法
 
 読む側の入口は、読み取り専用です。
 
+<!-- code-check: ignore この章を書いた時点のコード（コミット 37daacd）。第 9 章で EventStore と QueryHub の戻り値を Result に変えた -->
 ```flix
     pub type alias QueryHub[ef: Eff] = {
         listRows = User -> List[ToDoListRow] \ ef
     }
 ```
 
+<!-- code-check: ignore この章を書いた時点のコード（コミット 37daacd）。第 9 章で EventStore と QueryHub の戻り値を Result に変えた -->
 ```flix
     pub def queryHub(store: EventStore[ef]): QueryHub[ef] = {
         listRows = user -> Projection.projectFrom(user, store#load())
@@ -273,6 +277,7 @@ Kotlin 版は、`ToDoListProjection` に自作の `map` を持たせ、その法
 
 2 つの入口は、同じイベントストアを、別々の窓から見ます。
 
+<!-- code-check: ignore この章を書いた時点のコード（コミット 37daacd）。第 9 章で EventStore と QueryHub の戻り値を Result に変えた -->
 ```flix
     def rowsAfter(commands: List[Commands.ToDoListCommand]): List[ToDoListRow] = {
         region rc {
@@ -287,6 +292,7 @@ Kotlin 版は、`ToDoListProjection` に自作の `map` を持たせ、その法
 
 書いた結果は、読む側から見えます。拒否されたコマンドは、読む側にも現れません。
 
+<!-- code-check: ignore この章を書いた時点のコード（コミット 37daacd）。第 9 章で EventStore と QueryHub の戻り値を Result に変えた -->
 ```flix
     @Test
     def aRejectedCommandDoesNotShowUpInTheRows(): Unit \ Assert =

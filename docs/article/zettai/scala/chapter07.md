@@ -138,6 +138,7 @@ HTTP 側では、`Either` の両方を応答に変えます。
         }
 ```
 
+<!-- code-check: ignore この章を書いた時点のコード（コミット 785548f）。第 11 章で InvalidInput の本文を、入力の誤りの説明にした -->
 ```scala
   private def failure(error: ZettaiError): IO[Response[IO]] =
     IO.pure(Response[IO](Status.fromInt(statusOf(error)).getOrElse(Status.InternalServerError)).withEntity(error.toString))

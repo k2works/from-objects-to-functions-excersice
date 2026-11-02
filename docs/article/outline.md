@@ -19,7 +19,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T13:04:15Z }
 
 ## 対象一覧
 
-本シリーズは同じ 13 章構成を対象ごとに書き起こす比較シリーズです。現在の対象は **4 言語・5 実装方針** です（Flix 版も全 13 章を公開しました）。**Scala（Cats Effect）版を執筆中で、完結すると 5 言語・6 実装方針になります**（Unit 1 完了。第 9 章まで公開）。章の番号・タイトル・焦点は対象をまたいで共通とし、対象ごとに変えるのは実現手段だけです。Kotlin FP 版は言語を増やすのではなく、同じ Kotlin で「自前の関数型抽象」と「Arrow / coroutine を使う実装」を比較する対象です。
+本シリーズは同じ 13 章構成を対象ごとに書き起こす比較シリーズです。現在の対象は **4 言語・5 実装方針** です（Flix 版も全 13 章を公開しました）。**Scala（Cats Effect）版を執筆中で、完結すると 5 言語・6 実装方針になります**（Unit 1 完了。第 11 章まで公開）。章の番号・タイトル・焦点は対象をまたいで共通とし、対象ごとに変えるのは実現手段だけです。Kotlin FP 版は言語を増やすのではなく、同じ Kotlin で「自前の関数型抽象」と「Arrow / coroutine を使う実装」を比較する対象です。
 
 | 対象 | 実行環境 | 章数 | 記事 | サンプル実装 | 状態 |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -28,7 +28,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T13:04:15Z }
 | なでしこ3 | Nix devShell `nadesiko`（Node 22 / cnako3 3.8.7） | 13 | `docs/article/zettai/nadesiko/` | `apps/nadesiko/zettai/` | **完結**（13 / 13 章公開） |
 | Rust | Nix devShell `rust`（rustc 1.91.1 / cargo 1.91.0） | 13 | `docs/article/zettai/rust/` | `apps/rust/zettai/` | **完結**（13 / 13 章公開） |
 | Flix | Nix devShell `flix`（JDK 21 / Flix 0.79.0） | 13 | `docs/article/zettai/flix/` | `apps/flix/zettai/` | **完結**（13 / 13 章公開） |
-| Scala | Nix devShell `scala`（Scala 3 / sbt。JDK は Unit 1 で確認）＋ Cats Effect | 13 | `docs/article/zettai/scala/` | `apps/scala/zettai/` | **執筆中**（9 / 13 章公開） |
+| Scala | Nix devShell `scala`（Scala 3 / sbt。JDK は Unit 1 で確認）＋ Cats Effect | 13 | `docs/article/zettai/scala/` | `apps/scala/zettai/` | **執筆中**（11 / 13 章公開） |
 
 横断比較コンテンツ [`docs/article/zettai/comparison/`](zettai/comparison/index.md) は、なでしこ3 版が Phase 1（第 3 章）を終えた 2026-09-28 に新設しました。当初の比較軸は「**型で保証する**（Kotlin）」と「**約束とテストで保証する**（なでしこ3）」の 2 点でした。
 

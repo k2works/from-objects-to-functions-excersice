@@ -41,7 +41,7 @@ mod TestCommandInvariants {
             let store = EventStore.inMemory(rc);
             let hub = CommandHub.commandHub(store);
             let results = List.map(command -> accepted(hub#execute(command)), sequence);
-            (results, Result.getWithDefault(Nil, store#load()))
+            (results, Result.getWithDefault(Nil, Result.map(read -> read#events, store#load())))
         }
     }
 

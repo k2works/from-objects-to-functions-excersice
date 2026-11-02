@@ -15,7 +15,7 @@ mod TestCommandHub {
             let store = EventStore.inMemory(rc);
             let hub = CommandHub.commandHub(store);
             let results = List.map(hub#execute, commands);
-            (results, Events.listFor(Result.getWithDefault(Events.empty(), hub#current()), uberto(), book()), Result.getWithDefault(Nil, store#load()))
+            (results, Events.listFor(Result.getWithDefault(Events.empty(), hub#current()), uberto(), book()), Result.getWithDefault(Nil, Result.map(read -> read#events, store#load())))
         }
     }
 

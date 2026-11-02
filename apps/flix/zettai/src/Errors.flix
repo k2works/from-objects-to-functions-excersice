@@ -9,6 +9,7 @@ mod Errors {
         case ItemNotFound(User, ListName, String)
         case InvalidTransition(String, ToDoStatus, ToDoStatus)
         case StorageFailure(String)
+        case VersionConflict(Int32, Int32)
     }
 
 }

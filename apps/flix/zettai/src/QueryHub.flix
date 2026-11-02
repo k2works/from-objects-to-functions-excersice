@@ -11,7 +11,7 @@ mod QueryHub {
     }
 
     pub def queryHub(store: EventStore[ef]): QueryHub[ef] = {
-        listRows = user -> Result.map(history -> Projection.projectFrom(user, history), store#load())
+        listRows = user -> Result.map(read -> Projection.projectFrom(user, read#events), store#load())
     }
 
 }

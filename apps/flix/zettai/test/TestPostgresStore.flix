@@ -38,8 +38,8 @@ mod TestPostgresStore {
         withTable((config, table) -> match PostgresStore.open(config, table) {
             case Err(e)    => Assert.assertEq(expected = "opened", ToString.toString(e))
             case Ok(store) => {
-                Assert.assertEq(expected = Ok(()), store#append(history()));
-                Assert.assertEq(expected = Ok(history()), store#load())
+                Assert.assertEq(expected = Ok(()), store#append(0, history()));
+                Assert.assertEq(expected = Ok(history()), Result.map(read -> read#events, store#load()))
             }
         })
 
@@ -47,8 +47,8 @@ mod TestPostgresStore {
     def anotherConnectionReadsWhatWasWritten(): Unit \ {Assert, IO} =
         withTable((config, table) -> match (PostgresStore.open(config, table), PostgresStore.open(config, table)) {
             case (Ok(writer), Ok(reader)) => {
-                Assert.assertEq(expected = Ok(()), writer#append(List#{ListCreated(uberto(), book())}));
-                Assert.assertEq(expected = Ok(List#{ListCreated(uberto(), book())}), reader#load())
+                Assert.assertEq(expected = Ok(()), writer#append(0, List#{ListCreated(uberto(), book())}));
+                Assert.assertEq(expected = Ok(List#{ListCreated(uberto(), book())}), Result.map(read -> read#events, reader#load()))
             }
             case _ => Assert.assertTrue(false)
         })
@@ -59,9 +59,9 @@ mod TestPostgresStore {
             case Err(_)    => Assert.assertTrue(false)
             case Ok(store) => {
                 let inserted = PostgresStore.execute(config,
-                    "insert into ${table} (kind, user_name, list_name, description, status) values ('Deleted', 'u', 'l', '', '')");
+                    "insert into ${table} (version, kind, user_name, list_name, description, status) values (1, 'Deleted', 'u', 'l', '', '')");
                 Assert.assertEq(expected = Ok(()), inserted);
-                Assert.assertEq(expected = Err(ZettaiError.StorageFailure("unknown event kind: Deleted")), store#load())
+                Assert.assertEq(expected = Err(ZettaiError.StorageFailure("unknown event kind: Deleted")), Result.map(read -> read#version, store#load()))
             }
         })
 

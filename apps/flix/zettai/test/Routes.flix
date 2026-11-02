@@ -51,14 +51,14 @@ mod Routes {
         let table = PostgresStore.freshTableName();
         forM (
             store <- PostgresStore.open(config, table);
-            _     <- store#append(eventsOf(lists))
+            _     <- store#append(0, eventsOf(lists))
         ) yield {
             name = "database",
             getToDoList = (user, listName) -> match store#load() {
                 case Err(_)      => None
-                case Ok(history) =>
+                case Ok(read) =>
                     Option.map(l -> match l { case ToDoList.ToDoList(_, items) => items },
-                        Events.listFor(Replay.replayFrom(Events.empty(), history), user, listName))
+                        Events.listFor(Replay.replayFrom(Events.empty(), read#events), user, listName))
             },
             close = () -> { let _ = PostgresStore.dropTable(config, table); () }
         }

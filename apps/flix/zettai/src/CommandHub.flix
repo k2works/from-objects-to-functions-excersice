@@ -13,11 +13,11 @@ mod CommandHub {
 
     pub def commandHub(store: EventStore[ef]): CommandHub[ef] = {
         execute = command -> forM (
-            history <- store#load();
-            events  <- Commands.handle(command, Replay.replayFrom(Events.empty(), history));
-            _       <- store#append(events)
+            read   <- store#load();
+            events <- Commands.handle(command, Replay.replayFrom(Events.empty(), read#events));
+            _      <- store#append(read#version, events)
         ) yield (),
-        current = () -> Result.map(history -> Replay.replayFrom(Events.empty(), history), store#load())
+        current = () -> Result.map(read -> Replay.replayFrom(Events.empty(), read#events), store#load())
     }
 
 }

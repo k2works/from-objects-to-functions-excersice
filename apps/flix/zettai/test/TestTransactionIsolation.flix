@@ -1,0 +1,85 @@
+mod TestTransactionIsolation {
+
+    import java.sql.Connection
+    import java.sql.SQLException
+
+    /// 2 つのトランザクションが、どちらも先に数を読んでから、書く。
+    /// 時間や並行実行には頼らず、手順を明示して競合を再現する。
+    def bothReadThenBothWrite(config: PostgresStore.Config, table: String): Int32 \ IO = {
+        let a = PostgresStore.connect(config);
+        let b = PostgresStore.connect(config);
+        a.setAutoCommit(false);
+        b.setAutoCommit(false);
+        let readA = count(a, table);
+        let readB = count(b, table);
+        insert(a, table, readA + 1);
+        a.commit();
+        insert(b, table, readB + 1);
+        b.commit();
+        a.close();
+        b.close();
+        count(PostgresStore.connect(config), table)
+    }
+
+    def count(conn: Connection, table: String): Int32 \ IO = {
+        let rs = conn.prepareStatement("select count(*) from ${table}").executeQuery();
+        rs.next();
+        rs.getInt(1)
+    }
+
+    def insert(conn: Connection, table: String, version: Int32): Unit \ IO = {
+        let st = conn.prepareStatement("insert into ${table} (version) values (?)");
+        st.setInt(1, version);
+        st.executeUpdate();
+        ()
+    }
+
+    @Test
+    def aTransactionAloneDoesNotStopTwoStaleWritersFromBothCommitting(): Unit \ {Assert, IO} = {
+        let config = PostgresStore.configFromEnv();
+        let table = PostgresStore.freshTableName();
+        let _ = PostgresStore.execute(config, "create table ${table} (version integer not null)");
+        // 版に制約が無いと、どちらも「1 番目の書き込み」としてコミットできてしまう
+        Assert.assertEq(expected = 2, bothReadThenBothWrite(config, table));
+        let _ = PostgresStore.dropTable(config, table);
+        ()
+    }
+
+    @Test
+    def aUniqueVersionMakesTheSecondStaleWriterFail(): Unit \ {Assert, IO} = {
+        let config = PostgresStore.configFromEnv();
+        let table = PostgresStore.freshTableName();
+        let _ = PostgresStore.execute(config, "create table ${table} (version integer not null unique)");
+        let outcome = try {
+            Ok(bothReadThenBothWrite(config, table))
+        } catch {
+            case ex: SQLException => Err(ex.getSQLState())
+        };
+        Assert.assertEq(expected = Err("23505"), outcome);
+        let _ = PostgresStore.dropTable(config, table);
+        ()
+    }
+
+    @Test
+    def aUniqueViolationBecomesAVersionConflict(): Unit \ {Assert, IO} = {
+        let violation = new SQLException("duplicate key", "23505");
+        let other = new SQLException("syntax error", "42601");
+        Assert.assertEq(expected = Errors.ZettaiError.VersionConflict(3, 4), PostgresStore.conflictOrFailure(violation, 3));
+        Assert.assertEq(expected = Errors.ZettaiError.StorageFailure("syntax error"), PostgresStore.conflictOrFailure(other, 3))
+    }
+
+    @Test
+    def writingAheadOfTheCurrentVersionIsRefused(): Unit \ {Assert, IO} = {
+        let config = PostgresStore.configFromEnv();
+        let table = PostgresStore.freshTableName();
+        match PostgresStore.open(config, table) {
+            case Ok(store) => Assert.assertEq(
+                expected = Err(Errors.ZettaiError.VersionConflict(5, 0)),
+                store#append(5, Events.ToDoListEvent.ListCreated(Domain.User.User("u"), Domain.ListName.ListName("l")) :: Nil))
+            case Err(e)    => Assert.assertEq(expected = "opened", ToString.toString(e))
+        };
+        let _ = PostgresStore.dropTable(config, table);
+        ()
+    }
+
+}

@@ -32,6 +32,7 @@ mod Http {
             case ZettaiError.ListAlreadyExists(_, _)    => 400
             case ZettaiError.InvalidTransition(_, _, _) => 400
             case ZettaiError.StorageFailure(_)          => 500
+            case ZettaiError.VersionConflict(_, _)      => 409
         }
 
     def failure(error: ZettaiError): Response =

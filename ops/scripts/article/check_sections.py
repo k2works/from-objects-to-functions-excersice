@@ -34,6 +34,7 @@ TARGET_NAMES = {
     "kotlin-fp": "Kotlin FP",
     "nadesiko": "なでしこ3",
     "rust": "Rust",
+    "flix": "Flix",
 }
 
 CHAPTER_LINE = re.compile(r"^\*\* 第([０-９0-9]+)章[　 ]*(.*)$")

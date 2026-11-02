@@ -18,3 +18,17 @@ object Gen:
   /** 長さ 0 から n までの、すべての出来事の列。 */
   def eventListsUpTo(n: Int): List[List[ToDoListEvent]] =
     (0 to n).toList.flatMap(k => ofLength(k, universe))
+
+  /** 射影の検証用。2 人の利用者、1 つのリスト、1 つの項目、2 つの状態から作る、起こりうる出来事。 */
+  def projectionUniverse: List[ToDoListEvent] =
+    val users = List(User("uberto"), User("alice"))
+    val book  = ListName("book")
+    users.flatMap { user =>
+      List(
+        ToDoListEvent.ListCreated(user, book),
+        ToDoListEvent.ItemAdded(user, book, ToDoItem.todo("a"))
+      ) ::: List(ToDoStatus.InProgress, ToDoStatus.Done).map(ToDoListEvent.ItemStatusChanged(user, book, "a", _))
+    }
+
+  def projectionListsUpTo(n: Int): List[List[ToDoListEvent]] =
+    (0 to n).toList.flatMap(k => ofLength(k, projectionUniverse))

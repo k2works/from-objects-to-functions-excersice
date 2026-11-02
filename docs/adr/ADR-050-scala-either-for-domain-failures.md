@@ -3,8 +3,10 @@ type: ADR
 title: "ADR-050 Scala 版は業務の失敗を Either で運び、IO の失敗は想定外の失敗に限る"
 description: "Zettai 連載 Scala 版で、業務上ありうる失敗を標準の Either で運び、IO の失敗（例外）は想定外の失敗に限る決定。Either を自作しない判断と、確かめたこと・確かめていないことを記録する。"
 tags: [adr, scala, zettai]
-status: draft
+status: stable
 generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-02T10:55:00Z }
+verified:
+  - { by: human:kakimomokuri, at: 2026-11-02T11:30:00Z }
 ---
 
 # ADR-050 Scala 版は業務の失敗を Either で運び、IO の失敗は想定外の失敗に限る
@@ -13,7 +15,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-02T10:55:00Z }
 
 ## ステータス
 
-提案（人の承認待ち）
+2026-11-02 承認されました
 
 ## コンテキスト
 

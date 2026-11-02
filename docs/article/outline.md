@@ -1,7 +1,7 @@
 ---
 type: Writing Plan
 title: "執筆計画：関数型プログラミングで作る変更を楽に安全にできるソフトウェア"
-description: "Uberto Barbini 著『From Objects to Functions』を下敷きにした Zettai 連載の執筆計画。既存 3 言語版に加え、Grokking Functional Programming の Kotlin + Arrow 解説を基礎にした Kotlin FP 版、効果システムを持つ Flix 版について、全 13 章の移植方針、記事と実装の同期、前提整備、品質ゲートを定義する。"
+description: "Uberto Barbini 著『From Objects to Functions』を下敷きにした Zettai 連載の執筆計画。既存 3 言語版に加え、Grokking Functional Programming の Kotlin + Arrow 解説を基礎にした Kotlin FP 版、効果システムを持つ Flix 版、Cats Effect を使う Scala 版について、全 13 章の移植方針、記事と実装の同期、前提整備、品質ゲートを定義する。"
 tags: [article, plan, zettai]
 status: draft
 generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T13:04:15Z }
@@ -19,7 +19,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T13:04:15Z }
 
 ## 対象一覧
 
-本シリーズは同じ 13 章構成を対象ごとに書き起こす比較シリーズです。現在の対象は **4 言語・5 実装方針** です（Flix 版も全 13 章を公開しました）。章の番号・タイトル・焦点は対象をまたいで共通とし、対象ごとに変えるのは実現手段だけです。Kotlin FP 版は言語を増やすのではなく、同じ Kotlin で「自前の関数型抽象」と「Arrow / coroutine を使う実装」を比較する対象です。
+本シリーズは同じ 13 章構成を対象ごとに書き起こす比較シリーズです。現在の対象は **4 言語・5 実装方針** です（Flix 版も全 13 章を公開しました）。**Scala（Cats Effect）版を計画中で、承認後は 5 言語・6 実装方針になります。**章の番号・タイトル・焦点は対象をまたいで共通とし、対象ごとに変えるのは実現手段だけです。Kotlin FP 版は言語を増やすのではなく、同じ Kotlin で「自前の関数型抽象」と「Arrow / coroutine を使う実装」を比較する対象です。
 
 | 対象 | 実行環境 | 章数 | 記事 | サンプル実装 | 状態 |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -28,6 +28,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T13:04:15Z }
 | なでしこ3 | Nix devShell `nadesiko`（Node 22 / cnako3 3.8.7） | 13 | `docs/article/zettai/nadesiko/` | `apps/nadesiko/zettai/` | **完結**（13 / 13 章公開） |
 | Rust | Nix devShell `rust`（rustc 1.91.1 / cargo 1.91.0） | 13 | `docs/article/zettai/rust/` | `apps/rust/zettai/` | **完結**（13 / 13 章公開） |
 | Flix | Nix devShell `flix`（JDK 21 / Flix 0.79.0） | 13 | `docs/article/zettai/flix/` | `apps/flix/zettai/` | **完結**（13 / 13 章公開） |
+| Scala | Nix devShell `scala`（Scala 3 / sbt。JDK は Unit 1 で確認）＋ Cats Effect | 13 | `docs/article/zettai/scala/` | `apps/scala/zettai/` | **計画中**（0 / 13 章） |
 
 横断比較コンテンツ [`docs/article/zettai/comparison/`](zettai/comparison/index.md) は、なでしこ3 版が Phase 1（第 3 章）を終えた 2026-09-28 に新設しました。当初の比較軸は「**型で保証する**（Kotlin）」と「**約束とテストで保証する**（なでしこ3）」の 2 点でした。
 
@@ -40,6 +41,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T13:04:15Z }
 | なでしこ3 | なし | なし | **辞書で作る** | 無い（`種別` キーの約束） |
 | Rust | あり | あり | **`Result` が言語にある** | `enum` |
 | Flix | あり（効果も型に載る） | あり | **`Result` が標準にある。副作用は効果で表す** | `enum` |
+| Scala（計画中） | あり（効果は `IO` の型で表す） | あり（Cats / Cats Effect を利用） | **`Either` / `Validated` を使う** | `enum`（Scala 3） |
 
 既存 3 対象を並べると、**「言語が与えるほど、設計は楽になるのか」**という問いが立ちます。**答えは「楽にはならない。決めることが変わる」**でした（[第 13 章](zettai/rust/chapter13.md)・[横断比較](zettai/comparison/index.md)）。Kotlin FP 版では、ここへ **「ライブラリへ委ねるほど、設計の意図は明確になるのか」**という 4 点目の問いを加えます。
 
@@ -64,8 +66,11 @@ docs/article/
 │   ├── rust/
 │   │   ├── index.md      # Rust 版トップ
 │   │   └── chapter01.md … chapter13.md
-│   └── flix/             # 計画中（Unit 1 で作成）
-│       ├── index.md      # Flix 版トップ
+│   ├── flix/
+│   │   ├── index.md      # Flix 版トップ
+│   │   └── chapter01.md … chapter13.md
+│   └── scala/            # 計画中（Unit 1 で作成）
+│       ├── index.md      # Scala 版トップ
 │       └── chapter01.md … chapter13.md
 
 references/
@@ -93,8 +98,10 @@ apps/
 │       └── doctest/      # 受け入れテスト
 ├── rust/
 │   └── zettai/           # 自作実装（cargo workspace）
-└── flix/                 # 計画中
-    └── zettai/           # Flix 版の自作実装（構成は Unit 1 で決める）
+├── flix/
+│   └── zettai/           # Flix 版の自作実装
+└── scala/                # 計画中
+    └── zettai/           # Scala + Cats Effect 版の自作実装（sbt。構成は Unit 1 で決める）
 ```
 
 記事は `docs/article/zettai/{target}/`、実装は `apps/{target}/zettai/` の対称構成とし、言語または実装方針を追加してもこの形を崩しません。
@@ -666,11 +673,116 @@ Unit・Bolt の割り当ては既存対象と同一（1 Unit = 2 章、Unit 1 �
 2. 以降は既存対象と同じく「実装 → 記事執筆 → サイト反映 → コミット」を 1 Bolt として、章 2 本で 1 Unit を閉じる
 3. Phase 1 の完了時に `comparison/` に Flix の列を足す
 
+## Scala 追加執筆計画
+
+5 言語目として **Scala 3 と Cats Effect** で同じ 13 章を書き起こします。**これは計画の段階で、環境・実装・記事はまだありません。** 「確認済み」と書いた事実以外は、Unit 1 で一次情報を確かめるまで未確認です。
+
+Kotlin FP 版は Arrow で `Either` と `Raise` を使い、Flix は効果を言語に持ちました。Scala + Cats Effect は第三の形です。**副作用を `IO` という値で表し、型クラス（`Functor`・`Monoid`・`Applicative`・`Monad`）を標準的な語彙として使う、型クラスのエコシステムです。** 連載が第 5・8・11・12 章で自作してきた抽象（モノイド・ファンクタ・アプリカティブ・プロファンクタ）に、実績のあるライブラリが既に名前を与えています。「自作した抽象は、ライブラリのものと同じか」を見比べられます。
+
+### 採用理由と確認する事実
+
+| 項目 | 内容 |
+| :--- | :--- |
+| 採用理由 | Kotlin FP 版（Arrow）が「ライブラリへ委ねるほど意図は明確になるか」を問うた。Scala は同じ問いを、**関数型プログラミングを前提に育ったエコシステム**で問い直す。Flix の効果システム（言語機能）との対比にもなる |
+| 実行基盤 | JVM 言語。`apps/scala/zettai/` は sbt プロジェクトとし、Scala 3 を使う。Nix の `scala` devShell は既に存在し、`scala_3`・`sbt`・`metals`・`scala-cli` を含むが、**JDK を明示していないため、版は Unit 1 で固定する**（未確認） |
+| 主要ライブラリ（候補） | Cats Effect 3（`IO`・`Resource`）、Cats（`Validated`・型クラス）、http4s（Ember）、doobie（PostgreSQL）、circe（JSON）、テストは MUnit + munit-cats-effect。**いずれも候補であり、採否と版は Unit 1 で確かめる。** 検索で見えた情報では、Cats Effect は 3.6.x が安定版、3.7 は RC、http4s は 0.23.x が安定版で 1.0 は未確定、doobie は 1.0.0 の RC 版（groupId が `org.typelevel` に変更）。**最新版は Maven Central で確認してから固定する**（今回の検索結果は日付が混在し、確定とは見なさない） |
+| 確認する事実（Unit 1） | ①現行の安定版（Scala 3 LTS・Cats Effect・http4s・doobie）と、動く組み合わせ ②Nix の `scala` devShell が JDK を含めて `sbt test` を通せること（Docker 上の Nix で確かめる）③http4s Ember サーバーを実際に起動し、テストから呼べること ④doobie が PostgreSQL に接続し、一意制約違反（`23505`）を判別できること ⑤MUnit + munit-cats-effect で `IO` のテストが書けること ⑥コードブロックの言語タグ `scala` を検査スクリプトが受け付けること ⑦Gherkin / Cucumber が Scala 3 で使えるか。使えない場合は Flix と同様に代替を決める ⑧doobie が 1.0 の RC のままである場合、**安定版を使うか RC を使うか**を ADR に残す |
+
+### 章の読み替え
+
+章の番号・タイトル・焦点は Kotlin 版と一致させ、実現手段だけを差し替えます。節名の読み替えが必要な箇所は、記事を書く前に [draft.md](draft.md) の表へ登録します（登録しないと `check_sections.py` が落ちます）。
+
+| 章 | テーマ（Kotlin 版と共通） | Scala + Cats Effect での実現手段・焦点 | 到達点 |
+| :--- | :--- | :--- | :--- |
+| 1 | 新しいアプリケーションを準備する | sbt プロジェクトと MUnit。**純粋関数と `IO` を返す関数が、型で区別されること**を確かめる | テスト 1 本が通る |
+| 2 | 関数を使って HTTP を扱う | http4s の `HttpRoutes[IO]` と Ember。`IOApp` を殻の入口にする | ウォーキングスケルトン |
+| 3 | ドメインの定義とテスト | 受け入れテストの抽象化。`IO` を返す関数値で経路を差し替える。Gherkin は ⑦の結果で決める | ドメインとアダプタの分離 |
+| 4 | ドメインとアダプタのモデリング | 関数型 DI を **関数引数 / `Resource` / タグレス・ファイナル**のどれで表すか。**採否を比べて記録する** | 依存の差し替え |
+| 5 | イベントで状態を変更する | `foldLeft` と Cats の `Monoid`。**自作のモノイドと Cats のものを突き合わせる** | イベントの畳み込み |
+| 6 | コマンドを実行してイベントを生成する | `enum` とパターンマッチによるステートマシン。網羅性の検査 | 網羅性の検査を確かめる |
+| 7 | 関数型手法によるエラーハンドリング | `Either` と `EitherT`、`IO` の失敗（`raiseError`）の使い分け。**どちらでエラーを運ぶかを記録する** | ファンクタ |
+| 8 | ファンクタを使ってイベントを射影する | Cats の `Functor` と `map`。射影は自前 | CQRS |
+| 9 | モナドによる安全なデータ永続化 | doobie の `ConnectionIO` と `Transactor`。`Resource` で接続を守る | モナド則と結合テスト |
+| 10 | コンテキストを読み込み、コマンドを処理する | `Kleisli` / `ReaderT` / `IOLocal` のどれで文脈を持ち回すか。採否を比べる | 文脈によるコマンド処理 |
+| 11 | アプリカティブによるデータバリデーション | Cats の `Validated` と `mapN`。最初の失敗で止めない | 複数エラーの集約 |
+| 12 | 監視と関数型 JSON | circe とログ（log4cats 等）を借りるか自前か。採否を先に判断する | プロファンクタ（`Contravariant` との対応） |
+| 13 | 関数型アーキテクチャの設計 | 総括と **5 言語の対比** | 「型クラスのエコシステムは、設計の何を変えるか」に答える |
+
+### この対象で新しく問われること
+
+| 問い | 章 | なぜ新しいか |
+| :--- | :--- | :--- |
+| **副作用を `IO` の値にすると、核と殻の分離は型で守られるか** | 2・4・9・10 | Flix は言語の効果で、Kotlin FP は設計で守った。Scala は `IO` を返すか否かの型で守る。**ただし `IO` を返さない副作用（例外・`var`）は型で止められない**ことも確かめる |
+| **自作した抽象は、Cats のものと何が違うか** | 5・8・11・12 | 連載が自作してきた `Monoid`・`Functor`・`Validated` 相当を、ライブラリ版と並べる。**置き換えられるもの・置き換えない方がよいものを記録する** |
+| **`IO` の遅延評価は、テストの書き方をどう変えるか** | 1・3・9 | 値を作っても実行されない。テストが `IO` をどこで実行するか（境界）を明示する |
+| **`Resource` は、接続・サーバーの後始末を型で保証するか** | 2・9 | Flix では Java 呼び出しの後始末が型に載らなかった。Scala では `Resource` が担う |
+
+### 前提整備（Scala 版）
+
+最初の Bolt はウォーキングスケルトンです。Flix 版の前提整備と同じ形で、次を順に満たします。
+
+- [ ] 上記「確認する事実」①〜⑧を一次情報で確かめ、結果を本節に反映する（未確認のものは「未確認」と残す）
+- [ ] `ops/nix/environments/scala/shell.nix` に JDK を明示し、`flake.nix` の `devShells.scala` が `nix develop` で動くことを確かめる（既存の定義は流用する。Docker 上の Nix で `sbt test` を通す）
+- [ ] `apps/scala/zettai/` に sbt の雛形を作り、`project/`・`target/` など復元可能な成果物を `.gitignore` で除外する
+- [ ] 最小のテスト 1 本が通ることを確認する（`sbt test` が green）
+- [ ] `.github/workflows/scala-zettai.yml` を追加する（`flix-zettai.yml` と `kotlin-fp-zettai.yml` を雛形にし、PostgreSQL サービスコンテナを備える）
+- [ ] `ops/scripts/article/check_sections.py` の対象名に `scala` を登録する
+- [ ] `ops/scripts/article/check_article_code.py` の `CHECKED_LANGUAGES` と `SOURCE_GLOBS` に Scala を追加する
+- [ ] `check_numbers.py` が `apps/scala/zettai/` を探索できることと、`check_adr_references.py` のパス正規表現を確認する
+- [ ] `docs/article/draft.md` に Scala 固有の節名読み替えを登録する（第 3・7・9 章の見込み）
+- [ ] `docs/article/zettai/scala/index.md` を作り、`zettai/index.md` の全章表・進捗管理表・実行環境一覧と `mkdocs.yml` の nav を第 1 章まで揃える
+- [ ] `comparison/index.md` と `docs/index.md` の件数表記を「5 言語・6 実装方針」に揃える（`docs/article/zettai/index.md` も確認する）
+- [ ] 既知の制約の一覧を `apps/scala/zettai/README.md` に Unit 1 から置く
+- [ ] ライブラリ選定（HTTP・DB・JSON・テスト・Gherkin 代替）を ADR に残す
+
+### 章別計画（Scala 版）
+
+Unit・Bolt の割り当ては既存対象と同一（1 Unit = 2 章、Unit 1 のみ前提整備＋第 1 章）とします。ストーリー番号と検証負荷は Scala 版リリース計画（`docs/development/release_plan-scala.md`。着手時に `planning-releases` で作成）を一次情報とし、本表には置きません。
+
+| 章 | ファイル | Unit | Bolt | その章の焦点 |
+| :--- | :--- | :--- | :--- | :--- |
+| — | （前提整備） | Unit 1 | 1-1 | 環境・雛形・CI・検査スクリプト。確認する事実のスパイク |
+| 1 | `chapter01.md` | Unit 1 | 1-2 | 題材設定と、`IO` と純粋関数の型の違い |
+| 2 | `chapter02.md` | Unit 2 | 2-1 | http4s Ember で縦串を通す |
+| 3 | `chapter03.md` | Unit 2 | 2-2 | 受け入れテストの抽象化とドメインの分離 |
+| 4 | `chapter04.md` | Unit 3 | 3-1 | 関数型 DI の方式比較 |
+| 5 | `chapter05.md` | Unit 3 | 3-2 | 畳み込みと `Monoid` |
+| 6 | `chapter06.md` | Unit 4 | 4-1 | `enum` によるステートマシン |
+| 7 | `chapter07.md` | Unit 4 | 4-2 | `Either` と `IO` の失敗の使い分け |
+| 8 | `chapter08.md` | Unit 5 | 5-1 | 射影と CQRS |
+| 9 | `chapter09.md` | Unit 5 | 5-2 | doobie と `Resource` による永続化 |
+| 10 | `chapter10.md` | Unit 6 | 6-1 | 文脈の持ち回り |
+| 11 | `chapter11.md` | Unit 6 | 6-2 | `Validated` によるエラー集約 |
+| 12 | `chapter12.md` | Unit 7 | 7-1 | ログと JSON の採否判断 |
+| 13 | `chapter13.md` | Unit 7 | 7-2 | 5 言語の対比 |
+
+バージョンは既存対象と独立に振ります。`comparison/` は既にあるので、Phase 1（前提整備・1〜3 章）の完了時に Scala の列を足します。
+
+### 既知の制約とリスク
+
+| 制約・リスク | 影響 | 対策 | 判断する時期 |
+| :--- | :--- | :--- | :--- |
+| **ライブラリの版の組み合わせが動かない**（Cats Effect・http4s・doobie の対応するバージョンが揃わない） | 環境構築で時間を失う。記事のコードが再現できない | Unit 1 で組み合わせを実際に動かして固定し、記事に版を明記する。CI で検証する | 1-1 |
+| **doobie が 1.0 の RC のまま** | 安定版を使うか RC を使うかの判断が要る | ADR に残す。RC を使う場合は、記事にその旨と理由を書く | 1-1 |
+| **Nix の `scala` devShell に JDK が明示されていない** | `sbt` が意図しない JDK を使う可能性 | `shell.nix` に JDK を明示し、Docker 上の Nix で確かめる | 1-1 |
+| **sbt の初回起動が遅い** | CI と読者の体験が重くなる | CI でキャッシュを効かせ、記事に初回の所要時間を書く | 1-1 |
+| **Cucumber が Scala 3 で使えない可能性** | 第 3 章の Gherkin が成立しない | スパイクで確かめ、使えなければ代替を決める。書かない部分は理由ごと本節に残す | 1-1 |
+| **`IO` の型は、`IO` の外の副作用を止めない** | 「型で分離を守る」と言い切れない | 例外・可変状態が型に載らない場所を各章で記録し、第 13 章で総括する | 各章 |
+| **型クラスの記法が読者に重い**（`mapN`・`traverse`・暗黙の引数） | 記事が読みにくくなる | 差分を小さく載せ、初出で用語を説明する。必要な型クラスだけを使う | 各章 |
+| **ライブラリを使うほど、自作した抽象との対比が薄まる** | 比較の意義が弱まる | 自作との突き合わせを第 5・8・11・12 章に必ず置く | 5 |
+
+### 進め方
+
+1. 本計画を承認した後、Unit 1 で「確認する事実」を確かめ、環境・雛形・CI・検査スクリプトを整えて、第 1 章を書く
+2. 以降は既存対象と同じく「実装 → 記事執筆 → サイト反映 → コミット」を 1 Bolt として、章 2 本で 1 Unit を閉じる
+3. Phase 1 の完了時に `comparison/` に Scala の列を足す
+4. 新規ファイルの作成・外部ライブラリの導入・データベースの接続は確認必須とし、承認ゲートで人の判断を仰ぐ
+
 ## 執筆規約
 
 - 見出しは階層を飛ばさない。章内の節は [draft.md](draft.md) のマインドマップに一致させる
 - コードブロックには言語を明示する。差分を示すときは変更箇所が分かる粒度で切る
-- **記事のコード例は必ず対象のサンプル実装（`apps/kotlin/zettai/`・`apps/kotlin-fp/zettai/`・`apps/nadesiko/zettai/`・`apps/rust/zettai/`・`apps/flix/zettai/`）の動作確認済み実装から転記する。** 憶測で書いたコードを載せない
+- **記事のコード例は必ず対象のサンプル実装（`apps/kotlin/zettai/`・`apps/kotlin-fp/zettai/`・`apps/nadesiko/zettai/`・`apps/rust/zettai/`・`apps/flix/zettai/`・`apps/scala/zettai/`）の動作確認済み実装から転記する。** 憶測で書いたコードを載せない
 - 長い完成コードは `<details>` に入れ、本文には差分だけを載せる
 - 日本語と半角英数字の間に半角スペース。文体はですます調。技術用語は英語のまま
 - 読者が実行するコマンドは、プロンプト記号を混ぜず、コピーしてそのまま動く形で書く
@@ -689,5 +801,6 @@ Unit・Bolt の割り当ては既存対象と同一（1 Unit = 2 章、Unit 1 �
 | なでしこ3 | 識別子にひらがなを使わない（助詞として切られる）。言語タグは `nako3`。Red の直後に実際のエラー出力を `bash` ブロックで貼る |
 | Rust | 言語タグは `rust`。**所有権で書き直した箇所は、書き直す前のコードも載せる**（`<!-- code-check: ignore わざと壊したコード -->` を付ける）。`cargo` の出力は `bash` ブロックで貼る |
 | Flix | 言語タグは Unit 1 で確定（仮に `flix`）。Java 相互運用の呼び出しは、効果の保証が切れる境界であることを本文で明記する。Flix の実行出力は `bash` ブロックで貼る |
+| Scala | 言語タグは `scala`（Unit 1 で検査スクリプトへの登録を確認）。Scala 3 の記法で統一し、ライブラリ（Cats Effect・http4s・doobie 等）は版を固定して記事に明記する。`IO` を実行する境界（`IOApp`・テストの `unsafeRunSync` 相当）を本文で明示する。sbt の出力は `bash` ブロックで貼る |
 
-**対象に固有の語（ライブラリ名・言語名・製品名）を含む節名は読み替える**という規則は 5 対象に共通です。読み替えた対応は [draft.md](draft.md) の表に登録します。**登録しないと `check_sections.py` が落ちます。**
+**対象に固有の語（ライブラリ名・言語名・製品名）を含む節名は読み替える**という規則は 6 対象に共通です。読み替えた対応は [draft.md](draft.md) の表に登録します。**登録しないと `check_sections.py` が落ちます。**

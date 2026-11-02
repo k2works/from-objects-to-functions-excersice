@@ -19,7 +19,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T13:04:15Z }
 
 ## 対象一覧
 
-本シリーズは同じ 13 章構成を対象ごとに書き起こす比較シリーズです。現在の対象は **4 言語・5 実装方針** です（Flix 版は Unit 1 を終え、第 1 章まで公開済みです）。章の番号・タイトル・焦点は対象をまたいで共通とし、対象ごとに変えるのは実現手段だけです。Kotlin FP 版は言語を増やすのではなく、同じ Kotlin で「自前の関数型抽象」と「Arrow / coroutine を使う実装」を比較する対象です。
+本シリーズは同じ 13 章構成を対象ごとに書き起こす比較シリーズです。現在の対象は **4 言語・5 実装方針** です（Flix 版も全 13 章を公開しました）。章の番号・タイトル・焦点は対象をまたいで共通とし、対象ごとに変えるのは実現手段だけです。Kotlin FP 版は言語を増やすのではなく、同じ Kotlin で「自前の関数型抽象」と「Arrow / coroutine を使う実装」を比較する対象です。
 
 | 対象 | 実行環境 | 章数 | 記事 | サンプル実装 | 状態 |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -27,7 +27,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T13:04:15Z }
 | Kotlin FP | Nix devShell `kotlin-fp`（JDK 25 / Gradle） | 13 | `docs/article/zettai/kotlin-fp/` | `apps/kotlin-fp/zettai/` | **完結**（13 / 13 章公開） |
 | なでしこ3 | Nix devShell `nadesiko`（Node 22 / cnako3 3.8.7） | 13 | `docs/article/zettai/nadesiko/` | `apps/nadesiko/zettai/` | **完結**（13 / 13 章公開） |
 | Rust | Nix devShell `rust`（rustc 1.91.1 / cargo 1.91.0） | 13 | `docs/article/zettai/rust/` | `apps/rust/zettai/` | **完結**（13 / 13 章公開） |
-| Flix | Nix devShell `flix`（JDK 21 / Flix 0.79.0） | 13 | `docs/article/zettai/flix/` | `apps/flix/zettai/` | **執筆中**（12 / 13 章公開） |
+| Flix | Nix devShell `flix`（JDK 21 / Flix 0.79.0） | 13 | `docs/article/zettai/flix/` | `apps/flix/zettai/` | **完結**（13 / 13 章公開） |
 
 横断比較コンテンツ [`docs/article/zettai/comparison/`](zettai/comparison/index.md) は、なでしこ3 版が Phase 1（第 3 章）を終えた 2026-09-28 に新設しました。当初の比較軸は「**型で保証する**（Kotlin）」と「**約束とテストで保証する**（なでしこ3）」の 2 点でした。
 
@@ -39,7 +39,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T13:04:15Z }
 | Kotlin FP | あり | Arrow / coroutine を利用 | **`Either` / Raise を使う** | `sealed interface` |
 | なでしこ3 | なし | なし | **辞書で作る** | 無い（`種別` キーの約束） |
 | Rust | あり | あり | **`Result` が言語にある** | `enum` |
-| Flix（計画） | あり（効果も型に載る） | あり | **`Result` 相当は標準にある見込み（Unit 1 で確認）。副作用は効果で表す** | `enum`（確認中） |
+| Flix | あり（効果も型に載る） | あり | **`Result` が標準にある。副作用は効果で表す** | `enum` |
 
 既存 3 対象を並べると、**「言語が与えるほど、設計は楽になるのか」**という問いが立ちます。**答えは「楽にはならない。決めることが変わる」**でした（[第 13 章](zettai/rust/chapter13.md)・[横断比較](zettai/comparison/index.md)）。Kotlin FP 版では、ここへ **「ライブラリへ委ねるほど、設計の意図は明確になるのか」**という 4 点目の問いを加えます。
 
@@ -622,9 +622,9 @@ Kotlin 版は `Outcome` を自前で作り、Rust 版は `Result` が言語に�
 - [x] `ops/scripts/article/check_sections.py` の対象名に `flix` を登録する
 - [x] `ops/scripts/article/check_article_code.py` の `CHECKED_LANGUAGES` と `SOURCE_GLOBS` に Flix を追加する
 - [x] `check_numbers.py` が `apps/flix/zettai/` を探索できることと、`check_adr_references.py` のパス正規表現を確認する（性質テストと ADR はまだ無く、違反 0）
-- [ ] `docs/article/draft.md` に Flix 固有の節名読み替えを登録する（第 3・7・9 章の前に行う。第 1 章は読み替え不要で、`check_sections.py` は green）
+- [x] `docs/article/draft.md` に Flix 固有の節名読み替えを登録する（第 3・7・9 章の 3 件。`check_sections.py` は green）
 - [x] `docs/article/zettai/flix/index.md` を作り、`zettai/index.md` の全章表・進捗管理表・実行環境一覧と `mkdocs.yml` の nav を第 1 章まで揃える
-- [ ] `comparison/index.md` と `docs/index.md` の件数表記を揃える（Phase 1 の完了時）
+- [x] `comparison/index.md` と `docs/index.md` の件数表記を揃える（全 13 章の完結時に、横断比較の末尾へ Flix 版の節を足した）
 - [x] 既知の制約の一覧を `apps/flix/zettai/README.md` に Unit 1 から置く
 
 ### 章別計画（Flix 版）

@@ -298,6 +298,7 @@ nav:
               - 第 10 章 コンテキストを読み込み、コマンドを処理する: article/zettai/flix/chapter10.md
               - 第 11 章 アプリカティブによるデータバリデーション: article/zettai/flix/chapter11.md
               - 第 12 章 監視と関数型 JSON: article/zettai/flix/chapter12.md
+              - 第 13 章 関数型アーキテクチャの設計: article/zettai/flix/chapter13.md
           - 横断比較: article/zettai/comparison/index.md
   - リファレンス:
       - 概要: reference/index.md

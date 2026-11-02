@@ -15,9 +15,9 @@ ToDo リストアプリケーション **Zettai** を TDD で一から作りな�
 | Kotlin FP | [Kotlin FP 版](kotlin-fp/index.md) | `apps/kotlin-fp/zettai/` | Nix devShell `kotlin-fp`（JDK 25 / Gradle） | **完結（13 / 13 章）** |
 | なでしこ3 | [なでしこ3 版](nadesiko/index.md) | `apps/nadesiko/zettai/` | Nix devShell `nadesiko`（Node 22 / cnako3 3.8.7） | **完結（13 / 13 章）** |
 | Rust | [Rust 版](rust/index.md) | `apps/rust/zettai/` | Nix devShell `rust`（rustc 1.91.1 / cargo 1.91.0） | **完結（13 / 13 章）** |
-| Flix | [Flix 版](flix/index.md) | `apps/flix/zettai/` | Nix devShell `flix`（JDK 21 / Flix 0.79.0） | **執筆中（12 / 13 章）** |
+| Flix | [Flix 版](flix/index.md) | `apps/flix/zettai/` | Nix devShell `flix`（JDK 21 / Flix 0.79.0） | **完結（13 / 13 章）** |
 
-**既存の 3 言語版は完結し、4 対象目の Kotlin FP 版も 13 章を書き終えました。** 同じ題材・同じ 13 章を 3 言語で書いた結果は [対象言語の横断比較](comparison/index.md) にまとめています。Kotlin FP 版の完結後、ライブラリへ委ねる範囲を 4 本目の比較軸として反映します。
+**既存の 3 言語版は完結し、4 対象目の Kotlin FP 版、5 対象目の Flix 版も 13 章を書き終えました。** 同じ題材・同じ 13 章を 3 言語で書いた結果は [対象言語の横断比較](comparison/index.md) にまとめています。Kotlin FP 版の完結後、ライブラリへ委ねる範囲を 4 本目の比較軸として反映します。
 
 当初の比較軸は「型で保証する（Kotlin）」と「約束とテストで保証する（なでしこ3）」の 2 点でした。**Rust 版で軸が「言語がどこまで与えるか」に広がりました。**
 
@@ -27,9 +27,9 @@ ToDo リストアプリケーション **Zettai** を TDD で一から作りな�
 | Kotlin FP | あり | Arrow / coroutine | **`Either` / Raise を使う** | `sealed interface` |
 | なでしこ3 | なし | なし | **辞書で作る** | 無い |
 | Rust | あり | あり | **`Result` が言語にある** | `enum` |
-| Flix | あり（効果も型に載る） | あり | **`Result` が標準にある。副作用は効果で表す** | 確認中 |
+| Flix | あり（効果も型に載る） | あり | **`Result` が標準にある。副作用は効果で表す** | `enum` |
 
-**横断比較は 3 列・全 13 章を覆っています。** 「言語が与えるほど設計は楽になるのか」への答えは、そこにあります。
+**横断比較は 3 列・全 13 章を覆っています。** Kotlin FP 版と Flix 版は、末尾の別の節で比べています。 「言語が与えるほど設計は楽になるのか」への答えは、そこにあります。
 
 ## 全章構成
 
@@ -47,7 +47,7 @@ ToDo リストアプリケーション **Zettai** を TDD で一から作りな�
 | 10 | コンテキストを読み込み、コマンドを処理する | [公開済み](kotlin/chapter10.md) | [公開済み](kotlin-fp/chapter10.md) | [公開済み](nadesiko/chapter10.md) | [公開済み](rust/chapter10.md) | [公開済み](flix/chapter10.md) |
 | 11 | アプリカティブによるデータバリデーション | [公開済み](kotlin/chapter11.md) | [公開済み](kotlin-fp/chapter11.md) | [公開済み](nadesiko/chapter11.md) | [公開済み](rust/chapter11.md) | [公開済み](flix/chapter11.md) |
 | 12 | 監視と関数型 JSON | [公開済み](kotlin/chapter12.md) | [公開済み](kotlin-fp/chapter12.md) | [公開済み](nadesiko/chapter12.md) | [公開済み](rust/chapter12.md) | [公開済み](flix/chapter12.md) |
-| 13 | 関数型アーキテクチャの設計 | [公開済み](kotlin/chapter13.md) | [公開済み](kotlin-fp/chapter13.md) | [公開済み](nadesiko/chapter13.md) | [公開済み](rust/chapter13.md) | 執筆中 |
+| 13 | 関数型アーキテクチャの設計 | [公開済み](kotlin/chapter13.md) | [公開済み](kotlin-fp/chapter13.md) | [公開済み](nadesiko/chapter13.md) | [公開済み](rust/chapter13.md) | [公開済み](flix/chapter13.md) |
 
 章の番号とタイトルは対象言語をまたいで共通です。**位置と役割を揃えたことが、横断比較の前提になっています。** 節名に対象固有の語（ライブラリ名・言語名・製品名）が入る場合だけ読み替えました（[章構成マインドマップ](../draft.md) の「言語別の読み替え」）。
 
@@ -58,7 +58,7 @@ ToDo リストアプリケーション **Zettai** を TDD で一から作りな�
 | 実行環境（Nix devShell） | **完了** | **定義済み** | **完了** | **完了** | **定義済み（Nix 上の評価は未検証）** |
 | サンプル実装の雛形 | **完了** | **完了** | **完了** | **完了** | **完了** |
 | CI | **完了** | **定義済み（同等コマンド green）** | **完了** | **完了** | **定義済み（同等コマンド green。Actions は未実行）** |
-| 公開済みの章 | **13 / 13（完結）** | **13 / 13（完結）** | **13 / 13（完結）** | **13 / 13（完結）** | 12 / 13 |
+| 公開済みの章 | **13 / 13（完結）** | **13 / 13（完結）** | **13 / 13（完結）** | **13 / 13（完結）** | **13 / 13（完結）** |
 | ADR | 12 件 | 8 件 | 11 件 | **14 件** | 3 件 |
 | 計画した承認ゲート | 47 箇所 | 8 箇所 | 41 箇所 | 15 箇所 | 未計画 |
 | **うち同期停止した回数** | 記録なし | 0 | **1** | **15** | 記録中 |

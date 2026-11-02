@@ -38,6 +38,8 @@ jobs:
         uses: sbt/setup-sbt@v1
       - name: Test
         run: sbt -batch test
+      - name: Cucumber（確認用）
+        run: sbt -batch "Test/runMain io.cucumber.core.cli.Main --glue zettai.acceptance.steps classpath:features"
 
   article:
     runs-on: ubuntu-latest

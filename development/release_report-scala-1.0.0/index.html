@@ -11545,7 +11545,7 @@
 </tr>
 <tr>
 <td style="text-align: left;">テスト</td>
-<td style="text-align: left;">130 件。<code>sbt test</code> が通る（結合テストは Docker が要る）</td>
+<td style="text-align: left;">131 件（公開時点は 130 件）。<code>sbt test</code> が通る（結合テストは Docker が要る）</td>
 </tr>
 <tr>
 <td style="text-align: left;">CI</td>
@@ -11651,8 +11651,8 @@
 </tr>
 <tr>
 <td style="text-align: left;">4</td>
-<td style="text-align: left;">バッチ（<code>processAll</code>）に対する書き手の競合</td>
-<td style="text-align: left;">テストを書いていない</td>
+<td style="text-align: left;">~~バッチ（<code>processAll</code>）に対する書き手の競合~~</td>
+<td style="text-align: left;">確かめた。割り込む書き手を入れたストアで、全体が <code>VersionConflict</code> になり、バッチの分は書かれない。版の確認を壊すと落ちる</td>
 </tr>
 <tr>
 <td style="text-align: left;">5</td>

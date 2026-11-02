@@ -11753,7 +11753,10 @@
 <li><strong>トランザクションの代わりに版で守る。</strong> <code>load</code> と <code>append</code> を別々に呼んでも、古い判断の書き込みは第 9 章の <code>VersionConflict</code> が断る</li>
 <li><strong>バッチは、判断を先に済ませて、書き込みを 1 回にする。</strong> 書き込みの途中に判断を挟まないので、部分的に書かれる状態がない</li>
 </ul>
-<p>確かめていないこともあります。<code>processAll</code> の途中で、別の書き手が書いた場合です。1 回の <code>append</code> が版の確認で断るはずですが、バッチに対する競合のテストは書いていません。</p>
+<p><code>processAll</code> の途中で、別の書き手が書いた場合も確かめました。読み出しのあと、書き込みの直前に別の書き手が割り込むストアを作り、バッチを流します。結果は <code>VersionConflict</code> で、バッチの分は何も書かれず、割り込んだ書き手のイベントだけが残ります。</p>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="n">test</span><span class="p">(</span><span class="s">"バッチ: 読んだあとに別の書き手が書いていたら、全体が VersionConflict で断られ、バッチの分は書かれない"</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</code></pre></div>
+<p>版の確認を壊すと、このテストを含む 4 本が落ちました。</p>
 <h2 id="_6">データベースに対する射影のクエリ<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
 <p>第 8 章の <code>QueryHub</code> は、<code>EventStore</code> を受け取るだけでした。ストアが PostgreSQL に変わっても、そのまま動くはずです。</p>
 <div class="highlight"><pre><span></span><code><span class="w">  </span><span class="n">test</span><span class="p">(</span><span class="s">"データベースのイベントから作った行は、インメモリで作った行と同じ"</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -11816,7 +11819,7 @@
 <li>複数のコマンドは、判断を先に済ませて 1 回で書けば、すべてか何もないかになる</li>
 <li>読む側のコードは、ストアが PostgreSQL になっても変わらない</li>
 </ul>
-<p><code>sbt test</code> は 90 本が通ります（第 9 章の 81 本に、9 本を足しました）。</p>
+<p><code>sbt test</code> は 90 本が通ります（第 9 章の 81 本に、9 本を足しました）。公開後に、バッチの競合のテストを 1 本足したので、最終は 131 本です。</p>
 <p>次章では、リスト名の変更を足します。入力の誤りが複数あるとき、最初の 1 つで止めずに、すべて集めて返します。</p>
 <h2 id="_9">この章で書いたコード<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
 <ul>

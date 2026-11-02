@@ -8507,6 +8507,76 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="flix/chapter12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 12 章 監視と関数型 JSON
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="flix/chapter13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 13 章 関数型アーキテクチャの設計
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -10765,11 +10835,11 @@
 <td style="text-align: left;"><a href="flix/">Flix 版</a></td>
 <td style="text-align: left;"><code>apps/flix/zettai/</code></td>
 <td style="text-align: left;">Nix devShell <code>flix</code>（JDK 21 / Flix 0.79.0）</td>
-<td style="text-align: left;"><strong>執筆中（11 / 13 章）</strong></td>
+<td style="text-align: left;"><strong>完結（13 / 13 章）</strong></td>
 </tr>
 </tbody>
 </table>
-<p><strong>既存の 3 言語版は完結し、4 対象目の Kotlin FP 版も 13 章を書き終えました。</strong> 同じ題材・同じ 13 章を 3 言語で書いた結果は <a href="comparison/">対象言語の横断比較</a> にまとめています。Kotlin FP 版の完結後、ライブラリへ委ねる範囲を 4 本目の比較軸として反映します。</p>
+<p><strong>既存の 3 言語版は完結し、4 対象目の Kotlin FP 版、5 対象目の Flix 版も 13 章を書き終えました。</strong> 同じ題材・同じ 13 章を 3 言語で書いた結果は <a href="comparison/">対象言語の横断比較</a> にまとめています。Kotlin FP 版の完結後、ライブラリへ委ねる範囲を 4 本目の比較軸として反映します。</p>
 <p>当初の比較軸は「型で保証する（Kotlin）」と「約束とテストで保証する（なでしこ3）」の 2 点でした。<strong>Rust 版で軸が「言語がどこまで与えるか」に広がりました。</strong></p>
 <table>
 <thead>
@@ -10815,11 +10885,11 @@
 <td style="text-align: left;">あり（効果も型に載る）</td>
 <td style="text-align: left;">あり</td>
 <td style="text-align: left;"><strong><code>Result</code> が標準にある。副作用は効果で表す</strong></td>
-<td style="text-align: left;">確認中</td>
+<td style="text-align: left;"><code>enum</code></td>
 </tr>
 </tbody>
 </table>
-<p><strong>横断比較は 3 列・全 13 章を覆っています。</strong> 「言語が与えるほど設計は楽になるのか」への答えは、そこにあります。</p>
+<p><strong>横断比較は 3 列・全 13 章を覆っています。</strong> Kotlin FP 版と Flix 版は、末尾の別の節で比べています。 「言語が与えるほど設計は楽になるのか」への答えは、そこにあります。</p>
 <h2 id="_2">全章構成<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -10940,7 +11010,7 @@
 <td style="text-align: left;"><a href="kotlin-fp/chapter12/">公開済み</a></td>
 <td style="text-align: left;"><a href="nadesiko/chapter12/">公開済み</a></td>
 <td style="text-align: left;"><a href="rust/chapter12/">公開済み</a></td>
-<td style="text-align: left;">執筆中</td>
+<td style="text-align: left;"><a href="flix/chapter12/">公開済み</a></td>
 </tr>
 <tr>
 <td style="text-align: left;">13</td>
@@ -10949,7 +11019,7 @@
 <td style="text-align: left;"><a href="kotlin-fp/chapter13/">公開済み</a></td>
 <td style="text-align: left;"><a href="nadesiko/chapter13/">公開済み</a></td>
 <td style="text-align: left;"><a href="rust/chapter13/">公開済み</a></td>
-<td style="text-align: left;">執筆中</td>
+<td style="text-align: left;"><a href="flix/chapter13/">公開済み</a></td>
 </tr>
 </tbody>
 </table>
@@ -10997,7 +11067,7 @@
 <td style="text-align: left;"><strong>13 / 13（完結）</strong></td>
 <td style="text-align: left;"><strong>13 / 13（完結）</strong></td>
 <td style="text-align: left;"><strong>13 / 13（完結）</strong></td>
-<td style="text-align: left;">11 / 13</td>
+<td style="text-align: left;"><strong>13 / 13（完結）</strong></td>
 </tr>
 <tr>
 <td style="text-align: left;">ADR</td>
@@ -11005,7 +11075,7 @@
 <td style="text-align: left;">8 件</td>
 <td style="text-align: left;">11 件</td>
 <td style="text-align: left;"><strong>14 件</strong></td>
-<td style="text-align: left;">2 件</td>
+<td style="text-align: left;">3 件</td>
 </tr>
 <tr>
 <td style="text-align: left;">計画した承認ゲート</td>
@@ -11029,7 +11099,7 @@
 <td style="text-align: left;">3</td>
 <td style="text-align: left;"><strong>7</strong></td>
 <td style="text-align: left;">5</td>
-<td style="text-align: left;">5</td>
+<td style="text-align: left;">6</td>
 </tr>
 </tbody>
 </table>

@@ -13,7 +13,7 @@
       
       
       
-        <link rel="prev" href="../flix/chapter11/">
+        <link rel="prev" href="../flix/chapter13/">
       
       
         <link rel="next" href="../../../reference/">
@@ -8416,6 +8416,76 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flix/chapter12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 12 章 監視と関数型 JSON
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flix/chapter13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 13 章 関数型アーキテクチャの設計
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -8856,6 +8926,89 @@
     <span class="md-ellipsis">
       
         4 本目の問い
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Flix 版を加えた比較
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Flix 版を加えた比較">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        他の対象と並べた、言語が与えたもの
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        自前から標準へ、置き換えた場所
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2026-11-03" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        実測（2026-11-03）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        代数構造の確かめ方
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        「既製品を入れるか」
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5 本目の問い
       
     </span>
   </a>
@@ -11046,7 +11199,7 @@
 
 
 <h1 id="_1">対象言語の横断比較<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<p>Zettai を複数の言語で書くと、同じ設計が言語ごとに違う形で現れます。<strong>3 対象とも全 13 章を書き終えました。</strong> 4 対象目の Kotlin FP 版も全 13 章を書き終え、末尾の<a href="#kotlin-fp-版を加えた比較">別の節</a>に足しています。 章を閉じるたびに足してきた違いを、ここにまとめています。</p>
+<p>Zettai を複数の言語で書くと、同じ設計が言語ごとに違う形で現れます。<strong>3 対象とも全 13 章を書き終えました。</strong> 4 対象目の Kotlin FP 版も全 13 章を書き終え、末尾の<a href="#kotlin-fp-版を加えた比較">別の節</a>に足しています。 5 対象目の Flix 版も全 13 章を書き終え、さらにその後ろの<a href="#flix-版を加えた比較">別の節</a>に足しています。 章を閉じるたびに足してきた違いを、ここにまとめています。</p>
 <p>当初の比較軸は 1 つでした。<strong>Kotlin 版は「型で保証する」、なでしこ3 版は「約束とテストで保証する」。</strong></p>
 <p><strong>Rust 版で軸が広がりました。</strong> 「型があるか」ではなく「<strong>言語がどこまで与えるか</strong>」です。</p>
 <table>
@@ -12447,6 +12600,189 @@
 <p>Kotlin FP 版は、Arrow、kotlinx-serialization-json、Kotest、http4k、Testcontainers、Cucumber を入れました。毎章これを判断した Rust 版のように、入れた場合と入れない場合の依存の数や、ビルド時間を測っていません。<strong>入れなかったもの</strong>は、Arrow の <code>Resource</code>、悲観ロック、DB の payload のための JSON ライブラリです。<strong>試していない・比べていないもの</strong>は、Kondor、ログの枠組み（SLF4J など）、既製の template エンジン、Arrow の optics です。</p>
 <h3 id="4">4 本目の問い<a class="headerlink" href="#4" title="Permanent link">&para;</a></h3>
 <p>「ライブラリへ委ねるほど、設計の意図は明確になるのか」。実装から言えるのは、名前が概念と一致し、法則を使う側から確かめられるもの（<code>Either</code>、<code>zipOrAccumulate</code>）は、委ねて明確になったことです。transaction をどこで切るか、ログに何を載せないかのような境界は、委ねる先が無く、型とテストで自分で表しました。<strong>1 つの題材、1 つの実装での観察で、一般論の根拠はありません。</strong>（<a href="../kotlin-fp/chapter13/">第 13 章</a>）</p>
+<h2 id="flix">Flix 版を加えた比較<a class="headerlink" href="#flix" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p><strong>Flix 版を 2026-11-03 に足しました。</strong> 以上の表は 3 対象と Kotlin FP 版で書いたもので、Flix 版は、ここに別の節として加えます。既存の表は書き換えていません。<strong>5 対象とも全 13 章を書き終えました。</strong></p>
+</blockquote>
+<ul>
+<li><a href="../flix/">Flix 版</a>（完結・13 / 13 章）</li>
+</ul>
+<p>Flix 版は、<strong>副作用が型の一部になる言語</strong>で書く版です。比べる問いは、他の対象に無いものでした。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">問い</th>
+<th style="text-align: left;">答え（<a href="../flix/chapter13/">第 13 章</a>）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">副作用を型で追跡すると、核と殻の分離は楽になるか</td>
+<td style="text-align: left;">守りたいことの一部を、規約からコンパイラに移せた。移せなかったのは、効果の分類の正しさ、境界の置き方、載せないものの決め方</td>
+</tr>
+<tr>
+<td style="text-align: left;">Java 相互運用の境界で、保証はどこまで届くか</td>
+<td style="text-align: left;">Java のコールバックの中身、<code>Logger</code> の処理の置き場所で切れた。Java の呼び出しの効果は一律ではなかった</td>
+</tr>
+<tr>
+<td style="text-align: left;">効果ハンドラは、関数型 DI の代わりになるか</td>
+<td style="text-align: left;">代わりになる。文脈の持ち回りは足りた。置き換えなければならない理由は、見つからなかった</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_20">他の対象と並べた、言語が与えたもの<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">対象</th>
+<th style="text-align: left;">型</th>
+<th style="text-align: left;">関数型の道具</th>
+<th style="text-align: left;"><code>Outcome</code> 相当</th>
+<th style="text-align: left;">代数的データ型</th>
+<th style="text-align: left;">副作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Flix</td>
+<td style="text-align: left;">あり</td>
+<td style="text-align: left;">あり</td>
+<td style="text-align: left;"><strong><code>Result</code> が標準にある</strong></td>
+<td style="text-align: left;"><code>enum</code></td>
+<td style="text-align: left;"><strong>効果として型に載る</strong></td>
+</tr>
+</tbody>
+</table>
+<p>「言語がどこまで与えるか」の軸で見ると、Flix は Rust と同じ側にあり、さらに<strong>副作用を型に載せる</strong>ところまで与えます。</p>
+<h3 id="_21">自前から標準へ、置き換えた場所<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">論点</th>
+<th style="text-align: left;">Kotlin 版</th>
+<th style="text-align: left;">Kotlin FP 版</th>
+<th style="text-align: left;">Flix 版</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">失敗の型</td>
+<td style="text-align: left;">自前の <code>Outcome</code></td>
+<td style="text-align: left;">Arrow の <code>Either</code></td>
+<td style="text-align: left;">標準の <code>Result</code>（<a href="../../../adr/ADR-047-flix-use-standard-result/">ADR-047</a>）</td>
+</tr>
+<tr>
+<td style="text-align: left;">文脈の持ち回り</td>
+<td style="text-align: left;">自前の <code>ContextReader</code></td>
+<td style="text-align: left;">型引数 <code>Tx</code> と関数の引数</td>
+<td style="text-align: left;">効果 <code>EventLog</code> とハンドラ（第 10 章）</td>
+</tr>
+<tr>
+<td style="text-align: left;">複数の誤り</td>
+<td style="text-align: left;">自前の <code>Validation</code></td>
+<td style="text-align: left;"><code>Either.zipOrAccumulate</code></td>
+<td style="text-align: left;">標準の <code>Validation</code> と <code>forA</code>（第 11 章）</td>
+</tr>
+<tr>
+<td style="text-align: left;">JSON</td>
+<td style="text-align: left;">自前の <code>Converter</code></td>
+<td style="text-align: left;"><code>JsonElement</code> の木と自前の <code>Encoder</code> / <code>Decoder</code></td>
+<td style="text-align: left;">自前の木（標準に無い。<a href="../../../adr/ADR-048-flix-logger-effect-and-own-json/">ADR-048</a>）</td>
+</tr>
+<tr>
+<td style="text-align: left;">ログ</td>
+<td style="text-align: left;">（比較していない）</td>
+<td style="text-align: left;">decorator と filter</td>
+<td style="text-align: left;">decorator と標準の <code>Logger</code> 効果</td>
+</tr>
+</tbody>
+</table>
+<p>この表の Kotlin 版と Kotlin FP 版の列は、既存の記事と、この文書の前の節に書かれたことに基づきます。そのコードを、Flix 版のために読み直して確かめたものではありません。</p>
+<h3 id="2026-11-03">実測（2026-11-03）<a class="headerlink" href="#2026-11-03" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">項目</th>
+<th style="text-align: left;">Flix 版</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">章</td>
+<td style="text-align: left;">13 / 13</td>
+</tr>
+<tr>
+<td style="text-align: left;">ADR</td>
+<td style="text-align: left;">3 件（<a href="../../../adr/ADR-046-flix-acceptance-by-record-of-functions/">ADR-046</a> から <a href="../../../adr/ADR-048-flix-logger-effect-and-own-json/">ADR-048</a>）。承認の記録は無い</td>
+</tr>
+<tr>
+<td style="text-align: left;">テスト</td>
+<td style="text-align: left;">157 件（<code>@Test</code>）。PostgreSQL の結合テストを含む</td>
+</tr>
+<tr>
+<td style="text-align: left;">本番コードの <code>.flix</code></td>
+<td style="text-align: left;">25 ファイル、1,356 行（<code>src/</code>）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>\ IO</code> の注釈がある本番コード</td>
+<td style="text-align: left;">2 モジュール（<code>JdkServer</code>、<code>PostgresStore</code>）</td>
+</tr>
+<tr>
+<td style="text-align: left;">実装から外へ依存する Java の <code>import</code></td>
+<td style="text-align: left;"><code>JdkServer</code> 6、<code>PostgresStore</code> 9、<code>Json</code> 1</td>
+</tr>
+</tbody>
+</table>
+<p>行数は、ファイルの改行の数です。Kotlin FP 版は本番コードが 24 ファイル 1,599 行ですが、数え方が同じとは確かめていないので、並べて優劣は言いません。</p>
+<h3 id="_22">代数構造の確かめ方<a class="headerlink" href="#_22" title="Permanent link">&para;</a></h3>
+<p>3 対象は、法則を壊して何回検出するかを数えています（<a href="../../../adr/ADR-017-own-property-testing/">ADR-017</a>）。<strong>Flix 版は、検出率を数えていません。</strong> 壊れた実装を 1 つずつ用意して、見分けられることを示しました。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">構造</th>
+<th style="text-align: left;">章</th>
+<th style="text-align: left;">Flix 版の確かめ方</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">モノイド</td>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;"><code>TestTransition</code>。標準の <code>Monoid</code> のインスタンス。全パターン</td>
+</tr>
+<tr>
+<td style="text-align: left;">ファンクタ</td>
+<td style="text-align: left;">7、8</td>
+<td style="text-align: left;"><code>TestResultFunctor</code>、<code>TestQueryFunctor</code>。壊れた <code>map</code> を見分ける</td>
+</tr>
+<tr>
+<td style="text-align: left;">モナド</td>
+<td style="text-align: left;">9</td>
+<td style="text-align: left;"><code>TestResultMonad</code>。壊れた <code>bind</code> を見分ける</td>
+</tr>
+<tr>
+<td style="text-align: left;">アプリカティブ</td>
+<td style="text-align: left;">11</td>
+<td style="text-align: left;"><code>TestApplicativeLaws</code>。<code>forA</code> に求める性質（則そのものの一般形ではない）。「最初の誤りだけ」の合成を見分ける</td>
+</tr>
+<tr>
+<td style="text-align: left;">プロファンクタ</td>
+<td style="text-align: left;">12</td>
+<td style="text-align: left;"><code>TestProfunctor</code>。<code>dimap</code> の法則。束ねた <code>Converter</code> には <code>imap</code> だけ</td>
+</tr>
+</tbody>
+</table>
+<p>テストの入力は、乱数ではなく、小さな範囲の<strong>全パターン</strong>を並べました。範囲の外は何も言えません。</p>
+<h3 id="_23">「既製品を入れるか」<a class="headerlink" href="#_23" title="Permanent link">&para;</a></h3>
+<p>Flix 版は、外部の依存を 1 つだけ入れました。PostgreSQL の JDBC ドライバです（第 9 章）。<strong>入れなかった・試していないもの</strong>は、Cucumber、Jackson などの JSON ライブラリ、SLF4J などのログの枠組み、プロパティテストのライブラリです。いずれも比べていません。標準にあった <code>Result</code>、<code>Validation</code>、<code>Logger</code>、<code>Monoid</code> は、使いました。</p>
+<h3 id="5">5 本目の問い<a class="headerlink" href="#5" title="Permanent link">&para;</a></h3>
+<p>「副作用を型で追跡すると、設計は楽になるのか」。実装から言えるのは、次のことです。</p>
+<ul>
+<li>規約で守っていたことの一部（ドメインに副作用を入れない、足したケースの更新漏れを探す）を、コンパイラが肩代わりした</li>
+<li>効果の分類は、一律ではなかった。型の保証は、コンパイラの分類が正しいことに依存する</li>
+<li>境界の置き方、載せないものの決め方は、効果システムがあっても、自分で決めた</li>
+</ul>
+<p>テストだけが見つけた欠陥が、3 つありました（状態と射影の食い違い、JSON の最小値、ログの二重呼び出し）。<strong>1 つの題材、1 つの実装、Flix 0.79.0 での観察で、一般論の根拠はありません。</strong>（<a href="../flix/chapter13/">第 13 章</a>）</p>
 
 
 

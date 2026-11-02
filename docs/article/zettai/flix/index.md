@@ -33,3 +33,36 @@ flix test
 ```
 
 Nix を使わない場合は、公式リリースから `flix.jar` を取得して `java -jar flix.jar test` を実行します。手順は [第 1 章](chapter01.md) にあります。
+
+## 章ごとのコードを再現する
+
+Flix 版は、1 つのプロジェクトを章ごとに育てています。**最新のコードで `flix test` を実行すると、第 9 章以降の PostgreSQL の結合テストが必要になり、PostgreSQL が無いと 13 本が落ちます**（クリーンな clone で確かめた結果は、144 本が通り、13 本が落ちました）。
+
+各章の記事は、その章を書いた時点のコードに対応します。時点のコミットに切り替えると、記事に書いた件数どおりに通ります。
+
+| 章 | コミット | `flix test` の件数 | PostgreSQL |
+| :--- | :--- | :--- | :--- |
+| 1 | `741d7d5` | 3 | 不要 |
+| 2 | `8a07f68` | 14 | 不要 |
+| 3 | `356b4d4` | 21 | 不要 |
+| 4 | `e383173` | 28 | 不要 |
+| 5 | `01e96c4` | 40 | 不要 |
+| 6 | `4db46a5` | 58 | 不要 |
+| 7 | `59b1950` | 66 | 不要 |
+| 8 | `25cbb90` | 79 | 不要 |
+| 9 | `d0567ee` | 91 | 必要 |
+| 10 | `3ca542c` | 101 | 必要 |
+| 11 | `ae7eef8` | 129 | 必要 |
+| 12 | `55227c5` | 157 | 必要 |
+| 13 | `9ec6c9c` | 157 | 必要 |
+
+2026-11-03 に、新しく clone したリポジトリで、全 13 の時点を実行して確かめました。第 9 章以降は、使い捨ての PostgreSQL を別のポートで起動し、`ZETTAI_DB_URL` で向けました。
+
+```bash
+git checkout 741d7d5
+cd apps/flix/zettai
+curl -sL -o flix.jar https://github.com/flix/flix/releases/download/v0.79.0/flix.jar
+java -jar flix.jar test
+```
+
+試したあとは、`git checkout main` で戻します。PostgreSQL の起動方法は、実装の `apps/flix/zettai/README.md` にあります。

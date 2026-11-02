@@ -113,6 +113,8 @@ curl -sL -o flix.jar https://github.com/flix/flix/releases/download/v0.79.0/flix
 java -jar flix.jar test
 ```
 
+第 9 章以降のコードでは、`flix test` に PostgreSQL が要ります。第 1 章の時点のコード（3 本のテスト）を試すときは、[Flix 版のトップ](index.md) の「章ごとのコードを再現する」の手順で、コミットを切り替えてください。
+
 この記事は Nix の入っていない環境で書いたため、`nix develop .#flix` は未検証です。確認できているのは、`java -jar` で同じコマンドを実行した結果です。
 
 品質ゲートは次の 2 つです。

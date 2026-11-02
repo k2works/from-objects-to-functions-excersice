@@ -23,8 +23,13 @@ class ZettaiRoutesSuite extends CatsEffectSuite:
       assert(body.contains("<li>write chapter</li>"))
   }
 
-  test("存在しないリストは 404") {
-    get("/todo/uberto/missing").map(r => assertEquals(r.status, Status.NotFound))
+  test("存在しないリストは 404 で、失敗の理由を返す") {
+    for
+      response <- get("/todo/uberto/missing")
+      body     <- response.as[String]
+    yield
+      assertEquals(response.status, Status.NotFound)
+      assert(body.contains("ListNotFound"))
   }
 
   test("知らないパスは 404") {

@@ -9,7 +9,7 @@ object View:
 
   /** 1. 関数を持つ値を、引数で渡す。 */
   def byHub(hub: Hub, user: User, name: ListName): IO[Option[String]] =
-    hub.getList(user, name).map(_.map(Html.render))
+    hub.getList(user, name).map(_.toOption.map(Html.render))
 
   /** 2. 依存を Kleisli（読み取り専用の環境）に隠す。 */
   def byReader(user: User, name: ListName): Kleisli[IO, Hub, Option[String]] =

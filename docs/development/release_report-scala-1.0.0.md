@@ -16,7 +16,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-02T17:40:00Z }
 | 章 | 13 / 13 公開 |
 | Unit | 7 / 7 |
 | テスト | 130 件。`sbt test` が通る（結合テストは Docker が要る） |
-| CI | Unit 1 から Unit 7 の各 push で、Scala Zettai の `check` と `article` を含む 4 本が成功した。最終の確認は、このリリースの最終コミットのあとに行う |
+| CI | Unit 1 から Unit 7 の各 push で、Scala Zettai の `check` と `article` を含む 4 本が成功した。最終コミット `7862b71` でも、Scala Zettai を含む 4 本が成功した |
 | 本番コード | 26 ファイル、1,000 行 |
 | テストコード | 43 ファイル、1,875 行 |
 | ADR | 4 件（[ADR-049](../adr/ADR-049-scala-acceptance-by-case-class-of-functions.md) から [ADR-052](../adr/ADR-052-scala-own-json-and-typed-log-record.md)）。3 件は承認済み、**ADR-052 は承認待ち** |

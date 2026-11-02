@@ -14,6 +14,7 @@ lazy val root = (project in file("."))
       "org.typelevel" %% "doobie-core"         % "1.0.0-RC13",
       "org.typelevel" %% "doobie-postgres"     % "1.0.0-RC13",
       "org.testcontainers" % "testcontainers-postgresql" % "2.0.5" % Test,
+      "io.cucumber"   %% "cucumber-scala"      % "9.2.1" % Test,
       "org.scalameta" %% "munit"               % "1.3.6"  % Test,
       "org.typelevel" %% "munit-cats-effect"   % "2.2.1"  % Test
     ),

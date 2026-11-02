@@ -7,6 +7,7 @@ status: stable
 generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-02T21:00:00Z }
 verified:
   - { by: human:kakimomokuri, at: 2026-11-02T12:30:00Z }
+  - { by: human:kakimomokuri, at: 2026-11-02T12:42:20Z, scope: 追記（Cucumber の確認結果） }
 ---
 
 # ADR-049 Scala 版は受け入れテストの経路を関数値のケースクラスで差し替え、Cucumber を入れない
@@ -101,4 +102,4 @@ Scala 版の執筆計画（[outline.md](../article/outline.md)）では、Cucumb
 
 **決定は変えません。** 経路の差し替えは、関数値のケースクラスで足りています。Cucumber は、非エンジニアがシナリオを読み書きする必要が出たときの選択肢として、確認用に残します。ただし、`ListSteps` のような glue は、経路を `ZettaiActions` に頼っているので、シナリオが増えたときに glue が重複する懸念は、Kotlin FP 版で挙げられていた点と同じです（未検証）。
 
-**この追記は、承認のあとに書いたものです。人の確認は、まだ受けていません。** 上の `verified` は、追記の前の内容に対するものです。
+この追記は、承認のあとに書いたものです。追記には、2026-11-02 に人の確認を受けました（`verified` の 2 件目）。

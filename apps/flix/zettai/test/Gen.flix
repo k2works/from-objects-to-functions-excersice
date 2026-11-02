@@ -26,4 +26,19 @@ mod Gen {
     pub def eventListsUpTo(n: Int32): List[List[ToDoListEvent]] =
         List.flatMap(k -> ofLength(k, universe()), List.range(0, n + 1))
 
+    /// 射影の確認用。状態の変更まで含めた、起こりうるイベントの全体（2 人・1 リスト・1 項目・2 状態）。
+    pub def projectionUniverse(): List[ToDoListEvent] = {
+        let users = List#{User.User("uberto"), User.User("alice")};
+        let name = ListName.ListName("book");
+        let created = List.map(u -> ListCreated(u, name), users);
+        let added = List.map(u -> ItemAdded(u, name, Domain.todo("a")), users);
+        let changed = List.flatMap(u -> List.map(s -> Events.ToDoListEvent.ItemStatusChanged(u, name, "a", s),
+            List#{Domain.ToDoStatus.InProgress, Domain.ToDoStatus.Done}), users);
+        created ::: added ::: changed
+    }
+
+    /// 0 個から n 個までの、射影用のイベント列の全パターン。
+    pub def projectionListsUpTo(n: Int32): List[List[ToDoListEvent]] =
+        List.flatMap(k -> ofLength(k, projectionUniverse()), List.range(0, n + 1))
+
 }

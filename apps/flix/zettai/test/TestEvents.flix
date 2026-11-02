@@ -55,4 +55,23 @@ mod TestEvents {
         )
     }
 
+    @Test
+    def aStatusChangeAppliesOnlyToTheFirstItemWithThatDescription(): Unit \ Assert = {
+        use Events.ToDoListEvent.ItemStatusChanged;
+        let events = List#{
+            ListCreated(uberto(), book()),
+            ItemAdded(uberto(), book(), Domain.todo("a")),
+            ItemAdded(uberto(), book(), Domain.todo("a")),
+            ItemStatusChanged(uberto(), book(), "a", Domain.ToDoStatus.Done)
+        };
+        let state = List.foldLeft(Events.apply, Events.empty(), events);
+        Assert.assertEq(
+            expected = Some(ToDoList.ToDoList(book(), List#{
+                Domain.ToDoItem.ToDoItem("a", Domain.ToDoStatus.Done),
+                Domain.todo("a")
+            })),
+            Events.listFor(state, uberto(), book())
+        )
+    }
+
 }

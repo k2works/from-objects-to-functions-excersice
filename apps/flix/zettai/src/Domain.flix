@@ -28,6 +28,14 @@ mod Domain {
             case _                                              => false
         }
 
+    /// 説明が最初に一致した項目だけの状態を変える。状態への適用と射影の両方がこの規則を共有する。
+    pub def changeStatus(items: List[ToDoItem], description: String, status: ToDoStatus): List[ToDoItem] =
+        match items {
+            case Nil => Nil
+            case ToDoItem.ToDoItem(d, _) :: rest if d == description => ToDoItem.ToDoItem(d, status) :: rest
+            case item :: rest => item :: changeStatus(rest, description, status)
+        }
+
     pub def findToDoList(lists: Map[User, List[ToDoList]], user: User, name: ListName): Option[ToDoList] =
         Map.get(user, lists) |> Option.flatMap(userLists ->
             List.find(l -> match l { case ToDoList.ToDoList(n, _) => n == name }, userLists))

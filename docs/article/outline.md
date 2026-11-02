@@ -19,7 +19,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T13:04:15Z }
 
 ## 対象一覧
 
-本シリーズは同じ 13 章構成を対象ごとに書き起こす比較シリーズです。現在の対象は **4 言語・5 実装方針** です（Flix 版は計画のみで、着手前です）。章の番号・タイトル・焦点は対象をまたいで共通とし、対象ごとに変えるのは実現手段だけです。Kotlin FP 版は言語を増やすのではなく、同じ Kotlin で「自前の関数型抽象」と「Arrow / coroutine を使う実装」を比較する対象です。
+本シリーズは同じ 13 章構成を対象ごとに書き起こす比較シリーズです。現在の対象は **4 言語・5 実装方針** です（Flix 版は Unit 1 を終え、第 1 章まで公開済みです）。章の番号・タイトル・焦点は対象をまたいで共通とし、対象ごとに変えるのは実現手段だけです。Kotlin FP 版は言語を増やすのではなく、同じ Kotlin で「自前の関数型抽象」と「Arrow / coroutine を使う実装」を比較する対象です。
 
 | 対象 | 実行環境 | 章数 | 記事 | サンプル実装 | 状態 |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -27,7 +27,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T13:04:15Z }
 | Kotlin FP | Nix devShell `kotlin-fp`（JDK 25 / Gradle） | 13 | `docs/article/zettai/kotlin-fp/` | `apps/kotlin-fp/zettai/` | **完結**（13 / 13 章公開） |
 | なでしこ3 | Nix devShell `nadesiko`（Node 22 / cnako3 3.8.7） | 13 | `docs/article/zettai/nadesiko/` | `apps/nadesiko/zettai/` | **完結**（13 / 13 章公開） |
 | Rust | Nix devShell `rust`（rustc 1.91.1 / cargo 1.91.0） | 13 | `docs/article/zettai/rust/` | `apps/rust/zettai/` | **完結**（13 / 13 章公開） |
-| Flix | Nix devShell `flix`（JDK 21 以上 / Flix。版は Unit 1 で確定） | 13 | `docs/article/zettai/flix/` | `apps/flix/zettai/` | **計画中**（0 / 13 章公開） |
+| Flix | Nix devShell `flix`（JDK 21 / Flix 0.79.0） | 13 | `docs/article/zettai/flix/` | `apps/flix/zettai/` | **執筆中**（1 / 13 章公開） |
 
 横断比較コンテンツ [`docs/article/zettai/comparison/`](zettai/comparison/index.md) は、なでしこ3 版が Phase 1（第 3 章）を終えた 2026-09-28 に新設しました。当初の比較軸は「**型で保証する**（Kotlin）」と「**約束とテストで保証する**（なでしこ3）」の 2 点でした。
 
@@ -568,7 +568,7 @@ Unit・Bolt・ストーリーの割り当ては 2 対象と同一（1 Unit = 2 �
 
 ## Flix 追加執筆計画
 
-4 言語目として **Flix** で同じ 13 章を書き起こします。**本節は計画です。環境・実装・記事は未着手で、下記の「確認する事実」を Unit 1 で確かめるまで、技術選定は仮置きです。**
+4 言語目として **Flix** で同じ 13 章を書き起こします。**Unit 1（前提整備と第 1 章）は完了しました。確認できた事実は下表に反映済みで、未確認のものは「未確認」と書いています。**
 
 Kotlin 版は `Outcome` を自前で作り、Rust 版は `Result` が言語にありました。Flix では、これまでの対象のどれにも無かったものが言語に入っています。**副作用が型の一部（効果）として追跡される**ことです。連載の主題である「関数型の核と副作用の殻を分ける」が、規約ではなく型検査で守られるかを見ます。
 
@@ -577,10 +577,10 @@ Kotlin 版は `Outcome` を自前で作り、Rust 版は `Result` が言語に�
 | 項目 | 内容 |
 | :--- | :--- |
 | 採用理由 | 純粋と副作用の分離を、Kotlin FP 版は設計（functional core / effectful shell）で、Rust 版は所有権で守った。**Flix は効果システムで型に載せる。** 設計の規律が言語に移ると、章の主題がどう変わるかを見る |
-| 実行基盤 | JVM 言語。公式ドキュメントでは Java 21 以降が必要と読める（Unit 1 で一次情報を再確認する） |
+| 実行基盤 | JVM 言語。公式ドキュメントで Java 21 以降が必要。現行の安定版は **0.79.0**（2026-10-18 公開、配布物は `flix.jar` 1 つ）。`flix.toml` で固定する |
 | Java 相互運用 | 公式ドキュメントによれば、Java オブジェクトの生成・メソッド呼び出し・例外処理ができ、パッケージマネージャは Maven に対応している。**HTTP と DB の章はこれで書く**（決定済み） |
 | 効果システム | 型と効果で純粋・非純粋を区別する。IO は独立した効果。効果多相もある |
-| 確認する事実（Unit 1） | ①現行安定版と必要な JDK ②Nix での入手可否 ③`com.sun.net.httpserver` と JDBC を呼べること ④テスト機構の仕様 ⑤コードブロックの言語タグ（`flix` で扱えるか） ⑥Gherkin / Cucumber を使えるか |
+| 確認する事実（Unit 1） | ①現行安定版と必要な JDK: **確認済み**（0.79.0 / JDK 21）②Nix での入手可否: **未確認**（`nix` の無い環境で作業した。標準配布に無い前提で、JDK のみ提供し `flix.jar` を取得するラッパー方式にした）③`com.sun.net.httpserver` と JDBC を呼べること: **未確認**（第 2 章で確かめる）④テスト機構: **確認済み**（`@Test` と `Assert.assertEq`。`flix test`。Red はコンパイルエラーとして現れる）⑤コードブロックの言語タグ: **確認済み**（`flix` を検査スクリプトに登録し、既存 53 章が違反 0）⑥Gherkin / Cucumber: **未確認**（第 3 章の前に確かめる） |
 
 ### 章の読み替え
 
@@ -614,17 +614,18 @@ Kotlin 版は `Outcome` を自前で作り、Rust 版は `Result` が言語に�
 
 最初の Bolt はウォーキングスケルトンです。Kotlin FP 版の前提整備と同じ形で、次を順に満たします。
 
-- [ ] 上記「確認する事実」①〜⑥を一次情報で確かめ、結果を本節に反映する
-- [ ] `ops/nix/environments/flix/shell.nix` を追加し、`flake.nix` の `devShells.flix` に登録する（Nix に Flix が無ければ、JDK だけ提供して初期化時に取得するラッパー方式にする。回避策は第 1 章にも書く）
-- [ ] `apps/flix/zettai/` に雛形を作り、復元可能な成果物を `.gitignore` で除外する
-- [ ] 最小のテスト 1 本が通ることを確認する
-- [ ] `.github/workflows/flix-zettai.yml` を追加する（`kotlin-fp-zettai.yml` を雛形にする）
-- [ ] `ops/scripts/article/check_sections.py` の対象名に `flix` を登録する
-- [ ] `ops/scripts/article/check_article_code.py` の `CHECKED_LANGUAGES` と `SOURCE_GLOBS` に Flix を追加する
-- [ ] `check_numbers.py` が `apps/flix/zettai/` を探索できることと、`check_adr_references.py` のパス正規表現を確認する
-- [ ] `docs/article/draft.md` に Flix 固有の節名読み替えを登録する
-- [ ] `docs/article/zettai/flix/index.md` を作る。あわせて `zettai/index.md` の全章表・進捗管理表・実行環境一覧、`comparison/index.md`、`docs/index.md`、`mkdocs.yml` の nav を揃える（章が公開できる段階で行う）
-- [ ] 既知の制約の一覧を `apps/flix/zettai/README.md` に Unit 1 から置く
+- [ ] 上記「確認する事実」①〜⑥を一次情報で確かめ、結果を本節に反映する（①④⑤は済。②③⑥は第 2・3 章の前に確かめる）
+- [x] `ops/nix/environments/flix/shell.nix` を追加し、`flake.nix` の `devShells.flix` に登録する（Nix に Flix が無ければ、JDK だけ提供して初期化時に取得するラッパー方式にする。回避策は第 1 章にも書く）
+- [x] `apps/flix/zettai/` に雛形を作り、復元可能な成果物を `.gitignore` で除外する
+- [x] 最小のテスト 1 本が通ることを確認する（3 本、`flix test` と `flix check` が green）
+- [x] `.github/workflows/flix-zettai.yml` を追加する（`kotlin-fp-zettai.yml` を雛形にする）
+- [x] `ops/scripts/article/check_sections.py` の対象名に `flix` を登録する
+- [x] `ops/scripts/article/check_article_code.py` の `CHECKED_LANGUAGES` と `SOURCE_GLOBS` に Flix を追加する
+- [x] `check_numbers.py` が `apps/flix/zettai/` を探索できることと、`check_adr_references.py` のパス正規表現を確認する（性質テストと ADR はまだ無く、違反 0）
+- [ ] `docs/article/draft.md` に Flix 固有の節名読み替えを登録する（第 3・7・9 章の前に行う。第 1 章は読み替え不要で、`check_sections.py` は green）
+- [x] `docs/article/zettai/flix/index.md` を作り、`zettai/index.md` の全章表・進捗管理表・実行環境一覧と `mkdocs.yml` の nav を第 1 章まで揃える
+- [ ] `comparison/index.md` と `docs/index.md` の件数表記を揃える（Phase 1 の完了時）
+- [x] 既知の制約の一覧を `apps/flix/zettai/README.md` に Unit 1 から置く
 
 ### 章別計画（Flix 版）
 

@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Zettai 連載 Flix 版 v1.0.0 の完了報告。全 13 章の公開、157 件のテスト、3 件の ADR、テストだけが見つけた欠陥 3 件、実装中に直した設計の見立て、CI で一度落ちた経緯、確かめていないこと、次に人がすることを記録する。">
+        <meta name="description" content="Zettai 連載 Flix 版 v1.0.0 の完了報告。全 13 章の公開、158 件のテスト、3 件の ADR、テストだけが見つけた欠陥 3 件、実装中に直した設計の見立て、CI で一度落ちた経緯、確かめていないこと、次に人がすることを記録する。">
       
       
         <meta name="author" content="Project Team">
@@ -10932,7 +10932,7 @@
 </tr>
 <tr>
 <td style="text-align: left;">テスト</td>
-<td style="text-align: left;">157 件。<code>flix test</code> と <code>flix check</code> が通る</td>
+<td style="text-align: left;">158 件（公開時点は 157 件）。<code>flix test</code> と <code>flix check</code> が通る</td>
 </tr>
 <tr>
 <td style="text-align: left;">CI</td>
@@ -11032,8 +11032,8 @@
 </tr>
 <tr>
 <td style="text-align: left;">2</td>
-<td style="text-align: left;">HTTP と PostgreSQL を通した確認</td>
-<td style="text-align: left;">通しのテストは、インメモリのストアで動かした</td>
+<td style="text-align: left;">~~HTTP と PostgreSQL を通した確認~~</td>
+<td style="text-align: left;">確かめた。<code>TestHttpOverPostgres</code>（公開後に追加）。壊すと落ちることも確かめた</td>
 </tr>
 <tr>
 <td style="text-align: left;">3</td>

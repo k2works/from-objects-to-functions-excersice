@@ -11,6 +11,8 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-02T15:00:00Z }
 
 第 1 章では、純粋関数と効果の関係を小さな例で確かめました。この章ではその考え方を HTTP に持ち込みます。リクエストが入り、ドメインの値を取得し、HTML が返る最小の縦串を通します。
 
+Flix 版は 1 つのプロジェクトを章ごとに育てていくため、後の章で書き換わったコードがあります。そのコードブロックには、この章を書いた時点のコミットを示してあります。
+
 Flix には HTTP サーバーの標準ライブラリがありません。この版では JDK の `com.sun.net.httpserver` を **Java 相互運用で呼びます**。公式ドキュメントには「Java とのやりとりは常に `IO` 効果を持つ」とあり、効果の保証は Java の境界で切れます。この章はその切れ目を、実際にコンパイラの出力で確かめる章です。
 
 ## プロジェクトのキックオフ
@@ -59,6 +61,7 @@ HTTP を関数として見ると、リクエストを受けてレスポンスを
 
 ルーティングは次の純粋関数です。取得関数 `fetch` を引数に取り、パスをドメインの値へ変換して呼び、結果をレスポンスへ変換します。
 
+<!-- code-check: ignore この章を書いた時点のコード（コミット 398e0e6）。第 4 章で Hub（関数値のレコード）に置き換えた -->
 ```flix
     pub def route(fetch: (User, ListName) -> Option[ToDoList] \ ef, request: Request): Response \ ef =
         if (request#method != "GET")
@@ -78,6 +81,7 @@ HTTP を関数として見ると、リクエストを受けてレスポンスを
 
 テストは、サーバーを起動せず関数を直接呼びます。
 
+<!-- code-check: ignore この章を書いた時点のコード（コミット 398e0e6）。第 4 章で Hub（関数値のレコード）に置き換えた -->
 ```flix
     @Test
     def returnsTheListAsHtml(): Unit \ Assert = {
@@ -94,6 +98,7 @@ HTTP を関数として見ると、リクエストを受けてレスポンスを
 
 ドメインは HTTP を知らない値だけで表します。
 
+<!-- code-check: ignore この章を書いた時点のコード（コミット 398e0e6）。第 4 章で Hub（関数値のレコード）に置き換えた -->
 ```flix
     pub enum User(String) with Eq, Order, ToString
 
@@ -218,6 +223,7 @@ or use the effect in the function body
 
 永続化より前に HTTP の設計を確かめたいので、データ供給元は `Map[User, List[ToDoList]]` です。テストは固定データを閉じ込めた取得関数を渡します。
 
+<!-- code-check: ignore この章を書いた時点のコード（コミット 398e0e6）。第 4 章で Hub（関数値のレコード）に置き換えた -->
 ```flix
     def lists(): Map[User, List[ToDoList]] =
         Map#{
@@ -232,6 +238,7 @@ or use the effect in the function body
 
 可変の共有状態も外部サービスもありません。404 のテストも同じ関数を直接呼ぶだけです。
 
+<!-- code-check: ignore この章を書いた時点のコード（コミット 398e0e6）。第 4 章で Hub（関数値のレコード）に置き換えた -->
 ```flix
     @Test
     def returnsNotFoundForAMissingList(): Unit \ Assert =

@@ -11,10 +11,13 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-02T16:30:00Z }
 
 第 2 章のテストは HTTP の縦串をよく確かめますが、URL、ステータス、HTML まで知っています。この章では「ユーザーが自分の ToDo リストを見られる」という業務の言葉を中心に戻します。
 
+後の章で書き換わったコードのブロックには、この章を書いた時点のコミットを示してあります。
+
 ## 受け入れテストを改善する
 
 業務の期待を、経路を知らない関数として書きます。Gherkin の「前提・もし・ならば」に相当するものを、関数の名前と本体で表します。
 
+<!-- code-check: ignore この章を書いた時点のコード（コミット 7d2dd0f）。第 4 章で ToDoItem と Http.route の型が変わった -->
 ```flix
     pub def seeTheItemsOfAList(actions: ZettaiActions): Unit \ {Assert, IO} = {
         let found = actions#getToDoList(User.User("uberto"), ListName.ListName("book"));
@@ -71,6 +74,7 @@ domain 経路は、HTTP を通らずに functional core の検索関数を直接
 
 HTTP 経路は、実際のサーバーを起動してパスを組み立て、返ってきた HTML から項目を読み戻します。
 
+<!-- code-check: ignore この章を書いた時点のコード（コミット 7d2dd0f）。第 4 章で ToDoItem と Http.route の型が変わった -->
 ```flix
     pub def httpActions(lists: Map[User, List[ToDoList]]): ZettaiActions \ IO = {
         let server = JdkServer.start(0, request ->
@@ -141,6 +145,7 @@ HTTP 経路は、HTML という外部表現を扱います。読み戻す処理�
 
 この関数自体にもテストがあります。`Html.render` が出力した HTML を `HtmlReader.items` が読み戻すと、元の項目に戻ることを確かめています。
 
+<!-- code-check: ignore この章を書いた時点のコード（コミット 7d2dd0f）。第 4 章で ToDoItem と Http.route の型が変わった -->
 ```flix
     @Test
     def roundTripsWhatHtmlRenders(): Unit \ Assert = {

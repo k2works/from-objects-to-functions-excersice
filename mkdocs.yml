@@ -289,6 +289,7 @@ nav:
               - 第 1 章 新しいアプリケーションを準備する: article/zettai/flix/chapter01.md
               - 第 2 章 関数を使って HTTP を扱う: article/zettai/flix/chapter02.md
               - 第 3 章 ドメインの定義とテスト: article/zettai/flix/chapter03.md
+              - 第 4 章 ドメインとアダプタのモデリング: article/zettai/flix/chapter04.md
           - 横断比較: article/zettai/comparison/index.md
   - リファレンス:
       - 概要: reference/index.md

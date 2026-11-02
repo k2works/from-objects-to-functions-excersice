@@ -27,7 +27,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T13:04:15Z }
 | Kotlin FP | Nix devShell `kotlin-fp`（JDK 25 / Gradle） | 13 | `docs/article/zettai/kotlin-fp/` | `apps/kotlin-fp/zettai/` | **完結**（13 / 13 章公開） |
 | なでしこ3 | Nix devShell `nadesiko`（Node 22 / cnako3 3.8.7） | 13 | `docs/article/zettai/nadesiko/` | `apps/nadesiko/zettai/` | **完結**（13 / 13 章公開） |
 | Rust | Nix devShell `rust`（rustc 1.91.1 / cargo 1.91.0） | 13 | `docs/article/zettai/rust/` | `apps/rust/zettai/` | **完結**（13 / 13 章公開） |
-| Flix | Nix devShell `flix`（JDK 21 / Flix 0.79.0） | 13 | `docs/article/zettai/flix/` | `apps/flix/zettai/` | **執筆中**（8 / 13 章公開） |
+| Flix | Nix devShell `flix`（JDK 21 / Flix 0.79.0） | 13 | `docs/article/zettai/flix/` | `apps/flix/zettai/` | **執筆中**（9 / 13 章公開） |
 
 横断比較コンテンツ [`docs/article/zettai/comparison/`](zettai/comparison/index.md) は、なでしこ3 版が Phase 1（第 3 章）を終えた 2026-09-28 に新設しました。当初の比較軸は「**型で保証する**（Kotlin）」と「**約束とテストで保証する**（なでしこ3）」の 2 点でした。
 
@@ -580,7 +580,7 @@ Kotlin 版は `Outcome` を自前で作り、Rust 版は `Result` が言語に�
 | 実行基盤 | JVM 言語。公式ドキュメントで Java 21 以降が必要。現行の安定版は **0.79.0**（2026-10-18 公開、配布物は `flix.jar` 1 つ）。`flix.toml` で固定する |
 | Java 相互運用 | 公式ドキュメントによれば、Java オブジェクトの生成・メソッド呼び出し・例外処理ができ、パッケージマネージャは Maven に対応している。**HTTP と DB の章はこれで書く**（決定済み） |
 | 効果システム | 型と効果で純粋・非純粋を区別する。IO は独立した効果。効果多相もある |
-| 確認する事実（Unit 1） | ①現行安定版と必要な JDK: **確認済み**（0.79.0 / JDK 21）②Nix での入手可否: **未確認**（`nix` の無い環境で作業した。標準配布に無い前提で、JDK のみ提供し `flix.jar` を取得するラッパー方式にした）③`com.sun.net.httpserver` を呼べること: **確認済み**（匿名クラスで `HttpHandler` を実装し、実サーバーで 200 / 404 を確認。JDBC は第 9 章で確かめる）④テスト機構: **確認済み**（`@Test` と `Assert.assertEq`。`flix test`。Red はコンパイルエラーとして現れる）⑤コードブロックの言語タグ: **確認済み**（`flix` を検査スクリプトに登録し、既存 53 章が違反 0）⑥Gherkin / Cucumber: **試していない**（Flix でアノテーション付きクラスを定義する手段が公式ドキュメントに見つからなかった。使えないと確かめたわけではなく、[ADR-046](../adr/ADR-046-flix-acceptance-by-record-of-functions.md) で関数値のレコードを採った） |
+| 確認する事実（Unit 1） | ①現行安定版と必要な JDK: **確認済み**（0.79.0 / JDK 21）②Nix での入手可否: **未確認**（`nix` の無い環境で作業した。標準配布に無い前提で、JDK のみ提供し `flix.jar` を取得するラッパー方式にした）③`com.sun.net.httpserver` を呼べること: **確認済み**（匿名クラスで `HttpHandler` を実装し、実サーバーで 200 / 404 を確認。JDBC も第 9 章で確認済み。`DriverManager` は使えず `new Driver().connect` で接続した）④テスト機構: **確認済み**（`@Test` と `Assert.assertEq`。`flix test`。Red はコンパイルエラーとして現れる）⑤コードブロックの言語タグ: **確認済み**（`flix` を検査スクリプトに登録し、既存 53 章が違反 0）⑥Gherkin / Cucumber: **試していない**（Flix でアノテーション付きクラスを定義する手段が公式ドキュメントに見つからなかった。使えないと確かめたわけではなく、[ADR-046](../adr/ADR-046-flix-acceptance-by-record-of-functions.md) で関数値のレコードを採った） |
 
 ### 章の読み替え
 

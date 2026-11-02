@@ -3,8 +3,10 @@ type: ADR
 title: "ADR-047 Flix 版は標準の Result を使い、Outcome を作らない"
 description: "Zettai 連載 Flix 版で、失敗を値として運ぶ型に標準の Result を使い、Kotlin 版の Outcome に当たる型を自作しない決定。使う前に確かめたことと、型変更の波及を実測した結果、この決定が解かないことを記録する。"
 tags: [adr, flix, zettai]
-status: draft
+status: stable
 generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-02T22:00:00Z }
+verified:
+  - { by: human:kakimomokuri, at: 2026-11-02T08:27:32Z }
 ---
 
 # ADR-047 Flix 版は標準の Result を使い、Outcome を作らない
@@ -13,7 +15,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-02T22:00:00Z }
 
 ## ステータス
 
-2026-11-02 提案されました
+2026-11-02 承認されました
 
 ## コンテキスト
 

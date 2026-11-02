@@ -591,7 +591,7 @@ Flix 版は、**副作用が型の一部になる言語**で書く版です。�
 | 項目 | Flix 版 |
 | :--- | :--- |
 | 章 | 13 / 13 |
-| ADR | 3 件（[ADR-046](../../../adr/ADR-046-flix-acceptance-by-record-of-functions.md) から [ADR-048](../../../adr/ADR-048-flix-logger-effect-and-own-json.md)）。承認の記録は無い |
+| ADR | 3 件（[ADR-046](../../../adr/ADR-046-flix-acceptance-by-record-of-functions.md) から [ADR-048](../../../adr/ADR-048-flix-logger-effect-and-own-json.md)）。3 件とも承認済み |
 | テスト | 157 件（`@Test`）。PostgreSQL の結合テストを含む |
 | 本番コードの `.flix` | 25 ファイル、1,356 行（`src/`） |
 | `\ IO` の注釈がある本番コード | 2 モジュール（`JdkServer`、`PostgresStore`） |

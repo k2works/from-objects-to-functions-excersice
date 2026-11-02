@@ -3,8 +3,10 @@ type: ADR
 title: "ADR-048 Flix 版のログは標準の Logger 効果を借り、JSON は自作する"
 description: "Zettai 連載 Flix 版の第 12 章で、ログの出力に標準の Logger 効果を使い、JSON は標準に無いため木と変換を自作する決定。先に調べたこと、調べていないこと、自作した JSON が境界値で壊れていた事実、この決定が解かないことを記録する。"
 tags: [adr, flix, zettai]
-status: draft
+status: stable
 generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-03T08:00:00Z }
+verified:
+  - { by: human:kakimomokuri, at: 2026-11-02T08:27:32Z }
 ---
 
 # ADR-048 Flix 版のログは標準の Logger 効果を借り、JSON は自作する
@@ -13,7 +15,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-03T08:00:00Z }
 
 ## ステータス
 
-2026-11-03 提案されました
+2026-11-02 承認されました
 
 ## コンテキスト
 

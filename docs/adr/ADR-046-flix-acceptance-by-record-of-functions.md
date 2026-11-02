@@ -3,8 +3,10 @@ type: ADR
 title: "ADR-046 Flix 版は受け入れテストの経路を関数値のレコードで差し替え、Cucumber を入れない"
 description: "Zettai 連載 Flix 版で、受け入れテストの経路の差し替えを関数値のレコードで表し、Cucumber を導入しない決定。試していないことと確かめたことを分けて記録し、この決定が解かないことを明記する。"
 tags: [adr, flix, zettai]
-status: draft
+status: stable
 generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-02T16:00:00Z }
+verified:
+  - { by: human:kakimomokuri, at: 2026-11-02T08:27:32Z }
 ---
 
 # ADR-046 Flix 版は受け入れテストの経路を関数値のレコードで差し替え、Cucumber を入れない
@@ -13,7 +15,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-02T16:00:00Z }
 
 ## ステータス
 
-2026-11-02 提案されました
+2026-11-02 承認されました
 
 ## コンテキスト
 

@@ -18,7 +18,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-03T13:30:00Z }
 | テスト | 157 件。`flix test` と `flix check` が通る |
 | CI | 最終コミット `9ec6c9c` で、Flix Zettai の `check` と `article` を含む 4 本が成功 |
 | 本番コード | 25 ファイル、1,356 行 |
-| ADR | 3 件（[ADR-046](../adr/ADR-046-flix-acceptance-by-record-of-functions.md)、[ADR-047](../adr/ADR-047-flix-use-standard-result.md)、[ADR-048](../adr/ADR-048-flix-logger-effect-and-own-json.md)）。**承認の記録は無い** |
+| ADR | 3 件（[ADR-046](../adr/ADR-046-flix-acceptance-by-record-of-functions.md)、[ADR-047](../adr/ADR-047-flix-use-standard-result.md)、[ADR-048](../adr/ADR-048-flix-logger-effect-and-own-json.md)）。**3 件とも承認済み（2026-11-02、human:kakimomokuri）** |
 
 計画は [リリース計画](release_plan-flix.md) にあります。
 
@@ -72,7 +72,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-03T13:30:00Z }
 
 ## 次に人がすること
 
-1. ADR-046、047、048 を確認し、承認するか判断する。承認すると、`verified` に記録する
+1. ~~ADR-046、047、048 を確認し、承認するか判断する~~ 承認済み（2026-11-02）
 2. `nix develop .#flix` を、Nix のある環境で確かめる
 3. 記事のコード例を、読者の立場で通して実行する（第 1 章の手順から）
 4. 他の対象のように、Unit ごとの Bolt 計画・終了報告・ふりかえりを、必要なら書き起こす。**ただし、記録していない指標は、後から作らない**

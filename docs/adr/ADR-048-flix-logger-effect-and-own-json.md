@@ -83,5 +83,5 @@ verified:
 
 - ドメインの関数（`Commands`、`Events`、`Projection`、`Domain`）に、`Logger` の効果を足さないこと（コンパイラが検査する）
 - `LogRecord` に、自由な `Map` や文字列の欄を足さないこと
-- 失敗は `Logging.category` で種類の名前だけにすること。足した失敗の種類には、`match` が全ケースを求めるので、更新漏れはコンパイルで見つかる
+- 失敗は `Adapter.Logging.category` で種類の名前だけにすること。足した失敗の種類には、`match` が全ケースを求めるので、更新漏れはコンパイルで見つかる
 - JSON の往復のテストが、`Int32` の最小値と最大値を含むこと

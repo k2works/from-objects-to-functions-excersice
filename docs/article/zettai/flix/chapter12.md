@@ -75,7 +75,7 @@ Flix の標準には `Logger` という効果があります。`Logger.info` な
     @Test
     def thereIsNoFieldForFreeFormContent(): Unit \ Assert = {
         // 項目の説明や理由を入れる場所が、型に無い。出力に現れるキーは固定の 6 つだけ。
-        let keys = match Logs.toJson(Logs.LogRecord.LogRecord("a", "b", "c", None, None, 0)) {
+        let keys = match Logging.Logs.toJson(Logging.Logs.LogRecord.LogRecord("a", "b", "c", None, None, 0)) {
             case JObject(kvs) => List.map(kv -> match kv { case (k, _) => k }, kvs)
             case _            => Nil
         };
@@ -260,7 +260,7 @@ Assertion failed: expected `Ok(-2147483648)`, but got `Err(number out of range)`
     def aFieldOfTheWrongTypeIsRejected(): Unit \ Assert =
         Assert.assertEq(
             expected = Err("field durationMs is not an integer"),
-            Logs.fromJson(JObject(
+            Logging.Logs.fromJson(JObject(
                 ("kind", JString("hub")) :: ("name", JString("x")) :: ("outcome", JString("ok"))
                 :: ("user", JNull) :: ("list", JNull) :: ("durationMs", JString("12")) :: Nil))
         )
@@ -285,7 +285,7 @@ Assertion failed: expected `Ok(-2147483648)`, but got `Err(number out of range)`
     @Test
     def theInputIsMappedBackwardsAndTheOutputForwards(): Unit \ Assert = {
         // 文字列を受け取り、文字列を返す関数に見せかける。入力は読み替え、出力は書き換える
-        let length = Profunctor.dimap(s -> String.length(s), n -> "length=${n}", n -> n * 2);
+        let length = Json.Profunctor.dimap(s -> String.length(s), n -> "length=${n}", n -> n * 2);
         Assert.assertEq(expected = "length=8", length("abcd"))
     }
 ```
@@ -296,7 +296,7 @@ Assertion failed: expected `Ok(-2147483648)`, but got `Err(number out of range)`
     @Test
     def dimapWithIdentitiesChangesNothing(): Unit \ Assert =
         List.forEach(f ->
-            List.forEach(x -> Assert.assertEq(expected = f(x), Profunctor.dimap(a -> a, b -> b, f)(x)), domain()),
+            List.forEach(x -> Assert.assertEq(expected = f(x), Json.Profunctor.dimap(a -> a, b -> b, f)(x)), domain()),
             base())
 ```
 
@@ -328,7 +328,7 @@ Assertion failed: expected `Ok(-2147483648)`, but got `Err(number out of range)`
     @Test
     def aConverterNeedsBothDirectionsToChangeItsType(): Unit \ Assert = {
         // 長さ 3 の文字列を包む型。書く向きと読む向きの、2 つの写像を渡す
-        let lengthOf = Converter.imap(s -> String.length(s), n -> String.repeat(n, "x"), stringConverter());
+        let lengthOf = Json.Converter.imap(s -> String.length(s), n -> String.repeat(n, "x"), stringConverter());
         Assert.assertEq(expected = JString("xxx"), lengthOf#encode(3));
         Assert.assertEq(expected = Ok(3), lengthOf#decode(JString("xxx")))
     }
@@ -352,7 +352,7 @@ Assertion failed: expected `Ok(-2147483648)`, but got `Err(number out of range)`
 失敗の理由に、漏らしたくない値を入れた、わざと失敗するストアで確かめます。
 
 ```flix
-    def failingStore(): EventStore.EventStore[{}] = {
+    def failingStore(): Application.EventStore.EventStore[{}] = {
         load = () -> Err(ZettaiError.StorageFailure("password=hunter2 host=db.internal")),
         append = (_expected, _events) -> Err(ZettaiError.StorageFailure("password=hunter2 host=db.internal"))
     }
@@ -385,7 +385,7 @@ HTTP の要求も、包みます。メソッドと、状態コードの区分（
 
 ### 外側に置くとどうなるか（公開後に確かめたこと）
 
-ハンドラを `JdkServer.start` を呼ぶ側（コールバックの外）に置くと、**コンパイルは通り、型検査は何も警告しません。** 実行すると、コールバックの中で `Logger` を呼んだところで処理が止まり、応答が返らずに接続が切れます。クライアントには `Unexpected end of file from server` が届きます。`Logger` を呼んだ後ろの処理は実行されず、コールバックの中の `try` / `catch` でも例外は捕まりませんでした（`HttpURLConnection` が GET を自動で再送するため、コールバックは 2 回呼ばれます）。仕組みは、次の節で述べます。
+ハンドラを `Web.JdkServer.start` を呼ぶ側（コールバックの外）に置くと、**コンパイルは通り、型検査は何も警告しません。** 実行すると、コールバックの中で `Logger` を呼んだところで処理が止まり、応答が返らずに接続が切れます。クライアントには `Unexpected end of file from server` が届きます。`Logger` を呼んだ後ろの処理は実行されず、コールバックの中の `try` / `catch` でも例外は捕まりませんでした（`HttpURLConnection` が GET を自動で再送するため、コールバックは 2 回呼ばれます）。仕組みは、次の節で述べます。
 
 この落とし穴は、回帰テストとして残しました。
 
@@ -423,7 +423,7 @@ Explanation: Methods in a 'new' expression must be pure or have
 primitive effects. Control effects cannot escape to Java.
 ```
 
-ところが `JdkServer.start` は、アプリケーションの効果を型変数 `ef` で受けます。メソッドの効果が `IO + ef` と書かれていると、定義の時点では `ef` が何になるか分からないので、検査は通ります。呼び出し側が `ef` に `Logger` を入れても、再び検査されません。**検査はあるが、型変数を通り抜ける**、というのが実態です。
+ところが `Web.JdkServer.start` は、アプリケーションの効果を型変数 `ef` で受けます。メソッドの効果が `IO + ef` と書かれていると、定義の時点では `ef` が何になるか分からないので、検査は通ります。呼び出し側が `ef` に `Logger` を入れても、再び検査されません。**検査はあるが、型変数を通り抜ける**、というのが実態です。
 
 直し方の候補は 2 つです。ここでは直していません。
 
@@ -435,9 +435,9 @@ primitive effects. Control effects cannot escape to Java.
 **第 2 章で見た「効果の保証が Java のコールバックで切れる」ことの、具体的な形です。** 切れた先で、エラーにならず、黙って応答が消えます。
 
 ```flix
-            let app = Logging.observeApp(now, request -> Http.application(hub, commands#execute, request));
+            let app = Adapter.Logging.observeApp(now, request -> Web.Http.application(hub, commands#execute, request));
             // サーバーのコールバックは、ハンドラの外で動く。Logger は、コールバックの内側で処理する
-            let server = JdkServer.start(0, request -> run { app(request) } with Logger.runWithIO);
+            let server = Web.JdkServer.start(0, request -> run { app(request) } with Logger.runWithIO);
 ```
 
 時計は、`System.currentTimeMillis()` を呼ぶ関数です。この呼び出しは `IO` で、ログの所要時間が、本物の時刻から作られます。
@@ -476,10 +476,10 @@ primitive effects. Control effects cannot escape to Java.
 
 ## この章で書いたコード
 
-- ログのデコレータ: `apps/flix/zettai/src/Logging.flix`
-- ログの 1 行の型: `apps/flix/zettai/src/Logs.flix`
+- ログのデコレータ: `apps/flix/zettai/src/Adapter.Logging.flix`
+- ログの 1 行の型: `apps/flix/zettai/src/Logging.Logs.flix`
 - JSON の木と変換: `apps/flix/zettai/src/Json.flix`
-- プロファンクタとコンバータ: `apps/flix/zettai/src/Profunctor.flix`、`Converter.flix`
+- プロファンクタとコンバータ: `apps/flix/zettai/src/Json.Profunctor.flix`、`Json.Converter.flix`
 - テスト: `apps/flix/zettai/test/TestLogging.flix`、`TestLogRecord.flix`、`TestJson.flix`、`TestProfunctor.flix`、`TestLoggingOverHttp.flix`
 
 ## 参照

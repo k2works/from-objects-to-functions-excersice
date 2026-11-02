@@ -26,10 +26,10 @@ Flix には HTTP サーバーの標準ライブラリがありません。この
 ```flix
     @Test
     def servesTheListOverRealHttp(): Unit \ {Assert, IO} = {
-        let server = JdkServer.start(0, app);
-        let port = JdkServer.port(server);
+        let server = Web.JdkServer.start(0, app);
+        let port = Web.JdkServer.port(server);
         let (status, body) = HttpTestClient.get(port, "/todo/uberto/book");
-        JdkServer.stop(server);
+        Web.JdkServer.stop(server);
         Assert.assertEq(expected = 200, status);
         Assert.assertTrue(String.contains(substr = "<li>write chapter</li>", body))
     }
@@ -71,7 +71,7 @@ HTTP を関数として見ると、リクエストを受けてレスポンスを
             match String.splitOn(substr = "/", request#path) {
                 case "" :: "todo" :: user :: list :: Nil =>
                     match fetch(User.User(user), ListName.ListName(list)) {
-                        case Some(todoList) => html(200, Html.render(todoList))
+                        case Some(todoList) => html(200, Web.Html.render(todoList))
                         case None           => notFound()
                     }
                 case _ => notFound()
@@ -86,7 +86,7 @@ HTTP を関数として見ると、リクエストを受けてレスポンスを
 ```flix
     @Test
     def returnsTheListAsHtml(): Unit \ Assert = {
-        let response = Http.route(fetcher, get("/todo/uberto/book"));
+        let response = Web.Http.route(fetcher, get("/todo/uberto/book"));
         Assert.assertEq(expected = 200, response#status);
         Assert.assertEq(expected = "text/html; charset=utf-8", response#contentType);
         Assert.assertTrue(String.contains(substr = "<li>write chapter</li>", response#body))
@@ -244,7 +244,7 @@ or use the effect in the function body
 ```flix
     @Test
     def returnsNotFoundForAMissingList(): Unit \ Assert =
-        Assert.assertEq(expected = 404, Http.route(fetcher, get("/todo/uberto/missing"))#status)
+        Assert.assertEq(expected = 404, Web.Http.route(fetcher, get("/todo/uberto/missing"))#status)
 ```
 
 実サーバーを通す 404 のテストも 1 本あります。ステータスコードが 400 以上のときは、`getInputStream()` ではなく `getErrorStream()` から本体を読む必要があります。これは `HttpTestClient` の中に閉じ込めました。
@@ -268,9 +268,9 @@ or use the effect in the function body
 ## この章で書いたコード
 
 - ドメイン: `apps/flix/zettai/src/Domain.flix`
-- HTML: `apps/flix/zettai/src/Html.flix`
-- ルーティング: `apps/flix/zettai/src/Http.flix`
-- JDK のサーバーを包むアダプタ: `apps/flix/zettai/src/JdkServer.flix`
+- HTML: `apps/flix/zettai/src/Web.Html.flix`
+- ルーティング: `apps/flix/zettai/src/Web.Http.flix`
+- JDK のサーバーを包むアダプタ: `apps/flix/zettai/src/Web.JdkServer.flix`
 - テスト: `apps/flix/zettai/test/TestDomain.flix`、`TestHtml.flix`、`TestHttpApp.flix`、`TestJdkServer.flix`、`HttpTestClient.flix`
 
 ## 参照

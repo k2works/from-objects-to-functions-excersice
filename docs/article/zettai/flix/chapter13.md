@@ -74,10 +74,10 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-03T12:00:00Z }
 
 | 章 | 足したもの | コンパイラが指した場所 |
 | :--- | :--- | :--- |
-| 9 | `StorageFailure` | `Http.statusOf` |
-| 10 | `VersionConflict` | `Http.statusOf` |
-| 11 | `ListRenamed`、`RenameToDoList` | `Events.apply`、`Commands.handle`、`Projection` の 2 関数、`Codec.encode` の 5 か所 |
-| 11 | `InvalidInput` | `Http.statusOf` |
+| 9 | `StorageFailure` | `Web.Http.statusOf` |
+| 10 | `VersionConflict` | `Web.Http.statusOf` |
+| 11 | `ListRenamed`、`RenameToDoList` | `Domain.Events.apply`、`Domain.Commands.handle`、`Projection` の 2 関数、`Adapter.Postgres.Codec.encode` の 5 か所 |
+| 11 | `InvalidInput` | `Web.Http.statusOf` |
 
 ## システム全体の設計
 
@@ -283,6 +283,20 @@ Flix の公式リポジトリの 0.79.0 のタグで、コンパイラの `Primi
 
 これは、1 つの題材、1 つの実装、1 つのバージョン（Flix 0.79.0）での観察です。一般論として言える根拠は、ありません。
 
+### 層ごとのモジュールに分ける（公開後にしたこと）
+
+公開後に、本番コードを Scala 版・Kotlin FP 版の層に合わせて、モジュールの階層とディレクトリに分けました。`Domain.Events`、`Application.Hub`、`Web.Http`、`Adapter.Postgres.PostgresStore` のような名前です。分けたあとも、`flix test` は 162 本が通りました。
+
+Flix には、分けるために守る規則が 3 つありました。どれも、最初に分けたときのコンパイルエラーで知りました。
+
+| 規則 | 守らないと |
+| :--- | :--- |
+| 他のモジュールから使う入れ子のモジュールは `pub mod` で宣言する | `Module 'Domain.Events' is not accessible from the module …` |
+| 親のモジュールも宣言する（中身が空でよい） | 入れ子の中の名前が `Undefined name` になる |
+| モジュール `A.B` は、ファイル `A/B.flix` に置く | `Mismatched module and file` |
+
+Windows のファイルシステムは大文字と小文字を区別しないので、ディレクトリ名の大文字小文字は、Linux の CI でだけ問題になりえます。Git の索引に入れるパスの大文字小文字を確かめました。テストのモジュールは、分けていません。
+
 ### 5 つの実装を並べて
 
 連載は、5 つの実装を書きました。Kotlin、Kotlin FP、なでしこ3、Rust、Flix です。共通の問いは、**言語が与えるほど、設計は楽になるのか**でした。
@@ -318,8 +332,8 @@ Flix 版の答えは、他の版と同じ形をしています。決めること
 
 この章は、実装を足していません。
 
-- 入口の型: `apps/flix/zettai/src/Hub.flix`、`apps/flix/zettai/src/EventStore.flix`
-- 効果としての文脈: `apps/flix/zettai/src/Process.flix`
+- 入口の型: `apps/flix/zettai/src/Application.Hub.flix`、`apps/flix/zettai/src/Application.EventStore.flix`
+- 効果としての文脈: `apps/flix/zettai/src/Application.Process.flix`
 - 代数構造のテスト: `apps/flix/zettai/test/TestTransition.flix`、`TestResultFunctor.flix`、`TestResultMonad.flix`、`TestApplicativeLaws.flix`、`TestProfunctor.flix`
 
 `apps/flix/zettai/` で、全テストを実行します。PostgreSQL の結合テストを含むため、Docker などで PostgreSQL を起動しておく必要があります（第 9 章を参照）。

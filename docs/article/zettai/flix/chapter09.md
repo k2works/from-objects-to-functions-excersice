@@ -34,7 +34,7 @@ Flix には JDBC がありません。JDBC は Java のものなので、第 2 �
         case StorageFailure(String)
 ```
 
-ケースを足すと、コンパイラが更新漏れを教えてくれます。`Http.statusOf` はすべてのケースを列挙する `match` なので、足した直後にコンパイルが落ちました。
+ケースを足すと、コンパイラが更新漏れを教えてくれます。`Web.Http.statusOf` はすべてのケースを列挙する `match` なので、足した直後にコンパイルが落ちました。
 
 ```bash
 >> Non-exhaustive match: missing case 'StorageFailure(_)'.
@@ -150,7 +150,7 @@ JDBC は `SQLException` を投げます。接続を開き、処理し、必ず�
     @Test
     def anUnreachableDatabaseIsAFailureNotAnException(): Unit \ {Assert, IO} = {
         let config = { url = "jdbc:postgresql://localhost:1/zettai", user = "zettai", password = "zettai" };
-        match PostgresStore.open(config, "events_unreachable") {
+        match Adapter.Postgres.PostgresStore.open(config, "events_unreachable") {
             case Err(ZettaiError.StorageFailure(_)) => ()
             case _                                  => Assert.assertTrue(false)
         }
@@ -178,8 +178,8 @@ JDBC は `SQLException` を投げます。接続を開き、処理し、必ず�
 ```flix
     @Test
     def aTableNameThatIsNotPlainIsRejectedBeforeAnyQuery(): Unit \ {Assert, IO} = {
-        let config = PostgresStore.configFromEnv();
-        match PostgresStore.open(config, "events; drop table users") {
+        let config = Adapter.Postgres.PostgresStore.configFromEnv();
+        match Adapter.Postgres.PostgresStore.open(config, "events; drop table users") {
             case Err(ZettaiError.StorageFailure(_)) => ()
             case _                                  => Assert.assertTrue(false)
         }
@@ -196,11 +196,11 @@ JDBC は `SQLException` を投げます。接続を開き、処理し、必ず�
 終わったら捨てます。
 
 ```flix
-    def withTable(f: (PostgresStore.Config, String) -> Unit \ {Assert, IO}): Unit \ {Assert, IO} = {
-        let config = PostgresStore.configFromEnv();
-        let table = PostgresStore.freshTableName();
+    def withTable(f: (Adapter.Postgres.PostgresStore.Config, String) -> Unit \ {Assert, IO}): Unit \ {Assert, IO} = {
+        let config = Adapter.Postgres.PostgresStore.configFromEnv();
+        let table = Adapter.Postgres.PostgresStore.freshTableName();
         f(config, table);
-        let _ = PostgresStore.dropTable(config, table);
+        let _ = Adapter.Postgres.PostgresStore.dropTable(config, table);
         ()
     }
 ```
@@ -223,9 +223,9 @@ JDBC は `SQLException` を投げます。接続を開き、処理し、必ず�
 
 | ファイル | 変更の内容 |
 | :--- | :--- |
-| `src/EventStore.flix` | 型の別名と、インメモリの実装 |
-| `src/CommandHub.flix` | `forM` で書き直した |
-| `src/QueryHub.flix` | 戻り値を `Result` に |
+| `src/Application.EventStore.flix` | 型の別名と、インメモリの実装 |
+| `src/Application.CommandHub.flix` | `forM` で書き直した |
+| `src/Application.QueryHub.flix` | 戻り値を `Result` に |
 | `test/TestCommandHub.flix` | 履歴の取り出し方 |
 | `test/TestCommandInvariants.flix` | 履歴の取り出し方 |
 | `test/TestQueryHub.flix` | 期待値を `Ok` に |
@@ -254,7 +254,7 @@ PostgreSQL の実装は、この型をそのまま満たします。効果が `I
 ```flix
         execute = command -> forM (
             history <- store#load();
-            events  <- Commands.handle(command, Replay.replayFrom(Events.empty(), history));
+            events  <- Domain.Commands.handle(command, Domain.Events.Replay.replayFrom(Domain.Events.empty(), history));
             _       <- store#append(events)
         ) yield (),
 ```
@@ -323,10 +323,10 @@ PostgreSQL の実装は、この型をそのまま満たします。効果が `I
 
 <!-- code-check: ignore この章を書いた時点のコード（コミット 623a592）。第 10 章で EventStore に版を足し、読んだ版を添えて書く形に変えた -->
 ```flix
-            case Ok(rows) => Traversable.traverse(Codec.decode, rows)
+            case Ok(rows) => Traversable.traverse(Adapter.Postgres.Codec.decode, rows)
 ```
 
-`Codec.decode` は、1 行を `Result[ZettaiError, ToDoListEvent]` に変える関数です。`traverse` は、それを全行に当て、すべて成功ならイベントのリスト、1 つでも失敗なら最初の失敗を返します。
+`Adapter.Postgres.Codec.decode` は、1 行を `Result[ZettaiError, ToDoListEvent]` に変える関数です。`traverse` は、それを全行に当て、すべて成功ならイベントのリスト、1 つでも失敗なら最初の失敗を返します。
 
 ## 読み戻す
 
@@ -336,7 +336,7 @@ PostgreSQL の実装は、この型をそのまま満たします。効果が `I
 ```flix
     @Test
     def eventsComeBackInTheOrderTheyWereAppended(): Unit \ {Assert, IO} =
-        withTable((config, table) -> match PostgresStore.open(config, table) {
+        withTable((config, table) -> match Adapter.Postgres.PostgresStore.open(config, table) {
             case Err(e)    => Assert.assertEq(expected = "opened", ToString.toString(e))
             case Ok(store) => {
                 Assert.assertEq(expected = Ok(()), store#append(history()));
@@ -351,7 +351,7 @@ PostgreSQL の実装は、この型をそのまま満たします。効果が `I
 ```flix
     @Test
     def anotherConnectionReadsWhatWasWritten(): Unit \ {Assert, IO} =
-        withTable((config, table) -> match (PostgresStore.open(config, table), PostgresStore.open(config, table)) {
+        withTable((config, table) -> match (Adapter.Postgres.PostgresStore.open(config, table), Adapter.Postgres.PostgresStore.open(config, table)) {
             case (Ok(writer), Ok(reader)) => {
                 Assert.assertEq(expected = Ok(()), writer#append(List#{ListCreated(uberto(), book())}));
                 Assert.assertEq(expected = Ok(List#{ListCreated(uberto(), book())}), reader#load())
@@ -366,10 +366,10 @@ PostgreSQL の実装は、この型をそのまま満たします。効果が `I
 ```flix
     @Test
     def aRowThatCannotBeReadIsAFailureNotAnException(): Unit \ {Assert, IO} =
-        withTable((config, table) -> match PostgresStore.open(config, table) {
+        withTable((config, table) -> match Adapter.Postgres.PostgresStore.open(config, table) {
             case Err(_)    => Assert.assertTrue(false)
             case Ok(store) => {
-                let inserted = PostgresStore.execute(config,
+                let inserted = Adapter.Postgres.PostgresStore.execute(config,
                     "insert into ${table} (kind, user_name, list_name, description, status) values ('Deleted', 'u', 'l', '', '')");
                 Assert.assertEq(expected = Ok(()), inserted);
                 Assert.assertEq(expected = Err(ZettaiError.StorageFailure("unknown event kind: Deleted")), store#load())
@@ -398,10 +398,10 @@ PostgreSQL の実装は、この型をそのまま満たします。効果が `I
 <!-- code-check: ignore この章を書いた時点のコード（コミット 623a592）。第 10 章で EventStore に版を足し、読んだ版を添えて書く形に変えた -->
 ```flix
     pub def databaseActions(lists: Map[User, List[ToDoList]]): Result[ZettaiError, ZettaiActions] \ IO = {
-        let config = PostgresStore.configFromEnv();
-        let table = PostgresStore.freshTableName();
+        let config = Adapter.Postgres.PostgresStore.configFromEnv();
+        let table = Adapter.Postgres.PostgresStore.freshTableName();
         forM (
-            store <- PostgresStore.open(config, table);
+            store <- Adapter.Postgres.PostgresStore.open(config, table);
             _     <- store#append(eventsOf(lists))
         ) yield {
             name = "database",
@@ -453,10 +453,10 @@ PostgreSQL の実装は、この型をそのまま満たします。効果が `I
 
 ## この章で書いたコード
 
-- PostgreSQL のストア: `apps/flix/zettai/src/PostgresStore.flix`
-- コーデック: `apps/flix/zettai/src/Codec.flix`
-- イベントストアの型: `apps/flix/zettai/src/EventStore.flix`
-- コマンドの入口: `apps/flix/zettai/src/CommandHub.flix`
+- PostgreSQL のストア: `apps/flix/zettai/src/Adapter.Postgres.PostgresStore.flix`
+- コーデック: `apps/flix/zettai/src/Adapter.Postgres.Codec.flix`
+- イベントストアの型: `apps/flix/zettai/src/Application.EventStore.flix`
+- コマンドの入口: `apps/flix/zettai/src/Application.CommandHub.flix`
 - 依存: `apps/flix/zettai/flix.toml`
 - テスト: `apps/flix/zettai/test/TestPostgresStore.flix`、`TestCodec.flix`、`TestResultMonad.flix`、`Routes.flix`
 

@@ -32,7 +32,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-03T04:00:00Z }
 >> Non-exhaustive match: missing case 'RenameToDoList(_, _, _)'.
 ```
 
-指摘された 5 か所は、`Events.apply`（状態への適用）、`Commands.handle`（判断）、`Projection` の 2 つの関数（射影と持ち主の取り出し）、`Codec.encode`（データベースの行への変換）です。足したイベント 1 つの影響範囲を、コンパイラが一覧にしてくれました。
+指摘された 5 か所は、`Domain.Events.apply`（状態への適用）、`Domain.Commands.handle`（判断）、`Projection` の 2 つの関数（射影と持ち主の取り出し）、`Adapter.Postgres.Codec.encode`（データベースの行への変換）です。足したイベント 1 つの影響範囲を、コンパイラが一覧にしてくれました。
 
 判断は、これまでと同じ形です。
 
@@ -48,7 +48,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-03T04:00:00Z }
 
 ```flix
     def requireAbsent(state: ToDoListState, user: User, name: ListName): Result[ZettaiError, Unit] =
-        match Events.listFor(state, user, name) {
+        match Domain.Events.listFor(state, user, name) {
             case Some(_) => Err(ZettaiError.ListAlreadyExists(user, name))
             case None    => Ok(())
         }
@@ -73,12 +73,12 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-03T04:00:00Z }
 ```flix
     @Test
     def renamingAndRenamingBackDoesNotDuplicateItems(): Unit \ Assert = {
-        let first = history() ::: Result.getWithDefault(Nil, Commands.handle(RenameToDoList(uberto(), book(), shop()), state()));
+        let first = history() ::: Result.getWithDefault(Nil, Domain.Commands.handle(RenameToDoList(uberto(), book(), shop()), state()));
         let second = first ::: Result.getWithDefault(Nil,
-            Commands.handle(RenameToDoList(uberto(), shop(), book()), Replay.replayFrom(Events.empty(), first)));
+            Domain.Commands.handle(RenameToDoList(uberto(), shop(), book()), Domain.Events.Replay.replayFrom(Domain.Events.empty(), first)));
         Assert.assertEq(
-            expected = Events.listFor(state(), uberto(), book()),
-            Events.listFor(Replay.replayFrom(Events.empty(), second), uberto(), book())
+            expected = Domain.Events.listFor(state(), uberto(), book()),
+            Domain.Events.listFor(Domain.Events.Replay.replayFrom(Domain.Events.empty(), second), uberto(), book())
         )
     }
 ```
@@ -114,9 +114,9 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-03T04:00:00Z }
 ```flix
     def stopsAtTheFirstProblem(field: InputField, raw: String): Result[FieldProblem, String] =
         forM (
-            _ <- Validate.toResult(Validate.notBlank(field, raw));
-            _ <- Validate.toResult(Validate.withinLength(field, raw));
-            _ <- Validate.toResult(Validate.noForbiddenCharacter(field, raw))
+            _ <- Domain.Validation.Validate.toResult(Domain.Validation.Validate.notBlank(field, raw));
+            _ <- Domain.Validation.Validate.toResult(Domain.Validation.Validate.withinLength(field, raw));
+            _ <- Domain.Validation.Validate.toResult(Domain.Validation.Validate.noForbiddenCharacter(field, raw))
         ) yield raw
 ```
 
@@ -129,7 +129,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-03T04:00:00Z }
     def chainingWithFlatMapHidesTheSecondProblem(): Unit \ Assert = {
         let raw = String.repeat(41, "/");
         Assert.assertEq(expected = Err(TooLong(NewName, 40)), stopsAtTheFirstProblem(NewName, raw));
-        Assert.assertEq(expected = 2, List.length(problems(Validate.validateName(NewName, raw))))
+        Assert.assertEq(expected = 2, List.length(problems(Domain.Validation.Validate.validateName(NewName, raw))))
     }
 ```
 
@@ -181,7 +181,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-03T04:00:00Z }
     def everyBrokenRuleOfOneInputIsReportedInRuleOrder(): Unit \ Assert =
         Assert.assertEq(
             expected = List#{TooLong(NewName, 40), ForbiddenCharacter(NewName)},
-            problems(Validate.validateName(NewName, String.repeat(41, "/")))
+            problems(Domain.Validation.Validate.validateName(NewName, String.repeat(41, "/")))
         )
 ```
 
@@ -201,7 +201,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-03T04:00:00Z }
     def everyBrokenInputOfOneRequestIsReportedInInputOrder(): Unit \ Assert =
         Assert.assertEq(
             expected = List#{Blank(UserName), ForbiddenCharacter(ListNameField), TooLong(NewName, 40)},
-            problems(Validate.validateRename(" ", "a/b", tooLongName()))
+            problems(Domain.Validation.Validate.validateRename(" ", "a/b", tooLongName()))
         )
 ```
 
@@ -243,9 +243,9 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-03T04:00:00Z }
     @Test
     def groupingTheCombinationDifferentlyDoesNotChangeTheProblems(): Unit \ Assert =
         each3((a, b, c) -> {
-            let va = Validate.validateName(UserName, a);
-            let vb = Validate.validateName(ListNameField, b);
-            let vc = Validate.validateName(NewName, c);
+            let va = Domain.Validation.Validate.validateName(UserName, a);
+            let vb = Domain.Validation.Validate.validateName(ListNameField, b);
+            let vc = Domain.Validation.Validate.validateName(NewName, c);
             let leftFirst = forA (ab <- forA (x <- va; y <- vb) yield (x, y); z <- vc) yield (ab, z);
             let rightFirst = forA (x <- va; bc <- forA (y <- vb; z <- vc) yield (y, z)) yield (x, bc);
             Assert.assertEq(expected = problems(leftFirst), problems(rightFirst))
@@ -271,8 +271,8 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-03T04:00:00Z }
 ```flix
     @Test
     def theCountTestTellsAFirstOnlyCombinationApart(): Unit \ Assert = {
-        let a = Validate.validateName(UserName, "");
-        let b = Validate.validateName(NewName, "");
+        let a = Domain.Validation.Validate.validateName(UserName, "");
+        let b = Domain.Validation.Validate.validateName(NewName, "");
         Assert.assertEq(expected = 2, List.length(problems(forA (x <- a; y <- b) yield x + y)));
         Assert.assertEq(expected = 1, List.length(problems(firstOnly(a, b))))
     }
@@ -320,7 +320,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-03T04:00:00Z }
     pub def routeRename(execute: ToDoListCommand -> Result[ZettaiError, Unit] \ ef, request: Request): Response \ ef =
         match String.splitOn(substr = "/", request#path) {
             case "" :: "todo" :: user :: list :: "rename" :: Nil =>
-                match Validate.toZettai(Validate.validateRename(user, list, request#body)) {
+                match Domain.Validation.Validate.toZettai(Domain.Validation.Validate.validateRename(user, list, request#body)) {
                     case Err(error)   => failure(error)
                     case Ok(command)  =>
                         match execute(command) {
@@ -337,7 +337,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-03T04:00:00Z }
 ```flix
     @Test
     def everyProblemIsReportedInOneResponse(): Unit \ Assert = {
-        let response = Http.routeRename(executing(Ok(())), post("/todo/ /a/rename", String.repeat(41, "/")));
+        let response = Web.Http.routeRename(executing(Ok(())), post("/todo/ /a/rename", String.repeat(41, "/")));
         Assert.assertEq(expected = 400, response#status);
         // 利用者名・リスト名・新しい名前の誤りが、1 回の応答にすべて入る
         Assert.assertTrue(contains(response#body, "利用者名"));
@@ -351,7 +351,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-03T04:00:00Z }
 ```flix
     @Test
     def theResponseNeverEchoesTheInput(): Unit \ Assert = {
-        let response = Http.routeRename(executing(Ok(())), post("/todo/uberto/book/rename", "secret/name"));
+        let response = Web.Http.routeRename(executing(Ok(())), post("/todo/uberto/book/rename", "secret/name"));
         Assert.assertEq(expected = 400, response#status);
         Assert.assertFalse(contains(response#body, "secret"))
     }
@@ -368,7 +368,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-03T04:00:00Z }
         todoListHub((user, name) -> match store#load() {
             case Err(e)   => Err(e)
             case Ok(read) =>
-                match Events.listFor(Replay.replayFrom(Events.empty(), read#events), user, name) {
+                match Domain.Events.listFor(Domain.Events.Replay.replayFrom(Domain.Events.empty(), read#events), user, name) {
                     case Some(list) => Ok(list)
                     case None       => Err(ZettaiError.ListNotFound(user, name))
                 }
@@ -409,10 +409,10 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-03T04:00:00Z }
 
 ## この章で書いたコード
 
-- バリデーション: `apps/flix/zettai/src/Validate.flix`
-- 誤りの型: `apps/flix/zettai/src/Errors.flix`
-- 名前変更の判断: `apps/flix/zettai/src/Commands.flix`
-- HTTP の入口: `apps/flix/zettai/src/Http.flix`
+- バリデーション: `apps/flix/zettai/src/Domain.Validation.Validate.flix`
+- 誤りの型: `apps/flix/zettai/src/Domain.Errors.flix`
+- 名前変更の判断: `apps/flix/zettai/src/Domain.Commands.flix`
+- HTTP の入口: `apps/flix/zettai/src/Web.Http.flix`
 - テスト: `apps/flix/zettai/test/TestValidation.flix`、`TestApplicativeLaws.flix`、`TestRename.flix`、`TestRenameRoute.flix`、`TestRenameOverHttp.flix`
 
 ## 参照

@@ -61,12 +61,12 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-02T19:00:00Z }
 ```flix
     @Test
     def applyingAnEventDoesNotChangeThePreviousState(): Unit \ Assert = {
-        let empty = Events.empty();
-        let created = Events.apply(empty, ListCreated(uberto(), book()));
-        let added = Events.apply(created, ItemAdded(uberto(), book(), Domain.todo("write chapter")));
-        Assert.assertEq(expected = None, Events.listFor(empty, uberto(), book()));
-        Assert.assertEq(expected = Some(ToDoList.ToDoList(book(), Nil)), Events.listFor(created, uberto(), book()));
-        Assert.assertEq(expected = Some(ToDoList.ToDoList(book(), List#{Domain.todo("write chapter")})), Events.listFor(added, uberto(), book()))
+        let empty = Domain.Events.empty();
+        let created = Domain.Events.apply(empty, ListCreated(uberto(), book()));
+        let added = Domain.Events.apply(created, ItemAdded(uberto(), book(), Domain.todo("write chapter")));
+        Assert.assertEq(expected = None, Domain.Events.listFor(empty, uberto(), book()));
+        Assert.assertEq(expected = Some(ToDoList.ToDoList(book(), Nil)), Domain.Events.listFor(created, uberto(), book()));
+        Assert.assertEq(expected = Some(ToDoList.ToDoList(book(), List#{Domain.todo("write chapter")})), Domain.Events.listFor(added, uberto(), book()))
     }
 ```
 
@@ -77,8 +77,8 @@ Kotlin FP 版では、状態を作るときに `copy` で別名を切る必要�
 ```flix
     @Test
     def anItemAddedToAMissingListIsIgnored(): Unit \ Assert = {
-        let state = Events.apply(Events.empty(), ItemAdded(uberto(), book(), Domain.todo("write chapter")));
-        Assert.assertEq(expected = None, Events.listFor(state, uberto(), book()))
+        let state = Domain.Events.apply(Domain.Events.empty(), ItemAdded(uberto(), book(), Domain.todo("write chapter")));
+        Assert.assertEq(expected = None, Domain.Events.listFor(state, uberto(), book()))
     }
 ```
 
@@ -92,7 +92,7 @@ Kotlin FP 版では、状態を作るときに `copy` で別名を切る必要�
     pub def replayByRecursion(initial: ToDoListState, events: List[ToDoListEvent]): ToDoListState =
         match events {
             case Nil     => initial
-            case e :: es => replayByRecursion(Events.apply(initial, e), es)
+            case e :: es => replayByRecursion(Domain.Events.apply(initial, e), es)
         }
 ```
 
@@ -106,7 +106,7 @@ Kotlin FP 版では、状態を作るときに `copy` で別名を切る必要�
 
 ```flix
     pub def replayFrom(initial: ToDoListState, events: List[ToDoListEvent]): ToDoListState =
-        List.foldLeft(Events.apply, initial, events)
+        List.foldLeft(Domain.Events.apply, initial, events)
 ```
 
 `foldLeft` は初期値から始め、左から順に出来事を現在の状態へ取り込みます。可変の蓄積変数は見えません。各ステップは古い状態を受け取り、新しい状態を返します。
@@ -118,7 +118,7 @@ Kotlin FP 版では、状態を作るときに `copy` で別名を切る必要�
     def recursionAndFoldGiveTheSameState(): Unit \ Assert =
         List.forEach(seed ->
             List.forEach(events ->
-                Assert.assertEq(expected = Replay.replayByRecursion(seed, events), Replay.replayFrom(seed, events)),
+                Assert.assertEq(expected = Domain.Events.Replay.replayByRecursion(seed, events), Domain.Events.Replay.replayFrom(seed, events)),
                 Gen.eventListsUpTo(3)),
             seeds())
 ```
@@ -162,7 +162,7 @@ Kotlin FP 版は、プロパティテストのライブラリに生成を任せ�
 
 ```flix
     pub def fromEvent(event: ToDoListEvent): StateTransition =
-        StateTransition.StateTransition(state -> Events.apply(state, event))
+        StateTransition.StateTransition(state -> Domain.Events.apply(state, event))
 ```
 
 2 つの状態変換は、順番につなげられます。何もしない変換もあります。
@@ -213,8 +213,8 @@ Kotlin FP 版では、`andThen` と `identity` を自分で書き、法則はテ
             List.forEach(b ->
                 List.forEach(c ->
                     Assert.assertTrue(sameOnEverySeed(
-                        Transition.andThen(Transition.andThen(a, b), c),
-                        Transition.andThen(a, Transition.andThen(b, c)))),
+                        Domain.Events.Transition.andThen(Domain.Events.Transition.andThen(a, b), c),
+                        Domain.Events.Transition.andThen(a, Domain.Events.Transition.andThen(b, c)))),
                     transitions()),
                 transitions()),
             transitions())
@@ -224,8 +224,8 @@ Kotlin FP 版では、`andThen` と `identity` を自分で書き、法則はテ
     @Test
     def identityOnTheLeftAndOnTheRight(): Unit \ Assert =
         List.forEach(t -> {
-            Assert.assertTrue(sameOnEverySeed(Transition.andThen(Transition.identity(), t), t));
-            Assert.assertTrue(sameOnEverySeed(Transition.andThen(t, Transition.identity()), t))
+            Assert.assertTrue(sameOnEverySeed(Domain.Events.Transition.andThen(Domain.Events.Transition.identity(), t), t));
+            Assert.assertTrue(sameOnEverySeed(Domain.Events.Transition.andThen(t, Domain.Events.Transition.identity()), t))
         }, transitions())
 ```
 
@@ -233,7 +233,7 @@ Kotlin FP 版では、`andThen` と `identity` を自分で書き、法則はテ
 
 ```flix
     def sameOnEverySeed(a: StateTransition, b: StateTransition): Bool =
-        List.forAll(seed -> Transition.applyTo(a, seed) == Transition.applyTo(b, seed), seeds())
+        List.forAll(seed -> Domain.Events.Transition.applyTo(a, seed) == Domain.Events.Transition.applyTo(b, seed), seeds())
 ```
 
 畳み込んだ変換が、出来事を順に適用した結果と等しいことも確かめます。
@@ -244,8 +244,8 @@ Kotlin FP 版では、`andThen` と `identity` を自分で書き、法則はテ
         List.forEach(events ->
             List.forEach(seed ->
                 Assert.assertEq(
-                    expected = Replay.replayFrom(seed, events),
-                    Transition.applyTo(Transition.fromEvents(events), seed)),
+                    expected = Domain.Events.Replay.replayFrom(seed, events),
+                    Domain.Events.Transition.applyTo(Domain.Events.Transition.fromEvents(events), seed)),
                 seeds()),
             Gen.eventListsUpTo(3))
 ```
@@ -259,9 +259,9 @@ Kotlin FP 版では、`andThen` と `identity` を自分で書き、法則はテ
 ```flix
     @Test
     def theOrderOfCompositionMatters(): Unit \ Assert = {
-        let created = Transition.fromEvent(ToDoListEvent.ListCreated(User.User("uberto"), ListName.ListName("book")));
-        let added = Transition.fromEvent(ToDoListEvent.ItemAdded(User.User("uberto"), ListName.ListName("book"), Domain.todo("a")));
-        Assert.assertFalse(sameOnEverySeed(Transition.andThen(created, added), Transition.andThen(added, created)))
+        let created = Domain.Events.Transition.fromEvent(ToDoListEvent.ListCreated(User.User("uberto"), ListName.ListName("book")));
+        let added = Domain.Events.Transition.fromEvent(ToDoListEvent.ItemAdded(User.User("uberto"), ListName.ListName("book"), Domain.todo("a")));
+        Assert.assertFalse(sameOnEverySeed(Domain.Events.Transition.andThen(created, added), Domain.Events.Transition.andThen(added, created)))
     }
 ```
 
@@ -275,8 +275,8 @@ Kotlin FP 版では、`andThen` と `identity` を自分で書き、法則はテ
         List.forEach(a ->
             List.forEach(b ->
                 Assert.assertEq(
-                    expected = Replay.replayFrom(Events.empty(), a ::: b),
-                    Replay.replayFrom(Replay.replayFrom(Events.empty(), a), b)),
+                    expected = Domain.Events.Replay.replayFrom(Domain.Events.empty(), a ::: b),
+                    Domain.Events.Replay.replayFrom(Domain.Events.Replay.replayFrom(Domain.Events.empty(), a), b)),
                 Gen.eventListsUpTo(2)),
             Gen.eventListsUpTo(2))
 ```
@@ -292,15 +292,15 @@ Kotlin FP 版では、`andThen` と `identity` を自分で書き、法則はテ
 - 交換律は成り立たず、順番が結果を変えることをテストにしました。
 - `flix test` は 40 本が通ります。
 
-つまずきとして、`from` と `run` は Flix の予約語で、引数名や関数名に使えませんでした。`run` は `Transition.run` と書いた箇所が「`,` が来るはずです」というパースエラーになり、原因に気づきにくいものでした。`initial` と `applyTo` に改名しました。
+つまずきとして、`from` と `run` は Flix の予約語で、引数名や関数名に使えませんでした。`run` は `Domain.Events.Transition.run` と書いた箇所が「`,` が来るはずです」というパースエラーになり、原因に気づきにくいものでした。`initial` と `applyTo` に改名しました。
 
 次章では、命令を実行して出来事を生成します。出来事の列が正しいかをコマンドが検証し、状態遷移を代数的データ型で表します。
 
 ## この章で書いたコード
 
-- イベントと状態: `apps/flix/zettai/src/Events.flix`
-- 畳み込み: `apps/flix/zettai/src/Replay.flix`
-- 状態変換のモノイド: `apps/flix/zettai/src/Transition.flix`
+- イベントと状態: `apps/flix/zettai/src/Domain.Events.flix`
+- 畳み込み: `apps/flix/zettai/src/Domain.Events.Replay.flix`
+- 状態変換のモノイド: `apps/flix/zettai/src/Domain.Events.Transition.flix`
 - 全パターンの生成: `apps/flix/zettai/test/Gen.flix`
 - テスト: `apps/flix/zettai/test/TestEvents.flix`、`TestReplay.flix`、`TestTransition.flix`
 

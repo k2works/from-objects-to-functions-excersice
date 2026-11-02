@@ -43,8 +43,8 @@ Zettai で区別したい失敗は 4 つです。第 6 章で、すでに `Zetta
 ```flix
     @Test
     def aRequestTheDomainRefusesIsABadRequest(): Unit \ Assert = {
-        Assert.assertEq(expected = 400, Http.statusOf(ZettaiError.ListAlreadyExists(uberto(), book())));
-        Assert.assertEq(expected = 400, Http.statusOf(ZettaiError.InvalidTransition("x", ToDoStatus.Todo, ToDoStatus.Blocked)))
+        Assert.assertEq(expected = 400, Web.Http.statusOf(ZettaiError.ListAlreadyExists(uberto(), book())));
+        Assert.assertEq(expected = 400, Web.Http.statusOf(ZettaiError.InvalidTransition("x", ToDoStatus.Todo, ToDoStatus.Blocked)))
     }
 ```
 
@@ -192,7 +192,7 @@ HTTP 側では、`Result` の両方を応答に変えます。
 
     def respond(found: Result[ZettaiError, ToDoList]): Response =
         match found {
-            case Ok(todoList) => html(200, Html.render(todoList))
+            case Ok(todoList) => html(200, Web.Html.render(todoList))
             case Err(error)   => failure(error)
         }
 ```
@@ -209,9 +209,9 @@ HTTP 側では、`Result` の両方を応答に変えます。
 
 | ファイル | 変更の内容 |
 | :--- | :--- |
-| `src/Hub.flix` | 型の別名と、インメモリの実装 |
-| `src/Lookup.flix` | 効果の操作の戻り値と、ハンドラ |
-| `src/Http.flix` | `respond` が `Result` を受け取り、ステータスの写像を追加 |
+| `src/Application.Hub.flix` | 型の別名と、インメモリの実装 |
+| `src/Application.Lookup.flix` | 効果の操作の戻り値と、ハンドラ |
+| `src/Web.Http.flix` | `respond` が `Result` を受け取り、ステータスの写像を追加 |
 | `test/TestHub.flix` | 期待値を `Ok` と `Err` に |
 
 **4 ファイルです。** Kotlin FP 版は 5 ファイルでした。
@@ -249,9 +249,9 @@ Kotlin 版は、この章で `Outcome` を自作しました。Flix では、作
 
 ## この章で書いたコード
 
-- ステータスへの写像: `apps/flix/zettai/src/Http.flix`
-- Hub の型: `apps/flix/zettai/src/Hub.flix`
-- 効果としての依存: `apps/flix/zettai/src/Lookup.flix`
+- ステータスへの写像: `apps/flix/zettai/src/Web.Http.flix`
+- Hub の型: `apps/flix/zettai/src/Application.Hub.flix`
+- 効果としての依存: `apps/flix/zettai/src/Application.Lookup.flix`
 - テスト: `apps/flix/zettai/test/TestErrorMapping.flix`、`TestResultFunctor.flix`、`TestHub.flix`
 
 ## 参照

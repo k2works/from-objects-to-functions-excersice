@@ -36,9 +36,9 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-03T02:00:00Z }
 見立てを、手順を明示して確かめました。時間や並行実行には頼りません。2 つの接続で、どちらも先に数を読み、そのあとで両方が書きます。
 
 ```flix
-    def bothReadThenBothWrite(config: PostgresStore.Config, table: String): Int32 \ IO = {
-        let a = PostgresStore.connect(config);
-        let b = PostgresStore.connect(config);
+    def bothReadThenBothWrite(config: Adapter.Postgres.PostgresStore.Config, table: String): Int32 \ IO = {
+        let a = Adapter.Postgres.PostgresStore.connect(config);
+        let b = Adapter.Postgres.PostgresStore.connect(config);
         a.setAutoCommit(false);
         b.setAutoCommit(false);
         let readA = count(a, table);
@@ -49,7 +49,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-03T02:00:00Z }
         b.commit();
         a.close();
         b.close();
-        count(PostgresStore.connect(config), table)
+        count(Adapter.Postgres.PostgresStore.connect(config), table)
     }
 ```
 
@@ -58,12 +58,12 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-03T02:00:00Z }
 ```flix
     @Test
     def aTransactionAloneDoesNotStopTwoStaleWritersFromBothCommitting(): Unit \ {Assert, IO} = {
-        let config = PostgresStore.configFromEnv();
-        let table = PostgresStore.freshTableName();
-        let _ = PostgresStore.execute(config, "create table ${table} (version integer not null)");
+        let config = Adapter.Postgres.PostgresStore.configFromEnv();
+        let table = Adapter.Postgres.PostgresStore.freshTableName();
+        let _ = Adapter.Postgres.PostgresStore.execute(config, "create table ${table} (version integer not null)");
         // 版に制約が無いと、どちらも「1 番目の書き込み」としてコミットできてしまう
         Assert.assertEq(expected = 2, bothReadThenBothWrite(config, table));
-        let _ = PostgresStore.dropTable(config, table);
+        let _ = Adapter.Postgres.PostgresStore.dropTable(config, table);
         ()
     }
 ```
@@ -102,7 +102,7 @@ Flix には、もう 1 つの道があります。文脈を**効果**として�
         case VersionConflict(Int32, Int32)
 ```
 
-ケースを足すと、第 7 章と同じく、コンパイラが `Http.statusOf` の更新漏れを指摘しました。競合は、リクエストの内容ではなく状態の食い違いなので、409 に写しました。
+ケースを足すと、第 7 章と同じく、コンパイラが `Web.Http.statusOf` の更新漏れを指摘しました。競合は、リクエストの内容ではなく状態の食い違いなので、409 に写しました。
 
 ```flix
             case ZettaiError.VersionConflict(_, _)      => 409
@@ -134,16 +134,16 @@ create table if not exists ${table} (seq bigserial primary key, version integer 
 ```flix
     @Test
     def aUniqueVersionMakesTheSecondStaleWriterFail(): Unit \ {Assert, IO} = {
-        let config = PostgresStore.configFromEnv();
-        let table = PostgresStore.freshTableName();
-        let _ = PostgresStore.execute(config, "create table ${table} (version integer not null unique)");
+        let config = Adapter.Postgres.PostgresStore.configFromEnv();
+        let table = Adapter.Postgres.PostgresStore.freshTableName();
+        let _ = Adapter.Postgres.PostgresStore.execute(config, "create table ${table} (version integer not null unique)");
         let outcome = try {
             Ok(bothReadThenBothWrite(config, table))
         } catch {
             case ex: SQLException => Err(ex.getSQLState())
         };
         Assert.assertEq(expected = Err("23505"), outcome);
-        let _ = PostgresStore.dropTable(config, table);
+        let _ = Adapter.Postgres.PostgresStore.dropTable(config, table);
         ()
     }
 ```
@@ -198,10 +198,10 @@ create table if not exists ${table} (seq bigserial primary key, version integer 
 処理は、この効果の操作を呼ぶだけです。ストアも、接続も、引数に現れません。
 
 ```flix
-    pub def process(command: Commands.ToDoListCommand): Result[ZettaiError, Unit] \ EventLog =
+    pub def process(command: Domain.Commands.ToDoListCommand): Result[ZettaiError, Unit] \ EventLog =
         forM (
             read   <- EventLog.load();
-            events <- Commands.handle(command, Replay.replayFrom(Events.empty(), read#events));
+            events <- Domain.Commands.handle(command, Domain.Events.Replay.replayFrom(Domain.Events.empty(), read#events));
             _      <- EventLog.append(read#version, events)
         ) yield ()
 ```
@@ -235,12 +235,12 @@ create table if not exists ${table} (seq bigserial primary key, version integer 
 PostgreSQL の実装では、境界は 1 か所だけです。1 つの接続を開き、その接続を使うハンドラを装着して、処理が成功したときだけコミットします。
 
 ```flix
-    pub def transactional(config: Config, table: String, f: Unit -> Result[ZettaiError, a] \ Process.EventLog): Result[ZettaiError, a] \ IO =
+    pub def transactional(config: Config, table: String, f: Unit -> Result[ZettaiError, a] \ Application.Process.EventLog): Result[ZettaiError, a] \ IO =
         withConnection(config, conn -> {
             conn.setAutoCommit(false);
             let result = run {
                 f()
-            } with handler Process.EventLog {
+            } with handler Application.Process.EventLog {
                 def load(resume) = resume(readEvents(conn, table))
                 def append(expected, events, resume) = resume(insertEvents(conn, table, expected, events))
             };
@@ -288,19 +288,19 @@ PostgreSQL の実装では、境界は 1 か所だけです。1 つの接続を�
 ```flix
     @Test
     def aRejectedCommandRollsBackTheCommandsBeforeItInTheSameTransaction(): Unit \ {Assert, IO} = {
-        let config = PostgresStore.configFromEnv();
-        let table = PostgresStore.freshTableName();
-        let _ = PostgresStore.open(config, table);
-        let outcome = PostgresStore.transactional(config, table, () -> forM (
-            _ <- Process.process(CreateToDoList(uberto(), book()));
-            _ <- Process.process(CreateToDoList(uberto(), book()))
+        let config = Adapter.Postgres.PostgresStore.configFromEnv();
+        let table = Adapter.Postgres.PostgresStore.freshTableName();
+        let _ = Adapter.Postgres.PostgresStore.open(config, table);
+        let outcome = Adapter.Postgres.PostgresStore.transactional(config, table, () -> forM (
+            _ <- Application.Process.process(CreateToDoList(uberto(), book()));
+            _ <- Application.Process.process(CreateToDoList(uberto(), book()))
         ) yield ());
         Assert.assertEq(expected = Err(ZettaiError.ListAlreadyExists(uberto(), book())), outcome);
-        match PostgresStore.open(config, table) {
+        match Adapter.Postgres.PostgresStore.open(config, table) {
             case Ok(store) => Assert.assertEq(expected = Ok(0), Result.map(read -> read#version, store#load()))
             case Err(e)    => Assert.assertEq(expected = "opened", ToString.toString(e))
         };
-        let _ = PostgresStore.dropTable(config, table);
+        let _ = Adapter.Postgres.PostgresStore.dropTable(config, table);
         ()
     }
 ```
@@ -324,8 +324,8 @@ PostgreSQL の実装では、境界は 1 か所だけです。1 つの接続を�
     def aUniqueViolationBecomesAVersionConflict(): Unit \ {Assert, IO} = {
         let violation = new SQLException("duplicate key", "23505");
         let other = new SQLException("syntax error", "42601");
-        Assert.assertEq(expected = Errors.ZettaiError.VersionConflict(3, 4), PostgresStore.conflictOrFailure(violation, 3));
-        Assert.assertEq(expected = Errors.ZettaiError.StorageFailure("syntax error"), PostgresStore.conflictOrFailure(other, 3))
+        Assert.assertEq(expected = Domain.Errors.ZettaiError.VersionConflict(3, 4), Adapter.Postgres.PostgresStore.conflictOrFailure(violation, 3));
+        Assert.assertEq(expected = Domain.Errors.ZettaiError.StorageFailure("syntax error"), Adapter.Postgres.PostgresStore.conflictOrFailure(other, 3))
     }
 ```
 
@@ -342,13 +342,13 @@ PostgreSQL の実装では、境界は 1 か所だけです。1 つの接続を�
 ```flix
     @Test
     def theQuerySideReadsRowsFromEventsStoredInPostgres(): Unit \ {Assert, IO} = {
-        let config = PostgresStore.configFromEnv();
-        let table = PostgresStore.freshTableName();
-        match PostgresStore.open(config, table) {
+        let config = Adapter.Postgres.PostgresStore.configFromEnv();
+        let table = Adapter.Postgres.PostgresStore.freshTableName();
+        match Adapter.Postgres.PostgresStore.open(config, table) {
             case Err(e)    => Assert.assertEq(expected = "opened", ToString.toString(e))
             case Ok(store) => {
-                let commandHub = CommandHub.commandHub(store);
-                let queryHub = QueryHub.queryHub(store);
+                let commandHub = Application.CommandHub.commandHub(store);
+                let queryHub = Application.QueryHub.queryHub(store);
                 List.forEach(c -> { let _ = commandHub#execute(c); () }, List#{
                     CreateToDoList(uberto(), book()),
                     AddToDoItem(uberto(), book(), Domain.todo("a")),
@@ -361,7 +361,7 @@ PostgreSQL の実装では、境界は 1 か所だけです。1 つの接続を�
                 )
             }
         };
-        let _ = PostgresStore.dropTable(config, table);
+        let _ = Adapter.Postgres.PostgresStore.dropTable(config, table);
         ()
     }
 ```
@@ -396,10 +396,10 @@ PostgreSQL の実装では、境界は 1 か所だけです。1 つの接続を�
 
 ## この章で書いたコード
 
-- 文脈の効果とハンドラ: `apps/flix/zettai/src/Process.flix`
-- 版つきのイベントストア: `apps/flix/zettai/src/EventStore.flix`
-- PostgreSQL のストアとトランザクション: `apps/flix/zettai/src/PostgresStore.flix`
-- コマンドの入口: `apps/flix/zettai/src/CommandHub.flix`
+- 文脈の効果とハンドラ: `apps/flix/zettai/src/Application.Process.flix`
+- 版つきのイベントストア: `apps/flix/zettai/src/Application.EventStore.flix`
+- PostgreSQL のストアとトランザクション: `apps/flix/zettai/src/Adapter.Postgres.PostgresStore.flix`
+- コマンドの入口: `apps/flix/zettai/src/Application.CommandHub.flix`
 - テスト: `apps/flix/zettai/test/TestVersionedStore.flix`、`TestTransactionIsolation.flix`、`TestProcess.flix`、`TestQueryOnDatabase.flix`
 
 ## 参照

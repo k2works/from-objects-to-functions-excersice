@@ -139,7 +139,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-02T21:00:00Z }
     pub def handle(command: ToDoListCommand, state: ToDoListState): Result[ZettaiError, List[ToDoListEvent]] =
         match command {
             case ToDoListCommand.CreateToDoList(user, name) =>
-                match Events.listFor(state, user, name) {
+                match Domain.Events.listFor(state, user, name) {
                     case Some(_) => Err(ZettaiError.ListAlreadyExists(user, name))
                     case None    => Ok(ToDoListEvent.ListCreated(user, name) :: Nil)
                 }
@@ -178,7 +178,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-02T21:00:00Z }
     def rejectsATransitionTheTableDoesNotAllow(): Unit \ Assert =
         Assert.assertEq(
             expected = Err(ZettaiError.InvalidTransition("write chapter", ToDoStatus.Todo, ToDoStatus.Blocked)),
-            Commands.handle(ChangeItemStatus(uberto(), book(), "write chapter", ToDoStatus.Blocked), withItem())
+            Domain.Commands.handle(ChangeItemStatus(uberto(), book(), "write chapter", ToDoStatus.Blocked), withItem())
         )
 ```
 
@@ -221,13 +221,13 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-02T21:00:00Z }
 ```flix
     pub def commandHub(store: EventStore[ef]): CommandHub[ef] = {
         execute = command -> {
-            let state = Replay.replayFrom(Events.empty(), store#load());
-            match Commands.handle(command, state) {
+            let state = Domain.Events.Replay.replayFrom(Domain.Events.empty(), store#load());
+            match Domain.Commands.handle(command, state) {
                 case Ok(events) => { store#append(events); Ok(()) }
                 case Err(e)     => Err(e)
             }
         },
-        current = () -> Replay.replayFrom(Events.empty(), store#load())
+        current = () -> Domain.Events.Replay.replayFrom(Domain.Events.empty(), store#load())
     }
 ```
 
@@ -235,12 +235,12 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-02T21:00:00Z }
 
 <!-- code-check: ignore この章を書いた時点のコード（コミット 658d9c5）。第 9 章で EventStore と CommandHub の戻り値を Result に変えた -->
 ```flix
-    def scenario(commands: List[Commands.ToDoListCommand]): (List[Result[ZettaiError, Unit]], Option[ToDoList], List[Events.ToDoListEvent]) = {
+    def scenario(commands: List[Domain.Commands.ToDoListCommand]): (List[Result[ZettaiError, Unit]], Option[ToDoList], List[Domain.Events.ToDoListEvent]) = {
         region rc {
-            let store = EventStore.inMemory(rc);
-            let hub = CommandHub.commandHub(store);
+            let store = Application.EventStore.inMemory(rc);
+            let hub = Application.CommandHub.commandHub(store);
             let results = List.map(hub#execute, commands);
-            (results, Events.listFor(hub#current(), uberto(), book()), store#load())
+            (results, Domain.Events.listFor(hub#current(), uberto(), book()), store#load())
         }
     }
 ```
@@ -337,11 +337,11 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-02T21:00:00Z }
 
 ## この章で書いたコード
 
-- コマンドと `handle`: `apps/flix/zettai/src/Commands.flix`
-- 失敗の型: `apps/flix/zettai/src/Errors.flix`
+- コマンドと `handle`: `apps/flix/zettai/src/Domain.Commands.flix`
+- 失敗の型: `apps/flix/zettai/src/Domain.Errors.flix`
 - 遷移表: `apps/flix/zettai/src/Domain.flix`
-- イベントストア: `apps/flix/zettai/src/EventStore.flix`
-- コマンドの入口: `apps/flix/zettai/src/CommandHub.flix`
+- イベントストア: `apps/flix/zettai/src/Application.EventStore.flix`
+- コマンドの入口: `apps/flix/zettai/src/Application.CommandHub.flix`
 - テスト: `apps/flix/zettai/test/TestCommands.flix`、`TestStatusRules.flix`、`TestCommandHub.flix`、`TestCommandInvariants.flix`
 
 ## 参照

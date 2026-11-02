@@ -53,7 +53,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-02T23:00:00Z }
 
 ```flix
     pub def replayFrom(initial: ToDoListState, events: List[ToDoListEvent]): ToDoListState =
-        List.foldLeft(Events.apply, initial, events)
+        List.foldLeft(Domain.Events.apply, initial, events)
 ```
 
 射影も同じ `foldLeft` です。
@@ -115,20 +115,20 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-02T23:00:00Z }
 ```flix
     @Test
     def aStatusChangeAppliesOnlyToTheFirstItemWithThatDescription(): Unit \ Assert = {
-        use Events.ToDoListEvent.ItemStatusChanged;
+        use Domain.Events.ToDoListEvent.ItemStatusChanged;
         let events = List#{
             ListCreated(uberto(), book()),
             ItemAdded(uberto(), book(), Domain.todo("a")),
             ItemAdded(uberto(), book(), Domain.todo("a")),
             ItemStatusChanged(uberto(), book(), "a", Domain.ToDoStatus.Done)
         };
-        let state = List.foldLeft(Events.apply, Events.empty(), events);
+        let state = List.foldLeft(Domain.Events.apply, Domain.Events.empty(), events);
         Assert.assertEq(
             expected = Some(ToDoList.ToDoList(book(), List#{
                 Domain.ToDoItem.ToDoItem("a", Domain.ToDoStatus.Done),
                 Domain.todo("a")
             })),
-            Events.listFor(state, uberto(), book())
+            Domain.Events.listFor(state, uberto(), book())
         )
     }
 ```
@@ -220,7 +220,7 @@ Kotlin 版は、`ToDoListProjection` に自作の `map` を持たせ、その法
     def theProjectionMatchesTheCountsOfTheReplayedState(): Unit \ Assert =
         List.forEach(events ->
             List.forEach(user ->
-                Assert.assertEq(expected = rowsFromState(user, events), Projection.projectFrom(user, events)),
+                Assert.assertEq(expected = rowsFromState(user, events), Domain.Queries.Projection.projectFrom(user, events)),
                 List#{uberto(), alice()}),
             Gen.projectionListsUpTo(4))
 ```
@@ -229,8 +229,8 @@ Kotlin 版は、`ToDoListProjection` に自作の `map` を持たせ、その法
 
 ```flix
     def rowsFromState(user: User, events: List[ToDoListEvent]): List[ToDoListRow] = {
-        let state = Replay.replayFrom(Events.empty(), events);
-        match Events.listFor(state, user, book()) {
+        let state = Domain.Events.Replay.replayFrom(Domain.Events.empty(), events);
+        match Domain.Events.listFor(state, user, book()) {
             case None => Nil
             case Some(Domain.ToDoList.ToDoList(name, items)) =>
                 List#{ToDoListRow.ToDoListRow(
@@ -263,7 +263,7 @@ Kotlin 版は、`ToDoListProjection` に自作の `map` を持たせ、その法
 <!-- code-check: ignore この章を書いた時点のコード（コミット 37daacd）。第 9 章で EventStore と QueryHub の戻り値を Result に変えた -->
 ```flix
     pub def queryHub(store: EventStore[ef]): QueryHub[ef] = {
-        listRows = user -> Projection.projectFrom(user, store#load())
+        listRows = user -> Domain.Queries.Projection.projectFrom(user, store#load())
     }
 ```
 
@@ -279,11 +279,11 @@ Kotlin 版は、`ToDoListProjection` に自作の `map` を持たせ、その法
 
 <!-- code-check: ignore この章を書いた時点のコード（コミット 37daacd）。第 9 章で EventStore と QueryHub の戻り値を Result に変えた -->
 ```flix
-    def rowsAfter(commands: List[Commands.ToDoListCommand]): List[ToDoListRow] = {
+    def rowsAfter(commands: List[Domain.Commands.ToDoListCommand]): List[ToDoListRow] = {
         region rc {
-            let store = EventStore.inMemory(rc);
-            let commandHub = CommandHub.commandHub(store);
-            let queryHub = QueryHub.queryHub(store);
+            let store = Application.EventStore.inMemory(rc);
+            let commandHub = Application.CommandHub.commandHub(store);
+            let queryHub = Application.QueryHub.queryHub(store);
             List.forEach(c -> { let _ = commandHub#execute(c); () }, commands);
             queryHub#listRows(uberto())
         }
@@ -321,8 +321,8 @@ Kotlin 版は、`ToDoListProjection` に自作の `map` を持たせ、その法
 
 ## この章で書いたコード
 
-- 射影: `apps/flix/zettai/src/Projection.flix`
-- 読み取り専用の入口: `apps/flix/zettai/src/QueryHub.flix`
+- 射影: `apps/flix/zettai/src/Domain.Queries.Projection.flix`
+- 読み取り専用の入口: `apps/flix/zettai/src/Application.QueryHub.flix`
 - 共有する規則: `apps/flix/zettai/src/Domain.flix`
 - テスト: `apps/flix/zettai/test/TestProjection.flix`、`TestQueryHub.flix`、`TestQueryFunctor.flix`、`TestEvents.flix`
 

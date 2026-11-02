@@ -56,7 +56,7 @@ Hub を組み立てるのは、関数を受け取る関数です。
 ```flix
     @Test
     def aHubIsBuiltFromAnyFunctionOfTheRightType(): Unit \ Assert = {
-        let hub = Hub.todoListHub((user, name) ->
+        let hub = Application.Hub.todoListHub((user, name) ->
             if (user == User.User("uberto") and name == ListName.ListName("book")) Some(book()) else None);
         Assert.assertEq(expected = Some(book()), hub#getList(User.User("uberto"), ListName.ListName("book")));
         Assert.assertEq(expected = None, hub#getList(User.User("alice"), ListName.ListName("book")))
@@ -106,17 +106,17 @@ Flix には、もう 1 つの方法があります。**効果そのものを依�
 この版の `route` は、Hub を受け取りません。依存は型に現れます。
 
 ```flix
-    pub def routeWithEffect(request: Request): Response \ Lookup.ToDoLists =
+    pub def routeWithEffect(request: Request): Response \ Application.Lookup.ToDoLists =
         if (request#method != "GET")
             methodNotAllowed()
         else
             match parse(request#path) {
-                case Some((user, list)) => respond(Lookup.ToDoLists.getList(user, list))
+                case Some((user, list)) => respond(Application.Lookup.ToDoLists.getList(user, list))
                 case None               => notFound()
             }
 ```
 
-シグネチャの `\ Lookup.ToDoLists` が、「この関数は `ToDoLists` の実装を必要とする」と宣言しています。ハンドラ無しで呼ぶと、コンパイルが通りません。
+シグネチャの `\ Application.Lookup.ToDoLists` が、「この関数は `ToDoLists` の実装を必要とする」と宣言しています。ハンドラ無しで呼ぶと、コンパイルが通りません。
 
 ```bash
 -- Type Error [E6216] -------------------------------------------- test/Tmp.flix
@@ -141,11 +141,11 @@ Flix には、もう 1 つの方法があります。**効果そのものを依�
 ```flix
     /// 関数値のレコードで依存を渡す版
     def byHub(path: String): Response =
-        Http.route(Hub.inMemory(lists()), get(path))
+        Web.Http.route(Application.Hub.inMemory(lists()), get(path))
 
     /// 効果ハンドラで依存を差し替える版
     def byHandler(path: String): Response =
-        Lookup.handleInMemory(lists(), () -> Http.routeWithEffect(get(path)))
+        Application.Lookup.handleInMemory(lists(), () -> Web.Http.routeWithEffect(get(path)))
 ```
 
 ```flix
@@ -182,7 +182,7 @@ Flix には、もう 1 つの方法があります。**効果そのものを依�
 ```flix
     @Test
     def theInMemoryHubFindsTheListOfTheUser(): Unit \ Assert = {
-        let hub = Hub.inMemory(Map#{User.User("uberto") => List#{book()}});
+        let hub = Application.Hub.inMemory(Map#{User.User("uberto") => List#{book()}});
         Assert.assertEq(expected = Some(book()), hub#getList(User.User("uberto"), ListName.ListName("book")));
         Assert.assertEq(expected = None, hub#getList(User.User("uberto"), ListName.ListName("missing")))
     }
@@ -248,7 +248,7 @@ Flix には引数の既定値がありません。これまで `ToDoItem("write 
 
 Kotlin FP 版では、インメモリの取得関数を作るときに、受け取った `Map` と `List` を `copy` しました。外側の `MutableMap` が後から変わっても、渡し済みの結果が変わらないようにするためです。
 
-Flix の `Map` と `List` は不変です。可変な参照を受け取る口がそもそも無いので、**境界で切る処理が要りません。** `Hub.inMemory` は、受け取った `lists` をそのまま閉じ込めています。
+Flix の `Map` と `List` は不変です。可変な参照を受け取る口がそもそも無いので、**境界で切る処理が要りません。** `Application.Hub.inMemory` は、受け取った `lists` をそのまま閉じ込めています。
 
 ## まとめ
 
@@ -264,9 +264,9 @@ Flix の `Map` と `List` は不変です。可変な参照を受け取る口が
 
 ## この章で書いたコード
 
-- Hub: `apps/flix/zettai/src/Hub.flix`
-- 効果としての依存: `apps/flix/zettai/src/Lookup.flix`
-- ルーティング: `apps/flix/zettai/src/Http.flix`
+- Hub: `apps/flix/zettai/src/Application.Hub.flix`
+- 効果としての依存: `apps/flix/zettai/src/Application.Lookup.flix`
+- ルーティング: `apps/flix/zettai/src/Web.Http.flix`
 - ドメイン: `apps/flix/zettai/src/Domain.flix`
 - テスト: `apps/flix/zettai/test/TestHub.flix`、`TestEffectDi.flix`、`TestDomainModel.flix`
 

@@ -77,9 +77,9 @@ HTTP 経路は、実際のサーバーを起動してパスを組み立て、返
 <!-- code-check: ignore この章を書いた時点のコード（コミット 7d2dd0f）。第 4 章で ToDoItem と Http.route の型が変わった -->
 ```flix
     pub def httpActions(lists: Map[User, List[ToDoList]]): ZettaiActions \ IO = {
-        let server = JdkServer.start(0, request ->
-            Http.route((user, listName) -> Domain.findToDoList(lists, user, listName), request));
-        let port = JdkServer.port(server);
+        let server = Web.JdkServer.start(0, request ->
+            Web.Http.route((user, listName) -> Domain.findToDoList(lists, user, listName), request));
+        let port = Web.JdkServer.port(server);
         {
             name = "http",
             getToDoList = (user, listName) -> {
@@ -88,7 +88,7 @@ HTTP 経路は、実際のサーバーを起動してパスを組み立て、返
                 let (status, body) = HttpTestClient.get(port, "/todo/${u}/${l}");
                 if (status == 200) Some(HtmlReader.items(body)) else None
             },
-            close = () -> JdkServer.stop(server)
+            close = () -> Web.JdkServer.stop(server)
         }
     }
 ```
@@ -144,7 +144,7 @@ HTTP 経路は、HTML という外部表現を扱います。読み戻す処理�
         }
 ```
 
-この関数自体にもテストがあります。`Html.render` が出力した HTML を `HtmlReader.items` が読み戻すと、元の項目に戻ることを確かめています。
+この関数自体にもテストがあります。`Web.Html.render` が出力した HTML を `HtmlReader.items` が読み戻すと、元の項目に戻ることを確かめています。
 
 <!-- code-check: ignore この章を書いた時点のコード（コミット 7d2dd0f）。第 4 章で ToDoItem と Http.route の型が変わった -->
 ```flix
@@ -152,7 +152,7 @@ HTTP 経路は、HTML という外部表現を扱います。読み戻す処理�
     def roundTripsWhatHtmlRenders(): Unit \ Assert = {
         let items = List#{ToDoItem.ToDoItem("a & b"), ToDoItem.ToDoItem("<i>c</i>")};
         let list = Domain.ToDoList.ToDoList(Domain.ListName.ListName("x"), items);
-        Assert.assertEq(expected = items, HtmlReader.items(Html.render(list)))
+        Assert.assertEq(expected = items, HtmlReader.items(Web.Html.render(list)))
     }
 ```
 
@@ -160,7 +160,7 @@ HTTP 経路は、HTML という外部表現を扱います。読み戻す処理�
 
 ### 経路が失敗を絞り込む
 
-実際に HTTP 経路だけを壊して確かめました。`Http.route` のパスの照合を `"todo"` から `"todos"` に変えると、受け入れテストは次のように落ちます。domain 経路は通ったままです。
+実際に HTTP 経路だけを壊して確かめました。`Web.Http.route` のパスの照合を `"todo"` から `"todos"` に変えると、受け入れテストは次のように落ちます。domain 経路は通ったままです。
 
 ```bash
 TestAcceptance.seeTheItemsOfAList   FAIL  (Assertion failed: expected `(http, Some(ToDoItem(write chapter) :: ToDoItem(publish book) :: ToDoItem(read <today> & "FP") :: Nil))`, but got `(http, None)`)
@@ -177,7 +177,7 @@ TestAcceptance.seeTheItemsOfAList   FAIL  (Assertion failed: expected `(http, So
 
 なお、この壊し方で落ちたのは受け入れテストだけではありません。第 2 章の `TestHttpApp.returnsTheListAsHtml` と `TestJdkServer.servesTheListOverRealHttp` も落ちました。受け入れテストが他のテストの代わりをするのではなく、重なりを持って守っています。
 
-一方で、`Html.render` から `&` のエスケープを外してみたときは、落ちたのはエスケープの単体テスト 1 本だけで、受け入れテストは通りました。`HtmlReader` の復元が対称に作ってあるので、往復すると元に戻ってしまうためです。**受け入れテストは、単体テストの代わりにはなりません。**
+一方で、`Web.Html.render` から `&` のエスケープを外してみたときは、落ちたのはエスケープの単体テスト 1 本だけで、受け入れテストは通りました。`HtmlReader` の復元が対称に作ってあるので、往復すると元に戻ってしまうためです。**受け入れテストは、単体テストの代わりにはなりません。**
 
 ## DDT を関数値のレコードに変換する
 

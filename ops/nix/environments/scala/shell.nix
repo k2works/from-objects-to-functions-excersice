@@ -5,11 +5,13 @@ in
 packages.mkShell {
   inherit (baseShell) pure;
   buildInputs = baseShell.buildInputs ++ (with packages; [
+    jdk21
     scala_3
     sbt
     metals
     scala-cli
   ]);
+  JAVA_HOME = "${packages.jdk21}";
   shellHook = ''
     ${baseShell.shellHook}
     echo "Scala development environment activated"

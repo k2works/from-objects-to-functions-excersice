@@ -55,7 +55,7 @@ ToDo リストアプリケーション **Zettai** を TDD で一から作りな�
 
 | 項目 | Kotlin | Kotlin FP | なでしこ3 | Rust | Flix |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| 実行環境（Nix devShell） | **完了** | **定義済み** | **完了** | **完了** | **定義済み（Nix 上の評価は未検証）** |
+| 実行環境（Nix devShell） | **完了** | **定義済み** | **完了** | **完了** | **完了（Docker 上の Nix で確認）** |
 | サンプル実装の雛形 | **完了** | **完了** | **完了** | **完了** | **完了** |
 | CI | **完了** | **定義済み（同等コマンド green）** | **完了** | **完了** | **定義済み（同等コマンド green。Actions は未実行）** |
 | 公開済みの章 | **13 / 13（完結）** | **13 / 13（完結）** | **13 / 13（完結）** | **13 / 13（完結）** | **13 / 13（完結）** |
@@ -74,4 +74,4 @@ ToDo リストアプリケーション **Zettai** を TDD で一から作りな�
 | Kotlin FP | `nix develop .#kotlin-fp` | Kotlin 2.4.21、JDK 25、Gradle 9.7.0、Arrow 2.2.3、Cucumber 8.0.4。PostgreSQL は Testcontainers で起動 |
 | なでしこ3 | `nix develop .#nadesiko` | Node 22、cnako3 3.8.7（npm の `nadesiko3`）、自作のテストヘルパとランナー（`make check`）。第 9 章の永続化は追記型イベントログのファイル保存 |
 | Rust | `nix develop .#rust` | rustc 1.91.1、cargo 1.91.0、clippy 0.1.91、rustfmt 1.8.0、just 1.45.0、cargo-llvm-cov 0.6.20。タスクは `just check`。テストは組み込みの `#[test]`。**async は採らず同期で通す**（[ADR-024](../../adr/ADR-024-no-async.md)）。第 9 章の永続化は PostgreSQL |
-| Flix | `nix develop .#flix` | Flix 0.79.0、JDK 21。`flix` は devShell が定義するシェル関数で、初回に公式リリースの `flix.jar` を取得する。タスクは `flix check` と `flix test`。HTTP と DB は Java 相互運用 |
+| Flix | `nix develop .#flix` | Flix 0.79.0、JDK 21。`flix` は devShell が提供する実行可能なスクリプトで、初回に公式リリースの `flix.jar` を `~/.cache/flix/` に取得する。タスクは `flix check` と `flix test`。HTTP と DB は Java 相互運用 |

@@ -98,7 +98,7 @@ version = "0.1.0"
 flix    = "0.79.0"
 ```
 
-Nix を使う場合は、devShell に入ってから `flix` を実行します。`flix` は devShell が定義するシェル関数で、初回に公式リリースの `flix.jar` を取得します。
+Nix を使う場合は、devShell に入ってから `flix` を実行します。`flix` は devShell が提供する実行可能なスクリプトで、初回に公式リリースの `flix.jar` を `~/.cache/flix/` に取得します。
 
 ```bash
 nix develop .#flix
@@ -115,7 +115,7 @@ java -jar flix.jar test
 
 第 9 章以降のコードでは、`flix test` に PostgreSQL が要ります。第 1 章の時点のコード（3 本のテスト）を試すときは、[Flix 版のトップ](index.md) の「章ごとのコードを再現する」の手順で、コミットを切り替えてください。
 
-この記事は Nix の入っていない環境で書いたため、`nix develop .#flix` は未検証です。確認できているのは、`java -jar` で同じコマンドを実行した結果です。
+`nix develop .#flix` は、Docker 上の Nix で確かめました（2026-11-02）。`nix develop --command` から `flix --version` と `flix test` が動き、JDK は 21.0.9 でした。確かめたのは Linux の Nix で、Windows や macOS の Nix では確かめていません。
 
 品質ゲートは次の 2 つです。
 

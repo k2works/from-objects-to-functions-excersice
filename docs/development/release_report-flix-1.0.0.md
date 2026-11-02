@@ -60,7 +60,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-03T13:30:00Z }
 
 | # | 確かめていないこと | 状態 |
 | :--- | :--- | :--- |
-| 1 | Nix の devShell（`nix develop .#flix`） | `nix` が無い環境で作業した。CI は JDK と `flix.jar` で動く |
+| 1 | Windows / macOS の Nix の devShell | Linux の Nix（Docker）では確かめた（2026-11-02）。他の OS の Nix は確かめていない |
 | 2 | HTTP と PostgreSQL を通した確認 | 通しのテストは、インメモリのストアで動かした |
 | 3 | 一意制約違反が実際の競合で `VersionConflict` になるまでの通し | 版の確認で断る経路と、SQLState の写像を、別々に確かめた |
 | 4 | `Logger` の処理を、サーバーのコールバックの外に置いたときの挙動 | 確かめていない |
@@ -73,7 +73,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-03T13:30:00Z }
 ## 次に人がすること
 
 1. ~~ADR-046、047、048 を確認し、承認するか判断する~~ 承認済み（2026-11-02）
-2. `nix develop .#flix` を、Nix のある環境で確かめる
+2. ~~`nix develop .#flix` を、Nix のある環境で確かめる~~ Docker 上の Nix で確かめた（2026-11-02）
 3. 記事のコード例を、読者の立場で通して実行する（第 1 章の手順から）
 4. 他の対象のように、Unit ごとの Bolt 計画・終了報告・ふりかえりを、必要なら書き起こす。**ただし、記録していない指標は、後から作らない**
 

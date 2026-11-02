@@ -15,7 +15,7 @@ flix test
 | Flix | 0.79.0（`flix.toml` で固定） |
 | JDK | 21（Flix の要件は 21 以降） |
 
-`flix` は devShell が定義するシェル関数です。初回に公式リリースの `flix.jar` を `.flix/` に取得します（`.gitignore` 済み）。Nix を使わない場合は、`flix.jar` を取得して `java -jar flix.jar` で同じコマンドを実行します。
+`flix` は devShell が提供する実行可能なスクリプトです。初回に公式リリースの `flix.jar` を `~/.cache/flix/` に取得します（`FLIX_JAR` で保存先を変えられます）。`nix develop --command flix test` のような非対話の使い方もできます。Nix を使わない場合は、`flix.jar` を取得して `java -jar flix.jar` で同じコマンドを実行します。
 
 ## データベース（第 9 章から）
 
@@ -48,6 +48,6 @@ Unit 1 時点で確認できたことだけを書きます。章を進めるた�
 | :--- | :--- |
 | 版の固定 | Flix は変更が速いため `flix.toml` の `flix` で固定する。上げるときは記事のコードと出力も取り直す |
 | Windows のコンソール | 既定のコードページ（日本語環境では Shift_JIS 系）で、エラー出力の日本語が文字化けする。ソースは UTF-8 で、テストの判定には影響しない |
-| Nix | `nix` が無い環境では devShell を評価できていない（Unit 1 時点で未検証） |
+| Nix | Docker 上の Nix（Linux）で確かめた。Windows / macOS の Nix は確かめていない |
 | DriverManager | `DriverManager.getConnection` は「No suitable driver」になる。ドライバを `new Driver().connect(...)` で直接生成している |
 | テストの後始末 | 結合テストはテストごとに専用のテーブルを作り、終了時に捨てる。**テストが途中で失敗すると、テーブルが残る**（`events_` で始まる名前） |

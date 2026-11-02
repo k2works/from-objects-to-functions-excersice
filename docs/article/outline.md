@@ -580,7 +580,7 @@ Kotlin 版は `Outcome` を自前で作り、Rust 版は `Result` が言語に�
 | 実行基盤 | JVM 言語。公式ドキュメントで Java 21 以降が必要。現行の安定版は **0.79.0**（2026-10-18 公開、配布物は `flix.jar` 1 つ）。`flix.toml` で固定する |
 | Java 相互運用 | 公式ドキュメントによれば、Java オブジェクトの生成・メソッド呼び出し・例外処理ができ、パッケージマネージャは Maven に対応している。**HTTP と DB の章はこれで書く**（決定済み） |
 | 効果システム | 型と効果で純粋・非純粋を区別する。IO は独立した効果。効果多相もある |
-| 確認する事実（Unit 1） | ①現行安定版と必要な JDK: **確認済み**（0.79.0 / JDK 21）②Nix での入手可否: **未確認**（`nix` の無い環境で作業した。標準配布に無い前提で、JDK のみ提供し `flix.jar` を取得するラッパー方式にした）③`com.sun.net.httpserver` を呼べること: **確認済み**（匿名クラスで `HttpHandler` を実装し、実サーバーで 200 / 404 を確認。JDBC も第 9 章で確認済み。`DriverManager` は使えず `new Driver().connect` で接続した）④テスト機構: **確認済み**（`@Test` と `Assert.assertEq`。`flix test`。Red はコンパイルエラーとして現れる）⑤コードブロックの言語タグ: **確認済み**（`flix` を検査スクリプトに登録し、既存 53 章が違反 0）⑥Gherkin / Cucumber: **試していない**（Flix でアノテーション付きクラスを定義する手段が公式ドキュメントに見つからなかった。使えないと確かめたわけではなく、[ADR-046](../adr/ADR-046-flix-acceptance-by-record-of-functions.md) で関数値のレコードを採った） |
+| 確認する事実（Unit 1） | ①現行安定版と必要な JDK: **確認済み**（0.79.0 / JDK 21）②Nix での入手可否: **確認済み**（標準配布には無い前提で、JDK のみ提供し `flix.jar` を取得するスクリプトにした。Docker 上の Nix で `nix develop --command flix test` が動くことを確認した）③`com.sun.net.httpserver` を呼べること: **確認済み**（匿名クラスで `HttpHandler` を実装し、実サーバーで 200 / 404 を確認。JDBC も第 9 章で確認済み。`DriverManager` は使えず `new Driver().connect` で接続した）④テスト機構: **確認済み**（`@Test` と `Assert.assertEq`。`flix test`。Red はコンパイルエラーとして現れる）⑤コードブロックの言語タグ: **確認済み**（`flix` を検査スクリプトに登録し、既存 53 章が違反 0）⑥Gherkin / Cucumber: **試していない**（Flix でアノテーション付きクラスを定義する手段が公式ドキュメントに見つからなかった。使えないと確かめたわけではなく、[ADR-046](../adr/ADR-046-flix-acceptance-by-record-of-functions.md) で関数値のレコードを採った） |
 
 ### 章の読み替え
 

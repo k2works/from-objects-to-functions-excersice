@@ -189,7 +189,7 @@ Json ◀── Logs ◀── Logging
 | Jackson などの JSON ライブラリ | 試していない | 載せるものを型で決める方針と合わないと判断した。比べていない（ADR-048） |
 | SLF4J などのログの枠組み | 試していない | 標準の `Logger` で足りた。比べていない（ADR-048） |
 | プロパティテストのライブラリ | 調べていない | 小さな範囲の全パターンを並べた（第 5 章） |
-| Nix の devShell | 動かしていない | `nix` の無い環境で作業した。CI は JDK と `flix.jar` で動く |
+| Nix の devShell | Docker 上の Nix で確かめた | `nix develop --command` から `flix test` が動く（2026-11-02）。Linux の Nix だけで、他の OS の Nix は確かめていない |
 
 ## 最後の考察
 

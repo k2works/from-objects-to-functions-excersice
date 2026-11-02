@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Zettai 連載 Flix 版 v1.0.0 の完了報告。全 13 章の公開、158 件のテスト、3 件の ADR、テストだけが見つけた欠陥 3 件、実装中に直した設計の見立て、CI で一度落ちた経緯、確かめていないこと、次に人がすることを記録する。">
+        <meta name="description" content="Zettai 連載 Flix 版 v1.0.0 の完了報告。全 13 章の公開、159 件のテスト、3 件の ADR、テストだけが見つけた欠陥 3 件、実装中に直した設計の見立て、CI で一度落ちた経緯、確かめていないこと、次に人がすることを記録する。">
       
       
         <meta name="author" content="Project Team">
@@ -10932,7 +10932,7 @@
 </tr>
 <tr>
 <td style="text-align: left;">テスト</td>
-<td style="text-align: left;">158 件（公開時点は 157 件）。<code>flix test</code> と <code>flix check</code> が通る</td>
+<td style="text-align: left;">159 件（公開時点は 157 件）。<code>flix test</code> と <code>flix check</code> が通る</td>
 </tr>
 <tr>
 <td style="text-align: left;">CI</td>
@@ -11042,8 +11042,8 @@
 </tr>
 <tr>
 <td style="text-align: left;">4</td>
-<td style="text-align: left;"><code>Logger</code> の処理を、サーバーのコールバックの外に置いたときの挙動</td>
-<td style="text-align: left;">確かめていない</td>
+<td style="text-align: left;">~~<code>Logger</code> の処理を、サーバーのコールバックの外に置いたときの挙動~~</td>
+<td style="text-align: left;">確かめた。コンパイルは通り、実行時に応答が消える。仕組みは確かめていない。<code>TestLoggerPlacement</code></td>
 </tr>
 <tr>
 <td style="text-align: left;">5</td>

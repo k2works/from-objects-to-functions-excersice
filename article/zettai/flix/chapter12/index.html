@@ -8806,6 +8806,17 @@
   <a href="#_17" class="md-nav__link">
     <span class="md-ellipsis">
       
+        外側に置くとどうなるか（公開後に確かめたこと）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
         置き場所を間違えた
       
     </span>
@@ -8819,7 +8830,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_18" class="md-nav__link">
+  <a href="#_19" class="md-nav__link">
     <span class="md-ellipsis">
       
         まとめ
@@ -8830,7 +8841,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_19" class="md-nav__link">
+  <a href="#_20" class="md-nav__link">
     <span class="md-ellipsis">
       
         この章で書いたコード
@@ -8841,7 +8852,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_20" class="md-nav__link">
+  <a href="#_21" class="md-nav__link">
     <span class="md-ellipsis">
       
         参照
@@ -11387,13 +11398,24 @@
         Assert.assertFalse(List.exists(line -&gt; String.contains(substr = "secret", line), lines))
 </code></pre></div>
 <h3 id="_16">組み立てる<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h3>
-<p>実サーバーでは、サーバーのコールバックが、<code>Logger</code> を処理するハンドラの外で動きます。第 2 章で見た、効果の保証が Java のコールバックで切れる場所と同じです。<strong><code>Logger</code> の処理は、コールバックの内側に置きます。</strong> 外側に置いたときに何が起きるかは、確かめていません。</p>
+<p>実サーバーでは、サーバーのコールバックが、<code>Logger</code> を処理するハンドラの外で動きます。第 2 章で見た、効果の保証が Java のコールバックで切れる場所と同じです。<strong><code>Logger</code> の処理は、コールバックの内側に置きます。</strong></p>
+<h3 id="_17">外側に置くとどうなるか（公開後に確かめたこと）<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h3>
+<p>ハンドラを <code>JdkServer.start</code> を呼ぶ側（コールバックの外）に置くと、<strong>コンパイルは通り、型検査は何も警告しません。</strong> 実行すると、コールバックの中で <code>Logger</code> を呼んだところで処理が止まり、応答が返らずに接続が切れます。クライアントには <code>Unexpected end of file from server</code> が届きます。<code>Logger</code> を呼んだ後ろの処理は実行されず、コールバックの中の <code>try</code> / <code>catch</code> でも例外は捕まりませんでした（<code>HttpURLConnection</code> が GET を自動で再送するため、コールバックは 2 回呼ばれます）。仕組みまでは確かめていません。</p>
+<p>この落とし穴は、回帰テストとして残しました。</p>
+<div class="highlight"><pre><span></span><code>                let answered = try {
+                    let (status, _) = HttpTestClient.get(port, "/todo/uberto/book");
+                    Ok(status)
+                } catch {
+                    case ex: IOException =&gt; Err("no response: ${ex.getMessage()}")
+                };
+</code></pre></div>
+<p><strong>第 2 章で見た「効果の保証が Java のコールバックで切れる」ことの、具体的な形です。</strong> 切れた先で、エラーにならず、黙って応答が消えます。</p>
 <div class="highlight"><pre><span></span><code>            let app = Logging.observeApp(now, request -&gt; Http.application(hub, commands#execute, request));
             // サーバーのコールバックは、ハンドラの外で動く。Logger は、コールバックの内側で処理する
             let server = JdkServer.start(0, request -&gt; run { app(request) } with Logger.runWithIO);
 </code></pre></div>
 <p>時計は、<code>System.currentTimeMillis()</code> を呼ぶ関数です。この呼び出しは <code>IO</code> で、ログの所要時間が、本物の時刻から作られます。</p>
-<h3 id="_17">置き場所を間違えた<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h3>
+<h3 id="_18">置き場所を間違えた<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h3>
 <p>この章で、置き場所を 4 回間違えました。</p>
 <p><strong>1. 時計の効果を、包む対象の効果と同じにした。</strong> 最初の <code>observeHub</code> は、時計と Hub に同じ効果 <code>ef</code> を要求していました。テストの時計は領域の効果を持ち、インメモリの Hub は効果を持たないので、型が合いませんでした。時計の効果 <code>ec</code> を別の型変数にして、結果の型を <code>ec + ef + Logger</code> にしました。</p>
 <p><strong>2. 領域の外で、結果を分解した。</strong> ログを集める領域の外で、<code>let (_, lines) = region ... { ... }</code> と書くと、型が合いませんでした。領域の内側で取り出して返す補助関数 <code>linesOf</code> を作りました。</p>
@@ -11402,7 +11424,7 @@
 <div class="highlight"><pre><span></span><code>        current = () -&gt; observe(clock, "command", "current", None, None, () -&gt; hub#current())
 </code></pre></div>
 <p>4 つ目は、型では見つからず、テストが見つけました。包む操作が結果を変えないこと、内側を余計に呼ばないことは、テストで確かめるしかありません。</p>
-<h2 id="_18">まとめ<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h2>
+<h2 id="_19">まとめ<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h2>
 <ul>
 <li>ログは、操作を包むデコレータが、標準の <code>Logger</code> 効果で書きます。ドメインの関数にログを足すと、コンパイルが拒否します。</li>
 <li>ログの 1 行は、6 つの欄だけを持つ型です。項目の説明、失敗の理由、経路、本文は、載せる場所が型にありません。</li>
@@ -11414,7 +11436,7 @@
 </ul>
 <p>つまずきとして、ライブラリを試していないことを、ADR に正直に書く必要がありました。比べた結果が無いのに、「ライブラリより自作が良い」とは書けません。</p>
 <p>次章では、4 つの言語（Kotlin、なでしこ3、Rust、Flix）に Kotlin FP 版の実装方針を加えた、5 つの実装を並べて総括します。</p>
-<h2 id="_19">この章で書いたコード<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h2>
+<h2 id="_20">この章で書いたコード<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h2>
 <ul>
 <li>ログのデコレータ: <code>apps/flix/zettai/src/Logging.flix</code></li>
 <li>ログの 1 行の型: <code>apps/flix/zettai/src/Logs.flix</code></li>
@@ -11422,7 +11444,7 @@
 <li>プロファンクタとコンバータ: <code>apps/flix/zettai/src/Profunctor.flix</code>、<code>Converter.flix</code></li>
 <li>テスト: <code>apps/flix/zettai/test/TestLogging.flix</code>、<code>TestLogRecord.flix</code>、<code>TestJson.flix</code>、<code>TestProfunctor.flix</code>、<code>TestLoggingOverHttp.flix</code></li>
 </ul>
-<h2 id="_20">参照<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h2>
+<h2 id="_21">参照<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Uberto Barbini『From Objects to Functions』第 12 章</li>
 <li><a href="../../adr/ADR-048-flix-logger-effect-and-own-json.md">ADR-048 Flix 版のログは標準の Logger 効果を借り、JSON は自作する</a></li>

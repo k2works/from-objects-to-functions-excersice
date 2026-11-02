@@ -11150,7 +11150,7 @@
 </tr>
 <tr>
 <td style="text-align: left;">テストの件数（<code>@Test</code>）</td>
-<td style="text-align: left;">158（第 13 章を公開した時点は 157）</td>
+<td style="text-align: left;">159（第 13 章を公開した時点は 157）</td>
 </tr>
 </tbody>
 </table>
@@ -11535,7 +11535,7 @@ Json ◀── Logs ◀── Logging
 <td style="text-align: left;">9</td>
 <td style="text-align: left;">サーバーのコールバックの外に <code>Logger</code> の処理を置いたときの挙動</td>
 <td style="text-align: left;">12</td>
-<td style="text-align: left;">確かめていない</td>
+<td style="text-align: left;"><strong>確かめた</strong>（公開後）。コンパイルは通り、実行時に応答が返らず接続が切れる。<code>TestLoggerPlacement</code></td>
 </tr>
 <tr>
 <td style="text-align: left;">10</td>
@@ -11579,7 +11579,8 @@ Json ◀── Logs ◀── Logging
 <p><strong>問い 2: Java 相互運用の境界で、保証はどこまで届くか。</strong></p>
 <p>届かない場所を、3 つ見つけました。</p>
 <ul>
-<li>Java が呼ぶコールバックの中身は、<code>start</code> の型から見えません。引数の効果が、起動の型に現れませんでした（第 2 章）。</li>
+<li>Java が呼ぶコールバックの中身は、<code>start</code> の型から見えません。引数の効果が、起動の型に現れませんでした（第 2 章）。
+  取りこぼした効果は、型検査で警告されません。<code>Logger</code> を外側で処理すると、コンパイルは通り、実行時に応答が黙って消えました（第 12 章）。</li>
 <li><code>Logger</code> の処理は、サーバーのコールバックの内側に置く必要がありました（第 12 章）。</li>
 <li>Java の呼び出しの効果は、<strong>一律ではありませんでした。</strong> 公式ドキュメントの「Java とのやりとりは常に <code>IO</code>」と合わず、<code>Objects.isNull</code>、<code>Throwable.getMessage</code>、<code>Character.hashCode</code> は <code>IO</code> と判定されず、<code>System.currentTimeMillis()</code> と <code>getSQLState()</code> は <code>IO</code> でした。理由は確かめていません。<strong>型の保証は、コンパイラの分類が正しいことに依存します。</strong></li>
 </ul>
@@ -11620,7 +11621,7 @@ Json ◀── Logs ◀── Logging
 </tbody>
 </table>
 <h2 id="_14">連載を終えて<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h2>
-<p>13 章、25 の本番モジュール、3 件の ADR、158 件のテスト。</p>
+<p>13 章、25 の本番モジュール、3 件の ADR、159 件のテスト。</p>
 <p>実装の途中で、テストが見つけた欠陥が 3 つありました。</p>
 <table>
 <thead>

@@ -1,7 +1,7 @@
 ---
 type: Report
 title: "リリース完了報告書 v1.0.0 - Zettai 連載（Scala 版）"
-description: "Zettai 連載 Scala 版 v1.0.0 の完了報告。全 13 章の公開、130 件のテスト、4 件の ADR、テストだけが見つけた欠陥 2 件、承認待ちと確かめていないことを、測っていない指標を作らずに記録する。"
+description: "Zettai 連載 Scala 版 v1.0.0 の完了報告。全 13 章の公開、130 件のテスト、4 件の ADR、テストだけが見つけた欠陥 2 件、確かめていないことを、測っていない指標を作らずに記録する。"
 tags: [development, report, ai-dlc, zettai, scala]
 status: draft
 generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-02T17:40:00Z }

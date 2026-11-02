@@ -81,3 +81,14 @@ class PostgresStoreSuite extends CatsEffectSuite:
       }
     }
   }
+
+  test("名前変更のイベントも含めて、すべての種類のイベントを書き戻して読み戻せる") {
+    val renamed = ToDoListEvent.ListRenamed(uberto, book, ListName("shop"))
+    withTable { (open, _) =>
+      for
+        store <- open
+        _     <- store.append(0, List(created, added, changed, renamed))
+        read  <- store.load
+      yield assertEquals(read, Versioned(4, List(created, added, changed, renamed)))
+    }
+  }

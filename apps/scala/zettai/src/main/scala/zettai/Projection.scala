@@ -13,6 +13,7 @@ object Projection:
       case ToDoListEvent.ListCreated(_, name) => lists.updated(name, Nil)
       case ToDoListEvent.ItemAdded(_, name, item) =>
         lists.get(name).fold(lists)(items => lists.updated(name, items :+ item))
+      case ToDoListEvent.ListRenamed(_, name, _) => lists - name
       case ToDoListEvent.ItemStatusChanged(_, name, description, status) =>
         lists.get(name).fold(lists)(items => lists.updated(name, Domain.changeStatus(items, description, status)))
 
@@ -21,6 +22,7 @@ object Projection:
       case ToDoListEvent.ListCreated(user, _)             => user
       case ToDoListEvent.ItemAdded(user, _, _)            => user
       case ToDoListEvent.ItemStatusChanged(user, _, _, _) => user
+      case ToDoListEvent.ListRenamed(user, _, _)          => user
 
   private def toRow(entry: (ListName, List[ToDoItem])): ToDoListRow =
     val (name, items) = entry

@@ -5,6 +5,7 @@ enum ToDoListEvent:
   case ListCreated(user: User, name: ListName)
   case ItemAdded(user: User, name: ListName, item: ToDoItem)
   case ItemStatusChanged(user: User, name: ListName, description: String, status: ToDoStatus)
+  case ListRenamed(user: User, name: ListName, newName: ListName)
 
 /** イベントから導出される現在の状態。 */
 final case class ToDoListState(lists: Map[(User, ListName), ToDoList])
@@ -33,3 +34,5 @@ object Events:
           case Some(ToDoList(_, items)) =>
             put(state, user, name, ToDoList(name, Domain.changeStatus(items, description, status)))
           case None => state
+      case ToDoListEvent.ListRenamed(user, name, _) =>
+        ToDoListState(state.lists - ((user, name)))

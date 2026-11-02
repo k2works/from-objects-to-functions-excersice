@@ -40,6 +40,8 @@ object PostgresStore:
         Row(version, "ItemAdded", user.name, name.name, item.description, item.status.toString)
       case ToDoListEvent.ItemStatusChanged(user, name, description, status) =>
         Row(version, "ItemStatusChanged", user.name, name.name, description, status.toString)
+      case ToDoListEvent.ListRenamed(user, name, newName) =>
+        Row(version, "ListRenamed", user.name, name.name, newName.name, "")
 
   /** 読めない行は想定外の失敗。業務の失敗ではないので、IO の失敗にする。 */
   private def decode(row: Row): ToDoListEvent =
@@ -50,6 +52,7 @@ object PostgresStore:
       case "ListCreated"       => ToDoListEvent.ListCreated(user, name)
       case "ItemAdded"         => ToDoListEvent.ItemAdded(user, name, ToDoItem(row.description, status))
       case "ItemStatusChanged" => ToDoListEvent.ItemStatusChanged(user, name, row.description, status)
+      case "ListRenamed"       => ToDoListEvent.ListRenamed(user, name, ListName(row.description))
       case other               => throw new IllegalStateException(s"知らない種類のイベントです: $other")
 
   private def requireValid(table: String): IO[Fragment] =

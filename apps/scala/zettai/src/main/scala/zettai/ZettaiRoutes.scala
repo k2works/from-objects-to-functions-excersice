@@ -1,6 +1,7 @@
 package zettai
 
 import cats.effect.IO
+import cats.syntax.all.*
 import org.http4s.*
 import org.http4s.dsl.io.*
 import org.http4s.headers.`Content-Type`
@@ -17,9 +18,32 @@ object ZettaiRoutes:
       case ZettaiError.ListAlreadyExists(_, _)    => 400
       case ZettaiError.InvalidTransition(_, _, _) => 400
       case ZettaiError.VersionConflict(_, _)      => 409
+      case ZettaiError.InvalidInput(_)            => 400
 
   private def failure(error: ZettaiError): IO[Response[IO]] =
-    IO.pure(Response[IO](Status.fromInt(statusOf(error)).getOrElse(Status.InternalServerError)).withEntity(error.toString))
+    val status = Status.fromInt(statusOf(error)).getOrElse(Status.InternalServerError)
+    error match
+      case ZettaiError.InvalidInput(problems) => IO.pure(Response[IO](status).withEntity(Validate.explain(problems)))
+      case other                              => IO.pure(Response[IO](status).withEntity(other.toString))
+
+  /** 名前の変更。入力の誤りは、最初の 1 つで止めず、すべてまとめて返す。 */
+  def renameRoutes(execute: ToDoListCommand => IO[Either[ZettaiError, Unit]]): HttpRoutes[IO] =
+    HttpRoutes.of[IO] {
+      case req @ POST -> Root / "todo" / user / list / "rename" =>
+        req.as[String].flatMap { newName =>
+          Validate.validateRename(user, list, newName).toEither match
+            case Left(problems) => failure(ZettaiError.InvalidInput(problems.toNonEmptyList.toList))
+            case Right(command) =>
+              execute(command).flatMap {
+                case Right(_)    => Ok("renamed")
+                case Left(error) => failure(error)
+              }
+        }
+    }
+
+  /** 読み取りは GET、名前変更は POST。 */
+  def application(hub: Hub, execute: ToDoListCommand => IO[Either[ZettaiError, Unit]]): HttpRoutes[IO] =
+    routes(hub) <+> renameRoutes(execute)
 
   def routes(hub: Hub): HttpRoutes[IO] =
     HttpRoutes.of[IO] {

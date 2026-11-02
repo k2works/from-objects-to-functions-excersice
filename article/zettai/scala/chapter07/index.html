@@ -9137,6 +9137,76 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 10 章 コンテキストを読み込み、コマンドを処理する
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 11 章 アプリカティブによるデータバリデーション
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -11455,6 +11525,7 @@ Left(e).map(x =&gt; x + 3)    -&gt; Left(e)
 <span class="w">          </span><span class="k">case</span><span class="w"> </span><span class="nc">Left</span><span class="p">(</span><span class="n">error</span><span class="p">)</span><span class="w">  </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">failure</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
 <span class="w">        </span><span class="p">}</span>
 </code></pre></div>
+<!-- code-check: ignore この章を書いた時点のコード（コミット 785548f）。第 11 章で InvalidInput の本文を、入力の誤りの説明にした -->
 <div class="highlight"><pre><span></span><code><span class="w">  </span><span class="k">private</span><span class="w"> </span><span class="k">def</span><span class="w"> </span><span class="nf">failure</span><span class="p">(</span><span class="n">error</span><span class="p">:</span><span class="w"> </span><span class="nc">ZettaiError</span><span class="p">):</span><span class="w"> </span><span class="nc">IO</span><span class="p">[</span><span class="nc">Response</span><span class="p">[</span><span class="nc">IO</span><span class="p">]]</span><span class="w"> </span><span class="o">=</span>
 <span class="w">    </span><span class="nc">IO</span><span class="p">.</span><span class="n">pure</span><span class="p">(</span><span class="nc">Response</span><span class="p">[</span><span class="nc">IO</span><span class="p">](</span><span class="nc">Status</span><span class="p">.</span><span class="n">fromInt</span><span class="p">(</span><span class="n">statusOf</span><span class="p">(</span><span class="n">error</span><span class="p">)).</span><span class="n">getOrElse</span><span class="p">(</span><span class="nc">Status</span><span class="p">.</span><span class="nc">InternalServerError</span><span class="p">)).</span><span class="n">withEntity</span><span class="p">(</span><span class="n">error</span><span class="p">.</span><span class="n">toString</span><span class="p">))</span>
 </code></pre></div>

@@ -13,12 +13,14 @@ Flix のように言語が効果を追跡するのではなく、ライブラリ
 5. [第 5 章 イベントで状態を変更する](chapter05.md)
 6. [第 6 章 コマンドを実行してイベントを生成する](chapter06.md)
 7. [第 7 章 関数型手法によるエラーハンドリング](chapter07.md)
+8. [第 8 章 ファンクタを使ってイベントを射影する](chapter08.md)
+9. [第 9 章 モナドによる安全なデータ永続化](chapter09.md)
 
-第 8 章以降は執筆中です。計画は [執筆計画](../../outline.md) の「Scala 追加執筆計画」にあります。
+第 10 章以降は執筆中です。計画は [執筆計画](../../outline.md) の「Scala 追加執筆計画」にあります。
 
 ## 実行方法
 
-JDK 21 以降が必要です。Scala の版は `apps/scala/zettai/build.sbt` で 3.3.9 に固定しています。
+JDK 21 以降が必要です。第 9 章以降のテストは、PostgreSQL を Testcontainers で起動するため Docker も必要です。Scala の版は `apps/scala/zettai/build.sbt` で 3.3.9 に固定しています。
 
 ```bash
 nix develop .#scala

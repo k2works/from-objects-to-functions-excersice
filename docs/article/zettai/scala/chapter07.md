@@ -130,6 +130,7 @@ final case class Hub(getList: (User, ListName) => IO[Either[ZettaiError, ToDoLis
 
 HTTP 側では、`Either` の両方を応答に変えます。
 
+<!-- code-check: ignore この章を書いた時点のコード（コミット 785548f）。第 9 章で想定外の失敗を 500 にする処理を足した -->
 ```scala
         hub.getList(User(user), ListName(list)).flatMap {
           case Right(found) => Ok(Html.render(found)).map(_.withContentType(html))

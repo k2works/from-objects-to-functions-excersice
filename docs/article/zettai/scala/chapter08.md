@@ -191,6 +191,7 @@ Kotlin 版は、`ToDoListProjection` に自作の `map` を持たせ、その法
 final case class QueryHub(listRows: User => IO[List[ToDoListRow]])
 ```
 
+<!-- code-check: ignore この章を書いた時点のコード（コミット 98db184）。第 9 章で EventStore.load が版つきの値を返すようにした -->
 ```scala
   def queryHub(store: EventStore): QueryHub =
     QueryHub(user => store.load.map(events => Projection.projectFrom(user, events)))

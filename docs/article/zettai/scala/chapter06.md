@@ -172,6 +172,7 @@ enum ZettaiError:
 
 `handle` を実際に使うには、過去のイベントを読み、現在状態を作り、コマンドを実行し、新しいイベントを書き足す、という手順が要ります。保存先との出入りを、関数を持つ値にまとめます。
 
+<!-- code-check: ignore この章を書いた時点のコード（コミット c406142）。第 9 章で EventStore に版を持たせ、append の戻り値を Either にした -->
 ```scala
 final case class EventStore(
     load: IO[List[ToDoListEvent]],
@@ -181,6 +182,7 @@ final case class EventStore(
 
 インメモリの実装は、`Ref` を使います。`Ref` は書き換えられる箱で、Cats Effect では操作が `IO` になります。
 
+<!-- code-check: ignore この章を書いた時点のコード（コミット c406142）。第 9 章で EventStore に版を持たせ、append の戻り値を Either にした -->
 ```scala
   def inMemory: IO[EventStore] =
     Ref.of[IO, List[ToDoListEvent]](Nil).map { history =>
@@ -192,6 +194,7 @@ Flix 版では、可変な箱は領域（`region`）の中にだけ存在でき�
 
 コマンドの入口は、このストアの上に作ります。
 
+<!-- code-check: ignore この章を書いた時点のコード（コミット c406142）。第 9 章で EventStore に版を持たせ、append の戻り値を Either にした -->
 ```scala
   def commandHub(store: EventStore): CommandHub =
     val state: IO[ToDoListState] = store.load.map(Replay.replayFrom(Events.empty, _))
@@ -208,6 +211,7 @@ Flix 版では、可変な箱は領域（`region`）の中にだけ存在でき�
 
 拒否されたときは、何も書き足しません。
 
+<!-- code-check: ignore この章を書いた時点のコード（コミット c406142）。第 9 章で EventStore に版を持たせ、append の戻り値を Either にした -->
 ```scala
   test("拒否されたコマンドは、何も書き足さない") {
     withHub { (store, commands) =>

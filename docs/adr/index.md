@@ -53,5 +53,6 @@
 | [ADR-045](ADR-045-logging-as-decorator-with-typed-record.md) | ログは decorator で足し、載せるものを LogRecord の型で決める | 承認 |
 | [ADR-046](ADR-046-flix-acceptance-by-record-of-functions.md) | Flix 版は受け入れテストの経路を関数値のレコードで差し替え、Cucumber を入れない | 提案 |
 | [ADR-047](ADR-047-flix-use-standard-result.md) | Flix 版は標準の Result を使い、Outcome を作らない | 提案 |
+| [ADR-048](ADR-048-flix-logger-effect-and-own-json.md) | Flix 版のログは標準の Logger 効果を借り、JSON は自作する | 提案 |
 
 ADR の作成には `creating-adr` スキルを使用してください。

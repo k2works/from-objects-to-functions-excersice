@@ -168,4 +168,22 @@ mod TestLogging {
         Assert.assertFalse(List.exists(line -> String.contains(substr = "secret", line), lines))
     }
 
+    @Test
+    def readingTheCurrentStateTouchesTheStoreOnce(): Unit \ Assert = {
+        let lines = region rc {
+            let clock = steppingClock(rc, 1i64);
+            let store = Logging.observeStore(clock, EventStore.inMemory(rc));
+            let commands = Logging.observeCommandHub(clock, CommandHub.commandHub(store));
+            linesOf(rc, () -> commands#current())
+        };
+        // ストアの読み出し 1 回と、コマンド側の 1 回。結果を捨てて、もう一度呼んではいけない
+        Assert.assertEq(
+            expected = List#{
+                Ok(Logs.LogRecord.LogRecord("store", "load", "ok", None, None, 1)),
+                Ok(Logs.LogRecord.LogRecord("command", "current", "ok", None, None, 3))
+            },
+            decodeAll(lines)
+        )
+    }
+
 }

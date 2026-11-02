@@ -76,13 +76,7 @@ mod Logging {
     pub def observeCommandHub(clock: Unit -> Int64 \ ec, hub: CommandHub[ef]): CommandHub[ec + ef + Logger] = {
         execute = command -> observe(clock, "command", commandName(command),
             Some(commandUser(command)), Some(commandList(command)), () -> hub#execute(command)),
-        current = () -> {
-            let result = observe(clock, "command", "current", None, None, () -> Result.map(_ -> (), hub#current()));
-            match result {
-                case Ok(_)  => hub#current()
-                case Err(e) => Err(e)
-            }
-        }
+        current = () -> observe(clock, "command", "current", None, None, () -> hub#current())
     }
 
     /// イベントの保管場所を包む。データベースの呼び出しが、1 回ごとに記録される。

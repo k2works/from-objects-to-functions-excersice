@@ -295,6 +295,7 @@ nav:
               - 第 7 章 関数型手法によるエラーハンドリング: article/zettai/flix/chapter07.md
               - 第 8 章 ファンクタを使ってイベントを射影する: article/zettai/flix/chapter08.md
               - 第 9 章 モナドによる安全なデータ永続化: article/zettai/flix/chapter09.md
+              - 第 10 章 コンテキストを読み込み、コマンドを処理する: article/zettai/flix/chapter10.md
           - 横断比較: article/zettai/comparison/index.md
   - リファレンス:
       - 概要: reference/index.md

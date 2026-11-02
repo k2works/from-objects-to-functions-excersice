@@ -53,6 +53,7 @@ HTTP を関数として見ると、リクエストを受けてレスポンスを
 
 `Request` と `Response` は、Flix のレコードに型の別名を付けて表します。
 
+<!-- code-check: ignore この章を書いた時点のコード（コミット 398e0e6）。第 11 章で Request に body を足した -->
 ```flix
     pub type alias Request = { method = String, path = String }
 
@@ -148,6 +149,7 @@ Request -> route -> (User, ListName) -> Option[ToDoList] -> HTML -> Response
 
 `JdkServer` は JDK の `HttpServer` を包むアダプタです。Java の `HttpHandler` を、匿名クラスで実装します。
 
+<!-- code-check: ignore この章を書いた時点のコード（コミット 398e0e6）。第 11 章で Request に body を足した -->
 ```flix
     pub def start(port: Int32, app: Request -> Response \ ef): HttpServer \ IO = {
         let server = HttpServer.create(new InetSocketAddress(port), 0);

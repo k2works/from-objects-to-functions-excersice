@@ -15,6 +15,8 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-03T00:00:00Z }
 
 Flix には JDBC がありません。JDBC は Java のものなので、第 2 章の HTTP と同じく Java 相互運用で呼びます。効果の保証が切れる場所が、もう 1 つ増えます。
 
+後の章で書き換わったコードのブロックには、この章を書いた時点のコミットを示してあります。
+
 ## 安全に永続化する
 
 永続化で起きうる失敗を、先に数えます。
@@ -84,6 +86,7 @@ java.sql.SQLException: No suitable driver found for jdbc:postgresql://localhost:
 
 回避は、ドライバを直接生成して、接続することでした。
 
+<!-- code-check: ignore この章を書いた時点のコード（コミット 623a592）。第 10 章で EventStore に版を足し、読んだ版を添えて書く形に変えた -->
 ```flix
     def connect(config: Config): Connection \ IO = {
         let props = new Properties();
@@ -158,6 +161,7 @@ JDBC は `SQLException` を投げます。接続を開き、処理し、必ず�
 
 イベントを入れるテーブルを作ります。1 行が 1 つのイベントで、`seq` が書いた順序を表します。
 
+<!-- code-check: ignore この章を書いた時点のコード（コミット 623a592）。第 10 章で EventStore に版を足し、読んだ版を添えて書く形に変えた -->
 ```flix
             match execute(config, "create table if not exists ${table} (seq bigserial primary key, kind text not null, user_name text not null, list_name text not null, description text not null, status text not null)") {
 ```
@@ -207,6 +211,7 @@ JDBC は `SQLException` を投げます。接続を開き、処理し、必ず�
 
 第 6 章のイベントストアは、メモリの中では失敗しないので、戻り値に失敗がありませんでした。データベースでは失敗しうるので、型を変えます。
 
+<!-- code-check: ignore この章を書いた時点のコード（コミット 623a592）。第 10 章で EventStore に版を足し、読んだ版を添えて書く形に変えた -->
 ```flix
     pub type alias EventStore[ef: Eff] = {
         load = Unit -> Result[ZettaiError, List[ToDoListEvent]] \ ef,
@@ -245,6 +250,7 @@ PostgreSQL の実装は、この型をそのまま満たします。効果が `I
 
 第 6 章のコマンドの入口は、「履歴を読む、コマンドを判断する、イベントを書く」の 3 段です。3 つすべてが失敗しうるようになりました。`forM` で書くと、失敗の扱いが一箇所に収まります。
 
+<!-- code-check: ignore この章を書いた時点のコード（コミット 623a592）。第 10 章で EventStore に版を足し、読んだ版を添えて書く形に変えた -->
 ```flix
         execute = command -> forM (
             history <- store#load();
@@ -315,6 +321,7 @@ PostgreSQL の実装は、この型をそのまま満たします。効果が `I
 
 もう 1 つの連鎖は、読んだ行をイベントに戻す部分です。行は複数あり、どれかが読めなければ全体が失敗です。標準の `Traversable.traverse` が、それを 1 行で表します。
 
+<!-- code-check: ignore この章を書いた時点のコード（コミット 623a592）。第 10 章で EventStore に版を足し、読んだ版を添えて書く形に変えた -->
 ```flix
             case Ok(rows) => Traversable.traverse(Codec.decode, rows)
 ```
@@ -325,6 +332,7 @@ PostgreSQL の実装は、この型をそのまま満たします。効果が `I
 
 書いたものが、順序も含めて、そのまま読み戻せることを確かめます。特殊文字を含む項目で確かめます。
 
+<!-- code-check: ignore この章を書いた時点のコード（コミット 623a592）。第 10 章で EventStore に版を足し、読んだ版を添えて書く形に変えた -->
 ```flix
     @Test
     def eventsComeBackInTheOrderTheyWereAppended(): Unit \ {Assert, IO} =
@@ -339,6 +347,7 @@ PostgreSQL の実装は、この型をそのまま満たします。効果が `I
 
 別の接続からも読めることを確かめます。メモリ上の値を返しているだけではないという証拠です。
 
+<!-- code-check: ignore この章を書いた時点のコード（コミット 623a592）。第 10 章で EventStore に版を足し、読んだ版を添えて書く形に変えた -->
 ```flix
     @Test
     def anotherConnectionReadsWhatWasWritten(): Unit \ {Assert, IO} =
@@ -353,6 +362,7 @@ PostgreSQL の実装は、この型をそのまま満たします。効果が `I
 
 読めない行が混ざっているときは、例外ではなく失敗の値になります。
 
+<!-- code-check: ignore この章を書いた時点のコード（コミット 623a592）。第 10 章で EventStore に版を足し、読んだ版を添えて書く形に変えた -->
 ```flix
     @Test
     def aRowThatCannotBeReadIsAFailureNotAnException(): Unit \ {Assert, IO} =
@@ -385,6 +395,7 @@ PostgreSQL の実装は、この型をそのまま満たします。効果が `I
         }, Map.toList(lists))
 ```
 
+<!-- code-check: ignore この章を書いた時点のコード（コミット 623a592）。第 10 章で EventStore に版を足し、読んだ版を添えて書く形に変えた -->
 ```flix
     pub def databaseActions(lists: Map[User, List[ToDoList]]): Result[ZettaiError, ZettaiActions] \ IO = {
         let config = PostgresStore.configFromEnv();

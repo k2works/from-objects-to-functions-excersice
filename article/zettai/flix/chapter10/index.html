@@ -11231,6 +11231,7 @@
     }
 </code></pre></div>
 <p>一意制約が違反を起こすことは、2 つの接続の手順を明示して、同じ制約を持つ素のテーブルで確かめています。ただし、<code>PostgresStore</code> の <code>append</code> を通した実際の競合から <code>VersionConflict</code> が返るまでの経路は、1 つのテストでは確かめていません。確かめているのは、版の確認で断る経路（契約のテスト）と、SQLState の写像（上のテスト）を別々に、までです。</p>
+<p><strong>公開後に、この通しを確かめました。</strong> 接続 A が版 1 を挿入してコミットせず、別スレッド B が <code>append(0, …)</code> を呼ぶと、B は版の確認を通過して、挿入で A のロック待ちになります。B が終わっていないことを確かめてから A がコミットすると、B は一意制約違反（<code>23505</code>）になり、<code>VersionConflict(0, 1)</code> が返りました。写像を壊すと、同じテストが <code>StorageFailure</code> で落ちます（<code>TestRealConflict</code>）。</p>
 <p><strong>もう 1 つ、設計が変わりかけた点。</strong> 追記の関数は、最初は自分でコミットまでしていました。<code>transactional</code> から同じ関数を使おうとして、気づきました。中でコミットされると、後続のコマンドが失敗しても取り消せません。追記は「書く」だけにして、コミットは呼び出し側が決める形に分けました。</p>
 <h2 id="_8">データベースに対する射影のクエリ<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
 <p>読み取り側は、第 8 章の <code>QueryHub</code> のままで、PostgreSQL のストアの上でも動きます。</p>

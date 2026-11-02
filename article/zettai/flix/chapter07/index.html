@@ -11085,6 +11085,7 @@ Err(e) |&gt; map(x -&gt; x + 3)   -&gt; Err(e)
 </code></pre></div>
 <p><code>Domain.findToDoList</code> は <code>Option</code> のままです。ドメインの検索は「あるか、ないか」を答えるだけで、「見つからなかったことが失敗か」は、呼び出し側の文脈が決めるからです。</p>
 <p>HTTP 側では、<code>Result</code> の両方を応答に変えます。</p>
+<!-- code-check: ignore この章を書いた時点のコード（コミット afedd3b）。公開後に、StorageFailure の理由を応答に出さないよう、match を足した -->
 <div class="highlight"><pre><span></span><code>    def failure(error: ZettaiError): Response =
         { status = statusOf(error), contentType = "text/plain; charset=utf-8", body = ToString.toString(error) }
 

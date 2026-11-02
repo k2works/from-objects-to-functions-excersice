@@ -11150,7 +11150,7 @@
 </tr>
 <tr>
 <td style="text-align: left;">テストの件数（<code>@Test</code>）</td>
-<td style="text-align: left;">159（第 13 章を公開した時点は 157）</td>
+<td style="text-align: left;">162（第 13 章を公開した時点は 157）</td>
 </tr>
 </tbody>
 </table>
@@ -11529,7 +11529,7 @@ Json ◀── Logs ◀── Logging
 <td style="text-align: left;">8</td>
 <td style="text-align: left;">一意制約違反が実際の競合で <code>VersionConflict</code> になるまでの通し</td>
 <td style="text-align: left;">10</td>
-<td style="text-align: left;">確かめていない。版の確認で断る経路と、SQLState の写像を、別々に確かめた</td>
+<td style="text-align: left;"><strong>確かめた</strong>（公開後）。ロック待ちの B が、A のコミット後に <code>23505</code> で <code>VersionConflict(0, 1)</code> になる。<code>TestRealConflict</code></td>
 </tr>
 <tr>
 <td style="text-align: left;">9</td>
@@ -11621,8 +11621,8 @@ Json ◀── Logs ◀── Logging
 </tbody>
 </table>
 <h2 id="_14">連載を終えて<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h2>
-<p>13 章、25 の本番モジュール、3 件の ADR、159 件のテスト。</p>
-<p>実装の途中で、テストが見つけた欠陥が 3 つありました。</p>
+<p>13 章、25 の本番モジュール、3 件の ADR、162 件のテスト。</p>
+<p>実装の途中と公開後に、テストが見つけた欠陥が 4 つありました。</p>
 <table>
 <thead>
 <tr>
@@ -11646,6 +11646,11 @@ Json ◀── Logs ◀── Logging
 <td style="text-align: left;">12</td>
 <td style="text-align: left;">コマンドの入口の <code>current</code> のログが、内側を 2 回呼んでいた</td>
 <td style="text-align: left;">読み出しの記録が 2 回出ることを確かめるテスト</td>
+</tr>
+<tr>
+<td style="text-align: left;">公開後</td>
+<td style="text-align: left;"><code>StorageFailure</code> の理由（SQL 文やテーブル名を含みうる）が、HTTP の 500 応答の本文にそのまま出ていた</td>
+<td style="text-align: left;">一意制約の通しを確かめる中で気づき、理由が応答に出ないことを確かめるテスト（<code>TestFailureBody</code>）</td>
 </tr>
 </tbody>
 </table>

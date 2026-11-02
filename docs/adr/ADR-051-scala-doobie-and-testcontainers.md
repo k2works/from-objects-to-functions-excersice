@@ -3,8 +3,10 @@ type: ADR
 title: "ADR-051 Scala 版は doobie 1.0.0-RC13 と Testcontainers で PostgreSQL に永続化する"
 description: "Zettai 連載 Scala 版で、PostgreSQL の読み書きに doobie の 1.0.0-RC13 を使い、結合テストの PostgreSQL を Testcontainers で起動する決定。RC 版を使う理由と、確かめたこと・確かめていないことを記録する。"
 tags: [adr, scala, zettai, postgresql]
-status: draft
+status: stable
 generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-02T13:00:00Z }
+verified:
+  - { by: human:kakimomokuri, at: 2026-11-02T11:24:38Z }
 ---
 
 # ADR-051 Scala 版は doobie 1.0.0-RC13 と Testcontainers で PostgreSQL に永続化する
@@ -13,7 +15,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-02T13:00:00Z }
 
 ## ステータス
 
-提案（人の承認待ち）
+2026-11-02 承認されました
 
 ## コンテキスト
 

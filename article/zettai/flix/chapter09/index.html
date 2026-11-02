@@ -16,7 +16,7 @@
         <link rel="prev" href="../chapter08/">
       
       
-        <link rel="next" href="../../comparison/">
+        <link rel="next" href="../chapter10/">
       
       
         
@@ -8551,6 +8551,76 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 10 章 コンテキストを読み込み、コマンドを処理する
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 11 章 アプリカティブによるデータバリデーション
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -10760,6 +10830,7 @@
 <p>前章までのイベントストアは、メモリの中にだけありました。この章では、イベントを PostgreSQL に書き、読み戻します。</p>
 <p>データベースの呼び出しは、失敗します。接続できない、SQL が間違っている、読んだ行の意味が分からない。<strong>失敗を例外のまま上に投げず、第 7 章の <code>Result</code> に載せる</strong>のが、この章の主題です。</p>
 <p>Flix には JDBC がありません。JDBC は Java のものなので、第 2 章の HTTP と同じく Java 相互運用で呼びます。効果の保証が切れる場所が、もう 1 つ増えます。</p>
+<p>後の章で書き換わったコードのブロックには、この章を書いた時点のコミットを示してあります。</p>
 <h2 id="_1">安全に永続化する<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <p>永続化で起きうる失敗を、先に数えます。</p>
 <table>
@@ -10821,6 +10892,7 @@
 </code></pre></div>
 <p>ドライバの jar は取得できているのに、<code>DriverManager</code> が見つけられません。Flix が読み込むクラスの経路と、<code>DriverManager</code> が探す経路が違うためだと考えられますが、仕組みの確認まではしていません。</p>
 <p>回避は、ドライバを直接生成して、接続することでした。</p>
+<!-- code-check: ignore この章を書いた時点のコード（コミット 623a592）。第 10 章で EventStore に版を足し、読んだ版を添えて書く形に変えた -->
 <div class="highlight"><pre><span></span><code>    def connect(config: Config): Connection \ IO = {
         let props = new Properties();
         props.setProperty("user", config#user);
@@ -10873,6 +10945,7 @@
 </code></pre></div>
 <h2 id="_4">データベースを準備する<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <p>イベントを入れるテーブルを作ります。1 行が 1 つのイベントで、<code>seq</code> が書いた順序を表します。</p>
+<!-- code-check: ignore この章を書いた時点のコード（コミット 623a592）。第 10 章で EventStore に版を足し、読んだ版を添えて書く形に変えた -->
 <div class="highlight"><pre><span></span><code>            match execute(config, "create table if not exists ${table} (seq bigserial primary key, kind text not null, user_name text not null, list_name text not null, description text not null, status text not null)") {
 </code></pre></div>
 <p>テーブル名は、文字列の補間で SQL に入れています。プレースホルダ（<code>?</code>）はテーブル名には使えないためです。そのままでは SQL インジェクションの入口になるので、<strong>英小文字・数字・下線だけ</strong>を許します。</p>
@@ -10905,6 +10978,7 @@
 <p>この後始末には弱点があります。<code>f</code> の中でアサーションが失敗すると、<code>dropTable</code> まで進みません。実際、経路の検証のために DB 経路をわざと壊したとき、テーブルが 1 つ残りました。手で捨てました。<strong>失敗したテストが残骸を残す</strong>ことは、<code>README.md</code> の既知の制約に書きました。</p>
 <h2 id="_5">関数型スタイルでリモートデータにアクセスする<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
 <p>第 6 章のイベントストアは、メモリの中では失敗しないので、戻り値に失敗がありませんでした。データベースでは失敗しうるので、型を変えます。</p>
+<!-- code-check: ignore この章を書いた時点のコード（コミット 623a592）。第 10 章で EventStore に版を足し、読んだ版を添えて書く形に変えた -->
 <div class="highlight"><pre><span></span><code>    pub type alias EventStore[ef: Eff] = {
         load = Unit -&gt; Result[ZettaiError, List[ToDoListEvent]] \ ef,
         append = List[ToDoListEvent] -&gt; Result[ZettaiError, Unit] \ ef
@@ -10955,6 +11029,7 @@
 <p>途中で失敗すればコミットされないまま接続が閉じます。PostgreSQL はコミットされていない変更を破棄するはずですが、この動作はテストしていません。</p>
 <h2 id="_6">モナドの力を探る<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
 <p>第 6 章のコマンドの入口は、「履歴を読む、コマンドを判断する、イベントを書く」の 3 段です。3 つすべてが失敗しうるようになりました。<code>forM</code> で書くと、失敗の扱いが一箇所に収まります。</p>
+<!-- code-check: ignore この章を書いた時点のコード（コミット 623a592）。第 10 章で EventStore に版を足し、読んだ版を添えて書く形に変えた -->
 <div class="highlight"><pre><span></span><code>        execute = command -&gt; forM (
             history &lt;- store#load();
             events  &lt;- Commands.handle(command, Replay.replayFrom(Events.empty(), history));
@@ -11008,11 +11083,13 @@
 </code></pre></div>
 <p>左単位元と右単位元の両方が破れます。なお、これらの法則のテストは、書いた時点ですでに通りました。確かめている対象が標準の <code>Result</code> で、新しく作った実装ではないためです。</p>
 <p>もう 1 つの連鎖は、読んだ行をイベントに戻す部分です。行は複数あり、どれかが読めなければ全体が失敗です。標準の <code>Traversable.traverse</code> が、それを 1 行で表します。</p>
+<!-- code-check: ignore この章を書いた時点のコード（コミット 623a592）。第 10 章で EventStore に版を足し、読んだ版を添えて書く形に変えた -->
 <div class="highlight"><pre><span></span><code>            case Ok(rows) =&gt; Traversable.traverse(Codec.decode, rows)
 </code></pre></div>
 <p><code>Codec.decode</code> は、1 行を <code>Result[ZettaiError, ToDoListEvent]</code> に変える関数です。<code>traverse</code> は、それを全行に当て、すべて成功ならイベントのリスト、1 つでも失敗なら最初の失敗を返します。</p>
 <h2 id="_7">読み戻す<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
 <p>書いたものが、順序も含めて、そのまま読み戻せることを確かめます。特殊文字を含む項目で確かめます。</p>
+<!-- code-check: ignore この章を書いた時点のコード（コミット 623a592）。第 10 章で EventStore に版を足し、読んだ版を添えて書く形に変えた -->
 <div class="highlight"><pre><span></span><code>    @Test
     def eventsComeBackInTheOrderTheyWereAppended(): Unit \ {Assert, IO} =
         withTable((config, table) -&gt; match PostgresStore.open(config, table) {
@@ -11024,6 +11101,7 @@
         })
 </code></pre></div>
 <p>別の接続からも読めることを確かめます。メモリ上の値を返しているだけではないという証拠です。</p>
+<!-- code-check: ignore この章を書いた時点のコード（コミット 623a592）。第 10 章で EventStore に版を足し、読んだ版を添えて書く形に変えた -->
 <div class="highlight"><pre><span></span><code>    @Test
     def anotherConnectionReadsWhatWasWritten(): Unit \ {Assert, IO} =
         withTable((config, table) -&gt; match (PostgresStore.open(config, table), PostgresStore.open(config, table)) {
@@ -11035,6 +11113,7 @@
         })
 </code></pre></div>
 <p>読めない行が混ざっているときは、例外ではなく失敗の値になります。</p>
+<!-- code-check: ignore この章を書いた時点のコード（コミット 623a592）。第 10 章で EventStore に版を足し、読んだ版を添えて書く形に変えた -->
 <div class="highlight"><pre><span></span><code>    @Test
     def aRowThatCannotBeReadIsAFailureNotAnException(): Unit \ {Assert, IO} =
         withTable((config, table) -&gt; match PostgresStore.open(config, table) {
@@ -11060,6 +11139,7 @@
                 }, userLists)
         }, Map.toList(lists))
 </code></pre></div>
+<!-- code-check: ignore この章を書いた時点のコード（コミット 623a592）。第 10 章で EventStore に版を足し、読んだ版を添えて書く形に変えた -->
 <div class="highlight"><pre><span></span><code>    pub def databaseActions(lists: Map[User, List[ToDoList]]): Result[ZettaiError, ZettaiActions] \ IO = {
         let config = PostgresStore.configFromEnv();
         let table = PostgresStore.freshTableName();

@@ -8507,6 +8507,76 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 10 章 コンテキストを読み込み、コマンドを処理する
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 11 章 アプリカティブによるデータバリデーション
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -10741,6 +10811,7 @@ Compilation<span class="w"> </span>failed<span class="w"> </span>with<span class
 <h2 id="html">関数型で HTML ページを提供する<a class="headerlink" href="#html" title="Permanent link">&para;</a></h2>
 <p>HTTP を関数として見ると、リクエストを受けてレスポンスを返す <code>Request -&gt; Response</code> です。この関数をサーバーから切り離して書けば、サーバーを起動せずに検証できます。</p>
 <p><code>Request</code> と <code>Response</code> は、Flix のレコードに型の別名を付けて表します。</p>
+<!-- code-check: ignore この章を書いた時点のコード（コミット 398e0e6）。第 11 章で Request に body を足した -->
 <div class="highlight"><pre><span></span><code>    pub type alias Request = { method = String, path = String }
 
     pub type alias Response = { status = Int32, contentType = String, body = String }
@@ -10806,6 +10877,7 @@ Compilation<span class="w"> </span>failed<span class="w"> </span>with<span class
 <p>ただし、これは「注釈なしの関数」に限った保証です。ある関数に <code>\ IO</code> と書いてしまえば、Java を呼べます。そのときは <code>IO</code> が注釈に現れるので、レビューで見つけられます。</p>
 <h3 id="_3">境界で効果の保証が切れる場所<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <p><code>JdkServer</code> は JDK の <code>HttpServer</code> を包むアダプタです。Java の <code>HttpHandler</code> を、匿名クラスで実装します。</p>
+<!-- code-check: ignore この章を書いた時点のコード（コミット 398e0e6）。第 11 章で Request に body を足した -->
 <div class="highlight"><pre><span></span><code>    pub def start(port: Int32, app: Request -&gt; Response \ ef): HttpServer \ IO = {
         let server = HttpServer.create(new InetSocketAddress(port), 0);
         let adapter = new HttpHandler {

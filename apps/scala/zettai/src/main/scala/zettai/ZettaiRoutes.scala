@@ -16,6 +16,7 @@ object ZettaiRoutes:
       case ZettaiError.ItemNotFound(_, _, _)      => 404
       case ZettaiError.ListAlreadyExists(_, _)    => 400
       case ZettaiError.InvalidTransition(_, _, _) => 400
+      case ZettaiError.VersionConflict(_, _)      => 409
 
   private def failure(error: ZettaiError): IO[Response[IO]] =
     IO.pure(Response[IO](Status.fromInt(statusOf(error)).getOrElse(Status.InternalServerError)).withEntity(error.toString))

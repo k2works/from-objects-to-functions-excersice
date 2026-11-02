@@ -17,13 +17,13 @@ class CommandHubSuite extends CatsEffectSuite:
       for
         created <- commands.execute(CreateToDoList(uberto, book))
         added   <- commands.execute(AddToDoItem(uberto, book, ToDoItem.todo("write chapter")))
-        events  <- store.load
+        read    <- store.load
         current <- commands.current
       yield
         assertEquals(created, Right(()))
         assertEquals(added, Right(()))
         assertEquals(
-          events,
+          read.events,
           List(
             ToDoListEvent.ListCreated(uberto, book),
             ToDoListEvent.ItemAdded(uberto, book, ToDoItem.todo("write chapter"))
@@ -40,9 +40,9 @@ class CommandHubSuite extends CatsEffectSuite:
     withHub { (store, commands) =>
       for
         rejected <- commands.execute(AddToDoItem(uberto, book, ToDoItem.todo("write chapter")))
-        events   <- store.load
+        read     <- store.load
       yield
         assertEquals(rejected, Left(ZettaiError.ListNotFound(uberto, book)))
-        assertEquals(events, Nil)
+        assertEquals(read.events, Nil)
     }
   }

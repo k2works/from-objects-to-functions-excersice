@@ -8,4 +8,4 @@ final case class QueryHub(listRows: User => IO[List[ToDoListRow]])
 object QueryHub:
 
   def queryHub(store: EventStore): QueryHub =
-    QueryHub(user => store.load.map(events => Projection.projectFrom(user, events)))
+    QueryHub(user => store.load.map(read => Projection.projectFrom(user, read.events)))

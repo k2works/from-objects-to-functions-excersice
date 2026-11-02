@@ -12,6 +12,10 @@ class ErrorMappingSuite extends FunSuite:
     assertEquals(ZettaiRoutes.statusOf(ZettaiError.ItemNotFound(uberto, book, "x")), 404)
   }
 
+  test("版の競合は 409") {
+    assertEquals(ZettaiRoutes.statusOf(ZettaiError.VersionConflict(0, 1)), 409)
+  }
+
   test("ドメインが拒否した要求は 400") {
     assertEquals(ZettaiRoutes.statusOf(ZettaiError.ListAlreadyExists(uberto, book)), 400)
     assertEquals(

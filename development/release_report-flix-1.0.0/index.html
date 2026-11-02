@@ -11048,7 +11048,7 @@
 <tr>
 <td style="text-align: left;">4</td>
 <td style="text-align: left;">~~<code>Logger</code> の処理を、サーバーのコールバックの外に置いたときの挙動~~</td>
-<td style="text-align: left;">確かめた。コンパイルは通り、実行時に応答が消える。仕組みは確かめていない。<code>TestLoggerPlacement</code></td>
+<td style="text-align: left;">確かめた。コンパイルは通り、実行時に応答が消える。仕組みも確かめた（Java の入口で <code>UnhandledEffectError</code> が投げられる。コンパイラの検査は効果の型変数を通り抜ける）。<code>TestLoggerPlacement</code></td>
 </tr>
 <tr>
 <td style="text-align: left;">5</td>

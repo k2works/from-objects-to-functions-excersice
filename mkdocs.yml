@@ -304,6 +304,7 @@ nav:
           - Scala 版:
               - 概要: article/zettai/scala/index.md
               - 第 1 章 新しいアプリケーションを準備する: article/zettai/scala/chapter01.md
+              - 第 2 章 関数を使って HTTP を扱う: article/zettai/scala/chapter02.md
           - 横断比較: article/zettai/comparison/index.md
   - リファレンス:
       - 概要: reference/index.md

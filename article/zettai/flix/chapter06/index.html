@@ -8448,6 +8448,41 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 8 章 ファンクタを使ってイベントを射影する
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -10657,6 +10692,7 @@
 <p>前章では、保存済みのイベントから現在状態を導出しました。しかし、イベントを作っていたのはテストだけです。この章では利用者の意図をコマンドにし、コマンドと現在状態から新しいイベントを決めます。</p>
 <h2 id="todo">新しい ToDo リストの作成<a class="headerlink" href="#todo" title="Permanent link">&para;</a></h2>
 <p>最初の要求は、新しいリストを作ることです。同じ名前のリストがすでにあれば拒否しなければなりません。項目の追加と、項目の状態変更も同じ入口に集めます。この章で作るのはドメインとアプリケーションの部分で、公開済みの HTTP の入口はリストを読む GET だけのままです。</p>
+<p>後の章で書き換わったコードのブロックには、この章を書いた時点のコミットを示してあります。</p>
 <p>できる操作だけでなく、次の拒否もテストから書きました。</p>
 <ul>
 <li>既存リストの再作成</li>
@@ -10789,6 +10825,7 @@
 <div class="highlight"><pre><span></span><code>        case ItemStatusChanged(User, ListName, String, ToDoStatus)
 </code></pre></div>
 <p>適用は、対象の項目だけを新しい状態の項目に置き換えます。</p>
+<!-- code-check: ignore この章を書いた時点のコード（コミット 658d9c5）。第 8 章で Domain.changeStatus に置き換えた。同じ説明の項目すべてを変える規則を、最初の 1 件だけを変える規則に直した -->
 <div class="highlight"><pre><span></span><code>    def withStatus(description: String, status: ToDoStatus): ToDoItem -&gt; ToDoItem =
         item -&gt; match item {
             case ToDoItem.ToDoItem(d, _) if d == description =&gt; ToDoItem.ToDoItem(d, status)

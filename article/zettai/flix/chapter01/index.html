@@ -11015,6 +11015,7 @@ flix<span class="w"> </span><span class="nb">test</span>
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-sL<span class="w"> </span>-o<span class="w"> </span>flix.jar<span class="w"> </span>https://github.com/flix/flix/releases/download/v0.79.0/flix.jar
 java<span class="w"> </span>-jar<span class="w"> </span>flix.jar<span class="w"> </span><span class="nb">test</span>
 </code></pre></div>
+<p>第 9 章以降のコードでは、<code>flix test</code> に PostgreSQL が要ります。第 1 章の時点のコード（3 本のテスト）を試すときは、<a href="../">Flix 版のトップ</a> の「章ごとのコードを再現する」の手順で、コミットを切り替えてください。</p>
 <p>この記事は Nix の入っていない環境で書いたため、<code>nix develop .#flix</code> は未検証です。確認できているのは、<code>java -jar</code> で同じコマンドを実行した結果です。</p>
 <p>品質ゲートは次の 2 つです。</p>
 <ul>

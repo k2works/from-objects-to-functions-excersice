@@ -8048,6 +8048,129 @@
   
   
   
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_4_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_10_4_6" id="__nav_10_4_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Flix 版
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_10_4_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10_4_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Flix 版
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="flix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概要
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="flix/chapter01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 1 章 新しいアプリケーションを準備する
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
     <li class="md-nav__item">
       <a href="comparison/" class="md-nav__link">
         
@@ -10287,6 +10410,13 @@
 <td style="text-align: left;">Nix devShell <code>rust</code>（rustc 1.91.1 / cargo 1.91.0）</td>
 <td style="text-align: left;"><strong>完結（13 / 13 章）</strong></td>
 </tr>
+<tr>
+<td style="text-align: left;">Flix</td>
+<td style="text-align: left;"><a href="flix/">Flix 版</a></td>
+<td style="text-align: left;"><code>apps/flix/zettai/</code></td>
+<td style="text-align: left;">Nix devShell <code>flix</code>（JDK 21 / Flix 0.79.0）</td>
+<td style="text-align: left;"><strong>執筆中（1 / 13 章）</strong></td>
+</tr>
 </tbody>
 </table>
 <p><strong>既存の 3 言語版は完結し、4 対象目の Kotlin FP 版も 13 章を書き終えました。</strong> 同じ題材・同じ 13 章を 3 言語で書いた結果は <a href="comparison/">対象言語の横断比較</a> にまとめています。Kotlin FP 版の完結後、ライブラリへ委ねる範囲を 4 本目の比較軸として反映します。</p>
@@ -10330,6 +10460,13 @@
 <td style="text-align: left;"><strong><code>Result</code> が言語にある</strong></td>
 <td style="text-align: left;"><code>enum</code></td>
 </tr>
+<tr>
+<td style="text-align: left;">Flix</td>
+<td style="text-align: left;">あり（効果も型に載る）</td>
+<td style="text-align: left;">あり</td>
+<td style="text-align: left;"><strong><code>Result</code> が標準にある。副作用は効果で表す</strong></td>
+<td style="text-align: left;">確認中</td>
+</tr>
 </tbody>
 </table>
 <p><strong>横断比較は 3 列・全 13 章を覆っています。</strong> 「言語が与えるほど設計は楽になるのか」への答えは、そこにあります。</p>
@@ -10343,6 +10480,7 @@
 <th style="text-align: left;">Kotlin FP</th>
 <th style="text-align: left;">なでしこ3</th>
 <th style="text-align: left;">Rust</th>
+<th style="text-align: left;">Flix</th>
 </tr>
 </thead>
 <tbody>
@@ -10353,6 +10491,7 @@
 <td style="text-align: left;"><a href="kotlin-fp/chapter01/">公開済み</a></td>
 <td style="text-align: left;"><a href="nadesiko/chapter01/">公開済み</a></td>
 <td style="text-align: left;"><a href="rust/chapter01/">公開済み</a></td>
+<td style="text-align: left;"><a href="flix/chapter01/">公開済み</a></td>
 </tr>
 <tr>
 <td style="text-align: left;">2</td>
@@ -10361,6 +10500,7 @@
 <td style="text-align: left;"><a href="kotlin-fp/chapter02/">公開済み</a></td>
 <td style="text-align: left;"><a href="nadesiko/chapter02/">公開済み</a></td>
 <td style="text-align: left;"><a href="rust/chapter02/">公開済み</a></td>
+<td style="text-align: left;">執筆中</td>
 </tr>
 <tr>
 <td style="text-align: left;">3</td>
@@ -10369,6 +10509,7 @@
 <td style="text-align: left;"><a href="kotlin-fp/chapter03/">公開済み</a></td>
 <td style="text-align: left;"><a href="nadesiko/chapter03/">公開済み</a></td>
 <td style="text-align: left;"><a href="rust/chapter03/">公開済み</a></td>
+<td style="text-align: left;">執筆中</td>
 </tr>
 <tr>
 <td style="text-align: left;">4</td>
@@ -10377,6 +10518,7 @@
 <td style="text-align: left;"><a href="kotlin-fp/chapter04/">公開済み</a></td>
 <td style="text-align: left;"><a href="nadesiko/chapter04/">公開済み</a></td>
 <td style="text-align: left;"><a href="rust/chapter04/">公開済み</a></td>
+<td style="text-align: left;">執筆中</td>
 </tr>
 <tr>
 <td style="text-align: left;">5</td>
@@ -10385,6 +10527,7 @@
 <td style="text-align: left;"><a href="kotlin-fp/chapter05/">公開済み</a></td>
 <td style="text-align: left;"><a href="nadesiko/chapter05/">公開済み</a></td>
 <td style="text-align: left;"><a href="rust/chapter05/">公開済み</a></td>
+<td style="text-align: left;">執筆中</td>
 </tr>
 <tr>
 <td style="text-align: left;">6</td>
@@ -10393,6 +10536,7 @@
 <td style="text-align: left;"><a href="kotlin-fp/chapter06/">公開済み</a></td>
 <td style="text-align: left;"><a href="nadesiko/chapter06/">公開済み</a></td>
 <td style="text-align: left;"><a href="rust/chapter06/">公開済み</a></td>
+<td style="text-align: left;">執筆中</td>
 </tr>
 <tr>
 <td style="text-align: left;">7</td>
@@ -10401,6 +10545,7 @@
 <td style="text-align: left;"><a href="kotlin-fp/chapter07/">公開済み</a></td>
 <td style="text-align: left;"><a href="nadesiko/chapter07/">公開済み</a></td>
 <td style="text-align: left;"><a href="rust/chapter07/">公開済み</a></td>
+<td style="text-align: left;">執筆中</td>
 </tr>
 <tr>
 <td style="text-align: left;">8</td>
@@ -10409,6 +10554,7 @@
 <td style="text-align: left;"><a href="kotlin-fp/chapter08/">公開済み</a></td>
 <td style="text-align: left;"><a href="nadesiko/chapter08/">公開済み</a></td>
 <td style="text-align: left;"><a href="rust/chapter08/">公開済み</a></td>
+<td style="text-align: left;">執筆中</td>
 </tr>
 <tr>
 <td style="text-align: left;">9</td>
@@ -10417,6 +10563,7 @@
 <td style="text-align: left;"><a href="kotlin-fp/chapter09/">公開済み</a></td>
 <td style="text-align: left;"><a href="nadesiko/chapter09/">公開済み</a></td>
 <td style="text-align: left;"><a href="rust/chapter09/">公開済み</a></td>
+<td style="text-align: left;">執筆中</td>
 </tr>
 <tr>
 <td style="text-align: left;">10</td>
@@ -10425,6 +10572,7 @@
 <td style="text-align: left;"><a href="kotlin-fp/chapter10/">公開済み</a></td>
 <td style="text-align: left;"><a href="nadesiko/chapter10/">公開済み</a></td>
 <td style="text-align: left;"><a href="rust/chapter10/">公開済み</a></td>
+<td style="text-align: left;">執筆中</td>
 </tr>
 <tr>
 <td style="text-align: left;">11</td>
@@ -10433,6 +10581,7 @@
 <td style="text-align: left;"><a href="kotlin-fp/chapter11/">公開済み</a></td>
 <td style="text-align: left;"><a href="nadesiko/chapter11/">公開済み</a></td>
 <td style="text-align: left;"><a href="rust/chapter11/">公開済み</a></td>
+<td style="text-align: left;">執筆中</td>
 </tr>
 <tr>
 <td style="text-align: left;">12</td>
@@ -10441,6 +10590,7 @@
 <td style="text-align: left;"><a href="kotlin-fp/chapter12/">公開済み</a></td>
 <td style="text-align: left;"><a href="nadesiko/chapter12/">公開済み</a></td>
 <td style="text-align: left;"><a href="rust/chapter12/">公開済み</a></td>
+<td style="text-align: left;">執筆中</td>
 </tr>
 <tr>
 <td style="text-align: left;">13</td>
@@ -10449,6 +10599,7 @@
 <td style="text-align: left;"><a href="kotlin-fp/chapter13/">公開済み</a></td>
 <td style="text-align: left;"><a href="nadesiko/chapter13/">公開済み</a></td>
 <td style="text-align: left;"><a href="rust/chapter13/">公開済み</a></td>
+<td style="text-align: left;">執筆中</td>
 </tr>
 </tbody>
 </table>
@@ -10462,6 +10613,7 @@
 <th style="text-align: left;">Kotlin FP</th>
 <th style="text-align: left;">なでしこ3</th>
 <th style="text-align: left;">Rust</th>
+<th style="text-align: left;">Flix</th>
 </tr>
 </thead>
 <tbody>
@@ -10471,9 +10623,11 @@
 <td style="text-align: left;"><strong>定義済み</strong></td>
 <td style="text-align: left;"><strong>完了</strong></td>
 <td style="text-align: left;"><strong>完了</strong></td>
+<td style="text-align: left;"><strong>定義済み（Nix 上の評価は未検証）</strong></td>
 </tr>
 <tr>
 <td style="text-align: left;">サンプル実装の雛形</td>
+<td style="text-align: left;"><strong>完了</strong></td>
 <td style="text-align: left;"><strong>完了</strong></td>
 <td style="text-align: left;"><strong>完了</strong></td>
 <td style="text-align: left;"><strong>完了</strong></td>
@@ -10485,6 +10639,7 @@
 <td style="text-align: left;"><strong>定義済み（同等コマンド green）</strong></td>
 <td style="text-align: left;"><strong>完了</strong></td>
 <td style="text-align: left;"><strong>完了</strong></td>
+<td style="text-align: left;"><strong>定義済み（同等コマンド green。Actions は未実行）</strong></td>
 </tr>
 <tr>
 <td style="text-align: left;">公開済みの章</td>
@@ -10492,6 +10647,7 @@
 <td style="text-align: left;"><strong>13 / 13（完結）</strong></td>
 <td style="text-align: left;"><strong>13 / 13（完結）</strong></td>
 <td style="text-align: left;"><strong>13 / 13（完結）</strong></td>
+<td style="text-align: left;">1 / 13</td>
 </tr>
 <tr>
 <td style="text-align: left;">ADR</td>
@@ -10499,6 +10655,7 @@
 <td style="text-align: left;">8 件</td>
 <td style="text-align: left;">11 件</td>
 <td style="text-align: left;"><strong>14 件</strong></td>
+<td style="text-align: left;">0 件</td>
 </tr>
 <tr>
 <td style="text-align: left;">計画した承認ゲート</td>
@@ -10506,6 +10663,7 @@
 <td style="text-align: left;">8 箇所</td>
 <td style="text-align: left;">41 箇所</td>
 <td style="text-align: left;">15 箇所</td>
+<td style="text-align: left;">未計画</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong>うち同期停止した回数</strong></td>
@@ -10513,6 +10671,7 @@
 <td style="text-align: left;">0</td>
 <td style="text-align: left;"><strong>1</strong></td>
 <td style="text-align: left;"><strong>15</strong></td>
+<td style="text-align: left;">記録中</td>
 </tr>
 <tr>
 <td style="text-align: left;">性質テストで確かめた代数構造</td>
@@ -10520,6 +10679,7 @@
 <td style="text-align: left;">3</td>
 <td style="text-align: left;"><strong>7</strong></td>
 <td style="text-align: left;">5</td>
+<td style="text-align: left;">0</td>
 </tr>
 </tbody>
 </table>
@@ -10555,6 +10715,11 @@
 <td style="text-align: left;">Rust</td>
 <td style="text-align: left;"><code>nix develop .#rust</code></td>
 <td style="text-align: left;">rustc 1.91.1、cargo 1.91.0、clippy 0.1.91、rustfmt 1.8.0、just 1.45.0、cargo-llvm-cov 0.6.20。タスクは <code>just check</code>。テストは組み込みの <code>#[test]</code>。<strong>async は採らず同期で通す</strong>（<a href="../../adr/ADR-024-no-async/">ADR-024</a>）。第 9 章の永続化は PostgreSQL</td>
+</tr>
+<tr>
+<td style="text-align: left;">Flix</td>
+<td style="text-align: left;"><code>nix develop .#flix</code></td>
+<td style="text-align: left;">Flix 0.79.0、JDK 21。<code>flix</code> は devShell が定義するシェル関数で、初回に公式リリースの <code>flix.jar</code> を取得する。タスクは <code>flix check</code> と <code>flix test</code>。HTTP と DB は Java 相互運用</td>
 </tr>
 </tbody>
 </table>

@@ -15,15 +15,14 @@ object CommandHub:
   def commandHub(store: EventStore): CommandHub =
     val state: IO[ToDoListState] = store.load.map(read => Replay.replayFrom(Events.empty, read.events))
 
-    def executeAt(expected: Int, command: ToDoListCommand): IO[Either[ZettaiError, Unit]] =
-      state.flatMap { current =>
-        Commands.handle(command, current) match
-          case Right(events) => store.append(expected, events)
-          case Left(error)   => IO.pure(Left(error))
-      }
+    /** 読んだ内容で判断し、expected の版を添えて書く。判断に使った状態と、添える版は、同じ 1 回の読み出しから取る。 */
+    def decideAndAppend(expected: Int, read: Versioned, command: ToDoListCommand): IO[Either[ZettaiError, Unit]] =
+      Commands.handle(command, Replay.replayFrom(Events.empty, read.events)) match
+        case Right(events) => store.append(expected, events)
+        case Left(error)   => IO.pure(Left(error))
 
     CommandHub(
-      command => store.load.flatMap(read => executeAt(read.version, command)),
-      executeAt,
+      command => store.load.flatMap(read => decideAndAppend(read.version, read, command)),
+      (expected, command) => store.load.flatMap(read => decideAndAppend(expected, read, command)),
       state
     )

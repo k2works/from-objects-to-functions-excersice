@@ -11411,7 +11411,7 @@
 </tr>
 <tr>
 <td style="text-align: left;">Cucumber を Scala 3.3.9 と munit-cats-effect の <code>IO</code> と組み合わせて動かすこと</td>
-<td style="text-align: left;"><strong>試していない。</strong> step definitions が <code>IO</code> を返せるか、<code>CatsEffectSuite</code> と同じランナーで走るかは未確認</td>
+<td style="text-align: left;"><strong>試していない</strong>（決定時点）。<strong>決定のあとに試して動いた。下の「追記」を参照</strong></td>
 </tr>
 <tr>
 <td style="text-align: left;">関数値を持つケースクラスで経路を差し替えること</td>
@@ -11483,7 +11483,7 @@
 </tr>
 <tr>
 <td style="text-align: left;">Cucumber が使えるかどうかの確認</td>
-<td style="text-align: left;">未確認のまま残る。使えると分かった場合も、この決定は覆さないが、記事の記述は直す</td>
+<td style="text-align: left;">決定のあとで確認した（下の「追記」）。使えたが、この決定は覆さない</td>
 </tr>
 <tr>
 <td style="text-align: left;">経路が増えたときの組み合わせ</td>
@@ -11497,6 +11497,36 @@
 <li>経路を足したとき、シナリオのコードが変わらないこと</li>
 <li>失敗メッセージに経路の名前が入ること</li>
 </ul>
+<h2 id="2026-11-02">追記（2026-11-02、決定のあと）<a class="headerlink" href="#2026-11-02" title="Permanent link">&para;</a></h2>
+<p>決定では、Cucumber を試していませんでした。承認のあとに試しました。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">項目</th>
+<th style="text-align: left;">結果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">依存</td>
+<td style="text-align: left;"><code>io.cucumber:cucumber-scala</code> 9.2.1 を、テストの依存に足した</td>
+</tr>
+<tr>
+<td style="text-align: left;">結果</td>
+<td style="text-align: left;">日本語の Gherkin のシナリオ 2 件（6 ステップ）が通った。ドメインと HTTP の 2 経路に、同じシナリオを流した</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>IO</code> との組み合わせ</td>
+<td style="text-align: left;">ステップは同期の関数（<code>() =&gt; Unit</code>）なので、<code>IO</code> は <code>unsafeRunSync</code> で最後まで実行する必要がある</td>
+</tr>
+<tr>
+<td style="text-align: left;">実行方法</td>
+<td style="text-align: left;"><code>sbt test</code> には載らない。<code>sbt "Test/runMain io.cucumber.core.cli.Main --glue zettai.acceptance.steps classpath:features"</code> で実行する</td>
+</tr>
+</tbody>
+</table>
+<p><strong>決定は変えません。</strong> 経路の差し替えは、関数値のケースクラスで足りています。Cucumber は、非エンジニアがシナリオを読み書きする必要が出たときの選択肢として、確認用に残します。ただし、<code>ListSteps</code> のような glue は、経路を <code>ZettaiActions</code> に頼っているので、シナリオが増えたときに glue が重複する懸念は、Kotlin FP 版で挙げられていた点と同じです（未検証）。</p>
+<p><strong>この追記は、承認のあとに書いたものです。人の確認は、まだ受けていません。</strong> 上の <code>verified</code> は、追記の前の内容に対するものです。</p>
 
 
 

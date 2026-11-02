@@ -11641,8 +11641,8 @@
 </tr>
 <tr>
 <td style="text-align: left;">2</td>
-<td style="text-align: left;">Cucumber（<code>cucumber-scala_3</code>）</td>
-<td style="text-align: left;">Maven Central にあることは確かめた。<code>IO</code> と組み合わせて動かすことは試していない</td>
+<td style="text-align: left;">~~Cucumber（<code>cucumber-scala</code>）~~</td>
+<td style="text-align: left;">確かめた。決定のあとで試して、シナリオ 2 件が通った。<code>sbt test</code> には載せず、CLI で実行する確認用にした（ADR-049 の追記）</td>
 </tr>
 <tr>
 <td style="text-align: left;">3</td>
@@ -11690,7 +11690,7 @@
 </ol>
 <h2 id="_7">学び<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>宣言した範囲だけを、言う。</strong> Cucumber、circe、log4cats を「試していない」と書いたので、ADR に比べた結果の無い主張が残らなかった</li>
+<li><strong>宣言した範囲だけを、言う。</strong> circe、log4cats を「試していない」と書いたので、ADR に比べた結果の無い主張が残らなかった</li>
 <li><strong>壊してみる。</strong> 法則のテストは、通るだけでは何も言えない。壊れた実装を見分けることを、毎回示した</li>
 <li><strong>コンパイラが守らない境界を、往復のテストで守る。</strong> 文字列で <code>match</code> する読み戻しは、<code>enum</code> の網羅性の検査が及ばなかった</li>
 <li><strong>ログは観測にもなる。</strong> 保管場所の記録の並びが、二重の読み出しを見つけた</li>

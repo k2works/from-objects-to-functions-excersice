@@ -11657,9 +11657,9 @@ Tuple2<span class="o">(</span>
 <p>確かめたことと、確かめていないことを分けておきます。</p>
 <ul>
 <li><code>cucumber-scala_3</code> は Maven Central にあります（9.2.1。2026-11-02 に確認）</li>
-<li><code>IO</code> を返すテストと組み合わせて動かすことは、<strong>試していません</strong></li>
+<li>決定のあとに試した結果（2026-11-02）: <strong>動きました。</strong> <code>cucumber-scala</code> をテストの依存に足し、同じ <code>ZettaiActions</code> の経路（ドメイン、HTTP）で、日本語の Gherkin のシナリオ 2 件（6 ステップ）が通りました。ただし、ステップは同期の関数なので、<code>IO</code> は <code>unsafeRunSync</code> で最後まで実行します。また <code>sbt test</code> には載らず、Cucumber の CLI を <code>sbt "Test/runMain io.cucumber.core.cli.Main …"</code> で呼びます</li>
 </ul>
-<p>Cucumber が使えないと確かめたわけではありません。必要なのは経路の差し替えで、Gherkin ではないので、追加の依存を入れない判断をしました。非エンジニアがシナリオを読み書きする必要が出たときは、入れ直します。</p>
+<p>Cucumber は使えました。それでも、決定は変えません。必要なのは経路の差し替えで、Gherkin ではないので、本線のテストには入れず、動くことの確認用に残しました。非エンジニアがシナリオを読み書きする必要が出たときは、本線に入れます。</p>
 <h2 id="_7">まとめ<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
 <p>この章では、受け入れテストの経路を差し替えられるようにし、次を確認しました。</p>
 <ul>
@@ -11668,17 +11668,17 @@ Tuple2<span class="o">(</span>
 <li>純粋な値を <code>IO</code> に入れるのは <code>IO.pure</code> だけで済む。Flix のような補助関数は要らない</li>
 <li>経路を足してもシナリオは変わらない</li>
 <li>片方の経路だけが落ちると、失敗メッセージの経路名から原因を絞り込める</li>
-<li>Cucumber は存在を確かめたが、試さずに採らなかった（ADR-049）</li>
+<li>Cucumber は決定のあとで試して動いたが、本線には入れなかった（ADR-049）</li>
 </ul>
 <p><code>sbt test</code> は 16 本が通ります（第 2 章の 13 本に、受け入れテストの 3 本を足しました）。</p>
 <p>次章では、<code>Hub</code> のように依存を渡す形を、関数引数、<code>Resource</code>、タグレス・ファイナルのどれで表すかを比べます。</p>
 <h2 id="_8">この章で書いたコード<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
 <ul>
-<li><code>apps/scala/zettai/src/test/scala/zettai/ZettaiActions.scala</code></li>
-<li><code>apps/scala/zettai/src/test/scala/zettai/Scenarios.scala</code></li>
-<li><code>apps/scala/zettai/src/test/scala/zettai/Routes.scala</code></li>
-<li><code>apps/scala/zettai/src/test/scala/zettai/HtmlReader.scala</code></li>
-<li><code>apps/scala/zettai/src/test/scala/zettai/AcceptanceSuite.scala</code></li>
+<li><code>apps/scala/zettai/src/test/scala/zettai/acceptance/ZettaiActions.scala</code></li>
+<li><code>apps/scala/zettai/src/test/scala/zettai/acceptance/Scenarios.scala</code></li>
+<li><code>apps/scala/zettai/src/test/scala/zettai/acceptance/Routes.scala</code></li>
+<li><code>apps/scala/zettai/src/test/scala/zettai/acceptance/HtmlReader.scala</code></li>
+<li><code>apps/scala/zettai/src/test/scala/zettai/acceptance/AcceptanceSuite.scala</code></li>
 </ul>
 <h2 id="_9">参照<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
 <ul>

@@ -119,3 +119,17 @@ class ProcessSuite extends CatsEffectSuite:
       result <- Process.processAll(batch).run(store)
     yield assertEquals(result, Left(ZettaiError.ItemNotFound(uberto, book, "nothing")))
   }
+
+  test("バッチ: 読んだあとに別の書き手が書いていたら、全体が VersionConflict で断られ、バッチの分は書かれない") {
+    val other = ToDoListEvent.ListCreated(User("alice"), ListName("other"))
+    val batch = List(CreateToDoList(uberto, book), AddToDoItem(uberto, book, ToDoItem.todo("a")))
+    for
+      inner <- EventStore.inMemory
+      // 読み出しのあと、書き込みの直前に、別の書き手が割り込む店
+      interrupted = inner.copy(append = (expected, events) => inner.append(0, List(other)) *> inner.append(expected, events))
+      result <- Process.processAll(batch).run(interrupted)
+      read   <- inner.load
+    yield
+      assertEquals(result, Left(ZettaiError.VersionConflict(0, 1)))
+      assertEquals(read, Versioned(1, List(other)))
+  }

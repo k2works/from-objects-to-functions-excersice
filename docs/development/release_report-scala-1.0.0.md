@@ -15,7 +15,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-02T17:40:00Z }
 | :--- | :--- |
 | 章 | 13 / 13 公開 |
 | Unit | 7 / 7 |
-| テスト | 130 件。`sbt test` が通る（結合テストは Docker が要る） |
+| テスト | 131 件（公開時点は 130 件）。`sbt test` が通る（結合テストは Docker が要る） |
 | CI | Unit 1 から Unit 7 の各 push で、Scala Zettai の `check` と `article` を含む 4 本が成功した。最終コミット `7862b71` でも、Scala Zettai を含む 4 本が成功した |
 | 本番コード | 26 ファイル、1,000 行 |
 | テストコード | 43 ファイル、1,875 行 |
@@ -65,7 +65,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-02T17:40:00Z }
 | 1 | Windows / macOS の Nix の devShell | Linux の Nix（Docker）では確かめた（2026-11-02）。他の OS の Nix は確かめていない |
 | 2 | Cucumber（`cucumber-scala_3`） | Maven Central にあることは確かめた。`IO` と組み合わせて動かすことは試していない |
 | 3 | circe、log4cats、ScalaCheck、`EitherT`、HikariCP | 試していない・入れていない |
-| 4 | バッチ（`processAll`）に対する書き手の競合 | テストを書いていない |
+| 4 | ~~バッチ（`processAll`）に対する書き手の競合~~ | 確かめた。割り込む書き手を入れたストアで、全体が `VersionConflict` になり、バッチの分は書かれない。版の確認を壊すと落ちる |
 | 5 | doobie 1.0 の安定版への移行 | 安定版が出ていない |
 | 6 | 法則を壊したときの検出率 | 数えていない。壊れた実装で見分けられることは示した |
 | 7 | 承認ゲートの数、人が修正を入れた箇所数、検証に使った時間 | 記録していない |

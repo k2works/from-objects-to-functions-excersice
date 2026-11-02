@@ -35,6 +35,25 @@ mod Validate {
             newName <- validateName(InputField.NewName, rawNewName)
         ) yield ToDoListCommand.RenameToDoList(User.User(user), ListName.ListName(list), ListName.ListName(newName))
 
+    def label(field: InputField): String =
+        match field {
+            case InputField.UserName      => "利用者名"
+            case InputField.ListNameField => "リスト名"
+            case InputField.NewName       => "新しい名前"
+        }
+
+    /// 利用者に見せる説明。誤りのもとになった入力の値は、含めない。
+    pub def describe(problem: FieldProblem): String =
+        match problem {
+            case FieldProblem.Blank(field)              => "${label(field)}は空にできません"
+            case FieldProblem.TooLong(field, limit)     => "${label(field)}は ${limit} 文字以内にしてください"
+            case FieldProblem.ForbiddenCharacter(field) => "${label(field)}に使えない文字が含まれています"
+        }
+
+    /// すべての誤りを、1 つの説明にまとめる。
+    pub def explain(problems: List[FieldProblem]): String =
+        "入力に誤りがあります。" + String.intercalate("", List.map(p -> "\n- ${describe(p)}", problems))
+
     /// 最初の誤りだけを取り出す。Result の連鎖と比べるための変換。
     pub def toResult(v: Validation[FieldProblem, a]): Result[FieldProblem, a] =
         match v {

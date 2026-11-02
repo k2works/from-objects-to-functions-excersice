@@ -10,7 +10,7 @@ mod TestEffectDi {
             }
         }
 
-    def get(path: String): Request = { method = "GET", path = path }
+    def get(path: String): Request = { method = "GET", path = path, body = "" }
 
     /// 関数値のレコードで依存を渡す版
     def byHub(path: String): Response =

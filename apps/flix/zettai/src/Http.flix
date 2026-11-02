@@ -2,9 +2,10 @@ mod Http {
 
     use Domain.{User, ListName, ToDoList}
     use Errors.ZettaiError
+    use Commands.ToDoListCommand
     use Hub.ToDoListHub
 
-    pub type alias Request = { method = String, path = String }
+    pub type alias Request = { method = String, path = String, body = String }
 
     pub type alias Response = { status = Int32, contentType = String, body = String }
 
@@ -37,7 +38,12 @@ mod Http {
         }
 
     def failure(error: ZettaiError): Response =
-        { status = statusOf(error), contentType = "text/plain; charset=utf-8", body = ToString.toString(error) }
+        match error {
+            case ZettaiError.InvalidInput(problems) =>
+                { status = statusOf(error), contentType = "text/plain; charset=utf-8", body = Validate.explain(problems) }
+            case _ =>
+                { status = statusOf(error), contentType = "text/plain; charset=utf-8", body = ToString.toString(error) }
+        }
 
     def respond(found: Result[ZettaiError, ToDoList]): Response =
         match found {
@@ -54,6 +60,25 @@ mod Http {
                 case Some((user, list)) => respond(hub#getList(user, list))
                 case None               => notFound()
             }
+
+    /// リスト名の変更。入力の誤りは、最初の 1 つで止めず、すべてまとめて返す。
+    pub def routeRename(execute: ToDoListCommand -> Result[ZettaiError, Unit] \ ef, request: Request): Response \ ef =
+        match String.splitOn(substr = "/", request#path) {
+            case "" :: "todo" :: user :: list :: "rename" :: Nil =>
+                match Validate.toZettai(Validate.validateRename(user, list, request#body)) {
+                    case Err(error)   => failure(error)
+                    case Ok(command)  =>
+                        match execute(command) {
+                            case Ok(_)    => { status = 200, contentType = "text/plain; charset=utf-8", body = "renamed" }
+                            case Err(e)   => failure(e)
+                        }
+                }
+            case _ => notFound()
+        }
+
+    /// 読み取りは GET、名前変更は POST。
+    pub def application(hub: ToDoListHub[ef], execute: ToDoListCommand -> Result[ZettaiError, Unit] \ ef, request: Request): Response \ ef =
+        if (request#method == "POST") routeRename(execute, request) else route(hub, request)
 
     /// 依存を、効果として型に現す版。ハンドラが無いと実行できない。
     pub def routeWithEffect(request: Request): Response \ Lookup.ToDoLists =

@@ -4,6 +4,7 @@ mod JdkServer {
     import com.sun.net.httpserver.HttpHandler
     import com.sun.net.httpserver.HttpServer
     import java.net.InetSocketAddress
+    import java.lang.{String => JString}
     import java.nio.charset.StandardCharsets
 
     use Http.{Request, Response}
@@ -14,7 +15,8 @@ mod JdkServer {
             def handle(_this: HttpHandler, exchange: HttpExchange): Unit \ IO + ef = {
                 let request = {
                     method = exchange.getRequestMethod(),
-                    path = exchange.getRequestURI().getPath()
+                    path = exchange.getRequestURI().getPath(),
+                    body = new JString(exchange.getRequestBody().readAllBytes(), StandardCharsets.UTF_8)
                 };
                 let response = app(request);
                 let bytes = response#body.getBytes(StandardCharsets.UTF_8);

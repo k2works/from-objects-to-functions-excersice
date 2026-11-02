@@ -11,7 +11,7 @@ mod TestHttpApp {
 
     def hub(): Hub.ToDoListHub[{}] = Hub.inMemory(Map#{User.User("uberto") => List#{book()}})
 
-    def get(path: String): Request = { method = "GET", path = path }
+    def get(path: String): Request = { method = "GET", path = path, body = "" }
 
     @Test
     def returnsTheListAsHtml(): Unit \ Assert = {
@@ -31,6 +31,6 @@ mod TestHttpApp {
 
     @Test
     def returnsMethodNotAllowedForNonGet(): Unit \ Assert =
-        Assert.assertEq(expected = 405, Http.route(hub(), { method = "POST", path = "/todo/uberto/book" })#status)
+        Assert.assertEq(expected = 405, Http.route(hub(), { method = "POST", path = "/todo/uberto/book", body = "" })#status)
 
 }

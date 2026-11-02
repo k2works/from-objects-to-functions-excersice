@@ -29,6 +29,7 @@
           clojure = import ./ops/nix/environments/clojure/shell.nix { inherit packages; };
           elixir = import ./ops/nix/environments/elixir/shell.nix { inherit packages; };
           scala = import ./ops/nix/environments/scala/shell.nix { inherit packages; };
+          flix = import ./ops/nix/environments/flix/shell.nix { inherit packages; };
         };
       }
     );

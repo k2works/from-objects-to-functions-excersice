@@ -7,7 +7,7 @@ mod TestDomain {
             User.User("uberto") => List#{
                 ToDoList.ToDoList(
                     ListName.ListName("book"),
-                    List#{ToDoItem.ToDoItem("write chapter"), ToDoItem.ToDoItem("publish book")}
+                    List#{Domain.todo("write chapter"), Domain.todo("publish book")}
                 )
             }
         }
@@ -17,7 +17,7 @@ mod TestDomain {
         Assert.assertEq(
             expected = Some(ToDoList.ToDoList(
                 ListName.ListName("book"),
-                List#{ToDoItem.ToDoItem("write chapter"), ToDoItem.ToDoItem("publish book")}
+                List#{Domain.todo("write chapter"), Domain.todo("publish book")}
             )),
             Domain.findToDoList(lists(), User.User("uberto"), ListName.ListName("book"))
         )

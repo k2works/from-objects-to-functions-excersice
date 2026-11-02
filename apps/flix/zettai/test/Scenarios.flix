@@ -10,9 +10,9 @@ mod Scenarios {
     pub def seeTheItemsOfAList(actions: ZettaiActions): Unit \ {Assert, IO} = {
         let found = actions#getToDoList(User.User("uberto"), ListName.ListName("book"));
         check(actions, Some(List#{
-            ToDoItem.ToDoItem("write chapter"),
-            ToDoItem.ToDoItem("publish book"),
-            ToDoItem.ToDoItem("read <today> & \"FP\"")
+            Domain.todo("write chapter"),
+            Domain.todo("publish book"),
+            Domain.todo("read <today> & \"FP\"")
         }), found)
     }
 

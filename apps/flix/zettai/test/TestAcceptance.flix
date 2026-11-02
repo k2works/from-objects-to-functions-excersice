@@ -8,9 +8,9 @@ mod TestAcceptance {
                 ToDoList.ToDoList(
                     ListName.ListName("book"),
                     List#{
-                        ToDoItem.ToDoItem("write chapter"),
-                        ToDoItem.ToDoItem("publish book"),
-                        ToDoItem.ToDoItem("read <today> & \"FP\"")
+                        Domain.todo("write chapter"),
+                        Domain.todo("publish book"),
+                        Domain.todo("read <today> & \"FP\"")
                     }
                 )
             }

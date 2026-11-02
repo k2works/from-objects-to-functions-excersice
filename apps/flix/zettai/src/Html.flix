@@ -11,7 +11,7 @@ mod Html {
             |> String.replace(src = "\"", dst = "&quot;")
 
     def renderItem(item: ToDoItem): String =
-        match item { case ToDoItem.ToDoItem(description) => "<li>${escape(description)}</li>" }
+        match item { case ToDoItem.ToDoItem(description, _) => "<li>${escape(description)}</li>" }
 
     pub def render(list: ToDoList): String =
         match list {

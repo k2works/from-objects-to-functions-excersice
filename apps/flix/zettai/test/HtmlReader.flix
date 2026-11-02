@@ -11,7 +11,7 @@ mod HtmlReader {
 
     def itemOf(fragment: String): Option[ToDoItem] =
         match String.splitOn(substr = "</li>", fragment) {
-            case description :: _ :: Nil => Some(ToDoItem.ToDoItem(unescape(description)))
+            case description :: _ :: Nil => Some(Domain.todo(unescape(description)))
             case _                       => None
         }
 

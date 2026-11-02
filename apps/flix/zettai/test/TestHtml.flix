@@ -6,7 +6,7 @@ mod TestHtml {
     def rendersTheListNameAndItems(): Unit \ Assert = {
         let list = ToDoList.ToDoList(
             ListName.ListName("book"),
-            List#{ToDoItem.ToDoItem("write chapter"), ToDoItem.ToDoItem("publish book")}
+            List#{Domain.todo("write chapter"), Domain.todo("publish book")}
         );
         let html = Html.render(list);
         Assert.assertTrue(String.contains(substr = "<h2>book</h2>", html));
@@ -18,7 +18,7 @@ mod TestHtml {
     def escapesDomainValuesSoTheyAreNotMarkup(): Unit \ Assert = {
         let list = ToDoList.ToDoList(
             ListName.ListName("<b>x</b>"),
-            List#{ToDoItem.ToDoItem("read <today> & \"FP\"")}
+            List#{Domain.todo("read <today> & \"FP\"")}
         );
         let html = Html.render(list);
         Assert.assertTrue(String.contains(substr = "<h2>&lt;b&gt;x&lt;/b&gt;</h2>", html));

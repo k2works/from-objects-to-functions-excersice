@@ -18,7 +18,7 @@ mod Routes {
     /// 実際の HTTP サーバーを起動し、HTML を読み戻す経路。
     pub def httpActions(lists: Map[User, List[ToDoList]]): ZettaiActions \ IO = {
         let server = JdkServer.start(0, request ->
-            Http.route((user, listName) -> Domain.findToDoList(lists, user, listName), request));
+            Http.route(Hub.inMemory(lists), request));
         let port = JdkServer.port(server);
         {
             name = "http",

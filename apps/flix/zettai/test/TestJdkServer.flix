@@ -8,13 +8,13 @@ mod TestJdkServer {
             User.User("uberto") => List#{
                 ToDoList.ToDoList(
                     ListName.ListName("book"),
-                    List#{ToDoItem.ToDoItem("write chapter"), ToDoItem.ToDoItem("publish book")}
+                    List#{Domain.todo("write chapter"), Domain.todo("publish book")}
                 )
             }
         }
 
     def app(request: Request): Response =
-        Http.route((user, name) -> Domain.findToDoList(lists(), user, name), request)
+        Http.route(Hub.inMemory(lists()), request)
 
     @Test
     def servesTheListOverRealHttp(): Unit \ {Assert, IO} = {

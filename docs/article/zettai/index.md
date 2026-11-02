@@ -16,7 +16,7 @@ ToDo リストアプリケーション **Zettai** を TDD で一から作りな�
 | なでしこ3 | [なでしこ3 版](nadesiko/index.md) | `apps/nadesiko/zettai/` | Nix devShell `nadesiko`（Node 22 / cnako3 3.8.7） | **完結（13 / 13 章）** |
 | Rust | [Rust 版](rust/index.md) | `apps/rust/zettai/` | Nix devShell `rust`（rustc 1.91.1 / cargo 1.91.0） | **完結（13 / 13 章）** |
 | Flix | [Flix 版](flix/index.md) | `apps/flix/zettai/` | Nix devShell `flix`（JDK 21 / Flix 0.79.0） | **完結（13 / 13 章）** |
-| Scala | [Scala 版](scala/index.md) | `apps/scala/zettai/` | Nix devShell `scala`（JDK 21 / Scala 3.3.9 / sbt） | **執筆中（2 / 13 章）** |
+| Scala | [Scala 版](scala/index.md) | `apps/scala/zettai/` | Nix devShell `scala`（JDK 21 / Scala 3.3.9 / sbt） | **執筆中（3 / 13 章）** |
 
 **既存の 3 言語版は完結し、4 対象目の Kotlin FP 版、5 対象目の Flix 版も 13 章を書き終えました。6 対象目の Scala（Cats Effect）版は執筆中です（第 3 章まで公開）。** 同じ題材・同じ 13 章を 3 言語で書いた結果は [対象言語の横断比較](comparison/index.md) にまとめています。Kotlin FP 版の完結後、ライブラリへ委ねる範囲を 4 本目の比較軸として反映します。
 

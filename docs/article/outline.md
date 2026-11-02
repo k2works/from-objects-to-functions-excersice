@@ -19,7 +19,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T13:04:15Z }
 
 ## 対象一覧
 
-本シリーズは同じ 13 章構成を対象ごとに書き起こす比較シリーズです。現在の対象は **4 言語・5 実装方針** です（Flix 版も全 13 章を公開しました）。**Scala（Cats Effect）版を執筆中で、完結すると 5 言語・6 実装方針になります**（Unit 1 完了。第 12 章まで公開）。章の番号・タイトル・焦点は対象をまたいで共通とし、対象ごとに変えるのは実現手段だけです。Kotlin FP 版は言語を増やすのではなく、同じ Kotlin で「自前の関数型抽象」と「Arrow / coroutine を使う実装」を比較する対象です。
+本シリーズは同じ 13 章構成を対象ごとに書き起こす比較シリーズです。現在の対象は **5 言語・6 実装方針** です（Flix 版、Scala 版も全 13 章を公開しました）。**Scala（Cats Effect）版も全 13 章を公開し、5 言語・6 実装方針になりました。**章の番号・タイトル・焦点は対象をまたいで共通とし、対象ごとに変えるのは実現手段だけです。Kotlin FP 版は言語を増やすのではなく、同じ Kotlin で「自前の関数型抽象」と「Arrow / coroutine を使う実装」を比較する対象です。
 
 | 対象 | 実行環境 | 章数 | 記事 | サンプル実装 | 状態 |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -28,7 +28,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T13:04:15Z }
 | なでしこ3 | Nix devShell `nadesiko`（Node 22 / cnako3 3.8.7） | 13 | `docs/article/zettai/nadesiko/` | `apps/nadesiko/zettai/` | **完結**（13 / 13 章公開） |
 | Rust | Nix devShell `rust`（rustc 1.91.1 / cargo 1.91.0） | 13 | `docs/article/zettai/rust/` | `apps/rust/zettai/` | **完結**（13 / 13 章公開） |
 | Flix | Nix devShell `flix`（JDK 21 / Flix 0.79.0） | 13 | `docs/article/zettai/flix/` | `apps/flix/zettai/` | **完結**（13 / 13 章公開） |
-| Scala | Nix devShell `scala`（Scala 3 / sbt。JDK は Unit 1 で確認）＋ Cats Effect | 13 | `docs/article/zettai/scala/` | `apps/scala/zettai/` | **執筆中**（12 / 13 章公開） |
+| Scala | Nix devShell `scala`（Scala 3 / sbt。JDK は Unit 1 で確認）＋ Cats Effect | 13 | `docs/article/zettai/scala/` | `apps/scala/zettai/` | **完結**（13 / 13 章公開） |
 
 横断比較コンテンツ [`docs/article/zettai/comparison/`](zettai/comparison/index.md) は、なでしこ3 版が Phase 1（第 3 章）を終えた 2026-09-28 に新設しました。当初の比較軸は「**型で保証する**（Kotlin）」と「**約束とテストで保証する**（なでしこ3）」の 2 点でした。
 
@@ -675,7 +675,7 @@ Unit・Bolt の割り当ては既存対象と同一（1 Unit = 2 章、Unit 1 �
 
 ## Scala 追加執筆計画
 
-5 言語目として **Scala 3 と Cats Effect** で同じ 13 章を書き起こします。**計画は承認済みで、Unit 1（前提整備と第 1 章）は完了しました。** 確認できた事実は下表に反映済みで、未確認のものは「未確認」と書いています。
+5 言語目として **Scala 3 と Cats Effect** で同じ 13 章を書き起こします。**全 7 Unit が完了し、13 章を公開しました。** 確認できた事実は下表に反映済みで、未確認のものは「未確認」と書いています。
 
 Kotlin FP 版は Arrow で `Either` と `Raise` を使い、Flix は効果を言語に持ちました。Scala + Cats Effect は第三の形です。**副作用を `IO` という値で表し、型クラス（`Functor`・`Monoid`・`Applicative`・`Monad`）を標準的な語彙として使う、型クラスのエコシステムです。** 連載が第 5・8・11・12 章で自作してきた抽象（モノイド・ファンクタ・アプリカティブ・プロファンクタ）に、実績のあるライブラリが既に名前を与えています。「自作した抽象は、ライブラリのものと同じか」を見比べられます。
 
@@ -722,7 +722,7 @@ Kotlin FP 版は Arrow で `Either` と `Raise` を使い、Flix は効果を言
 
 最初の Bolt はウォーキングスケルトンです。Flix 版の前提整備と同じ形で、次を順に満たします。
 
-- [ ] 上記「確認する事実」①〜⑧を一次情報で確かめ、結果を本節に反映する（①②⑤⑥は済。③④⑦⑧は該当する章で確かめる）
+- [x] 上記「確認する事実」①〜⑧を一次情報で確かめ、結果を本節に反映する（③ http4s の Ember は第 2 章、④ doobie は第 9 章、⑦ Cucumber は存在を確認して試さずに採らず（ADR-049）、⑧ RC を使う判断は ADR-051）
 - [x] `ops/nix/environments/scala/shell.nix` に JDK を明示し、`flake.nix` の `devShells.scala` が `nix develop` で動くことを確かめる（既存の定義は流用する。Docker 上の Nix で `sbt test` を通す）
 - [x] `apps/scala/zettai/` に sbt の雛形を作り、`project/`・`target/` など復元可能な成果物を `.gitignore` で除外する
 - [x] 最小のテスト 1 本が通ることを確認する（`sbt test` が green）
@@ -730,11 +730,11 @@ Kotlin FP 版は Arrow で `Either` と `Raise` を使い、Flix は効果を言
 - [x] `ops/scripts/article/check_sections.py` の対象名に `scala` を登録する
 - [x] `ops/scripts/article/check_article_code.py` の `CHECKED_LANGUAGES` と `SOURCE_GLOBS` に Scala を追加する
 - [x] `check_numbers.py` が `apps/scala/zettai/` を探索できることと、`check_adr_references.py` のパス正規表現を確認する
-- [ ] `docs/article/draft.md` に Scala 固有の節名読み替えを登録する（第 3・7・9 章の見込み）
+- [x] `docs/article/draft.md` に Scala 固有の節名読み替えを登録する（第 3・7・9・10 章の 4 件）
 - [x] `docs/article/zettai/scala/index.md` を作り、`zettai/index.md` の全章表・進捗管理表・実行環境一覧と `mkdocs.yml` の nav を第 1 章まで揃える
-- [ ] `comparison/index.md` と `docs/index.md` の件数表記を「5 言語・6 実装方針」に揃える（`docs/index.md` と `zettai/index.md` は済。`comparison/` は完結時に足す）
+- [x] `comparison/index.md` と `docs/index.md` の件数表記を「5 言語・6 実装方針」に揃える（完結時に、横断比較の末尾へ Scala 版の節を足した）
 - [x] 既知の制約の一覧を `apps/scala/zettai/README.md` に Unit 1 から置く
-- [ ] ライブラリ選定（HTTP・DB・JSON・テスト・Gherkin 代替）を ADR に残す
+- [x] ライブラリ選定（HTTP・DB・JSON・テスト・Gherkin 代替）を ADR に残す（ADR-049〜052。http4s の版の選定は第 2 章に記載）
 
 ### 章別計画（Scala 版）
 

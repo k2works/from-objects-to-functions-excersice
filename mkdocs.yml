@@ -97,6 +97,7 @@ nav:
       - リリース計画（Kotlin FP 版）: development/release_plan-kotlin-fp.md
       - リリース計画（なでしこ3 版）: development/release_plan-nadesiko.md
       - リリース計画（Flix 版）: development/release_plan-flix.md
+      - リリース計画（Scala 版）: development/release_plan-scala.md
       - 開発戦略: development/development_strategy.md
       - Bolt 計画:
           - Unit 1 実行環境と第 1 章: development/iteration_plan-1.md
@@ -185,6 +186,7 @@ nav:
           - 「Rust」Release v1.0.0: development/release_report-rust-1.0.0.md
           - 「Kotlin FP」Release v1.0.0: development/release_report-kotlin-fp-1.0.0.md
           - 「Flix」Release v1.0.0: development/release_report-flix-1.0.0.md
+          - 「Scala」Release v1.0.0: development/release_report-scala-1.0.0.md
   - 運用:
       - 概要: operation/index.md
   - ジャーナル:
@@ -315,6 +317,7 @@ nav:
               - 第 10 章 コンテキストを読み込み、コマンドを処理する: article/zettai/scala/chapter10.md
               - 第 11 章 アプリカティブによるデータバリデーション: article/zettai/scala/chapter11.md
               - 第 12 章 監視と関数型 JSON: article/zettai/scala/chapter12.md
+              - 第 13 章 関数型アーキテクチャの設計: article/zettai/scala/chapter13.md
           - 横断比較: article/zettai/comparison/index.md
   - リファレンス:
       - 概要: reference/index.md

@@ -13,6 +13,7 @@
 | [リリース計画（なでしこ3 版）](release_plan-nadesiko.md) | シリーズ 2 言語目の Level 1 計画。cnako3 の採用根拠、7 Unit・14 ストーリーへの分解、型・テストフレームワーク・DB プラグインの不在に対するリスク台帳、契約テストを加えた承認ゲート方針 |
 | [リリース計画（Rust 版）](release_plan-rust.md) | シリーズ 3 言語目の Level 1 計画。言語が `Result` と `enum` を与える側で同じ 13 章を辿る Intent、所有権と async の伝播に対するリスク台帳、ゲートの書き方そのものを規約にした承認ゲート方針 |
 | [リリース計画（Flix 版）](release_plan-flix.md) | 副作用が型の一部になる言語で同じ 13 章を辿る計画。**着手前ではなく、実装と並行して書いた**ことを明記し、Unit ごとの成果とテスト数、測っていない指標を記録する |
+| [リリース計画（Scala 版）](release_plan-scala.md) | Scala 3 と Cats Effect で同じ 13 章を辿る計画。7 Unit への分解と、実際の完了状況 |
 | [開発戦略](development_strategy.md) | 局面別 TDD アプローチ（序盤・終盤アウトサイドイン／中盤インサイドアウト）、承認ゲートとゲート密度、デモ項目を受け入れ基準とする方針 |
 
 ### Bolt 計画（イテレーション計画）
@@ -105,4 +106,5 @@ AI-DLC ではベロシティの代わりに完了 Unit 数・承認ゲート通�
 * [Unit 2 のふりかえり（KPT）- Zettai 連載（Rust 版）](./retrospective-rust-2.md) - Zettai 連載 Rust 版 Unit 2 の KPT ふりかえり。ゲートが 2 / 2 で止まった理由、両方作って測る手が効いたこと、二重管理を検査で押さえたこと、計画の順序の誤りと持ち込みを 2 回送ったことを整理し、Unit 3 で試すことを決める。
 * [リリース完了報告書 v1.0.0 - Zettai 連載（Rust 版）](./release_report-rust-1.0.0.md) - Zettai 連載 Rust 版 v1.0.0 の完了報告。全 13 章の公開、承認ゲート 15 / 15、制約が設計を押した 7 回、既製品を 7 回判断して 1 回入れたこと、3 対象を通して見えたことを記録する。
 * [リリース完了報告書 v1.0.0 - Zettai 連載（Kotlin FP 版）](./release_report-kotlin-fp-1.0.0.md) - Zettai 連載 Kotlin FP 版 v1.0.0 の完了報告。全 13 章の公開、7 Unit の完了、8 件の ADR、ライブラリへ委ねる設計の観察と、確かめていないこと。
+* [リリース完了報告書 v1.0.0 - Zettai 連載（Scala 版）](./release_report-scala-1.0.0.md) - Zettai 連載 Scala 版 v1.0.0 の完了報告。全 13 章、130 件のテスト、4 件の ADR
 * [リリース完了報告書 v1.0.0 - Zettai 連載（Flix 版）](./release_report-flix-1.0.0.md) - Zettai 連載 Flix 版 v1.0.0 の完了報告。全 13 章の公開、157 件のテスト、テストだけが見つけた欠陥 3 件、CI で一度落ちた経緯、確かめていないこと、次に人がすることを記録する。

@@ -17,6 +17,7 @@ Scala 版には、この章で比べたい問いがあります。**依存を「
 
 必要な契約は「利用者とリスト名を受け取り、見つかればリストを返す」だけです。第 2 章の `Hub` は、これを関数を持つ値として表していました。
 
+<!-- code-check: ignore この章を書いた時点のコード（コミット 296e924）。第 7 章で Hub.getList の戻り値を Either に変えた -->
 ```scala
 final case class Hub(getList: (User, ListName) => IO[Option[ToDoList]])
 ```
@@ -27,6 +28,7 @@ final case class Hub(getList: (User, ListName) => IO[Option[ToDoList]])
 
 ### 1. 関数を持つ値を、引数で渡す
 
+<!-- code-check: ignore この章を書いた時点のコード（コミット 296e924）。第 7 章で Hub.getList の戻り値を Either に変えた -->
 ```scala
   def byHub(hub: Hub, user: User, name: ListName): IO[Option[String]] =
     hub.getList(user, name).map(_.map(Html.render))

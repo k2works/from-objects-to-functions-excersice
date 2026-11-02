@@ -308,6 +308,8 @@ nav:
               - 第 3 章 ドメインの定義とテスト: article/zettai/scala/chapter03.md
               - 第 4 章 ドメインとアダプタのモデリング: article/zettai/scala/chapter04.md
               - 第 5 章 イベントで状態を変更する: article/zettai/scala/chapter05.md
+              - 第 6 章 コマンドを実行してイベントを生成する: article/zettai/scala/chapter06.md
+              - 第 7 章 関数型手法によるエラーハンドリング: article/zettai/scala/chapter07.md
           - 横断比較: article/zettai/comparison/index.md
   - リファレンス:
       - 概要: reference/index.md

@@ -96,6 +96,7 @@ HTML の生成は、副作用のない関数です。特殊文字をエスケー
 
 ルートは、パスのパターンで `Hub` に問い合わせ、見つかれば HTML を返します。
 
+<!-- code-check: ignore この章を書いた時点のコード（コミット 6c4d383）。第 7 章で Hub.getList の戻り値を Either に変えた -->
 ```scala
   def routes(hub: Hub): HttpRoutes[IO] =
     HttpRoutes.of[IO] {
@@ -141,12 +142,14 @@ final case class ToDoList(name: ListName, items: List[ToDoItem])
 
 読み取りの依存を、関数を持つ値として渡します。`Hub` は「利用者とリスト名から、リストを探す `IO`」を持つだけの値です。
 
+<!-- code-check: ignore この章を書いた時点のコード（コミット 6c4d383）。第 7 章で Hub.getList の戻り値を Either に変えた -->
 ```scala
 final case class Hub(getList: (User, ListName) => IO[Option[ToDoList]])
 ```
 
 メモリ上の実装は、純粋な `findToDoList` を `IO.pure` で包みます。
 
+<!-- code-check: ignore この章を書いた時点のコード（コミット 6c4d383）。第 7 章で Hub.getList の戻り値を Either に変えた -->
 ```scala
   def inMemory(lists: Map[User, List[ToDoList]]): Hub =
     Hub((user, name) => IO.pure(Domain.findToDoList(lists, user, name)))

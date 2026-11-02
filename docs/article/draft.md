@@ -122,6 +122,7 @@ generated: { by: claude-code/claude-opus-5, at: 2026-09-29T05:08:41Z }
 | 第 3 章 第 5 節 | DDTをPesticideに変換する | Scala | DDT を関数値のケースクラスに変換する | Pesticide は Kotlin のライブラリで Scala には無い。経路の差し替えは関数値を持つケースクラスが担う（[ADR-049](../adr/ADR-049-scala-acceptance-by-case-class-of-functions.md)） |
 | 第 7 章 第 4 節 | Outcomeを使って実装する | Rust | `Result` を使って実装する | `Outcome` は Kotlin 版で自作した型の名前。Rust は `Result` が言語にあり、作らない（[ADR-031](../adr/ADR-031-own-error-enum.md)） |
 | 第 7 章 第 4 節 | Outcomeを使って実装する | Flix | `Result` を使って実装する | `Outcome` は Kotlin 版で自作した型の名前。Flix は `Result` が標準にあり、作らない（[ADR-047](../adr/ADR-047-flix-use-standard-result.md)） |
+| 第 7 章 第 4 節 | Outcomeを使って実装する | Scala | `Either` を使って実装する | `Outcome` は Kotlin 版で自作した型の名前。Scala は `Either` が標準にある（[ADR-050](../adr/ADR-050-scala-either-for-domain-failures.md)） |
 | 第 9 章 第 3 節 | Kotlinでデータベースに接続する | Rust | Rust でデータベースに接続する | 言語名がそのまま入っている |
 | 第 9 章 第 3 節 | Kotlinでデータベースに接続する | Flix | Flix でデータベースに接続する | 言語名がそのまま入っている |
 | 第 9 章 第 2 節 | PostgreSQLと結合テスト | なでしこ3 | ファイル永続化と結合テスト | PostgreSQL は製品名。なでしこ3 版は追記型イベントログのファイル保存（[ADR-019](../adr/ADR-019-file-event-log.md)） |

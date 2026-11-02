@@ -1,3 +1,6 @@
 [package]
 version = "0.1.0"
 flix    = "0.79.0"
+
+[mvn-dependencies]
+"org.postgresql:postgresql" = "42.7.4"

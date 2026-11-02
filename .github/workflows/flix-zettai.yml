@@ -26,6 +26,21 @@ jobs:
     defaults:
       run:
         working-directory: apps/flix/zettai
+    # 第 9 章の結合テスト用。docker-compose.yml の zettai-db と同じ定義にする。
+    services:
+      zettai-db:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_DB: zettai
+          POSTGRES_USER: zettai
+          POSTGRES_PASSWORD: zettai
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     steps:
       - uses: actions/checkout@v4
       - name: Set up JDK 21

@@ -8297,6 +8297,76 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 4 章 ドメインとアダプタのモデリング
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 5 章 イベントで状態を変更する
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -10504,6 +10574,7 @@
 
 <h1 id="2-http">第 2 章 関数を使って HTTP を扱う<a class="headerlink" href="#2-http" title="Permanent link">&para;</a></h1>
 <p>第 1 章では、純粋関数と効果の関係を小さな例で確かめました。この章ではその考え方を HTTP に持ち込みます。リクエストが入り、ドメインの値を取得し、HTML が返る最小の縦串を通します。</p>
+<p>Flix 版は 1 つのプロジェクトを章ごとに育てていくため、後の章で書き換わったコードがあります。そのコードブロックには、この章を書いた時点のコミットを示してあります。</p>
 <p>Flix には HTTP サーバーの標準ライブラリがありません。この版では JDK の <code>com.sun.net.httpserver</code> を <strong>Java 相互運用で呼びます</strong>。公式ドキュメントには「Java とのやりとりは常に <code>IO</code> 効果を持つ」とあり、効果の保証は Java の境界で切れます。この章はその切れ目を、実際にコンパイラの出力で確かめる章です。</p>
 <h2 id="_1">プロジェクトのキックオフ<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <p>最初の到達点は <code>GET /todo/uberto/book</code> です。<code>uberto</code> の <code>book</code> リストがあれば項目を HTML で返し、なければ <code>404 Not Found</code> を返します。作成、更新、データベースはまだ扱いません。</p>
@@ -10535,6 +10606,7 @@ Compilation<span class="w"> </span>failed<span class="w"> </span>with<span class
     pub type alias Response = { status = Int32, contentType = String, body = String }
 </code></pre></div>
 <p>ルーティングは次の純粋関数です。取得関数 <code>fetch</code> を引数に取り、パスをドメインの値へ変換して呼び、結果をレスポンスへ変換します。</p>
+<!-- code-check: ignore この章を書いた時点のコード（コミット 398e0e6）。第 4 章で Hub（関数値のレコード）に置き換えた -->
 <div class="highlight"><pre><span></span><code>    pub def route(fetch: (User, ListName) -&gt; Option[ToDoList] \ ef, request: Request): Response \ ef =
         if (request#method != "GET")
             methodNotAllowed()
@@ -10550,6 +10622,7 @@ Compilation<span class="w"> </span>failed<span class="w"> </span>with<span class
 </code></pre></div>
 <p><code>\ ef</code> は第 1 章の <code>loadGreeting</code> と同じ<strong>効果多相</strong>です。<code>route</code> は取得関数の効果をそのまま引き継ぎます。インメモリの取得関数を渡せば <code>route</code> は純粋に、第 9 章でデータベースを読む関数を渡せば <code>IO</code> を持つものになります。HTTP の判断を書き換えずに、取得元だけを差し替えられます。</p>
 <p>テストは、サーバーを起動せず関数を直接呼びます。</p>
+<!-- code-check: ignore この章を書いた時点のコード（コミット 398e0e6）。第 4 章で Hub（関数値のレコード）に置き換えた -->
 <div class="highlight"><pre><span></span><code>    @Test
     def returnsTheListAsHtml(): Unit \ Assert = {
         let response = Http.route(fetcher, get("/todo/uberto/book"));
@@ -10561,6 +10634,7 @@ Compilation<span class="w"> </span>failed<span class="w"> </span>with<span class
 <p>テストの型が <code>Unit \ Assert</code> で、<code>IO</code> を含まないことに注目してください。<strong><code>route</code> が純粋であることを、テストのシグネチャが証明しています。</strong></p>
 <h2 id="zettai">Zettai の開発を始める<a class="headerlink" href="#zettai" title="Permanent link">&para;</a></h2>
 <p>ドメインは HTTP を知らない値だけで表します。</p>
+<!-- code-check: ignore この章を書いた時点のコード（コミット 398e0e6）。第 4 章で Hub（関数値のレコード）に置き換えた -->
 <div class="highlight"><pre><span></span><code>    pub enum User(String) with Eq, Order, ToString
 
     pub enum ListName(String) with Eq, Order, ToString
@@ -10649,6 +10723,7 @@ or<span class="w"> </span>use<span class="w"> </span>the<span class="w"> </span>
 <p>この切れ目は、この版の設計で受け入れることにしました。<code>app</code> の効果は <code>route</code> の型で追え、<code>JdkServer</code> は殻の最も外側の 1 箇所にだけあるからです。</p>
 <h2 id="todo">ToDo リストをマップで提供する<a class="headerlink" href="#todo" title="Permanent link">&para;</a></h2>
 <p>永続化より前に HTTP の設計を確かめたいので、データ供給元は <code>Map[User, List[ToDoList]]</code> です。テストは固定データを閉じ込めた取得関数を渡します。</p>
+<!-- code-check: ignore この章を書いた時点のコード（コミット 398e0e6）。第 4 章で Hub（関数値のレコード）に置き換えた -->
 <div class="highlight"><pre><span></span><code>    def lists(): Map[User, List[ToDoList]] =
         Map#{
             User.User("uberto") =&gt; List#{
@@ -10660,6 +10735,7 @@ or<span class="w"> </span>use<span class="w"> </span>the<span class="w"> </span>
         }
 </code></pre></div>
 <p>可変の共有状態も外部サービスもありません。404 のテストも同じ関数を直接呼ぶだけです。</p>
+<!-- code-check: ignore この章を書いた時点のコード（コミット 398e0e6）。第 4 章で Hub（関数値のレコード）に置き換えた -->
 <div class="highlight"><pre><span></span><code>    @Test
     def returnsNotFoundForAMissingList(): Unit \ Assert =
         Assert.assertEq(expected = 404, Http.route(fetcher, get("/todo/uberto/missing"))#status)

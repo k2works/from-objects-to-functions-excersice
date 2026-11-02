@@ -16,7 +16,7 @@
         <link rel="prev" href="../chapter02/">
       
       
-        <link rel="next" href="../../comparison/">
+        <link rel="next" href="../chapter04/">
       
       
         
@@ -8325,6 +8325,76 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 4 章 ドメインとアダプタのモデリング
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 5 章 イベントで状態を変更する
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -10532,8 +10602,10 @@
 
 <h1 id="3">第 3 章 ドメインの定義とテスト<a class="headerlink" href="#3" title="Permanent link">&para;</a></h1>
 <p>第 2 章のテストは HTTP の縦串をよく確かめますが、URL、ステータス、HTML まで知っています。この章では「ユーザーが自分の ToDo リストを見られる」という業務の言葉を中心に戻します。</p>
+<p>後の章で書き換わったコードのブロックには、この章を書いた時点のコミットを示してあります。</p>
 <h2 id="_1">受け入れテストを改善する<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <p>業務の期待を、経路を知らない関数として書きます。Gherkin の「前提・もし・ならば」に相当するものを、関数の名前と本体で表します。</p>
+<!-- code-check: ignore この章を書いた時点のコード（コミット 7d2dd0f）。第 4 章で ToDoItem と Http.route の型が変わった -->
 <div class="highlight"><pre><span></span><code>    pub def seeTheItemsOfAList(actions: ZettaiActions): Unit \ {Assert, IO} = {
         let found = actions#getToDoList(User.User("uberto"), ListName.ListName("book"));
         check(actions, Some(List#{
@@ -10572,6 +10644,7 @@
     }
 </code></pre></div>
 <p>HTTP 経路は、実際のサーバーを起動してパスを組み立て、返ってきた HTML から項目を読み戻します。</p>
+<!-- code-check: ignore この章を書いた時点のコード（コミット 7d2dd0f）。第 4 章で ToDoItem と Http.route の型が変わった -->
 <div class="highlight"><pre><span></span><code>    pub def httpActions(lists: Map[User, List[ToDoList]]): ZettaiActions \ IO = {
         let server = JdkServer.start(0, request -&gt;
             Http.route((user, listName) -&gt; Domain.findToDoList(lists, user, listName), request));
@@ -10620,6 +10693,7 @@
         }
 </code></pre></div>
 <p>この関数自体にもテストがあります。<code>Html.render</code> が出力した HTML を <code>HtmlReader.items</code> が読み戻すと、元の項目に戻ることを確かめています。</p>
+<!-- code-check: ignore この章を書いた時点のコード（コミット 7d2dd0f）。第 4 章で ToDoItem と Http.route の型が変わった -->
 <div class="highlight"><pre><span></span><code>    @Test
     def roundTripsWhatHtmlRenders(): Unit \ Assert = {
         let items = List#{ToDoItem.ToDoItem("a &amp; b"), ToDoItem.ToDoItem("&lt;i&gt;c&lt;/i&gt;")};

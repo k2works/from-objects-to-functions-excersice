@@ -8717,6 +8717,76 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../zettai/flix/chapter02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 2 章 関数を使って HTTP を扱う
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../zettai/flix/chapter03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 3 章 ドメインの定義とテスト
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -10983,7 +11053,7 @@
 <td style="text-align: left;">13</td>
 <td style="text-align: left;"><code>docs/article/zettai/flix/</code></td>
 <td style="text-align: left;"><code>apps/flix/zettai/</code></td>
-<td style="text-align: left;"><strong>執筆中</strong>（1 / 13 章公開）</td>
+<td style="text-align: left;"><strong>執筆中</strong>（3 / 13 章公開）</td>
 </tr>
 </tbody>
 </table>
@@ -12781,7 +12851,7 @@ apps/
 </tr>
 <tr>
 <td style="text-align: left;">確認する事実（Unit 1）</td>
-<td style="text-align: left;">①現行安定版と必要な JDK: <strong>確認済み</strong>（0.79.0 / JDK 21）②Nix での入手可否: <strong>未確認</strong>（<code>nix</code> の無い環境で作業した。標準配布に無い前提で、JDK のみ提供し <code>flix.jar</code> を取得するラッパー方式にした）③<code>com.sun.net.httpserver</code> と JDBC を呼べること: <strong>未確認</strong>（第 2 章で確かめる）④テスト機構: <strong>確認済み</strong>（<code>@Test</code> と <code>Assert.assertEq</code>。<code>flix test</code>。Red はコンパイルエラーとして現れる）⑤コードブロックの言語タグ: <strong>確認済み</strong>（<code>flix</code> を検査スクリプトに登録し、既存 53 章が違反 0）⑥Gherkin / Cucumber: <strong>未確認</strong>（第 3 章の前に確かめる）</td>
+<td style="text-align: left;">①現行安定版と必要な JDK: <strong>確認済み</strong>（0.79.0 / JDK 21）②Nix での入手可否: <strong>未確認</strong>（<code>nix</code> の無い環境で作業した。標準配布に無い前提で、JDK のみ提供し <code>flix.jar</code> を取得するラッパー方式にした）③<code>com.sun.net.httpserver</code> を呼べること: <strong>確認済み</strong>（匿名クラスで <code>HttpHandler</code> を実装し、実サーバーで 200 / 404 を確認。JDBC は第 9 章で確かめる）④テスト機構: <strong>確認済み</strong>（<code>@Test</code> と <code>Assert.assertEq</code>。<code>flix test</code>。Red はコンパイルエラーとして現れる）⑤コードブロックの言語タグ: <strong>確認済み</strong>（<code>flix</code> を検査スクリプトに登録し、既存 53 章が違反 0）⑥Gherkin / Cucumber: <strong>試していない</strong>（Flix でアノテーション付きクラスを定義する手段が公式ドキュメントに見つからなかった。使えないと確かめたわけではなく、<a href="../../adr/ADR-046-flix-acceptance-by-record-of-functions/">ADR-046</a> で関数値のレコードを採った）</td>
 </tr>
 </tbody>
 </table>
@@ -12812,7 +12882,7 @@ apps/
 <tr>
 <td style="text-align: left;">3</td>
 <td style="text-align: left;">ドメインの定義とテスト</td>
-<td style="text-align: left;">受け入れテストの抽象化。Gherkin の可否は Unit 1 の確認結果で決める</td>
+<td style="text-align: left;">受け入れテストの抽象化。関数値のレコードで経路を差し替える（ADR-046）。Cucumber は採らない</td>
 <td style="text-align: left;">ドメインとアダプタの分離</td>
 </tr>
 <tr>
@@ -12907,7 +12977,7 @@ apps/
 <h3 id="flix_1">前提整備（Flix 版）<a class="headerlink" href="#flix_1" title="Permanent link">&para;</a></h3>
 <p>最初の Bolt はウォーキングスケルトンです。Kotlin FP 版の前提整備と同じ形で、次を順に満たします。</p>
 <ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 上記「確認する事実」①〜⑥を一次情報で確かめ、結果を本節に反映する（①④⑤は済。②③⑥は第 2・3 章の前に確かめる）</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 上記「確認する事実」①〜⑥を一次情報で確かめ、結果を本節に反映する（①③④⑤は済、⑥は試さずに採否を決めた。②は未確認のまま）</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <code>ops/nix/environments/flix/shell.nix</code> を追加し、<code>flake.nix</code> の <code>devShells.flix</code> に登録する（Nix に Flix が無ければ、JDK だけ提供して初期化時に取得するラッパー方式にする。回避策は第 1 章にも書く）</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <code>apps/flix/zettai/</code> に雛形を作り、復元可能な成果物を <code>.gitignore</code> で除外する</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> 最小のテスト 1 本が通ることを確認する（3 本、<code>flix test</code> と <code>flix check</code> が green）</li>

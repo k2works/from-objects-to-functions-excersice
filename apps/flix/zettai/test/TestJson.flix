@@ -3,7 +3,7 @@ mod TestJson {
     use Json.JsonTree.{JNull, JBool, JInt, JString, JArray, JObject}
 
     def leaves(): List[Json.JsonTree] = List#{
-        JNull, JBool(true), JBool(false), JInt(0), JInt(-12), JString(""),
+        JNull, JBool(true), JBool(false), JInt(0), JInt(-12), JInt(Int32.minValue()), JInt(Int32.maxValue()), JString(""),
         JString("a\"b\\c/d"), JString("line\nbreak\ttab"), JString("ctrl\u0007end"), JString("日本語")
     }
 
@@ -54,6 +54,6 @@ mod TestJson {
 
     @Test
     def theTreesCoverEveryShape(): Unit \ Assert =
-        Assert.assertEq(expected = 454, List.length(trees()))
+        Assert.assertEq(expected = 640, List.length(trees()))
 
 }

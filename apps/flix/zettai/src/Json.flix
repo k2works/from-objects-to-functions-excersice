@@ -105,8 +105,10 @@ mod Json {
         if (List.isEmpty(digits))
             Err("expected digits")
         else
-            match Int32.fromString(String.intercalate("", List.map(ToString.toString, digits))) {
-                case Some(n) => Ok((JsonTree.JInt(if (negative) 0 - n else n), rest))
+            // 符号つきで読む。桁だけを先に読むと、最小値（-2147483648）が範囲外になる
+            let text = (if (negative) "-" else "") + String.intercalate("", List.map(ToString.toString, digits));
+            match Int32.fromString(text) {
+                case Some(n) => Ok((JsonTree.JInt(n), rest))
                 case None    => Err("number out of range")
             }
     }

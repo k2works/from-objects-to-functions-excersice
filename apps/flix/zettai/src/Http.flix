@@ -1,6 +1,7 @@
 mod Http {
 
     use Domain.{User, ListName, ToDoList}
+    use Errors.ZettaiError
     use Hub.ToDoListHub
 
     pub type alias Request = { method = String, path = String }
@@ -23,10 +24,22 @@ mod Http {
             case _                                   => None
         }
 
-    def respond(found: Option[ToDoList]): Response =
+    /// 失敗の種類を、HTTP のステータスに写す。
+    pub def statusOf(error: ZettaiError): Int32 =
+        match error {
+            case ZettaiError.ListNotFound(_, _)         => 404
+            case ZettaiError.ItemNotFound(_, _, _)      => 404
+            case ZettaiError.ListAlreadyExists(_, _)    => 400
+            case ZettaiError.InvalidTransition(_, _, _) => 400
+        }
+
+    def failure(error: ZettaiError): Response =
+        { status = statusOf(error), contentType = "text/plain; charset=utf-8", body = ToString.toString(error) }
+
+    def respond(found: Result[ZettaiError, ToDoList]): Response =
         match found {
-            case Some(todoList) => html(200, Html.render(todoList))
-            case None           => notFound()
+            case Ok(todoList) => html(200, Html.render(todoList))
+            case Err(error)   => failure(error)
         }
 
     /// 依存を、関数値のレコード（Hub）として引数で受け取る版。

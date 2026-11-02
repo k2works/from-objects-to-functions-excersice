@@ -177,13 +177,16 @@ final case class Hub(getList: (User, ListName) => IO[Option[ToDoList]])
 object Main extends IOApp:
 ```
 
+<!-- code-check: ignore この章を書いた時点のコード（コミット 6c4d383）。公開後に、ポートを環境変数 ZETTAI_PORT で変えられるようにした -->
 ```scala
   def run(args: List[String]): IO[ExitCode] =
     val hub = Hub.inMemory(Map(User("uberto") -> List(sample)))
     Server.start(ZettaiRoutes.routes(hub), port"8080").useForever.as(ExitCode.Success)
 ```
 
-`run` が返すのは「サーバーを起動して動かし続ける」という `IO` の値で、実行は `IOApp` が行います。ここから外のコードは、`IO` の値を組み立てるだけにします。
+`run` が返すのは「サーバーを起動して動かし続ける」という `IO` の値で、実行は `IOApp` が行います。
+
+公開後に、ポートを環境変数 `ZETTAI_PORT` で変えられるようにしました（既定は 8080 番）。8080 番がすでに使われていると、`Address already in use` で起動に失敗するためです。値は起動の前に検査し、数字でなければ、サーバーを起動せずに終了します。ここから外のコードは、`IO` の値を組み立てるだけにします。
 
 ただし、Scala の型は `IO` の外の副作用を止めません。ルートの中で `println` を呼んでも、コンパイルは通ります。保証が切れる場所は、Flix のような Java との境界ではなく、**`IO` を使わずに書けてしまう場所**です。この章のコードは、副作用を `IO` に入れる規律で守っています。
 

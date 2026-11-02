@@ -185,6 +185,7 @@ Flix の標準ライブラリには、この構造を表す型クラス `Functor
 
 HTTP 側では、`Result` の両方を応答に変えます。
 
+<!-- code-check: ignore この章を書いた時点のコード（コミット afedd3b）。公開後に、StorageFailure の理由を応答に出さないよう、match を足した -->
 ```flix
     def failure(error: ZettaiError): Response =
         { status = statusOf(error), contentType = "text/plain; charset=utf-8", body = ToString.toString(error) }

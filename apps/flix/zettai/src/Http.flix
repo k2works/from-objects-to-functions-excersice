@@ -41,6 +41,9 @@ mod Http {
         match error {
             case ZettaiError.InvalidInput(problems) =>
                 { status = statusOf(error), contentType = "text/plain; charset=utf-8", body = Validate.explain(problems) }
+            // 保存の失敗の理由には、SQL 文・テーブル名・接続先などが入りうる。応答には出さない
+            case ZettaiError.StorageFailure(_) =>
+                { status = statusOf(error), contentType = "text/plain; charset=utf-8", body = "Internal Server Error" }
             case _ =>
                 { status = statusOf(error), contentType = "text/plain; charset=utf-8", body = ToString.toString(error) }
         }

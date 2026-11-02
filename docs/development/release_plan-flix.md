@@ -47,7 +47,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-03T13:00:00Z }
 | :--- | :--- | :--- |
 | 1 | 全 13 章の記事 | 完了 |
 | 2 | 動作するサンプル実装（Flix プロジェクト 1 つ） | 完了 |
-| 3 | `flix check` と `flix test` が通る検査 | 完了（159 件） |
+| 3 | `flix check` と `flix test` が通る検査 | 完了（162 件） |
 | 4 | CI（`.github/workflows/flix-zettai.yml`） | 完了（PostgreSQL のサービスコンテナを含む） |
 | 5 | ADR（設計判断） | 3 件、承認済み（2026-11-02） |
 
@@ -87,7 +87,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-03T13:00:00Z }
 | :--- | :--- |
 | 完了した Unit | 7 / 7 |
 | 公開した章 | 13 / 13 |
-| テスト | 159 件 |
+| テスト | 162 件 |
 | ADR | 3 件（承認済み） |
 | 承認ゲートの数、通過数 | **測っていない** |
 | 人が修正を入れた箇所数 | **測っていない** |

@@ -249,13 +249,13 @@ Kotlin 版は、この章で `Outcome` を自作しました。Scala では、�
 
 ## この章で書いたコード
 
-- `apps/scala/zettai/src/main/scala/zettai/Hub.scala`
-- `apps/scala/zettai/src/main/scala/zettai/View.scala`
-- `apps/scala/zettai/src/main/scala/zettai/ZettaiRoutes.scala`
-- `apps/scala/zettai/src/test/scala/zettai/ErrorMappingSuite.scala`
-- `apps/scala/zettai/src/test/scala/zettai/FunctorLawsSuite.scala`
-- `apps/scala/zettai/src/test/scala/zettai/FailureStylesSuite.scala`
-- `apps/scala/zettai/src/test/scala/zettai/ZettaiRoutesSuite.scala`
+- `apps/scala/zettai/src/main/scala/zettai/application/Hub.scala`
+- `apps/scala/zettai/src/main/scala/zettai/application/View.scala`
+- `apps/scala/zettai/src/main/scala/zettai/web/ZettaiRoutes.scala`
+- `apps/scala/zettai/src/test/scala/zettai/web/ErrorMappingSuite.scala`
+- `apps/scala/zettai/src/test/scala/zettai/domain/errors/FunctorLawsSuite.scala`
+- `apps/scala/zettai/src/test/scala/zettai/application/FailureStylesSuite.scala`
+- `apps/scala/zettai/src/test/scala/zettai/web/ZettaiRoutesSuite.scala`
 
 ## 参照
 

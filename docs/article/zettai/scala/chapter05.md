@@ -277,13 +277,13 @@ Kotlin FP 版では、`andThen` と `identity` を自分で書き、法則はテ
 
 ## この章で書いたコード
 
-- `apps/scala/zettai/src/main/scala/zettai/Events.scala`
-- `apps/scala/zettai/src/main/scala/zettai/Replay.scala`
-- `apps/scala/zettai/src/main/scala/zettai/StateTransition.scala`
+- `apps/scala/zettai/src/main/scala/zettai/domain/events/Events.scala`
+- `apps/scala/zettai/src/main/scala/zettai/domain/events/Replay.scala`
+- `apps/scala/zettai/src/main/scala/zettai/domain/events/StateTransition.scala`
 - `apps/scala/zettai/src/test/scala/zettai/Gen.scala`
-- `apps/scala/zettai/src/test/scala/zettai/EventsSuite.scala`
-- `apps/scala/zettai/src/test/scala/zettai/ReplaySuite.scala`
-- `apps/scala/zettai/src/test/scala/zettai/TransitionSuite.scala`
+- `apps/scala/zettai/src/test/scala/zettai/domain/events/EventsSuite.scala`
+- `apps/scala/zettai/src/test/scala/zettai/domain/events/ReplaySuite.scala`
+- `apps/scala/zettai/src/test/scala/zettai/domain/events/TransitionSuite.scala`
 
 ## 参照
 

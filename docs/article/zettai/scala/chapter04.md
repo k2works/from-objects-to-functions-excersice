@@ -195,9 +195,9 @@ Kotlin FP 版では、インメモリの取得関数を作るときに、受け�
 
 ## この章で書いたコード
 
-- `apps/scala/zettai/src/main/scala/zettai/ToDoLists.scala`
-- `apps/scala/zettai/src/main/scala/zettai/View.scala`
-- `apps/scala/zettai/src/test/scala/zettai/ViewSuite.scala`
+- `apps/scala/zettai/src/main/scala/zettai/application/ToDoLists.scala`
+- `apps/scala/zettai/src/main/scala/zettai/application/View.scala`
+- `apps/scala/zettai/src/test/scala/zettai/application/ViewSuite.scala`
 
 ## 参照
 

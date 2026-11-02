@@ -215,14 +215,14 @@ http4s の版は、Maven Central の最新が 1.0.0-M49 というマイルスト
 
 ## この章で書いたコード
 
-- `apps/scala/zettai/src/main/scala/zettai/Domain.scala`
-- `apps/scala/zettai/src/main/scala/zettai/Html.scala`
-- `apps/scala/zettai/src/main/scala/zettai/Hub.scala`
-- `apps/scala/zettai/src/main/scala/zettai/ZettaiRoutes.scala`
-- `apps/scala/zettai/src/main/scala/zettai/Server.scala`
-- `apps/scala/zettai/src/main/scala/zettai/Main.scala`
-- `apps/scala/zettai/src/test/scala/zettai/ServerSuite.scala`
-- `apps/scala/zettai/src/test/scala/zettai/ZettaiRoutesSuite.scala`
+- `apps/scala/zettai/src/main/scala/zettai/domain/Domain.scala`
+- `apps/scala/zettai/src/main/scala/zettai/web/Html.scala`
+- `apps/scala/zettai/src/main/scala/zettai/application/Hub.scala`
+- `apps/scala/zettai/src/main/scala/zettai/web/ZettaiRoutes.scala`
+- `apps/scala/zettai/src/main/scala/zettai/web/Server.scala`
+- `apps/scala/zettai/src/main/scala/zettai/app/Main.scala`
+- `apps/scala/zettai/src/test/scala/zettai/web/ServerSuite.scala`
+- `apps/scala/zettai/src/test/scala/zettai/web/ZettaiRoutesSuite.scala`
 
 ## 参照
 

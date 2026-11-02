@@ -140,7 +140,7 @@ object Main extends IOApp:
 
 | 道具 | 状態 |
 | :--- | :--- |
-| Cucumber（`cucumber-scala_3` 9.2.1） | Maven Central にあることは確かめた。`IO` と組み合わせて動かすことは**試していない** |
+| Cucumber（`cucumber-scala` 9.2.1） | 決定のあとで**試して動いた**（シナリオ 2 件）。`sbt test` には載せず、CLI で実行する確認用に残した |
 | タグレス・ファイナル | 3 通りの依存の渡し方で書いて比べ、**採らなかった**（第 4 章） |
 | `IOLocal` | 比べて**採らなかった**。設定し忘れが実行時にしか分からない（第 10 章） |
 | `EitherT` | **試していない**。連鎖が短く、必要にならなかった |
@@ -228,7 +228,7 @@ sbt test
 
 ## この章で書いたコード
 
-- `apps/scala/zettai/src/main/scala/zettai/Main.scala`
+- `apps/scala/zettai/src/main/scala/zettai/app/Main.scala`
 - `apps/scala/zettai/README.md`
 
 ## 参照

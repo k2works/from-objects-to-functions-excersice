@@ -165,9 +165,9 @@ Scala 版は、**関数値を持つケースクラスで経路を差し替え、
 確かめたことと、確かめていないことを分けておきます。
 
 - `cucumber-scala_3` は Maven Central にあります（9.2.1。2026-11-02 に確認）
-- `IO` を返すテストと組み合わせて動かすことは、**試していません**
+- 決定のあとに試した結果（2026-11-02）: **動きました。** `cucumber-scala` をテストの依存に足し、同じ `ZettaiActions` の経路（ドメイン、HTTP）で、日本語の Gherkin のシナリオ 2 件（6 ステップ）が通りました。ただし、ステップは同期の関数なので、`IO` は `unsafeRunSync` で最後まで実行します。また `sbt test` には載らず、Cucumber の CLI を `sbt "Test/runMain io.cucumber.core.cli.Main …"` で呼びます
 
-Cucumber が使えないと確かめたわけではありません。必要なのは経路の差し替えで、Gherkin ではないので、追加の依存を入れない判断をしました。非エンジニアがシナリオを読み書きする必要が出たときは、入れ直します。
+Cucumber は使えました。それでも、決定は変えません。必要なのは経路の差し替えで、Gherkin ではないので、本線のテストには入れず、動くことの確認用に残しました。非エンジニアがシナリオを読み書きする必要が出たときは、本線に入れます。
 
 ## まとめ
 
@@ -178,7 +178,7 @@ Cucumber が使えないと確かめたわけではありません。必要な�
 - 純粋な値を `IO` に入れるのは `IO.pure` だけで済む。Flix のような補助関数は要らない
 - 経路を足してもシナリオは変わらない
 - 片方の経路だけが落ちると、失敗メッセージの経路名から原因を絞り込める
-- Cucumber は存在を確かめたが、試さずに採らなかった（ADR-049）
+- Cucumber は決定のあとで試して動いたが、本線には入れなかった（ADR-049）
 
 `sbt test` は 16 本が通ります（第 2 章の 13 本に、受け入れテストの 3 本を足しました）。
 
@@ -186,11 +186,11 @@ Cucumber が使えないと確かめたわけではありません。必要な�
 
 ## この章で書いたコード
 
-- `apps/scala/zettai/src/test/scala/zettai/ZettaiActions.scala`
-- `apps/scala/zettai/src/test/scala/zettai/Scenarios.scala`
-- `apps/scala/zettai/src/test/scala/zettai/Routes.scala`
-- `apps/scala/zettai/src/test/scala/zettai/HtmlReader.scala`
-- `apps/scala/zettai/src/test/scala/zettai/AcceptanceSuite.scala`
+- `apps/scala/zettai/src/test/scala/zettai/acceptance/ZettaiActions.scala`
+- `apps/scala/zettai/src/test/scala/zettai/acceptance/Scenarios.scala`
+- `apps/scala/zettai/src/test/scala/zettai/acceptance/Routes.scala`
+- `apps/scala/zettai/src/test/scala/zettai/acceptance/HtmlReader.scala`
+- `apps/scala/zettai/src/test/scala/zettai/acceptance/AcceptanceSuite.scala`
 
 ## 参照
 

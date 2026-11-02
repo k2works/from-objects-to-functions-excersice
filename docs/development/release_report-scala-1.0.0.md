@@ -63,7 +63,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-02T17:40:00Z }
 | # | 確かめていないこと | 状態 |
 | :--- | :--- | :--- |
 | 1 | Windows / macOS の Nix の devShell | Linux の Nix（Docker）では確かめた（2026-11-02）。他の OS の Nix は確かめていない |
-| 2 | Cucumber（`cucumber-scala_3`） | Maven Central にあることは確かめた。`IO` と組み合わせて動かすことは試していない |
+| 2 | ~~Cucumber（`cucumber-scala`）~~ | 確かめた。決定のあとで試して、シナリオ 2 件が通った。`sbt test` には載せず、CLI で実行する確認用にした（ADR-049 の追記） |
 | 3 | circe、log4cats、ScalaCheck、`EitherT`、HikariCP | 試していない・入れていない |
 | 4 | ~~バッチ（`processAll`）に対する書き手の競合~~ | 確かめた。割り込む書き手を入れたストアで、全体が `VersionConflict` になり、バッチの分は書かれない。版の確認を壊すと落ちる |
 | 5 | doobie 1.0 の安定版への移行 | 安定版が出ていない |
@@ -81,7 +81,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-02T17:40:00Z }
 
 ## 学び
 
-- **宣言した範囲だけを、言う。** Cucumber、circe、log4cats を「試していない」と書いたので、ADR に比べた結果の無い主張が残らなかった
+- **宣言した範囲だけを、言う。** circe、log4cats を「試していない」と書いたので、ADR に比べた結果の無い主張が残らなかった
 - **壊してみる。** 法則のテストは、通るだけでは何も言えない。壊れた実装を見分けることを、毎回示した
 - **コンパイラが守らない境界を、往復のテストで守る。** 文字列で `match` する読み戻しは、`enum` の網羅性の検査が及ばなかった
 - **ログは観測にもなる。** 保管場所の記録の並びが、二重の読み出しを見つけた

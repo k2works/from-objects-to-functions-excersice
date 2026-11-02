@@ -361,18 +361,18 @@ store load / store load / store append / command CreateToDoList
 
 ## この章で書いたコード
 
-- `apps/scala/zettai/src/main/scala/zettai/Json.scala`
-- `apps/scala/zettai/src/main/scala/zettai/Converter.scala`
-- `apps/scala/zettai/src/main/scala/zettai/Dimap.scala`
-- `apps/scala/zettai/src/main/scala/zettai/Logs.scala`
-- `apps/scala/zettai/src/main/scala/zettai/Logging.scala`
-- `apps/scala/zettai/src/main/scala/zettai/CommandHub.scala`
-- `apps/scala/zettai/src/test/scala/zettai/JsonSuite.scala`
-- `apps/scala/zettai/src/test/scala/zettai/LogRecordSuite.scala`
-- `apps/scala/zettai/src/test/scala/zettai/ConverterSuite.scala`
-- `apps/scala/zettai/src/test/scala/zettai/ProfunctorSuite.scala`
-- `apps/scala/zettai/src/test/scala/zettai/LoggingSuite.scala`
-- `apps/scala/zettai/src/test/scala/zettai/LoggingOverHttpSuite.scala`
+- `apps/scala/zettai/src/main/scala/zettai/json/Json.scala`
+- `apps/scala/zettai/src/main/scala/zettai/json/Converter.scala`
+- `apps/scala/zettai/src/main/scala/zettai/json/Dimap.scala`
+- `apps/scala/zettai/src/main/scala/zettai/logging/Logs.scala`
+- `apps/scala/zettai/src/main/scala/zettai/adapter/logging/Logging.scala`
+- `apps/scala/zettai/src/main/scala/zettai/application/CommandHub.scala`
+- `apps/scala/zettai/src/test/scala/zettai/json/JsonSuite.scala`
+- `apps/scala/zettai/src/test/scala/zettai/logging/LogRecordSuite.scala`
+- `apps/scala/zettai/src/test/scala/zettai/json/ConverterSuite.scala`
+- `apps/scala/zettai/src/test/scala/zettai/json/ProfunctorSuite.scala`
+- `apps/scala/zettai/src/test/scala/zettai/adapter/logging/LoggingSuite.scala`
+- `apps/scala/zettai/src/test/scala/zettai/adapter/logging/LoggingOverHttpSuite.scala`
 
 ## 参照
 

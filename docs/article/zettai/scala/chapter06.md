@@ -277,15 +277,15 @@ Flix 版では、可変な箱は領域（`region`）の中にだけ存在でき�
 
 ## この章で書いたコード
 
-- `apps/scala/zettai/src/main/scala/zettai/Domain.scala`
-- `apps/scala/zettai/src/main/scala/zettai/Events.scala`
-- `apps/scala/zettai/src/main/scala/zettai/Errors.scala`
-- `apps/scala/zettai/src/main/scala/zettai/Commands.scala`
-- `apps/scala/zettai/src/main/scala/zettai/EventStore.scala`
-- `apps/scala/zettai/src/main/scala/zettai/CommandHub.scala`
-- `apps/scala/zettai/src/test/scala/zettai/CommandsSuite.scala`
-- `apps/scala/zettai/src/test/scala/zettai/CommandHubSuite.scala`
-- `apps/scala/zettai/src/test/scala/zettai/CommandInvariantsSuite.scala`
+- `apps/scala/zettai/src/main/scala/zettai/domain/Domain.scala`
+- `apps/scala/zettai/src/main/scala/zettai/domain/events/Events.scala`
+- `apps/scala/zettai/src/main/scala/zettai/domain/errors/Errors.scala`
+- `apps/scala/zettai/src/main/scala/zettai/domain/commands/Commands.scala`
+- `apps/scala/zettai/src/main/scala/zettai/application/EventStore.scala`
+- `apps/scala/zettai/src/main/scala/zettai/application/CommandHub.scala`
+- `apps/scala/zettai/src/test/scala/zettai/domain/commands/CommandsSuite.scala`
+- `apps/scala/zettai/src/test/scala/zettai/application/CommandHubSuite.scala`
+- `apps/scala/zettai/src/test/scala/zettai/domain/commands/CommandInvariantsSuite.scala`
 
 ## 参照
 

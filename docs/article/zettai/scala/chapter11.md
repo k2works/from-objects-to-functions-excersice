@@ -271,16 +271,16 @@ HTTP の入口は、名前変更の POST を足します。誤りがあれば、
 
 ## この章で書いたコード
 
-- `apps/scala/zettai/src/main/scala/zettai/Events.scala`
-- `apps/scala/zettai/src/main/scala/zettai/Commands.scala`
-- `apps/scala/zettai/src/main/scala/zettai/Errors.scala`
-- `apps/scala/zettai/src/main/scala/zettai/Validate.scala`
-- `apps/scala/zettai/src/main/scala/zettai/ZettaiRoutes.scala`
-- `apps/scala/zettai/src/main/scala/zettai/PostgresStore.scala`
-- `apps/scala/zettai/src/test/scala/zettai/RenameSuite.scala`
-- `apps/scala/zettai/src/test/scala/zettai/ValidationSuite.scala`
-- `apps/scala/zettai/src/test/scala/zettai/RenameOverHttpSuite.scala`
-- `apps/scala/zettai/src/test/scala/zettai/PostgresStoreSuite.scala`
+- `apps/scala/zettai/src/main/scala/zettai/domain/events/Events.scala`
+- `apps/scala/zettai/src/main/scala/zettai/domain/commands/Commands.scala`
+- `apps/scala/zettai/src/main/scala/zettai/domain/errors/Errors.scala`
+- `apps/scala/zettai/src/main/scala/zettai/domain/validation/Validate.scala`
+- `apps/scala/zettai/src/main/scala/zettai/web/ZettaiRoutes.scala`
+- `apps/scala/zettai/src/main/scala/zettai/adapter/postgres/PostgresStore.scala`
+- `apps/scala/zettai/src/test/scala/zettai/domain/commands/RenameSuite.scala`
+- `apps/scala/zettai/src/test/scala/zettai/domain/validation/ValidationSuite.scala`
+- `apps/scala/zettai/src/test/scala/zettai/web/RenameOverHttpSuite.scala`
+- `apps/scala/zettai/src/test/scala/zettai/adapter/postgres/PostgresStoreSuite.scala`
 
 ## 参照
 

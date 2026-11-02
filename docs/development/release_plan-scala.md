@@ -79,7 +79,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-02T17:30:00Z }
 | doobie が 1.0 の RC のまま | RC13 を使った（ADR-051）。パッケージ名が `doobie` から `org.typelevel.doobie` に変わっていて、`import` が通らなかった |
 | Nix の `scala` devShell に JDK が明示されていない | `jdk21` を明示し、Docker 上の Nix で JDK 21.0.9 と `sbt test` を確かめた |
 | sbt の初回起動が遅い | 初回の所要時間は**測っていない**。CI では `setup-java` の `cache: sbt` を使った |
-| Cucumber が Scala 3 で使えない可能性 | Maven Central に `cucumber-scala_3` があることは確かめた。`IO` と組み合わせて動かすことは試さず、関数値のケースクラスを採った（ADR-049） |
+| Cucumber が Scala 3 で使えない可能性 | Maven Central に `cucumber-scala_3` があることは確かめた。関数値のケースクラスを採った（ADR-049）。決定のあとで試したところ、`IO` と組み合わせて動いた（本線には入れず、確認用に残した） |
 | `IO` の型は `IO` の外の副作用を止めない | 第 1 章で `println` が通ることを確かめ、第 12 章で、ログを外から包む設計で守った。第 13 章で総括した |
 | 型クラスの記法が読者に重い | 初出で用語を説明し、タグレス・ファイナルは採らなかった |
 | ライブラリを使うほど、自作した抽象との対比が薄まる | 第 5・8・11・12 章で、Cats のものと突き合わせた。置き換えたものと、置き換えなかったものを第 13 章に表にした |

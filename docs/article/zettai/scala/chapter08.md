@@ -233,12 +233,12 @@ final case class QueryHub(listRows: User => IO[List[ToDoListRow]])
 
 ## この章で書いたコード
 
-- `apps/scala/zettai/src/main/scala/zettai/Projection.scala`
-- `apps/scala/zettai/src/main/scala/zettai/QueryHub.scala`
+- `apps/scala/zettai/src/main/scala/zettai/domain/queries/Projection.scala`
+- `apps/scala/zettai/src/main/scala/zettai/application/QueryHub.scala`
 - `apps/scala/zettai/src/test/scala/zettai/Gen.scala`
-- `apps/scala/zettai/src/test/scala/zettai/ProjectionSuite.scala`
-- `apps/scala/zettai/src/test/scala/zettai/QueryFunctorSuite.scala`
-- `apps/scala/zettai/src/test/scala/zettai/QueryHubSuite.scala`
+- `apps/scala/zettai/src/test/scala/zettai/domain/queries/ProjectionSuite.scala`
+- `apps/scala/zettai/src/test/scala/zettai/domain/queries/QueryFunctorSuite.scala`
+- `apps/scala/zettai/src/test/scala/zettai/application/QueryHubSuite.scala`
 
 ## 参照
 

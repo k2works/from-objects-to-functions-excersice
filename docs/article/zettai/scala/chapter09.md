@@ -357,17 +357,17 @@ doobie は 1.0.0-RC13 で、安定版ではありません。パッケージ名�
 
 ## この章で書いたコード
 
-- `apps/scala/zettai/src/main/scala/zettai/Errors.scala`
-- `apps/scala/zettai/src/main/scala/zettai/EventStore.scala`
-- `apps/scala/zettai/src/main/scala/zettai/PostgresStore.scala`
-- `apps/scala/zettai/src/main/scala/zettai/ZettaiRoutes.scala`
-- `apps/scala/zettai/src/test/scala/zettai/TestDatabase.scala`
-- `apps/scala/zettai/src/test/scala/zettai/PostgresStoreSuite.scala`
-- `apps/scala/zettai/src/test/scala/zettai/ConnectionIOSuite.scala`
-- `apps/scala/zettai/src/test/scala/zettai/UnexpectedFailureSuite.scala`
-- `apps/scala/zettai/src/test/scala/zettai/Routes.scala`
-- `apps/scala/zettai/src/test/scala/zettai/AcceptanceDbSuite.scala`
-- `apps/scala/zettai/src/test/scala/zettai/HttpOverPostgresSuite.scala`
+- `apps/scala/zettai/src/main/scala/zettai/domain/errors/Errors.scala`
+- `apps/scala/zettai/src/main/scala/zettai/application/EventStore.scala`
+- `apps/scala/zettai/src/main/scala/zettai/adapter/postgres/PostgresStore.scala`
+- `apps/scala/zettai/src/main/scala/zettai/web/ZettaiRoutes.scala`
+- `apps/scala/zettai/src/test/scala/zettai/adapter/postgres/TestDatabase.scala`
+- `apps/scala/zettai/src/test/scala/zettai/adapter/postgres/PostgresStoreSuite.scala`
+- `apps/scala/zettai/src/test/scala/zettai/adapter/postgres/ConnectionIOSuite.scala`
+- `apps/scala/zettai/src/test/scala/zettai/web/UnexpectedFailureSuite.scala`
+- `apps/scala/zettai/src/test/scala/zettai/acceptance/Routes.scala`
+- `apps/scala/zettai/src/test/scala/zettai/acceptance/AcceptanceDbSuite.scala`
+- `apps/scala/zettai/src/test/scala/zettai/adapter/postgres/HttpOverPostgresSuite.scala`
 
 ## 参照
 

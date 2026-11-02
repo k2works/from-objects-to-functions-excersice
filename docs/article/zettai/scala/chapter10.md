@@ -254,9 +254,9 @@ Flix 版は、この章で設計の見立てを 2 回直しました。Scala 版
 
 ## この章で書いたコード
 
-- `apps/scala/zettai/src/main/scala/zettai/Process.scala`
-- `apps/scala/zettai/src/test/scala/zettai/ProcessSuite.scala`
-- `apps/scala/zettai/src/test/scala/zettai/QueryOnDatabaseSuite.scala`
+- `apps/scala/zettai/src/main/scala/zettai/application/Process.scala`
+- `apps/scala/zettai/src/test/scala/zettai/application/ProcessSuite.scala`
+- `apps/scala/zettai/src/test/scala/zettai/adapter/postgres/QueryOnDatabaseSuite.scala`
 
 ## 参照
 

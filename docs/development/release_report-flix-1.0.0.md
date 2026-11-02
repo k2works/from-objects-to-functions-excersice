@@ -1,7 +1,7 @@
 ---
 type: Report
 title: "リリース完了報告書 v1.0.0 - Zettai 連載（Flix 版）"
-description: "Zettai 連載 Flix 版 v1.0.0 の完了報告。全 13 章の公開、157 件のテスト、3 件の ADR、テストだけが見つけた欠陥 3 件、実装中に直した設計の見立て、CI で一度落ちた経緯、確かめていないこと、次に人がすることを記録する。"
+description: "Zettai 連載 Flix 版 v1.0.0 の完了報告。全 13 章の公開、158 件のテスト、3 件の ADR、テストだけが見つけた欠陥 3 件、実装中に直した設計の見立て、CI で一度落ちた経緯、確かめていないこと、次に人がすることを記録する。"
 tags: [development, report, ai-dlc, zettai, flix]
 status: draft
 generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-03T13:30:00Z }
@@ -15,7 +15,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-03T13:30:00Z }
 | :--- | :--- |
 | 章 | 13 / 13 公開 |
 | Unit | 7 / 7 |
-| テスト | 157 件。`flix test` と `flix check` が通る |
+| テスト | 158 件（公開時点は 157 件）。`flix test` と `flix check` が通る |
 | CI | 最終コミット `9ec6c9c` で、Flix Zettai の `check` と `article` を含む 4 本が成功 |
 | 本番コード | 25 ファイル、1,356 行 |
 | ADR | 3 件（[ADR-046](../adr/ADR-046-flix-acceptance-by-record-of-functions.md)、[ADR-047](../adr/ADR-047-flix-use-standard-result.md)、[ADR-048](../adr/ADR-048-flix-logger-effect-and-own-json.md)）。**3 件とも承認済み（2026-11-02、human:kakimomokuri）** |
@@ -61,7 +61,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-03T13:30:00Z }
 | # | 確かめていないこと | 状態 |
 | :--- | :--- | :--- |
 | 1 | Windows / macOS の Nix の devShell | Linux の Nix（Docker）では確かめた（2026-11-02）。他の OS の Nix は確かめていない |
-| 2 | HTTP と PostgreSQL を通した確認 | 通しのテストは、インメモリのストアで動かした |
+| 2 | ~~HTTP と PostgreSQL を通した確認~~ | 確かめた。`TestHttpOverPostgres`（公開後に追加）。壊すと落ちることも確かめた |
 | 3 | 一意制約違反が実際の競合で `VersionConflict` になるまでの通し | 版の確認で断る経路と、SQLState の写像を、別々に確かめた |
 | 4 | `Logger` の処理を、サーバーのコールバックの外に置いたときの挙動 | 確かめていない |
 | 5 | Cucumber、Jackson、SLF4J、プロパティテストのライブラリ | 試していない・調べていない |

@@ -139,6 +139,7 @@ AI-DLC で守ること：
 | スキル | 用途 |
 | :--- | :--- |
 | `practicing-getting-start-tdd` | TDD プログラミング入門の対話式チュートリアル |
+| `practicing-zettai` | Zettai 連載（全 13 章・6 対象）を `apps/sandbox/` で写経＋自作する対話式チュートリアル |
 
 ### 共通
 

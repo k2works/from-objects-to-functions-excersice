@@ -24,3 +24,6 @@ references/
 .gradle/
 .kotlin/
 build/
+
+# 学習スキルの実習用ディレクトリ（practicing-zettai）
+apps/sandbox/

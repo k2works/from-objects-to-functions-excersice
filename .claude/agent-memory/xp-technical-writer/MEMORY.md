@@ -1,0 +1,1 @@
+- [Zettai Kotlin FP 版レビュー観点](project_zettai_kotlin_fp_review.md) — 選択差の説明、Arrow Raise の正確さ、outline 成功条件との突合

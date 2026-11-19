@@ -1,0 +1,1 @@
+- [Kotlin FP 連載の読者像とレビュー論点](project_kotlin-fp-reader.md) — 手元再現・Docker 前提・Cucumber の由来章・用語の先出し

@@ -27,3 +27,8 @@ build/
 
 # 学習スキルの実習用ディレクトリ（practicing-zettai）
 apps/sandbox/
+
+# ビルド成果物（sbt・IDE 出力）
+target/
+out/
+apps/kotlin-fp/zettai/project/

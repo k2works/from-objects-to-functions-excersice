@@ -701,3 +701,34 @@ Scala 版は、法則を壊して何回検出するかを数えていません�
 - コンパイラは `enum` の `match` の漏れを止めたが、文字列で `match` する読み戻しは止めなかった。往復のテストが見つけた
 
 テストだけが見つけた欠陥が、2 つありました（読み戻しの文字列 `match`、コマンドの二重の読み出し）。**1 つの題材、1 つの実装、Scala 3.3.9 と Cats Effect 3.7.1 での観察で、一般論の根拠はありません。**
+
+## TypeScript FP 版を加えた比較（第 1〜3 章の範囲）
+
+TypeScript FP 版は、TypeScript と Effect v4 で書いています。**執筆中で、ここで比べるのは第 1〜3 章の範囲だけです。** ほかの対象の記述は、各対象の記事と ADR に基づきます。そのコードを、この節のために読み直して確かめたものではありません。
+
+### 第 3 章までの選択
+
+| 論点 | Kotlin FP 版 | Scala 版 | TypeScript FP 版 |
+| :--- | :--- | :--- | :--- |
+| HTTP | http4k の `HttpHandler`（[第 2 章](../kotlin-fp/chapter02.md)） | http4s の `HttpRoutes[IO]` と Ember（[第 2 章](../scala/chapter02.md)） | `Request` から `Effect<Response>` の関数。`node:http` への接続は自作（[ADR-056](../../../adr/ADR-056-typescript-http-with-stable-parts.md)） |
+| 受け入れテスト | Gherkin と Cucumber | 経路を関数値のケースクラスで差し替える（[ADR-049](../../../adr/ADR-049-scala-acceptance-by-case-class-of-functions.md)） | driver を渡す高階関数で差し替える（[ADR-057](../../../adr/ADR-057-typescript-acceptance-route-as-higher-order-function.md)） |
+
+TypeScript FP 版が HTTP のライブラリを使わないのは、Effect の HTTP の機能が unstable で、版の更新で壊れる可能性があるためです（[ADR-053](../../../adr/ADR-053-typescript-effect-version-and-stability.md)）。自作の接続は、本番で使えるものではありません。
+
+### 型検査があっても止まらないもの（TypeScript FP 版）
+
+第 1〜3 章で、コードを壊して確かめたものです。
+
+| 壊し方 | 型検査 | 止めたもの |
+| :--- | :--- | :--- |
+| 同じ形の `User` と `ListName` を取り違える | 通る | 無し（型付けが構造的なため。第 4 章で扱う） |
+| `Map` のキーをオブジェクトにする | 通る | テスト |
+| domain から web を読み込む | 通る | 読み込みを調べるテスト |
+| `Effect` の外で副作用を実行する | 通る | テスト |
+| 純粋な関数に `console.log` を足す | 通る | 無し（lint とテストも通った） |
+| 素朴な接続の実装（パス、`TRACE`、停止の漏れ） | 通る | 実サーバーに要求を送るテスト |
+| 受け入れシナリオの `await` を忘れる | 通る | lint。vitest は件数の上では全件成功と表示し、終了コードは失敗 |
+
+一方、**実行していない `Effect`**、**要求の型 `R` の解決漏れ**、**テストの型エラー**は、型検査の段（`@effect/tsgo`）が止めました。素の `tsc` は、実行していない `Effect` を指摘せず、vitest はテストの型を検査しません。
+
+**この表は、1 つの題材、1 つの実装、TypeScript 7.0.2 と Effect 4.1.6 で、試した壊し方の結果です。** ほかの対象で同じ壊し方を試してはいないので、対象の間の優劣は言いません。

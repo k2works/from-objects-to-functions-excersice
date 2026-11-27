@@ -62,5 +62,6 @@
 | [ADR-054](ADR-054-typescript-toolchain-and-check.md) | TypeScript FP 版は TypeScript 7 と `@effect/tsgo` を使い、`npm run check` を 5 段にする | 承認 |
 | [ADR-055](ADR-055-typescript-testing-tools.md) | TypeScript FP 版は vitest と fast-check でテストし、受け入れテストを自作する | 承認 |
 | [ADR-056](ADR-056-typescript-http-with-stable-parts.md) | TypeScript FP 版の HTTP は stable な部品だけで書き、`node:http` への接続を自作する | 承認 |
+| [ADR-057](ADR-057-typescript-acceptance-route-as-higher-order-function.md) | TypeScript FP 版は受け入れテストの経路を、driver を渡す高階関数で差し替える | 承認 |
 
 ADR の作成には `creating-adr` スキルを使用してください。

@@ -1,6 +1,35 @@
 # Docs Update Log
 
 ## 2026-11-27
+* **Verification**: [chapter03](/article/zettai/typescript-fp/chapter03.md) を human:kakimomokuri が検証
+* **Update**: [retrospective-typescript-fp-2](/development/retrospective-typescript-fp-2.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [bolt_report-typescript-fp-2](/development/bolt_report-typescript-fp-2.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [chapter03](/article/zettai/typescript-fp/chapter03.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [ADR-057-typescript-acceptance-route-as-higher-order-function](/adr/ADR-057-typescript-acceptance-route-as-higher-order-function.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [iteration_plan-typescript-fp-2](/development/iteration_plan-typescript-fp-2.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [chapter02](/article/zettai/typescript-fp/chapter02.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [outline](/article/outline.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [retrospective-typescript-fp-2](/development/retrospective-typescript-fp-2.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [bolt_report-typescript-fp-2](/development/bolt_report-typescript-fp-2.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [chapter03](/article/zettai/typescript-fp/chapter03.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [retrospective-typescript-fp-2](/development/retrospective-typescript-fp-2.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [bolt_report-typescript-fp-2](/development/bolt_report-typescript-fp-2.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [chapter03](/article/zettai/typescript-fp/chapter03.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [ADR-057-typescript-acceptance-route-as-higher-order-function](/adr/ADR-057-typescript-acceptance-route-as-higher-order-function.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [iteration_plan-typescript-fp-2](/development/iteration_plan-typescript-fp-2.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [chapter02](/article/zettai/typescript-fp/chapter02.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [outline](/article/outline.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [ADR-057-typescript-acceptance-route-as-higher-order-function](/adr/ADR-057-typescript-acceptance-route-as-higher-order-function.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [chapter03](/article/zettai/typescript-fp/chapter03.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [chapter03](/article/zettai/typescript-fp/chapter03.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [ADR-057-typescript-acceptance-route-as-higher-order-function](/adr/ADR-057-typescript-acceptance-route-as-higher-order-function.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [iteration_plan-typescript-fp-2](/development/iteration_plan-typescript-fp-2.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [chapter02](/article/zettai/typescript-fp/chapter02.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [outline](/article/outline.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [iteration_plan-typescript-fp-2](/development/iteration_plan-typescript-fp-2.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [chapter02](/article/zettai/typescript-fp/chapter02.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [iteration_plan-typescript-fp-2](/development/iteration_plan-typescript-fp-2.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [chapter02](/article/zettai/typescript-fp/chapter02.md) を更新（anthropic/claude-sonnet-5-5）
 * **Verification**: [chapter02](/article/zettai/typescript-fp/chapter02.md) を human:kakimomokuri が検証
 * **Verification**: [chapter01](/article/zettai/typescript-fp/chapter01.md) を human:kakimomokuri が検証
 * **Update**: [chapter02](/article/zettai/typescript-fp/chapter02.md) を更新（anthropic/claude-sonnet-5-5）

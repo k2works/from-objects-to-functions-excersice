@@ -4,7 +4,7 @@ title: "第 2 章 関数を使って HTTP を扱う"
 description: "Zettai 連載 TypeScript FP 版の第 2 章。HTTP を Request から Effect<Response> への関数として書き、node:http への接続を自作して最小の縦串を通す。素朴な接続の実装が持つ誤りをテストで見つけ、構造的型付けとオブジェクトのキーという、型検査を通ってしまう落とし穴を確かめる。"
 tags: [article, zettai, typescript, effect, http, chapter]
 status: stable
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T10:35:28Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T21:00:23Z }
 verified:
   - { by: human:kakimomokuri, at: 2026-11-27T10:35:29Z }
 ---
@@ -441,7 +441,7 @@ ZETTAI_PORT=18123 npm run start
 - `Effect.acquireRelease` とスコープで、サーバーの停止を呼び忘れない形にできる
 - 素朴な接続の実装には、型検査を通る誤りがあり、実際の要求を送るテストが見つけた
 
-`npm run check` は、第 1 章の step と合わせて、テスト 14 ファイル 52 件が通ります（2026-11-27、Windows、Node 22.23.4）。`nixos/nix` のコンテナ（Linux、Node 24.12.0）では、型検査、lint、format、smoke と、PostgreSQL のテストを除く 51 件が通りました。**この章のコードは、CI ではまだ確かめていません。** 次のことも確かめていません。性能、同時の要求、大きな要求、停止を始めた時点で処理中の要求の扱いです。
+`npm run check` は、第 1 章の step と合わせて、テスト 14 ファイル 52 件が通ります（2026-11-27、Windows、Node 22.23.4）。`nixos/nix` のコンテナ（Linux、Node 24.12.0）では、型検査、lint、format、smoke と、PostgreSQL のテストを除く 51 件が通りました。GitHub Actions（`ubuntu-latest`、Node 24.22.3）では、PostgreSQL のテストを含む 52 件と smoke が通りました。次のことは確かめていません。性能、同時の要求、大きな要求、停止を始めた時点で処理中の要求の扱いです。
 
 ### 型で守れたこと・守れなかったこと
 

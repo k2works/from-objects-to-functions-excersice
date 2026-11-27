@@ -1,10 +1,10 @@
 ---
 type: Bolt Report
 title: "Unit 2 の Bolt 終了報告 - Zettai 連載（TypeScript FP 版）"
-description: "TypeScript FP 版 Unit 2 の HTTP の最小の縦串、2 経路の受け入れテスト、第 2〜3 章の成果と指標、Release v0.1.0 の条件の確認状況、ゲート密度の見直しの提案を記録する。第 3 章の全文確認と CI が残っている。"
+description: "TypeScript FP 版 Unit 2 の HTTP の最小の縦串、2 経路の受け入れテスト、第 2〜3 章の成果と指標、Release v0.1.0 の条件の確認状況、ゲート密度の見直しの決定を記録する。Unit 2 は完了した。"
 tags: [development, report, ai-dlc, zettai, typescript, effect, unit-2]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T21:00:23Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T21:04:09Z }
 ---
 
 # Unit 2 の Bolt 終了報告 - Zettai 連載（TypeScript FP 版）
@@ -16,17 +16,13 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T21:00:23Z }
 | Unit | 2：ウォーキングスケルトンとドメイン分離 |
 | Bolt | 2-1 第 2 章 / 2-2 第 3 章 |
 | 実施日 | 2026-11-27 |
-| 状態 | **未完了。** Bolt 2-1 は完了。Bolt 2-2 は作業が終わり、下の「残り」を待っている |
+| 状態 | **完了**（2026-11-28）。Bolt 2-1・2-2 とも完了 |
 
 計画は [Unit 2 の Bolt 計画](iteration_plan-typescript-fp-2.md) にあります。
 
-## 残り
+## 完了の確認
 
-| # | 残り | 待っているもの |
-| :--- | :--- | :--- |
-| 1 | 第 3 章を含むコミットで、CI が成功すること | push の後の CI |
-
-第 3 章の全文確認は、2026-11-28 に人の承認を受けました。
+第 3 章は 2026-11-28 に人の全文確認を受けて承認されました。第 3 章を含むコミット `83eaa58` で CI が成功し、公開サイトに第 3 章が反映されたことを確かめました。US-002 と US-003 の受入条件は、テストと `src/` を照合して確かめました。
 
 ## 成果
 
@@ -43,7 +39,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T21:00:23Z }
 | :--- | :--- | :--- |
 | `npm run check`（開発機の Windows、Node 22.23.4） | 3 回続けて成功。17 ファイル 67 件 | 第 3 章を含む作業ツリー |
 | Nix のコンテナ（Linux、Node 24.12.0） | PostgreSQL のテストを除く 66 件と、ほかの段が成功 | 第 3 章を含む、追跡対象になるファイルだけ |
-| GitHub Actions `TypeScript FP Zettai` | [成功](https://github.com/k2works/from-objects-to-functions-excersice/actions/runs/45983520473)。52 件 | **コミット `d870296`（第 2 章まで）。第 3 章は含まない** |
+| GitHub Actions `TypeScript FP Zettai`（Node 24.22.3） | [成功](https://github.com/k2works/from-objects-to-functions-excersice/actions/runs/46067452141)。17 ファイル 67 件と smoke。Check の段は約 23 秒 | コミット `83eaa58`（第 3 章まで） |
 | 記事の検査、`mkdocs build --strict`、OKF の検査 | 本 Unit の変更による違反は無い。着手前からの OKF の ERROR が 1 件 | 第 3 章を含む作業ツリー |
 | 開発成果物レビュー | **実施していない** | — |
 
@@ -60,9 +56,9 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T21:00:23Z }
 | ステップ | 10 | 10 |
 | 承認ゲートの同期停止 | 2 箇所 | **2 / 2** |
 | ゲートの変更依頼数 | — | 0 |
-| 人が修正を入れた箇所数（コミット後の手直し） | — | 0（この報告の時点） |
-| リードタイム | — | 未確定（完了のコミットがまだ無い） |
-| 公開する章 | 2 | 2（第 3 章はコミット前） |
+| 人が修正を入れた箇所数（コミット後の手直し） | — | 0 |
+| リードタイム | — | 約 10 時間 50 分（最初のコミット `7727624` 2026-11-27 19:16 から、完了のコミット 2026-11-28 06 時台まで。**人の確認を待った時間を含み、作業時間ではない**） |
+| 公開する章 | 2 | 2 |
 | ADR | 2 | 2 |
 | `npm run check`（上限 60 秒） | — | 中央値 15.7 秒（15.9・15.7・15.5） |
 
@@ -70,14 +66,14 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T21:00:23Z }
 
 | 条件（[リリース計画](release_plan-typescript-fp.md)） | 状況 |
 | :--- | :--- |
-| 前提整備が終わり、第 1〜3 章が公開されている | **第 3 章は未コミットで、全文確認の前** |
-| `npm run check` と CI が通る | `check` は通る。**第 3 章を含む CI は未実行** |
+| 前提整備が終わり、第 1〜3 章が公開されている | 公開した。前提整備には、Unit 1 の例外が 1 つある（下の注） |
+| `npm run check` と CI が通る | 通る |
 | 受け入れシナリオが 2 経路で通る | 通る |
 | ライブラリの選定と unstable の扱いが ADR にある | ADR-053・056 |
 | 記事の検査が TypeScript のコードに効く | Unit 1 で、壊して確認した |
 | `comparison/` に TypeScript FP の節がある | 追加した |
 
-条件は、まだすべては満たしていません。**タグ付けやリリースの作業は、していません。**
+条件は満たしたと判断します。注: Nix の devShell での確認（US-000 の受入条件 7）は、Docker のソケットを渡さなかったため、PostgreSQL のテストを含みません。CI は Nix を使わないため、この例外は残っています。**タグ付けやリリースの作業は、していません。** 行うかどうかは人が決めます。
 
 ## 計画から変えたこと
 
@@ -111,11 +107,10 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T21:00:23Z }
 
 | # | 確かめていないこと |
 | :--- | :--- |
-| 1 | 第 3 章のコードの CI での実行 |
-| 2 | 状態を変える操作を含む受け入れシナリオ |
-| 3 | HTTP の性能、同時の要求、大きな要求、停止中の要求 |
-| 4 | Windows の深いディレクトリで smoke が失敗した原因 |
-| 5 | `Ctrl+C` で終了したときの後始末 |
+| 1 | 状態を変える操作を含む受け入れシナリオ |
+| 2 | HTTP の性能、同時の要求、大きな要求、停止中の要求 |
+| 3 | Windows の深いディレクトリで smoke が失敗した原因 |
+| 4 | `Ctrl+C` で終了したときの後始末 |
 
 ## 次の Unit への持ち越し
 

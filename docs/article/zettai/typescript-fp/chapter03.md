@@ -4,7 +4,7 @@ title: "第 3 章 ドメインの定義とテスト"
 description: "Zettai 連載 TypeScript FP 版の第 3 章。受け入れテストを業務の言葉で書き直し、driver を渡す高階関数で経路を差し替えて、同じシナリオを domain と HTTP の両方で実行する。HTTP の読み戻しが壊れた画面を見逃さないことと、await を忘れると vitest が全件成功と表示することを確かめる。"
 tags: [article, zettai, typescript, effect, testing, chapter]
 status: stable
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T21:00:23Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T21:04:09Z }
 verified:
   - { by: human:kakimomokuri, at: 2026-11-27T21:00:39Z }
 ---
@@ -269,7 +269,7 @@ const server = yield* serve(makeApp(findToDoList(store)), 0).pipe(Scope.provide(
 - 画面を読み戻す側が甘いと、壊れた画面でもシナリオが通る。読み戻しにもテストが要る
 - `await` を忘れると、vitest の件数の表示は全件成功になる。この版では lint が止める
 
-`npm run check` は、テスト 17 ファイル 67 件が通ります（2026-11-27、Windows、Node 22.23.4）。`nixos/nix` のコンテナ（Linux、Node 24.12.0）では、型検査、lint、format、smoke と、PostgreSQL のテストを除く 66 件が通りました。**この章のコードは、CI ではまだ確かめていません。** 状態を変える操作を含むシナリオは、まだありません。
+`npm run check` は、テスト 17 ファイル 67 件が通ります（2026-11-27、Windows、Node 22.23.4）。`nixos/nix` のコンテナ（Linux、Node 24.12.0）では、型検査、lint、format、smoke と、PostgreSQL のテストを除く 66 件が通りました。GitHub Actions（`ubuntu-latest`、Node 24.22.3）では、PostgreSQL のテストを含む 67 件と smoke が通りました。状態を変える操作を含むシナリオは、まだありません。
 
 これで、HTTP の縦串と、2 経路の受け入れテストがそろいました。次の章では、依存の渡し方を比べ、`User` と `ListName` を型で区別します。
 

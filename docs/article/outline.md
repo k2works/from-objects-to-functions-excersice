@@ -4,7 +4,7 @@ title: "執筆計画：関数型プログラミングで作る変更を楽に安
 description: "Uberto Barbini 著『From Objects to Functions』を下敷きにした Zettai 連載の執筆計画。既存 3 言語版に加え、Grokking Functional Programming の Kotlin + Arrow 解説を基礎にした Kotlin FP 版、効果システムを持つ Flix 版、Cats Effect を使う Scala 版、Effect を使う TypeScript FP 版（執筆中）について、全 13 章の移植方針、記事と実装の同期、前提整備、品質ゲートを定義する。"
 tags: [article, plan, zettai]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T21:00:23Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T21:04:09Z }
 ---
 
 # 執筆計画：関数型プログラミングで作る変更を楽に安全にできるソフトウェア
@@ -788,7 +788,7 @@ Unit・Bolt の割り当ては既存対象と同一（1 Unit = 2 章、Unit 1 �
 
 ## TypeScript FP 追加執筆計画
 
-6 言語目として **TypeScript と Effect** で同じ 13 章を書き起こします。**状態は執筆中で、Unit 1 は完了し、Unit 2（第 2〜3 章）を進めています。** 非 FP の TypeScript 版は無いため、対象名の「FP」は Effect を使う版という意味です。
+6 言語目として **TypeScript と Effect** で同じ 13 章を書き起こします。**状態は執筆中で、Unit 2（第 3 章）まで完了しました。** 非 FP の TypeScript 版は無いため、対象名の「FP」は Effect を使う版という意味です。
 
 ### Intent と成功条件
 

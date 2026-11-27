@@ -4,7 +4,7 @@ title: "Unit 2 の Bolt 計画（イテレーション 2）- Zettai 連載（Typ
 description: "Zettai 連載 TypeScript FP 版の Unit 2（第 2〜3 章）の Bolt 計画。HTTP の方式をゲートで決めて最小の縦串を通し、受け入れシナリオを domain と HTTP の 2 経路で実行して v0.1.0 に到達する。事前に比べた HTTP の 3 案と、承認の対象となる新規ファイルを含む。"
 tags: [development, plan, ai-dlc, bolt, zettai, typescript, effect, unit-2]
 status: stable
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T21:00:23Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T21:04:09Z }
 verified:
   - { by: human:kakimomokuri, at: 2026-11-27T10:16:28Z }
 ---
@@ -221,12 +221,12 @@ B は、unstable を使いながら接続を自作するため、行数が最も
   - **実績（2026-11-27）**: domain の経路が web を読み込まないことのテストを足し、壊すと失敗することを確かめた。経路の後始末のテスト 2 件を足した
 - [x] **2-2.4 第 3 章の執筆**
   - 第 5 節は「DDT を driver のインターフェースに変換する」にする（登録済み）
-  - **実績（2026-11-27）**: [第 3 章](../article/zettai/typescript-fp/chapter03.md) を書いた。壊して確かめた中で、**利用者の操作の `await` を忘れると、vitest は `Tests  14 passed (14)` と表示した**（終了コードは 1。lint が指摘し、型検査は通る）。**人の全文確認は、まだ受けていない**
-- [-] **2-2.5 `comparison/` と報告**
+  - **実績（2026-11-27）**: [第 3 章](../article/zettai/typescript-fp/chapter03.md) を書いた。壊して確かめた中で、**利用者の操作の `await` を忘れると、vitest は `Tests  14 passed (14)` と表示した**（終了コードは 1。lint が指摘し、型検査は通る）。第 3 章は 2026-11-28 に人の全文確認を受けて承認された
+- [x] **2-2.5 `comparison/` と報告**
   - `comparison/` に TypeScript FP 版の節を追加し、Release v0.1.0 の条件を確かめる
   - Bolt 終了報告とふりかえりを書く。ゲートの密度を見直し、検証負荷と実績を突き合わせる（[開発戦略](development_strategy.md)、[リリース計画](release_plan-typescript-fp.md)）
   - **実績（2026-11-27）**: `comparison/` に第 1〜3 章の範囲の節を足し、[Bolt 終了報告](bolt_report-typescript-fp-2.md) と [ふりかえり](retrospective-typescript-fp-2.md) を書いた。ゲート密度は「変えない」と提案し、2026-11-28 に人がそのとおり決めた。検証負荷との突き合わせは、人の検証の時間を測っていないためできない。`check` は中央値 15.7 秒（上限 60 秒）。Linux（Nix のコンテナ）では、PostgreSQL のテストを除いて通った
-  - 2026-11-28、第 3 章は人の全文確認を受けて承認された。**残りは、第 3 章を含む CI の成功。** Release v0.1.0 の条件は、これが済むまで満たさない
+  - 2026-11-28、第 3 章は人の全文確認を受けて承認された。コミット `83eaa58` の [CI](https://github.com/k2works/from-objects-to-functions-excersice/actions/runs/46067452141) が成功し（17 ファイル 67 件と smoke）、公開サイトに第 3 章が反映された
 
 実装は `feat(typescript-fp):`、記事は `docs(typescript-fp):` でコミットします。コミットと push は、人の指示を受けてから行います。
 
@@ -351,14 +351,14 @@ URL の規約と、HTML のエスケープの方針は、UI 設計に従いま�
 
 ### Definition of Done
 
-- [ ] US-002 と US-003 の受入条件をすべて満たす
-- [ ] `npm run check` が通る。追跡ファイルだけを取り出した場所でも通る
-- [ ] [リリース計画](release_plan-typescript-fp.md) の「全 Bolt 共通の完了条件」を満たす
-- [ ] ADR-056・057 がある
+- [x] US-002 と US-003 の受入条件をすべて満たす
+- [x] `npm run check` が通る。追跡ファイルだけを取り出した場所でも通る
+- [x] [リリース計画](release_plan-typescript-fp.md) の「全 Bolt 共通の完了条件」を満たす
+- [x] ADR-056・057 がある
 - [x] 第 2〜3 章を人が全文確認した（ゲートには数えない）
-- [ ] CI の `check` と `article` が成功した（push 後に確認）
-- [ ] `comparison/`、索引、`mkdocs.yml`、執筆計画、リリース計画が一致する
-- [ ] Bolt 終了報告とふりかえりがある
+- [x] CI の `check` と `article` が成功した（push 後に確認）
+- [x] `comparison/`、索引、`mkdocs.yml`、執筆計画、リリース計画が一致する
+- [x] Bolt 終了報告とふりかえりがある
 - [x] ゲートの密度を見直した
 
 ### デモ項目
@@ -394,6 +394,7 @@ GitHub Project への同期は行いません。
 | 2026-11-27 | 初版作成。持ち込み 9 件、HTTP の 3 案の事前比較、ゲート 2 箇所、承認の対象となる新規ファイルを提案した（未承認） | anthropic/claude-sonnet-5-5 |
 | 2026-11-27 | 提案した内容で承認を得た。ゲート ① は案 A | human:kakimomokuri |
 | 2026-11-28 | 第 3 章を承認した。ゲート密度は変えないと決めた | human:kakimomokuri |
+| 2026-11-28 | 第 3 章を含む CI の成功と公開を確かめ、Unit 2 を完了にした | anthropic/claude-sonnet-5-5 |
 
 ---
 

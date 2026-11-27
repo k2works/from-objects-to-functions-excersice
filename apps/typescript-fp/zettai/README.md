@@ -2,7 +2,7 @@
 
 TypeScript と Effect で書く Zettai のサンプル実装です。記事は `docs/article/zettai/typescript-fp/` に置きます。
 
-**準備中です。** CI は追加しましたが、成功はまだ確かめていません。Nix を使う場合は、リポジトリの直下で `nix develop .#typescript-fp` を実行します。進め方は [Unit 1 の Bolt 計画](../../../docs/development/iteration_plan-typescript-fp-1.md) にあります。
+**準備中です。** CI は `.github/workflows/typescript-fp-zettai.yml` です。Nix を使う場合は、リポジトリの直下で `nix develop .#typescript-fp` を実行します。進め方は [Unit 1 の Bolt 計画](../../../docs/development/iteration_plan-typescript-fp-1.md) にあります。
 
 ## 実行方法
 
@@ -47,3 +47,6 @@ npm run check
 | :--- | :--- | :--- | :--- | :--- |
 | 1 | vitest は、テストのコードの型エラーを見ない | 型の主張が壊れてもテストが通る | `npm run check` で、テストも型検査する | 1 |
 | 2 | `tsc` だけでは、実行も合成もしていない `Effect` を指摘しない | 書いた処理が動かないまま通る | `effect-tsgo tsc` を `npm run check` に入れる（ADR-054） | 1 |
+| 3 | `@ts-expect-error` は、Effect の診断を抑えない | 診断で拒否される書き方を、`@ts-expect-error` では固定できない | `// @effect-diagnostics-next-line <診断名>:off` を使う。指摘が出なくなると、型検査が失敗する | 1 |
+| 4 | `Effect` の外で実行した副作用は、型に現れない。純粋な関数に足した `console.log` は、型検査・lint・テストを通った | 純粋さと遅延実行が、型では守られない | 遅延実行はテストで固定する。純粋さは規約とレビューで守る | 1 |
+| 5 | `@ts-expect-error` で書き始めたコメントは、説明文でも指定として扱われる | 説明のつもりのコメントで型検査が失敗する | 説明のコメントを、指定の名前で書き始めない | 1 |

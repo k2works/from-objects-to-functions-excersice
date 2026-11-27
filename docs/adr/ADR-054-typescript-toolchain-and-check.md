@@ -4,7 +4,7 @@ title: "ADR-054 TypeScript FP 版は TypeScript 7 と @effect/tsgo を使い、n
 description: "Zettai 連載 TypeScript FP 版で、TypeScript 7.0.2・@effect/tsgo・Oxlint・Prettier を採り、tsc でビルドして Node で実行し、累積する step を npm workspaces で管理する決定。品質ゲート npm run check の各段が守るもの、実測した秒数、選ばなかった案と代償を記録する。"
 tags: [adr, typescript, zettai, effect, testing]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T09:25:01Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T10:05:45Z }
 ---
 
 # ADR-054 TypeScript FP 版は TypeScript 7 と @effect/tsgo を使い、npm run check を 5 段にする
@@ -127,6 +127,10 @@ TypeScript の latest は 7.0.2 ですが、`typescript-eslint` 8.74.0 の peer 
 
 - 共通の shell の Node 22 は、パッケージ名で外します。`buildInputs` の要素は `dev` 出力になり、パッケージそのものとの比較は一致しません
 - Oxlint の除外は、`.gitignore` に頼らず `.oxlintrc.json` に書きます。`.gitignore` が無い場所では、`node_modules` まで検査しました
+
+## 追記（2026-11-27、CI での実行時間）
+
+コミット `8cf2565` の CI（`ubuntu-latest`、Node 24.22.3）の 1 回の実行では、`npm ci --ignore-scripts` が 7 秒、`npm run check` が 17 秒でした。テストの段は 12.98 秒で、PostgreSQL のイメージの取得を含みます。ステップの開始と終了の時刻（秒の単位）と、vitest の表示から読みました。**1 回の測定です。時間の上限は、まだ決めていません。**
 
 ## 備考
 

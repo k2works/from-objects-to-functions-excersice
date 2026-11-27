@@ -4,7 +4,7 @@ title: "Unit 1 の Bolt 計画（イテレーション 1）- Zettai 連載（Typ
 description: "Zettai 連載 TypeScript FP 版の Unit 1（土台と第 1 章）の Bolt 計画。Effect v4・TypeScript・検査の道具をスパイクで確かめて 3 箇所のゲートで決め、npm run check と CI と記事の検査を整えて第 1 章を書く。計画の承認でまとめて承認する新規ファイルとライブラリの一覧を含む。"
 tags: [development, plan, ai-dlc, bolt, zettai, typescript, effect, unit-1]
 status: stable
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T09:25:01Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T10:05:45Z }
 verified:
   - { by: human:kakimomokuri, at: 2026-11-27T08:21:25Z }
 ---
@@ -262,7 +262,7 @@ step の配置はゲート ② で決まるため、`apps/` の下は用途で�
   - `.gitignore` に `dist/` と `coverage/` を追加する
   - 完了判定: 章の検査 5 本が違反 0 件。他の対象の検査結果が変わらない
   - **実績（2026-11-27）**: 5 本とも違反 0 件（記事 78 ファイル）。対象ごとの試行回数の宣言は、TypeScript FP に 200 が加わった以外は変わらない。照合に使う行の種類は 20,706 から 15,323 に減った（主に、雛形の追加で混ざった `node_modules` の `package.json` を除外したため）
-- [-] **1-1.10 devShell と CI を追加する**
+- [x] **1-1.10 devShell と CI を追加する**
   - **★停止: CI と実行環境の追加は、リリース計画の「必ず停止する操作」です。** `shell.nix`・`flake.nix`・ワークフローの内容を示し、人の承認を得てから追加します（計画の 3 ゲートには数えません）
   - `shell.nix` を追加して `flake.nix` に登録し、Docker 上の Nix で `npm run check` を確かめる
   - CI は `npm ci` と `npm run check` を実行する。記事のジョブは他の対象と同じ構成にする
@@ -271,7 +271,8 @@ step の配置はゲート ② で決まるため、`apps/` の下は用途で�
     - 1 回目は、**Node が 22.21.1 のままだった。** `buildInputs` の要素は `dev` 出力になるため、`packages.nodejs_22` との比較が一致しなかった。パッケージ名で外すように直した
     - 1 回目は、**lint が `node_modules` まで検査して失敗した。** コピー先に `.gitignore` が無く、手元の除外は `.gitignore` に頼っていた。`.oxlintrc.json` に `node_modules` の除外を足した
     - 2 回目は、Node 24.12.0・npm 11.6.2 で、型検査・lint・format・smoke と、テスト 8 件が通った。**PostgreSQL のテスト 1 件は除いた。** コンテナにホストの Docker のソケットを渡さなかったためである
-    - **残り: CI の成功（PostgreSQL のテストを含む）は、まだ確かめていない**
+    - **CI（2026-11-27、コミット `8cf2565`）**: [TypeScript FP Zettai の実行](https://github.com/k2works/from-objects-to-functions-excersice/actions/runs/45976313499)で、`check` と `article` が成功した。Node 24.22.3 で、PostgreSQL のテストを含む 9 件が通った。同じ push で起動したほかの 6 本のワークフローも成功した
+    - 改行の不具合も見つけた。`core.autocrlf=true` の Windows でファイルを取り出し直すと CRLF になり、`format:check` が失敗する。`.gitattributes` で `apps/typescript-fp/` を `eol=lf` にした
 - [x] **1-1.11 記録を仕上げる**
   - ADR の索引を更新し、試していない道具は「試していない」と書く（持ち込み 9）
   - fp-ts の合流の記述を、S2 の結果に合わせて執筆計画で直す
@@ -423,21 +424,26 @@ Oxlint は 3 案とも成功しました。`it.effect` が用意する `TestCloc
 
 ### ステップ計画
 
-- [ ] **1-2.1 参照の読み込みと骨子**
+- [x] **1-2.1 参照の読み込みと骨子**
   - Kotlin 版・Scala 版の第 1 章と、参考の記事の part-1 を読む。文章とコードは転載しない
   - 本文を書く前に `typescript-fp/index.md` の器を作る（執筆計画の前提整備）
-- [ ] **1-2.2 第 1 章の実装（Red → Green → Refactor）**
+  - **実績（2026-11-27）**: 参考の記事はコミット `bb76cc1` を参照した（part-1 は冒頭の 200 行）。例は単語の得点にした
+- [x] **1-2.2 第 1 章の実装（Red → Green → Refactor）**
   - Promise と `Effect` で、同じ副作用の回数を数えるテストを書く
-- [ ] **1-2.3 第 1 章の執筆**
+  - **実績（2026-11-27）**: 単語の得点、空の名前の `Result`、`announceScore` を、誤った仮の実装で Red にしてから書いた。常に 0 を返す仮の実装では、性質 2 本が通った。記録を `Effect` の外で行う仮の実装は、型検査を通り、テストが止めた。型で拒否される例を固定する `type-guards.test.ts` を足した
+- [x] **1-2.3 第 1 章の執筆**
   - US-001 の受入条件を満たす。数値には数え方を添える
   - Effect の版を本文に明記し、unstable な API を使う場合は本文で示す
-- [ ] **1-2.4 索引とサイトの反映**
+  - **実績（2026-11-27）**: [第 1 章](../article/zettai/typescript-fp/chapter01.md) を書いた。使った Effect の API は stable なものだけである。2026-11-27 に人の承認を受けた
+- [x] **1-2.4 索引とサイトの反映**
   - `typescript-fp/index.md`、`zettai/index.md`、`docs/index.md`、`mkdocs.yml`、執筆計画の対象の状態
-- [ ] **1-2.5 品質ゲートの確認**
+- [x] **1-2.5 品質ゲートの確認**
   - `npm run check`、章の検査 5 本、`mkdocs build --strict`、OKF の検査。push の前にすべて実行する
-- [ ] **1-2.6 Bolt 終了報告とふりかえり**
+  - **実績（2026-11-27）**: すべて手元で実行した。結果は [Bolt 終了報告](bolt_report-typescript-fp-1.md) にある。第 1 章を含む CI は、push の後に確かめる
+- [x] **1-2.6 Bolt 終了報告とふりかえり**
   - 同期停止したゲート数、変更依頼数、人が修正を入れた箇所数、リードタイム、`check` の秒数を記録する
   - ゲート密度を見直すのは、開発戦略どおり Unit 2 の完了時です
+  - **実績（2026-11-27）**: [Bolt 終了報告](bolt_report-typescript-fp-1.md) と [ふりかえり](retrospective-typescript-fp-1.md) を書いた。リードタイムは、完了のコミットの後に確定する
 
 実装は `feat(typescript-fp):`、記事は `docs(typescript-fp):` でコミットし、混ぜません。コミットと push は、人の指示を受けてから行います。
 
@@ -539,7 +545,7 @@ flowchart LR
 - [ ] OKF の検査で、本 Unit の変更による ERROR が無い（着手前からある ERROR 1 件は対象外）
 - [ ] CI の `check` と `article` が成功した（push 後に確認）
 - [ ] `mkdocs.yml`、シリーズ索引、執筆計画、リリース計画の進捗が一致する
-- [ ] 第 1 章を人が全文確認した（ゲートには数えない）
+- [x] 第 1 章を人が全文確認した（ゲートには数えない）
 - [ ] Bolt 終了報告とふりかえりがある
 - [ ] 実装と記事を別のコミットにした
 

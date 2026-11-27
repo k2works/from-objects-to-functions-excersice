@@ -138,6 +138,7 @@ nav:
           - 「Kotlin FP」Unit 5 射影と永続化: development/bolt_report-kotlin-fp-5.md
           - 「Kotlin FP」Unit 6 transaction と検証: development/bolt_report-kotlin-fp-6.md
           - 「Kotlin FP」Unit 7 監視と総括: development/bolt_report-kotlin-fp-7.md
+          - 「TypeScript FP」Unit 1 土台と第 1 章: development/bolt_report-typescript-fp-1.md
           - Unit 1 実行環境と第 1 章: development/bolt_report-1.md
           - Unit 2 ウォーキングスケルトンとドメイン分離: development/bolt_report-2.md
           - Unit 3 関数型 DI とイベント: development/bolt_report-3.md
@@ -167,6 +168,7 @@ nav:
           - 「Kotlin FP」Unit 5 射影と永続化: development/retrospective-kotlin-fp-5.md
           - 「Kotlin FP」Unit 6 transaction と検証: development/retrospective-kotlin-fp-6.md
           - 「Kotlin FP」Unit 7 監視と総括: development/retrospective-kotlin-fp-7.md
+          - 「TypeScript FP」Unit 1 土台と第 1 章: development/retrospective-typescript-fp-1.md
           - Unit 7 監視とアーキテクチャ総括: development/retrospective-7.md
           - 「なでしこ3」Unit 1 実行環境・テスト基盤と第 1 章: development/retrospective-nadesiko-1.md
           - 「なでしこ3」Unit 2 ウォーキングスケルトンとドメイン分離: development/retrospective-nadesiko-2.md
@@ -323,6 +325,9 @@ nav:
               - 第 11 章 アプリカティブによるデータバリデーション: article/zettai/scala/chapter11.md
               - 第 12 章 監視と関数型 JSON: article/zettai/scala/chapter12.md
               - 第 13 章 関数型アーキテクチャの設計: article/zettai/scala/chapter13.md
+          - TypeScript FP 版:
+              - 概要: article/zettai/typescript-fp/index.md
+              - 第 1 章 新しいアプリケーションを準備する: article/zettai/typescript-fp/chapter01.md
           - 横断比較: article/zettai/comparison/index.md
   - リファレンス:
       - 概要: reference/index.md

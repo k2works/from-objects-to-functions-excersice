@@ -1,10 +1,10 @@
 ---
 type: Writing Plan
 title: "執筆計画：関数型プログラミングで作る変更を楽に安全にできるソフトウェア"
-description: "Uberto Barbini 著『From Objects to Functions』を下敷きにした Zettai 連載の執筆計画。既存 3 言語版に加え、Grokking Functional Programming の Kotlin + Arrow 解説を基礎にした Kotlin FP 版、効果システムを持つ Flix 版、Cats Effect を使う Scala 版、Effect を使う TypeScript FP 版（計画中）について、全 13 章の移植方針、記事と実装の同期、前提整備、品質ゲートを定義する。"
+description: "Uberto Barbini 著『From Objects to Functions』を下敷きにした Zettai 連載の執筆計画。既存 3 言語版に加え、Grokking Functional Programming の Kotlin + Arrow 解説を基礎にした Kotlin FP 版、効果システムを持つ Flix 版、Cats Effect を使う Scala 版、Effect を使う TypeScript FP 版（執筆中）について、全 13 章の移植方針、記事と実装の同期、前提整備、品質ゲートを定義する。"
 tags: [article, plan, zettai]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T09:25:01Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T10:05:45Z }
 ---
 
 # 執筆計画：関数型プログラミングで作る変更を楽に安全にできるソフトウェア
@@ -19,7 +19,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T09:25:01Z }
 
 ## 対象一覧
 
-本シリーズは同じ 13 章構成を対象ごとに書き起こす比較シリーズです。現在の対象は **5 言語・6 実装方針** です（Flix 版、Scala 版も全 13 章を公開しました）。**Scala（Cats Effect）版も全 13 章を公開し、5 言語・6 実装方針になりました。**次の対象として TypeScript FP（Effect）版を計画しています（追加すると 6 言語・7 実装方針になります）。章の番号・タイトル・焦点は対象をまたいで共通とし、対象ごとに変えるのは実現手段だけです。Kotlin FP 版は言語を増やすのではなく、同じ Kotlin で「自前の関数型抽象」と「Arrow / coroutine を使う実装」を比較する対象です。
+本シリーズは同じ 13 章構成を対象ごとに書き起こす比較シリーズです。現在の対象は **5 言語・6 実装方針** です（Flix 版、Scala 版も全 13 章を公開しました）。**Scala（Cats Effect）版も全 13 章を公開し、5 言語・6 実装方針になりました。**次の対象の TypeScript FP（Effect）版は執筆中で、第 1 章を公開しました（完結すると 6 言語・7 実装方針になります）。章の番号・タイトル・焦点は対象をまたいで共通とし、対象ごとに変えるのは実現手段だけです。Kotlin FP 版は言語を増やすのではなく、同じ Kotlin で「自前の関数型抽象」と「Arrow / coroutine を使う実装」を比較する対象です。
 
 | 対象 | 実行環境 | 章数 | 記事 | サンプル実装 | 状態 |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -29,7 +29,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T09:25:01Z }
 | Rust | Nix devShell `rust`（rustc 1.91.1 / cargo 1.91.0） | 13 | `docs/article/zettai/rust/` | `apps/rust/zettai/` | **完結**（13 / 13 章公開） |
 | Flix | Nix devShell `flix`（JDK 21 / Flix 0.79.0） | 13 | `docs/article/zettai/flix/` | `apps/flix/zettai/` | **完結**（13 / 13 章公開） |
 | Scala | Nix devShell `scala`（Scala 3 / sbt。JDK は Unit 1 で確認）＋ Cats Effect | 13 | `docs/article/zettai/scala/` | `apps/scala/zettai/` | **完結**（13 / 13 章公開） |
-| TypeScript FP | Nix devShell `typescript-fp`（Node の版は Unit 1 で確定）＋ Effect | 13 | `docs/article/zettai/typescript-fp/` | `apps/typescript-fp/zettai/` | **計画中** |
+| TypeScript FP | Nix devShell `typescript-fp`（Node 24）＋ Effect | 13 | `docs/article/zettai/typescript-fp/` | `apps/typescript-fp/zettai/` | **執筆中（1 / 13 章）** |
 
 横断比較コンテンツ [`docs/article/zettai/comparison/`](zettai/comparison/index.md) は、なでしこ3 版が Phase 1（第 3 章）を終えた 2026-09-28 に新設しました。当初の比較軸は「**型で保証する**（Kotlin）」と「**約束とテストで保証する**（なでしこ3）」の 2 点でした。
 
@@ -43,7 +43,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T09:25:01Z }
 | Rust | あり | あり | **`Result` が言語にある** | `enum` |
 | Flix | あり（効果も型に載る） | あり | **`Result` が標準にある。副作用は効果で表す** | `enum` |
 | Scala | あり（効果は `IO` の型で表す） | あり（Cats / Cats Effect を利用） | **`Either` / `Validated` を使う** | `enum`（Scala 3） |
-| TypeScript FP（計画中） | あり（実行時に消える。効果は `Effect` の型で表す） | あり（Effect を利用） | **`Result` と `Effect` の型付きエラーを使う（想定）** | 判別可能 union |
+| TypeScript FP（執筆中） | あり（実行時に消える。効果は `Effect` の型で表す） | あり（Effect を利用） | **`Result` と `Effect` の型付きエラーを使う** | 判別可能 union |
 
 既存 3 対象を並べると、**「言語が与えるほど、設計は楽になるのか」**という問いが立ちます。**答えは「楽にはならない。決めることが変わる」**でした（[第 13 章](zettai/rust/chapter13.md)・[横断比較](zettai/comparison/index.md)）。Kotlin FP 版では、ここへ **「ライブラリへ委ねるほど、設計の意図は明確になるのか」**という 4 点目の問いを加えます。
 
@@ -74,7 +74,7 @@ docs/article/
 │   ├── scala/
 │   │   ├── index.md      # Scala 版トップ
 │   │   └── chapter01.md … chapter13.md
-│   └── typescript-fp/    # 計画中（Unit 1 で作成）
+│   └── typescript-fp/    # 執筆中
 │       ├── index.md      # TypeScript FP 版トップ
 │       └── chapter01.md … chapter13.md
 
@@ -107,7 +107,7 @@ apps/
 │   └── zettai/           # Flix 版の自作実装
 ├── scala/
 │   └── zettai/           # Scala + Cats Effect 版の自作実装（sbt）
-└── typescript-fp/        # 計画中
+└── typescript-fp/        # 執筆中
     └── zettai/           # TypeScript + Effect 版の自作実装（npm。構成は Unit 1 で決める）
 ```
 
@@ -788,7 +788,7 @@ Unit・Bolt の割り当ては既存対象と同一（1 Unit = 2 章、Unit 1 �
 
 ## TypeScript FP 追加執筆計画
 
-6 言語目として **TypeScript と Effect** で同じ 13 章を書き起こします。**状態は計画中で、記事・実装・実行環境はまだありません。** 非 FP の TypeScript 版は無いため、対象名の「FP」は Effect を使う版という意味です。
+6 言語目として **TypeScript と Effect** で同じ 13 章を書き起こします。**状態は執筆中で、Unit 1（前提整備と第 1 章）を進めています。** 非 FP の TypeScript 版は無いため、対象名の「FP」は Effect を使う版という意味です。
 
 ### Intent と成功条件
 
@@ -883,12 +883,12 @@ v3 を前提にした記事やコード例は、そのままでは使えませ�
 - [x] ビルドした出力を Node で実行する smoke を通す
 - [x] わざと壊して確認する（テストの型エラー、要求 `R` の解決漏れ、実行していない `Effect` を lint が捕まえるか）
 - [x] 受け入れテストの domain / HTTP の 2 経路と、Testcontainers の smoke を通す
-- [ ] `npm run check` を単一の品質ゲートにし、`.github/workflows/typescript-fp-zettai.yml` を追加する
+- [x] `npm run check` を単一の品質ゲートにし、`.github/workflows/typescript-fp-zettai.yml` を追加する
 - [x] `ops/scripts/article/check_article_code.py` に `.ts`・`tsconfig*.json` の探索と言語タグ `typescript`・`ts` を追加し、`node_modules`・`dist`・`coverage` を除外する（除外しないと依存の中の行に一致して検査が素通りする）
 - [x] `ops/scripts/article/check_numbers.py` に `.ts` と `TRIALS` の形式を追加して生成物を除外し、TypeScript FP の記事が試行回数を書いているのに宣言が 0 件なら違反にする（性質テストの無い章では違反にしない）
 - [x] `ops/scripts/article/check_sections.py` の対象名に `"typescript-fp": "TypeScript FP"` を登録する
-- [ ] `docs/article/draft.md` に節名の読み替えを登録する
-- [ ] `docs/article/zettai/typescript-fp/index.md` を作り、`zettai/index.md`・`docs/index.md`・`mkdocs.yml` に反映する
+- [x] `docs/article/draft.md` に節名の読み替えを登録する
+- [x] `docs/article/zettai/typescript-fp/index.md` を作り、`zettai/index.md`・`docs/index.md`・`mkdocs.yml` に反映する
 - [x] `planning-releases` で [TypeScript FP 版のリリース計画](../development/release_plan-typescript-fp.md) を作る（承認済み）
 
 節名の読み替えは次のとおりです。**未定の行は [draft.md](draft.md) の表に登録しません**（検査が期待値として読むためです）。
@@ -1031,6 +1031,6 @@ Scala 版（Cats Effect の `IO`）と Kotlin FP 版（Arrow）との対比を�
 | Rust | 言語タグは `rust`。**所有権で書き直した箇所は、書き直す前のコードも載せる**（`<!-- code-check: ignore わざと壊したコード -->` を付ける）。`cargo` の出力は `bash` ブロックで貼る |
 | Flix | 言語タグは Unit 1 で確定（仮に `flix`）。Java 相互運用の呼び出しは、効果の保証が切れる境界であることを本文で明記する。Flix の実行出力は `bash` ブロックで貼る |
 | Scala | 言語タグは `scala`（Unit 1 で検査スクリプトへの登録を確認）。Scala 3 の記法で統一し、ライブラリ（Cats Effect・http4s・doobie 等）は版を固定して記事に明記する。`IO` を実行する境界（`IOApp`・テストの `unsafeRunSync` 相当）を本文で明示する。sbt の出力は `bash` ブロックで貼る |
-| TypeScript FP | 言語タグは `typescript`。Effect は版を固定して記事に明記し、unstable な API を使う箇所は本文で示す。v3 の API は書かない。`any`・`as`・`!` を使う場合は理由を書く。`Effect` を実行する境界を明示する。型で拒否される例は `@ts-expect-error` のテストから転記する。npm と tsc の出力は `bash` ブロックで貼る |
+| TypeScript FP | 言語タグは `typescript`。Effect は版を固定して記事に明記し、unstable な API を使う箇所は本文で示す。v3 の API は書かない。`any`・`as`・`!` を使う場合は理由を書く。`Effect` を実行する境界を明示する。型で拒否される例は `@ts-expect-error` のテストから転記する。Effect の診断で拒否される例は、`@effect-diagnostics-next-line` を付けたテストから転記する（`@ts-expect-error` は Effect の診断を抑えない）。npm と tsc の出力は `bash` ブロックで貼る |
 
 **対象に固有の語（ライブラリ名・言語名・製品名）を含む節名は読み替える**という規則は 7 対象に共通です。読み替えた対応は [draft.md](draft.md) の表に登録します。**登録しないと `check_sections.py` が落ちます。**

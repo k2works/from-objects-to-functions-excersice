@@ -45,7 +45,7 @@
 
 | Unit | Bolt 計画 | ふりかえり | Bolt 終了報告 | 状態 |
 | :--- | :--- | :--- | :--- | :--- |
-| Unit 1 土台と第 1 章 | [Unit 1 の Bolt 計画](iteration_plan-typescript-fp-1.md) | - | - | 進行中（計画承認済み） |
+| Unit 1 土台と第 1 章 | [Unit 1 の Bolt 計画](iteration_plan-typescript-fp-1.md) | [ふりかえり](retrospective-typescript-fp-1.md) | [Bolt 終了報告](bolt_report-typescript-fp-1.md) | 進行中（第 1 章は承認済み。CI の待ち） |
 
 ### Bolt 計画（なでしこ3 版）
 

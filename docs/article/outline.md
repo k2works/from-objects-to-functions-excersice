@@ -4,7 +4,7 @@ title: "執筆計画：関数型プログラミングで作る変更を楽に安
 description: "Uberto Barbini 著『From Objects to Functions』を下敷きにした Zettai 連載の執筆計画。既存 3 言語版に加え、Grokking Functional Programming の Kotlin + Arrow 解説を基礎にした Kotlin FP 版、効果システムを持つ Flix 版、Cats Effect を使う Scala 版、Effect を使う TypeScript FP 版（計画中）について、全 13 章の移植方針、記事と実装の同期、前提整備、品質ゲートを定義する。"
 tags: [article, plan, zettai]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T06:47:02Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T09:25:01Z }
 ---
 
 # 執筆計画：関数型プログラミングで作る変更を楽に安全にできるソフトウェア
@@ -804,7 +804,7 @@ Unit・Bolt の割り当ては既存対象と同一（1 Unit = 2 章、Unit 1 �
 
 ### ライブラリの決定と確認した事実
 
-中心のライブラリは **Effect** です（利用者の決定）。参考実装が使う fp-ts は、Effect-TS エコシステムに合流しつつあるとされます（出典は利用者が提示した検索結果の要約で、二次情報です。Unit 1 で公式情報を確認します）。**参考実装は fp-ts 2.16 で書かれているため、コードは流用できません。**
+中心のライブラリは **Effect** です（利用者の決定）。参考実装が使う fp-ts は、Effect-TS エコシステムへの合流を [公式 README](https://github.com/gcanti/fp-ts/blob/master/README.md) で告知しています。版と安定性の扱いは [ADR-053](../adr/ADR-053-typescript-effect-version-and-stability.md) で決めました。**参考実装は fp-ts 2.16 で書かれているため、コードは流用できません。**
 
 次は 2026-11-27 に npm レジストリと公式の移行ガイドで確認した内容です。移行ガイドは一部のページだけを読みました。
 
@@ -813,8 +813,8 @@ Unit・Bolt の割り当ては既存対象と同一（1 Unit = 2 章、Unit 1 �
 | 版 | `effect` の latest は **4.1.6**。4.0.0 の公開は 2026-10-01。v3 系は dist-tag `prev` で 3.22.5 |
 | 周辺 | `@effect/platform-node`・`@effect/sql-pg`・`@effect/vitest` も 4.1.6。`@effect/vitest` は vitest 5 系を要求する |
 | 統合 | HTTP・SQL などの多くは `effect` 本体に統合された。driver などは別 package のまま |
-| 安定性 | `http`・`sql`・`schema`・`observability` などは unstable に分類され、**minor リリースで壊れる変更**が入りうる。該当する import path は Unit 1 で確認する |
-| API の変更 | `Context.Tag`・`Effect.Service` は `Context.Service` に、`Effect.catchAll` は `Effect.catch` に変わった。移行例は `Result` を使う（`Either` からの改名の全体は未確認） |
+| 安定性 | `@stability unstable` の API は **minor リリースで壊れる変更**が入りうる。`effect/http`・`effect/sql`・`effect/schema`・`effect/observability` や `Arbitrary`、`effect` 以外の package が該当する。本体の `effect/Schema` は stable |
+| API の変更 | `Context.Tag`・`Effect.Service` は `Context.Service` に、`Effect.catchAll` は `Effect.catch` に変わった。`effect/Either` は `effect/Result` になった |
 | 性質テスト | `Arbitrary` は fast-check に依存しない独自実装になり、`effect/testing/FastCheck` は削除された |
 
 v3 を前提にした記事やコード例は、そのままでは使えません。出典は [Effect 4.0 のリリースノート](https://github.com/Effect-TS/effect/releases/tag/%40effect/platform-node%404.0.0)、[MIGRATION.md](https://github.com/Effect-TS/effect/blob/main/MIGRATION.md)、[npm の effect](https://www.npmjs.com/package/effect) です。
@@ -854,15 +854,15 @@ v3 を前提にした記事やコード例は、そのままでは使えませ�
 
 | 項目 | 候補 | 決定のタイミング |
 | :--- | :--- | :--- |
-| Node / devShell | 専用の `typescript-fp` shell。第一候補は Node 24。`nodePackages.*` に依存しない。開発機の Node 22 との差の扱いも決める | Unit 1 |
-| module と実行方法 | ESM + NodeNext。`tsc` の出力、`tsx`、Node の型除去を比べる | Unit 1 |
-| TypeScript の版と追加の tsconfig | 現行の安定版と Effect の要件を確認する。`exactOptionalPropertyTypes`・`noUncheckedIndexedAccess` など | Unit 1 |
-| テスト | vitest 5 + `@effect/vitest` | Unit 1 |
-| 性質テストの道具 | Effect の `Arbitrary` と fast-check の直接利用を比べる | Unit 1 |
-| lint / format | typescript-eslint（型情報つき）+ Prettier、Biome、Effect language service。ADR-004 と違う判断なら記録する | Unit 1 |
-| step の配置 | 累積の `zettai-step1-foundation`〜`zettai-step7-observability` を npm workspaces で管理する。代替は単一 package | Unit 1 |
-| 受け入れテスト | `@cucumber/cucumber`。代替は service を差し替える自作 DDT | Unit 1 |
-| unstable モジュールの扱い | `http`・`sql` を使うか、安定した層（`node:http`・`pg`）を薄く包むか | Unit 1 で方針、第 2・9 章で確定 |
+| Node / devShell | **決定**（ADR-054）。devShell と CI は Node 24、`engines` は `>=22.19.0` | Unit 1 |
+| module と実行方法 | **決定**（ADR-054）。ESM + NodeNext。`tsc` でビルドして `node` で実行する | Unit 1 |
+| TypeScript の版と追加の tsconfig | TypeScript 7.0.2 は**決定**（ADR-054）。追加の tsconfig の項目は雛形で決める | Unit 1 |
+| テスト | **決定**（ADR-055）。vitest 5。`@effect/vitest` は使わない | Unit 1 |
+| 性質テストの道具 | **決定**（ADR-055）。`fast-check` を直接使う | Unit 1 |
+| lint / format | **決定**（ADR-054）。`@effect/tsgo` の診断、Oxlint、Prettier | Unit 1 |
+| step の配置 | **決定**（ADR-054）。累積の `zettai-stepN-*` を npm workspaces で管理する | Unit 1 |
+| 受け入れテスト | **決定**（ADR-055）。vitest の `describe.each` で経路を差し替える自作 | Unit 1 |
+| unstable モジュールの扱い | **方針は決定**（ADR-053。stable を原則にし、unstable は承認したものだけを使う）。`http`・`sql` を使うかは各章で比べる | 第 2・9 章で確定 |
 | HTTP | `effect` の HTTP + `@effect/platform-node`、または薄い自作の層 | 第 2 章 |
 | codec と decode | Effect の Schema が第一候補。自作 `Converter` との対応を示す | 第 9 章の前（第 12 章で再評価） |
 | 永続化 | `@effect/sql-pg` か `pg`。SQL は直接書く。`@testcontainers/postgresql` を使い、Docker が無くても skip しない | 第 9 章 |
@@ -873,20 +873,20 @@ v3 を前提にした記事やコード例は、そのままでは使えませ�
 
 ### 前提整備
 
-最初の Bolt はウォーキングスケルトンです。執筆を始める前に、次を順に満たします。
+最初の Bolt はウォーキングスケルトンです。執筆を始める前に、次を順に満たします。手順の詳細は [Unit 1 の Bolt 計画](../development/iteration_plan-typescript-fp-1.md) にあります。
 
 - [ ] Effect v4 の `Result`・`Context.Service`・`Layer`・testing 系の API と unstable の範囲を、公式資料と最小テストで確かめる。移行ガイドの未読ページも読む
-- [ ] fp-ts の Effect への合流を公式情報で確認し、ライブラリの選定を ADR に残す
+- [x] fp-ts の Effect への合流を公式情報で確認し、ライブラリの選定を ADR に残す（ADR-053）
 - [ ] `apps/typescript-fp/zettai/` に雛形を作り、`.gitignore` に `dist/` と `coverage/` を追加する
-- [ ] `ops/nix/environments/typescript-fp/shell.nix` を追加して `flake.nix` に登録し、Docker 上の Nix で確認する
-- [ ] 純粋関数、`Result`、`Layer` を差し替える `Effect` の最小テストを 1 本ずつ Red → Green で通す
-- [ ] ビルドした出力を Node で実行する smoke を通す
-- [ ] わざと壊して確認する（テストの型エラー、要求 `R` の解決漏れ、実行していない `Effect` を lint が捕まえるか）
-- [ ] 受け入れテストの domain / HTTP の 2 経路と、Testcontainers の smoke を通す
+- [x] `ops/nix/environments/typescript-fp/shell.nix` を追加して `flake.nix` に登録し、Docker 上の Nix で確認する
+- [x] 純粋関数、`Result`、`Layer` を差し替える `Effect` の最小テストを 1 本ずつ Red → Green で通す
+- [x] ビルドした出力を Node で実行する smoke を通す
+- [x] わざと壊して確認する（テストの型エラー、要求 `R` の解決漏れ、実行していない `Effect` を lint が捕まえるか）
+- [x] 受け入れテストの domain / HTTP の 2 経路と、Testcontainers の smoke を通す
 - [ ] `npm run check` を単一の品質ゲートにし、`.github/workflows/typescript-fp-zettai.yml` を追加する
-- [ ] `ops/scripts/article/check_article_code.py` に `.ts`・`tsconfig*.json` の探索と言語タグ `typescript`・`ts` を追加し、`node_modules`・`dist`・`coverage` を除外する（除外しないと依存の中の行に一致して検査が素通りする）
-- [ ] `ops/scripts/article/check_numbers.py` に `.ts` と `TRIALS` の形式を追加して生成物を除外し、TypeScript FP で宣言が 0 件なら違反にする
-- [ ] `ops/scripts/article/check_sections.py` の対象名に `"typescript-fp": "TypeScript FP"` を登録する
+- [x] `ops/scripts/article/check_article_code.py` に `.ts`・`tsconfig*.json` の探索と言語タグ `typescript`・`ts` を追加し、`node_modules`・`dist`・`coverage` を除外する（除外しないと依存の中の行に一致して検査が素通りする）
+- [x] `ops/scripts/article/check_numbers.py` に `.ts` と `TRIALS` の形式を追加して生成物を除外し、TypeScript FP の記事が試行回数を書いているのに宣言が 0 件なら違反にする（性質テストの無い章では違反にしない）
+- [x] `ops/scripts/article/check_sections.py` の対象名に `"typescript-fp": "TypeScript FP"` を登録する
 - [ ] `docs/article/draft.md` に節名の読み替えを登録する
 - [ ] `docs/article/zettai/typescript-fp/index.md` を作り、`zettai/index.md`・`docs/index.md`・`mkdocs.yml` に反映する
 - [x] `planning-releases` で [TypeScript FP 版のリリース計画](../development/release_plan-typescript-fp.md) を作る（承認済み）
@@ -895,9 +895,9 @@ v3 を前提にした記事やコード例は、そのままでは使えませ�
 
 | 章・節 | 読み替え | 状態 |
 | :--- | :--- | :--- |
-| 第 9 章 第 3 節 | 「TypeScript でデータベースに接続する」にする | 確定 |
-| 第 3 章 第 5 節 | 受け入れテストの方式に合わせる | Unit 1 の後に登録 |
-| 第 7 章 第 4 節 | 型の名前に合わせる。候補は「`Result` と `Effect` の型付きエラーで実装する」 | Unit 1 の後に登録 |
+| 第 9 章 第 3 節 | 「TypeScript でデータベースに接続する」にする | 確定（登録済み） |
+| 第 3 章 第 5 節 | 「DDT を driver のインターフェースに変換する」にする | 確定（登録済み） |
+| 第 7 章 第 4 節 | 「`Result` と `Effect` の型付きエラーで実装する」にする | 確定（登録済み） |
 | 第 10 章 第 2 節 | 文脈を渡す方式に合わせる | 第 10 章のスパイク後に登録 |
 | 第 10 章 第 4 節 | 「設計を２回間違えた」が実装の事実と合うかを判断する | 第 10 章の実装後に判断 |
 

@@ -4,7 +4,7 @@ title: "章構成マインドマップ：関数型プログラミングで作る
 description: "Zettai 連載の全 13 章とその節構成を PlantUML マインドマップで示した一次情報。記事の節見出しはこのマインドマップに一致させる。"
 tags: [article, zettai]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-29T05:08:41Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T09:25:01Z }
 ---
 
 ```plantuml
@@ -127,6 +127,9 @@ generated: { by: claude-code/claude-opus-5, at: 2026-09-29T05:08:41Z }
 | 第 9 章 第 3 節 | Kotlinでデータベースに接続する | Scala | Scala でデータベースに接続する | 言語名がそのまま入っている |
 | 第 9 章 第 3 節 | Kotlinでデータベースに接続する | Rust | Rust でデータベースに接続する | 言語名がそのまま入っている |
 | 第 9 章 第 3 節 | Kotlinでデータベースに接続する | Flix | Flix でデータベースに接続する | 言語名がそのまま入っている |
+| 第 3 章 第 5 節 | DDTをPesticideに変換する | TypeScript FP | DDT を driver のインターフェースに変換する | Pesticide は Kotlin のライブラリで TypeScript には無い。経路の差し替えは同じ型の driver が担う（[ADR-055](../adr/ADR-055-typescript-testing-tools.md)） |
+| 第 7 章 第 4 節 | Outcomeを使って実装する | TypeScript FP | `Result` と `Effect` の型付きエラーで実装する | `Outcome` は Kotlin 版で自作した型の名前。Effect には `Result` と、`Effect` のエラーの型引数がある（[ADR-053](../adr/ADR-053-typescript-effect-version-and-stability.md)） |
+| 第 9 章 第 3 節 | Kotlinでデータベースに接続する | TypeScript FP | TypeScript でデータベースに接続する | 言語名がそのまま入っている |
 | 第 9 章 第 2 節 | PostgreSQLと結合テスト | なでしこ3 | ファイル永続化と結合テスト | PostgreSQL は製品名。なでしこ3 版は追記型イベントログのファイル保存（[ADR-019](../adr/ADR-019-file-event-log.md)） |
 | 第 9 章 第 3 節 | Kotlinでデータベースに接続する | なでしこ3 | なでしこ3 でファイルに書き出す | 言語名と製品名がそのまま入っている |
 | 第 9 章 第 4 節 | データベースを準備する | なでしこ3 | 保存先を準備する | データベースを使わない |

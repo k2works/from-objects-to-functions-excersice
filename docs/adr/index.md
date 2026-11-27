@@ -58,5 +58,8 @@
 | [ADR-047](ADR-047-flix-use-standard-result.md) | Flix 版は標準の Result を使い、Outcome を作らない | 承認 |
 | [ADR-048](ADR-048-flix-logger-effect-and-own-json.md) | Flix 版のログは標準の Logger 効果を借り、JSON は自作する | 承認 |
 | [ADR-049](ADR-049-scala-acceptance-by-case-class-of-functions.md) | Scala 版は受け入れテストの経路を関数値のケースクラスで差し替え、Cucumber を入れない | 承認 |
+| [ADR-053](ADR-053-typescript-effect-version-and-stability.md) | TypeScript FP 版は Effect 4.1.6 に版を固定し、stable を原則にする。unstable は承認したものだけを adapter に閉じ込める | 承認 |
+| [ADR-054](ADR-054-typescript-toolchain-and-check.md) | TypeScript FP 版は TypeScript 7 と `@effect/tsgo` を使い、`npm run check` を 5 段にする | 承認 |
+| [ADR-055](ADR-055-typescript-testing-tools.md) | TypeScript FP 版は vitest と fast-check でテストし、受け入れテストを自作する | 承認 |
 
 ADR の作成には `creating-adr` スキルを使用してください。

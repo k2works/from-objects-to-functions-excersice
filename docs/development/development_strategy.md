@@ -2,9 +2,9 @@
 type: Development Strategy
 title: "開発戦略 - Zettai 連載"
 description: "Zettai 連載の Kotlin、Kotlin FP、なでしこ3、Rust 各版に共通する局面別 TDD アプローチと、対象ごとの差分を定義する開発戦略。"
-tags: [development, strategy, zettai, kotlin, arrow, nadesiko, rust]
+tags: [development, strategy, zettai, kotlin, arrow, nadesiko, rust, typescript]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T12:20:46Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T09:25:01Z }
 ---
 
 # 開発戦略 - Zettai 連載
@@ -734,10 +734,24 @@ Unit 5 は [Bolt 計画](iteration_plan-kotlin-fp-5.md) に従い、射影と po
 
 Unit 6 は [Bolt 計画](iteration_plan-kotlin-fp-6.md) に従い、終盤のアウトサイドインで進めます。並行する command の競合や、複数の入力の誤りといった業務シナリオの失敗を、受け入れ側から再現してから内側を直します。データベースのスキーマ変更（版の確認）と画面の追加を含むため、ゲート密度は Unit 5 の密から中（停止 5 箇所）に下げるにとどめ、疎には戻しません。名前変更が集約の境界を越える発見が、第 10 章の transaction の必要を具体化します。
 
+## TypeScript FP 版の差分
+
+TypeScript と Effect で書く対象です（[リリース計画](release_plan-typescript-fp.md)）。7 Unit・13 章・局面の割り当てとアプローチは Kotlin 版と同じで、Unit 1〜2 はアウトサイドイン、Unit 3〜5 はインサイドアウト、Unit 6〜7 はアウトサイドインです。Unit 1 の Bolt 1-1 は判断と土台を作る段階なので、アプローチの対象外です。ここに書いていない事項は、Kotlin 版の記述を適用します。
+
+- **ゲートの書き方は Rust 版の規約を引き継ぎます。** 選択肢と数字を添えられないものはゲートにせず、完了条件のチェック項目にします。目標は、計画した箇所の 50% 以上で同期停止することです。Unit ごとの箇所はリリース計画にあります。記事の全文検証は、Rust 版と同じくゲートではなく完了条件のチェック項目にします
+- **CI と実行環境の追加、データベースのスキーマ変更、永続化の形式の変更は、ゲートの箇所数と別に必ず停止します**
+- **Unit 1 のゲート密度は密（3 箇所）です。** 参考実装のコードを流用できず、版と道具の組み合わせが後続の全 Unit を縛るためです。密度の見直しは Unit 2 の完了時に行います
+- **品質ゲートは `apps/typescript-fp/zettai/` の `npm run check` に一本化します。** 構成は Unit 1 で決めて ADR に残します
+- **型検査の緑を、そのまま信用しません。** 型は実行時に消えるため、境界の入力はテストで守ります。テストの型エラーや、実行していない `Effect` を検査が捕まえるかは、壊して確かめます
+- **新規ファイルと外部ライブラリは、Bolt 計画の一覧の承認をもって承認とします。** 一覧に無いものが必要になった場合は停止します
+
+[Unit 1 の Bolt 計画](iteration_plan-typescript-fp-1.md)は承認済みです。
+
 ## 更新履歴
 
 | 日付 | 更新内容 | 更新者 |
 |------|---------|--------|
+| 2026-11-27 | TypeScript FP 版の差分を追加。局面の割り当ては Kotlin 版と同じとし、Rust 版のゲート規約を引き継ぐ | anthropic/claude-sonnet-5-5 |
 | 2026-10-31 | Kotlin FP 版 Unit 6 の transaction、楽観ロック、蓄積する検証、ゲート密度を中とする方針を確定 | anthropic/claude-sonnet-5-5 |
 | 2026-10-31 | Kotlin FP 版 Unit 5 の射影、永続化、ゲート密度を密に戻す方針を確定 | anthropic/claude-sonnet-5-5 |
 | 2026-10-31 | Kotlin FP 版 Unit 4 の command、状態遷移、Arrow typed error、ゲート方針を確定 | openai-codex/gpt-5 |

@@ -2141,6 +2141,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#2026-11-27" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        経路の差し替え方の比較（2026-11-27）
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3145,6 +3156,41 @@
     
   
     「TypeScript FP」Unit 1 土台と第 1 章
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bolt_report-typescript-fp-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「TypeScript FP」Unit 2 ウォーキングスケルトンとドメイン分離
   
 
     
@@ -4223,6 +4269,41 @@
     
   
     「TypeScript FP」Unit 1 土台と第 1 章
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../retrospective-typescript-fp-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「TypeScript FP」Unit 2 ウォーキングスケルトンとドメイン分離
   
 
     
@@ -6462,6 +6543,41 @@
     
   
     ADR-056 TypeScript FP 版の HTTP の実装方式
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/ADR-057-typescript-acceptance-route-as-higher-order-function/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR-057 TypeScript FP 版の受け入れテストの経路
   
 
     
@@ -10127,6 +10243,41 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/typescript-fp/chapter03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 3 章 ドメインの定義とテスト
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -12727,6 +12878,7 @@
 </ul>
 </li>
 <li>第 2 章は、2026-11-27 に人の承認を受けた</li>
+<li><strong>CI（コミット <code>d870296</code>）</strong>: <a href="https://github.com/k2works/from-objects-to-functions-excersice/actions/runs/45983520473">TypeScript FP Zettai の実行</a>が成功した。Node 24.22.3 で 14 ファイル 52 件と smoke が通り、<code>check</code> は 17 秒（1 回）。同じ push で起動したほかの 3 本も成功した。<strong>Bolt 2-1 は完了</strong></li>
 </ul>
 <h2 id="bolt-2-2-3">Bolt 2-2: 第 3 章<a class="headerlink" href="#bolt-2-2-3" title="Permanent link">&para;</a></h2>
 <h3 id="bolt_1">Bolt ゴール<a class="headerlink" href="#bolt_1" title="Permanent link">&para;</a></h3>
@@ -12735,20 +12887,92 @@
 </blockquote>
 <h3 id="_11">ステップ計画<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
 <ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>2-2.1 ★ゲート ②: 経路の差し替え方</strong></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>2-2.1 ★ゲート ②: 経路の差し替え方</strong></li>
 <li>driver を置く層の候補をスクラッチで書き、行数と、HTTP の経路で確かめられる範囲を比べる</li>
 <li>完了判定: 人が選び、ADR-057 を書いた</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>2-2.2 シナリオを Red → Green で作る</strong></li>
+<li><strong>実績（2026-11-27。同期停止した）</strong>: 人が推奨の案 A（driver を渡す高階関数）を選んだ。変更依頼は 0 回（<a href="../../adr/ADR-057-typescript-acceptance-route-as-higher-order-function/">ADR-057</a>）。<strong>Unit 2 のゲート 2 箇所は、すべて同期停止した</strong></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>2-2.2 シナリオを Red → Green で作る</strong></li>
 <li>基盤確認用の 2 経路のテストは、前の step に残し、この step では業務シナリオを使う</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>2-2.3 domain とインフラストラクチャを分離する</strong></li>
+<li><strong>実績（2026-11-27）</strong>: 4 つのシナリオを、経路が無い状態で 8 件 Red にした。domain の経路で 4 件、HTTP の経路で残りを Green にした。HTML の読み戻しは、素朴な実装で 4 件を Red にしてから作った。読み戻しは見出しのリスト名も確かめる（別の画面が「空のリスト」として通るのを防ぐ）。<strong>業務の機能は足していない。</strong> <code>src/</code> は変えていない</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>2-2.3 domain とインフラストラクチャを分離する</strong></li>
 <li>依存の向きをテストで固定し、向きを壊すと失敗することを確かめる</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>2-2.4 第 3 章の執筆</strong></li>
+<li><strong>実績（2026-11-27）</strong>: domain の経路が web を読み込まないことのテストを足し、壊すと失敗することを確かめた。経路の後始末のテスト 2 件を足した</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>2-2.4 第 3 章の執筆</strong></li>
 <li>第 5 節は「DDT を driver のインターフェースに変換する」にする（登録済み）</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>2-2.5 <code>comparison/</code> と報告</strong></li>
+<li><strong>実績（2026-11-27）</strong>: <a href="../../article/zettai/typescript-fp/chapter03/">第 3 章</a> を書いた。壊して確かめた中で、<strong>利用者の操作の <code>await</code> を忘れると、vitest は <code>Tests  14 passed (14)</code> と表示した</strong>（終了コードは 1。lint が指摘し、型検査は通る）。<strong>人の全文確認は、まだ受けていない</strong></li>
+<li>[-] <strong>2-2.5 <code>comparison/</code> と報告</strong></li>
 <li><code>comparison/</code> に TypeScript FP 版の節を追加し、Release v0.1.0 の条件を確かめる</li>
 <li>Bolt 終了報告とふりかえりを書く。ゲートの密度を見直し、検証負荷と実績を突き合わせる（<a href="../development_strategy/">開発戦略</a>、<a href="../release_plan-typescript-fp/">リリース計画</a>）</li>
+<li><strong>実績（2026-11-27）</strong>: <code>comparison/</code> に第 1〜3 章の範囲の節を足し、<a href="../bolt_report-typescript-fp-2/">Bolt 終了報告</a> と <a href="../retrospective-typescript-fp-2/">ふりかえり</a> を書いた。ゲート密度は「変えない」と提案し、2026-11-28 に人がそのとおり決めた。検証負荷との突き合わせは、人の検証の時間を測っていないためできない。<code>check</code> は中央値 15.7 秒（上限 60 秒）。Linux（Nix のコンテナ）では、PostgreSQL のテストを除いて通った</li>
+<li>2026-11-28、第 3 章は人の全文確認を受けて承認された。<strong>残りは、第 3 章を含む CI の成功。</strong> Release v0.1.0 の条件は、これが済むまで満たさない</li>
 </ul>
 <p>実装は <code>feat(typescript-fp):</code>、記事は <code>docs(typescript-fp):</code> でコミットします。コミットと push は、人の指示を受けてから行います。</p>
+<h3 id="2026-11-27">経路の差し替え方の比較（2026-11-27）<a class="headerlink" href="#2026-11-27" title="Permanent link">&para;</a></h3>
+<p>同じ 2 つのシナリオ（自分のリストの項目が順に見える、他の利用者のリストは見えない）を、domain と HTTP の 2 経路で書きました。項目には <code>milk &amp; &lt;bread&gt;</code> を含めました。HTTP の経路は実サーバーを起動し、HTML から項目を読み戻します。<strong>読み戻しは、200 と 404 のほかの状態と、エスケープされていない値を失敗にします</strong>（3 案で共通）。スパイクのファイルは step 2 のテストに一時的に置き、実行後に削除しました。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">案</th>
+<th style="text-align: left;">形</th>
+<th style="text-align: left;">経路の定義</th>
+<th style="text-align: left;">シナリオ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">A</td>
+<td style="text-align: left;"><code>Promise</code> を返す driver を、高階関数 <code>(store, use) =&gt; Promise&lt;A&gt;</code> で渡す</td>
+<td style="text-align: left;">35 行</td>
+<td style="text-align: left;">29 行</td>
+</tr>
+<tr>
+<td style="text-align: left;">B</td>
+<td style="text-align: left;">driver を <code>Context.Service</code> にし、経路を <code>Layer</code> で差し替える</td>
+<td style="text-align: left;">35 行</td>
+<td style="text-align: left;">27 行</td>
+</tr>
+<tr>
+<td style="text-align: left;">C</td>
+<td style="text-align: left;"><code>Effect</code> を返す driver を、<code>Scope</code> を要求する <code>Effect</code> で作る</td>
+<td style="text-align: left;">31 行</td>
+<td style="text-align: left;">32 行</td>
+</tr>
+</tbody>
+</table>
+<p>行数は整形後の、空行とコメントを除いた数で、共通の読み戻し（<code>page.ts</code>・<code>http.ts</code>）を含みません。3 案とも型検査と lint が通り、正しい実装で 4 件が通りました。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">わざと壊した実装</th>
+<th style="text-align: left;">失敗した経路（3 案で同じ）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">HTML が最後の項目を落とす</td>
+<td style="text-align: left;">HTTP だけ</td>
+</tr>
+<tr>
+<td style="text-align: left;">HTML のエスケープを忘れる</td>
+<td style="text-align: left;">HTTP だけ</td>
+</tr>
+<tr>
+<td style="text-align: left;">利用者を見ずにリストを返す</td>
+<td style="text-align: left;">domain と HTTP</td>
+</tr>
+<tr>
+<td style="text-align: left;">無いリストで 500 を返す</td>
+<td style="text-align: left;">HTTP だけ</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>HTTP の経路の driver で操作名を書き間違えると、3 案とも型検査が失敗しました</li>
+<li><strong>検出できる範囲に、3 案の差はありませんでした。</strong> 差は書き方です</li>
+<li>A は、1 つのシナリオを 1 回の起動の中で <code>async</code>・<code>await</code> で書きます。サーバーの後始末は、経路の実装の中の <code>Effect.scoped</code> が担います（<strong>ゲートの説明の訂正（実装の後に確認）</strong>: <code>Effect.scoped</code> を忘れると型検査が失敗します。型で止まらないのは、閉じないスコープを渡した場合です）</li>
+<li>B と C のシナリオの補助は、操作ごとに <code>Effect</code> を実行するため、<strong>HTTP の経路は操作のたびにサーバーを起動します。</strong> 複数の操作を続けるシナリオは、全体を 1 つの <code>Effect</code> に書く必要があります</li>
+<li>確かめていないこと: 状態を変える操作を含むシナリオ（第 6 章以降）、失敗したシナリオでの後始末</li>
+</ul>
 <hr />
 <h2 id="_12">スケジュール<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
 <p>日付と理想時間は置きません。順序は次のとおりです。</p>
@@ -12870,11 +13094,11 @@
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>npm run check</code> が通る。追跡ファイルだけを取り出した場所でも通る</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <a href="../release_plan-typescript-fp/">リリース計画</a> の「全 Bolt 共通の完了条件」を満たす</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> ADR-056・057 がある</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 第 2〜3 章を人が全文確認した（ゲートには数えない）</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> 第 2〜3 章を人が全文確認した（ゲートには数えない）</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> CI の <code>check</code> と <code>article</code> が成功した（push 後に確認）</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>comparison/</code>、索引、<code>mkdocs.yml</code>、執筆計画、リリース計画が一致する</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Bolt 終了報告とふりかえりがある</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> ゲートの密度を見直した</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> ゲートの密度を見直した</li>
 </ul>
 <h3 id="_19">デモ項目<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h3>
 <table>
@@ -12964,6 +13188,11 @@
 <tr>
 <td style="text-align: left;">2026-11-27</td>
 <td style="text-align: left;">提案した内容で承認を得た。ゲート ① は案 A</td>
+<td style="text-align: left;">human:kakimomokuri</td>
+</tr>
+<tr>
+<td style="text-align: left;">2026-11-28</td>
+<td style="text-align: left;">第 3 章を承認した。ゲート密度は変えないと決めた</td>
 <td style="text-align: left;">human:kakimomokuri</td>
 </tr>
 </tbody>

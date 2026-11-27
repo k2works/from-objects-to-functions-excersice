@@ -13,7 +13,7 @@
       
       
       
-        <link rel="prev" href="../typescript-fp/chapter02/">
+        <link rel="prev" href="../typescript-fp/chapter03/">
       
       
         <link rel="next" href="../../../reference/">
@@ -2683,6 +2683,41 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../development/bolt_report-typescript-fp-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「TypeScript FP」Unit 2 ウォーキングスケルトンとドメイン分離
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../development/bolt_report-1/" class="md-nav__link">
         
   
@@ -3731,6 +3766,41 @@
     
   
     「TypeScript FP」Unit 1 土台と第 1 章
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/retrospective-typescript-fp-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「TypeScript FP」Unit 2 ウォーキングスケルトンとドメイン分離
   
 
     
@@ -5967,6 +6037,41 @@
     
   
     ADR-056 TypeScript FP 版の HTTP の実装方式
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../adr/ADR-057-typescript-acceptance-route-as-higher-order-function/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR-057 TypeScript FP 版の受け入れテストの経路
   
 
     
@@ -9642,6 +9747,41 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../typescript-fp/chapter03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 3 章 ドメインの定義とテスト
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -10237,6 +10377,45 @@
     <span class="md-ellipsis">
       
         6 本目の問い
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#typescript-fp-13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TypeScript FP 版を加えた比較（第 1〜3 章の範囲）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="TypeScript FP 版を加えた比較（第 1〜3 章の範囲）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#3_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 3 章までの選択
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#typescript-fp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        型検査があっても止まらないもの（TypeScript FP 版）
       
     </span>
   </a>
@@ -14217,6 +14396,84 @@
 <li>コンパイラは <code>enum</code> の <code>match</code> の漏れを止めたが、文字列で <code>match</code> する読み戻しは止めなかった。往復のテストが見つけた</li>
 </ul>
 <p>テストだけが見つけた欠陥が、2 つありました（読み戻しの文字列 <code>match</code>、コマンドの二重の読み出し）。<strong>1 つの題材、1 つの実装、Scala 3.3.9 と Cats Effect 3.7.1 での観察で、一般論の根拠はありません。</strong></p>
+<h2 id="typescript-fp-13">TypeScript FP 版を加えた比較（第 1〜3 章の範囲）<a class="headerlink" href="#typescript-fp-13" title="Permanent link">&para;</a></h2>
+<p>TypeScript FP 版は、TypeScript と Effect v4 で書いています。<strong>執筆中で、ここで比べるのは第 1〜3 章の範囲だけです。</strong> ほかの対象の記述は、各対象の記事と ADR に基づきます。そのコードを、この節のために読み直して確かめたものではありません。</p>
+<h3 id="3_5">第 3 章までの選択<a class="headerlink" href="#3_5" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">論点</th>
+<th style="text-align: left;">Kotlin FP 版</th>
+<th style="text-align: left;">Scala 版</th>
+<th style="text-align: left;">TypeScript FP 版</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">HTTP</td>
+<td style="text-align: left;">http4k の <code>HttpHandler</code>（<a href="../kotlin-fp/chapter02/">第 2 章</a>）</td>
+<td style="text-align: left;">http4s の <code>HttpRoutes[IO]</code> と Ember（<a href="../scala/chapter02/">第 2 章</a>）</td>
+<td style="text-align: left;"><code>Request</code> から <code>Effect&lt;Response&gt;</code> の関数。<code>node:http</code> への接続は自作（<a href="../../../adr/ADR-056-typescript-http-with-stable-parts/">ADR-056</a>）</td>
+</tr>
+<tr>
+<td style="text-align: left;">受け入れテスト</td>
+<td style="text-align: left;">Gherkin と Cucumber</td>
+<td style="text-align: left;">経路を関数値のケースクラスで差し替える（<a href="../../../adr/ADR-049-scala-acceptance-by-case-class-of-functions/">ADR-049</a>）</td>
+<td style="text-align: left;">driver を渡す高階関数で差し替える（<a href="../../../adr/ADR-057-typescript-acceptance-route-as-higher-order-function/">ADR-057</a>）</td>
+</tr>
+</tbody>
+</table>
+<p>TypeScript FP 版が HTTP のライブラリを使わないのは、Effect の HTTP の機能が unstable で、版の更新で壊れる可能性があるためです（<a href="../../../adr/ADR-053-typescript-effect-version-and-stability/">ADR-053</a>）。自作の接続は、本番で使えるものではありません。</p>
+<h3 id="typescript-fp">型検査があっても止まらないもの（TypeScript FP 版）<a class="headerlink" href="#typescript-fp" title="Permanent link">&para;</a></h3>
+<p>第 1〜3 章で、コードを壊して確かめたものです。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">壊し方</th>
+<th style="text-align: left;">型検査</th>
+<th style="text-align: left;">止めたもの</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">同じ形の <code>User</code> と <code>ListName</code> を取り違える</td>
+<td style="text-align: left;">通る</td>
+<td style="text-align: left;">無し（型付けが構造的なため。第 4 章で扱う）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Map</code> のキーをオブジェクトにする</td>
+<td style="text-align: left;">通る</td>
+<td style="text-align: left;">テスト</td>
+</tr>
+<tr>
+<td style="text-align: left;">domain から web を読み込む</td>
+<td style="text-align: left;">通る</td>
+<td style="text-align: left;">読み込みを調べるテスト</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Effect</code> の外で副作用を実行する</td>
+<td style="text-align: left;">通る</td>
+<td style="text-align: left;">テスト</td>
+</tr>
+<tr>
+<td style="text-align: left;">純粋な関数に <code>console.log</code> を足す</td>
+<td style="text-align: left;">通る</td>
+<td style="text-align: left;">無し（lint とテストも通った）</td>
+</tr>
+<tr>
+<td style="text-align: left;">素朴な接続の実装（パス、<code>TRACE</code>、停止の漏れ）</td>
+<td style="text-align: left;">通る</td>
+<td style="text-align: left;">実サーバーに要求を送るテスト</td>
+</tr>
+<tr>
+<td style="text-align: left;">受け入れシナリオの <code>await</code> を忘れる</td>
+<td style="text-align: left;">通る</td>
+<td style="text-align: left;">lint。vitest は件数の上では全件成功と表示し、終了コードは失敗</td>
+</tr>
+</tbody>
+</table>
+<p>一方、<strong>実行していない <code>Effect</code></strong>、<strong>要求の型 <code>R</code> の解決漏れ</strong>、<strong>テストの型エラー</strong>は、型検査の段（<code>@effect/tsgo</code>）が止めました。素の <code>tsc</code> は、実行していない <code>Effect</code> を指摘せず、vitest はテストの型を検査しません。</p>
+<p><strong>この表は、1 つの題材、1 つの実装、TypeScript 7.0.2 と Effect 4.1.6 で、試した壊し方の結果です。</strong> ほかの対象で同じ壊し方を試してはいないので、対象の間の優劣は言いません。</p>
 
 
 

@@ -98,6 +98,7 @@ nav:
       - リリース計画（なでしこ3 版）: development/release_plan-nadesiko.md
       - リリース計画（Flix 版）: development/release_plan-flix.md
       - リリース計画（Scala 版）: development/release_plan-scala.md
+      - リリース計画（TypeScript FP 版）: development/release_plan-typescript-fp.md
       - 開発戦略: development/development_strategy.md
       - Bolt 計画:
           - Unit 1 実行環境と第 1 章: development/iteration_plan-1.md

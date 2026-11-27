@@ -1,6 +1,11 @@
 # Docs Update Log
 
 ## 2026-11-27
+* **Verification**: [release_plan-typescript-fp](/development/release_plan-typescript-fp.md) を human:kakimomokuri が検証
+* **Update**: [outline](/article/outline.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [release_plan-typescript-fp](/development/release_plan-typescript-fp.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [outline](/article/outline.md) を更新（anthropic/claude-sonnet-5-5）
+* **Creation**: [release_plan-typescript-fp](/development/release_plan-typescript-fp.md) を作成（anthropic/claude-sonnet-5-5）
 * **Update**: [outline](/article/outline.md) に TypeScript FP（Effect）追加執筆計画を追加（anthropic/claude-sonnet-5-5）
 
 ## 2026-10-31

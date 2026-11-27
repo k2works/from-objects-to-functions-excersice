@@ -36,6 +36,7 @@ TARGET_NAMES = {
     "rust": "Rust",
     "flix": "Flix",
     "scala": "Scala",
+    "typescript-fp": "TypeScript FP",
 }
 
 CHAPTER_LINE = re.compile(r"^\*\* 第([０-９0-9]+)章[　 ]*(.*)$")

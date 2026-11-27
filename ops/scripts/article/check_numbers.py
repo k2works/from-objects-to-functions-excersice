@@ -28,23 +28,31 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 ARTICLE_DIR = ROOT / "docs/article/zettai"
 CHAPTER_TOTAL = 13
+# 依存と生成物。試行回数の宣言を探すときは見ない。
+GENERATED_DIRS = {"node_modules", "dist", "coverage"}
+# 記事が試行回数を書くなら、実装の宣言が必ず要る対象。
+TRIALS_REQUIRED = {"typescript-fp"}
 
 ADR_COUNT = re.compile(r"ADR\s*([0-9０-９]+)\s*件")
 CHAPTER_COUNT = re.compile(r"全\s*([0-9０-９]+)\s*章")
 # 「2 回とも起きました」のような回数一般ではなく、性質テストの言い回しだけを対象にする。
 TRIAL_COUNT = re.compile(r"([0-9０-９]+)\s*回とも成り立つ|試行回数は\s*([0-9０-９]+)\s*回")
-# 実装が宣言する試行回数。言語ごとに書き方が違うので 2 通り見る。
-# なでしこ3: 試行回数=200 / Rust: const TRIALS: usize = 200;
-TRIAL_DECL = re.compile(r"試行回数\s*=\s*([0-9]+)|TRIALS:\s*usize\s*=\s*([0-9_]+)")
+# 実装が宣言する試行回数。言語ごとに書き方が違うので 3 通り見る。
+# なでしこ3: 試行回数=200 / Rust: const TRIALS: usize = 200; / TypeScript: const TRIALS = 200
+TRIAL_DECL = re.compile(
+    r"試行回数\s*=\s*([0-9]+)|TRIALS:\s*usize\s*=\s*([0-9_]+)|const TRIALS\s*=\s*([0-9_]+)"
+)
 
 
 def declared_trials(root: Path, target: str) -> set[int]:
     """その対象の実装が宣言している試行回数を集める。"""
     found: set[int] = set()
     for path in (root / "apps" / target).rglob("*"):
-        if path.is_file() and path.suffix in {".nako3", ".kt", ".kts", ".rs"}:
-            for a, b in TRIAL_DECL.findall(path.read_text(encoding="utf-8")):
-                found.add(int((a or b).replace("_", "")))
+        if GENERATED_DIRS.intersection(path.relative_to(root).parts):
+            continue
+        if path.is_file() and path.suffix in {".nako3", ".kt", ".kts", ".rs", ".ts"}:
+            for groups in TRIAL_DECL.findall(path.read_text(encoding="utf-8")):
+                found.add(int(next(g for g in groups if g).replace("_", "")))
     return found
 
 
@@ -71,7 +79,12 @@ def check(article: Path, adr_total: int, trials: set[int]) -> list[str]:
             )
     for match in TRIAL_COUNT.finditer(body):
         claimed = to_int(match.group(1) or match.group(2))
-        if trials and claimed not in trials:
+        if not trials and article.parent.name in TRIALS_REQUIRED:
+            violations.append(
+                f"{article.parent.name}/{article.name}: 「{claimed} 回」と書いてあるが"
+                "実装に試行回数の宣言（const TRIALS = N）が無い"
+            )
+        elif trials and claimed not in trials:
             violations.append(
                 f"{article.parent.name}/{article.name}: 「{claimed} 回」と書いてあるが"
                 f"実装が宣言する試行回数は {sorted(trials)}"

@@ -34,14 +34,19 @@ SOURCE_GLOBS = [
     "apps/**/justfile",
     "apps/**/Makefile",
     "apps/**/package.json",
+    "apps/**/*.ts",
+    "apps/**/tsconfig*.json",
     "ops/nix/environments/**/*.nix",
     ".github/workflows/*.yml",
     "docker-compose.yml",
     "ops/scripts/**/*.py",
 ]
 
+# 依存と生成物。含めると依存の中の行に一致して、検査が素通りする。
+GENERATED_DIRS = {"node_modules", "dist", "coverage"}
+
 # 検査対象の言語。出力例やシェルの実行例は対象外。
-CHECKED_LANGUAGES = {"kotlin", "nix", "toml", "yaml", "python", "nako3", "makefile", "json", "rust", "just", "flix", "scala"}
+CHECKED_LANGUAGES = {"kotlin", "nix", "toml", "yaml", "python", "nako3", "makefile", "json", "rust", "just", "flix", "scala", "typescript", "ts"}
 
 IGNORE_MARKER = re.compile(r"<!--\s*code-check:\s*ignore(.*?)-->", re.I)
 BLOCK = re.compile(r"^```(\w+)\n(.*?)^```", re.M | re.S)
@@ -51,6 +56,8 @@ def source_lines(root: Path) -> set[str]:
     lines: set[str] = set()
     for pattern in SOURCE_GLOBS:
         for path in glob.glob(str(root / pattern), recursive=True):
+            if GENERATED_DIRS.intersection(Path(path).relative_to(root).parts):
+                continue
             for line in Path(path).read_text(encoding="utf-8").splitlines():
                 lines.add(line.strip())
     return lines

@@ -1783,6 +1783,41 @@
   
   
     <li class="md-nav__item">
+      <a href="../../development/iteration_plan-typescript-fp-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「TypeScript FP」Unit 1 土台と第 1 章
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../development/iteration_plan-nadesiko-1/" class="md-nav__link">
         
   
@@ -5687,6 +5722,111 @@
     
   
     ADR-012 自前の JSON Converter
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/ADR-053-typescript-effect-version-and-stability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR-053 TypeScript FP 版の Effect の版と安定性
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/ADR-054-typescript-toolchain-and-check/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR-054 TypeScript FP 版の道具と品質ゲート
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/ADR-055-typescript-testing-tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR-055 TypeScript FP 版のテストの道具
   
 
     
@@ -11584,6 +11724,27 @@
 <td style="text-align: left;">Kotlinでデータベースに接続する</td>
 <td style="text-align: left;">Flix</td>
 <td style="text-align: left;">Flix でデータベースに接続する</td>
+<td style="text-align: left;">言語名がそのまま入っている</td>
+</tr>
+<tr>
+<td style="text-align: left;">第 3 章 第 5 節</td>
+<td style="text-align: left;">DDTをPesticideに変換する</td>
+<td style="text-align: left;">TypeScript FP</td>
+<td style="text-align: left;">DDT を driver のインターフェースに変換する</td>
+<td style="text-align: left;">Pesticide は Kotlin のライブラリで TypeScript には無い。経路の差し替えは同じ型の driver が担う（<a href="../../adr/ADR-055-typescript-testing-tools/">ADR-055</a>）</td>
+</tr>
+<tr>
+<td style="text-align: left;">第 7 章 第 4 節</td>
+<td style="text-align: left;">Outcomeを使って実装する</td>
+<td style="text-align: left;">TypeScript FP</td>
+<td style="text-align: left;"><code>Result</code> と <code>Effect</code> の型付きエラーで実装する</td>
+<td style="text-align: left;"><code>Outcome</code> は Kotlin 版で自作した型の名前。Effect には <code>Result</code> と、<code>Effect</code> のエラーの型引数がある（<a href="../../adr/ADR-053-typescript-effect-version-and-stability/">ADR-053</a>）</td>
+</tr>
+<tr>
+<td style="text-align: left;">第 9 章 第 3 節</td>
+<td style="text-align: left;">Kotlinでデータベースに接続する</td>
+<td style="text-align: left;">TypeScript FP</td>
+<td style="text-align: left;">TypeScript でデータベースに接続する</td>
 <td style="text-align: left;">言語名がそのまま入っている</td>
 </tr>
 <tr>

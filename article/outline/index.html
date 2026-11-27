@@ -1783,6 +1783,41 @@
   
   
     <li class="md-nav__item">
+      <a href="../../development/iteration_plan-typescript-fp-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「TypeScript FP」Unit 1 土台と第 1 章
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../development/iteration_plan-nadesiko-1/" class="md-nav__link">
         
   
@@ -5687,6 +5722,111 @@
     
   
     ADR-012 自前の JSON Converter
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/ADR-053-typescript-effect-version-and-stability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR-053 TypeScript FP 版の Effect の版と安定性
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/ADR-054-typescript-toolchain-and-check/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR-054 TypeScript FP 版の道具と品質ゲート
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/ADR-055-typescript-testing-tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR-055 TypeScript FP 版のテストの道具
   
 
     
@@ -14874,7 +15014,7 @@ apps/
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> シリーズ索引、章構成マインドマップの読み替え、サイトナビゲーション、横断比較が同期している</li>
 </ul>
 <h3 id="_36">ライブラリの決定と確認した事実<a class="headerlink" href="#_36" title="Permanent link">&para;</a></h3>
-<p>中心のライブラリは <strong>Effect</strong> です（利用者の決定）。参考実装が使う fp-ts は、Effect-TS エコシステムに合流しつつあるとされます（出典は利用者が提示した検索結果の要約で、二次情報です。Unit 1 で公式情報を確認します）。<strong>参考実装は fp-ts 2.16 で書かれているため、コードは流用できません。</strong></p>
+<p>中心のライブラリは <strong>Effect</strong> です（利用者の決定）。参考実装が使う fp-ts は、Effect-TS エコシステムへの合流を <a href="https://github.com/gcanti/fp-ts/blob/master/README.md">公式 README</a> で告知しています。版と安定性の扱いは <a href="../../adr/ADR-053-typescript-effect-version-and-stability/">ADR-053</a> で決めました。<strong>参考実装は fp-ts 2.16 で書かれているため、コードは流用できません。</strong></p>
 <p>次は 2026-11-27 に npm レジストリと公式の移行ガイドで確認した内容です。移行ガイドは一部のページだけを読みました。</p>
 <table>
 <thead>
@@ -14898,11 +15038,11 @@ apps/
 </tr>
 <tr>
 <td style="text-align: left;">安定性</td>
-<td style="text-align: left;"><code>http</code>・<code>sql</code>・<code>schema</code>・<code>observability</code> などは unstable に分類され、<strong>minor リリースで壊れる変更</strong>が入りうる。該当する import path は Unit 1 で確認する</td>
+<td style="text-align: left;"><code>@stability unstable</code> の API は <strong>minor リリースで壊れる変更</strong>が入りうる。<code>effect/http</code>・<code>effect/sql</code>・<code>effect/schema</code>・<code>effect/observability</code> や <code>Arbitrary</code>、<code>effect</code> 以外の package が該当する。本体の <code>effect/Schema</code> は stable</td>
 </tr>
 <tr>
 <td style="text-align: left;">API の変更</td>
-<td style="text-align: left;"><code>Context.Tag</code>・<code>Effect.Service</code> は <code>Context.Service</code> に、<code>Effect.catchAll</code> は <code>Effect.catch</code> に変わった。移行例は <code>Result</code> を使う（<code>Either</code> からの改名の全体は未確認）</td>
+<td style="text-align: left;"><code>Context.Tag</code>・<code>Effect.Service</code> は <code>Context.Service</code> に、<code>Effect.catchAll</code> は <code>Effect.catch</code> に変わった。<code>effect/Either</code> は <code>effect/Result</code> になった</td>
 </tr>
 <tr>
 <td style="text-align: left;">性質テスト</td>
@@ -15017,48 +15157,48 @@ apps/
 <tbody>
 <tr>
 <td style="text-align: left;">Node / devShell</td>
-<td style="text-align: left;">専用の <code>typescript-fp</code> shell。第一候補は Node 24。<code>nodePackages.*</code> に依存しない。開発機の Node 22 との差の扱いも決める</td>
+<td style="text-align: left;"><strong>決定</strong>（ADR-054）。devShell と CI は Node 24、<code>engines</code> は <code>&gt;=22.19.0</code></td>
 <td style="text-align: left;">Unit 1</td>
 </tr>
 <tr>
 <td style="text-align: left;">module と実行方法</td>
-<td style="text-align: left;">ESM + NodeNext。<code>tsc</code> の出力、<code>tsx</code>、Node の型除去を比べる</td>
+<td style="text-align: left;"><strong>決定</strong>（ADR-054）。ESM + NodeNext。<code>tsc</code> でビルドして <code>node</code> で実行する</td>
 <td style="text-align: left;">Unit 1</td>
 </tr>
 <tr>
 <td style="text-align: left;">TypeScript の版と追加の tsconfig</td>
-<td style="text-align: left;">現行の安定版と Effect の要件を確認する。<code>exactOptionalPropertyTypes</code>・<code>noUncheckedIndexedAccess</code> など</td>
+<td style="text-align: left;">TypeScript 7.0.2 は<strong>決定</strong>（ADR-054）。追加の tsconfig の項目は雛形で決める</td>
 <td style="text-align: left;">Unit 1</td>
 </tr>
 <tr>
 <td style="text-align: left;">テスト</td>
-<td style="text-align: left;">vitest 5 + <code>@effect/vitest</code></td>
+<td style="text-align: left;"><strong>決定</strong>（ADR-055）。vitest 5。<code>@effect/vitest</code> は使わない</td>
 <td style="text-align: left;">Unit 1</td>
 </tr>
 <tr>
 <td style="text-align: left;">性質テストの道具</td>
-<td style="text-align: left;">Effect の <code>Arbitrary</code> と fast-check の直接利用を比べる</td>
+<td style="text-align: left;"><strong>決定</strong>（ADR-055）。<code>fast-check</code> を直接使う</td>
 <td style="text-align: left;">Unit 1</td>
 </tr>
 <tr>
 <td style="text-align: left;">lint / format</td>
-<td style="text-align: left;">typescript-eslint（型情報つき）+ Prettier、Biome、Effect language service。ADR-004 と違う判断なら記録する</td>
+<td style="text-align: left;"><strong>決定</strong>（ADR-054）。<code>@effect/tsgo</code> の診断、Oxlint、Prettier</td>
 <td style="text-align: left;">Unit 1</td>
 </tr>
 <tr>
 <td style="text-align: left;">step の配置</td>
-<td style="text-align: left;">累積の <code>zettai-step1-foundation</code>〜<code>zettai-step7-observability</code> を npm workspaces で管理する。代替は単一 package</td>
+<td style="text-align: left;"><strong>決定</strong>（ADR-054）。累積の <code>zettai-stepN-*</code> を npm workspaces で管理する</td>
 <td style="text-align: left;">Unit 1</td>
 </tr>
 <tr>
 <td style="text-align: left;">受け入れテスト</td>
-<td style="text-align: left;"><code>@cucumber/cucumber</code>。代替は service を差し替える自作 DDT</td>
+<td style="text-align: left;"><strong>決定</strong>（ADR-055）。vitest の <code>describe.each</code> で経路を差し替える自作</td>
 <td style="text-align: left;">Unit 1</td>
 </tr>
 <tr>
 <td style="text-align: left;">unstable モジュールの扱い</td>
-<td style="text-align: left;"><code>http</code>・<code>sql</code> を使うか、安定した層（<code>node:http</code>・<code>pg</code>）を薄く包むか</td>
-<td style="text-align: left;">Unit 1 で方針、第 2・9 章で確定</td>
+<td style="text-align: left;"><strong>方針は決定</strong>（ADR-053。stable を原則にし、unstable は承認したものだけを使う）。<code>http</code>・<code>sql</code> を使うかは各章で比べる</td>
+<td style="text-align: left;">第 2・9 章で確定</td>
 </tr>
 <tr>
 <td style="text-align: left;">HTTP</td>
@@ -15098,20 +15238,20 @@ apps/
 </tbody>
 </table>
 <h3 id="_39">前提整備<a class="headerlink" href="#_39" title="Permanent link">&para;</a></h3>
-<p>最初の Bolt はウォーキングスケルトンです。執筆を始める前に、次を順に満たします。</p>
+<p>最初の Bolt はウォーキングスケルトンです。執筆を始める前に、次を順に満たします。手順の詳細は <a href="../../development/iteration_plan-typescript-fp-1/">Unit 1 の Bolt 計画</a> にあります。</p>
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Effect v4 の <code>Result</code>・<code>Context.Service</code>・<code>Layer</code>・testing 系の API と unstable の範囲を、公式資料と最小テストで確かめる。移行ガイドの未読ページも読む</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> fp-ts の Effect への合流を公式情報で確認し、ライブラリの選定を ADR に残す</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> fp-ts の Effect への合流を公式情報で確認し、ライブラリの選定を ADR に残す（ADR-053）</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>apps/typescript-fp/zettai/</code> に雛形を作り、<code>.gitignore</code> に <code>dist/</code> と <code>coverage/</code> を追加する</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>ops/nix/environments/typescript-fp/shell.nix</code> を追加して <code>flake.nix</code> に登録し、Docker 上の Nix で確認する</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 純粋関数、<code>Result</code>、<code>Layer</code> を差し替える <code>Effect</code> の最小テストを 1 本ずつ Red → Green で通す</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> ビルドした出力を Node で実行する smoke を通す</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> わざと壊して確認する（テストの型エラー、要求 <code>R</code> の解決漏れ、実行していない <code>Effect</code> を lint が捕まえるか）</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 受け入れテストの domain / HTTP の 2 経路と、Testcontainers の smoke を通す</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <code>ops/nix/environments/typescript-fp/shell.nix</code> を追加して <code>flake.nix</code> に登録し、Docker 上の Nix で確認する</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> 純粋関数、<code>Result</code>、<code>Layer</code> を差し替える <code>Effect</code> の最小テストを 1 本ずつ Red → Green で通す</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> ビルドした出力を Node で実行する smoke を通す</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> わざと壊して確認する（テストの型エラー、要求 <code>R</code> の解決漏れ、実行していない <code>Effect</code> を lint が捕まえるか）</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> 受け入れテストの domain / HTTP の 2 経路と、Testcontainers の smoke を通す</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>npm run check</code> を単一の品質ゲートにし、<code>.github/workflows/typescript-fp-zettai.yml</code> を追加する</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>ops/scripts/article/check_article_code.py</code> に <code>.ts</code>・<code>tsconfig*.json</code> の探索と言語タグ <code>typescript</code>・<code>ts</code> を追加し、<code>node_modules</code>・<code>dist</code>・<code>coverage</code> を除外する（除外しないと依存の中の行に一致して検査が素通りする）</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>ops/scripts/article/check_numbers.py</code> に <code>.ts</code> と <code>TRIALS</code> の形式を追加して生成物を除外し、TypeScript FP で宣言が 0 件なら違反にする</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>ops/scripts/article/check_sections.py</code> の対象名に <code>"typescript-fp": "TypeScript FP"</code> を登録する</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <code>ops/scripts/article/check_article_code.py</code> に <code>.ts</code>・<code>tsconfig*.json</code> の探索と言語タグ <code>typescript</code>・<code>ts</code> を追加し、<code>node_modules</code>・<code>dist</code>・<code>coverage</code> を除外する（除外しないと依存の中の行に一致して検査が素通りする）</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <code>ops/scripts/article/check_numbers.py</code> に <code>.ts</code> と <code>TRIALS</code> の形式を追加して生成物を除外し、TypeScript FP の記事が試行回数を書いているのに宣言が 0 件なら違反にする（性質テストの無い章では違反にしない）</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <code>ops/scripts/article/check_sections.py</code> の対象名に <code>"typescript-fp": "TypeScript FP"</code> を登録する</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>docs/article/draft.md</code> に節名の読み替えを登録する</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>docs/article/zettai/typescript-fp/index.md</code> を作り、<code>zettai/index.md</code>・<code>docs/index.md</code>・<code>mkdocs.yml</code> に反映する</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <code>planning-releases</code> で <a href="../../development/release_plan-typescript-fp/">TypeScript FP 版のリリース計画</a> を作る（承認済み）</li>
@@ -15129,17 +15269,17 @@ apps/
 <tr>
 <td style="text-align: left;">第 9 章 第 3 節</td>
 <td style="text-align: left;">「TypeScript でデータベースに接続する」にする</td>
-<td style="text-align: left;">確定</td>
+<td style="text-align: left;">確定（登録済み）</td>
 </tr>
 <tr>
 <td style="text-align: left;">第 3 章 第 5 節</td>
-<td style="text-align: left;">受け入れテストの方式に合わせる</td>
-<td style="text-align: left;">Unit 1 の後に登録</td>
+<td style="text-align: left;">「DDT を driver のインターフェースに変換する」にする</td>
+<td style="text-align: left;">確定（登録済み）</td>
 </tr>
 <tr>
 <td style="text-align: left;">第 7 章 第 4 節</td>
-<td style="text-align: left;">型の名前に合わせる。候補は「<code>Result</code> と <code>Effect</code> の型付きエラーで実装する」</td>
-<td style="text-align: left;">Unit 1 の後に登録</td>
+<td style="text-align: left;">「<code>Result</code> と <code>Effect</code> の型付きエラーで実装する」にする</td>
+<td style="text-align: left;">確定（登録済み）</td>
 </tr>
 <tr>
 <td style="text-align: left;">第 10 章 第 2 節</td>

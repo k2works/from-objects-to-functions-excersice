@@ -2,3 +2,5 @@
 *.sh text eol=lf
 Dockerfile text eol=lf
 .vimrc text eol=lf
+# Prettier は LF を前提にするため、TypeScript FP 版は取り出し時も LF にする
+apps/typescript-fp/** text eol=lf

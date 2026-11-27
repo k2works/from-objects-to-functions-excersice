@@ -33,6 +33,7 @@ npm run check
 | :--- | :--- | :--- | :--- | :--- |
 | 1 | Nix の `buildInputs` の要素は `dev` 出力になり、`packages.nodejs_22` との比較は一致しない | 共通の shell の Node 22 が残り、Node 24 が使われない | パッケージ名で外す。devShell の中で `node --version` を確かめる | 1 |
 | 2 | Oxlint の対象の除外を `.gitignore` に頼ると、`.gitignore` が無い場所では `node_modules` まで検査する | lint が依存のコードで失敗する | `.oxlintrc.json` の `ignorePatterns` に書く | 1 |
+| 3 | Git の `core.autocrlf=true` では、取り出したファイルが CRLF になる | Windows で `format:check` が失敗する | `.gitattributes` で、`apps/typescript-fp/` を `eol=lf` にする | 1 |
 
 ### Effect
 

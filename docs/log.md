@@ -2,6 +2,8 @@
 
 ## 2026-11-27
 * **Update**: [release_plan-typescript-fp](/development/release_plan-typescript-fp.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [bolt_report-typescript-fp-2](/development/bolt_report-typescript-fp-2.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [release_plan-typescript-fp](/development/release_plan-typescript-fp.md) を更新（anthropic/claude-sonnet-5-5）
 * **Update**: [iteration_plan-typescript-fp-2](/development/iteration_plan-typescript-fp-2.md) を更新（anthropic/claude-sonnet-5-5）
 * **Update**: [bolt_report-typescript-fp-2](/development/bolt_report-typescript-fp-2.md) を更新（anthropic/claude-sonnet-5-5）
 * **Update**: [chapter03](/article/zettai/typescript-fp/chapter03.md) を更新（anthropic/claude-sonnet-5-5）

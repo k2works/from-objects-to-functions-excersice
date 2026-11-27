@@ -4,7 +4,7 @@ title: "リリース計画 - Zettai 連載（TypeScript FP 版）"
 description: "Zettai 連載 TypeScript FP 版の AI-DLC Level 1 計画。Effect v4 で全 13 章を辿る Intent、7 Unit・14 ストーリーの受入条件、非機能要件、エントロピー評価、リスク、承認ゲートと進捗指標を定義する。"
 tags: [plan]
 status: stable
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T21:04:09Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T21:28:45Z }
 verified:
   - { by: human:kakimomokuri, at: 2026-11-27T06:47:02Z }
 ---
@@ -186,6 +186,11 @@ DAG に現れない前倒しの判断が 2 つあります。
 | 記事の検査が TypeScript のコードに効く | 一致しないコードを置くと失敗することを確認済み |
 | `comparison/` に TypeScript FP の節がある | — |
 
+**達成（2026-11-28）。** 対象はコミット [`10b7e69`](https://github.com/k2works/from-objects-to-functions-excersice/commit/10b7e691)（[CI](https://github.com/k2works/from-objects-to-functions-excersice/actions/runs/46067856811) が成功）です。条件ごとの確認は [Unit 2 の Bolt 終了報告](bolt_report-typescript-fp-2.md) にあります。人の決定で、次のとおり扱います。
+
+- **記録だけをリリースとします。** ほかの対象の版と同じく、Git のタグ、CHANGELOG、GitHub Release は作りません
+- **例外を 1 つ残します。** Nix の devShell での確認（US-000 の受入条件 7）は、PostgreSQL のテストを含みません。検証用のコンテナに、開発機の Docker のソケットを渡していないためです。CI では同じテストが通っていますが、CI は Nix を使いません
+
 ### Release v0.2.0（Phase 2 完了）: ドメインをイベントと関数で表す
 
 | 条件 | 判定 |
@@ -346,8 +351,7 @@ GitHub Project・Issue・Milestone への同期は、Kotlin FP 版と同じく�
 
 ## 次のステップ
 
-1. Release v0.1.0 の作業（タグ付けなど）を行うかを、人が決める（条件の確認は [Unit 2 の Bolt 終了報告](bolt_report-typescript-fp-2.md)）
-2. Unit 3（第 4〜5 章）の Bolt 計画を作り、承認を得る
+1. Unit 3（第 4〜5 章）の Bolt 計画を作り、承認を得る
 
 ---
 
@@ -359,6 +363,7 @@ GitHub Project・Issue・Milestone への同期は、Kotlin FP 版と同じく�
 | 2026-11-27 | 提案した内容のまま承認を得た | human:kakimomokuri |
 | 2026-11-27 | Unit 1 の Bolt 計画の作成に合わせて、リンク、進捗の状態、次のステップを更新した。承認した内容は変えていない | anthropic/claude-sonnet-5-5 |
 | 2026-11-28 | Unit 2 の完了を記録した。承認ゲートの密度は、人の決定で変えない | anthropic/claude-sonnet-5-5 |
+| 2026-11-28 | Release v0.1.0 の達成を記録した。タグは作らず、Nix の確認の例外を残すことは人の決定 | anthropic/claude-sonnet-5-5 |
 
 ---
 

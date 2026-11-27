@@ -4,7 +4,7 @@ title: "Unit 2 の Bolt 終了報告 - Zettai 連載（TypeScript FP 版）"
 description: "TypeScript FP 版 Unit 2 の HTTP の最小の縦串、2 経路の受け入れテスト、第 2〜3 章の成果と指標、Release v0.1.0 の条件の確認状況、ゲート密度の見直しの決定を記録する。Unit 2 は完了した。"
 tags: [development, report, ai-dlc, zettai, typescript, effect, unit-2]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T21:04:09Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T21:28:45Z }
 ---
 
 # Unit 2 の Bolt 終了報告 - Zettai 連載（TypeScript FP 版）
@@ -73,7 +73,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T21:04:09Z }
 | 記事の検査が TypeScript のコードに効く | Unit 1 で、壊して確認した |
 | `comparison/` に TypeScript FP の節がある | 追加した |
 
-条件は満たしたと判断します。注: Nix の devShell での確認（US-000 の受入条件 7）は、Docker のソケットを渡さなかったため、PostgreSQL のテストを含みません。CI は Nix を使わないため、この例外は残っています。**タグ付けやリリースの作業は、していません。** 行うかどうかは人が決めます。
+条件は満たしたと判断します。注: Nix の devShell での確認（US-000 の受入条件 7）は、Docker のソケットを渡さなかったため、PostgreSQL のテストを含みません。CI は Nix を使わないため、この例外は残っています。**2026-11-28 に、人の決定で v0.1.0 を達成としました。** 対象はコミット `10b7e69` です。リリースは[リリース計画](release_plan-typescript-fp.md)への記録で扱い、タグ、CHANGELOG、GitHub Release は作りません。上の例外は、残したままにします。
 
 ## 計画から変えたこと
 

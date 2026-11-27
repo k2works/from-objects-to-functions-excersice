@@ -1,10 +1,10 @@
 ---
 type: Writing Plan
 title: "執筆計画：関数型プログラミングで作る変更を楽に安全にできるソフトウェア"
-description: "Uberto Barbini 著『From Objects to Functions』を下敷きにした Zettai 連載の執筆計画。既存 3 言語版に加え、Grokking Functional Programming の Kotlin + Arrow 解説を基礎にした Kotlin FP 版、効果システムを持つ Flix 版、Cats Effect を使う Scala 版について、全 13 章の移植方針、記事と実装の同期、前提整備、品質ゲートを定義する。"
+description: "Uberto Barbini 著『From Objects to Functions』を下敷きにした Zettai 連載の執筆計画。既存 3 言語版に加え、Grokking Functional Programming の Kotlin + Arrow 解説を基礎にした Kotlin FP 版、効果システムを持つ Flix 版、Cats Effect を使う Scala 版、Effect を使う TypeScript FP 版（計画中）について、全 13 章の移植方針、記事と実装の同期、前提整備、品質ゲートを定義する。"
 tags: [article, plan, zettai]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T13:04:15Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T06:06:52Z }
 ---
 
 # 執筆計画：関数型プログラミングで作る変更を楽に安全にできるソフトウェア
@@ -19,7 +19,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T13:04:15Z }
 
 ## 対象一覧
 
-本シリーズは同じ 13 章構成を対象ごとに書き起こす比較シリーズです。現在の対象は **5 言語・6 実装方針** です（Flix 版、Scala 版も全 13 章を公開しました）。**Scala（Cats Effect）版も全 13 章を公開し、5 言語・6 実装方針になりました。**章の番号・タイトル・焦点は対象をまたいで共通とし、対象ごとに変えるのは実現手段だけです。Kotlin FP 版は言語を増やすのではなく、同じ Kotlin で「自前の関数型抽象」と「Arrow / coroutine を使う実装」を比較する対象です。
+本シリーズは同じ 13 章構成を対象ごとに書き起こす比較シリーズです。現在の対象は **5 言語・6 実装方針** です（Flix 版、Scala 版も全 13 章を公開しました）。**Scala（Cats Effect）版も全 13 章を公開し、5 言語・6 実装方針になりました。**次の対象として TypeScript FP（Effect）版を計画しています（追加すると 6 言語・7 実装方針になります）。章の番号・タイトル・焦点は対象をまたいで共通とし、対象ごとに変えるのは実現手段だけです。Kotlin FP 版は言語を増やすのではなく、同じ Kotlin で「自前の関数型抽象」と「Arrow / coroutine を使う実装」を比較する対象です。
 
 | 対象 | 実行環境 | 章数 | 記事 | サンプル実装 | 状態 |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -29,6 +29,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T13:04:15Z }
 | Rust | Nix devShell `rust`（rustc 1.91.1 / cargo 1.91.0） | 13 | `docs/article/zettai/rust/` | `apps/rust/zettai/` | **完結**（13 / 13 章公開） |
 | Flix | Nix devShell `flix`（JDK 21 / Flix 0.79.0） | 13 | `docs/article/zettai/flix/` | `apps/flix/zettai/` | **完結**（13 / 13 章公開） |
 | Scala | Nix devShell `scala`（Scala 3 / sbt。JDK は Unit 1 で確認）＋ Cats Effect | 13 | `docs/article/zettai/scala/` | `apps/scala/zettai/` | **完結**（13 / 13 章公開） |
+| TypeScript FP | Nix devShell `typescript-fp`（Node の版は Unit 1 で確定）＋ Effect | 13 | `docs/article/zettai/typescript-fp/` | `apps/typescript-fp/zettai/` | **計画中** |
 
 横断比較コンテンツ [`docs/article/zettai/comparison/`](zettai/comparison/index.md) は、なでしこ3 版が Phase 1（第 3 章）を終えた 2026-09-28 に新設しました。当初の比較軸は「**型で保証する**（Kotlin）」と「**約束とテストで保証する**（なでしこ3）」の 2 点でした。
 
@@ -42,6 +43,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-10-31T13:04:15Z }
 | Rust | あり | あり | **`Result` が言語にある** | `enum` |
 | Flix | あり（効果も型に載る） | あり | **`Result` が標準にある。副作用は効果で表す** | `enum` |
 | Scala | あり（効果は `IO` の型で表す） | あり（Cats / Cats Effect を利用） | **`Either` / `Validated` を使う** | `enum`（Scala 3） |
+| TypeScript FP（計画中） | あり（実行時に消える。効果は `Effect` の型で表す） | あり（Effect を利用） | **`Result` と `Effect` の型付きエラーを使う（想定）** | 判別可能 union |
 
 既存 3 対象を並べると、**「言語が与えるほど、設計は楽になるのか」**という問いが立ちます。**答えは「楽にはならない。決めることが変わる」**でした（[第 13 章](zettai/rust/chapter13.md)・[横断比較](zettai/comparison/index.md)）。Kotlin FP 版では、ここへ **「ライブラリへ委ねるほど、設計の意図は明確になるのか」**という 4 点目の問いを加えます。
 
@@ -69,8 +71,11 @@ docs/article/
 │   ├── flix/
 │   │   ├── index.md      # Flix 版トップ
 │   │   └── chapter01.md … chapter13.md
-│   └── scala/            # 計画中（Unit 1 で作成）
-│       ├── index.md      # Scala 版トップ
+│   ├── scala/
+│   │   ├── index.md      # Scala 版トップ
+│   │   └── chapter01.md … chapter13.md
+│   └── typescript-fp/    # 計画中（Unit 1 で作成）
+│       ├── index.md      # TypeScript FP 版トップ
 │       └── chapter01.md … chapter13.md
 
 references/
@@ -100,8 +105,10 @@ apps/
 │   └── zettai/           # 自作実装（cargo workspace）
 ├── flix/
 │   └── zettai/           # Flix 版の自作実装
-└── scala/                # 計画中
-    └── zettai/           # Scala + Cats Effect 版の自作実装（sbt。構成は Unit 1 で決める）
+├── scala/
+│   └── zettai/           # Scala + Cats Effect 版の自作実装（sbt）
+└── typescript-fp/        # 計画中
+    └── zettai/           # TypeScript + Effect 版の自作実装（npm。構成は Unit 1 で決める）
 ```
 
 記事は `docs/article/zettai/{target}/`、実装は `apps/{target}/zettai/` の対称構成とし、言語または実装方針を追加してもこの形を崩しません。
@@ -779,11 +786,232 @@ Unit・Bolt の割り当ては既存対象と同一（1 Unit = 2 章、Unit 1 �
 3. Phase 1 の完了時に `comparison/` に Scala の列を足す
 4. 新規ファイルの作成・外部ライブラリの導入・データベースの接続は確認必須とし、承認ゲートで人の判断を仰ぐ
 
+## TypeScript FP 追加執筆計画
+
+6 言語目として **TypeScript と Effect** で同じ 13 章を書き起こします。**状態は計画中で、記事・実装・実行環境はまだありません。** 非 FP の TypeScript 版は無いため、対象名の「FP」は Effect を使う版という意味です。
+
+### Intent と成功条件
+
+**Intent**: 型が実行時に消え、型付けが構造的な言語で、**副作用・エラー・依存を `Effect<A, E, R>` の型に載せると、設計のどこが型で守られ、どこが規約とテストに残るか**を、動く Zettai の実装と同じ 13 章構成で示します。
+
+成功条件は次のとおりです。
+
+- [ ] 既存対象の章番号・章タイトル・各節の役割を維持した `index.md` + 13 章がある
+- [ ] 記事の TypeScript コードがすべて `apps/typescript-fp/zettai/` のテスト済み実装から転記されている
+- [ ] 各章に「型で守れたこと・守れなかったこと」と「Effect に置き換えたこと・自作で残したこと」がある
+- [ ] `npm run check`、記事の検査、`mkdocs build --strict`、CI が通る
+- [ ] シリーズ索引、章構成マインドマップの読み替え、サイトナビゲーション、横断比較が同期している
+
+### ライブラリの決定と確認した事実
+
+中心のライブラリは **Effect** です（利用者の決定）。参考実装が使う fp-ts は、Effect-TS エコシステムに合流しつつあるとされます（出典は利用者が提示した検索結果の要約で、二次情報です。Unit 1 で公式情報を確認します）。**参考実装は fp-ts 2.16 で書かれているため、コードは流用できません。**
+
+次は 2026-11-27 に npm レジストリと公式の移行ガイドで確認した内容です。移行ガイドは一部のページだけを読みました。
+
+| 項目 | 事実 |
+| :--- | :--- |
+| 版 | `effect` の latest は **4.1.6**。4.0.0 の公開は 2026-10-01。v3 系は dist-tag `prev` で 3.22.5 |
+| 周辺 | `@effect/platform-node`・`@effect/sql-pg`・`@effect/vitest` も 4.1.6。`@effect/vitest` は vitest 5 系を要求する |
+| 統合 | HTTP・SQL などの多くは `effect` 本体に統合された。driver などは別 package のまま |
+| 安定性 | `http`・`sql`・`schema`・`observability` などは unstable に分類され、**minor リリースで壊れる変更**が入りうる。該当する import path は Unit 1 で確認する |
+| API の変更 | `Context.Tag`・`Effect.Service` は `Context.Service` に、`Effect.catchAll` は `Effect.catch` に変わった。移行例は `Result` を使う（`Either` からの改名の全体は未確認） |
+| 性質テスト | `Arbitrary` は fast-check に依存しない独自実装になり、`effect/testing/FastCheck` は削除された |
+
+v3 を前提にした記事やコード例は、そのままでは使えません。出典は [Effect 4.0 のリリースノート](https://github.com/Effect-TS/effect/releases/tag/%40effect/platform-node%404.0.0)、[MIGRATION.md](https://github.com/Effect-TS/effect/blob/main/MIGRATION.md)、[npm の effect](https://www.npmjs.com/package/effect) です。
+
+### 参照元と使い分け
+
+参考の記事は `tmp/grokkingfp-excersice/docs/article/typescript/`、そのコードは `tmp/grokkingfp-excersice/app/typescript/` にあります。
+
+| 参照元 | 役割 | そのまま持ち込まないもの |
+| :--- | :--- | :--- |
+| `docs/article/zettai/kotlin/` | Zettai の要件、13 章の物語、節の役割 | Kotlin の自前抽象の形 |
+| `docs/article/zettai/scala/` | 主な比較対象（`IO` と型付きの効果） | Cats の語彙を前提にした説明 |
+| `docs/article/zettai/kotlin-fp/` | 比較対象と本計画の型（ライブラリへ委ねる範囲） | Arrow 固有の設計 |
+| 参考 part-1 / part-2 | 第 1〜5 章の説明順（純粋関数、不変データ、高階関数） | fp-ts のコード |
+| 参考 part-3 / part-4 | 第 6〜11 章の題材の切り方（失敗、遅延する副作用） | fp-ts のコード |
+| 参考 part-5 | 使わない | 自作の並行処理（不具合がある） |
+| 参考 part-6 | 第 12〜13 章と全章（組み立て、テスト戦略） | 自作の property test の仕組み |
+| Effect の公式資料（v4） | API の一次情報 | v3 の API |
+
+`tmp/` は Git の管理外なので、着手時に参照した版を記録します。記事には参照元の文章・コードを転載しません。Node 20、Vitest 1 系、テストを型検査しない tsconfig、未設定の lint も持ち込みません。
+
+### 技術方針
+
+次は決定した方針です。
+
+| 項目 | 方針 |
+| :--- | :--- |
+| FP ライブラリ | Effect v4。版は 4.1.6 を基準に `^` を使わず固定し、更新は意図して行う。fp-ts は使わない |
+| 核と殻 | domain の遷移と射影は純粋関数に保つ（失敗は `Result` を想定）。`Effect` は境界に置く |
+| 実行 | `runPromise` などの実行は、最外周とテストに限る |
+| 型検査 | `strict`。テストも `tsc --noEmit` の対象にする |
+| 品質ゲート | `npm run check` に一本化する。CI は `npm ci` を使う |
+| 性質テスト | 回数は `const TRIALS = N` で宣言する |
+| 道具の範囲 | 要件が無い Fiber・Stream・並行化は採らない。ライブラリを見せるための抽象は増やさない |
+
+次はまだ候補です。スパイクで決めて ADR に残します（番号は ADR-053 から）。
+
+| 項目 | 候補 | 決定のタイミング |
+| :--- | :--- | :--- |
+| Node / devShell | 専用の `typescript-fp` shell。第一候補は Node 24。`nodePackages.*` に依存しない。開発機の Node 22 との差の扱いも決める | Unit 1 |
+| module と実行方法 | ESM + NodeNext。`tsc` の出力、`tsx`、Node の型除去を比べる | Unit 1 |
+| TypeScript の版と追加の tsconfig | 現行の安定版と Effect の要件を確認する。`exactOptionalPropertyTypes`・`noUncheckedIndexedAccess` など | Unit 1 |
+| テスト | vitest 5 + `@effect/vitest` | Unit 1 |
+| 性質テストの道具 | Effect の `Arbitrary` と fast-check の直接利用を比べる | Unit 1 |
+| lint / format | typescript-eslint（型情報つき）+ Prettier、Biome、Effect language service。ADR-004 と違う判断なら記録する | Unit 1 |
+| step の配置 | 累積の `zettai-step1-foundation`〜`zettai-step7-observability` を npm workspaces で管理する。代替は単一 package | Unit 1 |
+| 受け入れテスト | `@cucumber/cucumber`。代替は service を差し替える自作 DDT | Unit 1 |
+| unstable モジュールの扱い | `http`・`sql` を使うか、安定した層（`node:http`・`pg`）を薄く包むか | Unit 1 で方針、第 2・9 章で確定 |
+| HTTP | `effect` の HTTP + `@effect/platform-node`、または薄い自作の層 | 第 2 章 |
+| codec と decode | Effect の Schema が第一候補。自作 `Converter` との対応を示す | 第 9 章の前（第 12 章で再評価） |
+| 永続化 | `@effect/sql-pg` か `pg`。SQL は直接書く。`@testcontainers/postgresql` を使い、Docker が無くても skip しない | 第 9 章 |
+| transaction と文脈 | SQL client の transaction 機能、`Context.Service`、引数渡しを比べる | 第 9〜10 章 |
+| エラー蓄積 | Effect / Schema の API か、自作のアプリカティブか | 第 11 章 |
+| テンプレート | 自作の tagged template か既製か。escape と未設定値の検出を要件にする | 第 11 章 |
+| ログ | Effect の logger か、型で項目を限定した自作の decorator | 第 12 章 |
+
+### 前提整備
+
+最初の Bolt はウォーキングスケルトンです。執筆を始める前に、次を順に満たします。
+
+- [ ] Effect v4 の `Result`・`Context.Service`・`Layer`・testing 系の API と unstable の範囲を、公式資料と最小テストで確かめる。移行ガイドの未読ページも読む
+- [ ] fp-ts の Effect への合流を公式情報で確認し、ライブラリの選定を ADR に残す
+- [ ] `apps/typescript-fp/zettai/` に雛形を作り、`.gitignore` に `dist/` と `coverage/` を追加する
+- [ ] `ops/nix/environments/typescript-fp/shell.nix` を追加して `flake.nix` に登録し、Docker 上の Nix で確認する
+- [ ] 純粋関数、`Result`、`Layer` を差し替える `Effect` の最小テストを 1 本ずつ Red → Green で通す
+- [ ] ビルドした出力を Node で実行する smoke を通す
+- [ ] わざと壊して確認する（テストの型エラー、要求 `R` の解決漏れ、実行していない `Effect` を lint が捕まえるか）
+- [ ] 受け入れテストの domain / HTTP の 2 経路と、Testcontainers の smoke を通す
+- [ ] `npm run check` を単一の品質ゲートにし、`.github/workflows/typescript-fp-zettai.yml` を追加する
+- [ ] `ops/scripts/article/check_article_code.py` に `.ts`・`tsconfig*.json` の探索と言語タグ `typescript`・`ts` を追加し、`node_modules`・`dist`・`coverage` を除外する（除外しないと依存の中の行に一致して検査が素通りする）
+- [ ] `ops/scripts/article/check_numbers.py` に `.ts` と `TRIALS` の形式を追加して生成物を除外し、TypeScript FP で宣言が 0 件なら違反にする
+- [ ] `ops/scripts/article/check_sections.py` の対象名に `"typescript-fp": "TypeScript FP"` を登録する
+- [ ] `docs/article/draft.md` に節名の読み替えを登録する
+- [ ] `docs/article/zettai/typescript-fp/index.md` を作り、`zettai/index.md`・`docs/index.md`・`mkdocs.yml` に反映する
+- [ ] `planning-releases` で `docs/development/release_plan-typescript-fp.md` を作る
+
+節名の読み替えは次のとおりです。**未定の行は [draft.md](draft.md) の表に登録しません**（検査が期待値として読むためです）。
+
+| 章・節 | 読み替え | 状態 |
+| :--- | :--- | :--- |
+| 第 9 章 第 3 節 | 「TypeScript でデータベースに接続する」にする | 確定 |
+| 第 3 章 第 5 節 | 受け入れテストの方式に合わせる | Unit 1 の後に登録 |
+| 第 7 章 第 4 節 | 型の名前に合わせる。候補は「`Result` と `Effect` の型付きエラーで実装する」 | Unit 1 の後に登録 |
+| 第 10 章 第 2 節 | 文脈を渡す方式に合わせる | 第 10 章のスパイク後に登録 |
+| 第 10 章 第 4 節 | 「設計を２回間違えた」が実装の事実と合うかを判断する | 第 10 章の実装後に判断 |
+
+### 章別計画
+
+章タイトルと第 2 見出しの並びは既存対象と揃えます。表の API の名前は想定を含むため、実装とテストで確定してから記事に載せます。
+
+| 章 | ファイル | TypeScript FP の焦点 | 実装・検証の到達点 |
+| :--- | :--- | :--- | :--- |
+| 1 | `chapter01.md` | 純粋関数、参照透過性。作った時点で動く Promise と、実行するまで動かない `Effect` | テストが通り、テストの型検査も効く |
+| 2 | `chapter02.md` | `pipe` と `Effect.gen`、HTTP を関数にし、境界で domain の型にする | HTTP の縦串、プロセス内テスト、実サーバーの smoke が通る |
+| 3 | `chapter03.md` | 受け入れテストを抽象化し、service を差し替えて経路を変える | 同じシナリオが domain / HTTP の 2 経路で通る |
+| 4 | `chapter04.md` | 引数渡し・`Context.Service`・`Layer` の依存の注入を比べる。branded type と smart constructor | fetcher を差し替えられる。取り違えと提供漏れを型のテストで固定する |
+| 5 | `chapter05.md` | 不変な event 列の fold とモノイド。自作と Effect の対応物を比べる | 結合律と単位元の性質テストが通る。状態の畳み込みとモノイドを区別する |
+| 6 | `chapter06.md` | tag を持つ判別可能 union と網羅性、純粋な状態遷移 | 全遷移と拒否理由を検証し、分岐を足すと `tsc` が落ちる |
+| 7 | `chapter07.md` | 型付きエラー。`Result` と `Effect` の `E` の使い分け、失敗と defect の違い | ファンクタ則と、エラーの HTTP への対応が通る |
+| 8 | `chapter08.md` | 純粋な射影と `map`、CQRS | command と query の経路が分かれ、射影の性質テストが通る |
+| 9 | `chapter09.md` | `Effect` のモナド、`Scope` と `Layer` による接続の寿命の管理、行データの decode | PostgreSQL 結合テスト（追記順、原子性、3 経路目）とモナド則が通る |
+| 10 | `chapter10.md` | transaction の文脈を `R` と service で表す。版の検査 | commit、失敗・defect・中断での rollback、接続の返却、競合の検出が通る |
+| 11 | `chapter11.md` | 独立した検証の蓄積と、逐次の合成との違い | 全エラーが入力順に返り、蓄積の性質テストと rename のフォームが通る |
+| 12 | `chapter12.md` | 構造化ログと decorator、Schema と双方向変換、プロファンクタ | 機密を含まないログ、往復と dimap 則が通る |
+| 13 | `chapter13.md` | `Effect<A, E, R>` が設計に与えたもの、型が守らなかった所、採らなかった道具、他言語との対比 | 全品質ゲートが通り、冒頭の問いに答える |
+
+次の挙動は未確認です。該当する章のスパイクで確かめます。
+
+- **法則テスト**: `Effect` は値のまま比べず、両辺を実行して結果（`Exit`）と実行ログを比べます
+- **第 9・10 章**: 型付きエラー、defect（`throw`）、中断の 3 つで、解放と rollback を別々に確かめます。transaction 内は直列にします
+- **第 9 章**: Promise を包むとき、reject が型付きエラーと defect のどちらになるかを API ごとに確かめます
+- **第 11 章**: 逐次の合成は最初の失敗で止まります。2 件以上失敗するテストで固定します
+- **第 12 章**: Schema の変換をそのままプロファンクタと呼ばず、法則を満たすかをテストで確かめます
+
+### この対象で新しく問われること
+
+| 問い | 章 |
+| :--- | :--- |
+| `Effect<A, E, R>` の 3 つの型引数は、核と殻の分離を守れるか（`Effect` の外の副作用は止められない） | 1・2・4・9 |
+| 型が実行時に消えるとき、境界は何で守るか | 2・9・12 |
+| 構造的型付けで ID や名前をどう区別するか | 4・11 |
+| 依存を `R` に載せると、依存の組み立てはどう変わるか | 4・10 |
+| 型付きエラーと defect の線を、どこに引くか | 7・9・10 |
+| 実行し忘れた `Effect` は誰が見つけるか | 9・10・12 |
+| 自作した抽象のうち、何を Effect に置き換え、何を残すか | 5・8・11・12 |
+| 網羅性はどこまで守れるか（DB の未知の値は型の外にある） | 6 |
+
+### Unit / Bolt 計画
+
+既存対象と同じく、各章を 1 Bolt とし、7 Unit・14 Bolt を直列に進めます。Unit 1 はスパイクが多いため、検証負荷を高く見積もります。進捗はリリース計画を一次情報とします。
+
+| Unit | Bolt | 対象 | 完了ゲート |
+| :--- | :--- | :--- | :--- |
+| 1 | 1-1 / 1-2 | 前提整備 / 第 1 章 | 最小構成の `npm run check` と CI が通り、記事の検査が TypeScript に効く |
+| 2 | 2-1 / 2-2 | 第 2〜3 章 | HTTP の縦串と 2 経路の受け入れテストが通る |
+| 3 | 3-1 / 3-2 | 第 4〜5 章 | 依存の注入とイベント畳み込みの性質テストが通る |
+| 4 | 4-1 / 4-2 | 第 6〜7 章 | 純粋な状態遷移と型付きエラーが通る |
+| 5 | 5-1 / 5-2 | 第 8〜9 章 | CQRS と Testcontainers の PostgreSQL 結合テストが通る |
+| 6 | 6-1 / 6-2 | 第 10〜11 章 | transaction / rollback とエラー蓄積が通る |
+| 7 | 7-1 / 7-2 | 第 12〜13 章 | 監視、横断比較、全品質ゲートが通る |
+
+### 章ごとの作業サイクル
+
+1. 既存対象の同じ章と、参考の記事の対応する part を読む
+2. 受入条件をテストにし、Red を実際に確認する
+3. `apps/typescript-fp/zettai/` に最小の実装を加えて Green にする
+4. Refactor し、性質がある抽象は法則を性質テストで確かめる
+5. 動作確認済みのコードを `docs/article/zettai/typescript-fp/chapterNN.md` に転記する
+6. `mkdocs.yml`、シリーズ索引、進捗表を更新する
+7. 実装（`feat(typescript-fp): ...`）と記事（`docs(typescript-fp): ...`）を別のコミットにする
+
+### 横断比較で追加する軸
+
+Scala 版（Cats Effect の `IO`）と Kotlin FP 版（Arrow）との対比を中心にします。Phase 1（第 3 章）の完了時に `comparison/` へ節を追加します。
+
+| 比較軸 | TypeScript FP 版で検証する問い |
+| :--- | :--- |
+| 効果の型 | エラーと依存も型引数に持つと、読みやすくなるか |
+| 依存の注入 | service と `Layer` は、関数引数より意図を表すか |
+| リソースと transaction | 失敗・defect・中断のすべてで後始末が保証されるか |
+| エラー蓄積 | ライブラリの API は仕様を直接表せるか |
+| 型の限界 | 型は実行時に何を保証しないか |
+| コスト | 学習量とメジャー版の移行を、どこまで引き受けるか |
+
+### リスクと対策
+
+| リスク | 影響 | 対策 |
+| :--- | :--- | :--- |
+| Effect v4 は公開から 2 か月弱で、更新が多い | 記事と実装が早くずれる | 版と lock を固定し、記事に版を明記する |
+| `http`・`sql` などが unstable | minor の更新で壊れる | 依存を adapter に閉じ込め、採否と代替を ADR に残す |
+| v3 の情報が混ざる（Web の例、生成 AI の知識） | 動かないコードや誤った説明が載る | v4 の公式資料と型検査を一次情報にし、テスト済みの実装から転記する |
+| 参考実装が fp-ts で、コードを流用できない | 見積もりより工数が増える | 説明順だけを借り、スパイクを Unit 1 に含める |
+| Effect の記法が重い | Zettai の設計判断が薄まる | 初出で用語を説明し、必要な機能だけを使う |
+| Effect が多くを提供する | 自作する抽象の学びが消える | 法則は先に自作のテストで示し、その後 Effect の API に対応づける |
+| テストが型検査されない | 型の主張が壊れても緑になる | わざと壊して確認し、Red を必ず確認する |
+| 型エラーが長く読みにくい | 記事が読みにくくなる | 合成を短く分け、公開する関数は型を明示する |
+| 累積する step の複製 | 修正が漏れる | 全 step を CI で実行する |
+| コードの照合が、全言語をまとめた行との一致を見る | 別の言語や step の行に一致して見逃す | 生成物を除外し、対象ディレクトリ別の照合を検討する |
+
+### 完了確認
+
+- [ ] `outline.md`、`zettai/index.md`、`draft.md` に TypeScript FP 版が反映されている
+- [ ] `docs/article/zettai/typescript-fp/` に `index.md` と `chapter01.md`〜`chapter13.md` がある
+- [ ] `apps/typescript-fp/zettai/` の `npm run check` が成功する
+- [ ] テストが型検査されることと、記事の検査が生成物を除外することを、わざと壊して確認している
+- [ ] PostgreSQL の結合テストが、ローカルと CI の両方で Testcontainers により成功する
+- [ ] 記事コード同期・節構成・件数・引用・ADR 参照の検査が TypeScript FP 版を含めて成功する
+- [ ] `mkdocs.yml` の nav とリンクが揃い、`mkdocs build --strict` が成功する
+- [ ] `.github/workflows/typescript-fp-zettai.yml` が成功する
+- [ ] `docs/article/zettai/comparison/` に TypeScript FP 版が反映されている
+- [ ] 記事、実装、環境・CI を目的別にコミットしている
+
 ## 執筆規約
 
 - 見出しは階層を飛ばさない。章内の節は [draft.md](draft.md) のマインドマップに一致させる
 - コードブロックには言語を明示する。差分を示すときは変更箇所が分かる粒度で切る
-- **記事のコード例は必ず対象のサンプル実装（`apps/kotlin/zettai/`・`apps/kotlin-fp/zettai/`・`apps/nadesiko/zettai/`・`apps/rust/zettai/`・`apps/flix/zettai/`・`apps/scala/zettai/`）の動作確認済み実装から転記する。** 憶測で書いたコードを載せない
+- **記事のコード例は必ず対象のサンプル実装（`apps/kotlin/zettai/`・`apps/kotlin-fp/zettai/`・`apps/nadesiko/zettai/`・`apps/rust/zettai/`・`apps/flix/zettai/`・`apps/scala/zettai/`・`apps/typescript-fp/zettai/`）の動作確認済み実装から転記する。** 憶測で書いたコードを載せない
 - 長い完成コードは `<details>` に入れ、本文には差分だけを載せる
 - 日本語と半角英数字の間に半角スペース。文体はですます調。技術用語は英語のまま
 - 読者が実行するコマンドは、プロンプト記号を混ぜず、コピーしてそのまま動く形で書く
@@ -803,5 +1031,6 @@ Unit・Bolt の割り当ては既存対象と同一（1 Unit = 2 章、Unit 1 �
 | Rust | 言語タグは `rust`。**所有権で書き直した箇所は、書き直す前のコードも載せる**（`<!-- code-check: ignore わざと壊したコード -->` を付ける）。`cargo` の出力は `bash` ブロックで貼る |
 | Flix | 言語タグは Unit 1 で確定（仮に `flix`）。Java 相互運用の呼び出しは、効果の保証が切れる境界であることを本文で明記する。Flix の実行出力は `bash` ブロックで貼る |
 | Scala | 言語タグは `scala`（Unit 1 で検査スクリプトへの登録を確認）。Scala 3 の記法で統一し、ライブラリ（Cats Effect・http4s・doobie 等）は版を固定して記事に明記する。`IO` を実行する境界（`IOApp`・テストの `unsafeRunSync` 相当）を本文で明示する。sbt の出力は `bash` ブロックで貼る |
+| TypeScript FP | 言語タグは `typescript`。Effect は版を固定して記事に明記し、unstable な API を使う箇所は本文で示す。v3 の API は書かない。`any`・`as`・`!` を使う場合は理由を書く。`Effect` を実行する境界を明示する。型で拒否される例は `@ts-expect-error` のテストから転記する。npm と tsc の出力は `bash` ブロックで貼る |
 
-**対象に固有の語（ライブラリ名・言語名・製品名）を含む節名は読み替える**という規則は 6 対象に共通です。読み替えた対応は [draft.md](draft.md) の表に登録します。**登録しないと `check_sections.py` が落ちます。**
+**対象に固有の語（ライブラリ名・言語名・製品名）を含む節名は読み替える**という規則は 7 対象に共通です。読み替えた対応は [draft.md](draft.md) の表に登録します。**登録しないと `check_sections.py` が落ちます。**

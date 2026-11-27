@@ -1,5 +1,8 @@
 # Docs Update Log
 
+## 2026-11-27
+* **Update**: [outline](/article/outline.md) に TypeScript FP（Effect）追加執筆計画を追加（anthropic/claude-sonnet-5-5）
+
 ## 2026-10-31
 * **Update**: [iteration_plan-kotlin-fp-7](/development/iteration_plan-kotlin-fp-7.md) を更新（anthropic/claude-sonnet-5-5）
 * **Update**: [bolt_report-kotlin-fp-7](/development/bolt_report-kotlin-fp-7.md) を更新（anthropic/claude-sonnet-5-5）

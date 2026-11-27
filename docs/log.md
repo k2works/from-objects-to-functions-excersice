@@ -1,6 +1,15 @@
 # Docs Update Log
 
 ## 2026-11-27
+* **Verification**: [iteration_plan-typescript-fp-2](/development/iteration_plan-typescript-fp-2.md) を human:kakimomokuri が検証
+* **Update**: [iteration_plan-typescript-fp-2](/development/iteration_plan-typescript-fp-2.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [ADR-056-typescript-http-with-stable-parts](/adr/ADR-056-typescript-http-with-stable-parts.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [iteration_plan-typescript-fp-2](/development/iteration_plan-typescript-fp-2.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [ADR-056-typescript-http-with-stable-parts](/adr/ADR-056-typescript-http-with-stable-parts.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [release_plan-typescript-fp](/development/release_plan-typescript-fp.md) を更新（anthropic/claude-sonnet-5-5）
+* **Creation**: [iteration_plan-typescript-fp-2](/development/iteration_plan-typescript-fp-2.md) を作成（anthropic/claude-sonnet-5-5）
+* **Creation**: [iteration_plan-typescript-fp-2](/development/iteration_plan-typescript-fp-2.md) を作成（anthropic/claude-sonnet-5-5）
+* **Update**: [release_plan-typescript-fp](/development/release_plan-typescript-fp.md) を更新（anthropic/claude-sonnet-5-5）
 * **Verification**: [chapter01](/article/zettai/typescript-fp/chapter01.md) を human:kakimomokuri が検証
 * **Update**: [bolt_report-typescript-fp-1](/development/bolt_report-typescript-fp-1.md) を更新（anthropic/claude-sonnet-5-5）
 * **Update**: [retrospective-typescript-fp-1](/development/retrospective-typescript-fp-1.md) を更新（anthropic/claude-sonnet-5-5）

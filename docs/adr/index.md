@@ -61,5 +61,6 @@
 | [ADR-053](ADR-053-typescript-effect-version-and-stability.md) | TypeScript FP 版は Effect 4.1.6 に版を固定し、stable を原則にする。unstable は承認したものだけを adapter に閉じ込める | 承認 |
 | [ADR-054](ADR-054-typescript-toolchain-and-check.md) | TypeScript FP 版は TypeScript 7 と `@effect/tsgo` を使い、`npm run check` を 5 段にする | 承認 |
 | [ADR-055](ADR-055-typescript-testing-tools.md) | TypeScript FP 版は vitest と fast-check でテストし、受け入れテストを自作する | 承認 |
+| [ADR-056](ADR-056-typescript-http-with-stable-parts.md) | TypeScript FP 版の HTTP は stable な部品だけで書き、`node:http` への接続を自作する | 承認 |
 
 ADR の作成には `creating-adr` スキルを使用してください。

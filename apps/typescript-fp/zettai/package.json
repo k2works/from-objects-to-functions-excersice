@@ -3,7 +3,8 @@
   "private": true,
   "type": "module",
   "workspaces": [
-    "zettai-step1-foundation"
+    "zettai-step1-foundation",
+    "zettai-step2-http-domain"
   ],
   "engines": {
     "node": ">=22.19.0"

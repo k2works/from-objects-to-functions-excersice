@@ -15,11 +15,19 @@ npm run check
 
 `npm run check` は、型検査と Effect の診断、lint、format の確認、テスト、ビルドした出力の実行を順に行います（[ADR-054](../../../docs/adr/ADR-054-typescript-toolchain-and-check.md)）。テストは Testcontainers で PostgreSQL を起動します。Docker に接続できない場合は、skip せずに失敗します。
 
+サーバーは、次のコマンドで起動します。ポートは環境変数 `ZETTAI_PORT` で変えられます（指定が無ければ 8080 番）。
+
+```bash
+cd zettai-step2-http-domain
+ZETTAI_PORT=18123 npm run start
+```
+
 ## 構成
 
 | step | 内容 |
 | :--- | :--- |
 | `zettai-step1-foundation` | 前提整備と第 1 章。基盤を確かめる最小のテスト |
+| `zettai-step2-http-domain` | 第 2 章。HTTP の最小の縦串（`GET /todo/{user}/{listname}`） |
 
 `two-routes.test.ts` と `postgres.smoke.test.ts` は**基盤の確認用**です。Zettai の業務シナリオではありません。2 経路は、関数を直接呼ぶ経路と、`Request`・`Response` を通す経路で、サーバーは起動しません。
 
@@ -34,6 +42,19 @@ npm run check
 | 1 | Nix の `buildInputs` の要素は `dev` 出力になり、`packages.nodejs_22` との比較は一致しない | 共通の shell の Node 22 が残り、Node 24 が使われない | パッケージ名で外す。devShell の中で `node --version` を確かめる | 1 |
 | 2 | Oxlint の対象の除外を `.gitignore` に頼ると、`.gitignore` が無い場所では `node_modules` まで検査する | lint が依存のコードで失敗する | `.oxlintrc.json` の `ignorePatterns` に書く | 1 |
 | 3 | Git の `core.autocrlf=true` では、取り出したファイルが CRLF になる | Windows で `format:check` が失敗する | `.gitattributes` で、`apps/typescript-fp/` を `eol=lf` にする | 1 |
+
+### HTTP（第 2 章の実装）
+
+| # | 制約 | 影響 | 回避策・守り方 | 見つけた Unit |
+| :--- | :--- | :--- | :--- | :--- |
+| 1 | 接続の自作は、`GET` と本文の無い要求だけを扱う | フォームの POST を受けられない | 本文の読み取りを、必要になる章で足す | 2 |
+| 2 | 500 の原因を、どこにも記録しない | 失敗の調査ができない | 第 12 章で記録を足す | 2 |
+| 3 | 本番で使える HTTP サーバーではない。性能、同時の要求、大きな要求は確かめていない | 公開する用途には使えない | 学習用の範囲で使う | 2 |
+| 4 | シグナルを受けて停止の処理を実行する仕組みが無い | `Ctrl+C` で終了したときに `close` が実行されるかは確かめていない | 必要になる章で扱う | 2 |
+| 5 | `new URL(path, base)` は、`//` で始まるパスをホスト名と解釈する | 別のパスとして扱われる | パスは origin の後ろに連結する。テストで固定した | 2 |
+| 6 | `new Request` は `TRACE` に例外を投げる。callback の中で投げると、応答が返らない | 要求がタイムアウトする | `GET` 以外は `Request` を作る前に返す。テストで固定した | 2 |
+| 7 | 開発機（Windows）では、8080 番の待ち受けが `EACCES` で失敗した | 既定のポートで起動できないことがある | `ZETTAI_PORT` で変える | 2 |
+| 8 | Windows の深いディレクトリにコピーすると、smoke の段で `tsc` が見つからなかった。原因は確かめていない | `npm run check` が失敗する | 浅いディレクトリに clone する（この回避策は試していない） | 2 |
 
 ### Effect
 

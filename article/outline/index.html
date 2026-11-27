@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Uberto Barbini 著『From Objects to Functions』を下敷きにした Zettai 連載の執筆計画。既存 3 言語版に加え、Grokking Functional Programming の Kotlin + Arrow 解説を基礎にした Kotlin FP 版、効果システムを持つ Flix 版、Cats Effect を使う Scala 版について、全 13 章の移植方針、記事と実装の同期、前提整備、品質ゲートを定義する。">
+        <meta name="description" content="Uberto Barbini 著『From Objects to Functions』を下敷きにした Zettai 連載の執筆計画。既存 3 言語版に加え、Grokking Functional Programming の Kotlin + Arrow 解説を基礎にした Kotlin FP 版、効果システムを持つ Flix 版、Cats Effect を使う Scala 版、Effect を使う TypeScript FP 版（計画中）について、全 13 章の移植方針、記事と実装の同期、前提整備、品質ゲートを定義する。">
       
       
         <meta name="author" content="Project Team">
@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
     
     
       
@@ -6510,7 +6510,156 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#typescript-fp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TypeScript FP 追加執筆計画
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="TypeScript FP 追加執筆計画">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intent_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intent と成功条件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#_36" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ライブラリの決定と確認した事実
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_37" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        参照元と使い分け
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_38" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        技術方針
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_39" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        前提整備
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_40" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        章別計画
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_41" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        この対象で新しく問われること
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unit-bolt_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unit / Bolt 計画
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_42" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        章ごとの作業サイクル
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_43" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        横断比較で追加する軸
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_44" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        リスクと対策
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_45" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        完了確認
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_46" class="md-nav__link">
     <span class="md-ellipsis">
       
         執筆規約
@@ -6522,7 +6671,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_37" class="md-nav__link">
+  <a href="#_47" class="md-nav__link">
     <span class="md-ellipsis">
       
         対象ごとの差分
@@ -12129,7 +12278,7 @@
 <li>各章は 1 つの <strong>Bolt</strong>（時間〜日単位の作業単位）に対応し、2 章で 1 つの <strong>Unit</strong>（独立して公開できる単位）を構成します。局面別の TDD アプローチと承認ゲートの密度は <a href="../../development/development_strategy/">開発戦略</a> にあります。</li>
 </ul>
 <h2 id="_2">対象一覧<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<p>本シリーズは同じ 13 章構成を対象ごとに書き起こす比較シリーズです。現在の対象は <strong>5 言語・6 実装方針</strong> です（Flix 版、Scala 版も全 13 章を公開しました）。<strong>Scala（Cats Effect）版も全 13 章を公開し、5 言語・6 実装方針になりました。</strong>章の番号・タイトル・焦点は対象をまたいで共通とし、対象ごとに変えるのは実現手段だけです。Kotlin FP 版は言語を増やすのではなく、同じ Kotlin で「自前の関数型抽象」と「Arrow / coroutine を使う実装」を比較する対象です。</p>
+<p>本シリーズは同じ 13 章構成を対象ごとに書き起こす比較シリーズです。現在の対象は <strong>5 言語・6 実装方針</strong> です（Flix 版、Scala 版も全 13 章を公開しました）。<strong>Scala（Cats Effect）版も全 13 章を公開し、5 言語・6 実装方針になりました。</strong>次の対象として TypeScript FP（Effect）版を計画しています（追加すると 6 言語・7 実装方針になります）。章の番号・タイトル・焦点は対象をまたいで共通とし、対象ごとに変えるのは実現手段だけです。Kotlin FP 版は言語を増やすのではなく、同じ Kotlin で「自前の関数型抽象」と「Arrow / coroutine を使う実装」を比較する対象です。</p>
 <table>
 <thead>
 <tr>
@@ -12190,6 +12339,14 @@
 <td style="text-align: left;"><code>apps/scala/zettai/</code></td>
 <td style="text-align: left;"><strong>完結</strong>（13 / 13 章公開）</td>
 </tr>
+<tr>
+<td style="text-align: left;">TypeScript FP</td>
+<td style="text-align: left;">Nix devShell <code>typescript-fp</code>（Node の版は Unit 1 で確定）＋ Effect</td>
+<td style="text-align: left;">13</td>
+<td style="text-align: left;"><code>docs/article/zettai/typescript-fp/</code></td>
+<td style="text-align: left;"><code>apps/typescript-fp/zettai/</code></td>
+<td style="text-align: left;"><strong>計画中</strong></td>
+</tr>
 </tbody>
 </table>
 <p>横断比較コンテンツ <a href="../zettai/comparison/"><code>docs/article/zettai/comparison/</code></a> は、なでしこ3 版が Phase 1（第 3 章）を終えた 2026-09-28 に新設しました。当初の比較軸は「<strong>型で保証する</strong>（Kotlin）」と「<strong>約束とテストで保証する</strong>（なでしこ3）」の 2 点でした。</p>
@@ -12247,6 +12404,13 @@
 <td style="text-align: left;"><strong><code>Either</code> / <code>Validated</code> を使う</strong></td>
 <td style="text-align: left;"><code>enum</code>（Scala 3）</td>
 </tr>
+<tr>
+<td style="text-align: left;">TypeScript FP（計画中）</td>
+<td style="text-align: left;">あり（実行時に消える。効果は <code>Effect</code> の型で表す）</td>
+<td style="text-align: left;">あり（Effect を利用）</td>
+<td style="text-align: left;"><strong><code>Result</code> と <code>Effect</code> の型付きエラーを使う（想定）</strong></td>
+<td style="text-align: left;">判別可能 union</td>
+</tr>
 </tbody>
 </table>
 <p>既存 3 対象を並べると、<strong>「言語が与えるほど、設計は楽になるのか」</strong>という問いが立ちます。<strong>答えは「楽にはならない。決めることが変わる」</strong>でした（<a href="../zettai/rust/chapter13/">第 13 章</a>・<a href="../zettai/comparison/">横断比較</a>）。Kotlin FP 版では、ここへ <strong>「ライブラリへ委ねるほど、設計の意図は明確になるのか」</strong>という 4 点目の問いを加えます。</p>
@@ -12272,8 +12436,11 @@
 │   ├── flix/
 │   │   ├── index.md      # Flix 版トップ
 │   │   └── chapter01.md … chapter13.md
-│   └── scala/            # 計画中（Unit 1 で作成）
-│       ├── index.md      # Scala 版トップ
+│   ├── scala/
+│   │   ├── index.md      # Scala 版トップ
+│   │   └── chapter01.md … chapter13.md
+│   └── typescript-fp/    # 計画中（Unit 1 で作成）
+│       ├── index.md      # TypeScript FP 版トップ
 │       └── chapter01.md … chapter13.md
 
 references/
@@ -12303,8 +12470,10 @@ apps/
 │   └── zettai/           # 自作実装（cargo workspace）
 ├── flix/
 │   └── zettai/           # Flix 版の自作実装
-└── scala/                # 計画中
-    └── zettai/           # Scala + Cats Effect 版の自作実装（sbt。構成は Unit 1 で決める）
+├── scala/
+│   └── zettai/           # Scala + Cats Effect 版の自作実装（sbt）
+└── typescript-fp/        # 計画中
+    └── zettai/           # TypeScript + Effect 版の自作実装（npm。構成は Unit 1 で決める）
 </code></pre></div>
 <p>記事は <code>docs/article/zettai/{target}/</code>、実装は <code>apps/{target}/zettai/</code> の対称構成とし、言語または実装方針を追加してもこの形を崩しません。</p>
 <h2 id="kotlin">章と参照元モジュールの対応（Kotlin 版）<a class="headerlink" href="#kotlin" title="Permanent link">&para;</a></h2>
@@ -14657,11 +14826,623 @@ apps/
 <li>Phase 1 の完了時に <code>comparison/</code> に Scala の列を足す</li>
 <li>新規ファイルの作成・外部ライブラリの導入・データベースの接続は確認必須とし、承認ゲートで人の判断を仰ぐ</li>
 </ol>
-<h2 id="_36">執筆規約<a class="headerlink" href="#_36" title="Permanent link">&para;</a></h2>
+<h2 id="typescript-fp">TypeScript FP 追加執筆計画<a class="headerlink" href="#typescript-fp" title="Permanent link">&para;</a></h2>
+<p>6 言語目として <strong>TypeScript と Effect</strong> で同じ 13 章を書き起こします。<strong>状態は計画中で、記事・実装・実行環境はまだありません。</strong> 非 FP の TypeScript 版は無いため、対象名の「FP」は Effect を使う版という意味です。</p>
+<h3 id="intent_1">Intent と成功条件<a class="headerlink" href="#intent_1" title="Permanent link">&para;</a></h3>
+<p><strong>Intent</strong>: 型が実行時に消え、型付けが構造的な言語で、<strong>副作用・エラー・依存を <code>Effect&lt;A, E, R&gt;</code> の型に載せると、設計のどこが型で守られ、どこが規約とテストに残るか</strong>を、動く Zettai の実装と同じ 13 章構成で示します。</p>
+<p>成功条件は次のとおりです。</p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 既存対象の章番号・章タイトル・各節の役割を維持した <code>index.md</code> + 13 章がある</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 記事の TypeScript コードがすべて <code>apps/typescript-fp/zettai/</code> のテスト済み実装から転記されている</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 各章に「型で守れたこと・守れなかったこと」と「Effect に置き換えたこと・自作で残したこと」がある</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>npm run check</code>、記事の検査、<code>mkdocs build --strict</code>、CI が通る</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> シリーズ索引、章構成マインドマップの読み替え、サイトナビゲーション、横断比較が同期している</li>
+</ul>
+<h3 id="_36">ライブラリの決定と確認した事実<a class="headerlink" href="#_36" title="Permanent link">&para;</a></h3>
+<p>中心のライブラリは <strong>Effect</strong> です（利用者の決定）。参考実装が使う fp-ts は、Effect-TS エコシステムに合流しつつあるとされます（出典は利用者が提示した検索結果の要約で、二次情報です。Unit 1 で公式情報を確認します）。<strong>参考実装は fp-ts 2.16 で書かれているため、コードは流用できません。</strong></p>
+<p>次は 2026-11-27 に npm レジストリと公式の移行ガイドで確認した内容です。移行ガイドは一部のページだけを読みました。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">項目</th>
+<th style="text-align: left;">事実</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">版</td>
+<td style="text-align: left;"><code>effect</code> の latest は <strong>4.1.6</strong>。4.0.0 の公開は 2026-10-01。v3 系は dist-tag <code>prev</code> で 3.22.5</td>
+</tr>
+<tr>
+<td style="text-align: left;">周辺</td>
+<td style="text-align: left;"><code>@effect/platform-node</code>・<code>@effect/sql-pg</code>・<code>@effect/vitest</code> も 4.1.6。<code>@effect/vitest</code> は vitest 5 系を要求する</td>
+</tr>
+<tr>
+<td style="text-align: left;">統合</td>
+<td style="text-align: left;">HTTP・SQL などの多くは <code>effect</code> 本体に統合された。driver などは別 package のまま</td>
+</tr>
+<tr>
+<td style="text-align: left;">安定性</td>
+<td style="text-align: left;"><code>http</code>・<code>sql</code>・<code>schema</code>・<code>observability</code> などは unstable に分類され、<strong>minor リリースで壊れる変更</strong>が入りうる。該当する import path は Unit 1 で確認する</td>
+</tr>
+<tr>
+<td style="text-align: left;">API の変更</td>
+<td style="text-align: left;"><code>Context.Tag</code>・<code>Effect.Service</code> は <code>Context.Service</code> に、<code>Effect.catchAll</code> は <code>Effect.catch</code> に変わった。移行例は <code>Result</code> を使う（<code>Either</code> からの改名の全体は未確認）</td>
+</tr>
+<tr>
+<td style="text-align: left;">性質テスト</td>
+<td style="text-align: left;"><code>Arbitrary</code> は fast-check に依存しない独自実装になり、<code>effect/testing/FastCheck</code> は削除された</td>
+</tr>
+</tbody>
+</table>
+<p>v3 を前提にした記事やコード例は、そのままでは使えません。出典は <a href="https://github.com/Effect-TS/effect/releases/tag/%40effect/platform-node%404.0.0">Effect 4.0 のリリースノート</a>、<a href="https://github.com/Effect-TS/effect/blob/main/MIGRATION.md">MIGRATION.md</a>、<a href="https://www.npmjs.com/package/effect">npm の effect</a> です。</p>
+<h3 id="_37">参照元と使い分け<a class="headerlink" href="#_37" title="Permanent link">&para;</a></h3>
+<p>参考の記事は <code>tmp/grokkingfp-excersice/docs/article/typescript/</code>、そのコードは <code>tmp/grokkingfp-excersice/app/typescript/</code> にあります。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">参照元</th>
+<th style="text-align: left;">役割</th>
+<th style="text-align: left;">そのまま持ち込まないもの</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>docs/article/zettai/kotlin/</code></td>
+<td style="text-align: left;">Zettai の要件、13 章の物語、節の役割</td>
+<td style="text-align: left;">Kotlin の自前抽象の形</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>docs/article/zettai/scala/</code></td>
+<td style="text-align: left;">主な比較対象（<code>IO</code> と型付きの効果）</td>
+<td style="text-align: left;">Cats の語彙を前提にした説明</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>docs/article/zettai/kotlin-fp/</code></td>
+<td style="text-align: left;">比較対象と本計画の型（ライブラリへ委ねる範囲）</td>
+<td style="text-align: left;">Arrow 固有の設計</td>
+</tr>
+<tr>
+<td style="text-align: left;">参考 part-1 / part-2</td>
+<td style="text-align: left;">第 1〜5 章の説明順（純粋関数、不変データ、高階関数）</td>
+<td style="text-align: left;">fp-ts のコード</td>
+</tr>
+<tr>
+<td style="text-align: left;">参考 part-3 / part-4</td>
+<td style="text-align: left;">第 6〜11 章の題材の切り方（失敗、遅延する副作用）</td>
+<td style="text-align: left;">fp-ts のコード</td>
+</tr>
+<tr>
+<td style="text-align: left;">参考 part-5</td>
+<td style="text-align: left;">使わない</td>
+<td style="text-align: left;">自作の並行処理（不具合がある）</td>
+</tr>
+<tr>
+<td style="text-align: left;">参考 part-6</td>
+<td style="text-align: left;">第 12〜13 章と全章（組み立て、テスト戦略）</td>
+<td style="text-align: left;">自作の property test の仕組み</td>
+</tr>
+<tr>
+<td style="text-align: left;">Effect の公式資料（v4）</td>
+<td style="text-align: left;">API の一次情報</td>
+<td style="text-align: left;">v3 の API</td>
+</tr>
+</tbody>
+</table>
+<p><code>tmp/</code> は Git の管理外なので、着手時に参照した版を記録します。記事には参照元の文章・コードを転載しません。Node 20、Vitest 1 系、テストを型検査しない tsconfig、未設定の lint も持ち込みません。</p>
+<h3 id="_38">技術方針<a class="headerlink" href="#_38" title="Permanent link">&para;</a></h3>
+<p>次は決定した方針です。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">項目</th>
+<th style="text-align: left;">方針</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">FP ライブラリ</td>
+<td style="text-align: left;">Effect v4。版は 4.1.6 を基準に <code>^</code> を使わず固定し、更新は意図して行う。fp-ts は使わない</td>
+</tr>
+<tr>
+<td style="text-align: left;">核と殻</td>
+<td style="text-align: left;">domain の遷移と射影は純粋関数に保つ（失敗は <code>Result</code> を想定）。<code>Effect</code> は境界に置く</td>
+</tr>
+<tr>
+<td style="text-align: left;">実行</td>
+<td style="text-align: left;"><code>runPromise</code> などの実行は、最外周とテストに限る</td>
+</tr>
+<tr>
+<td style="text-align: left;">型検査</td>
+<td style="text-align: left;"><code>strict</code>。テストも <code>tsc --noEmit</code> の対象にする</td>
+</tr>
+<tr>
+<td style="text-align: left;">品質ゲート</td>
+<td style="text-align: left;"><code>npm run check</code> に一本化する。CI は <code>npm ci</code> を使う</td>
+</tr>
+<tr>
+<td style="text-align: left;">性質テスト</td>
+<td style="text-align: left;">回数は <code>const TRIALS = N</code> で宣言する</td>
+</tr>
+<tr>
+<td style="text-align: left;">道具の範囲</td>
+<td style="text-align: left;">要件が無い Fiber・Stream・並行化は採らない。ライブラリを見せるための抽象は増やさない</td>
+</tr>
+</tbody>
+</table>
+<p>次はまだ候補です。スパイクで決めて ADR に残します（番号は ADR-053 から）。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">項目</th>
+<th style="text-align: left;">候補</th>
+<th style="text-align: left;">決定のタイミング</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Node / devShell</td>
+<td style="text-align: left;">専用の <code>typescript-fp</code> shell。第一候補は Node 24。<code>nodePackages.*</code> に依存しない。開発機の Node 22 との差の扱いも決める</td>
+<td style="text-align: left;">Unit 1</td>
+</tr>
+<tr>
+<td style="text-align: left;">module と実行方法</td>
+<td style="text-align: left;">ESM + NodeNext。<code>tsc</code> の出力、<code>tsx</code>、Node の型除去を比べる</td>
+<td style="text-align: left;">Unit 1</td>
+</tr>
+<tr>
+<td style="text-align: left;">TypeScript の版と追加の tsconfig</td>
+<td style="text-align: left;">現行の安定版と Effect の要件を確認する。<code>exactOptionalPropertyTypes</code>・<code>noUncheckedIndexedAccess</code> など</td>
+<td style="text-align: left;">Unit 1</td>
+</tr>
+<tr>
+<td style="text-align: left;">テスト</td>
+<td style="text-align: left;">vitest 5 + <code>@effect/vitest</code></td>
+<td style="text-align: left;">Unit 1</td>
+</tr>
+<tr>
+<td style="text-align: left;">性質テストの道具</td>
+<td style="text-align: left;">Effect の <code>Arbitrary</code> と fast-check の直接利用を比べる</td>
+<td style="text-align: left;">Unit 1</td>
+</tr>
+<tr>
+<td style="text-align: left;">lint / format</td>
+<td style="text-align: left;">typescript-eslint（型情報つき）+ Prettier、Biome、Effect language service。ADR-004 と違う判断なら記録する</td>
+<td style="text-align: left;">Unit 1</td>
+</tr>
+<tr>
+<td style="text-align: left;">step の配置</td>
+<td style="text-align: left;">累積の <code>zettai-step1-foundation</code>〜<code>zettai-step7-observability</code> を npm workspaces で管理する。代替は単一 package</td>
+<td style="text-align: left;">Unit 1</td>
+</tr>
+<tr>
+<td style="text-align: left;">受け入れテスト</td>
+<td style="text-align: left;"><code>@cucumber/cucumber</code>。代替は service を差し替える自作 DDT</td>
+<td style="text-align: left;">Unit 1</td>
+</tr>
+<tr>
+<td style="text-align: left;">unstable モジュールの扱い</td>
+<td style="text-align: left;"><code>http</code>・<code>sql</code> を使うか、安定した層（<code>node:http</code>・<code>pg</code>）を薄く包むか</td>
+<td style="text-align: left;">Unit 1 で方針、第 2・9 章で確定</td>
+</tr>
+<tr>
+<td style="text-align: left;">HTTP</td>
+<td style="text-align: left;"><code>effect</code> の HTTP + <code>@effect/platform-node</code>、または薄い自作の層</td>
+<td style="text-align: left;">第 2 章</td>
+</tr>
+<tr>
+<td style="text-align: left;">codec と decode</td>
+<td style="text-align: left;">Effect の Schema が第一候補。自作 <code>Converter</code> との対応を示す</td>
+<td style="text-align: left;">第 9 章の前（第 12 章で再評価）</td>
+</tr>
+<tr>
+<td style="text-align: left;">永続化</td>
+<td style="text-align: left;"><code>@effect/sql-pg</code> か <code>pg</code>。SQL は直接書く。<code>@testcontainers/postgresql</code> を使い、Docker が無くても skip しない</td>
+<td style="text-align: left;">第 9 章</td>
+</tr>
+<tr>
+<td style="text-align: left;">transaction と文脈</td>
+<td style="text-align: left;">SQL client の transaction 機能、<code>Context.Service</code>、引数渡しを比べる</td>
+<td style="text-align: left;">第 9〜10 章</td>
+</tr>
+<tr>
+<td style="text-align: left;">エラー蓄積</td>
+<td style="text-align: left;">Effect / Schema の API か、自作のアプリカティブか</td>
+<td style="text-align: left;">第 11 章</td>
+</tr>
+<tr>
+<td style="text-align: left;">テンプレート</td>
+<td style="text-align: left;">自作の tagged template か既製か。escape と未設定値の検出を要件にする</td>
+<td style="text-align: left;">第 11 章</td>
+</tr>
+<tr>
+<td style="text-align: left;">ログ</td>
+<td style="text-align: left;">Effect の logger か、型で項目を限定した自作の decorator</td>
+<td style="text-align: left;">第 12 章</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_39">前提整備<a class="headerlink" href="#_39" title="Permanent link">&para;</a></h3>
+<p>最初の Bolt はウォーキングスケルトンです。執筆を始める前に、次を順に満たします。</p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Effect v4 の <code>Result</code>・<code>Context.Service</code>・<code>Layer</code>・testing 系の API と unstable の範囲を、公式資料と最小テストで確かめる。移行ガイドの未読ページも読む</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> fp-ts の Effect への合流を公式情報で確認し、ライブラリの選定を ADR に残す</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>apps/typescript-fp/zettai/</code> に雛形を作り、<code>.gitignore</code> に <code>dist/</code> と <code>coverage/</code> を追加する</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>ops/nix/environments/typescript-fp/shell.nix</code> を追加して <code>flake.nix</code> に登録し、Docker 上の Nix で確認する</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 純粋関数、<code>Result</code>、<code>Layer</code> を差し替える <code>Effect</code> の最小テストを 1 本ずつ Red → Green で通す</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> ビルドした出力を Node で実行する smoke を通す</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> わざと壊して確認する（テストの型エラー、要求 <code>R</code> の解決漏れ、実行していない <code>Effect</code> を lint が捕まえるか）</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 受け入れテストの domain / HTTP の 2 経路と、Testcontainers の smoke を通す</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>npm run check</code> を単一の品質ゲートにし、<code>.github/workflows/typescript-fp-zettai.yml</code> を追加する</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>ops/scripts/article/check_article_code.py</code> に <code>.ts</code>・<code>tsconfig*.json</code> の探索と言語タグ <code>typescript</code>・<code>ts</code> を追加し、<code>node_modules</code>・<code>dist</code>・<code>coverage</code> を除外する（除外しないと依存の中の行に一致して検査が素通りする）</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>ops/scripts/article/check_numbers.py</code> に <code>.ts</code> と <code>TRIALS</code> の形式を追加して生成物を除外し、TypeScript FP で宣言が 0 件なら違反にする</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>ops/scripts/article/check_sections.py</code> の対象名に <code>"typescript-fp": "TypeScript FP"</code> を登録する</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>docs/article/draft.md</code> に節名の読み替えを登録する</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>docs/article/zettai/typescript-fp/index.md</code> を作り、<code>zettai/index.md</code>・<code>docs/index.md</code>・<code>mkdocs.yml</code> に反映する</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>planning-releases</code> で <code>docs/development/release_plan-typescript-fp.md</code> を作る</li>
+</ul>
+<p>節名の読み替えは次のとおりです。<strong>未定の行は <a href="../draft/">draft.md</a> の表に登録しません</strong>（検査が期待値として読むためです）。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">章・節</th>
+<th style="text-align: left;">読み替え</th>
+<th style="text-align: left;">状態</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">第 9 章 第 3 節</td>
+<td style="text-align: left;">「TypeScript でデータベースに接続する」にする</td>
+<td style="text-align: left;">確定</td>
+</tr>
+<tr>
+<td style="text-align: left;">第 3 章 第 5 節</td>
+<td style="text-align: left;">受け入れテストの方式に合わせる</td>
+<td style="text-align: left;">Unit 1 の後に登録</td>
+</tr>
+<tr>
+<td style="text-align: left;">第 7 章 第 4 節</td>
+<td style="text-align: left;">型の名前に合わせる。候補は「<code>Result</code> と <code>Effect</code> の型付きエラーで実装する」</td>
+<td style="text-align: left;">Unit 1 の後に登録</td>
+</tr>
+<tr>
+<td style="text-align: left;">第 10 章 第 2 節</td>
+<td style="text-align: left;">文脈を渡す方式に合わせる</td>
+<td style="text-align: left;">第 10 章のスパイク後に登録</td>
+</tr>
+<tr>
+<td style="text-align: left;">第 10 章 第 4 節</td>
+<td style="text-align: left;">「設計を２回間違えた」が実装の事実と合うかを判断する</td>
+<td style="text-align: left;">第 10 章の実装後に判断</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_40">章別計画<a class="headerlink" href="#_40" title="Permanent link">&para;</a></h3>
+<p>章タイトルと第 2 見出しの並びは既存対象と揃えます。表の API の名前は想定を含むため、実装とテストで確定してから記事に載せます。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">章</th>
+<th style="text-align: left;">ファイル</th>
+<th style="text-align: left;">TypeScript FP の焦点</th>
+<th style="text-align: left;">実装・検証の到達点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;"><code>chapter01.md</code></td>
+<td style="text-align: left;">純粋関数、参照透過性。作った時点で動く Promise と、実行するまで動かない <code>Effect</code></td>
+<td style="text-align: left;">テストが通り、テストの型検査も効く</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;"><code>chapter02.md</code></td>
+<td style="text-align: left;"><code>pipe</code> と <code>Effect.gen</code>、HTTP を関数にし、境界で domain の型にする</td>
+<td style="text-align: left;">HTTP の縦串、プロセス内テスト、実サーバーの smoke が通る</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;"><code>chapter03.md</code></td>
+<td style="text-align: left;">受け入れテストを抽象化し、service を差し替えて経路を変える</td>
+<td style="text-align: left;">同じシナリオが domain / HTTP の 2 経路で通る</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;"><code>chapter04.md</code></td>
+<td style="text-align: left;">引数渡し・<code>Context.Service</code>・<code>Layer</code> の依存の注入を比べる。branded type と smart constructor</td>
+<td style="text-align: left;">fetcher を差し替えられる。取り違えと提供漏れを型のテストで固定する</td>
+</tr>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;"><code>chapter05.md</code></td>
+<td style="text-align: left;">不変な event 列の fold とモノイド。自作と Effect の対応物を比べる</td>
+<td style="text-align: left;">結合律と単位元の性質テストが通る。状態の畳み込みとモノイドを区別する</td>
+</tr>
+<tr>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;"><code>chapter06.md</code></td>
+<td style="text-align: left;">tag を持つ判別可能 union と網羅性、純粋な状態遷移</td>
+<td style="text-align: left;">全遷移と拒否理由を検証し、分岐を足すと <code>tsc</code> が落ちる</td>
+</tr>
+<tr>
+<td style="text-align: left;">7</td>
+<td style="text-align: left;"><code>chapter07.md</code></td>
+<td style="text-align: left;">型付きエラー。<code>Result</code> と <code>Effect</code> の <code>E</code> の使い分け、失敗と defect の違い</td>
+<td style="text-align: left;">ファンクタ則と、エラーの HTTP への対応が通る</td>
+</tr>
+<tr>
+<td style="text-align: left;">8</td>
+<td style="text-align: left;"><code>chapter08.md</code></td>
+<td style="text-align: left;">純粋な射影と <code>map</code>、CQRS</td>
+<td style="text-align: left;">command と query の経路が分かれ、射影の性質テストが通る</td>
+</tr>
+<tr>
+<td style="text-align: left;">9</td>
+<td style="text-align: left;"><code>chapter09.md</code></td>
+<td style="text-align: left;"><code>Effect</code> のモナド、<code>Scope</code> と <code>Layer</code> による接続の寿命の管理、行データの decode</td>
+<td style="text-align: left;">PostgreSQL 結合テスト（追記順、原子性、3 経路目）とモナド則が通る</td>
+</tr>
+<tr>
+<td style="text-align: left;">10</td>
+<td style="text-align: left;"><code>chapter10.md</code></td>
+<td style="text-align: left;">transaction の文脈を <code>R</code> と service で表す。版の検査</td>
+<td style="text-align: left;">commit、失敗・defect・中断での rollback、接続の返却、競合の検出が通る</td>
+</tr>
+<tr>
+<td style="text-align: left;">11</td>
+<td style="text-align: left;"><code>chapter11.md</code></td>
+<td style="text-align: left;">独立した検証の蓄積と、逐次の合成との違い</td>
+<td style="text-align: left;">全エラーが入力順に返り、蓄積の性質テストと rename のフォームが通る</td>
+</tr>
+<tr>
+<td style="text-align: left;">12</td>
+<td style="text-align: left;"><code>chapter12.md</code></td>
+<td style="text-align: left;">構造化ログと decorator、Schema と双方向変換、プロファンクタ</td>
+<td style="text-align: left;">機密を含まないログ、往復と dimap 則が通る</td>
+</tr>
+<tr>
+<td style="text-align: left;">13</td>
+<td style="text-align: left;"><code>chapter13.md</code></td>
+<td style="text-align: left;"><code>Effect&lt;A, E, R&gt;</code> が設計に与えたもの、型が守らなかった所、採らなかった道具、他言語との対比</td>
+<td style="text-align: left;">全品質ゲートが通り、冒頭の問いに答える</td>
+</tr>
+</tbody>
+</table>
+<p>次の挙動は未確認です。該当する章のスパイクで確かめます。</p>
+<ul>
+<li><strong>法則テスト</strong>: <code>Effect</code> は値のまま比べず、両辺を実行して結果（<code>Exit</code>）と実行ログを比べます</li>
+<li><strong>第 9・10 章</strong>: 型付きエラー、defect（<code>throw</code>）、中断の 3 つで、解放と rollback を別々に確かめます。transaction 内は直列にします</li>
+<li><strong>第 9 章</strong>: Promise を包むとき、reject が型付きエラーと defect のどちらになるかを API ごとに確かめます</li>
+<li><strong>第 11 章</strong>: 逐次の合成は最初の失敗で止まります。2 件以上失敗するテストで固定します</li>
+<li><strong>第 12 章</strong>: Schema の変換をそのままプロファンクタと呼ばず、法則を満たすかをテストで確かめます</li>
+</ul>
+<h3 id="_41">この対象で新しく問われること<a class="headerlink" href="#_41" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">問い</th>
+<th style="text-align: left;">章</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>Effect&lt;A, E, R&gt;</code> の 3 つの型引数は、核と殻の分離を守れるか（<code>Effect</code> の外の副作用は止められない）</td>
+<td style="text-align: left;">1・2・4・9</td>
+</tr>
+<tr>
+<td style="text-align: left;">型が実行時に消えるとき、境界は何で守るか</td>
+<td style="text-align: left;">2・9・12</td>
+</tr>
+<tr>
+<td style="text-align: left;">構造的型付けで ID や名前をどう区別するか</td>
+<td style="text-align: left;">4・11</td>
+</tr>
+<tr>
+<td style="text-align: left;">依存を <code>R</code> に載せると、依存の組み立てはどう変わるか</td>
+<td style="text-align: left;">4・10</td>
+</tr>
+<tr>
+<td style="text-align: left;">型付きエラーと defect の線を、どこに引くか</td>
+<td style="text-align: left;">7・9・10</td>
+</tr>
+<tr>
+<td style="text-align: left;">実行し忘れた <code>Effect</code> は誰が見つけるか</td>
+<td style="text-align: left;">9・10・12</td>
+</tr>
+<tr>
+<td style="text-align: left;">自作した抽象のうち、何を Effect に置き換え、何を残すか</td>
+<td style="text-align: left;">5・8・11・12</td>
+</tr>
+<tr>
+<td style="text-align: left;">網羅性はどこまで守れるか（DB の未知の値は型の外にある）</td>
+<td style="text-align: left;">6</td>
+</tr>
+</tbody>
+</table>
+<h3 id="unit-bolt_1">Unit / Bolt 計画<a class="headerlink" href="#unit-bolt_1" title="Permanent link">&para;</a></h3>
+<p>既存対象と同じく、各章を 1 Bolt とし、7 Unit・14 Bolt を直列に進めます。Unit 1 はスパイクが多いため、検証負荷を高く見積もります。進捗はリリース計画を一次情報とします。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Unit</th>
+<th style="text-align: left;">Bolt</th>
+<th style="text-align: left;">対象</th>
+<th style="text-align: left;">完了ゲート</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1-1 / 1-2</td>
+<td style="text-align: left;">前提整備 / 第 1 章</td>
+<td style="text-align: left;">最小構成の <code>npm run check</code> と CI が通り、記事の検査が TypeScript に効く</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">2-1 / 2-2</td>
+<td style="text-align: left;">第 2〜3 章</td>
+<td style="text-align: left;">HTTP の縦串と 2 経路の受け入れテストが通る</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">3-1 / 3-2</td>
+<td style="text-align: left;">第 4〜5 章</td>
+<td style="text-align: left;">依存の注入とイベント畳み込みの性質テストが通る</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">4-1 / 4-2</td>
+<td style="text-align: left;">第 6〜7 章</td>
+<td style="text-align: left;">純粋な状態遷移と型付きエラーが通る</td>
+</tr>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">5-1 / 5-2</td>
+<td style="text-align: left;">第 8〜9 章</td>
+<td style="text-align: left;">CQRS と Testcontainers の PostgreSQL 結合テストが通る</td>
+</tr>
+<tr>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">6-1 / 6-2</td>
+<td style="text-align: left;">第 10〜11 章</td>
+<td style="text-align: left;">transaction / rollback とエラー蓄積が通る</td>
+</tr>
+<tr>
+<td style="text-align: left;">7</td>
+<td style="text-align: left;">7-1 / 7-2</td>
+<td style="text-align: left;">第 12〜13 章</td>
+<td style="text-align: left;">監視、横断比較、全品質ゲートが通る</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_42">章ごとの作業サイクル<a class="headerlink" href="#_42" title="Permanent link">&para;</a></h3>
+<ol>
+<li>既存対象の同じ章と、参考の記事の対応する part を読む</li>
+<li>受入条件をテストにし、Red を実際に確認する</li>
+<li><code>apps/typescript-fp/zettai/</code> に最小の実装を加えて Green にする</li>
+<li>Refactor し、性質がある抽象は法則を性質テストで確かめる</li>
+<li>動作確認済みのコードを <code>docs/article/zettai/typescript-fp/chapterNN.md</code> に転記する</li>
+<li><code>mkdocs.yml</code>、シリーズ索引、進捗表を更新する</li>
+<li>実装（<code>feat(typescript-fp): ...</code>）と記事（<code>docs(typescript-fp): ...</code>）を別のコミットにする</li>
+</ol>
+<h3 id="_43">横断比較で追加する軸<a class="headerlink" href="#_43" title="Permanent link">&para;</a></h3>
+<p>Scala 版（Cats Effect の <code>IO</code>）と Kotlin FP 版（Arrow）との対比を中心にします。Phase 1（第 3 章）の完了時に <code>comparison/</code> へ節を追加します。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">比較軸</th>
+<th style="text-align: left;">TypeScript FP 版で検証する問い</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">効果の型</td>
+<td style="text-align: left;">エラーと依存も型引数に持つと、読みやすくなるか</td>
+</tr>
+<tr>
+<td style="text-align: left;">依存の注入</td>
+<td style="text-align: left;">service と <code>Layer</code> は、関数引数より意図を表すか</td>
+</tr>
+<tr>
+<td style="text-align: left;">リソースと transaction</td>
+<td style="text-align: left;">失敗・defect・中断のすべてで後始末が保証されるか</td>
+</tr>
+<tr>
+<td style="text-align: left;">エラー蓄積</td>
+<td style="text-align: left;">ライブラリの API は仕様を直接表せるか</td>
+</tr>
+<tr>
+<td style="text-align: left;">型の限界</td>
+<td style="text-align: left;">型は実行時に何を保証しないか</td>
+</tr>
+<tr>
+<td style="text-align: left;">コスト</td>
+<td style="text-align: left;">学習量とメジャー版の移行を、どこまで引き受けるか</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_44">リスクと対策<a class="headerlink" href="#_44" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">リスク</th>
+<th style="text-align: left;">影響</th>
+<th style="text-align: left;">対策</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Effect v4 は公開から 2 か月弱で、更新が多い</td>
+<td style="text-align: left;">記事と実装が早くずれる</td>
+<td style="text-align: left;">版と lock を固定し、記事に版を明記する</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>http</code>・<code>sql</code> などが unstable</td>
+<td style="text-align: left;">minor の更新で壊れる</td>
+<td style="text-align: left;">依存を adapter に閉じ込め、採否と代替を ADR に残す</td>
+</tr>
+<tr>
+<td style="text-align: left;">v3 の情報が混ざる（Web の例、生成 AI の知識）</td>
+<td style="text-align: left;">動かないコードや誤った説明が載る</td>
+<td style="text-align: left;">v4 の公式資料と型検査を一次情報にし、テスト済みの実装から転記する</td>
+</tr>
+<tr>
+<td style="text-align: left;">参考実装が fp-ts で、コードを流用できない</td>
+<td style="text-align: left;">見積もりより工数が増える</td>
+<td style="text-align: left;">説明順だけを借り、スパイクを Unit 1 に含める</td>
+</tr>
+<tr>
+<td style="text-align: left;">Effect の記法が重い</td>
+<td style="text-align: left;">Zettai の設計判断が薄まる</td>
+<td style="text-align: left;">初出で用語を説明し、必要な機能だけを使う</td>
+</tr>
+<tr>
+<td style="text-align: left;">Effect が多くを提供する</td>
+<td style="text-align: left;">自作する抽象の学びが消える</td>
+<td style="text-align: left;">法則は先に自作のテストで示し、その後 Effect の API に対応づける</td>
+</tr>
+<tr>
+<td style="text-align: left;">テストが型検査されない</td>
+<td style="text-align: left;">型の主張が壊れても緑になる</td>
+<td style="text-align: left;">わざと壊して確認し、Red を必ず確認する</td>
+</tr>
+<tr>
+<td style="text-align: left;">型エラーが長く読みにくい</td>
+<td style="text-align: left;">記事が読みにくくなる</td>
+<td style="text-align: left;">合成を短く分け、公開する関数は型を明示する</td>
+</tr>
+<tr>
+<td style="text-align: left;">累積する step の複製</td>
+<td style="text-align: left;">修正が漏れる</td>
+<td style="text-align: left;">全 step を CI で実行する</td>
+</tr>
+<tr>
+<td style="text-align: left;">コードの照合が、全言語をまとめた行との一致を見る</td>
+<td style="text-align: left;">別の言語や step の行に一致して見逃す</td>
+<td style="text-align: left;">生成物を除外し、対象ディレクトリ別の照合を検討する</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_45">完了確認<a class="headerlink" href="#_45" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>outline.md</code>、<code>zettai/index.md</code>、<code>draft.md</code> に TypeScript FP 版が反映されている</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>docs/article/zettai/typescript-fp/</code> に <code>index.md</code> と <code>chapter01.md</code>〜<code>chapter13.md</code> がある</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>apps/typescript-fp/zettai/</code> の <code>npm run check</code> が成功する</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> テストが型検査されることと、記事の検査が生成物を除外することを、わざと壊して確認している</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> PostgreSQL の結合テストが、ローカルと CI の両方で Testcontainers により成功する</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 記事コード同期・節構成・件数・引用・ADR 参照の検査が TypeScript FP 版を含めて成功する</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>mkdocs.yml</code> の nav とリンクが揃い、<code>mkdocs build --strict</code> が成功する</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>.github/workflows/typescript-fp-zettai.yml</code> が成功する</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>docs/article/zettai/comparison/</code> に TypeScript FP 版が反映されている</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 記事、実装、環境・CI を目的別にコミットしている</li>
+</ul>
+<h2 id="_46">執筆規約<a class="headerlink" href="#_46" title="Permanent link">&para;</a></h2>
 <ul>
 <li>見出しは階層を飛ばさない。章内の節は <a href="../draft/">draft.md</a> のマインドマップに一致させる</li>
 <li>コードブロックには言語を明示する。差分を示すときは変更箇所が分かる粒度で切る</li>
-<li><strong>記事のコード例は必ず対象のサンプル実装（<code>apps/kotlin/zettai/</code>・<code>apps/kotlin-fp/zettai/</code>・<code>apps/nadesiko/zettai/</code>・<code>apps/rust/zettai/</code>・<code>apps/flix/zettai/</code>・<code>apps/scala/zettai/</code>）の動作確認済み実装から転記する。</strong> 憶測で書いたコードを載せない</li>
+<li><strong>記事のコード例は必ず対象のサンプル実装（<code>apps/kotlin/zettai/</code>・<code>apps/kotlin-fp/zettai/</code>・<code>apps/nadesiko/zettai/</code>・<code>apps/rust/zettai/</code>・<code>apps/flix/zettai/</code>・<code>apps/scala/zettai/</code>・<code>apps/typescript-fp/zettai/</code>）の動作確認済み実装から転記する。</strong> 憶測で書いたコードを載せない</li>
 <li>長い完成コードは <code>&lt;details&gt;</code> に入れ、本文には差分だけを載せる</li>
 <li>日本語と半角英数字の間に半角スペース。文体はですます調。技術用語は英語のまま</li>
 <li>読者が実行するコマンドは、プロンプト記号を混ぜず、コピーしてそのまま動く形で書く</li>
@@ -14672,7 +15453,7 @@ apps/
 <li><strong>節名が特定の対象に固有の語（ライブラリ名・言語名・製品名）を含む場合は、対象言語での対応物に読み替える。</strong> マインドマップ本体は 1 言語目の記事が参照しているため変えず、<a href="../draft/">draft.md</a> の「言語別の読み替え」表に登録してから記事を書く。節の位置と役割は変えない（規則は Unit 5 で「ライブラリ名」から「対象に固有の語」に広げた。第 9 章に <code>PostgreSQL</code>・<code>Kotlin</code> が入っていたため）</li>
 <li>章の割り当て・検証負荷・Unit / Bolt の構成を変えたら、本ファイルの章別計画と対象のリリース計画（<a href="../../development/release_plan/">Kotlin 版</a> / <a href="../../development/release_plan-nadesiko/">なでしこ3 版</a>）の Unit 分解・ストーリー一覧・進捗状況を同じコミットで揃える</li>
 </ul>
-<h3 id="_37">対象ごとの差分<a class="headerlink" href="#_37" title="Permanent link">&para;</a></h3>
+<h3 id="_47">対象ごとの差分<a class="headerlink" href="#_47" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -14701,9 +15482,13 @@ apps/
 <td style="text-align: left;">Scala</td>
 <td style="text-align: left;">言語タグは <code>scala</code>（Unit 1 で検査スクリプトへの登録を確認）。Scala 3 の記法で統一し、ライブラリ（Cats Effect・http4s・doobie 等）は版を固定して記事に明記する。<code>IO</code> を実行する境界（<code>IOApp</code>・テストの <code>unsafeRunSync</code> 相当）を本文で明示する。sbt の出力は <code>bash</code> ブロックで貼る</td>
 </tr>
+<tr>
+<td style="text-align: left;">TypeScript FP</td>
+<td style="text-align: left;">言語タグは <code>typescript</code>。Effect は版を固定して記事に明記し、unstable な API を使う箇所は本文で示す。v3 の API は書かない。<code>any</code>・<code>as</code>・<code>!</code> を使う場合は理由を書く。<code>Effect</code> を実行する境界を明示する。型で拒否される例は <code>@ts-expect-error</code> のテストから転記する。npm と tsc の出力は <code>bash</code> ブロックで貼る</td>
+</tr>
 </tbody>
 </table>
-<p><strong>対象に固有の語（ライブラリ名・言語名・製品名）を含む節名は読み替える</strong>という規則は 6 対象に共通です。読み替えた対応は <a href="../draft/">draft.md</a> の表に登録します。<strong>登録しないと <code>check_sections.py</code> が落ちます。</strong></p>
+<p><strong>対象に固有の語（ライブラリ名・言語名・製品名）を含む節名は読み替える</strong>という規則は 7 対象に共通です。読み替えた対応は <a href="../draft/">draft.md</a> の表に登録します。<strong>登録しないと <code>check_sections.py</code> が落ちます。</strong></p>
 
 
 

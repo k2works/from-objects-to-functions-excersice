@@ -1,0 +1,64 @@
+name: TypeScript FP Zettai
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'apps/typescript-fp/zettai/**'
+      - 'docs/article/zettai/typescript-fp/**'
+      - 'ops/nix/environments/typescript-fp/**'
+      - 'ops/scripts/article/**'
+      - '.github/workflows/typescript-fp-zettai.yml'
+      - 'flake.nix'
+  pull_request:
+    paths:
+      - 'apps/typescript-fp/zettai/**'
+      - 'docs/article/zettai/typescript-fp/**'
+      - 'ops/nix/environments/typescript-fp/**'
+      - 'ops/scripts/article/**'
+      - '.github/workflows/typescript-fp-zettai.yml'
+      - 'flake.nix'
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/typescript-fp/zettai
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Node 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: apps/typescript-fp/zettai/package-lock.json
+      - name: Install dependencies
+        run: npm ci --ignore-scripts
+      - name: Check
+        run: npm run check
+
+  article:
+    runs-on: ubuntu-latest
+    services:
+      plantuml:
+        image: plantuml/plantuml-server:jetty
+        ports:
+          - 18080:8080
+    env:
+      NO_MKDOCS_2_WARNING: '1'
+      PLANTUML_SERVER_URL: http://localhost:18080
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install documentation tools
+        run: pip install mkdocs-material plantuml-markdown
+      - run: python3 ops/scripts/article/check_article_code.py
+      - run: python3 ops/scripts/article/check_code_style.py
+      - run: python3 ops/scripts/article/check_sections.py
+      - run: python3 ops/scripts/article/check_numbers.py
+      - run: python3 ops/scripts/article/check_adr_references.py
+      - run: mkdocs build --strict

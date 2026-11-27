@@ -24,3 +24,12 @@ describe("domain boundary", () => {
     expect(imported.filter((specifier) => !isAllowed(specifier))).toEqual([])
   })
 })
+
+// domain の経路が web を通ると、2 つの経路が同じ部分を通り、分けた意味が薄れます。
+describe("domain route", () => {
+  it("does not go through the web", () => {
+    const source = readFileSync(new URL("./acceptance/domain-route.ts", import.meta.url), "utf-8")
+
+    expect([...source.matchAll(IMPORT)].filter((match) => match[1]?.includes("/web/"))).toEqual([])
+  })
+})

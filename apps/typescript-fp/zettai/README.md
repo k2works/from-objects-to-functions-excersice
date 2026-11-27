@@ -27,7 +27,7 @@ ZETTAI_PORT=18123 npm run start
 | step | 内容 |
 | :--- | :--- |
 | `zettai-step1-foundation` | 前提整備と第 1 章。基盤を確かめる最小のテスト |
-| `zettai-step2-http-domain` | 第 2 章。HTTP の最小の縦串（`GET /todo/{user}/{listname}`） |
+| `zettai-step2-http-domain` | 第 2〜3 章。HTTP の最小の縦串（`GET /todo/{user}/{listname}`）と、domain / HTTP の 2 経路の受け入れテスト（`test/acceptance/`） |
 
 `two-routes.test.ts` と `postgres.smoke.test.ts` は**基盤の確認用**です。Zettai の業務シナリオではありません。2 経路は、関数を直接呼ぶ経路と、`Request`・`Response` を通す経路で、サーバーは起動しません。
 
@@ -55,6 +55,15 @@ ZETTAI_PORT=18123 npm run start
 | 6 | `new Request` は `TRACE` に例外を投げる。callback の中で投げると、応答が返らない | 要求がタイムアウトする | `GET` 以外は `Request` を作る前に返す。テストで固定した | 2 |
 | 7 | 開発機（Windows）では、8080 番の待ち受けが `EACCES` で失敗した | 既定のポートで起動できないことがある | `ZETTAI_PORT` で変える | 2 |
 | 8 | Windows の深いディレクトリにコピーすると、smoke の段で `tsc` が見つからなかった。原因は確かめていない | `npm run check` が失敗する | 浅いディレクトリに clone する（この回避策は試していない） | 2 |
+
+### 受け入れテスト（第 3 章）
+
+| # | 制約 | 影響 | 回避策・守り方 | 見つけた Unit |
+| :--- | :--- | :--- | :--- | :--- |
+| 1 | シナリオの操作の `await` を忘れると、vitest は件数の上では全件成功と表示する（終了コードは失敗） | 件数の行だけを見ると見落とす | lint の `no-floating-promises` が指摘する。終了コードで判定する | 2 |
+| 2 | HTTP の経路の読み戻しは HTML を解析せず、`<h1>` と `<li>` を探す | 画面の作りを変えると、読み戻しを直す必要がある | 読み戻しを 1 か所にまとめ、テストを持つ | 2 |
+| 3 | 経路で、閉じないスコープを渡すと、型検査と lint を通る | サーバーが停止しない | 経路の後始末をテストする（`routes.test.ts`） | 2 |
+| 4 | 状態を変える操作を含むシナリオは、まだ無い | 経路の形が、状態を扱えるかは確かめていない | 第 6 章で確かめる | 2 |
 
 ### Effect
 

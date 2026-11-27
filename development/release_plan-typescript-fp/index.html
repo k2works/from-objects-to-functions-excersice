@@ -13027,6 +13027,11 @@
 </tr>
 </tbody>
 </table>
+<p><strong>達成（2026-11-28）。</strong> 対象はコミット <a href="https://github.com/k2works/from-objects-to-functions-excersice/commit/10b7e691"><code>10b7e69</code></a>（<a href="https://github.com/k2works/from-objects-to-functions-excersice/actions/runs/46067856811">CI</a> が成功）です。条件ごとの確認は <a href="../bolt_report-typescript-fp-2/">Unit 2 の Bolt 終了報告</a> にあります。人の決定で、次のとおり扱います。</p>
+<ul>
+<li><strong>記録だけをリリースとします。</strong> ほかの対象の版と同じく、Git のタグ、CHANGELOG、GitHub Release は作りません</li>
+<li><strong>例外を 1 つ残します。</strong> Nix の devShell での確認（US-000 の受入条件 7）は、PostgreSQL のテストを含みません。検証用のコンテナに、開発機の Docker のソケットを渡していないためです。CI では同じテストが通っていますが、CI は Nix を使いません</li>
+</ul>
 <h3 id="release-v020phase-2">Release v0.2.0（Phase 2 完了）: ドメインをイベントと関数で表す<a class="headerlink" href="#release-v020phase-2" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -13514,7 +13519,6 @@
 <hr />
 <h2 id="_21">次のステップ<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h2>
 <ol>
-<li>Release v0.1.0 の作業（タグ付けなど）を行うかを、人が決める（条件の確認は <a href="../bolt_report-typescript-fp-2/">Unit 2 の Bolt 終了報告</a>）</li>
 <li>Unit 3（第 4〜5 章）の Bolt 計画を作り、承認を得る</li>
 </ol>
 <hr />
@@ -13546,6 +13550,11 @@
 <tr>
 <td style="text-align: left;">2026-11-28</td>
 <td style="text-align: left;">Unit 2 の完了を記録した。承認ゲートの密度は、人の決定で変えない</td>
+<td style="text-align: left;">anthropic/claude-sonnet-5-5</td>
+</tr>
+<tr>
+<td style="text-align: left;">2026-11-28</td>
+<td style="text-align: left;">Release v0.1.0 の達成を記録した。タグは作らず、Nix の確認の例外を残すことは人の決定</td>
 <td style="text-align: left;">anthropic/claude-sonnet-5-5</td>
 </tr>
 </tbody>

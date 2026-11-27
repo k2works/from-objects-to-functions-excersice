@@ -4,7 +4,7 @@ title: "ADR-054 TypeScript FP 版は TypeScript 7 と @effect/tsgo を使い、n
 description: "Zettai 連載 TypeScript FP 版で、TypeScript 7.0.2・@effect/tsgo・Oxlint・Prettier を採り、tsc でビルドして Node で実行し、累積する step を npm workspaces で管理する決定。品質ゲート npm run check の各段が守るもの、実測した秒数、選ばなかった案と代償を記録する。"
 tags: [adr, typescript, zettai, effect, testing]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T10:05:45Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T10:35:28Z }
 ---
 
 # ADR-054 TypeScript FP 版は TypeScript 7 と @effect/tsgo を使い、npm run check を 5 段にする
@@ -131,6 +131,10 @@ TypeScript の latest は 7.0.2 ですが、`typescript-eslint` 8.74.0 の peer 
 ## 追記（2026-11-27、CI での実行時間）
 
 コミット `8cf2565` の CI（`ubuntu-latest`、Node 24.22.3）の 1 回の実行では、`npm ci --ignore-scripts` が 7 秒、`npm run check` が 17 秒でした。テストの段は 12.98 秒で、PostgreSQL のイメージの取得を含みます。ステップの開始と終了の時刻（秒の単位）と、vitest の表示から読みました。**1 回の測定です。時間の上限は、まだ決めていません。**
+
+## 追記（2026-11-27、実行時間の上限）
+
+`npm run check` の上限を、開発機と CI のどちらも **60 秒**にします（人が承認しました）。超えたら、段ごとに測って原因を調べます。承認の時点の実測は、第 2 章の step を足した開発機で中央値 14.3 秒（3 回）、第 1 章までの CI で 18 秒（1 回）です。**上限を機械で確かめる手段はありません。** 各 Unit で測ります。
 
 ## 備考
 

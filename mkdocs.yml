@@ -330,6 +330,7 @@ nav:
           - TypeScript FP 版:
               - 概要: article/zettai/typescript-fp/index.md
               - 第 1 章 新しいアプリケーションを準備する: article/zettai/typescript-fp/chapter01.md
+              - 第 2 章 関数を使って HTTP を扱う: article/zettai/typescript-fp/chapter02.md
           - 横断比較: article/zettai/comparison/index.md
   - リファレンス:
       - 概要: reference/index.md

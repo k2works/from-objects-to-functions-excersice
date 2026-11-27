@@ -1,10 +1,10 @@
 ---
 type: Bolt Report
 title: "Unit 1 の Bolt 終了報告 - Zettai 連載（TypeScript FP 版）"
-description: "TypeScript FP 版 Unit 1 の品質ゲート、CI、記事の検査、第 1 章の成果と指標を記録する。第 1 章は人の承認を受け、push 後の CI が残っている。"
+description: "TypeScript FP 版 Unit 1 の品質ゲート、CI、記事の検査、第 1 章の成果と指標を記録する。受入条件の例外 1 件を記録して完了した。"
 tags: [development, report, ai-dlc, zettai, typescript, effect, unit-1]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T10:05:45Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T10:35:28Z }
 ---
 
 # Unit 1 の Bolt 終了報告 - Zettai 連載（TypeScript FP 版）
@@ -16,17 +16,13 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T10:05:45Z }
 | Unit | 1：土台と第 1 章 |
 | Bolt | 1-1 前提整備 / 1-2 第 1 章 |
 | 実施日 | 2026-11-27 |
-| 状態 | **未完了。** 作業は終わり、下の「残り」の 1 件を待っている |
+| 状態 | **完了**（受入条件の例外が 1 件。下の「受入条件の例外」） |
 
 計画は [Unit 1 の Bolt 計画](iteration_plan-typescript-fp-1.md) にあります。
 
-## 残り
+## 受入条件の例外
 
-| # | 残り | 待っているもの |
-| :--- | :--- | :--- |
-| 1 | 第 1 章のコードを含むコミットで、CI が成功すること | push の指示 |
-
-第 1 章は、2026-11-27 に人の承認を受けました。
+US-000 の受入条件 7「Nix の devShell `typescript-fp` で `npm run check` が通る」は、**PostgreSQL のテストを除いて**確かめました。確認に使ったコンテナに、ホストの Docker のソケットを渡さなかったためです。PostgreSQL のテストは、CI と開発機で通っています。Nix を使う読者の環境で、このテストが通ることは確かめていません。
 
 ## 成果
 
@@ -41,7 +37,8 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T10:05:45Z }
 | ゲート | 結果 | 対象 |
 | :--- | :--- | :--- |
 | `npm run check`（開発機の Windows、Node 22.23.4） | 3 回続けて成功。7 ファイル 14 件 | 第 1 章を含む作業ツリー |
-| GitHub Actions `TypeScript FP Zettai` | [成功](https://github.com/k2works/from-objects-to-functions-excersice/actions/runs/45976313499)。9 件 | **雛形のコミット `8cf2565`。第 1 章のコードは含まない** |
+| GitHub Actions `TypeScript FP Zettai`（雛形） | [成功](https://github.com/k2works/from-objects-to-functions-excersice/actions/runs/45976313499)。9 件 | コミット `8cf2565` |
+| GitHub Actions `TypeScript FP Zettai`（第 1 章を含む） | [成功](https://github.com/k2works/from-objects-to-functions-excersice/actions/runs/45980723974)。Node 24.22.3 で 14 件。`check` は 18 秒（1 回） | コミット `7727624` |
 | Nix の devShell（Docker 上、Node 24.12.0） | PostgreSQL のテストを除いて成功 | 雛形 |
 | 記事の検査 5 本 | 違反 0 件（記事 79 ファイル） | 第 1 章を含む作業ツリー |
 | `mkdocs build --strict`（手元、PlantUML は一時コンテナ） | 成功 | 同上 |
@@ -62,9 +59,9 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T10:05:45Z }
 | 承認ゲートの同期停止 | 3 箇所中 2 箇所以上 | **3 / 3** |
 | ゲートの変更依頼数 | — | 0 |
 | ゲートのほかに停止した箇所 | — | 1（CI と実行環境の追加の前。必ず停止する操作） |
-| 人が修正を入れた箇所数（コミット後の手直し） | — | 0（この報告の時点） |
-| リードタイム | — | 未確定。最初のコミットは 2026-11-27 18:30（`4910e8d`）で、完了のコミットがまだ無い |
-| 公開する章 | 1 | 1（コミット前） |
+| 人が修正を入れた箇所数（コミット後の手直し） | — | 0 |
+| リードタイム | — | 約 46 分（最初のコミット `4910e8d` 18:30 から、CI で第 1 章を確かめたコミット `7727624` 19:16 まで。**最初のコミットより前のスパイクの時間は含まない**） |
+| 公開する章 | 1 | 1 |
 | ADR | 3 | 3 |
 
 ## `npm run check` の時間
@@ -92,7 +89,7 @@ CI の 1 回の実行（雛形）では、`npm run check` が 17 秒でした。
 
 | # | 確かめていないこと |
 | :--- | :--- |
-| 1 | 第 1 章のコードの、Linux と Node 24 での実行（push 後の CI で確かめる） |
+| 1 | 第 1 章のコードの、macOS での実行 |
 | 2 | Nix の devShell での PostgreSQL のテスト。コンテナにホストの Docker のソケットを渡さなかった |
 | 3 | macOS と、Windows の Nix |
 | 4 | IDE で TypeScript 7 と Effect の診断が使えるか |

@@ -4,7 +4,7 @@ title: "Unit 2 の Bolt 計画（イテレーション 2）- Zettai 連載（Typ
 description: "Zettai 連載 TypeScript FP 版の Unit 2（第 2〜3 章）の Bolt 計画。HTTP の方式をゲートで決めて最小の縦串を通し、受け入れシナリオを domain と HTTP の 2 経路で実行して v0.1.0 に到達する。事前に比べた HTTP の 3 案と、承認の対象となる新規ファイルを含む。"
 tags: [development, plan, ai-dlc, bolt, zettai, typescript, effect, unit-2]
 status: stable
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T10:16:28Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T10:35:28Z }
 verified:
   - { by: human:kakimomokuri, at: 2026-11-27T10:16:28Z }
 ---
@@ -31,7 +31,7 @@ verified:
 
 ### 着手の前提
 
-**Unit 1 は、まだ完了していません。** 第 1 章のコードを含む CI の成功が残っています（[Unit 1 の Bolt 終了報告](bolt_report-typescript-fp-1.md)）。本 Unit のステップは、Unit 1 の完了を確かめてから始めます。
+**Unit 1 は完了しました。** 第 1 章のコードを含むコミット `7727624` の [CI が成功しました](https://github.com/k2works/from-objects-to-functions-excersice/actions/runs/45980723974)。受入条件の例外が 1 件あります（[Unit 1 の Bolt 終了報告](bolt_report-typescript-fp-1.md)）。
 
 ### 承認ゲートの運用形態
 
@@ -176,20 +176,29 @@ B は、unstable を使いながら接続を自作するため、行数が最も
 - [x] **2-1.1 ★ゲート ①: HTTP の実装方式**
   - 完了判定: 人が選び、ADR-056 を書いた
   - **実績（2026-11-27。同期停止した）**: 人が案 A（stable な部品だけで書き、接続を自作する）を選んだ。変更依頼は 0 回（[ADR-056](../adr/ADR-056-typescript-http-with-stable-parts.md)）
-- [ ] **2-1.2 step を追加し、外側のテストを Red にする**
+- [x] **2-1.2 step を追加し、外側のテストを Red にする**
   - `zettai-step2-http-domain` を workspaces に足す。前の step は残す
   - 実サーバーを起動し、`GET /todo/uberto/book` の応答を確かめるテストを先に書く
-- [ ] **2-1.3 内側を Red → Green で作る**
+  - **実績（2026-11-27）**: 実装が無いため、読み込みの失敗で Red になった。追加したライブラリは無い
+- [x] **2-1.3 内側を Red → Green で作る**
   - `User`・`ListName`・`ToDoItem`・`ToDoList`、リストを探す関数、HTML への変換、ルート、サーバーの起動と停止
   - domain の import を検査するテストを置く
   - 完了判定: US-002 の受入条件をテストで満たし、`npm run check` が通る
-- [ ] **2-1.4 第 2 章の執筆**
+  - **実績（2026-11-27）**: domain、HTML、ルート、接続の順に、仮の実装で Red にしてから作った。素朴な接続の実装では、接続と外側のテスト 8 件のうち 6 件が失敗した（`//` のパス、`TRACE` で応答が返らない、500 の本文への情報の漏れ、`POST` の通過、停止しない 2 件）。常に 404 を返す仮の実装では、ルートと HTML のテスト 15 件のうち 12 件が通った。`npm run check` は 14 ファイル 52 件が通る
+  - **計画に無かった追加**: 開発機で 8080 番の待ち受けが `EACCES` になったため、環境変数 `ZETTAI_PORT` でポートを変えられるようにした。値の検査は `parsePort` としてテストした
+- [x] **2-1.4 第 2 章の執筆**
   - 節構成は章構成マインドマップに一致させる（読み替えは無い）
   - 「型で守れたこと・守れなかったこと」と「Effect に置き換えたこと・自作で残したこと」を書く。型と名前の取り違え（`User` と `ListName` は同じ形）が型で止まるかを確かめて書く
-- [ ] **2-1.5 品質ゲートと反映**
+  - **実績（2026-11-27）**: [第 2 章](../article/zettai/typescript-fp/chapter02.md) を書いた。本文の「型検査は止める・通る」という主張は、壊して確かめた。`User` と `ListName` の取り違え、オブジェクトをキーにした `Map`、domain から web への依存、エスケープの欠落、素朴な接続は、型検査を通る。失敗の処理の書き忘れは型検査が止め、失敗の種類の追加は通る
+- [x] **2-1.5 品質ゲートと反映**
   - `npm run check`、追跡ファイルだけを取り出した場所での確認、記事の検査 5 本、`mkdocs build --strict`、OKF の検査
   - `check` の時間を測り、上限を提案する（持ち込み 8）
   - 索引と `mkdocs.yml` に反映する。**第 2 章は人の全文確認を受けるまで完了にしない**
+  - **実績（2026-11-27）**: 記事の検査、`mkdocs build --strict`、OKF の検査を実行し、索引・UI 設計・執筆計画・`README.md` に反映した
+    - `check` の時間（開発機の Windows、3 回）: 14.6・14.3・14.1 秒（中央値 14.3 秒）。段ごとの中央値は、型検査 1.4、lint 1.0、format 0.9、test 6.9、smoke 4.0 秒。Unit 1 の 17.1〜26.1 秒より短い。**差の原因は調べていない**
+    - **上限は、開発機と CI のどちらも 60 秒**（2026-11-27 に人が承認）。超えたら、段ごとに測って原因を調べる
+    - 追跡対象のファイルだけでの確認は、Nix のコンテナ（Linux、Node 24.12.0）で行い、PostgreSQL のテストを除いて通った。Windows でスクラッチの深いディレクトリにコピーした場合は、smoke の段で `tsc` が見つからず失敗した。**原因は確かめていない**（`PATH` の長さの制限を疑っている）
+  - 第 2 章は、2026-11-27 に人の承認を受けた
 
 ## Bolt 2-2: 第 3 章
 

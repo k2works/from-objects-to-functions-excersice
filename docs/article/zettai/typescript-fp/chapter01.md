@@ -4,9 +4,10 @@ title: "第 1 章 新しいアプリケーションを準備する"
 description: "Zettai 連載 TypeScript FP 版の第 1 章。TypeScript と Effect v4 の品質ゲートを作り、純粋関数、値としての失敗（Result）、値としての副作用（Effect）をテストファーストで導く。テストが通っても型エラーや実行し忘れた Effect が残ること、型では守れない副作用があることを実際に壊して確かめる。"
 tags: [article, zettai, typescript, effect, chapter]
 status: stable
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T10:00:22Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T10:35:28Z }
 verified:
   - { by: human:kakimomokuri, at: 2026-11-27T10:05:46Z }
+  - { by: human:kakimomokuri, at: 2026-11-27T10:35:29Z }
 ---
 
 # 第 1 章 新しいアプリケーションを準備する
@@ -216,7 +217,7 @@ nix develop .#typescript-fp
 | 環境 | 範囲 |
 | :--- | :--- |
 | Windows、Node 22.23.4 | この章のコードで `npm run check` が通る |
-| GitHub Actions（`ubuntu-latest`）、Node 24.22.3 | この章のコードを書く前の雛形で `npm run check` が通った |
+| GitHub Actions（`ubuntu-latest`）、Node 24.22.3 | この章のコードで `npm run check` が通る。PostgreSQL のテストを含む |
 | `nixos/nix` のコンテナ、Node 24.12.0 | 雛形で、PostgreSQL のテストを除いて通った |
 
 macOS と、Windows の Nix では確かめていません。

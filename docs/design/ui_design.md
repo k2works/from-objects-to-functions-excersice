@@ -4,7 +4,7 @@ title: "UI 設計 - Zettai"
 description: "Zettai（Kotlin 版）の UI 設計。画面一覧、ワイヤーフレーム、画面遷移図、URL 規約、HTML の組み立て方針を記述する。現時点の画面は ToDo リスト表示の 1 つで、章の進行にあわせて追加する。"
 tags: [design, ui, zettai, kotlin]
 status: draft
-generated: { by: claude-code/claude-opus-5, at: 2026-09-29T07:44:20Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T10:35:28Z }
 ---
 
 # UI 設計 - Zettai
@@ -289,6 +289,14 @@ if let ["todo", user, list_name, "rename"] = parts.as_slice() {
 | リストが無い | 404 | — |
 
 **`curl -L` は 302 のあとに POST を再送します**（なでしこ3 版で踏みました）。テストでは使いません。
+
+## TypeScript FP 版での差分
+
+画面、URL の規約、ステータスコードの考え方は共通です。第 2 章の時点の違いは次のとおりです。
+
+- HTML は、TypeScript の文字列テンプレートで組み立て、埋め込む値は自作の関数でエスケープします。型は、エスケープ済みの文字列を区別しません
+- HTTP は、`Request` から `Effect<Response>` への関数です。`node:http` への接続は自作し、いまは `GET` と本文の無い要求だけを扱います（[ADR-056](../adr/ADR-056-typescript-http-with-stable-parts.md)）
+- 無いリスト、知らないパス、`GET` 以外のメソッドは 404、壊れた URL エンコードは 400、想定外の失敗は理由を出さずに 500 を返します
 
 ## 関連ドキュメント
 

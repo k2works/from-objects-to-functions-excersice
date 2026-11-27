@@ -4,7 +4,7 @@ title: "Unit 1 の Bolt 計画（イテレーション 1）- Zettai 連載（Typ
 description: "Zettai 連載 TypeScript FP 版の Unit 1（土台と第 1 章）の Bolt 計画。Effect v4・TypeScript・検査の道具をスパイクで確かめて 3 箇所のゲートで決め、npm run check と CI と記事の検査を整えて第 1 章を書く。計画の承認でまとめて承認する新規ファイルとライブラリの一覧を含む。"
 tags: [development, plan, ai-dlc, bolt, zettai, typescript, effect, unit-1]
 status: stable
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T10:05:45Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T10:35:28Z }
 verified:
   - { by: human:kakimomokuri, at: 2026-11-27T08:21:25Z }
 ---
@@ -535,19 +535,19 @@ flowchart LR
 
 ### Definition of Done
 
-- [ ] US-000 と US-001 の受入条件をすべて満たす
-- [ ] `npm run check` が 3 回続けて通り、秒数と段ごとの内訳が記録されている
-- [ ] 壊して確かめる項目のすべてに結果がある
-- [ ] ADR-053〜055 があり、選ばなかった案と代償が書かれ、状態が人の判断と一致する
-- [ ] 既知の制約の一覧に、本 Unit で分かったことが入っている
-- [ ] 章の検査 5 本が違反 0 件（TypeScript を対象に含めた状態で）
-- [ ] `mkdocs build --strict` が通る
-- [ ] OKF の検査で、本 Unit の変更による ERROR が無い（着手前からある ERROR 1 件は対象外）
-- [ ] CI の `check` と `article` が成功した（push 後に確認）
-- [ ] `mkdocs.yml`、シリーズ索引、執筆計画、リリース計画の進捗が一致する
+- [x] US-000 と US-001 の受入条件を満たす。**例外が 1 件ある。** US-000 の 7（Nix の devShell）は、PostgreSQL のテストを除いて確かめた。コンテナにホストの Docker のソケットを渡さなかったためである。PostgreSQL のテストは、CI と開発機で通っている
+- [x] `npm run check` が 3 回続けて通り、秒数と段ごとの内訳が記録されている
+- [x] 壊して確かめる項目のすべてに結果がある
+- [x] ADR-053〜055 があり、選ばなかった案と代償が書かれ、状態が人の判断と一致する
+- [x] 既知の制約の一覧に、本 Unit で分かったことが入っている
+- [x] 章の検査 5 本が違反 0 件（TypeScript を対象に含めた状態で）
+- [x] `mkdocs build --strict` が通る
+- [x] OKF の検査で、本 Unit の変更による ERROR が無い（着手前からある ERROR 1 件は対象外）
+- [x] CI の `check` と `article` が成功した（push 後に確認）
+- [x] `mkdocs.yml`、シリーズ索引、執筆計画、リリース計画の進捗が一致する
 - [x] 第 1 章を人が全文確認した（ゲートには数えない）
-- [ ] Bolt 終了報告とふりかえりがある
-- [ ] 実装と記事を別のコミットにした
+- [x] Bolt 終了報告とふりかえりがある
+- [x] 実装と記事を別のコミットにした
 
 リリース計画の「全 Bolt 共通の完了条件」も適用します。
 

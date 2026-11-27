@@ -4,7 +4,7 @@ title: "執筆計画：関数型プログラミングで作る変更を楽に安
 description: "Uberto Barbini 著『From Objects to Functions』を下敷きにした Zettai 連載の執筆計画。既存 3 言語版に加え、Grokking Functional Programming の Kotlin + Arrow 解説を基礎にした Kotlin FP 版、効果システムを持つ Flix 版、Cats Effect を使う Scala 版、Effect を使う TypeScript FP 版（執筆中）について、全 13 章の移植方針、記事と実装の同期、前提整備、品質ゲートを定義する。"
 tags: [article, plan, zettai]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T10:05:45Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T10:35:28Z }
 ---
 
 # 執筆計画：関数型プログラミングで作る変更を楽に安全にできるソフトウェア
@@ -19,7 +19,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T10:05:45Z }
 
 ## 対象一覧
 
-本シリーズは同じ 13 章構成を対象ごとに書き起こす比較シリーズです。現在の対象は **5 言語・6 実装方針** です（Flix 版、Scala 版も全 13 章を公開しました）。**Scala（Cats Effect）版も全 13 章を公開し、5 言語・6 実装方針になりました。**次の対象の TypeScript FP（Effect）版は執筆中で、第 1 章を公開しました（完結すると 6 言語・7 実装方針になります）。章の番号・タイトル・焦点は対象をまたいで共通とし、対象ごとに変えるのは実現手段だけです。Kotlin FP 版は言語を増やすのではなく、同じ Kotlin で「自前の関数型抽象」と「Arrow / coroutine を使う実装」を比較する対象です。
+本シリーズは同じ 13 章構成を対象ごとに書き起こす比較シリーズです。現在の対象は **5 言語・6 実装方針** です（Flix 版、Scala 版も全 13 章を公開しました）。**Scala（Cats Effect）版も全 13 章を公開し、5 言語・6 実装方針になりました。**次の対象の TypeScript FP（Effect）版は執筆中で、第 2 章まで公開しました（完結すると 6 言語・7 実装方針になります）。章の番号・タイトル・焦点は対象をまたいで共通とし、対象ごとに変えるのは実現手段だけです。Kotlin FP 版は言語を増やすのではなく、同じ Kotlin で「自前の関数型抽象」と「Arrow / coroutine を使う実装」を比較する対象です。
 
 | 対象 | 実行環境 | 章数 | 記事 | サンプル実装 | 状態 |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -29,7 +29,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T10:05:45Z }
 | Rust | Nix devShell `rust`（rustc 1.91.1 / cargo 1.91.0） | 13 | `docs/article/zettai/rust/` | `apps/rust/zettai/` | **完結**（13 / 13 章公開） |
 | Flix | Nix devShell `flix`（JDK 21 / Flix 0.79.0） | 13 | `docs/article/zettai/flix/` | `apps/flix/zettai/` | **完結**（13 / 13 章公開） |
 | Scala | Nix devShell `scala`（Scala 3 / sbt。JDK は Unit 1 で確認）＋ Cats Effect | 13 | `docs/article/zettai/scala/` | `apps/scala/zettai/` | **完結**（13 / 13 章公開） |
-| TypeScript FP | Nix devShell `typescript-fp`（Node 24）＋ Effect | 13 | `docs/article/zettai/typescript-fp/` | `apps/typescript-fp/zettai/` | **執筆中（1 / 13 章）** |
+| TypeScript FP | Nix devShell `typescript-fp`（Node 24）＋ Effect | 13 | `docs/article/zettai/typescript-fp/` | `apps/typescript-fp/zettai/` | **執筆中（2 / 13 章）** |
 
 横断比較コンテンツ [`docs/article/zettai/comparison/`](zettai/comparison/index.md) は、なでしこ3 版が Phase 1（第 3 章）を終えた 2026-09-28 に新設しました。当初の比較軸は「**型で保証する**（Kotlin）」と「**約束とテストで保証する**（なでしこ3）」の 2 点でした。
 
@@ -788,7 +788,7 @@ Unit・Bolt の割り当ては既存対象と同一（1 Unit = 2 章、Unit 1 �
 
 ## TypeScript FP 追加執筆計画
 
-6 言語目として **TypeScript と Effect** で同じ 13 章を書き起こします。**状態は執筆中で、Unit 1（前提整備と第 1 章）を進めています。** 非 FP の TypeScript 版は無いため、対象名の「FP」は Effect を使う版という意味です。
+6 言語目として **TypeScript と Effect** で同じ 13 章を書き起こします。**状態は執筆中で、Unit 1 は完了し、Unit 2（第 2〜3 章）を進めています。** 非 FP の TypeScript 版は無いため、対象名の「FP」は Effect を使う版という意味です。
 
 ### Intent と成功条件
 
@@ -863,7 +863,7 @@ v3 を前提にした記事やコード例は、そのままでは使えませ�
 | step の配置 | **決定**（ADR-054）。累積の `zettai-stepN-*` を npm workspaces で管理する | Unit 1 |
 | 受け入れテスト | **決定**（ADR-055）。vitest の `describe.each` で経路を差し替える自作 | Unit 1 |
 | unstable モジュールの扱い | **方針は決定**（ADR-053。stable を原則にし、unstable は承認したものだけを使う）。`http`・`sql` を使うかは各章で比べる | 第 2・9 章で確定 |
-| HTTP | `effect` の HTTP + `@effect/platform-node`、または薄い自作の層 | 第 2 章 |
+| HTTP | **決定**（ADR-056）。stable な部品だけで書き、`node:http` への接続を自作する | 第 2 章 |
 | codec と decode | Effect の Schema が第一候補。自作 `Converter` との対応を示す | 第 9 章の前（第 12 章で再評価） |
 | 永続化 | `@effect/sql-pg` か `pg`。SQL は直接書く。`@testcontainers/postgresql` を使い、Docker が無くても skip しない | 第 9 章 |
 | transaction と文脈 | SQL client の transaction 機能、`Context.Service`、引数渡しを比べる | 第 9〜10 章 |

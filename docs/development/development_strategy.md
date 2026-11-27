@@ -4,7 +4,7 @@ title: "開発戦略 - Zettai 連載"
 description: "Zettai 連載の Kotlin、Kotlin FP、なでしこ3、Rust 各版に共通する局面別 TDD アプローチと、対象ごとの差分を定義する開発戦略。"
 tags: [development, strategy, zettai, kotlin, arrow, nadesiko, rust, typescript]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T09:25:01Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T10:35:28Z }
 ---
 
 # 開発戦略 - Zettai 連載
@@ -745,7 +745,7 @@ TypeScript と Effect で書く対象です（[リリース計画](release_plan-
 - **型検査の緑を、そのまま信用しません。** 型は実行時に消えるため、境界の入力はテストで守ります。テストの型エラーや、実行していない `Effect` を検査が捕まえるかは、壊して確かめます
 - **新規ファイルと外部ライブラリは、Bolt 計画の一覧の承認をもって承認とします。** 一覧に無いものが必要になった場合は停止します
 
-[Unit 1 の Bolt 計画](iteration_plan-typescript-fp-1.md)は承認済みです。
+Unit 1 は完了し、[Unit 2 の Bolt 計画](iteration_plan-typescript-fp-2.md)を進めています。
 
 ## 更新履歴
 

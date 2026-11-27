@@ -10092,6 +10092,41 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/typescript-fp/chapter02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 2 章 関数を使って HTTP を扱う
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -12348,7 +12383,7 @@
 <p><strong>本計画は 2026-11-27 に人の承認を得ました。</strong> 新規ファイルの一覧も承認の対象です。</p>
 <p>上位の計画は <a href="../release_plan-typescript-fp/">リリース計画</a> です。この Unit の完了が Release v0.1.0 です。</p>
 <h3 id="_2">着手の前提<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
-<p><strong>Unit 1 は、まだ完了していません。</strong> 第 1 章のコードを含む CI の成功が残っています（<a href="../bolt_report-typescript-fp-1/">Unit 1 の Bolt 終了報告</a>）。本 Unit のステップは、Unit 1 の完了を確かめてから始めます。</p>
+<p><strong>Unit 1 は完了しました。</strong> 第 1 章のコードを含むコミット <code>7727624</code> の <a href="https://github.com/k2works/from-objects-to-functions-excersice/actions/runs/45980723974">CI が成功しました</a>。受入条件の例外が 1 件あります（<a href="../bolt_report-typescript-fp-1/">Unit 1 の Bolt 終了報告</a>）。</p>
 <h3 id="_3">承認ゲートの運用形態<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <p><strong>本 Unit のゲートは「同期停止」で運用します。</strong></p>
 <blockquote>
@@ -12667,20 +12702,31 @@
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>2-1.1 ★ゲート ①: HTTP の実装方式</strong></li>
 <li>完了判定: 人が選び、ADR-056 を書いた</li>
 <li><strong>実績（2026-11-27。同期停止した）</strong>: 人が案 A（stable な部品だけで書き、接続を自作する）を選んだ。変更依頼は 0 回（<a href="../../adr/ADR-056-typescript-http-with-stable-parts/">ADR-056</a>）</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>2-1.2 step を追加し、外側のテストを Red にする</strong></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>2-1.2 step を追加し、外側のテストを Red にする</strong></li>
 <li><code>zettai-step2-http-domain</code> を workspaces に足す。前の step は残す</li>
 <li>実サーバーを起動し、<code>GET /todo/uberto/book</code> の応答を確かめるテストを先に書く</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>2-1.3 内側を Red → Green で作る</strong></li>
+<li><strong>実績（2026-11-27）</strong>: 実装が無いため、読み込みの失敗で Red になった。追加したライブラリは無い</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>2-1.3 内側を Red → Green で作る</strong></li>
 <li><code>User</code>・<code>ListName</code>・<code>ToDoItem</code>・<code>ToDoList</code>、リストを探す関数、HTML への変換、ルート、サーバーの起動と停止</li>
 <li>domain の import を検査するテストを置く</li>
 <li>完了判定: US-002 の受入条件をテストで満たし、<code>npm run check</code> が通る</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>2-1.4 第 2 章の執筆</strong></li>
+<li><strong>実績（2026-11-27）</strong>: domain、HTML、ルート、接続の順に、仮の実装で Red にしてから作った。素朴な接続の実装では、接続と外側のテスト 8 件のうち 6 件が失敗した（<code>//</code> のパス、<code>TRACE</code> で応答が返らない、500 の本文への情報の漏れ、<code>POST</code> の通過、停止しない 2 件）。常に 404 を返す仮の実装では、ルートと HTML のテスト 15 件のうち 12 件が通った。<code>npm run check</code> は 14 ファイル 52 件が通る</li>
+<li><strong>計画に無かった追加</strong>: 開発機で 8080 番の待ち受けが <code>EACCES</code> になったため、環境変数 <code>ZETTAI_PORT</code> でポートを変えられるようにした。値の検査は <code>parsePort</code> としてテストした</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>2-1.4 第 2 章の執筆</strong></li>
 <li>節構成は章構成マインドマップに一致させる（読み替えは無い）</li>
 <li>「型で守れたこと・守れなかったこと」と「Effect に置き換えたこと・自作で残したこと」を書く。型と名前の取り違え（<code>User</code> と <code>ListName</code> は同じ形）が型で止まるかを確かめて書く</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>2-1.5 品質ゲートと反映</strong></li>
+<li><strong>実績（2026-11-27）</strong>: <a href="../../article/zettai/typescript-fp/chapter02/">第 2 章</a> を書いた。本文の「型検査は止める・通る」という主張は、壊して確かめた。<code>User</code> と <code>ListName</code> の取り違え、オブジェクトをキーにした <code>Map</code>、domain から web への依存、エスケープの欠落、素朴な接続は、型検査を通る。失敗の処理の書き忘れは型検査が止め、失敗の種類の追加は通る</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>2-1.5 品質ゲートと反映</strong></li>
 <li><code>npm run check</code>、追跡ファイルだけを取り出した場所での確認、記事の検査 5 本、<code>mkdocs build --strict</code>、OKF の検査</li>
 <li><code>check</code> の時間を測り、上限を提案する（持ち込み 8）</li>
 <li>索引と <code>mkdocs.yml</code> に反映する。<strong>第 2 章は人の全文確認を受けるまで完了にしない</strong></li>
+<li><strong>実績（2026-11-27）</strong>: 記事の検査、<code>mkdocs build --strict</code>、OKF の検査を実行し、索引・UI 設計・執筆計画・<code>README.md</code> に反映した<ul>
+<li><code>check</code> の時間（開発機の Windows、3 回）: 14.6・14.3・14.1 秒（中央値 14.3 秒）。段ごとの中央値は、型検査 1.4、lint 1.0、format 0.9、test 6.9、smoke 4.0 秒。Unit 1 の 17.1〜26.1 秒より短い。<strong>差の原因は調べていない</strong></li>
+<li><strong>上限は、開発機と CI のどちらも 60 秒</strong>（2026-11-27 に人が承認）。超えたら、段ごとに測って原因を調べる</li>
+<li>追跡対象のファイルだけでの確認は、Nix のコンテナ（Linux、Node 24.12.0）で行い、PostgreSQL のテストを除いて通った。Windows でスクラッチの深いディレクトリにコピーした場合は、smoke の段で <code>tsc</code> が見つからず失敗した。<strong>原因は確かめていない</strong>（<code>PATH</code> の長さの制限を疑っている）</li>
+</ul>
+</li>
+<li>第 2 章は、2026-11-27 に人の承認を受けた</li>
 </ul>
 <h2 id="bolt-2-2-3">Bolt 2-2: 第 3 章<a class="headerlink" href="#bolt-2-2-3" title="Permanent link">&para;</a></h2>
 <h3 id="bolt_1">Bolt ゴール<a class="headerlink" href="#bolt_1" title="Permanent link">&para;</a></h3>

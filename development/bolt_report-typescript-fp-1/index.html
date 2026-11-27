@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="TypeScript FP 版 Unit 1 の品質ゲート、CI、記事の検査、第 1 章の成果と指標を記録する。第 1 章は人の承認を受け、push 後の CI が残っている。">
+        <meta name="description" content="TypeScript FP 版 Unit 1 の品質ゲート、CI、記事の検査、第 1 章の成果と指標を記録する。受入条件の例外 1 件を記録して完了した。">
       
       
         <meta name="author" content="Project Team">
@@ -2749,7 +2749,7 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        残り
+        受入条件の例外
       
     </span>
   </a>
@@ -9780,6 +9780,41 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/typescript-fp/chapter02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 2 章 関数を使って HTTP を扱う
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -12009,29 +12044,13 @@
 </tr>
 <tr>
 <td style="text-align: left;">状態</td>
-<td style="text-align: left;"><strong>未完了。</strong> 作業は終わり、下の「残り」の 1 件を待っている</td>
+<td style="text-align: left;"><strong>完了</strong>（受入条件の例外が 1 件。下の「受入条件の例外」）</td>
 </tr>
 </tbody>
 </table>
 <p>計画は <a href="../iteration_plan-typescript-fp-1/">Unit 1 の Bolt 計画</a> にあります。</p>
-<h2 id="_2">残り<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">#</th>
-<th style="text-align: left;">残り</th>
-<th style="text-align: left;">待っているもの</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">1</td>
-<td style="text-align: left;">第 1 章のコードを含むコミットで、CI が成功すること</td>
-<td style="text-align: left;">push の指示</td>
-</tr>
-</tbody>
-</table>
-<p>第 1 章は、2026-11-27 に人の承認を受けました。</p>
+<h2 id="_2">受入条件の例外<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>US-000 の受入条件 7「Nix の devShell <code>typescript-fp</code> で <code>npm run check</code> が通る」は、<strong>PostgreSQL のテストを除いて</strong>確かめました。確認に使ったコンテナに、ホストの Docker のソケットを渡さなかったためです。PostgreSQL のテストは、CI と開発機で通っています。Nix を使う読者の環境で、このテストが通ることは確かめていません。</p>
 <h2 id="_3">成果<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <ul>
 <li><code>apps/typescript-fp/zettai/</code> に、5 段の <code>npm run check</code> を持つ npm workspaces を作りました</li>
@@ -12056,9 +12075,14 @@
 <td style="text-align: left;">第 1 章を含む作業ツリー</td>
 </tr>
 <tr>
-<td style="text-align: left;">GitHub Actions <code>TypeScript FP Zettai</code></td>
+<td style="text-align: left;">GitHub Actions <code>TypeScript FP Zettai</code>（雛形）</td>
 <td style="text-align: left;"><a href="https://github.com/k2works/from-objects-to-functions-excersice/actions/runs/45976313499">成功</a>。9 件</td>
-<td style="text-align: left;"><strong>雛形のコミット <code>8cf2565</code>。第 1 章のコードは含まない</strong></td>
+<td style="text-align: left;">コミット <code>8cf2565</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">GitHub Actions <code>TypeScript FP Zettai</code>（第 1 章を含む）</td>
+<td style="text-align: left;"><a href="https://github.com/k2works/from-objects-to-functions-excersice/actions/runs/45980723974">成功</a>。Node 24.22.3 で 14 件。<code>check</code> は 18 秒（1 回）</td>
+<td style="text-align: left;">コミット <code>7727624</code></td>
 </tr>
 <tr>
 <td style="text-align: left;">Nix の devShell（Docker 上、Node 24.12.0）</td>
@@ -12125,17 +12149,17 @@
 <tr>
 <td style="text-align: left;">人が修正を入れた箇所数（コミット後の手直し）</td>
 <td style="text-align: left;">—</td>
-<td style="text-align: left;">0（この報告の時点）</td>
+<td style="text-align: left;">0</td>
 </tr>
 <tr>
 <td style="text-align: left;">リードタイム</td>
 <td style="text-align: left;">—</td>
-<td style="text-align: left;">未確定。最初のコミットは 2026-11-27 18:30（<code>4910e8d</code>）で、完了のコミットがまだ無い</td>
+<td style="text-align: left;">約 46 分（最初のコミット <code>4910e8d</code> 18:30 から、CI で第 1 章を確かめたコミット <code>7727624</code> 19:16 まで。<strong>最初のコミットより前のスパイクの時間は含まない</strong>）</td>
 </tr>
 <tr>
 <td style="text-align: left;">公開する章</td>
 <td style="text-align: left;">1</td>
-<td style="text-align: left;">1（コミット前）</td>
+<td style="text-align: left;">1</td>
 </tr>
 <tr>
 <td style="text-align: left;">ADR</td>
@@ -12210,7 +12234,7 @@
 <tbody>
 <tr>
 <td style="text-align: left;">1</td>
-<td style="text-align: left;">第 1 章のコードの、Linux と Node 24 での実行（push 後の CI で確かめる）</td>
+<td style="text-align: left;">第 1 章のコードの、macOS での実行</td>
 </tr>
 <tr>
 <td style="text-align: left;">2</td>

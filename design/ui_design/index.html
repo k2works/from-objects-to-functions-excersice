@@ -1180,6 +1180,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#typescript-fp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TypeScript FP 版での差分
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_11" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -9894,6 +9905,41 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/typescript-fp/chapter02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 2 章 関数を使って HTTP を扱う
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -12385,6 +12431,13 @@
 </tbody>
 </table>
 <p><strong><code>curl -L</code> は 302 のあとに POST を再送します</strong>（なでしこ3 版で踏みました）。テストでは使いません。</p>
+<h2 id="typescript-fp">TypeScript FP 版での差分<a class="headerlink" href="#typescript-fp" title="Permanent link">&para;</a></h2>
+<p>画面、URL の規約、ステータスコードの考え方は共通です。第 2 章の時点の違いは次のとおりです。</p>
+<ul>
+<li>HTML は、TypeScript の文字列テンプレートで組み立て、埋め込む値は自作の関数でエスケープします。型は、エスケープ済みの文字列を区別しません</li>
+<li>HTTP は、<code>Request</code> から <code>Effect&lt;Response&gt;</code> への関数です。<code>node:http</code> への接続は自作し、いまは <code>GET</code> と本文の無い要求だけを扱います（<a href="../../adr/ADR-056-typescript-http-with-stable-parts/">ADR-056</a>）</li>
+<li>無いリスト、知らないパス、<code>GET</code> 以外のメソッドは 404、壊れた URL エンコードは 400、想定外の失敗は理由を出さずに 500 を返します</li>
+</ul>
 <h2 id="_11">関連ドキュメント<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="../architecture_backend/">バックエンドアーキテクチャ設計</a></li>

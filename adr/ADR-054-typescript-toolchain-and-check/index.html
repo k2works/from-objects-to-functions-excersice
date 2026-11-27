@@ -6140,6 +6140,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#2026-11-27_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        追記（2026-11-27、実行時間の上限）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_11" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -9839,6 +9850,41 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/typescript-fp/chapter02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 2 章 関数を使って HTTP を扱う
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -12266,6 +12312,8 @@
 </ul>
 <h2 id="2026-11-27ci">追記（2026-11-27、CI での実行時間）<a class="headerlink" href="#2026-11-27ci" title="Permanent link">&para;</a></h2>
 <p>コミット <code>8cf2565</code> の CI（<code>ubuntu-latest</code>、Node 24.22.3）の 1 回の実行では、<code>npm ci --ignore-scripts</code> が 7 秒、<code>npm run check</code> が 17 秒でした。テストの段は 12.98 秒で、PostgreSQL のイメージの取得を含みます。ステップの開始と終了の時刻（秒の単位）と、vitest の表示から読みました。<strong>1 回の測定です。時間の上限は、まだ決めていません。</strong></p>
+<h2 id="2026-11-27_1">追記（2026-11-27、実行時間の上限）<a class="headerlink" href="#2026-11-27_1" title="Permanent link">&para;</a></h2>
+<p><code>npm run check</code> の上限を、開発機と CI のどちらも <strong>60 秒</strong>にします（人が承認しました）。超えたら、段ごとに測って原因を調べます。承認の時点の実測は、第 2 章の step を足した開発機で中央値 14.3 秒（3 回）、第 1 章までの CI で 18 秒（1 回）です。<strong>上限を機械で確かめる手段はありません。</strong> 各 Unit で測ります。</p>
 <h2 id="_11">備考<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
 <ul>
 <li>著者: anthropic/claude-sonnet-5-5</li>

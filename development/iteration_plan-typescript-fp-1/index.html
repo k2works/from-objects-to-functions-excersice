@@ -10175,6 +10175,41 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/typescript-fp/chapter02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 2 章 関数を使って HTTP を扱う
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -13692,19 +13727,19 @@
 <h2 id="_21">完了条件<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h2>
 <h3 id="definition-of-done">Definition of Done<a class="headerlink" href="#definition-of-done" title="Permanent link">&para;</a></h3>
 <ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> US-000 と US-001 の受入条件をすべて満たす</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>npm run check</code> が 3 回続けて通り、秒数と段ごとの内訳が記録されている</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 壊して確かめる項目のすべてに結果がある</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> ADR-053〜055 があり、選ばなかった案と代償が書かれ、状態が人の判断と一致する</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 既知の制約の一覧に、本 Unit で分かったことが入っている</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 章の検査 5 本が違反 0 件（TypeScript を対象に含めた状態で）</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>mkdocs build --strict</code> が通る</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> OKF の検査で、本 Unit の変更による ERROR が無い（着手前からある ERROR 1 件は対象外）</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> CI の <code>check</code> と <code>article</code> が成功した（push 後に確認）</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>mkdocs.yml</code>、シリーズ索引、執筆計画、リリース計画の進捗が一致する</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> US-000 と US-001 の受入条件を満たす。<strong>例外が 1 件ある。</strong> US-000 の 7（Nix の devShell）は、PostgreSQL のテストを除いて確かめた。コンテナにホストの Docker のソケットを渡さなかったためである。PostgreSQL のテストは、CI と開発機で通っている</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <code>npm run check</code> が 3 回続けて通り、秒数と段ごとの内訳が記録されている</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> 壊して確かめる項目のすべてに結果がある</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> ADR-053〜055 があり、選ばなかった案と代償が書かれ、状態が人の判断と一致する</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> 既知の制約の一覧に、本 Unit で分かったことが入っている</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> 章の検査 5 本が違反 0 件（TypeScript を対象に含めた状態で）</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <code>mkdocs build --strict</code> が通る</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> OKF の検査で、本 Unit の変更による ERROR が無い（着手前からある ERROR 1 件は対象外）</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> CI の <code>check</code> と <code>article</code> が成功した（push 後に確認）</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <code>mkdocs.yml</code>、シリーズ索引、執筆計画、リリース計画の進捗が一致する</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> 第 1 章を人が全文確認した（ゲートには数えない）</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Bolt 終了報告とふりかえりがある</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 実装と記事を別のコミットにした</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Bolt 終了報告とふりかえりがある</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> 実装と記事を別のコミットにした</li>
 </ul>
 <p>リリース計画の「全 Bolt 共通の完了条件」も適用します。</p>
 <h3 id="_22">デモ項目<a class="headerlink" href="#_22" title="Permanent link">&para;</a></h3>

@@ -12899,12 +12899,12 @@
 <li><strong>実績（2026-11-27）</strong>: domain の経路が web を読み込まないことのテストを足し、壊すと失敗することを確かめた。経路の後始末のテスト 2 件を足した</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>2-2.4 第 3 章の執筆</strong></li>
 <li>第 5 節は「DDT を driver のインターフェースに変換する」にする（登録済み）</li>
-<li><strong>実績（2026-11-27）</strong>: <a href="../../article/zettai/typescript-fp/chapter03/">第 3 章</a> を書いた。壊して確かめた中で、<strong>利用者の操作の <code>await</code> を忘れると、vitest は <code>Tests  14 passed (14)</code> と表示した</strong>（終了コードは 1。lint が指摘し、型検査は通る）。<strong>人の全文確認は、まだ受けていない</strong></li>
-<li>[-] <strong>2-2.5 <code>comparison/</code> と報告</strong></li>
+<li><strong>実績（2026-11-27）</strong>: <a href="../../article/zettai/typescript-fp/chapter03/">第 3 章</a> を書いた。壊して確かめた中で、<strong>利用者の操作の <code>await</code> を忘れると、vitest は <code>Tests  14 passed (14)</code> と表示した</strong>（終了コードは 1。lint が指摘し、型検査は通る）。第 3 章は 2026-11-28 に人の全文確認を受けて承認された</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>2-2.5 <code>comparison/</code> と報告</strong></li>
 <li><code>comparison/</code> に TypeScript FP 版の節を追加し、Release v0.1.0 の条件を確かめる</li>
 <li>Bolt 終了報告とふりかえりを書く。ゲートの密度を見直し、検証負荷と実績を突き合わせる（<a href="../development_strategy/">開発戦略</a>、<a href="../release_plan-typescript-fp/">リリース計画</a>）</li>
 <li><strong>実績（2026-11-27）</strong>: <code>comparison/</code> に第 1〜3 章の範囲の節を足し、<a href="../bolt_report-typescript-fp-2/">Bolt 終了報告</a> と <a href="../retrospective-typescript-fp-2/">ふりかえり</a> を書いた。ゲート密度は「変えない」と提案し、2026-11-28 に人がそのとおり決めた。検証負荷との突き合わせは、人の検証の時間を測っていないためできない。<code>check</code> は中央値 15.7 秒（上限 60 秒）。Linux（Nix のコンテナ）では、PostgreSQL のテストを除いて通った</li>
-<li>2026-11-28、第 3 章は人の全文確認を受けて承認された。<strong>残りは、第 3 章を含む CI の成功。</strong> Release v0.1.0 の条件は、これが済むまで満たさない</li>
+<li>2026-11-28、第 3 章は人の全文確認を受けて承認された。コミット <code>83eaa58</code> の <a href="https://github.com/k2works/from-objects-to-functions-excersice/actions/runs/46067452141">CI</a> が成功し（17 ファイル 67 件と smoke）、公開サイトに第 3 章が反映された</li>
 </ul>
 <p>実装は <code>feat(typescript-fp):</code>、記事は <code>docs(typescript-fp):</code> でコミットします。コミットと push は、人の指示を受けてから行います。</p>
 <h3 id="2026-11-27">経路の差し替え方の比較（2026-11-27）<a class="headerlink" href="#2026-11-27" title="Permanent link">&para;</a></h3>
@@ -13090,14 +13090,14 @@
 <h2 id="_18">完了条件<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h2>
 <h3 id="definition-of-done">Definition of Done<a class="headerlink" href="#definition-of-done" title="Permanent link">&para;</a></h3>
 <ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> US-002 と US-003 の受入条件をすべて満たす</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>npm run check</code> が通る。追跡ファイルだけを取り出した場所でも通る</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <a href="../release_plan-typescript-fp/">リリース計画</a> の「全 Bolt 共通の完了条件」を満たす</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> ADR-056・057 がある</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> US-002 と US-003 の受入条件をすべて満たす</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <code>npm run check</code> が通る。追跡ファイルだけを取り出した場所でも通る</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="../release_plan-typescript-fp/">リリース計画</a> の「全 Bolt 共通の完了条件」を満たす</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> ADR-056・057 がある</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> 第 2〜3 章を人が全文確認した（ゲートには数えない）</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> CI の <code>check</code> と <code>article</code> が成功した（push 後に確認）</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>comparison/</code>、索引、<code>mkdocs.yml</code>、執筆計画、リリース計画が一致する</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Bolt 終了報告とふりかえりがある</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> CI の <code>check</code> と <code>article</code> が成功した（push 後に確認）</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <code>comparison/</code>、索引、<code>mkdocs.yml</code>、執筆計画、リリース計画が一致する</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Bolt 終了報告とふりかえりがある</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> ゲートの密度を見直した</li>
 </ul>
 <h3 id="_19">デモ項目<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h3>
@@ -13194,6 +13194,11 @@
 <td style="text-align: left;">2026-11-28</td>
 <td style="text-align: left;">第 3 章を承認した。ゲート密度は変えないと決めた</td>
 <td style="text-align: left;">human:kakimomokuri</td>
+</tr>
+<tr>
+<td style="text-align: left;">2026-11-28</td>
+<td style="text-align: left;">第 3 章を含む CI の成功と公開を確かめ、Unit 2 を完了にした</td>
+<td style="text-align: left;">anthropic/claude-sonnet-5-5</td>
 </tr>
 </tbody>
 </table>

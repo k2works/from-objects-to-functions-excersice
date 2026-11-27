@@ -12429,7 +12429,7 @@
 <li>画面を読み戻す側が甘いと、壊れた画面でもシナリオが通る。読み戻しにもテストが要る</li>
 <li><code>await</code> を忘れると、vitest の件数の表示は全件成功になる。この版では lint が止める</li>
 </ul>
-<p><code>npm run check</code> は、テスト 17 ファイル 67 件が通ります（2026-11-27、Windows、Node 22.23.4）。<code>nixos/nix</code> のコンテナ（Linux、Node 24.12.0）では、型検査、lint、format、smoke と、PostgreSQL のテストを除く 66 件が通りました。<strong>この章のコードは、CI ではまだ確かめていません。</strong> 状態を変える操作を含むシナリオは、まだありません。</p>
+<p><code>npm run check</code> は、テスト 17 ファイル 67 件が通ります（2026-11-27、Windows、Node 22.23.4）。<code>nixos/nix</code> のコンテナ（Linux、Node 24.12.0）では、型検査、lint、format、smoke と、PostgreSQL のテストを除く 66 件が通りました。GitHub Actions（<code>ubuntu-latest</code>、Node 24.22.3）では、PostgreSQL のテストを含む 67 件と smoke が通りました。状態を変える操作を含むシナリオは、まだありません。</p>
 <p>これで、HTTP の縦串と、2 経路の受け入れテストがそろいました。次の章では、依存の渡し方を比べ、<code>User</code> と <code>ListName</code> を型で区別します。</p>
 <h3 id="_9">型で守れたこと・守れなかったこと<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
 <table>

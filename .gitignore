@@ -32,3 +32,7 @@ apps/sandbox/
 target/
 out/
 apps/kotlin-fp/zettai/project/
+
+# ビルド成果物・カバレッジ（TypeScript）
+dist/
+coverage/

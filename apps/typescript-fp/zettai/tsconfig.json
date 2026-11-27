@@ -1,0 +1,7 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true
+  },
+  "include": ["zettai-step*/src", "zettai-step*/test", "vitest.config.ts"]
+}

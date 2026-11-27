@@ -1,0 +1,31 @@
+{
+  "name": "zettai-typescript-fp",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "zettai-step1-foundation"
+  ],
+  "engines": {
+    "node": ">=22.19.0"
+  },
+  "scripts": {
+    "check": "npm run typecheck && npm run lint && npm run format:check && npm run test && npm run smoke",
+    "typecheck": "effect-tsgo tsc -p tsconfig.json",
+    "lint": "effect-tsgo oxlint --type-aware",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "vitest run",
+    "smoke": "npm run smoke --workspaces"
+  },
+  "devDependencies": {
+    "@effect/tsgo": "0.73.7",
+    "@testcontainers/postgresql": "12.2.2",
+    "@types/node": "22.19.1",
+    "fast-check": "4.11.0",
+    "oxlint": "1.95.0",
+    "oxlint-tsgolint": "7.0.2008",
+    "prettier": "3.10.1",
+    "typescript": "7.0.2",
+    "vitest": "5.1.2"
+  }
+}

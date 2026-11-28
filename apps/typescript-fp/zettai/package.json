@@ -4,7 +4,8 @@
   "type": "module",
   "workspaces": [
     "zettai-step1-foundation",
-    "zettai-step2-http-domain"
+    "zettai-step2-http-domain",
+    "zettai-step3-events"
   ],
   "engines": {
     "node": ">=22.19.0"

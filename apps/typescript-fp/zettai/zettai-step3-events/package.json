@@ -1,0 +1,13 @@
+{
+  "name": "zettai-step3-events",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "smoke": "npm run build && node dist/smoke.js",
+    "start": "npm run build && node dist/main.js"
+  },
+  "dependencies": {
+    "effect": "4.1.6"
+  }
+}

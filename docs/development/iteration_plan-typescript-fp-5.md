@@ -4,7 +4,7 @@ title: "Unit 5 の Bolt 計画（イテレーション 5）- Zettai 連載（Typ
 description: "Zettai 連載 TypeScript FP 版の Unit 5（第 8〜9 章）の Bolt 計画。射影と CQRS、PostgreSQL への永続化を扱う。利用者の事前の指示に基づき推奨案で進め、人の個別の承認は受けていない。"
 tags: [development, plan, ai-dlc, bolt, zettai, typescript, effect, unit-5]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T05:02:13Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T05:03:37Z }
 ---
 
 # Unit 5 の Bolt 計画（イテレーション 5）- Zettai 連載（TypeScript FP 版）
@@ -129,6 +129,7 @@ Unit 4 は、実装と執筆が済みました。**人の全文確認と CI は�
 ## Bolt 5-2: 第 9 章
 
 - [ ] **5-2.1 step を追加し、`pg` を入れる**
+  - **中断（2026-11-28）**: step の複製と `pg` 8.23.1・`@types/pg` 8.23.1 の追加をまとめたコマンドが、Claude Code の自動権限判定で拒否された（理由は「Destructive or Unwanted Actions」）。コマンドは何も実行されていない。別の手段での追加はせず、人の判断を待つ
 - [ ] **5-2.2 ★ゲート ⑤・⑥: codec、driver、スキーマ**（同期停止しない）
 - [ ] **5-2.3 保存と読み戻しを Red → Green で作る**（壊れた行、原子性、失敗の扱い）
 - [ ] **5-2.4 接続の寿命と組み立て、3 経路目、モナド則**

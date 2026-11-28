@@ -1,6 +1,12 @@
 # Docs Update Log
 
 ## 2026-11-28
+* **Update**: [retrospective-typescript-fp-7](/development/retrospective-typescript-fp-7.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [bolt_report-typescript-fp-7](/development/bolt_report-typescript-fp-7.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [iteration_plan-typescript-fp-7](/development/iteration_plan-typescript-fp-7.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [outline](/article/outline.md) を更新（anthropic/claude-sonnet-5-5）
+* **Creation**: [retrospective-typescript-fp-7](/development/retrospective-typescript-fp-7.md) を作成（anthropic/claude-sonnet-5-5）
+* **Creation**: [bolt_report-typescript-fp-7](/development/bolt_report-typescript-fp-7.md) を作成（anthropic/claude-sonnet-5-5）
 * **Update**: [chapter13](/article/zettai/typescript-fp/chapter13.md) を更新（anthropic/claude-sonnet-5-5）
 * **Update**: [release_plan-typescript-fp](/development/release_plan-typescript-fp.md) を更新（anthropic/claude-sonnet-5-5）
 * **Update**: [outline](/article/outline.md) を更新（anthropic/claude-sonnet-5-5）

@@ -4,7 +4,7 @@ title: "執筆計画：関数型プログラミングで作る変更を楽に安
 description: "Uberto Barbini 著『From Objects to Functions』を下敷きにした Zettai 連載の執筆計画。既存 3 言語版に加え、Grokking Functional Programming の Kotlin + Arrow 解説を基礎にした Kotlin FP 版、効果システムを持つ Flix 版、Cats Effect を使う Scala 版、Effect を使う TypeScript FP 版（執筆中）について、全 13 章の移植方針、記事と実装の同期、前提整備、品質ゲートを定義する。"
 tags: [article, plan, zettai]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T06:11:58Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T06:28:07Z }
 ---
 
 # 執筆計画：関数型プログラミングで作る変更を楽に安全にできるソフトウェア
@@ -796,11 +796,11 @@ Unit・Bolt の割り当ては既存対象と同一（1 Unit = 2 章、Unit 1 �
 
 成功条件は次のとおりです。
 
-- [ ] 既存対象の章番号・章タイトル・各節の役割を維持した `index.md` + 13 章がある
-- [ ] 記事の TypeScript コードがすべて `apps/typescript-fp/zettai/` のテスト済み実装から転記されている
-- [ ] 各章に「型で守れたこと・守れなかったこと」と「Effect に置き換えたこと・自作で残したこと」がある
-- [ ] `npm run check`、記事の検査、`mkdocs build --strict`、CI が通る
-- [ ] シリーズ索引、章構成マインドマップの読み替え、サイトナビゲーション、横断比較が同期している
+- [x] 既存対象の章番号・章タイトル・各節の役割を維持した `index.md` + 13 章がある（2026-11-28。節の読み替えは `draft.md` に登録し、節構成の検査が通る）
+- [x] 記事の TypeScript コードがすべて `apps/typescript-fp/zettai/` のテスト済み実装から転記されている（2026-11-28。検査は違反 0 件。逐語の転記でないブロックには、除外の指定が 21 か所ある。第 6〜13 章の指定は人が確認していない）
+- [x] 各章に「型で守れたこと・守れなかったこと」と「Effect に置き換えたこと・自作で残したこと」がある（2026-11-28。13 章すべてにある）
+- [ ] `npm run check`、記事の検査、`mkdocs build --strict`、CI が通る（未達。CI を、第 6〜13 章のコードで実行していない）
+- [x] シリーズ索引、章構成マインドマップの読み替え、サイトナビゲーション、横断比較が同期している（2026-11-28）
 
 ### ライブラリの決定と確認した事実
 
@@ -996,16 +996,16 @@ Scala 版（Cats Effect の `IO`）と Kotlin FP 版（Arrow）との対比を�
 
 ### 完了確認
 
-- [ ] `outline.md`、`zettai/index.md`、`draft.md` に TypeScript FP 版が反映されている
-- [ ] `docs/article/zettai/typescript-fp/` に `index.md` と `chapter01.md`〜`chapter13.md` がある
-- [ ] `apps/typescript-fp/zettai/` の `npm run check` が成功する
-- [ ] テストが型検査されることと、記事の検査が生成物を除外することを、わざと壊して確認している
-- [ ] PostgreSQL の結合テストが、ローカルと CI の両方で Testcontainers により成功する
-- [ ] 記事コード同期・節構成・件数・引用・ADR 参照の検査が TypeScript FP 版を含めて成功する
-- [ ] `mkdocs.yml` の nav とリンクが揃い、`mkdocs build --strict` が成功する
-- [ ] `.github/workflows/typescript-fp-zettai.yml` が成功する
-- [ ] `docs/article/zettai/comparison/` に TypeScript FP 版が反映されている
-- [ ] 記事、実装、環境・CI を目的別にコミットしている
+- [x] `outline.md`、`zettai/index.md`、`draft.md` に TypeScript FP 版が反映されている（2026-11-28）
+- [x] `docs/article/zettai/typescript-fp/` に `index.md` と `chapter01.md`〜`chapter13.md` がある（2026-11-28）
+- [x] `apps/typescript-fp/zettai/` の `npm run check` が成功する（2026-11-28、開発機と、追跡ファイルだけの複製。**所要時間は上限の 60 秒を超えた**）
+- [x] テストが型検査されることと、記事の検査が生成物を除外することを、わざと壊して確認している（Unit 1 の Bolt 計画の「壊して確かめた結果」）
+- [ ] PostgreSQL の結合テストが、ローカルと CI の両方で Testcontainers により成功する（未達。第 9 章以降の結合テストは、ローカルだけで成功している）
+- [x] 記事コード同期・節構成・件数・引用・ADR 参照の検査が TypeScript FP 版を含めて成功する（2026-11-28。違反 0 件）
+- [x] `mkdocs.yml` の nav とリンクが揃い、`mkdocs build --strict` が成功する（2026-11-28、ローカル）
+- [ ] `.github/workflows/typescript-fp-zettai.yml` が成功する（未達。第 6〜13 章を push していない）
+- [x] `docs/article/zettai/comparison/` に TypeScript FP 版が反映されている（2026-11-28）
+- [x] 記事、実装、環境・CI を目的別にコミットしている（2026-11-28）
 
 ## 執筆規約
 

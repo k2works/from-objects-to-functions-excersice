@@ -150,6 +150,7 @@ nav:
           - 「TypeScript FP」Unit 4 コマンドと型付きエラー: development/bolt_report-typescript-fp-4.md
           - 「TypeScript FP」Unit 5 射影と永続化: development/bolt_report-typescript-fp-5.md
           - 「TypeScript FP」Unit 6 文脈と検証の蓄積: development/bolt_report-typescript-fp-6.md
+          - 「TypeScript FP」Unit 7 監視と総括: development/bolt_report-typescript-fp-7.md
           - Unit 1 実行環境と第 1 章: development/bolt_report-1.md
           - Unit 2 ウォーキングスケルトンとドメイン分離: development/bolt_report-2.md
           - Unit 3 関数型 DI とイベント: development/bolt_report-3.md
@@ -185,6 +186,7 @@ nav:
           - 「TypeScript FP」Unit 4 コマンドと型付きエラー: development/retrospective-typescript-fp-4.md
           - 「TypeScript FP」Unit 5 射影と永続化: development/retrospective-typescript-fp-5.md
           - 「TypeScript FP」Unit 6 文脈と検証の蓄積: development/retrospective-typescript-fp-6.md
+          - 「TypeScript FP」Unit 7 監視と総括: development/retrospective-typescript-fp-7.md
           - Unit 7 監視とアーキテクチャ総括: development/retrospective-7.md
           - 「なでしこ3」Unit 1 実行環境・テスト基盤と第 1 章: development/retrospective-nadesiko-1.md
           - 「なでしこ3」Unit 2 ウォーキングスケルトンとドメイン分離: development/retrospective-nadesiko-2.md

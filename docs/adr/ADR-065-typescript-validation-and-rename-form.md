@@ -1,10 +1,12 @@
 ---
 type: ADR
 title: "ADR-065 TypeScript FP 版は検証の問題を自作の合成で蓄積し、画面はタグ付きテンプレートで組み立てる"
-description: "Zettai 連載 TypeScript FP 版で、検証の問題を自作の合成で蓄積し、画面をタグ付きテンプレートで組み立てる決定。利用者の事前の指示で推奨案を採用した。CSRF の対策が無いことを代償として記録する。"
+description: "Zettai 連載 TypeScript FP 版で、検証の問題を自作の合成で蓄積し、画面をタグ付きテンプレートで組み立てる決定。利用者の事前の指示で推奨案を採用した。CSRF の対策が無いことを代償として記録する。後に人がまとめて承認した。"
 tags: [adr, typescript, zettai, validation, ui]
-status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T05:48:17Z }
+status: stable
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T07:34:53Z }
+verified:
+  - { by: human:kakimomokuri, at: 2026-11-28T07:34:54Z }
 ---
 
 # ADR-065 TypeScript FP 版は検証の問題を自作の合成で蓄積し、画面はタグ付きテンプレートで組み立てる
@@ -13,7 +15,9 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T05:48:17Z }
 
 ## ステータス
 
-2026-11-28 推奨案を採用しました（Unit 6 のゲート ②）。**同期停止していません。** 利用者の事前の指示「執筆完了まで、判断はすべて推奨を採用する」によるもので、人が個別に確認してはいません
+2026-11-28 承認されました（実装と章の公開の後に、人がまとめて承認しました）
+
+それまでの経緯: 2026-11-28 推奨案を採用しました（Unit 6 のゲート ②）。**同期停止していません。** 利用者の事前の指示「執筆完了まで、判断はすべて推奨を採用する」によるもので、人が個別に確認してはいません
 
 ## コンテキスト
 

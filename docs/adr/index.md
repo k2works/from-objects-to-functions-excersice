@@ -65,12 +65,12 @@
 | [ADR-057](ADR-057-typescript-acceptance-route-as-higher-order-function.md) | TypeScript FP 版は受け入れテストの経路を、driver を渡す高階関数で差し替える | 承認 |
 | [ADR-058](ADR-058-typescript-dependency-by-function-argument.md) | TypeScript FP 版は依存を、関数の引数でハブに渡す | 承認 |
 | [ADR-059](ADR-059-typescript-own-state-transition-monoid.md) | TypeScript FP 版は状態変換のモノイドを、自作の関数で表す | 承認 |
-| [ADR-060](ADR-060-typescript-typed-errors-and-defects.md) | TypeScript FP 版は業務上ありうる失敗だけを型で運び、想定外の失敗は defect にする | 推奨案を採用（個別の確認なし） |
-| [ADR-061](ADR-061-typescript-hub-ports-and-error-types.md) | TypeScript FP 版はハブの依存を Effect で表し、失敗は素の型の和にする | 推奨案を採用（個別の確認なし） |
-| [ADR-062](ADR-062-typescript-projection-and-cqrs.md) | TypeScript FP 版は読み取りを出来事からの射影にし、射影は保存しない | 推奨案を採用（個別の確認なし） |
-| [ADR-063](ADR-063-typescript-postgresql-persistence.md) | TypeScript FP 版は pg で PostgreSQL に追記し、行は Schema と domain の生成の関数で読む | 推奨案を採用（個別の確認なし） |
-| [ADR-064](ADR-064-typescript-command-transaction.md) | TypeScript FP 版は判断の関数を保管に渡し、ストリームごとのロックで 1 つのコマンドを 1 つのトランザクションにする | 推奨案を採用（個別の確認なし） |
-| [ADR-065](ADR-065-typescript-validation-and-rename-form.md) | TypeScript FP 版は検証の問題を自作の合成で蓄積し、画面はタグ付きテンプレートで組み立てる | 推奨案を採用（個別の確認なし） |
-| [ADR-066](ADR-066-typescript-logging-and-json-codec.md) | TypeScript FP 版はログを decorator で足して項目名で絞り、変換は両方向の型にする | 推奨案を採用（個別の確認なし） |
+| [ADR-060](ADR-060-typescript-typed-errors-and-defects.md) | TypeScript FP 版は業務上ありうる失敗だけを型で運び、想定外の失敗は defect にする | 承認済み |
+| [ADR-061](ADR-061-typescript-hub-ports-and-error-types.md) | TypeScript FP 版はハブの依存を Effect で表し、失敗は素の型の和にする | 承認済み |
+| [ADR-062](ADR-062-typescript-projection-and-cqrs.md) | TypeScript FP 版は読み取りを出来事からの射影にし、射影は保存しない | 承認済み |
+| [ADR-063](ADR-063-typescript-postgresql-persistence.md) | TypeScript FP 版は pg で PostgreSQL に追記し、行は Schema と domain の生成の関数で読む | 承認済み |
+| [ADR-064](ADR-064-typescript-command-transaction.md) | TypeScript FP 版は判断の関数を保管に渡し、ストリームごとのロックで 1 つのコマンドを 1 つのトランザクションにする | 承認済み |
+| [ADR-065](ADR-065-typescript-validation-and-rename-form.md) | TypeScript FP 版は検証の問題を自作の合成で蓄積し、画面はタグ付きテンプレートで組み立てる | 承認済み |
+| [ADR-066](ADR-066-typescript-logging-and-json-codec.md) | TypeScript FP 版はログを decorator で足して項目名で絞り、変換は両方向の型にする | 承認済み |
 
 ADR の作成には `creating-adr` スキルを使用してください。

@@ -1,10 +1,12 @@
 ---
 type: ADR
 title: "ADR-062 TypeScript FP 版は読み取りを出来事からの射影にし、射影は保存しない"
-description: "Zettai 連載 TypeScript FP 版で、読み取りを出来事からの射影にし、射影を保存しない決定。代替案と代償を記録する。利用者の事前の指示で推奨案を採用した。"
+description: "Zettai 連載 TypeScript FP 版で、読み取りを出来事からの射影にし、射影を保存しない決定。代替案と代償を記録する。利用者の事前の指示で推奨案を採用した。後に人がまとめて承認した。"
 tags: [adr, typescript, zettai, cqrs, projection]
-status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T05:02:13Z }
+status: stable
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T07:34:53Z }
+verified:
+  - { by: human:kakimomokuri, at: 2026-11-28T07:34:54Z }
 ---
 
 # ADR-062 TypeScript FP 版は読み取りを出来事からの射影にし、射影は保存しない
@@ -13,7 +15,9 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T05:02:13Z }
 
 ## ステータス
 
-2026-11-28 推奨案を採用しました。利用者の事前の指示「執筆完了まで、判断はすべて推奨を採用する」によるもので、人が個別に確認してはいません
+2026-11-28 承認されました（実装と章の公開の後に、人がまとめて承認しました）
+
+それまでの経緯: 2026-11-28 推奨案を採用しました。利用者の事前の指示「執筆完了まで、判断はすべて推奨を採用する」によるもので、人が個別に確認してはいません
 
 ## コンテキスト
 

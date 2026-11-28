@@ -1,6 +1,22 @@
 # Docs Update Log
 
 ## 2026-11-28
+* **Verification**: [chapter01](/article/zettai/typescript-fp/chapter01.md) を human:kakimomokuri が検証
+* **Verification**: [ADR-066-typescript-logging-and-json-codec](/adr/ADR-066-typescript-logging-and-json-codec.md) を human:kakimomokuri が検証
+* **Verification**: [ADR-065-typescript-validation-and-rename-form](/adr/ADR-065-typescript-validation-and-rename-form.md) を human:kakimomokuri が検証
+* **Verification**: [ADR-064-typescript-command-transaction](/adr/ADR-064-typescript-command-transaction.md) を human:kakimomokuri が検証
+* **Verification**: [ADR-063-typescript-postgresql-persistence](/adr/ADR-063-typescript-postgresql-persistence.md) を human:kakimomokuri が検証
+* **Verification**: [ADR-062-typescript-projection-and-cqrs](/adr/ADR-062-typescript-projection-and-cqrs.md) を human:kakimomokuri が検証
+* **Verification**: [ADR-061-typescript-hub-ports-and-error-types](/adr/ADR-061-typescript-hub-ports-and-error-types.md) を human:kakimomokuri が検証
+* **Verification**: [ADR-060-typescript-typed-errors-and-defects](/adr/ADR-060-typescript-typed-errors-and-defects.md) を human:kakimomokuri が検証
+* **Update**: [release_plan-typescript-fp](/development/release_plan-typescript-fp.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [ADR-066-typescript-logging-and-json-codec](/adr/ADR-066-typescript-logging-and-json-codec.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [ADR-065-typescript-validation-and-rename-form](/adr/ADR-065-typescript-validation-and-rename-form.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [ADR-064-typescript-command-transaction](/adr/ADR-064-typescript-command-transaction.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [ADR-063-typescript-postgresql-persistence](/adr/ADR-063-typescript-postgresql-persistence.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [ADR-062-typescript-projection-and-cqrs](/adr/ADR-062-typescript-projection-and-cqrs.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [ADR-061-typescript-hub-ports-and-error-types](/adr/ADR-061-typescript-hub-ports-and-error-types.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [ADR-060-typescript-typed-errors-and-defects](/adr/ADR-060-typescript-typed-errors-and-defects.md) を更新（anthropic/claude-sonnet-5-5）
 * **Update**: [release_plan-typescript-fp](/development/release_plan-typescript-fp.md) を更新（anthropic/claude-sonnet-5-5）
 * **Update**: [ADR-054-typescript-toolchain-and-check](/adr/ADR-054-typescript-toolchain-and-check.md) を更新（anthropic/claude-sonnet-5-5）
 * **Update**: [release_plan-typescript-fp](/development/release_plan-typescript-fp.md) を更新（anthropic/claude-sonnet-5-5）

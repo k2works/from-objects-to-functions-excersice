@@ -1,10 +1,12 @@
 ---
 type: ADR
 title: "ADR-060 TypeScript FP 版は業務上ありうる失敗だけを型で運び、想定外の失敗は defect にする"
-description: "Zettai 連載 TypeScript FP 版で、業務上ありうる失敗だけを型で運び、想定外の失敗は defect にする決定。3 案の比較と代償を記録する。利用者の事前の指示で推奨案を採用し、同期停止していない。"
+description: "Zettai 連載 TypeScript FP 版で、業務上ありうる失敗だけを型で運び、想定外の失敗は defect にする決定。3 案の比較と代償を記録する。利用者の事前の指示で推奨案を採用し、同期停止していない。後に人がまとめて承認した。"
 tags: [adr, typescript, zettai, effect, error-handling]
-status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T04:52:33Z }
+status: stable
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T07:34:53Z }
+verified:
+  - { by: human:kakimomokuri, at: 2026-11-28T07:34:54Z }
 ---
 
 # ADR-060 TypeScript FP 版は業務上ありうる失敗だけを型で運び、想定外の失敗は defect にする
@@ -13,7 +15,9 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T04:52:33Z }
 
 ## ステータス
 
-2026-11-28 推奨の案 A を採用しました（Unit 4 のゲート ④）。**同期停止していません。** 利用者の事前の指示「執筆完了まで、判断はすべて推奨を採用する」によるもので、この判断を人が個別に確認してはいません
+2026-11-28 承認されました（実装と章の公開の後に、人がまとめて承認しました）
+
+それまでの経緯: 2026-11-28 推奨の案 A を採用しました（Unit 4 のゲート ④）。**同期停止していません。** 利用者の事前の指示「執筆完了まで、判断はすべて推奨を採用する」によるもので、この判断を人が個別に確認してはいません
 
 ## コンテキスト
 

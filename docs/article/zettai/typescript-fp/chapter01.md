@@ -8,6 +8,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T06:41:29Z }
 verified:
   - { by: human:kakimomokuri, at: 2026-11-27T10:05:46Z }
   - { by: human:kakimomokuri, at: 2026-11-27T10:35:29Z }
+  - { by: human:kakimomokuri, at: 2026-11-28T07:34:54Z }
 ---
 
 # 第 1 章 新しいアプリケーションを準備する

@@ -1,10 +1,12 @@
 ---
 type: ADR
 title: "ADR-061 TypeScript FP 版はハブの依存を Effect で表し、失敗は素の型の和にする"
-description: "Zettai 連載 TypeScript FP 版で、ハブの依存を Effect で表し、業務の失敗を素の型の和にして、取得の失敗の理由をハブが付ける決定。Data.TaggedError との比較と代償を記録する。"
+description: "Zettai 連載 TypeScript FP 版で、ハブの依存を Effect で表し、業務の失敗を素の型の和にして、取得の失敗の理由をハブが付ける決定。Data.TaggedError との比較と代償を記録する。後に人がまとめて承認した。"
 tags: [adr, typescript, zettai, effect, error-handling]
-status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T04:52:33Z }
+status: stable
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T07:34:53Z }
+verified:
+  - { by: human:kakimomokuri, at: 2026-11-28T07:34:54Z }
 ---
 
 # ADR-061 TypeScript FP 版はハブの依存を Effect で表し、失敗は素の型の和にする
@@ -13,7 +15,9 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T04:52:33Z }
 
 ## ステータス
 
-ハブの依存の型は、2026-11-28 に Unit 4 の Bolt 計画の承認で決まりました。失敗の型の表し方と、取得の失敗を付ける場所は、同じ日に推奨案を採用しました。後の 2 つは、利用者の事前の指示によるもので、人が個別に確認してはいません
+2026-11-28 承認されました（実装と章の公開の後に、人がまとめて承認しました）
+
+それまでの経緯: ハブの依存の型は、2026-11-28 に Unit 4 の Bolt 計画の承認で決まりました。失敗の型の表し方と、取得の失敗を付ける場所は、同じ日に推奨案を採用しました。後の 2 つは、利用者の事前の指示によるもので、人が個別に確認してはいません
 
 ## コンテキスト
 

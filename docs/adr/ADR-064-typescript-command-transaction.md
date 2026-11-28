@@ -1,10 +1,12 @@
 ---
 type: ADR
 title: "ADR-064 TypeScript FP 版は判断の関数を保管に渡し、ストリームごとのロックで 1 つのコマンドを 1 つのトランザクションにする"
-description: "Zettai 連載 TypeScript FP 版で、判断の関数を保管に渡し、ストリームごとのアドバイザリロックで 1 つのコマンドを 1 つのトランザクションにする決定。利用者の事前の指示で推奨案を採用した。"
+description: "Zettai 連載 TypeScript FP 版で、判断の関数を保管に渡し、ストリームごとのアドバイザリロックで 1 つのコマンドを 1 つのトランザクションにする決定。利用者の事前の指示で推奨案を採用した。後に人がまとめて承認した。"
 tags: [adr, typescript, zettai, postgresql, transaction]
-status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T05:35:01Z }
+status: stable
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T07:34:53Z }
+verified:
+  - { by: human:kakimomokuri, at: 2026-11-28T07:34:54Z }
 ---
 
 # ADR-064 TypeScript FP 版は判断の関数を保管に渡し、ストリームごとのロックで 1 つのコマンドを 1 つのトランザクションにする
@@ -13,7 +15,9 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T05:35:01Z }
 
 ## ステータス
 
-2026-11-28 推奨案を採用しました（Unit 6 のゲート ①）。**同期停止していません。** 利用者の事前の指示「執筆完了まで、判断はすべて推奨を採用する」によるもので、人が個別に確認してはいません
+2026-11-28 承認されました（実装と章の公開の後に、人がまとめて承認しました）
+
+それまでの経緯: 2026-11-28 推奨案を採用しました（Unit 6 のゲート ①）。**同期停止していません。** 利用者の事前の指示「執筆完了まで、判断はすべて推奨を採用する」によるもので、人が個別に確認してはいません
 
 ## コンテキスト
 

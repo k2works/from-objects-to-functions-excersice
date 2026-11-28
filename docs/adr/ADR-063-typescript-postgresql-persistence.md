@@ -1,10 +1,12 @@
 ---
 type: ADR
 title: "ADR-063 TypeScript FP 版は pg で PostgreSQL に追記し、行は Schema と domain の生成の関数で読む"
-description: "Zettai 連載 TypeScript FP 版で、pg で PostgreSQL に追記し、行を Schema と domain の生成の関数で読み、データベースの失敗を defect にする決定。利用者の事前の指示で推奨案を採用した。"
+description: "Zettai 連載 TypeScript FP 版で、pg で PostgreSQL に追記し、行を Schema と domain の生成の関数で読み、データベースの失敗を defect にする決定。利用者の事前の指示で推奨案を採用した。後に人がまとめて承認した。"
 tags: [adr, typescript, zettai, effect, postgresql, persistence]
-status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T05:22:54Z }
+status: stable
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T07:34:53Z }
+verified:
+  - { by: human:kakimomokuri, at: 2026-11-28T07:34:54Z }
 ---
 
 # ADR-063 TypeScript FP 版は pg で PostgreSQL に追記し、行は Schema と domain の生成の関数で読む
@@ -13,7 +15,9 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T05:22:54Z }
 
 ## ステータス
 
-2026-11-28 推奨案を採用しました（Unit 5 のゲート ⑤・⑥）。**同期停止していません。** 利用者の事前の指示「執筆完了まで、判断はすべて推奨を採用する」によるものです。`pg` と `@types/pg` の追加は、自動権限判定で一度拒否された後、利用者が許可しました。設計の中身を、人が個別に確認してはいません
+2026-11-28 承認されました（実装と章の公開の後に、人がまとめて承認しました）
+
+それまでの経緯: 2026-11-28 推奨案を採用しました（Unit 5 のゲート ⑤・⑥）。**同期停止していません。** 利用者の事前の指示「執筆完了まで、判断はすべて推奨を採用する」によるものです。`pg` と `@types/pg` の追加は、自動権限判定で一度拒否された後、利用者が許可しました。設計の中身を、人が個別に確認してはいません
 
 ## コンテキスト
 

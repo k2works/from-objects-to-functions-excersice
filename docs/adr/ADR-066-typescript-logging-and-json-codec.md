@@ -1,10 +1,12 @@
 ---
 type: ADR
 title: "ADR-066 TypeScript FP 版はログを decorator で足して項目名で絞り、変換は両方向の型にする"
-description: "TypeScript FP 版はログを decorator で足して書き出す項目名で絞り、JSON との変換は書きと読みをまとめた型にする決定。利用者の事前の指示に基づき推奨案を採用し、人の個別の確認は受けていない。"
+description: "TypeScript FP 版はログを decorator で足して書き出す項目名で絞り、JSON との変換は書きと読みをまとめた型にする決定。推奨案で実装した後、人がまとめて承認した。"
 tags: [adr, architecture, typescript, effect, logging, json]
-status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T06:05:20Z }
+status: stable
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T07:34:53Z }
+verified:
+  - { by: human:kakimomokuri, at: 2026-11-28T07:34:54Z }
 ---
 
 # ADR-066 TypeScript FP 版はログを decorator で足して項目名で絞り、変換は両方向の型にする
@@ -13,7 +15,9 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T06:05:20Z }
 
 ## ステータス
 
-2026-11-28 推奨案を採用しました（Unit 7 のゲート）。**同期停止していません。** 利用者の事前の指示「執筆完了まで、判断はすべて推奨を採用する」によるもので、人が個別に確認してはいません。**利用者名とリスト名をログに載せる判断も、個別の確認を受けていません**
+2026-11-28 承認されました（実装と章の公開の後に、人がまとめて承認しました）
+
+それまでの経緯: 2026-11-28 推奨案を採用しました（Unit 7 のゲート）。**同期停止していません。** 利用者の事前の指示「執筆完了まで、判断はすべて推奨を採用する」によるもので、人が個別に確認してはいません。**利用者名とリスト名をログに載せる判断も、個別の確認を受けていません**
 
 ## コンテキスト
 

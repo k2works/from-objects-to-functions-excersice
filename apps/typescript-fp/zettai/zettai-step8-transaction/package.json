@@ -1,0 +1,14 @@
+{
+  "name": "zettai-step8-transaction",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "smoke": "npm run build && node dist/smoke.js",
+    "start": "npm run build && node dist/main.js"
+  },
+  "dependencies": {
+    "effect": "4.1.6",
+    "pg": "8.23.1"
+  }
+}

@@ -7,7 +7,8 @@
     "zettai-step2-http-domain",
     "zettai-step3-events",
     "zettai-step4-commands",
-    "zettai-step5-errors"
+    "zettai-step5-errors",
+    "zettai-step6-projection"
   ],
   "engines": {
     "node": ">=22.19.0"

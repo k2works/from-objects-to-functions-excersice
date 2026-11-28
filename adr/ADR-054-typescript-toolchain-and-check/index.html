@@ -6757,6 +6757,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#2026-11-28ci-checkall" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        追記（2026-11-28、CI での check:all の時間）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_11" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -13684,6 +13695,39 @@
 <li>古い step の破損は、手元の <code>check</code> では見つからず、CI で見つかる。CI は main への push と pull request で動く</li>
 <li>最新の step の名前は、<code>package.json</code> の <code>check</code> に書く。<strong>step を足して書き換え忘れると、古い step を検査し続ける。これを確かめる手段は無い</strong></li>
 </ul>
+<h2 id="2026-11-28ci-checkall">追記（2026-11-28、CI での check:all の時間）<a class="headerlink" href="#2026-11-28ci-checkall" title="Permanent link">&para;</a></h2>
+<p>コミット <code>a78d25f6</code> の <a href="https://github.com/k2works/from-objects-to-functions-excersice/actions/runs/46118942531">CI</a>（<code>ubuntu-latest</code>、Node 24）は成功しました。<strong><code>check:all</code> のステップは 91 秒で、開発機と CI に共通の上限 60 秒を超えました。</strong> 1 回の測定です。ログの時刻から読んだ内訳は次のとおりです。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">段</th>
+<th style="text-align: left;">おおよその時間</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">typecheck</td>
+<td style="text-align: left;">2.5 秒</td>
+</tr>
+<tr>
+<td style="text-align: left;">lint</td>
+<td style="text-align: left;">1.2 秒</td>
+</tr>
+<tr>
+<td style="text-align: left;">format:check</td>
+<td style="text-align: left;">3.2 秒</td>
+</tr>
+<tr>
+<td style="text-align: left;">test（221 ファイル 1892 件）</td>
+<td style="text-align: left;">68 秒</td>
+</tr>
+<tr>
+<td style="text-align: left;">smoke（10 step）</td>
+<td style="text-align: left;">15.5 秒</td>
+</tr>
+</tbody>
+</table>
+<p>原因は、全部の step のテストと smoke を実行することです。<strong>手元の分割は、CI の時間を短くしません。</strong> CI の上限を引き上げるか、CI の検査を並列に分けるかは、まだ決めていません。</p>
 <h2 id="_11">備考<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
 <ul>
 <li>著者: anthropic/claude-sonnet-5-5</li>

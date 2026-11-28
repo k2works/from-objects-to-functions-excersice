@@ -14249,7 +14249,7 @@
 </tr>
 </tbody>
 </table>
-<p><strong>未達（2026-11-28）。</strong> 第 6〜9 章は書きましたが、人の確認、push、CI が済んでいません。</p>
+<p><strong>条件を満たしました（2026-11-28）。</strong> 対象はコミット <code>a78d25f6</code>（<a href="https://github.com/k2works/from-objects-to-functions-excersice/actions/runs/46118942531">CI</a> が成功）です。ほかの版と同じく記録だけとし、タグは作りません。CI の時間は上限を超えています（ADR-054 の追記）。</p>
 <h3 id="release-v100phase-3">Release v1.0.0（Phase 3 完了）: 型が守る範囲の総括<a class="headerlink" href="#release-v100phase-3" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -14277,7 +14277,7 @@
 </tr>
 </tbody>
 </table>
-<p><strong>未達（2026-11-28）。</strong> 13 章の執筆、第 13 章の回答と対比、比較と索引の同期は、手元のブランチで済みました。章の公開（人の確認と main への取り込み）と、「完了確認」の CI の項目が残っています。</p>
+<p><strong>条件を満たしました（2026-11-28）。</strong> 対象はコミット <code>a78d25f6</code>（<a href="https://github.com/k2works/from-objects-to-functions-excersice/actions/runs/46118942531">CI</a> が成功）です。執筆計画の「完了確認」は、すべての項目を確かめました。記録だけとし、タグは作りません。</p>
 <hr />
 <h2 id="_13">バッファ戦略<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>
 <table>
@@ -14660,62 +14660,63 @@
 <td style="text-align: left;">10</td>
 <td style="text-align: left;">1</td>
 <td style="text-align: left;">0</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">執筆済み（人の確認と CI の待ち）</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">約 2 時間 30 分（コミット間。確認待ちを含み、Unit どうしで重なる）</td>
+<td style="text-align: left;"><strong>完了</strong></td>
 </tr>
 <tr>
 <td style="text-align: left;">5</td>
 <td style="text-align: left;">13</td>
 <td style="text-align: left;">2</td>
 <td style="text-align: left;">0</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">執筆済み（人の確認と CI の待ち）</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">約 2 時間（コミット間。確認待ちを含み、Unit どうしで重なる）</td>
+<td style="text-align: left;"><strong>完了</strong></td>
 </tr>
 <tr>
 <td style="text-align: left;">6</td>
 <td style="text-align: left;">11</td>
 <td style="text-align: left;">2</td>
 <td style="text-align: left;">0</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">執筆済み（人の確認と CI の待ち）</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">約 1 時間 30 分（コミット間。確認待ちを含み、Unit どうしで重なる）</td>
+<td style="text-align: left;"><strong>完了</strong></td>
 </tr>
 <tr>
 <td style="text-align: left;">7</td>
 <td style="text-align: left;">8</td>
 <td style="text-align: left;">1</td>
 <td style="text-align: left;">0</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">執筆済み（人の確認と CI の待ち）</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">約 1 時間（コミット間。確認待ちを含み、Unit どうしで重なる）</td>
+<td style="text-align: left;"><strong>完了</strong></td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong>合計</strong></td>
 <td style="text-align: left;"><strong>79</strong></td>
 <td style="text-align: left;"><strong>12</strong></td>
 <td style="text-align: left;">6</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
 <td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">完了 Unit 数 <strong>3 / 7</strong></td>
+<td style="text-align: left;">完了 Unit 数 <strong>7 / 7</strong></td>
 </tr>
 </tbody>
 </table>
-<p>Unit 4〜7 は、利用者の指示「執筆完了まで、判断はすべて推奨を採用する」に基づいて進め、6 箇所のゲートで同期停止していません。人の確認が無いため、変更依頼数と人の修正箇所数は記録できません。完了していないので、リードタイムも記録しません。</p>
-<p>2026-11-28 時点の公開済みの章は、main に取り込んだものが 5 章、手元のブランチの下書きが 8 章です。</p>
+<p>Unit 4〜7 は、利用者の指示「執筆完了まで、判断はすべて推奨を採用する」に基づいて進め、6 箇所のゲートで同期停止していません。第 6〜13 章は、まとめて承認を受けました。変更依頼数と人の修正箇所数の 0 は、この承認で依頼も手直しも無かったことを指します。ADR-060〜066 は、個別の確認を受けていません。</p>
+<p>2026-11-28 に、13 章すべてを main に取り込みました。</p>
 <p>GitHub Project・Issue・Milestone への同期は、Kotlin FP 版と同じく行わない想定です。必要な場合は <code>syncing-github-project</code> で追加します。</p>
 <hr />
 <h2 id="_21">次のステップ<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h2>
+<p>計画した 13 章は、書き終えました。次は、残った判断と改善です。</p>
 <ol>
-<li>第 6〜13 章と ADR-060〜066 を、人が確認する</li>
-<li>確認した範囲を push して、CI の <code>check:all</code> の成功と時間を確かめる。手元の <code>check</code> は、人の決定で最新の step に絞った（ADR-054 の追記）</li>
-<li>Unit 4〜7 を閉じて、v0.2.0 と v1.0.0 の条件を判定する</li>
+<li>CI の <code>check:all</code>（91 秒）が上限の 60 秒を超えていることを、人が決める（ADR-054 の追記）</li>
+<li>ADR-060〜066 を、人が確認する。特に、利用者名とリスト名をログに載せる判断（ADR-066）</li>
+<li>第 13 章に挙げた改善（核の中の副作用の検査、起動の組み立てを通る smoke、認証と CSRF、時間の上限）を扱うかを決める</li>
 </ol>
 <hr />
 <h2 id="_22">更新履歴<a class="headerlink" href="#_22" title="Permanent link">&para;</a></h2>
@@ -14761,6 +14762,11 @@
 <tr>
 <td style="text-align: left;">2026-11-28</td>
 <td style="text-align: left;">Unit 4〜7 の執筆の状態を記録した。完了とはしていない。承認した内容は変えていない</td>
+<td style="text-align: left;">anthropic/claude-sonnet-5-5</td>
+</tr>
+<tr>
+<td style="text-align: left;">2026-11-28</td>
+<td style="text-align: left;">第 6〜13 章の承認と CI の成功を受けて、Unit 4〜7 の完了と、v0.2.0・v1.0.0 の条件の達成を記録した</td>
 <td style="text-align: left;">anthropic/claude-sonnet-5-5</td>
 </tr>
 </tbody>

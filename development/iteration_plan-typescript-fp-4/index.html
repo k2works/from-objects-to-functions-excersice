@@ -14150,7 +14150,8 @@
 <li>節は「新しいToDoリストの作成」「コマンドを使って状態を変更する」「状態とイベントによるドメインのモデリング」「関数型ステートマシンを記述する」「ハブと接続する」「コマンドとイベントを深く知る」。検査が期待する見出しは、章構成マインドマップに一致させる</li>
 <li>「型で守れたこと・守れなかったこと」「Effect に置き換えたこと・自作で残したこと」を書く</li>
 <li><strong>実績（2026-11-28）</strong>: <a href="../../article/zettai/typescript-fp/chapter06/">第 6 章</a> を書いた。壊して確かめた中で、<strong><code>Effect</code> を変数に入れると実行忘れの診断が出ないこと</strong>、状態の読み取りが待つ保管では同じリストの作成が 2 つとも受け付けられることが分かった。<strong>人の全文確認は受けていない</strong></li>
-<li>[-] <strong>4-1.7 品質ゲートと反映</strong></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>4-1.7 品質ゲートと反映</strong></li>
+<li><strong>完了（2026-11-28）</strong>: 人が第 6〜13 章を承認し、<a href="https://github.com/k2works/from-objects-to-functions-excersice/actions/runs/46118942531">CI</a> が成功した</li>
 <li><code>npm run check</code>、追跡対象のファイルだけの確認、読者の手順どおりの起動、記事の検査、<code>mkdocs build --strict</code>、OKF の検査、索引と <code>mkdocs.yml</code></li>
 <li>完了判定: 人が第 6 章を全文確認し、CI が成功する</li>
 <li><strong>実績（2026-11-28、開発機）</strong>: <code>npm run check</code> は 55 ファイル 352 件と smoke が通った。追跡対象になる 146 ファイルだけを短いドライブ名で実行しても通った。読者の手順どおりの起動、記事の検査、<code>mkdocs build --strict</code> も通った。OKF の検査は、着手前からの ERROR 1 件が残る</li>
@@ -14182,7 +14183,8 @@
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>4-2.5 第 7 章の執筆</strong></li>
 <li>節は「より適切なエラー処理」「ファンクタと圏を学ぶ」「ファンクタを使ったエラーハンドリング」「<code>Result</code> と <code>Effect</code> の型付きエラーで実装する」</li>
 <li><strong>実績</strong>: <a href="../../article/zettai/typescript-fp/chapter07/">第 7 章</a> を書いた。<strong>人の全文確認は受けていない</strong></li>
-<li>[-] <strong>4-2.6 品質ゲート、反映、報告</strong></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>4-2.6 品質ゲート、反映、報告</strong></li>
+<li><strong>完了（2026-11-28）</strong>: 人が第 6〜13 章を承認し、<a href="https://github.com/k2works/from-objects-to-functions-excersice/actions/runs/46118942531">CI</a> が成功した</li>
 <li>4-1.7 と同じ確認をする。<code>comparison/</code> に、失敗の扱いの比較が要るかを判断する</li>
 <li>Bolt 終了報告とふりかえりを書き、リリース計画の指標を記録する</li>
 <li>完了判定: 人が第 7 章を全文確認し、CI が成功する</li>
@@ -14259,15 +14261,16 @@
 <h2 id="_18">完了条件<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h2>
 <h3 id="definition-of-done">Definition of Done<a class="headerlink" href="#definition-of-done" title="Permanent link">&para;</a></h3>
 <ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> US-006 と US-007 の受入条件をすべて満たす</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>npm run check</code> が通る。追跡ファイルだけを取り出した場所でも通る（Windows の深いディレクトリは除き、条件を記録する）</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <a href="../release_plan-typescript-fp/">リリース計画</a> の「全 Bolt 共通の完了条件」を満たす</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> ADR-060・061 がある</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 第 6〜7 章を人が全文確認した（ゲートには数えない）</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> CI の <code>check</code> と <code>article</code> が成功した（push 後に確認）</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 索引、<code>mkdocs.yml</code>、執筆計画、リリース計画が一致する</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Bolt 終了報告とふりかえりがある</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> US-006 と US-007 の受入条件をすべて満たす</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <code>npm run check</code> が通る。追跡ファイルだけを取り出した場所でも通る（Windows の深いディレクトリは除き、条件を記録する）</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="../release_plan-typescript-fp/">リリース計画</a> の「全 Bolt 共通の完了条件」を満たす</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> ADR-060・061 がある</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> 第 6〜7 章を人が全文確認した（ゲートには数えない）</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> CI の <code>check</code> と <code>article</code> が成功した（push 後に確認）</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> 索引、<code>mkdocs.yml</code>、執筆計画、リリース計画が一致する</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Bolt 終了報告とふりかえりがある</li>
 </ul>
+<p>2026-11-28 に、人が第 6〜13 章を承認し、コミット <code>a78d25f6</code> の <a href="https://github.com/k2works/from-objects-to-functions-excersice/actions/runs/46118942531">CI</a> が成功したため、完了にしました。</p>
 <h3 id="_19">デモ項目<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h3>
 <table>
 <thead>

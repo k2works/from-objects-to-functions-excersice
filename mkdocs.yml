@@ -148,6 +148,7 @@ nav:
           - 「TypeScript FP」Unit 3 依存の注入とイベント: development/bolt_report-typescript-fp-3.md
           - 「TypeScript FP」Unit 4 コマンドと型付きエラー: development/bolt_report-typescript-fp-4.md
           - 「TypeScript FP」Unit 5 射影と永続化: development/bolt_report-typescript-fp-5.md
+          - 「TypeScript FP」Unit 6 文脈と検証の蓄積: development/bolt_report-typescript-fp-6.md
           - Unit 1 実行環境と第 1 章: development/bolt_report-1.md
           - Unit 2 ウォーキングスケルトンとドメイン分離: development/bolt_report-2.md
           - Unit 3 関数型 DI とイベント: development/bolt_report-3.md
@@ -182,6 +183,7 @@ nav:
           - 「TypeScript FP」Unit 3 依存の注入とイベント: development/retrospective-typescript-fp-3.md
           - 「TypeScript FP」Unit 4 コマンドと型付きエラー: development/retrospective-typescript-fp-4.md
           - 「TypeScript FP」Unit 5 射影と永続化: development/retrospective-typescript-fp-5.md
+          - 「TypeScript FP」Unit 6 文脈と検証の蓄積: development/retrospective-typescript-fp-6.md
           - Unit 7 監視とアーキテクチャ総括: development/retrospective-7.md
           - 「なでしこ3」Unit 1 実行環境・テスト基盤と第 1 章: development/retrospective-nadesiko-1.md
           - 「なでしこ3」Unit 2 ウォーキングスケルトンとドメイン分離: development/retrospective-nadesiko-2.md
@@ -251,6 +253,7 @@ nav:
       - ADR-062 TypeScript FP 版の射影と CQRS: adr/ADR-062-typescript-projection-and-cqrs.md
       - ADR-063 TypeScript FP 版の PostgreSQL への永続化: adr/ADR-063-typescript-postgresql-persistence.md
       - ADR-064 TypeScript FP 版のコマンドのトランザクション: adr/ADR-064-typescript-command-transaction.md
+      - ADR-065 TypeScript FP 版の検証の蓄積と名前変更のフォーム: adr/ADR-065-typescript-validation-and-rename-form.md
   - 記事:
       - 概要: article/index.md
       - 執筆計画: article/outline.md
@@ -359,6 +362,7 @@ nav:
               - 第 8 章 ファンクタを使ってイベントを射影する: article/zettai/typescript-fp/chapter08.md
               - 第 9 章 モナドによる安全なデータ永続化: article/zettai/typescript-fp/chapter09.md
               - 第 10 章 コンテキストを読み込み、コマンドを処理する: article/zettai/typescript-fp/chapter10.md
+              - 第 11 章 アプリカティブによるデータバリデーション: article/zettai/typescript-fp/chapter11.md
           - 横断比較: article/zettai/comparison/index.md
   - リファレンス:
       - 概要: reference/index.md

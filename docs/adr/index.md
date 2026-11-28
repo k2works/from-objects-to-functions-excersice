@@ -70,5 +70,6 @@
 | [ADR-062](ADR-062-typescript-projection-and-cqrs.md) | TypeScript FP 版は読み取りを出来事からの射影にし、射影は保存しない | 推奨案を採用（個別の確認なし） |
 | [ADR-063](ADR-063-typescript-postgresql-persistence.md) | TypeScript FP 版は pg で PostgreSQL に追記し、行は Schema と domain の生成の関数で読む | 推奨案を採用（個別の確認なし） |
 | [ADR-064](ADR-064-typescript-command-transaction.md) | TypeScript FP 版は判断の関数を保管に渡し、ストリームごとのロックで 1 つのコマンドを 1 つのトランザクションにする | 推奨案を採用（個別の確認なし） |
+| [ADR-065](ADR-065-typescript-validation-and-rename-form.md) | TypeScript FP 版は検証の問題を自作の合成で蓄積し、画面はタグ付きテンプレートで組み立てる | 推奨案を採用（個別の確認なし） |
 
 ADR の作成には `creating-adr` スキルを使用してください。

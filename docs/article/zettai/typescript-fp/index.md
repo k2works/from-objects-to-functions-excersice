@@ -42,4 +42,6 @@ npm ci --ignore-scripts
 npm run check
 ```
 
+`check` は、テストと smoke を最新の step だけに実行します。全部の step は `npm run check:all` で実行します。
+
 Nix を使う場合は、リポジトリの直下で `nix develop .#typescript-fp` を実行してから、同じコマンドを実行します。手順は [第 1 章](chapter01.md) にあります。

@@ -4,7 +4,7 @@ title: "リリース計画 - Zettai 連載（TypeScript FP 版）"
 description: "Zettai 連載 TypeScript FP 版の AI-DLC Level 1 計画。Effect v4 で全 13 章を辿る Intent、7 Unit・14 ストーリーの受入条件、非機能要件、エントロピー評価、リスク、承認ゲートと進捗指標を定義する。"
 tags: [plan]
 status: stable
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T06:11:58Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T06:41:29Z }
 verified:
   - { by: human:kakimomokuri, at: 2026-11-27T06:47:02Z }
 ---
@@ -360,7 +360,7 @@ GitHub Project・Issue・Milestone への同期は、Kotlin FP 版と同じく�
 ## 次のステップ
 
 1. 第 6〜13 章と ADR-060〜066 を、人が確認する
-2. 確認した範囲を push して、CI の成功を確かめる。`npm run check` が上限の 60 秒を超えているので、上限か検査の分け方を人が決める
+2. 確認した範囲を push して、CI の `check:all` の成功と時間を確かめる。手元の `check` は、人の決定で最新の step に絞った（ADR-054 の追記）
 3. Unit 4〜7 を閉じて、v0.2.0 と v1.0.0 の条件を判定する
 
 ---

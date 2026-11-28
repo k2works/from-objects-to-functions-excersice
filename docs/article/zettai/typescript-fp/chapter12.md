@@ -4,7 +4,7 @@ title: "第 12 章 監視と関数型JSON"
 description: "Zettai 連載 TypeScript FP 版の第 12 章。ログの decorator、型が止めないログの漏れ、往復の性質テスト、プロファンクタの dimap を扱う。"
 tags: [article, zettai, typescript, effect, logging, profunctor]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T06:05:20Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T06:41:29Z }
 ---
 
 # 第 12 章 監視と関数型JSON
@@ -246,6 +246,8 @@ SQL の文と値、接続の待ち時間は、記録していません。デー�
 - `dimap` の法則は、往復を保証せず、片方の関数の無視も見つけない
 
 `npm run check` は、テスト 221 ファイル 1892 件が通ります（2026-11-28、Windows、Node 22.23.4）。所要時間は約 64 秒で、**この版が決めた上限の 60 秒を超えました。** 段ごとに測ると、テストが約 43〜48 秒、step ごとにビルドして実行する smoke が約 19〜20 秒でした。
+
+このため、手元の `check` はテストと smoke を最新の step だけに絞り、全部の step は `check:all` として CI で実行する形にしました（[ADR-054](../../../adr/ADR-054-typescript-toolchain-and-check.md) の追記）。
 
 次の章で、ここまでの設計を振り返ります。
 

@@ -4,7 +4,7 @@ title: "第 1 章 新しいアプリケーションを準備する"
 description: "Zettai 連載 TypeScript FP 版の第 1 章。TypeScript と Effect v4 の品質ゲートを作り、純粋関数、値としての失敗（Result）、値としての副作用（Effect）をテストファーストで導く。テストが通っても型エラーや実行し忘れた Effect が残ること、型では守れない副作用があることを実際に壊して確かめる。"
 tags: [article, zettai, typescript, effect, chapter]
 status: stable
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T10:35:28Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T06:41:29Z }
 verified:
   - { by: human:kakimomokuri, at: 2026-11-27T10:05:46Z }
   - { by: human:kakimomokuri, at: 2026-11-27T10:35:29Z }
@@ -155,6 +155,9 @@ apps/typescript-fp/zettai/
 
 ### 品質ゲートは 1 つのコマンドにする
 
+次は、この章を書いた時点の指定です。第 13 章まで step が増えた後は、`check` はテストと smoke を最新の step だけに実行します。全部の step は `check:all` で実行し、CI はこちらを使います（[ADR-054](../../../adr/ADR-054-typescript-toolchain-and-check.md) の追記）。
+
+<!-- code-check: ignore 第 1 章を書いた時点の指定で、その後 check と check:all に分けました -->
 ```json
     "check": "npm run typecheck && npm run lint && npm run format:check && npm run test && npm run smoke",
     "typecheck": "effect-tsgo tsc -p tsconfig.json",

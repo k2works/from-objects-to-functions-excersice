@@ -4,7 +4,7 @@ title: "Unit 7 の Bolt 終了報告 - Zettai 連載（TypeScript FP 版）"
 description: "Zettai 連載 TypeScript FP 版の Unit 7（第 12〜13 章）の Bolt 終了報告。検査の時間が上限を超えた測定と選択肢、型検査とテストが止めない壊し方、未達の完了条件を記録する。"
 tags: [development, report, ai-dlc, zettai, typescript, effect, unit-7]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T06:28:07Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T06:41:29Z }
 ---
 
 # Unit 7 の Bolt 終了報告 - Zettai 連載（TypeScript FP 版）
@@ -61,7 +61,9 @@ PostgreSQL を使う step（7〜10）のテストは、1 つの step を単独�
 | B | 上限を引き上げる | 手元の確認が遅いままになる |
 | C | smoke を、ビルドの共有などで速くする | 作り込みが要る。効果は測っていない |
 
-推奨は A です。**「推奨を採用する」の指示は執筆の判断として扱い、承認済みの品質の基準は変えませんでした。**
+推奨は A でした。**「推奨を採用する」の指示は執筆の判断として扱い、報告の時点では承認済みの品質の基準を変えませんでした。**
+
+**2026-11-28、人が A を選びました。** `check` は 21・28・22 秒、`check:all` は 80 秒でした（[ADR-054](../adr/ADR-054-typescript-toolchain-and-check.md) の追記）。上の品質結果の表は、分ける前の値です。
 
 ## 仮説の確認
 
@@ -93,5 +95,5 @@ PostgreSQL を使う step（7〜10）のテストは、1 つの step を単独�
 ## 持ち越し
 
 - 人の全文確認（第 6〜13 章、ADR-060〜066）
-- `check` の時間の上限か、検査の分け方の決定
+- CI での `check:all` の時間の測定
 - 核の中の副作用を禁止する検査、起動の組み立てを通る smoke

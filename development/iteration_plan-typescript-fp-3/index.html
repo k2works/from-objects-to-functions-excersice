@@ -3232,6 +3232,41 @@
   
   
     <li class="md-nav__item">
+      <a href="../bolt_report-typescript-fp-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「TypeScript FP」Unit 3 依存の注入とイベント
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../bolt_report-1/" class="md-nav__link">
         
   
@@ -4318,6 +4353,41 @@
     
   
     「TypeScript FP」Unit 2 ウォーキングスケルトンとドメイン分離
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../retrospective-typescript-fp-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「TypeScript FP」Unit 3 依存の注入とイベント
   
 
     
@@ -6627,6 +6697,41 @@
     
   
     ADR-058 TypeScript FP 版の依存の渡し方
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/ADR-059-typescript-own-state-transition-monoid/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR-059 TypeScript FP 版の状態変換のモノイド
   
 
     
@@ -10362,6 +10467,41 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/typescript-fp/chapter05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 5 章 イベントで状態を変更する
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -13053,12 +13193,12 @@
 <li>「型で守れたこと・守れなかったこと」「Effect に置き換えたこと・自作で残したこと」を書く。型が消える実行時に、<code>Brand</code> が何を保証しないかを、壊して確かめて書く</li>
 <li>「関数型コードをデバックする」は、失敗したときの実際の出力を確かめて書く</li>
 <li><strong>実績（2026-11-28）</strong>: <a href="../../article/zettai/typescript-fp/chapter04/">第 4 章</a> を書いた。壊して確かめた中で、<strong>目印を外して名前をただの <code>string</code> にすると、型検査は失敗し、step 3 の実行するテスト 92 件はすべて通った</strong>。<code>as</code>、<code>JSON.parse</code> の結果、<code>string</code> の引数への受け渡し、<code>Object.assign</code> は、型検査と lint を通った。公開の前に、本文の言い過ぎを直した。2026-11-28、第 4 章は人の全文確認を受けて承認された。<code>User</code> と <code>ListName</code> を、<code>Brand</code> を付けた文字列にする形も承認に含む</li>
-<li>[-] <strong>3-1.6 品質ゲートと反映</strong></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>3-1.6 品質ゲートと反映</strong></li>
 <li><code>npm run check</code>、追跡対象のファイルだけの確認、読者の手順どおりの起動、記事の検査、<code>mkdocs build --strict</code>、OKF の検査、索引と <code>mkdocs.yml</code></li>
 <li>完了判定: 人が第 4 章を全文確認し、CI が成功する</li>
 <li><strong>実績（2026-11-28、開発機）</strong>: <code>npm run check</code> はテスト 31 ファイル 160 件と smoke が通った。読者の手順どおりに起動し、200・404・404（空の利用者名）・400 を確かめて停止した。記事の検査は違反 0 件、<code>mkdocs build --strict</code> は成功した。OKF の検査は、今回変更していないファイルの ERROR 1 件が残る</li>
 <li>追跡対象になるファイル（86 件）だけをスクラッチの深いディレクトリにコピーすると、テストは通り、smoke のビルドで <code>tsc</code> が見つからなかった。同じコピーは、短いドライブ名に割り当てると <code>check</code> が通った</li>
-<li><strong>残り</strong>: 人の全文確認と、push の後の CI。Nix のコンテナでは確かめていない</li>
+<li>人の全文確認の後、コミット <code>d27f080</code>・<code>7c2b4f0</code> を push した。4 つの CI が成功し、<a href="https://github.com/k2works/from-objects-to-functions-excersice/actions/runs/46092738756">TypeScript の CI</a>（Node 24.22.3）は PostgreSQL のテストを含む 31 ファイル 160 件と smoke が通った。公開サイトのブランチに第 4 章があることを確かめた。Nix のコンテナでは確かめていない</li>
 </ul>
 <h2 id="bolt-3-2-5">Bolt 3-2: 第 5 章<a class="headerlink" href="#bolt-3-2-5" title="Permanent link">&para;</a></h2>
 <h3 id="bolt_1">Bolt ゴール<a class="headerlink" href="#bolt_1" title="Permanent link">&para;</a></h3>
@@ -13067,24 +13207,31 @@
 </blockquote>
 <h3 id="_13">ステップ計画<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
 <ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>3-2.1 外側のシナリオを Red にする</strong></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>3-2.1 外側のシナリオを Red にする</strong></li>
 <li>経路の準備をイベントの列に変え、「作ったリストは、項目の無いリストとして見える」を足す</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>3-2.2 イベントと状態を Red → Green で作る</strong></li>
+<li><strong>実績（2026-11-28）</strong>: イベントのモジュールが無いため、受け入れテストの読み込みで失敗した。実装の後、2 経路で通った</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>3-2.2 イベントと状態を Red → Green で作る</strong></li>
 <li><code>ListCreated</code>、<code>ItemAdded</code>、状態 <code>ToDoListState</code>、1 件の適用。前の状態が変わらないこと、キーが混ざらないこと、<code>ListCreated</code> が重なった場合の結果をテストする</li>
 <li>型の上の読み取り専用が、実行時の変更を防がないことも確かめる</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>3-2.3 再帰と畳み込み</strong></li>
+<li><strong>実績（2026-11-28）</strong>: <code>state.test.ts</code> の 7 件を先に書いた。<code>as</code> で <code>Map</code> に言い切る書き換えは、型検査と lint を通った。その実装ではテストが 5 件失敗し、共有の <code>emptyState</code> の件数が 0 から 1 に変わった</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>3-2.3 再帰と畳み込み</strong></li>
 <li>再帰の形と <code>reduce</code> の形を書き、同じ結果になることを性質テストで確かめる。再帰の限界を、この版の実装で確かめる</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>3-2.4 モノイド</strong></li>
+<li><strong>実績（2026-11-28）</strong>: 開発機の Node 22.23.4、ビルドした出力で、再帰は 6,259 件で <code>RangeError</code>、<code>reduce</code> は 20 万件が通った（2 回とも同じ）</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>3-2.4 モノイド</strong></li>
 <li><code>StateTransition</code>、合成 <code>andThen</code>、何もしない変換 <code>identityTransition</code> を自作し、結合律と単位元を性質テストにする</li>
 <li><strong>生成するイベントの列が、既にあるリストへの追加を実際に含むことを確かめる。</strong> 含まないと、何も起きない変換どうしを比べて通る</li>
 <li>壊して失敗することを確かめる。<code>Reducer</code> に置き換えて比べ、ADR-059 を書く</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>3-2.5 第 5 章の執筆</strong></li>
+<li><strong>実績（2026-11-28）</strong>: 順序を逆にした合成は、結合律と単位元を通り、畳み込みと比べるテストだけが失敗した。合成した変換の適用は 9,376 件で <code>RangeError</code>。3 つのシードの 500 列で、追加が効いた列は 192〜220。自作を残した（<a href="../../adr/ADR-059-typescript-own-state-transition-monoid/">ADR-059</a>）</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>3-2.5 第 5 章の執筆</strong></li>
 <li>節は「ToDo リストの作成の表示」「状態変更の保存」「再帰の力を解き放つ」「イベントを畳み込む」「モノイドの発見」</li>
 <li>第 4 章と同じく、型の主張は壊して確かめる。性質テストが示す範囲（生成した値の範囲）を書く</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>3-2.6 品質ゲート、反映、報告</strong></li>
+<li><strong>実績（2026-11-28）</strong>: <a href="../../article/zettai/typescript-fp/chapter05/">第 5 章</a> を書いた。2026-11-28、第 5 章は人の全文確認を受けて承認された。第 4 章の抜粋への注記と、モノイドを自作のままにする決定も承認に含む</li>
+<li>[-] <strong>3-2.6 品質ゲート、反映、報告</strong></li>
 <li>3-1.6 と同じ確認をする。<code>comparison/</code> の更新は、依存の注入の節に必要な場合だけ行う</li>
 <li>Bolt 終了報告とふりかえりを書き、リリース計画の指標を記録する</li>
 <li>完了判定: 人が第 5 章を全文確認し、CI が成功する</li>
+<li><strong>実績（2026-11-28、開発機）</strong>: <code>npm run check</code> はテスト 34 ファイル 181 件と smoke が通り、読者の手順どおりの起動も確かめた。第 5 章の変更で、第 4 章の 3 つの抜粋が実装から消えたため、版の注記と検査の除外を足した。<a href="../bolt_report-typescript-fp-3/">Bolt 終了報告</a>と<a href="../retrospective-typescript-fp-3/">ふりかえり</a>を書いた。<code>comparison/</code> は変えていない。追跡対象になる 95 ファイルだけを短いドライブ名で実行した <code>check</code>、記事の検査、<code>mkdocs build --strict</code> も通った</li>
+<li><strong>残り</strong>: 第 5 章の人の全文確認と、push の後の CI。リリース計画の指標は、完了の時点で記録する</li>
 </ul>
 <p>実装は <code>feat(typescript-fp):</code>、記事は <code>docs(typescript-fp):</code> でコミットします。コミットと push は、人の指示を受けてから行います。<strong>第 4 章を公開してから、Bolt 3-2 に進みます。</strong></p>
 <hr />
@@ -13276,6 +13423,21 @@
 <tr>
 <td style="text-align: left;">2026-11-28</td>
 <td style="text-align: left;">第 4 章を承認した</td>
+<td style="text-align: left;">human:kakimomokuri</td>
+</tr>
+<tr>
+<td style="text-align: left;">2026-11-28</td>
+<td style="text-align: left;">CI の成功と公開を確かめ、Bolt 3-1 を完了にした</td>
+<td style="text-align: left;">anthropic/claude-sonnet-5-5</td>
+</tr>
+<tr>
+<td style="text-align: left;">2026-11-28</td>
+<td style="text-align: left;">Bolt 3-2 の実装と第 5 章の執筆の実績を記録した</td>
+<td style="text-align: left;">anthropic/claude-sonnet-5-5</td>
+</tr>
+<tr>
+<td style="text-align: left;">2026-11-28</td>
+<td style="text-align: left;">第 5 章と、第 4 章の抜粋への注記を承認した</td>
 <td style="text-align: left;">human:kakimomokuri</td>
 </tr>
 </tbody>

@@ -16,7 +16,7 @@
         <link rel="prev" href="../chapter03/">
       
       
-        <link rel="next" href="../../comparison/">
+        <link rel="next" href="../chapter05/">
       
       
         
@@ -2753,6 +2753,41 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../../development/bolt_report-typescript-fp-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「TypeScript FP」Unit 3 依存の注入とイベント
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../../development/bolt_report-1/" class="md-nav__link">
         
   
@@ -3836,6 +3871,41 @@
     
   
     「TypeScript FP」Unit 2 ウォーキングスケルトンとドメイン分離
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../development/retrospective-typescript-fp-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    「TypeScript FP」Unit 3 依存の注入とイベント
   
 
     
@@ -6142,6 +6212,41 @@
     
   
     ADR-058 TypeScript FP 版の依存の渡し方
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../adr/ADR-059-typescript-own-state-transition-monoid/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR-059 TypeScript FP 版の状態変換のモノイド
   
 
     
@@ -10137,6 +10242,41 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 5 章 イベントで状態を変更する
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -12377,6 +12517,10 @@
 <span class="w">  </span><span class="p">(</span><span class="nx">request</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span>
 </code></pre></div>
 <p>組み立てるのは、起動の入口とテストです。</p>
+<blockquote>
+<p>次の抜粋は、この章の時点のコードです。第 5 章で、状態の渡し方が変わります。</p>
+</blockquote>
+<!-- code-check: ignore 第 4 章の時点のコード（コミット d27f080）。第 5 章で変わる -->
 <div class="highlight"><pre><span></span><code><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">server</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">yield</span><span class="o">*</span><span class="w"> </span><span class="nx">serve</span><span class="p">(</span><span class="nx">makeApp</span><span class="p">(</span><span class="nx">makeHub</span><span class="p">(</span><span class="nx">findToDoList</span><span class="p">(</span><span class="nx">sampleLists</span><span class="p">))),</span><span class="w"> </span><span class="nx">port</span><span class="p">)</span>
 </code></pre></div>
 <p>テストでは、保管もサーバーも使わずに、好きな関数を渡せます。</p>
@@ -12396,6 +12540,10 @@
 <div class="highlight"><pre><span></span><code>AssertionError:<span class="w"> </span>expected<span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s1">'../domain/find-todo-list.ts'</span><span class="w"> </span><span class="o">]</span><span class="w"> </span>to<span class="w"> </span>deeply<span class="w"> </span>equal<span class="w"> </span><span class="o">[]</span>
 </code></pre></div>
 <p>渡し忘れと、ハブの代わりに取得の依存を渡す誤りは、型のテストで固定します。<code>@ts-expect-error</code> は、次の行が型エラーになることを求める指定です。エラーが無くなると、型検査が失敗します。</p>
+<blockquote>
+<p>次の抜粋は、この章の時点のコードです。第 5 章で、状態の渡し方が変わります。</p>
+</blockquote>
+<!-- code-check: ignore 第 4 章の時点のコード（コミット d27f080）。第 5 章で変わる -->
 <div class="highlight"><pre><span></span><code><span class="w">  </span><span class="c1">// @ts-expect-error 取得の依存を渡さないと、ハブを作れません</span>
 <span class="w">  </span><span class="nx">makeHub</span><span class="p">()</span>
 <span class="w">  </span><span class="c1">// @ts-expect-error ハブを渡さないと、App を作れません</span>
@@ -12554,6 +12702,10 @@
 </code></pre></div>
 <p>2 つの向きは、別の行にします。1 行で両方を入れ替えると、片方だけがエラーになる場合でも、指定は満たされるためです。</p>
 <p><code>name</code> を持つオブジェクトをやめて、目印を付けた文字列にしました。実行時の値が文字列なので、<code>Map</code> のキーを中身で引けます。第 2 章で必要だった、キーにするための取り出しが無くなります。</p>
+<blockquote>
+<p>次の抜粋は、この章の時点のコードです。第 5 章で、状態の渡し方が変わります。</p>
+</blockquote>
+<!-- code-check: ignore 第 4 章の時点のコード（コミット d27f080）。第 5 章で変わる -->
 <div class="highlight"><pre><span></span><code><span class="c1">// User の実行時の値は文字列なので、Map は中身で引けます。</span>
 <span class="k">export</span><span class="w"> </span><span class="kr">type</span><span class="w"> </span><span class="nx">ToDoListStore</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ReadonlyMap</span><span class="o">&lt;</span><span class="nx">User</span><span class="p">,</span><span class="w"> </span><span class="nx">ReadonlyArray</span><span class="o">&lt;</span><span class="nx">ToDoList</span><span class="o">&gt;&gt;</span>
 

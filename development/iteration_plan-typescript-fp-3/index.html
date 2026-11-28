@@ -2090,6 +2090,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="ゲート ③: 依存の渡し方の比べ方">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#3_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ゲート ③ の比較結果
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -6595,6 +6612,41 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/ADR-058-typescript-dependency-by-function-argument/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR-058 TypeScript FP 版の依存の渡し方
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -10275,6 +10327,41 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../article/zettai/typescript-fp/chapter04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 4 章 ドメインとアダプタのモデリング
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -12850,6 +12937,54 @@
 <li>取得が失敗しうる形に変えたとき（第 9 章の予告）に、型に現れる変化</li>
 </ul>
 <p>比較のコードは一時的に置き、実行の後に削除します。仮説は <code>R</code> を使う形についてのものなので、<strong>A を選んでも、B・C で漏れが型で分かるかは記録します。</strong></p>
+<h3 id="3_1">ゲート ③ の比較結果<a class="headerlink" href="#3_1" title="Permanent link">&para;</a></h3>
+<p>2026-11-28、開発機で実行しました（TypeScript 7.0.2、Effect 4.1.6）。比較のコードは、<code>zettai-step3-events/test/zz-spike/</code> に置き、実行の後に削除しました。<strong>依存が 1 つの、小さな実装での結果です。</strong></p>
+<p>3 案とも、あるリスト、無いリスト、無い利用者に同じ応答（200・404・404）を返し、テストで取得の依存を差し替えられました。型検査、lint、テスト 4 件が通りました。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">項目</th>
+<th style="text-align: left;">A: 引数</th>
+<th style="text-align: left;">B: <code>provideService</code></th>
+<th style="text-align: left;">C: <code>Layer</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">行数: ハブ / web / 組み立て / 差し替え（合計）</td>
+<td style="text-align: left;">5 / 17 / 6 / 7（35）</td>
+<td style="text-align: left;">10 / 13 / 10 / 10（43）</td>
+<td style="text-align: left;">10 / 13 / 10 / 8（41）</td>
+</tr>
+<tr>
+<td style="text-align: left;">提供忘れ</td>
+<td style="text-align: left;">止まる（<code>TS2554</code>、引数の不足）</td>
+<td style="text-align: left;">止まる（<code>TS2375</code> などと、診断 <code>missingEffectContext</code>）</td>
+<td style="text-align: left;">同左</td>
+</tr>
+<tr>
+<td style="text-align: left;">依存を 1 つ増やしたとき、ハブのほかに直すファイル</td>
+<td style="text-align: left;">組み立て、差し替え（2）</td>
+<td style="text-align: left;">web、組み立て、差し替え（3）</td>
+<td style="text-align: left;">同左（3）</td>
+</tr>
+<tr>
+<td style="text-align: left;">取得を失敗しうる形にしたとき、型エラーになるファイル</td>
+<td style="text-align: left;">web、組み立て、差し替え</td>
+<td style="text-align: left;">同左</td>
+<td style="text-align: left;">同左</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>行数は、整形の後の、空行とコメントを除く行です。3 案が共有する応答の組み立ては含みません</li>
+<li>B・C は、<code>App</code> を返す場所や <code>runPromise</code>・<code>serve</code> に渡す場所でエラーになりました。まだ境界に渡していない関数は、<code>R</code> を持ったまま型検査を通ります</li>
+<li>C で、<code>Layer</code> が必要とする別の依存を忘れた場合は、足りない依存の名前（<code>Store</code>）が診断に出ました</li>
+<li>B・C で web を直したのは、戻り値の型に <code>R</code> を明示しているためです。推論に任せた場合は確かめていません</li>
+<li>組み立てで依存を与えて <code>App</code> を返す形では、<code>App</code> の型は変わりません。型の上の確認で、この形でサーバーは起動していません。domain の経路は、B・C ではハブの操作が <code>Effect</code> になるので、依存を与えて実行する処理が要ります（型からの見込み）</li>
+<li>C で要求ごとに <code>Effect.provide(layer)</code> を使うと、3 回の要求で <code>Layer</code> が 3 回組み立てられました。<code>Layer.build</code> で一度組み立てて渡すと 1 回でした。<code>Layer.succeed</code> では害がありませんが、接続のような資源を持つ <code>Layer</code> では、組み立ての場所を決める必要があります</li>
+</ul>
+<p><strong>仮説「<code>R</code> に依存を載せると、差し替えの漏れが型で分かる」は、この比較では成り立ちました。ただし、引数で渡す形でも漏れは型検査で止まりました。</strong> この比較では、漏れの検出に <code>R</code> の利点は見られませんでした。</p>
 <hr />
 <h2 id="_9">承認の対象となる新規ファイルとライブラリ<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
 <p><strong>本計画の承認をもって、次の追加を承認とします。</strong> ここに無いものが必要になった場合は停止します。</p>
@@ -12892,27 +13027,38 @@
 <h3 id="_12">ステップ計画<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
 <p>状態は <code>[ ]</code> 未着手、<code>[-]</code> 進行中、<code>[?]</code> 承認待ち、<code>[R]</code> 修正中、<code>[x]</code> 完了、<code>[S]</code> スキップです。</p>
 <ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>3-1.1 step を追加する</strong></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>3-1.1 step を追加する</strong></li>
 <li><code>zettai-step3-events</code> を workspaces に足し、step 2 の内容を複製する</li>
 <li>完了判定: 複製した状態で <code>npm run check</code> が通る。<code>check</code> の時間を測る</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>3-1.2 ★ゲート ③: 依存の渡し方</strong></li>
+<li><strong>実績（2026-11-28）</strong>: step 2 の追跡対象の 28 ファイルを複製した。<code>check</code> は 24 秒で通り、テストは 27 ファイル 120 件（開発機で 1 回）。依存の追加は無く、lock に増えたのは workspace の登録だけ</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>3-1.2 ★ゲート ③: 依存の渡し方</strong></li>
 <li>上の 3 案を比べる。代償は、確かめた事実と見込みを分けて書く</li>
 <li>完了判定: 人が選び、ADR-058 を書いた</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>3-1.3 依存の渡し方を実装する</strong></li>
+<li><strong>実績（2026-11-28。同期停止した）</strong>: 比較の結果（下の「ゲート ③ の比較結果」）を示し、人が推奨の案 A（引数で渡す）を選んだ。変更依頼は 0 回（<a href="../../adr/ADR-058-typescript-dependency-by-function-argument/">ADR-058</a>）</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>3-1.3 依存の渡し方を実装する</strong></li>
 <li>差し替えのテストを先に書き、Red を確かめる。提供漏れの扱いをテストで固定する</li>
 <li><code>ToDoListHub</code> を設け、web をハブ経由に変える</li>
 <li>完了判定: US-004 の受入条件 3、5、8</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>3-1.4 ドメインの型を太くする</strong></li>
+<li><strong>実績（2026-11-28）</strong>: Red は、ハブのモジュールが無いことと、<code>app.ts</code> が <code>find-todo-list.ts</code> を読み込んでいることの 2 つ。<code>ToDoListHub</code> と <code>makeHub</code> を足した。提供忘れと、ハブの代わりに取得の依存を渡す誤りは、3 つの <code>@ts-expect-error</code> で固定し、指定を外すと意図したエラー（<code>TS2554</code> が 2 件、<code>TS2345</code> が 1 件）が出ることを確かめた</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>3-1.4 ドメインの型を太くする</strong></li>
 <li>取り違えの <code>@ts-expect-error</code> のテストを先に書き、型検査が「指定が使われていない」で失敗することを確かめてから、<code>Brand</code> を入れる</li>
 <li>名前の生成、HTTP の境界での変換、項目の状態と期限を、Red → Green で作る</li>
 <li>完了判定: US-004 の受入条件 4、6、7</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>3-1.5 第 4 章の執筆</strong></li>
+<li><strong>実績（2026-11-28）</strong>: 取り違えのテストは、<code>Brand</code> を入れる前に <code>TS2578</code> で失敗した。名前と期限のテストは、関数が無い状態で 31 件が失敗した</li>
+<li>計画で形を決めていなかった点: <code>User</code> と <code>ListName</code> は、<code>name</code> を持つオブジェクトから、<code>Brand</code> を付けた文字列に変えた</li>
+<li>取り違えのテストは、最初は 1 行で 2 つの引数を入れ替えていた。片方向の拒否でも通るので、向きごとの 2 行に分けた</li>
+<li>矢印 1 のテスト（<code>extract.test.ts</code>）は、振る舞いが既にある状態で足した。境界で名前を取り違えると失敗することを確かめた</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>3-1.5 第 4 章の執筆</strong></li>
 <li>節は「ToDo リストを変更するための新しいストーリーを始める」「関数型の『依存性の注入』を使う」「関数型コードをデバックする」「関数型ドメインモデリング」。検査が期待する見出しは、章構成マインドマップに一致させる</li>
 <li>「型で守れたこと・守れなかったこと」「Effect に置き換えたこと・自作で残したこと」を書く。型が消える実行時に、<code>Brand</code> が何を保証しないかを、壊して確かめて書く</li>
 <li>「関数型コードをデバックする」は、失敗したときの実際の出力を確かめて書く</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>3-1.6 品質ゲートと反映</strong></li>
+<li><strong>実績（2026-11-28）</strong>: <a href="../../article/zettai/typescript-fp/chapter04/">第 4 章</a> を書いた。壊して確かめた中で、<strong>目印を外して名前をただの <code>string</code> にすると、型検査は失敗し、step 3 の実行するテスト 92 件はすべて通った</strong>。<code>as</code>、<code>JSON.parse</code> の結果、<code>string</code> の引数への受け渡し、<code>Object.assign</code> は、型検査と lint を通った。公開の前に、本文の言い過ぎを直した。2026-11-28、第 4 章は人の全文確認を受けて承認された。<code>User</code> と <code>ListName</code> を、<code>Brand</code> を付けた文字列にする形も承認に含む</li>
+<li>[-] <strong>3-1.6 品質ゲートと反映</strong></li>
 <li><code>npm run check</code>、追跡対象のファイルだけの確認、読者の手順どおりの起動、記事の検査、<code>mkdocs build --strict</code>、OKF の検査、索引と <code>mkdocs.yml</code></li>
 <li>完了判定: 人が第 4 章を全文確認し、CI が成功する</li>
+<li><strong>実績（2026-11-28、開発機）</strong>: <code>npm run check</code> はテスト 31 ファイル 160 件と smoke が通った。読者の手順どおりに起動し、200・404・404（空の利用者名）・400 を確かめて停止した。記事の検査は違反 0 件、<code>mkdocs build --strict</code> は成功した。OKF の検査は、今回変更していないファイルの ERROR 1 件が残る</li>
+<li>追跡対象になるファイル（86 件）だけをスクラッチの深いディレクトリにコピーすると、テストは通り、smoke のビルドで <code>tsc</code> が見つからなかった。同じコピーは、短いドライブ名に割り当てると <code>check</code> が通った</li>
+<li><strong>残り</strong>: 人の全文確認と、push の後の CI。Nix のコンテナでは確かめていない</li>
 </ul>
 <h2 id="bolt-3-2-5">Bolt 3-2: 第 5 章<a class="headerlink" href="#bolt-3-2-5" title="Permanent link">&para;</a></h2>
 <h3 id="bolt_1">Bolt ゴール<a class="headerlink" href="#bolt_1" title="Permanent link">&para;</a></h3>
@@ -13115,6 +13261,21 @@
 <tr>
 <td style="text-align: left;">2026-11-28</td>
 <td style="text-align: left;">提案した内容で承認を得た</td>
+<td style="text-align: left;">human:kakimomokuri</td>
+</tr>
+<tr>
+<td style="text-align: left;">2026-11-28</td>
+<td style="text-align: left;">ゲート ③ は案 A</td>
+<td style="text-align: left;">human:kakimomokuri</td>
+</tr>
+<tr>
+<td style="text-align: left;">2026-11-28</td>
+<td style="text-align: left;">Bolt 3-1 の実装と第 4 章の執筆の実績を記録した</td>
+<td style="text-align: left;">anthropic/claude-sonnet-5-5</td>
+</tr>
+<tr>
+<td style="text-align: left;">2026-11-28</td>
+<td style="text-align: left;">第 4 章を承認した</td>
 <td style="text-align: left;">human:kakimomokuri</td>
 </tr>
 </tbody>

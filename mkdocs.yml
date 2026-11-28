@@ -120,6 +120,7 @@ nav:
           - 「TypeScript FP」Unit 3 依存の注入とイベント: development/iteration_plan-typescript-fp-3.md
           - 「TypeScript FP」Unit 4 コマンドと型付きエラー: development/iteration_plan-typescript-fp-4.md
           - 「TypeScript FP」Unit 5 射影と永続化: development/iteration_plan-typescript-fp-5.md
+          - 「TypeScript FP」Unit 6 文脈と検証の蓄積: development/iteration_plan-typescript-fp-6.md
           - 「なでしこ3」Unit 1 実行環境・テスト基盤と第 1 章: development/iteration_plan-nadesiko-1.md
           - 「なでしこ3」Unit 2 ウォーキングスケルトンとドメイン分離: development/iteration_plan-nadesiko-2.md
           - 「なでしこ3」Unit 3 関数型 DI とイベント: development/iteration_plan-nadesiko-3.md
@@ -249,6 +250,7 @@ nav:
       - ADR-061 TypeScript FP 版のハブの依存と失敗の型: adr/ADR-061-typescript-hub-ports-and-error-types.md
       - ADR-062 TypeScript FP 版の射影と CQRS: adr/ADR-062-typescript-projection-and-cqrs.md
       - ADR-063 TypeScript FP 版の PostgreSQL への永続化: adr/ADR-063-typescript-postgresql-persistence.md
+      - ADR-064 TypeScript FP 版のコマンドのトランザクション: adr/ADR-064-typescript-command-transaction.md
   - 記事:
       - 概要: article/index.md
       - 執筆計画: article/outline.md
@@ -356,6 +358,7 @@ nav:
               - 第 7 章 関数型手法によるエラーハンドリング: article/zettai/typescript-fp/chapter07.md
               - 第 8 章 ファンクタを使ってイベントを射影する: article/zettai/typescript-fp/chapter08.md
               - 第 9 章 モナドによる安全なデータ永続化: article/zettai/typescript-fp/chapter09.md
+              - 第 10 章 コンテキストを読み込み、コマンドを処理する: article/zettai/typescript-fp/chapter10.md
           - 横断比較: article/zettai/comparison/index.md
   - リファレンス:
       - 概要: reference/index.md

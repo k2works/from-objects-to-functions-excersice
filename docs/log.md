@@ -1,6 +1,14 @@
 # Docs Update Log
 
 ## 2026-11-28
+* **Update**: [iteration_plan-typescript-fp-6](/development/iteration_plan-typescript-fp-6.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [chapter10](/article/zettai/typescript-fp/chapter10.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [ADR-064-typescript-command-transaction](/adr/ADR-064-typescript-command-transaction.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [outline](/article/outline.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [draft](/article/draft.md) を更新（anthropic/claude-sonnet-5-5）
+* **Creation**: [iteration_plan-typescript-fp-6](/development/iteration_plan-typescript-fp-6.md) を作成（anthropic/claude-sonnet-5-5）
+* **Creation**: [ADR-064-typescript-command-transaction](/adr/ADR-064-typescript-command-transaction.md) を作成（anthropic/claude-sonnet-5-5）
+* **Creation**: [chapter10](/article/zettai/typescript-fp/chapter10.md) を作成（anthropic/claude-sonnet-5-5）
 * **Update**: [retrospective-typescript-fp-5](/development/retrospective-typescript-fp-5.md) を更新（anthropic/claude-sonnet-5-5）
 * **Update**: [bolt_report-typescript-fp-5](/development/bolt_report-typescript-fp-5.md) を更新（anthropic/claude-sonnet-5-5）
 * **Update**: [chapter09](/article/zettai/typescript-fp/chapter09.md) を更新（anthropic/claude-sonnet-5-5）

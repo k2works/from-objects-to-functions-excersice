@@ -4,7 +4,7 @@ title: "章構成マインドマップ：関数型プログラミングで作る
 description: "Zettai 連載の全 13 章とその節構成を PlantUML マインドマップで示した一次情報。記事の節見出しはこのマインドマップに一致させる。"
 tags: [article, zettai]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T09:25:01Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T05:35:01Z }
 ---
 
 ```plantuml
@@ -124,6 +124,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T09:25:01Z }
 | 第 7 章 第 4 節 | Outcomeを使って実装する | Flix | `Result` を使って実装する | `Outcome` は Kotlin 版で自作した型の名前。Flix は `Result` が標準にあり、作らない（[ADR-047](../adr/ADR-047-flix-use-standard-result.md)） |
 | 第 7 章 第 4 節 | Outcomeを使って実装する | Scala | `Either` を使って実装する | `Outcome` は Kotlin 版で自作した型の名前。Scala は `Either` が標準にある（[ADR-050](../adr/ADR-050-scala-either-for-domain-failures.md)） |
 | 第 10 章 第 4 節 | 設計を２回間違えた | Scala | 設計で確かめたこと | この版では、設計を間違えたと言える出来事が起きなかった。代わりに、確かめた判断を書く |
+| 第 10 章 第 4 節 | 設計を２回間違えた | TypeScript FP | 設計で確かめたこと | この版では、設計を間違えたと言える出来事が起きなかった。代わりに、壊して確かめたことを書く |
 | 第 9 章 第 3 節 | Kotlinでデータベースに接続する | Scala | Scala でデータベースに接続する | 言語名がそのまま入っている |
 | 第 9 章 第 3 節 | Kotlinでデータベースに接続する | Rust | Rust でデータベースに接続する | 言語名がそのまま入っている |
 | 第 9 章 第 3 節 | Kotlinでデータベースに接続する | Flix | Flix でデータベースに接続する | 言語名がそのまま入っている |

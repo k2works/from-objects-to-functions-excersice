@@ -50,6 +50,7 @@
 | Unit 3 依存の注入とイベント | [Unit 3 の Bolt 計画](iteration_plan-typescript-fp-3.md) | [ふりかえり](retrospective-typescript-fp-3.md) | [Bolt 終了報告](bolt_report-typescript-fp-3.md) | 完了 |
 | Unit 4 コマンドと型付きエラー | [Unit 4 の Bolt 計画](iteration_plan-typescript-fp-4.md) | [ふりかえり](retrospective-typescript-fp-4.md) | [Bolt 終了報告](bolt_report-typescript-fp-4.md) | 執筆済み（人の確認と CI の待ち） |
 | Unit 5 射影と永続化 | [Unit 5 の Bolt 計画](iteration_plan-typescript-fp-5.md) | [ふりかえり](retrospective-typescript-fp-5.md) | [Bolt 終了報告](bolt_report-typescript-fp-5.md) | 執筆済み（人の確認と CI の待ち） |
+| Unit 6 文脈と検証の蓄積 | [Unit 6 の Bolt 計画](iteration_plan-typescript-fp-6.md) | - | - | 進行中（利用者の指示で推奨案を採用） |
 
 ### Bolt 計画（なでしこ3 版）
 

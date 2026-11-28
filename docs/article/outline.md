@@ -4,7 +4,7 @@ title: "執筆計画：関数型プログラミングで作る変更を楽に安
 description: "Uberto Barbini 著『From Objects to Functions』を下敷きにした Zettai 連載の執筆計画。既存 3 言語版に加え、Grokking Functional Programming の Kotlin + Arrow 解説を基礎にした Kotlin FP 版、効果システムを持つ Flix 版、Cats Effect を使う Scala 版、Effect を使う TypeScript FP 版（執筆中）について、全 13 章の移植方針、記事と実装の同期、前提整備、品質ゲートを定義する。"
 tags: [article, plan, zettai]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T05:22:54Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T05:35:01Z }
 ---
 
 # 執筆計画：関数型プログラミングで作る変更を楽に安全にできるソフトウェア
@@ -19,7 +19,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T05:22:54Z }
 
 ## 対象一覧
 
-本シリーズは同じ 13 章構成を対象ごとに書き起こす比較シリーズです。現在の対象は **5 言語・6 実装方針** です（Flix 版、Scala 版も全 13 章を公開しました）。**Scala（Cats Effect）版も全 13 章を公開し、5 言語・6 実装方針になりました。**次の対象の TypeScript FP（Effect）版は執筆中で、第 9 章まで公開しました（完結すると 6 言語・7 実装方針になります）。章の番号・タイトル・焦点は対象をまたいで共通とし、対象ごとに変えるのは実現手段だけです。Kotlin FP 版は言語を増やすのではなく、同じ Kotlin で「自前の関数型抽象」と「Arrow / coroutine を使う実装」を比較する対象です。
+本シリーズは同じ 13 章構成を対象ごとに書き起こす比較シリーズです。現在の対象は **5 言語・6 実装方針** です（Flix 版、Scala 版も全 13 章を公開しました）。**Scala（Cats Effect）版も全 13 章を公開し、5 言語・6 実装方針になりました。**次の対象の TypeScript FP（Effect）版は執筆中で、第 10 章まで公開しました（完結すると 6 言語・7 実装方針になります）。章の番号・タイトル・焦点は対象をまたいで共通とし、対象ごとに変えるのは実現手段だけです。Kotlin FP 版は言語を増やすのではなく、同じ Kotlin で「自前の関数型抽象」と「Arrow / coroutine を使う実装」を比較する対象です。
 
 | 対象 | 実行環境 | 章数 | 記事 | サンプル実装 | 状態 |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -29,7 +29,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T05:22:54Z }
 | Rust | Nix devShell `rust`（rustc 1.91.1 / cargo 1.91.0） | 13 | `docs/article/zettai/rust/` | `apps/rust/zettai/` | **完結**（13 / 13 章公開） |
 | Flix | Nix devShell `flix`（JDK 21 / Flix 0.79.0） | 13 | `docs/article/zettai/flix/` | `apps/flix/zettai/` | **完結**（13 / 13 章公開） |
 | Scala | Nix devShell `scala`（Scala 3 / sbt。JDK は Unit 1 で確認）＋ Cats Effect | 13 | `docs/article/zettai/scala/` | `apps/scala/zettai/` | **完結**（13 / 13 章公開） |
-| TypeScript FP | Nix devShell `typescript-fp`（Node 24）＋ Effect | 13 | `docs/article/zettai/typescript-fp/` | `apps/typescript-fp/zettai/` | **執筆中（9 / 13 章）** |
+| TypeScript FP | Nix devShell `typescript-fp`（Node 24）＋ Effect | 13 | `docs/article/zettai/typescript-fp/` | `apps/typescript-fp/zettai/` | **執筆中（10 / 13 章）** |
 
 横断比較コンテンツ [`docs/article/zettai/comparison/`](zettai/comparison/index.md) は、なでしこ3 版が Phase 1（第 3 章）を終えた 2026-09-28 に新設しました。当初の比較軸は「**型で保証する**（Kotlin）」と「**約束とテストで保証する**（なでしこ3）」の 2 点でした。
 
@@ -899,7 +899,7 @@ v3 を前提にした記事やコード例は、そのままでは使えませ�
 | 第 3 章 第 5 節 | 「DDT を driver のインターフェースに変換する」にする | 確定（登録済み） |
 | 第 7 章 第 4 節 | 「`Result` と `Effect` の型付きエラーで実装する」にする | 確定（登録済み） |
 | 第 10 章 第 2 節 | 文脈を渡す方式に合わせる | 第 10 章のスパイク後に登録 |
-| 第 10 章 第 4 節 | 「設計を２回間違えた」が実装の事実と合うかを判断する | 第 10 章の実装後に判断 |
+| 第 10 章 第 4 節 | 「設計で確かめたこと」にする | 確定（登録済み） |
 
 ### 章別計画
 

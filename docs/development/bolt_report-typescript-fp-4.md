@@ -4,7 +4,7 @@ title: "Unit 4 の Bolt 終了報告 - Zettai 連載（TypeScript FP 版）"
 description: "TypeScript FP 版 Unit 4 のコマンド、状態の移り方、型付きエラー、ファンクタの法則の成果と指標。人の全文確認と CI が残り、完了条件は未達。"
 tags: [development, report, ai-dlc, zettai, typescript, effect, unit-4]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T04:52:33Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T07:00:36Z }
 ---
 
 # Unit 4 の Bolt 終了報告 - Zettai 連載（TypeScript FP 版）
@@ -16,7 +16,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T04:52:33Z }
 | Unit | 4：コマンドと型付きエラー |
 | Bolt | 4-1 第 6 章 / 4-2 第 7 章 |
 | 実施日 | 2026-11-28 |
-| 状態 | **執筆と実装は済み。完了条件は未達。** 第 6〜7 章の人の全文確認、main への取り込み、CI が残っている |
+| 状態 | **完了（2026-11-28）。** 人が章を承認し、main に取り込み、[CI](https://github.com/k2works/from-objects-to-functions-excersice/actions/runs/46118942531) が成功した。以下の本文は、完了の前の記録です |
 
 計画は [Unit 4 の Bolt 計画](iteration_plan-typescript-fp-4.md) にあります。
 

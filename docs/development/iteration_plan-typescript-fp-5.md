@@ -4,7 +4,7 @@ title: "Unit 5 の Bolt 計画（イテレーション 5）- Zettai 連載（Typ
 description: "Zettai 連載 TypeScript FP 版の Unit 5（第 8〜9 章）の Bolt 計画。射影と CQRS、PostgreSQL への永続化を扱う。利用者の事前の指示に基づき推奨案で進め、人の個別の承認は受けていない。"
 tags: [development, plan, ai-dlc, bolt, zettai, typescript, effect, unit-5]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T05:22:54Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T07:00:36Z }
 ---
 
 # Unit 5 の Bolt 計画（イテレーション 5）- Zettai 連載（TypeScript FP 版）
@@ -123,7 +123,8 @@ Unit 4 は、実装と執筆が済みました。**人の全文確認と CI は�
   - **実績（2026-11-28）**: 第 5 章からの生成器では、500 列のうち完了を含む列が 0 件だった。項目のあるリストを先に置く生成器に変え、241〜254 列になった。法則のテストは、最初の 1 件だけを変える `map` を見分けられなかった
 - [x] **5-1.5 第 8 章の執筆**（節は「イベントを射影する」「ファンクタに対するクエリの実行」「ファンクタの観点から考察する」「コマンドクエリ責務分離(CQRS)」）
   - **実績（2026-11-28）**: [第 8 章](../article/zettai/typescript-fp/chapter08.md) を書いた。人の全文確認は受けていない
-- [-] **5-1.6 品質ゲートと反映**
+- [x] **5-1.6 品質ゲートと反映**
+  - **完了（2026-11-28）**: 人が第 6〜13 章を承認し、[CI](https://github.com/k2works/from-objects-to-functions-excersice/actions/runs/46118942531) が成功した
   - **実績（2026-11-28）**: 開発機で `check`（103 ファイル 746 件）、手順どおりの起動、記事の検査、`mkdocs build --strict` が通った。CI は実行していない
 
 ## Bolt 5-2: 第 9 章
@@ -139,7 +140,8 @@ Unit 4 は、実装と執筆が済みました。**人の全文確認と CI は�
   - **実績（2026-11-28）**: 接続は `Scope` で表し、`Layer` は本体で使わなかった。依存は引数のまま。中断はロックの解放まで戻らなかった
 - [x] **5-2.5 第 9 章の執筆**（節は「安全に永続化する」「PostgreSQLと結合テスト」「TypeScript でデータベースに接続する」「データベースを準備する」「関数型スタイルでリモートデータにアクセスする」「モナドの力を探る」「読み戻す」「３経路目」）
   - **実績（2026-11-28）**: [第 9 章](../article/zettai/typescript-fp/chapter09.md) を書いた。人の全文確認は受けていない
-- [-] **5-2.6 品質ゲート、反映、報告**
+- [x] **5-2.6 品質ゲート、反映、報告**
+  - **完了（2026-11-28）**: 人が第 6〜13 章を承認し、[CI](https://github.com/k2works/from-objects-to-functions-excersice/actions/runs/46118942531) が成功した
   - **実績（2026-11-28）**: 開発機の `check`（130 ファイル 993 件、約 40 秒）、PostgreSQL につないだ手順どおりの起動、記事の検査が通った。[Bolt 終了報告](bolt_report-typescript-fp-5.md)と[ふりかえり](retrospective-typescript-fp-5.md)を書いた。残りは人の確認、push、CI
 
 ---
@@ -155,11 +157,13 @@ Unit 4 は、実装と執筆が済みました。**人の全文確認と CI は�
 
 ## 完了条件
 
-- [ ] US-008 と US-009 の受入条件をすべて満たす
-- [ ] `npm run check` が通る
-- [ ] ADR-062・063、第 8〜9 章、Bolt 終了報告、ふりかえりがある
-- [ ] 第 8〜9 章を人が全文確認した
-- [ ] CI が成功した
+- [x] US-008 と US-009 の受入条件をすべて満たす
+- [x] `npm run check` が通る
+- [x] ADR-062・063、第 8〜9 章、Bolt 終了報告、ふりかえりがある
+- [x] 第 8〜9 章を人が全文確認した
+- [x] CI が成功した
+
+2026-11-28 に、人が第 6〜13 章を承認し、コミット `a78d25f6` の [CI](https://github.com/k2works/from-objects-to-functions-excersice/actions/runs/46118942531) が成功したため、完了にしました。
 
 ## 更新履歴
 

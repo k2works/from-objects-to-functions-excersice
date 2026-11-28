@@ -4,7 +4,7 @@ title: "ADR-054 TypeScript FP 版は TypeScript 7 と @effect/tsgo を使い、n
 description: "Zettai 連載 TypeScript FP 版で、TypeScript 7.0.2・@effect/tsgo・Oxlint・Prettier を採り、tsc でビルドして Node で実行し、累積する step を npm workspaces で管理する決定。品質ゲート npm run check の各段が守るもの、実測した秒数、選ばなかった案と代償を記録する。"
 tags: [adr, typescript, zettai, effect, testing]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T06:41:29Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T07:00:36Z }
 ---
 
 # ADR-054 TypeScript FP 版は TypeScript 7 と @effect/tsgo を使い、npm run check を 5 段にする
@@ -151,6 +151,20 @@ step が 10 個になり、全部を実行する `check` が上限の 60 秒を�
 
 - 古い step の破損は、手元の `check` では見つからず、CI で見つかる。CI は main への push と pull request で動く
 - 最新の step の名前は、`package.json` の `check` に書く。**step を足して書き換え忘れると、古い step を検査し続ける。これを確かめる手段は無い**
+
+## 追記（2026-11-28、CI での check:all の時間）
+
+コミット `a78d25f6` の [CI](https://github.com/k2works/from-objects-to-functions-excersice/actions/runs/46118942531)（`ubuntu-latest`、Node 24）は成功しました。**`check:all` のステップは 91 秒で、開発機と CI に共通の上限 60 秒を超えました。** 1 回の測定です。ログの時刻から読んだ内訳は次のとおりです。
+
+| 段 | おおよその時間 |
+| :--- | :--- |
+| typecheck | 2.5 秒 |
+| lint | 1.2 秒 |
+| format:check | 3.2 秒 |
+| test（221 ファイル 1892 件） | 68 秒 |
+| smoke（10 step） | 15.5 秒 |
+
+原因は、全部の step のテストと smoke を実行することです。**手元の分割は、CI の時間を短くしません。** CI の上限を引き上げるか、CI の検査を並列に分けるかは、まだ決めていません。
 
 ## 備考
 

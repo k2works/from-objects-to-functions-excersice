@@ -4,7 +4,7 @@ title: "Unit 7 の Bolt 計画（イテレーション 7）- Zettai 連載（Typ
 description: "Zettai 連載 TypeScript FP 版の Unit 7（第 12〜13 章）の Bolt 計画。第 12 章の実装と執筆の後に書いた。利用者の事前の指示に基づき推奨案で進め、人の個別の承認は受けていない。"
 tags: [development, plan, ai-dlc, bolt, zettai, typescript, effect, unit-7]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T06:28:07Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T07:00:36Z }
 ---
 
 # Unit 7 の Bolt 計画（イテレーション 7）- Zettai 連載（TypeScript FP 版）
@@ -89,10 +89,12 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T06:28:07Z }
 
 ## 完了条件
 
-- [ ] US-012 と US-013 の受入条件をすべて満たす
-- [ ] `npm run check` が通る。時間を測る
-- [ ] ADR-066、第 12〜13 章、Bolt 終了報告、ふりかえりがある
-- [ ] 第 12〜13 章を人が全文確認し、CI が成功した
+- [x] US-012 と US-013 の受入条件をすべて満たす
+- [x] `npm run check` が通る。時間を測る
+- [x] ADR-066、第 12〜13 章、Bolt 終了報告、ふりかえりがある
+- [x] 第 12〜13 章を人が全文確認し、CI が成功した
+
+2026-11-28 に、人が第 6〜13 章を承認し、コミット `a78d25f6` の [CI](https://github.com/k2works/from-objects-to-functions-excersice/actions/runs/46118942531) が成功したため、完了にしました。
 
 ## 更新履歴
 

@@ -4,7 +4,7 @@ title: "Unit 6 の Bolt 計画（イテレーション 6）- Zettai 連載（Typ
 description: "Zettai 連載 TypeScript FP 版の Unit 6（第 10〜11 章）の Bolt 計画。第 10 章の実装の後に書いた。利用者の事前の指示に基づき推奨案で進め、人の個別の承認は受けていない。"
 tags: [development, plan, ai-dlc, bolt, zettai, typescript, effect, unit-6]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T05:48:17Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T07:00:36Z }
 ---
 
 # Unit 6 の Bolt 計画（イテレーション 6）- Zettai 連載（TypeScript FP 版）
@@ -88,17 +88,20 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T05:48:17Z }
   - **実績（2026-11-28）**: テストを先に失敗させた。成功の状態は UI 設計どおり 302。Prettier が `html` タグのテンプレートを整形して出力が変わったため、`markup` に改名した。名前の変更を足して、追加が効く列が 74 に下がり、生成の重みを変えて 118〜128 にした。保存済みの長い名前を読むテストが無かったため足した
 - [x] **6-2.4 第 11 章の執筆**（節は「ToDoリストの名前変更」「２つのパラメータを持った検証」「バリデーションを使った検証」「アプリカティブファンクタの結合」「ユーザインタフェースの改善」）
   - **実績（2026-11-28）**: [第 11 章](../article/zettai/typescript-fp/chapter11.md) を書いた。人の全文確認は受けていない
-- [-] **6-2.5 品質ゲート、反映、報告**
+- [x] **6-2.5 品質ゲート、反映、報告**
+  - **完了（2026-11-28）**: 人が第 6〜13 章を承認し、[CI](https://github.com/k2works/from-objects-to-functions-excersice/actions/runs/46118942531) が成功した
   - **実績（2026-11-28）**: 開発機の `check`（188 ファイル 1563 件、約 59 秒）、実際のサーバーへのフォームの送信を確かめた。**CSRF の対策が無いことを確かめて記録した。** 残りは人の確認、push、CI
 
 ---
 
 ## 完了条件
 
-- [ ] US-010 と US-011 の受入条件をすべて満たす
-- [ ] `npm run check` が通る。時間を測る
-- [ ] ADR-064・065、第 10〜11 章、Bolt 終了報告、ふりかえりがある
-- [ ] 第 10〜11 章を人が全文確認し、CI が成功した
+- [x] US-010 と US-011 の受入条件をすべて満たす
+- [x] `npm run check` が通る。時間を測る
+- [x] ADR-064・065、第 10〜11 章、Bolt 終了報告、ふりかえりがある
+- [x] 第 10〜11 章を人が全文確認し、CI が成功した
+
+2026-11-28 に、人が第 6〜13 章を承認し、コミット `a78d25f6` の [CI](https://github.com/k2works/from-objects-to-functions-excersice/actions/runs/46118942531) が成功したため、完了にしました。
 
 ## 更新履歴
 

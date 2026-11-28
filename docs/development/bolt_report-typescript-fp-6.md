@@ -4,7 +4,7 @@ title: "Unit 6 の Bolt 終了報告 - Zettai 連載（TypeScript FP 版）"
 description: "TypeScript FP 版 Unit 6 のトランザクション、検証の蓄積、名前変更のフォームの成果と、壊して分かった限界。人の全文確認と CI が残り、完了条件は未達。"
 tags: [development, report, ai-dlc, zettai, typescript, effect, unit-6]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T05:48:17Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T07:00:36Z }
 ---
 
 # Unit 6 の Bolt 終了報告 - Zettai 連載（TypeScript FP 版）
@@ -16,7 +16,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T05:48:17Z }
 | Unit | 6：文脈と検証の蓄積 |
 | Bolt | 6-1 第 10 章 / 6-2 第 11 章 |
 | 実施日 | 2026-11-28 |
-| 状態 | **執筆と実装は済み。完了条件は未達。** 人の全文確認、main への取り込み、CI が残っている |
+| 状態 | **完了（2026-11-28）。** 人が章を承認し、main に取り込み、[CI](https://github.com/k2works/from-objects-to-functions-excersice/actions/runs/46118942531) が成功した。以下の本文は、完了の前の記録です |
 
 利用者の指示で推奨案を採用して進めました。ゲート ①・② は同期停止していません。計画は、第 10 章の実装の後に書きました。
 

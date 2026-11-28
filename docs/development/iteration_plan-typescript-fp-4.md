@@ -4,7 +4,7 @@ title: "Unit 4 の Bolt 計画（イテレーション 4）- Zettai 連載（Typ
 description: "Zettai 連載 TypeScript FP 版の Unit 4（第 6〜7 章）の Bolt 計画。コマンドと状態遷移を純粋な関数にし、型付きエラーと defect の線引きをゲートで決める。承認で決める設計の案と、承認の対象となる新規ファイルを含む。"
 tags: [development, plan, ai-dlc, bolt, zettai, typescript, effect, unit-4]
 status: stable
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T04:52:33Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T07:00:36Z }
 verified:
   - { by: human:kakimomokuri, at: 2026-11-28T04:29:46Z }
 ---
@@ -245,7 +245,8 @@ verified:
   - 節は「新しいToDoリストの作成」「コマンドを使って状態を変更する」「状態とイベントによるドメインのモデリング」「関数型ステートマシンを記述する」「ハブと接続する」「コマンドとイベントを深く知る」。検査が期待する見出しは、章構成マインドマップに一致させる
   - 「型で守れたこと・守れなかったこと」「Effect に置き換えたこと・自作で残したこと」を書く
   - **実績（2026-11-28）**: [第 6 章](../article/zettai/typescript-fp/chapter06.md) を書いた。壊して確かめた中で、**`Effect` を変数に入れると実行忘れの診断が出ないこと**、状態の読み取りが待つ保管では同じリストの作成が 2 つとも受け付けられることが分かった。**人の全文確認は受けていない**
-- [-] **4-1.7 品質ゲートと反映**
+- [x] **4-1.7 品質ゲートと反映**
+  - **完了（2026-11-28）**: 人が第 6〜13 章を承認し、[CI](https://github.com/k2works/from-objects-to-functions-excersice/actions/runs/46118942531) が成功した
   - `npm run check`、追跡対象のファイルだけの確認、読者の手順どおりの起動、記事の検査、`mkdocs build --strict`、OKF の検査、索引と `mkdocs.yml`
   - 完了判定: 人が第 6 章を全文確認し、CI が成功する
   - **実績（2026-11-28、開発機）**: `npm run check` は 55 ファイル 352 件と smoke が通った。追跡対象になる 146 ファイルだけを短いドライブ名で実行しても通った。読者の手順どおりの起動、記事の検査、`mkdocs build --strict` も通った。OKF の検査は、着手前からの ERROR 1 件が残る
@@ -278,7 +279,8 @@ verified:
 - [x] **4-2.5 第 7 章の執筆**
   - 節は「より適切なエラー処理」「ファンクタと圏を学ぶ」「ファンクタを使ったエラーハンドリング」「`Result` と `Effect` の型付きエラーで実装する」
   - **実績**: [第 7 章](../article/zettai/typescript-fp/chapter07.md) を書いた。**人の全文確認は受けていない**
-- [-] **4-2.6 品質ゲート、反映、報告**
+- [x] **4-2.6 品質ゲート、反映、報告**
+  - **完了（2026-11-28）**: 人が第 6〜13 章を承認し、[CI](https://github.com/k2works/from-objects-to-functions-excersice/actions/runs/46118942531) が成功した
   - 4-1.7 と同じ確認をする。`comparison/` に、失敗の扱いの比較が要るかを判断する
   - Bolt 終了報告とふりかえりを書き、リリース計画の指標を記録する
   - 完了判定: 人が第 7 章を全文確認し、CI が成功する
@@ -360,14 +362,16 @@ Done --> [*]
 
 ### Definition of Done
 
-- [ ] US-006 と US-007 の受入条件をすべて満たす
-- [ ] `npm run check` が通る。追跡ファイルだけを取り出した場所でも通る（Windows の深いディレクトリは除き、条件を記録する）
-- [ ] [リリース計画](release_plan-typescript-fp.md) の「全 Bolt 共通の完了条件」を満たす
-- [ ] ADR-060・061 がある
-- [ ] 第 6〜7 章を人が全文確認した（ゲートには数えない）
-- [ ] CI の `check` と `article` が成功した（push 後に確認）
-- [ ] 索引、`mkdocs.yml`、執筆計画、リリース計画が一致する
-- [ ] Bolt 終了報告とふりかえりがある
+- [x] US-006 と US-007 の受入条件をすべて満たす
+- [x] `npm run check` が通る。追跡ファイルだけを取り出した場所でも通る（Windows の深いディレクトリは除き、条件を記録する）
+- [x] [リリース計画](release_plan-typescript-fp.md) の「全 Bolt 共通の完了条件」を満たす
+- [x] ADR-060・061 がある
+- [x] 第 6〜7 章を人が全文確認した（ゲートには数えない）
+- [x] CI の `check` と `article` が成功した（push 後に確認）
+- [x] 索引、`mkdocs.yml`、執筆計画、リリース計画が一致する
+- [x] Bolt 終了報告とふりかえりがある
+
+2026-11-28 に、人が第 6〜13 章を承認し、コミット `a78d25f6` の [CI](https://github.com/k2works/from-objects-to-functions-excersice/actions/runs/46118942531) が成功したため、完了にしました。
 
 ### デモ項目
 

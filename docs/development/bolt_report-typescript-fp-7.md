@@ -4,7 +4,7 @@ title: "Unit 7 の Bolt 終了報告 - Zettai 連載（TypeScript FP 版）"
 description: "Zettai 連載 TypeScript FP 版の Unit 7（第 12〜13 章）の Bolt 終了報告。検査の時間が上限を超えた測定と選択肢、型検査とテストが止めない壊し方、未達の完了条件を記録する。"
 tags: [development, report, ai-dlc, zettai, typescript, effect, unit-7]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T06:41:29Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T07:00:36Z }
 ---
 
 # Unit 7 の Bolt 終了報告 - Zettai 連載（TypeScript FP 版）
@@ -16,7 +16,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T06:41:29Z }
 | Unit | 7：監視と総括 |
 | Bolt | 7-1 第 12 章 / 7-2 第 13 章 |
 | 実施日 | 2026-11-28 |
-| 状態 | **執筆と実装は済み。完了条件は未達。** 人の全文確認、main への取り込み、CI が残っている |
+| 状態 | **完了（2026-11-28）。** 人が章を承認し、main に取り込み、[CI](https://github.com/k2works/from-objects-to-functions-excersice/actions/runs/46118942531) が成功した。以下の本文は、完了の前の記録です |
 
 利用者の指示で推奨案を採用して進めました。ゲートは同期停止していません。計画は、第 12 章の実装と執筆の後に書きました。
 

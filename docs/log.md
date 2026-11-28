@@ -1,6 +1,17 @@
 # Docs Update Log
 
 ## 2026-11-28
+* **Update**: [release_plan-typescript-fp](/development/release_plan-typescript-fp.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [iteration_plan-typescript-fp-7](/development/iteration_plan-typescript-fp-7.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [iteration_plan-typescript-fp-6](/development/iteration_plan-typescript-fp-6.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [iteration_plan-typescript-fp-5](/development/iteration_plan-typescript-fp-5.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [iteration_plan-typescript-fp-4](/development/iteration_plan-typescript-fp-4.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [bolt_report-typescript-fp-7](/development/bolt_report-typescript-fp-7.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [bolt_report-typescript-fp-6](/development/bolt_report-typescript-fp-6.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [bolt_report-typescript-fp-5](/development/bolt_report-typescript-fp-5.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [bolt_report-typescript-fp-4](/development/bolt_report-typescript-fp-4.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [outline](/article/outline.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [ADR-054-typescript-toolchain-and-check](/adr/ADR-054-typescript-toolchain-and-check.md) を更新（anthropic/claude-sonnet-5-5）
 * **Update**: [outline](/article/outline.md) を更新（anthropic/claude-sonnet-5-5）
 * **Verification**: [chapter13](/article/zettai/typescript-fp/chapter13.md) を human:kakimomokuri が検証
 * **Verification**: [chapter12](/article/zettai/typescript-fp/chapter12.md) を human:kakimomokuri が検証

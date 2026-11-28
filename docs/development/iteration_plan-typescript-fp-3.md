@@ -4,7 +4,7 @@ title: "Unit 3 の Bolt 計画（イテレーション 3）- Zettai 連載（Typ
 description: "Zettai 連載 TypeScript FP 版の Unit 3（第 4〜5 章）の Bolt 計画。依存の渡し方をゲートで決め、名前の取り違えを型で止め、変更をイベントの畳み込みで表す。承認で決める設計の案と、承認の対象となる新規ファイルを含む。"
 tags: [development, plan, ai-dlc, bolt, zettai, typescript, effect, unit-3]
 status: stable
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T02:29:19Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T02:31:58Z }
 verified:
   - { by: human:kakimomokuri, at: 2026-11-28T00:37:46Z }
 ---
@@ -282,12 +282,12 @@ verified:
   - 節は「ToDo リストの作成の表示」「状態変更の保存」「再帰の力を解き放つ」「イベントを畳み込む」「モノイドの発見」
   - 第 4 章と同じく、型の主張は壊して確かめる。性質テストが示す範囲（生成した値の範囲）を書く
   - **実績（2026-11-28）**: [第 5 章](../article/zettai/typescript-fp/chapter05.md) を書いた。2026-11-28、第 5 章は人の全文確認を受けて承認された。第 4 章の抜粋への注記と、モノイドを自作のままにする決定も承認に含む
-- [-] **3-2.6 品質ゲート、反映、報告**
+- [x] **3-2.6 品質ゲート、反映、報告**
   - 3-1.6 と同じ確認をする。`comparison/` の更新は、依存の注入の節に必要な場合だけ行う
   - Bolt 終了報告とふりかえりを書き、リリース計画の指標を記録する
   - 完了判定: 人が第 5 章を全文確認し、CI が成功する
   - **実績（2026-11-28、開発機）**: `npm run check` はテスト 34 ファイル 181 件と smoke が通り、読者の手順どおりの起動も確かめた。第 5 章の変更で、第 4 章の 3 つの抜粋が実装から消えたため、版の注記と検査の除外を足した。[Bolt 終了報告](bolt_report-typescript-fp-3.md)と[ふりかえり](retrospective-typescript-fp-3.md)を書いた。`comparison/` は変えていない。追跡対象になる 95 ファイルだけを短いドライブ名で実行した `check`、記事の検査、`mkdocs build --strict` も通った
-  - **残り**: 第 5 章の人の全文確認と、push の後の CI。リリース計画の指標は、完了の時点で記録する
+  - 人の全文確認の後、コミット `179abee`・`d7f72a6` を push した。4 つの CI が成功し、[TypeScript の CI](https://github.com/k2works/from-objects-to-functions-excersice/actions/runs/46098331998)（Node 24.22.3）は 34 ファイル 181 件と smoke、記事の検査、`mkdocs build --strict` が通った。公開サイトのブランチに第 5 章があることを確かめ、リリース計画の指標を記録した
 
 実装は `feat(typescript-fp):`、記事は `docs(typescript-fp):` でコミットします。コミットと push は、人の指示を受けてから行います。**第 4 章を公開してから、Bolt 3-2 に進みます。**
 
@@ -351,14 +351,16 @@ Hub ..> ToDoList : 取り出す
 
 ### Definition of Done
 
-- [ ] US-004 と US-005 の受入条件をすべて満たす
-- [ ] `npm run check` が通る。追跡ファイルだけを取り出した場所でも通る
-- [ ] [リリース計画](release_plan-typescript-fp.md) の「全 Bolt 共通の完了条件」を満たす
-- [ ] ADR-058・059 がある
-- [ ] 第 4〜5 章を人が全文確認した（ゲートには数えない）
-- [ ] CI の `check` と `article` が成功した（push 後に確認）
-- [ ] 索引、`mkdocs.yml`、執筆計画、リリース計画が一致する
-- [ ] Bolt 終了報告とふりかえりがある
+- [x] US-004 と US-005 の受入条件をすべて満たす
+- [x] `npm run check` が通る。追跡ファイルだけを取り出した場所でも通る
+- [x] [リリース計画](release_plan-typescript-fp.md) の「全 Bolt 共通の完了条件」を満たす
+- [x] ADR-058・059 がある
+- [x] 第 4〜5 章を人が全文確認した（ゲートには数えない）
+- [x] CI の `check` と `article` が成功した（push 後に確認）
+- [x] 索引、`mkdocs.yml`、執筆計画、リリース計画が一致する
+- [x] Bolt 終了報告とふりかえりがある
+
+追跡ファイルだけの確認には、条件があります。**Windows の深いディレクトリでは smoke が失敗し、短いドライブ名に割り当てると通りました。** 受入条件は、テスト、型のテスト、比較の記録と照合しました。
 
 ### デモ項目
 
@@ -400,6 +402,7 @@ GitHub Project への同期は行いません。
 | 2026-11-28 | CI の成功と公開を確かめ、Bolt 3-1 を完了にした | anthropic/claude-sonnet-5-5 |
 | 2026-11-28 | Bolt 3-2 の実装と第 5 章の執筆の実績を記録した | anthropic/claude-sonnet-5-5 |
 | 2026-11-28 | 第 5 章と、第 4 章の抜粋への注記を承認した | human:kakimomokuri |
+| 2026-11-28 | CI の成功と公開を確かめ、Unit 3 を完了にした | anthropic/claude-sonnet-5-5 |
 
 ---
 

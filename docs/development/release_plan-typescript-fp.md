@@ -4,7 +4,7 @@ title: "リリース計画 - Zettai 連載（TypeScript FP 版）"
 description: "Zettai 連載 TypeScript FP 版の AI-DLC Level 1 計画。Effect v4 で全 13 章を辿る Intent、7 Unit・14 ストーリーの受入条件、非機能要件、エントロピー評価、リスク、承認ゲートと進捗指標を定義する。"
 tags: [plan]
 status: stable
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T00:37:46Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T02:31:58Z }
 verified:
   - { by: human:kakimomokuri, at: 2026-11-27T06:47:02Z }
 ---
@@ -338,12 +338,12 @@ DAG に現れない前倒しの判断が 2 つあります。
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | 1 | 13 | 3 | 3 | 0 | 0 | 約 46 分（コミット間） | **完了** |
 | 2 | 13 | 2 | 2 | 0 | 0 | 約 10 時間 50 分（コミット間。確認待ちを含む） | **完了** |
-| 3 | 11 | 1 | - | - | - | - | 未着手 |
+| 3 | 11 | 1 | 1 | 0 | 0 | 約 2 時間（コミット間。確認待ちを含む） | **完了** |
 | 4 | 10 | 1 | - | - | - | - | 未着手 |
 | 5 | 13 | 2 | - | - | - | - | 未着手 |
 | 6 | 11 | 2 | - | - | - | - | 未着手 |
 | 7 | 8 | 1 | - | - | - | - | 未着手 |
-| **合計** | **79** | **12** | - | - | - | - | 完了 Unit 数 **2 / 7** |
+| **合計** | **79** | **12** | - | - | - | - | 完了 Unit 数 **3 / 7** |
 
 GitHub Project・Issue・Milestone への同期は、Kotlin FP 版と同じく行わない想定です。必要な場合は `syncing-github-project` で追加します。
 
@@ -351,7 +351,7 @@ GitHub Project・Issue・Milestone への同期は、Kotlin FP 版と同じく�
 
 ## 次のステップ
 
-1. [Unit 3 の Bolt 計画](iteration_plan-typescript-fp-3.md)に従って Bolt 3-1 を進める（計画は承認済み）
+1. Unit 4（第 6〜7 章）の Bolt 計画を作り、承認を得る
 
 ---
 
@@ -364,6 +364,7 @@ GitHub Project・Issue・Milestone への同期は、Kotlin FP 版と同じく�
 | 2026-11-27 | Unit 1 の Bolt 計画の作成に合わせて、リンク、進捗の状態、次のステップを更新した。承認した内容は変えていない | anthropic/claude-sonnet-5-5 |
 | 2026-11-28 | Unit 2 の完了を記録した。承認ゲートの密度は、人の決定で変えない | anthropic/claude-sonnet-5-5 |
 | 2026-11-28 | Release v0.1.0 の達成を記録した。タグは作らず、Nix の確認の例外を残すことは人の決定 | anthropic/claude-sonnet-5-5 |
+| 2026-11-28 | Unit 3 の完了を記録した | anthropic/claude-sonnet-5-5 |
 
 ---
 

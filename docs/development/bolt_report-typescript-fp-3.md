@@ -1,10 +1,10 @@
 ---
 type: Bolt Report
 title: "Unit 3 の Bolt 終了報告 - Zettai 連載（TypeScript FP 版）"
-description: "TypeScript FP 版 Unit 3 のドメインの入口、依存の渡し方、名前の区別、イベントの畳み込み、状態変換のモノイドの成果と指標、壊して分かった限界を記録する。第 5 章の確認と CI が残っている。"
+description: "TypeScript FP 版 Unit 3 のドメインの入口、依存の渡し方、名前の区別、イベントの畳み込み、状態変換のモノイドの成果と指標、壊して分かった限界を記録する。Unit 3 は完了した。"
 tags: [development, report, ai-dlc, zettai, typescript, effect, unit-3]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T02:29:19Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T02:31:58Z }
 ---
 
 # Unit 3 の Bolt 終了報告 - Zettai 連載（TypeScript FP 版）
@@ -16,9 +16,13 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T02:29:19Z }
 | Unit | 3：依存の注入とイベント |
 | Bolt | 3-1 第 4 章 / 3-2 第 5 章 |
 | 実施日 | 2026-11-28 |
-| 状態 | **未完了。** Bolt 3-1 は完了。Bolt 3-2 は、第 5 章の人の全文確認と、push の後の CI が残っている |
+| 状態 | **完了**（2026-11-28）。Bolt 3-1・3-2 とも完了 |
 
 計画は [Unit 3 の Bolt 計画](iteration_plan-typescript-fp-3.md) にあります。
+
+## 完了の確認
+
+第 4 章と第 5 章は、2026-11-28 に人の全文確認を受けて承認されました。第 4 章は、抜粋に注記を足した後に、もう一度確認の記録を取りました。第 5 章を含むコミット `d7f72a6` で CI が成功し、公開サイトのブランチに第 5 章があることを確かめました。US-004 と US-005 の受入条件は、テスト、型のテスト、比較の記録と照合しました。
 
 ## 成果
 
@@ -37,7 +41,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T02:29:19Z }
 | 追跡対象になるファイル（95 件）だけの `check`。短いドライブ名に割り当てて実行 | 34 ファイル 181 件と smoke が成功 | 同上 |
 | 記事の検査、`mkdocs build --strict`、OKF の検査 | 本 Unit の変更による違反は無い。着手前からの OKF の ERROR が 1 件 | 同上 |
 | 読者の手順どおりの起動 | 200 と 404 の応答を確かめて停止した | 同上 |
-| GitHub Actions `TypeScript FP Zettai`（Node 24.22.3） | [成功](https://github.com/k2works/from-objects-to-functions-excersice/actions/runs/46092738756)。31 ファイル 160 件と smoke | コミット `7c2b4f0`（**第 4 章まで。第 5 章は含まない**） |
+| GitHub Actions `TypeScript FP Zettai`（Node 24.22.3） | [成功](https://github.com/k2works/from-objects-to-functions-excersice/actions/runs/46098331998)。34 ファイル 181 件と smoke、記事の検査、`mkdocs build --strict` | コミット `d7f72a6`（第 5 章まで） |
 | 開発成果物レビュー | **実施していない** | — |
 
 ## 仮説の確認
@@ -50,12 +54,12 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T02:29:19Z }
 
 | 指標 | 計画 | 実績 |
 | :--- | :--- | :--- |
-| ステップ | 12 | 12 を実施。第 5 章の確認と CI が残る |
+| ステップ | 12 | 12 |
 | 承認ゲートの同期停止 | 1 箇所 | **1 / 1** |
 | ゲートの変更依頼数 | — | 0 |
-| 人が修正を入れた箇所数（コミット後の手直し） | — | 0（第 4 章まで） |
-| リードタイム | — | 未確定（完了のコミットがまだ無い） |
-| 公開する章 | 2 | 2（第 5 章は確認待ち） |
+| 人が修正を入れた箇所数（コミット後の手直し） | — | 0 |
+| リードタイム | — | 約 2 時間（計画のコミット `d386fc1` 2026-11-28 09:38 から、第 5 章のコミット 11:29 と、その後の完了の記録まで。**人の確認を待った時間を含み、作業時間ではない**） |
+| 公開する章 | 2 | 2 |
 | ADR | 2 | 2 |
 
 ## 計画から変えたこと

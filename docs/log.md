@@ -1,6 +1,10 @@
 # Docs Update Log
 
 ## 2026-11-28
+* **Update**: [release_plan-typescript-fp](/development/release_plan-typescript-fp.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [iteration_plan-typescript-fp-3](/development/iteration_plan-typescript-fp-3.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [bolt_report-typescript-fp-3](/development/bolt_report-typescript-fp-3.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [outline](/article/outline.md) を更新（anthropic/claude-sonnet-5-5）
 * **Verification**: [chapter05](/article/zettai/typescript-fp/chapter05.md) を human:kakimomokuri が検証
 * **Verification**: [chapter04](/article/zettai/typescript-fp/chapter04.md) を human:kakimomokuri が検証
 * **Update**: [retrospective-typescript-fp-3](/development/retrospective-typescript-fp-3.md) を更新（anthropic/claude-sonnet-5-5）

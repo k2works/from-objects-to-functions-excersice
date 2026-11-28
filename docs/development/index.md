@@ -14,7 +14,7 @@
 | [リリース計画（Rust 版）](release_plan-rust.md) | シリーズ 3 言語目の Level 1 計画。言語が `Result` と `enum` を与える側で同じ 13 章を辿る Intent、所有権と async の伝播に対するリスク台帳、ゲートの書き方そのものを規約にした承認ゲート方針 |
 | [リリース計画（Flix 版）](release_plan-flix.md) | 副作用が型の一部になる言語で同じ 13 章を辿る計画。**着手前ではなく、実装と並行して書いた**ことを明記し、Unit ごとの成果とテスト数、測っていない指標を記録する |
 | [リリース計画（Scala 版）](release_plan-scala.md) | Scala 3 と Cats Effect で同じ 13 章を辿る計画。7 Unit への分解と、実際の完了状況 |
-| [リリース計画（TypeScript FP 版）](release_plan-typescript-fp.md) | TypeScript と Effect v4 で全 13 章を辿る Level 1 計画（**承認済み・Unit 2 まで完了・v0.1.0 達成**）。7 Unit・14 ストーリー、エントロピー評価、承認ゲートの候補 |
+| [リリース計画（TypeScript FP 版）](release_plan-typescript-fp.md) | TypeScript と Effect v4 で全 13 章を辿る Level 1 計画（**承認済み・Unit 3 まで完了・v0.1.0 達成**）。7 Unit・14 ストーリー、エントロピー評価、承認ゲートの候補 |
 | [開発戦略](development_strategy.md) | 局面別 TDD アプローチ（序盤・終盤アウトサイドイン／中盤インサイドアウト）、承認ゲートとゲート密度、デモ項目を受け入れ基準とする方針 |
 
 ### Bolt 計画（イテレーション計画）
@@ -47,7 +47,7 @@
 | :--- | :--- | :--- | :--- | :--- |
 | Unit 1 土台と第 1 章 | [Unit 1 の Bolt 計画](iteration_plan-typescript-fp-1.md) | [ふりかえり](retrospective-typescript-fp-1.md) | [Bolt 終了報告](bolt_report-typescript-fp-1.md) | **完了** |
 | Unit 2 ウォーキングスケルトンとドメイン分離 | [Unit 2 の Bolt 計画](iteration_plan-typescript-fp-2.md) | [ふりかえり](retrospective-typescript-fp-2.md) | [Bolt 終了報告](bolt_report-typescript-fp-2.md) | 完了 |
-| Unit 3 依存の注入とイベント | [Unit 3 の Bolt 計画](iteration_plan-typescript-fp-3.md) | [ふりかえり](retrospective-typescript-fp-3.md) | [Bolt 終了報告](bolt_report-typescript-fp-3.md) | 進行中（第 5 章の確認と CI の待ち） |
+| Unit 3 依存の注入とイベント | [Unit 3 の Bolt 計画](iteration_plan-typescript-fp-3.md) | [ふりかえり](retrospective-typescript-fp-3.md) | [Bolt 終了報告](bolt_report-typescript-fp-3.md) | 完了 |
 
 ### Bolt 計画（なでしこ3 版）
 

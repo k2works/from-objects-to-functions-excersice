@@ -1,6 +1,15 @@
 # Docs Update Log
 
 ## 2026-11-28
+* **Update**: [outline](/article/outline.md) を更新（anthropic/claude-sonnet-5-5）
+* **Verification**: [chapter13](/article/zettai/typescript-fp/chapter13.md) を human:kakimomokuri が検証
+* **Verification**: [chapter12](/article/zettai/typescript-fp/chapter12.md) を human:kakimomokuri が検証
+* **Verification**: [chapter11](/article/zettai/typescript-fp/chapter11.md) を human:kakimomokuri が検証
+* **Verification**: [chapter10](/article/zettai/typescript-fp/chapter10.md) を human:kakimomokuri が検証
+* **Verification**: [chapter09](/article/zettai/typescript-fp/chapter09.md) を human:kakimomokuri が検証
+* **Verification**: [chapter08](/article/zettai/typescript-fp/chapter08.md) を human:kakimomokuri が検証
+* **Verification**: [chapter07](/article/zettai/typescript-fp/chapter07.md) を human:kakimomokuri が検証
+* **Verification**: [chapter06](/article/zettai/typescript-fp/chapter06.md) を human:kakimomokuri が検証
 * **Update**: [release_plan-typescript-fp](/development/release_plan-typescript-fp.md) を更新（anthropic/claude-sonnet-5-5）
 * **Update**: [bolt_report-typescript-fp-7](/development/bolt_report-typescript-fp-7.md) を更新（anthropic/claude-sonnet-5-5）
 * **Update**: [chapter12](/article/zettai/typescript-fp/chapter12.md) を更新（anthropic/claude-sonnet-5-5）

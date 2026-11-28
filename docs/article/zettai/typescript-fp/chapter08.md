@@ -3,8 +3,10 @@ type: Article
 title: "第 8 章 ファンクタを使ってイベントを射影する"
 description: "Zettai 連載 TypeScript FP 版の第 8 章。出来事を一覧の行に射影し、command と query の道を分ける。ランダムな生成器では完了した項目が一度も現れず、性質テストが何も比べずに通っていたことと、map の法則が見分けられない実装を示す。"
 tags: [article, zettai, typescript, effect, projection, cqrs, chapter]
-status: draft
+status: stable
 generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T05:02:13Z }
+verified:
+  - { by: human:kakimomokuri, at: 2026-11-28T06:55:54Z }
 ---
 
 # 第 8 章 ファンクタを使ってイベントを射影する

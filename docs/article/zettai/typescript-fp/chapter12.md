@@ -3,8 +3,10 @@ type: Article
 title: "第 12 章 監視と関数型JSON"
 description: "Zettai 連載 TypeScript FP 版の第 12 章。ログの decorator、型が止めないログの漏れ、往復の性質テスト、プロファンクタの dimap を扱う。"
 tags: [article, zettai, typescript, effect, logging, profunctor]
-status: draft
+status: stable
 generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T06:41:29Z }
+verified:
+  - { by: human:kakimomokuri, at: 2026-11-28T06:55:54Z }
 ---
 
 # 第 12 章 監視と関数型JSON

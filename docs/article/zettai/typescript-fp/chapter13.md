@@ -3,8 +3,10 @@ type: Article
 title: "第 13 章 関数型アーキテクチャの設計"
 description: "Zettai 連載 TypeScript FP 版の第 13 章。Effect の型に載せると設計のどこが型で守られ、どこが規約とテストに残るかに、壊す実験と各章の記録で答える。"
 tags: [article, zettai, typescript, effect, architecture]
-status: draft
+status: stable
 generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T06:11:58Z }
+verified:
+  - { by: human:kakimomokuri, at: 2026-11-28T06:55:54Z }
 ---
 
 # 第 13 章 関数型アーキテクチャの設計

@@ -3,8 +3,10 @@ type: Article
 title: "第 9 章 モナドによる安全なデータ永続化"
 description: "Zettai 連載 TypeScript FP 版の第 9 章。出来事を PostgreSQL に追記し、接続とトランザクションの後始末を Effect で組み立てる。モナド則を実行の記録で確かめ、中断が問い合わせの終了を待つことと、追記順の指定の欠落をテストが見つけられないことを示す。"
 tags: [article, zettai, typescript, effect, postgresql, monad, chapter]
-status: draft
+status: stable
 generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T05:22:54Z }
+verified:
+  - { by: human:kakimomokuri, at: 2026-11-28T06:55:54Z }
 ---
 
 # 第 9 章 モナドによる安全なデータ永続化

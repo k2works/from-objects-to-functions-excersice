@@ -4,7 +4,7 @@ title: "執筆計画：関数型プログラミングで作る変更を楽に安
 description: "Uberto Barbini 著『From Objects to Functions』を下敷きにした Zettai 連載の執筆計画。既存 3 言語版に加え、Grokking Functional Programming の Kotlin + Arrow 解説を基礎にした Kotlin FP 版、効果システムを持つ Flix 版、Cats Effect を使う Scala 版、Effect を使う TypeScript FP 版（執筆中）について、全 13 章の移植方針、記事と実装の同期、前提整備、品質ゲートを定義する。"
 tags: [article, plan, zettai]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T06:28:07Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T06:55:54Z }
 ---
 
 # 執筆計画：関数型プログラミングで作る変更を楽に安全にできるソフトウェア
@@ -29,7 +29,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T06:28:07Z }
 | Rust | Nix devShell `rust`（rustc 1.91.1 / cargo 1.91.0） | 13 | `docs/article/zettai/rust/` | `apps/rust/zettai/` | **完結**（13 / 13 章公開） |
 | Flix | Nix devShell `flix`（JDK 21 / Flix 0.79.0） | 13 | `docs/article/zettai/flix/` | `apps/flix/zettai/` | **完結**（13 / 13 章公開） |
 | Scala | Nix devShell `scala`（Scala 3 / sbt。JDK は Unit 1 で確認）＋ Cats Effect | 13 | `docs/article/zettai/scala/` | `apps/scala/zettai/` | **完結**（13 / 13 章公開） |
-| TypeScript FP | Nix devShell `typescript-fp`（Node 24）＋ Effect | 13 | `docs/article/zettai/typescript-fp/` | `apps/typescript-fp/zettai/` | **執筆済み・確認待ち（13 / 13 章）** |
+| TypeScript FP | Nix devShell `typescript-fp`（Node 24）＋ Effect | 13 | `docs/article/zettai/typescript-fp/` | `apps/typescript-fp/zettai/` | **完結（13 / 13 章）** |
 
 横断比較コンテンツ [`docs/article/zettai/comparison/`](zettai/comparison/index.md) は、なでしこ3 版が Phase 1（第 3 章）を終えた 2026-09-28 に新設しました。当初の比較軸は「**型で保証する**（Kotlin）」と「**約束とテストで保証する**（なでしこ3）」の 2 点でした。
 
@@ -43,7 +43,7 @@ generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T06:28:07Z }
 | Rust | あり | あり | **`Result` が言語にある** | `enum` |
 | Flix | あり（効果も型に載る） | あり | **`Result` が標準にある。副作用は効果で表す** | `enum` |
 | Scala | あり（効果は `IO` の型で表す） | あり（Cats / Cats Effect を利用） | **`Either` / `Validated` を使う** | `enum`（Scala 3） |
-| TypeScript FP（確認待ち） | あり（実行時に消える。効果は `Effect` の型で表す） | あり（Effect を利用） | **`Result` と `Effect` の型付きエラーを使う** | 判別可能 union |
+| TypeScript FP | あり（実行時に消える。効果は `Effect` の型で表す） | あり（Effect を利用） | **`Result` と `Effect` の型付きエラーを使う** | 判別可能 union |
 
 既存 3 対象を並べると、**「言語が与えるほど、設計は楽になるのか」**という問いが立ちます。**答えは「楽にはならない。決めることが変わる」**でした（[第 13 章](zettai/rust/chapter13.md)・[横断比較](zettai/comparison/index.md)）。Kotlin FP 版では、ここへ **「ライブラリへ委ねるほど、設計の意図は明確になるのか」**という 4 点目の問いを加えます。
 
@@ -788,7 +788,7 @@ Unit・Bolt の割り当ては既存対象と同一（1 Unit = 2 章、Unit 1 �
 
 ## TypeScript FP 追加執筆計画
 
-6 言語目として **TypeScript と Effect** で同じ 13 章を書き起こします。**13 章を書き終えました。完了した Unit は 3（第 5 章まで）で、第 6〜13 章は人の全文確認と CI を待っています。** 非 FP の TypeScript 版は無いため、対象名の「FP」は Effect を使う版という意味です。
+6 言語目として **TypeScript と Effect** で同じ 13 章を書き起こします。**13 章を書き終え、人の承認を得ました。** 非 FP の TypeScript 版は無いため、対象名の「FP」は Effect を使う版という意味です。
 
 ### Intent と成功条件
 

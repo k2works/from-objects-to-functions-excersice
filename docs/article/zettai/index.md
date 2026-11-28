@@ -17,9 +17,9 @@ ToDo リストアプリケーション **Zettai** を TDD で一から作りな�
 | Rust | [Rust 版](rust/index.md) | `apps/rust/zettai/` | Nix devShell `rust`（rustc 1.91.1 / cargo 1.91.0） | **完結（13 / 13 章）** |
 | Flix | [Flix 版](flix/index.md) | `apps/flix/zettai/` | Nix devShell `flix`（JDK 21 / Flix 0.79.0） | **完結（13 / 13 章）** |
 | Scala | [Scala 版](scala/index.md) | `apps/scala/zettai/` | Nix devShell `scala`（JDK 21 / Scala 3.3.9 / sbt） | **完結（13 / 13 章）** |
-| TypeScript FP | [TypeScript FP 版](typescript-fp/index.md) | `apps/typescript-fp/zettai/` | Nix devShell `typescript-fp`（Node 24 / TypeScript 7.0.2 / Effect 4.1.6） | **執筆済み・確認待ち（13 / 13 章）** |
+| TypeScript FP | [TypeScript FP 版](typescript-fp/index.md) | `apps/typescript-fp/zettai/` | Nix devShell `typescript-fp`（Node 24 / TypeScript 7.0.2 / Effect 4.1.6） | **完結（13 / 13 章）** |
 
-**既存の 3 言語版は完結し、4 対象目の Kotlin FP 版、5 対象目の Flix 版も 13 章を書き終えました。6 対象目の Scala（Cats Effect）版も 13 章を書き終えました。** 同じ題材・同じ 13 章を 3 言語で書いた結果は [対象言語の横断比較](comparison/index.md) にまとめています。Kotlin FP 版の完結後、ライブラリへ委ねる範囲を 4 本目の比較軸として反映します。 **7 対象目の TypeScript FP（Effect）版は 13 章を書き終えました（第 6〜13 章は確認前の下書きです）。**
+**既存の 3 言語版は完結し、4 対象目の Kotlin FP 版、5 対象目の Flix 版も 13 章を書き終えました。6 対象目の Scala（Cats Effect）版も 13 章を書き終えました。** 同じ題材・同じ 13 章を 3 言語で書いた結果は [対象言語の横断比較](comparison/index.md) にまとめています。Kotlin FP 版の完結後、ライブラリへ委ねる範囲を 4 本目の比較軸として反映します。 **7 対象目の TypeScript FP（Effect）版は 13 章を書き終えました。**
 
 当初の比較軸は「型で保証する（Kotlin）」と「約束とテストで保証する（なでしこ3）」の 2 点でした。**Rust 版で軸が「言語がどこまで与えるか」に広がりました。**
 
@@ -51,7 +51,7 @@ ToDo リストアプリケーション **Zettai** を TDD で一から作りな�
 | 10 | コンテキストを読み込み、コマンドを処理する | [公開済み](kotlin/chapter10.md) | [公開済み](kotlin-fp/chapter10.md) | [公開済み](nadesiko/chapter10.md) | [公開済み](rust/chapter10.md) | [公開済み](flix/chapter10.md) | [公開済み](scala/chapter10.md) | [公開済み](typescript-fp/chapter10.md) |
 | 11 | アプリカティブによるデータバリデーション | [公開済み](kotlin/chapter11.md) | [公開済み](kotlin-fp/chapter11.md) | [公開済み](nadesiko/chapter11.md) | [公開済み](rust/chapter11.md) | [公開済み](flix/chapter11.md) | [公開済み](scala/chapter11.md) | [公開済み](typescript-fp/chapter11.md) |
 | 12 | 監視と関数型 JSON | [公開済み](kotlin/chapter12.md) | [公開済み](kotlin-fp/chapter12.md) | [公開済み](nadesiko/chapter12.md) | [公開済み](rust/chapter12.md) | [公開済み](flix/chapter12.md) | [公開済み](scala/chapter12.md) | [公開済み](typescript-fp/chapter12.md) |
-| 13 | 関数型アーキテクチャの設計 | [公開済み](kotlin/chapter13.md) | [公開済み](kotlin-fp/chapter13.md) | [公開済み](nadesiko/chapter13.md) | [公開済み](rust/chapter13.md) | [公開済み](flix/chapter13.md) | [公開済み](scala/chapter13.md) | [執筆済み](typescript-fp/chapter13.md) |
+| 13 | 関数型アーキテクチャの設計 | [公開済み](kotlin/chapter13.md) | [公開済み](kotlin-fp/chapter13.md) | [公開済み](nadesiko/chapter13.md) | [公開済み](rust/chapter13.md) | [公開済み](flix/chapter13.md) | [公開済み](scala/chapter13.md) | [公開済み](typescript-fp/chapter13.md) |
 
 章の番号とタイトルは対象言語をまたいで共通です。**位置と役割を揃えたことが、横断比較の前提になっています。** 節名に対象固有の語（ライブラリ名・言語名・製品名）が入る場合だけ読み替えました（[章構成マインドマップ](../draft.md) の「言語別の読み替え」）。
 

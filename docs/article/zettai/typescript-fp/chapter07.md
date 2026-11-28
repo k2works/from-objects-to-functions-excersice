@@ -3,8 +3,10 @@ type: Article
 title: "第 7 章 関数型手法によるエラーハンドリング"
 description: "Zettai 連載 TypeScript FP 版の第 7 章。失敗の種類を足しても型検査が通っていた穴を塞ぎ、取得の失敗を型に出す。ファンクタの法則を実装を引数にしたテストで確かめ、見分けられない壊し方も示す。業務の失敗だけを型で運び、想定外は defect にする線を決める。"
 tags: [article, zettai, typescript, effect, error-handling, functor, chapter]
-status: draft
+status: stable
 generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T04:52:33Z }
+verified:
+  - { by: human:kakimomokuri, at: 2026-11-28T06:55:54Z }
 ---
 
 # 第 7 章 関数型手法によるエラーハンドリング

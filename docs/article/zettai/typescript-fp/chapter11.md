@@ -3,8 +3,10 @@ type: Article
 title: "第 11 章 アプリカティブによるデータバリデーション"
 description: "Zettai 連載 TypeScript FP 版の第 11 章。画面からリストの名前を変え、入力の問題をまとめて返す。自作の合成で問題を蓄積し、保存済みの値を読めなくする規則の掛け方、整形で出力が変わるテンプレート、CSRF の対策が無いことを確かめる。"
 tags: [article, zettai, typescript, effect, validation, applicative, chapter]
-status: draft
+status: stable
 generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T05:48:17Z }
+verified:
+  - { by: human:kakimomokuri, at: 2026-11-28T06:55:54Z }
 ---
 
 # 第 11 章 アプリカティブによるデータバリデーション

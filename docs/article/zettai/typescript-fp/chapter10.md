@@ -3,8 +3,10 @@ type: Article
 title: "第 10 章 コンテキストを読み込み、コマンドを処理する"
 description: "Zettai 連載 TypeScript FP 版の第 10 章。読み取りと追記を 1 つのトランザクションにする。何もしない場合、SERIALIZABLE、アドバイザリロックを実際の PostgreSQL で比べ、純粋な判断の関数を保管に渡す形を採る。"
 tags: [article, zettai, typescript, effect, transaction, concurrency, chapter]
-status: draft
+status: stable
 generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T05:35:01Z }
+verified:
+  - { by: human:kakimomokuri, at: 2026-11-28T06:55:54Z }
 ---
 
 # 第 10 章 コンテキストを読み込み、コマンドを処理する

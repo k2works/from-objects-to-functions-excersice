@@ -3,8 +3,10 @@ type: Article
 title: "第 6 章 コマンドを実行してイベントを生成する"
 description: "Zettai 連載 TypeScript FP 版の第 6 章。コマンドと現在の状態からイベントか拒否の理由を決める純粋な関数を作り、保管を読み書きするハブにつなぐ。分岐の漏れが型で止まる条件、状態の追加を見逃すテスト、実行忘れの診断の限界、同時のコマンドを守っていないことを確かめる。"
 tags: [article, zettai, typescript, effect, command, state-machine, chapter]
-status: draft
+status: stable
 generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T04:41:57Z }
+verified:
+  - { by: human:kakimomokuri, at: 2026-11-28T06:55:54Z }
 ---
 
 # 第 6 章 コマンドを実行してイベントを生成する

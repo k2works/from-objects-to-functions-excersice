@@ -17,9 +17,9 @@ ToDo リストアプリケーション **Zettai** を TDD で一から作りな�
 | Rust | [Rust 版](rust/index.md) | `apps/rust/zettai/` | Nix devShell `rust`（rustc 1.91.1 / cargo 1.91.0） | **完結（13 / 13 章）** |
 | Flix | [Flix 版](flix/index.md) | `apps/flix/zettai/` | Nix devShell `flix`（JDK 21 / Flix 0.79.0） | **完結（13 / 13 章）** |
 | Scala | [Scala 版](scala/index.md) | `apps/scala/zettai/` | Nix devShell `scala`（JDK 21 / Scala 3.3.9 / sbt） | **完結（13 / 13 章）** |
-| TypeScript FP | [TypeScript FP 版](typescript-fp/index.md) | `apps/typescript-fp/zettai/` | Nix devShell `typescript-fp`（Node 24 / TypeScript 7.0.2 / Effect 4.1.6） | **執筆中（7 / 13 章）** |
+| TypeScript FP | [TypeScript FP 版](typescript-fp/index.md) | `apps/typescript-fp/zettai/` | Nix devShell `typescript-fp`（Node 24 / TypeScript 7.0.2 / Effect 4.1.6） | **執筆中（8 / 13 章）** |
 
-**既存の 3 言語版は完結し、4 対象目の Kotlin FP 版、5 対象目の Flix 版も 13 章を書き終えました。6 対象目の Scala（Cats Effect）版も 13 章を書き終えました。** 同じ題材・同じ 13 章を 3 言語で書いた結果は [対象言語の横断比較](comparison/index.md) にまとめています。Kotlin FP 版の完結後、ライブラリへ委ねる範囲を 4 本目の比較軸として反映します。 **7 対象目の TypeScript FP（Effect）版は執筆中で、第 7 章まで公開しています。**
+**既存の 3 言語版は完結し、4 対象目の Kotlin FP 版、5 対象目の Flix 版も 13 章を書き終えました。6 対象目の Scala（Cats Effect）版も 13 章を書き終えました。** 同じ題材・同じ 13 章を 3 言語で書いた結果は [対象言語の横断比較](comparison/index.md) にまとめています。Kotlin FP 版の完結後、ライブラリへ委ねる範囲を 4 本目の比較軸として反映します。 **7 対象目の TypeScript FP（Effect）版は執筆中で、第 8 章まで公開しています。**
 
 当初の比較軸は「型で保証する（Kotlin）」と「約束とテストで保証する（なでしこ3）」の 2 点でした。**Rust 版で軸が「言語がどこまで与えるか」に広がりました。**
 
@@ -46,7 +46,7 @@ ToDo リストアプリケーション **Zettai** を TDD で一から作りな�
 | 5 | イベントで状態を変更する | [公開済み](kotlin/chapter05.md) | [公開済み](kotlin-fp/chapter05.md) | [公開済み](nadesiko/chapter05.md) | [公開済み](rust/chapter05.md) | [公開済み](flix/chapter05.md) | [公開済み](scala/chapter05.md) | [公開済み](typescript-fp/chapter05.md) |
 | 6 | コマンドを実行してイベントを生成する | [公開済み](kotlin/chapter06.md) | [公開済み](kotlin-fp/chapter06.md) | [公開済み](nadesiko/chapter06.md) | [公開済み](rust/chapter06.md) | [公開済み](flix/chapter06.md) | [公開済み](scala/chapter06.md) | [公開済み](typescript-fp/chapter06.md) |
 | 7 | 関数型手法によるエラーハンドリング | [公開済み](kotlin/chapter07.md) | [公開済み](kotlin-fp/chapter07.md) | [公開済み](nadesiko/chapter07.md) | [公開済み](rust/chapter07.md) | [公開済み](flix/chapter07.md) | [公開済み](scala/chapter07.md) | [公開済み](typescript-fp/chapter07.md) |
-| 8 | ファンクタを使ってイベントを射影する | [公開済み](kotlin/chapter08.md) | [公開済み](kotlin-fp/chapter08.md) | [公開済み](nadesiko/chapter08.md) | [公開済み](rust/chapter08.md) | [公開済み](flix/chapter08.md) | [公開済み](scala/chapter08.md) | 未着手 |
+| 8 | ファンクタを使ってイベントを射影する | [公開済み](kotlin/chapter08.md) | [公開済み](kotlin-fp/chapter08.md) | [公開済み](nadesiko/chapter08.md) | [公開済み](rust/chapter08.md) | [公開済み](flix/chapter08.md) | [公開済み](scala/chapter08.md) | [公開済み](typescript-fp/chapter08.md) |
 | 9 | モナドによる安全なデータ永続化 | [公開済み](kotlin/chapter09.md) | [公開済み](kotlin-fp/chapter09.md) | [公開済み](nadesiko/chapter09.md) | [公開済み](rust/chapter09.md) | [公開済み](flix/chapter09.md) | [公開済み](scala/chapter09.md) | 未着手 |
 | 10 | コンテキストを読み込み、コマンドを処理する | [公開済み](kotlin/chapter10.md) | [公開済み](kotlin-fp/chapter10.md) | [公開済み](nadesiko/chapter10.md) | [公開済み](rust/chapter10.md) | [公開済み](flix/chapter10.md) | [公開済み](scala/chapter10.md) | 未着手 |
 | 11 | アプリカティブによるデータバリデーション | [公開済み](kotlin/chapter11.md) | [公開済み](kotlin-fp/chapter11.md) | [公開済み](nadesiko/chapter11.md) | [公開済み](rust/chapter11.md) | [公開済み](flix/chapter11.md) | [公開済み](scala/chapter11.md) | 未着手 |
@@ -62,8 +62,8 @@ ToDo リストアプリケーション **Zettai** を TDD で一から作りな�
 | 実行環境（Nix devShell） | **完了** | **定義済み** | **完了** | **完了** | **完了（Docker 上の Nix で確認）** | **完了（Docker 上の Nix で確認）** | **定義済み（Docker 上の Nix で、PostgreSQL のテストを除いて確認）** |
 | サンプル実装の雛形 | **完了** | **完了** | **完了** | **完了** | **完了** | **完了** | **完了** |
 | CI | **完了** | **定義済み（同等コマンド green）** | **完了** | **完了** | **定義済み（同等コマンド green。Actions は未実行）** | **完了（Actions で green）** | **完了（Actions で green）** |
-| 公開済みの章 | **13 / 13（完結）** | **13 / 13（完結）** | **13 / 13（完結）** | **13 / 13（完結）** | **13 / 13（完結）** | **13 / 13（完結）** | **7 / 13** |
-| ADR | 12 件 | 8 件 | 11 件 | **14 件** | 3 件 | 4 件 | 9 件 |
+| 公開済みの章 | **13 / 13（完結）** | **13 / 13（完結）** | **13 / 13（完結）** | **13 / 13（完結）** | **13 / 13（完結）** | **13 / 13（完結）** | **8 / 13** |
+| ADR | 12 件 | 8 件 | 11 件 | **14 件** | 3 件 | 4 件 | 10 件 |
 | 計画した承認ゲート | 47 箇所 | 8 箇所 | 41 箇所 | 15 箇所 | 未計画 | 未計画 | 12 箇所 |
 | **うち同期停止した回数** | 記録なし | 0 | **1** | **15** | 記録中 | 記録中 | 記録中（Unit 1 は 3 / 3、Unit 2 は 2 / 2、Unit 3 は 1 / 1） |
 | 性質テストで確かめた代数構造 | 5 | 3 | **7** | 5 | 6 | 5 | 0 |

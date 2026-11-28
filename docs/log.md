@@ -1,6 +1,16 @@
 # Docs Update Log
 
 ## 2026-11-28
+* **Update**: [retrospective-typescript-fp-5](/development/retrospective-typescript-fp-5.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [bolt_report-typescript-fp-5](/development/bolt_report-typescript-fp-5.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [chapter09](/article/zettai/typescript-fp/chapter09.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [ADR-063-typescript-postgresql-persistence](/adr/ADR-063-typescript-postgresql-persistence.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [iteration_plan-typescript-fp-5](/development/iteration_plan-typescript-fp-5.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [outline](/article/outline.md) を更新（anthropic/claude-sonnet-5-5）
+* **Creation**: [retrospective-typescript-fp-5](/development/retrospective-typescript-fp-5.md) を作成（anthropic/claude-sonnet-5-5）
+* **Creation**: [bolt_report-typescript-fp-5](/development/bolt_report-typescript-fp-5.md) を作成（anthropic/claude-sonnet-5-5）
+* **Creation**: [ADR-063-typescript-postgresql-persistence](/adr/ADR-063-typescript-postgresql-persistence.md) を作成（anthropic/claude-sonnet-5-5）
+* **Creation**: [chapter09](/article/zettai/typescript-fp/chapter09.md) を作成（anthropic/claude-sonnet-5-5）
 * **Update**: [iteration_plan-typescript-fp-5](/development/iteration_plan-typescript-fp-5.md) を更新（anthropic/claude-sonnet-5-5）
 * **Update**: [iteration_plan-typescript-fp-5](/development/iteration_plan-typescript-fp-5.md) を更新（anthropic/claude-sonnet-5-5）
 * **Update**: [chapter08](/article/zettai/typescript-fp/chapter08.md) を更新（anthropic/claude-sonnet-5-5）

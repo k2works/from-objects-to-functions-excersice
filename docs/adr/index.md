@@ -68,5 +68,6 @@
 | [ADR-060](ADR-060-typescript-typed-errors-and-defects.md) | TypeScript FP 版は業務上ありうる失敗だけを型で運び、想定外の失敗は defect にする | 推奨案を採用（個別の確認なし） |
 | [ADR-061](ADR-061-typescript-hub-ports-and-error-types.md) | TypeScript FP 版はハブの依存を Effect で表し、失敗は素の型の和にする | 推奨案を採用（個別の確認なし） |
 | [ADR-062](ADR-062-typescript-projection-and-cqrs.md) | TypeScript FP 版は読み取りを出来事からの射影にし、射影は保存しない | 推奨案を採用（個別の確認なし） |
+| [ADR-063](ADR-063-typescript-postgresql-persistence.md) | TypeScript FP 版は pg で PostgreSQL に追記し、行は Schema と domain の生成の関数で読む | 推奨案を採用（個別の確認なし） |
 
 ADR の作成には `creating-adr` スキルを使用してください。

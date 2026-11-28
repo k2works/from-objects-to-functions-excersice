@@ -4,7 +4,7 @@ title: "Unit 5 の Bolt 計画（イテレーション 5）- Zettai 連載（Typ
 description: "Zettai 連載 TypeScript FP 版の Unit 5（第 8〜9 章）の Bolt 計画。射影と CQRS、PostgreSQL への永続化を扱う。利用者の事前の指示に基づき推奨案で進め、人の個別の承認は受けていない。"
 tags: [development, plan, ai-dlc, bolt, zettai, typescript, effect, unit-5]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T05:03:37Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T05:22:54Z }
 ---
 
 # Unit 5 の Bolt 計画（イテレーション 5）- Zettai 連載（TypeScript FP 版）
@@ -128,13 +128,19 @@ Unit 4 は、実装と執筆が済みました。**人の全文確認と CI は�
 
 ## Bolt 5-2: 第 9 章
 
-- [ ] **5-2.1 step を追加し、`pg` を入れる**
-  - **中断（2026-11-28）**: step の複製と `pg` 8.23.1・`@types/pg` 8.23.1 の追加をまとめたコマンドが、Claude Code の自動権限判定で拒否された（理由は「Destructive or Unwanted Actions」）。コマンドは何も実行されていない。別の手段での追加はせず、人の判断を待つ
-- [ ] **5-2.2 ★ゲート ⑤・⑥: codec、driver、スキーマ**（同期停止しない）
-- [ ] **5-2.3 保存と読み戻しを Red → Green で作る**（壊れた行、原子性、失敗の扱い）
-- [ ] **5-2.4 接続の寿命と組み立て、3 経路目、モナド則**
-- [ ] **5-2.5 第 9 章の執筆**（節は「安全に永続化する」「PostgreSQLと結合テスト」「TypeScript でデータベースに接続する」「データベースを準備する」「関数型スタイルでリモートデータにアクセスする」「モナドの力を探る」「読み戻す」「３経路目」）
-- [ ] **5-2.6 品質ゲート、反映、報告**
+- [x] **5-2.1 step を追加し、`pg` を入れる**
+  - **中断（2026-11-28）**: step の複製と `pg` 8.23.1・`@types/pg` 8.23.1 の追加をまとめたコマンドが、Claude Code の自動権限判定で拒否された（理由は「Destructive or Unwanted Actions」）。コマンドは何も実行されていない。別の手段での追加はせず、人の判断を待った
+  - **再開（同日）**: 利用者の許可を受けて、操作を分けて追加した
+- [x] **5-2.2 ★ゲート ⑤・⑥: codec、driver、スキーマ**（同期停止しない）
+  - **実績（2026-11-28）**: 同期停止していない。[ADR-063](../adr/ADR-063-typescript-postgresql-persistence.md)。codec の代替案は実装して比べていない
+- [x] **5-2.3 保存と読み戻しを Red → Green で作る**（壊れた行、原子性、失敗の扱い）
+  - **実績（2026-11-28）**: PostgreSQL のテストはモジュールが無い状態で失敗させた。名前に保存できない文字を拒否する制約を足した。データベースの失敗は defect のままにした
+- [x] **5-2.4 接続の寿命と組み立て、3 経路目、モナド則**
+  - **実績（2026-11-28）**: 接続は `Scope` で表し、`Layer` は本体で使わなかった。依存は引数のまま。中断はロックの解放まで戻らなかった
+- [x] **5-2.5 第 9 章の執筆**（節は「安全に永続化する」「PostgreSQLと結合テスト」「TypeScript でデータベースに接続する」「データベースを準備する」「関数型スタイルでリモートデータにアクセスする」「モナドの力を探る」「読み戻す」「３経路目」）
+  - **実績（2026-11-28）**: [第 9 章](../article/zettai/typescript-fp/chapter09.md) を書いた。人の全文確認は受けていない
+- [-] **5-2.6 品質ゲート、反映、報告**
+  - **実績（2026-11-28）**: 開発機の `check`（130 ファイル 993 件、約 40 秒）、PostgreSQL につないだ手順どおりの起動、記事の検査が通った。[Bolt 終了報告](bolt_report-typescript-fp-5.md)と[ふりかえり](retrospective-typescript-fp-5.md)を書いた。残りは人の確認、push、CI
 
 ---
 

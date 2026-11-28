@@ -4,7 +4,7 @@ title: "リリース計画 - Zettai 連載（TypeScript FP 版）"
 description: "Zettai 連載 TypeScript FP 版の AI-DLC Level 1 計画。Effect v4 で全 13 章を辿る Intent、7 Unit・14 ストーリーの受入条件、非機能要件、エントロピー評価、リスク、承認ゲートと進捗指標を定義する。"
 tags: [plan]
 status: stable
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T04:29:46Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T06:11:58Z }
 verified:
   - { by: human:kakimomokuri, at: 2026-11-27T06:47:02Z }
 ---
@@ -200,6 +200,8 @@ DAG に現れない前倒しの判断が 2 つあります。
 | 受け入れシナリオが 3 経路で通る | domain 直接・HTTP 経由・DB 経由 |
 | CI で Testcontainers の結合テストが通る | — |
 
+**未達（2026-11-28）。** 第 6〜9 章は書きましたが、人の確認、push、CI が済んでいません。
+
 ### Release v1.0.0（Phase 3 完了）: 型が守る範囲の総括
 
 | 条件 | 判定 |
@@ -208,6 +210,8 @@ DAG に現れない前倒しの判断が 2 つあります。
 | [執筆計画](../article/outline.md) の「完了確認」をすべて満たす | — |
 | 第 13 章が冒頭の問いに答え、他の対象と対比している | 主な比較対象は Scala 版と Kotlin FP 版 |
 | `comparison/` と索引が同期している | — |
+
+**未達（2026-11-28）。** 13 章の執筆、第 13 章の回答と対比、比較と索引の同期は、手元のブランチで済みました。章の公開（人の確認と main への取り込み）と、「完了確認」の CI の項目が残っています。
 
 ---
 
@@ -290,7 +294,7 @@ DAG に現れない前倒しの判断が 2 つあります。
 
 ## Unit ごとの Bolt 計画概要
 
-各 Unit の詳しい Bolt 計画は、着手時に `opening-iteration` で `iteration_plan-typescript-fp-N.md` として作成します。作成済みは [Unit 1 の Bolt 計画](iteration_plan-typescript-fp-1.md)（承認済み）、[Unit 2 の Bolt 計画](iteration_plan-typescript-fp-2.md)（承認済み）、[Unit 3 の Bolt 計画](iteration_plan-typescript-fp-3.md)（承認済み）、[Unit 4 の Bolt 計画](iteration_plan-typescript-fp-4.md)（承認済み）です。
+各 Unit の詳しい Bolt 計画は、着手時に `opening-iteration` で `iteration_plan-typescript-fp-N.md` として作成します。作成済みは [Unit 1 の Bolt 計画](iteration_plan-typescript-fp-1.md)（承認済み）、[Unit 2 の Bolt 計画](iteration_plan-typescript-fp-2.md)（承認済み）、[Unit 3 の Bolt 計画](iteration_plan-typescript-fp-3.md)（承認済み）、[Unit 4 の Bolt 計画](iteration_plan-typescript-fp-4.md)（承認済み）です。[Unit 5](iteration_plan-typescript-fp-5.md)、[Unit 6](iteration_plan-typescript-fp-6.md)、[Unit 7](iteration_plan-typescript-fp-7.md) の Bolt 計画は、利用者の事前の指示で推奨案を採用して進め、個別の承認は受けていません。
 
 | Unit | ゴール | 確認したい仮説 |
 | :--- | :--- | :--- |
@@ -339,11 +343,15 @@ DAG に現れない前倒しの判断が 2 つあります。
 | 1 | 13 | 3 | 3 | 0 | 0 | 約 46 分（コミット間） | **完了** |
 | 2 | 13 | 2 | 2 | 0 | 0 | 約 10 時間 50 分（コミット間。確認待ちを含む） | **完了** |
 | 3 | 11 | 1 | 1 | 0 | 0 | 約 2 時間（コミット間。確認待ちを含む） | **完了** |
-| 4 | 10 | 1 | - | - | - | - | 未着手 |
-| 5 | 13 | 2 | - | - | - | - | 未着手 |
-| 6 | 11 | 2 | - | - | - | - | 未着手 |
-| 7 | 8 | 1 | - | - | - | - | 未着手 |
-| **合計** | **79** | **12** | - | - | - | - | 完了 Unit 数 **3 / 7** |
+| 4 | 10 | 1 | 0 | - | - | - | 執筆済み（人の確認と CI の待ち） |
+| 5 | 13 | 2 | 0 | - | - | - | 執筆済み（人の確認と CI の待ち） |
+| 6 | 11 | 2 | 0 | - | - | - | 執筆済み（人の確認と CI の待ち） |
+| 7 | 8 | 1 | 0 | - | - | - | 執筆済み（人の確認と CI の待ち） |
+| **合計** | **79** | **12** | 6 | - | - | - | 完了 Unit 数 **3 / 7** |
+
+Unit 4〜7 は、利用者の指示「執筆完了まで、判断はすべて推奨を採用する」に基づいて進め、6 箇所のゲートで同期停止していません。人の確認が無いため、変更依頼数と人の修正箇所数は記録できません。完了していないので、リードタイムも記録しません。
+
+2026-11-28 時点の公開済みの章は、main に取り込んだものが 5 章、手元のブランチの下書きが 8 章です。
 
 GitHub Project・Issue・Milestone への同期は、Kotlin FP 版と同じく行わない想定です。必要な場合は `syncing-github-project` で追加します。
 
@@ -351,7 +359,9 @@ GitHub Project・Issue・Milestone への同期は、Kotlin FP 版と同じく�
 
 ## 次のステップ
 
-1. [Unit 4 の Bolt 計画](iteration_plan-typescript-fp-4.md)に従って Bolt 4-1 を進める（計画は承認済み）
+1. 第 6〜13 章と ADR-060〜066 を、人が確認する
+2. 確認した範囲を push して、CI の成功を確かめる。`npm run check` が上限の 60 秒を超えているので、上限か検査の分け方を人が決める
+3. Unit 4〜7 を閉じて、v0.2.0 と v1.0.0 の条件を判定する
 
 ---
 
@@ -365,6 +375,7 @@ GitHub Project・Issue・Milestone への同期は、Kotlin FP 版と同じく�
 | 2026-11-28 | Unit 2 の完了を記録した。承認ゲートの密度は、人の決定で変えない | anthropic/claude-sonnet-5-5 |
 | 2026-11-28 | Release v0.1.0 の達成を記録した。タグは作らず、Nix の確認の例外を残すことは人の決定 | anthropic/claude-sonnet-5-5 |
 | 2026-11-28 | Unit 3 の完了を記録した | anthropic/claude-sonnet-5-5 |
+| 2026-11-28 | Unit 4〜7 の執筆の状態を記録した。完了とはしていない。承認した内容は変えていない | anthropic/claude-sonnet-5-5 |
 
 ---
 

@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Zettai 連載 TypeScript FP 版で、判断の関数を保管に渡し、ストリームごとのアドバイザリロックで 1 つのコマンドを 1 つのトランザクションにする決定。利用者の事前の指示で推奨案を採用した。">
+        <meta name="description" content="Zettai 連載 TypeScript FP 版で、判断の関数を保管に渡し、ストリームごとのアドバイザリロックで 1 つのコマンドを 1 つのトランザクションにする決定。利用者の事前の指示で推奨案を採用した。後に人がまとめて承認した。">
       
       
         <meta name="author" content="Project Team">
@@ -6716,7 +6716,7 @@
     
   
   
-    <span class="md-status md-status--draft"></span>
+    <span class="md-status md-status--stable"></span>
   
 
   
@@ -6751,7 +6751,7 @@
     
   
   
-    <span class="md-status md-status--draft"></span>
+    <span class="md-status md-status--stable"></span>
   
 
   
@@ -6786,7 +6786,7 @@
     
   
   
-    <span class="md-status md-status--draft"></span>
+    <span class="md-status md-status--stable"></span>
   
 
   
@@ -6821,7 +6821,7 @@
     
   
   
-    <span class="md-status md-status--draft"></span>
+    <span class="md-status md-status--stable"></span>
   
 
   
@@ -6865,7 +6865,7 @@
     
   
   
-    <span class="md-status md-status--draft"></span>
+    <span class="md-status md-status--stable"></span>
   
 
   
@@ -6890,7 +6890,7 @@
     
   
   
-    <span class="md-status md-status--draft"></span>
+    <span class="md-status md-status--stable"></span>
   
 
   
@@ -7073,7 +7073,7 @@
     
   
   
-    <span class="md-status md-status--draft"></span>
+    <span class="md-status md-status--stable"></span>
   
 
   
@@ -7108,7 +7108,7 @@
     
   
   
-    <span class="md-status md-status--draft"></span>
+    <span class="md-status md-status--stable"></span>
   
 
   
@@ -13357,7 +13357,8 @@
 <h1 id="adr-064-typescript-fp-1-1">ADR-064 TypeScript FP 版は判断の関数を保管に渡し、ストリームごとのロックで 1 つのコマンドを 1 つのトランザクションにする<a class="headerlink" href="#adr-064-typescript-fp-1-1" title="Permanent link">&para;</a></h1>
 <p>日付: 2026-11-28</p>
 <h2 id="_1">ステータス<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p>2026-11-28 推奨案を採用しました（Unit 6 のゲート ①）。<strong>同期停止していません。</strong> 利用者の事前の指示「執筆完了まで、判断はすべて推奨を採用する」によるもので、人が個別に確認してはいません</p>
+<p>2026-11-28 承認されました（実装と章の公開の後に、人がまとめて承認しました）</p>
+<p>それまでの経緯: 2026-11-28 推奨案を採用しました（Unit 6 のゲート ①）。<strong>同期停止していません。</strong> 利用者の事前の指示「執筆完了まで、判断はすべて推奨を採用する」によるもので、人が個別に確認してはいません</p>
 <h2 id="_2">コンテキスト<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>第 9 章では、状態の読み取りと追記が別の操作でした。間に別の更新が入れます。1 つのコマンドの「読む、判断する、追記する」を、1 つのトランザクションにします。</p>
 <h3 id="_3">先に確かめたこと<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>

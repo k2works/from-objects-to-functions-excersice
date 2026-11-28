@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Zettai 連載 TypeScript FP 版で、pg で PostgreSQL に追記し、行を Schema と domain の生成の関数で読み、データベースの失敗を defect にする決定。利用者の事前の指示で推奨案を採用した。">
+        <meta name="description" content="Zettai 連載 TypeScript FP 版で、pg で PostgreSQL に追記し、行を Schema と domain の生成の関数で読み、データベースの失敗を defect にする決定。利用者の事前の指示で推奨案を採用した。後に人がまとめて承認した。">
       
       
         <meta name="author" content="Project Team">
@@ -6716,7 +6716,7 @@
     
   
   
-    <span class="md-status md-status--draft"></span>
+    <span class="md-status md-status--stable"></span>
   
 
   
@@ -6751,7 +6751,7 @@
     
   
   
-    <span class="md-status md-status--draft"></span>
+    <span class="md-status md-status--stable"></span>
   
 
   
@@ -6786,7 +6786,7 @@
     
   
   
-    <span class="md-status md-status--draft"></span>
+    <span class="md-status md-status--stable"></span>
   
 
   
@@ -6830,7 +6830,7 @@
     
   
   
-    <span class="md-status md-status--draft"></span>
+    <span class="md-status md-status--stable"></span>
   
 
   
@@ -6855,7 +6855,7 @@
     
   
   
-    <span class="md-status md-status--draft"></span>
+    <span class="md-status md-status--stable"></span>
   
 
   
@@ -7038,7 +7038,7 @@
     
   
   
-    <span class="md-status md-status--draft"></span>
+    <span class="md-status md-status--stable"></span>
   
 
   
@@ -7073,7 +7073,7 @@
     
   
   
-    <span class="md-status md-status--draft"></span>
+    <span class="md-status md-status--stable"></span>
   
 
   
@@ -7108,7 +7108,7 @@
     
   
   
-    <span class="md-status md-status--draft"></span>
+    <span class="md-status md-status--stable"></span>
   
 
   
@@ -13357,7 +13357,8 @@
 <h1 id="adr-063-typescript-fp-pg-postgresql-schema-domain">ADR-063 TypeScript FP 版は pg で PostgreSQL に追記し、行は Schema と domain の生成の関数で読む<a class="headerlink" href="#adr-063-typescript-fp-pg-postgresql-schema-domain" title="Permanent link">&para;</a></h1>
 <p>日付: 2026-11-28</p>
 <h2 id="_1">ステータス<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p>2026-11-28 推奨案を採用しました（Unit 5 のゲート ⑤・⑥）。<strong>同期停止していません。</strong> 利用者の事前の指示「執筆完了まで、判断はすべて推奨を採用する」によるものです。<code>pg</code> と <code>@types/pg</code> の追加は、自動権限判定で一度拒否された後、利用者が許可しました。設計の中身を、人が個別に確認してはいません</p>
+<p>2026-11-28 承認されました（実装と章の公開の後に、人がまとめて承認しました）</p>
+<p>それまでの経緯: 2026-11-28 推奨案を採用しました（Unit 5 のゲート ⑤・⑥）。<strong>同期停止していません。</strong> 利用者の事前の指示「執筆完了まで、判断はすべて推奨を採用する」によるものです。<code>pg</code> と <code>@types/pg</code> の追加は、自動権限判定で一度拒否された後、利用者が許可しました。設計の中身を、人が個別に確認してはいません</p>
 <h2 id="_2">コンテキスト<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>第 9 章で、イベントを PostgreSQL に保存します。接続の driver、行の読み方（codec）、スキーマ、失敗の扱いを決めます。</p>
 <h3 id="_3">先に確かめたこと<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>

@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="TypeScript FP 版はログを decorator で足して書き出す項目名で絞り、JSON との変換は書きと読みをまとめた型にする決定。利用者の事前の指示に基づき推奨案を採用し、人の個別の確認は受けていない。">
+        <meta name="description" content="TypeScript FP 版はログを decorator で足して書き出す項目名で絞り、JSON との変換は書きと読みをまとめた型にする決定。推奨案で実装した後、人がまとめて承認した。">
       
       
         <meta name="author" content="Project Team">
@@ -6716,7 +6716,7 @@
     
   
   
-    <span class="md-status md-status--draft"></span>
+    <span class="md-status md-status--stable"></span>
   
 
   
@@ -6751,7 +6751,7 @@
     
   
   
-    <span class="md-status md-status--draft"></span>
+    <span class="md-status md-status--stable"></span>
   
 
   
@@ -6786,7 +6786,7 @@
     
   
   
-    <span class="md-status md-status--draft"></span>
+    <span class="md-status md-status--stable"></span>
   
 
   
@@ -6821,7 +6821,7 @@
     
   
   
-    <span class="md-status md-status--draft"></span>
+    <span class="md-status md-status--stable"></span>
   
 
   
@@ -6856,7 +6856,7 @@
     
   
   
-    <span class="md-status md-status--draft"></span>
+    <span class="md-status md-status--stable"></span>
   
 
   
@@ -6891,7 +6891,7 @@
     
   
   
-    <span class="md-status md-status--draft"></span>
+    <span class="md-status md-status--stable"></span>
   
 
   
@@ -6935,7 +6935,7 @@
     
   
   
-    <span class="md-status md-status--draft"></span>
+    <span class="md-status md-status--stable"></span>
   
 
   
@@ -6960,7 +6960,7 @@
     
   
   
-    <span class="md-status md-status--draft"></span>
+    <span class="md-status md-status--stable"></span>
   
 
   
@@ -13340,7 +13340,8 @@
 <h1 id="adr-066-typescript-fp-decorator">ADR-066 TypeScript FP 版はログを decorator で足して項目名で絞り、変換は両方向の型にする<a class="headerlink" href="#adr-066-typescript-fp-decorator" title="Permanent link">&para;</a></h1>
 <p>日付: 2026-11-28</p>
 <h2 id="_1">ステータス<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p>2026-11-28 推奨案を採用しました（Unit 7 のゲート）。<strong>同期停止していません。</strong> 利用者の事前の指示「執筆完了まで、判断はすべて推奨を採用する」によるもので、人が個別に確認してはいません。<strong>利用者名とリスト名をログに載せる判断も、個別の確認を受けていません</strong></p>
+<p>2026-11-28 承認されました（実装と章の公開の後に、人がまとめて承認しました）</p>
+<p>それまでの経緯: 2026-11-28 推奨案を採用しました（Unit 7 のゲート）。<strong>同期停止していません。</strong> 利用者の事前の指示「執筆完了まで、判断はすべて推奨を採用する」によるもので、人が個別に確認してはいません。<strong>利用者名とリスト名をログに載せる判断も、個別の確認を受けていません</strong></p>
 <h2 id="_2">コンテキスト<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>第 12 章で、動きを後から追えるようにします。第 7 章から、500 の原因を残していませんでした。ログに何を載せ、何を載せないかと、JSON との変換の表し方を決めます。</p>
 <h2 id="_3">決定<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>

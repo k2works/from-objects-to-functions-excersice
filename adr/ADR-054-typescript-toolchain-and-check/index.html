@@ -6768,6 +6768,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#2026-11-28ci" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        追記（2026-11-28、CI の上限の変更）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_11" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -6986,7 +6997,7 @@
     
   
   
-    <span class="md-status md-status--draft"></span>
+    <span class="md-status md-status--stable"></span>
   
 
   
@@ -7021,7 +7032,7 @@
     
   
   
-    <span class="md-status md-status--draft"></span>
+    <span class="md-status md-status--stable"></span>
   
 
   
@@ -7056,7 +7067,7 @@
     
   
   
-    <span class="md-status md-status--draft"></span>
+    <span class="md-status md-status--stable"></span>
   
 
   
@@ -7091,7 +7102,7 @@
     
   
   
-    <span class="md-status md-status--draft"></span>
+    <span class="md-status md-status--stable"></span>
   
 
   
@@ -7126,7 +7137,7 @@
     
   
   
-    <span class="md-status md-status--draft"></span>
+    <span class="md-status md-status--stable"></span>
   
 
   
@@ -7161,7 +7172,7 @@
     
   
   
-    <span class="md-status md-status--draft"></span>
+    <span class="md-status md-status--stable"></span>
   
 
   
@@ -7196,7 +7207,7 @@
     
   
   
-    <span class="md-status md-status--draft"></span>
+    <span class="md-status md-status--stable"></span>
   
 
   
@@ -13728,6 +13739,33 @@
 </tbody>
 </table>
 <p>原因は、全部の step のテストと smoke を実行することです。<strong>手元の分割は、CI の時間を短くしません。</strong> CI の上限を引き上げるか、CI の検査を並列に分けるかは、まだ決めていません。</p>
+<h2 id="2026-11-28ci">追記（2026-11-28、CI の上限の変更）<a class="headerlink" href="#2026-11-28ci" title="Permanent link">&para;</a></h2>
+<p>人が、CI の上限だけを引き上げる案を選びました。以前の追記の「開発機と CI のどちらも 60 秒」は、次の表で置き換えます。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">対象</th>
+<th style="text-align: left;">コマンド</th>
+<th style="text-align: left;">上限</th>
+<th style="text-align: left;">直近の実測</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">開発機</td>
+<td style="text-align: left;"><code>npm run check</code></td>
+<td style="text-align: left;">60 秒（変えない）</td>
+<td style="text-align: left;">21・28・22 秒</td>
+</tr>
+<tr>
+<td style="text-align: left;">CI の検査のステップ</td>
+<td style="text-align: left;"><code>npm run check:all</code></td>
+<td style="text-align: left;"><strong>150 秒</strong></td>
+<td style="text-align: left;">91 秒（1 回）</td>
+</tr>
+</tbody>
+</table>
+<p>超えたら、段ごとに測って原因を調べます。<strong>どちらの上限も、機械では確かめません。</strong> 150 秒は、実測 1 回に余裕を持たせた値で、step を足した場合の時間を見積もったものではありません。選ばなかったのは、CI のテストと smoke を並列に分ける案です。ワークフローが複雑になり、短くなる時間は測っていません。</p>
 <h2 id="_11">備考<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
 <ul>
 <li>著者: anthropic/claude-sonnet-5-5</li>

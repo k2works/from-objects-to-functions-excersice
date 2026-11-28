@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Zettai 連載 TypeScript FP 版で、ハブの依存を Effect で表し、業務の失敗を素の型の和にして、取得の失敗の理由をハブが付ける決定。Data.TaggedError との比較と代償を記録する。">
+        <meta name="description" content="Zettai 連載 TypeScript FP 版で、ハブの依存を Effect で表し、業務の失敗を素の型の和にして、取得の失敗の理由をハブが付ける決定。Data.TaggedError との比較と代償を記録する。後に人がまとめて承認した。">
       
       
         <meta name="author" content="Project Team">
@@ -6716,7 +6716,7 @@
     
   
   
-    <span class="md-status md-status--draft"></span>
+    <span class="md-status md-status--stable"></span>
   
 
   
@@ -6760,7 +6760,7 @@
     
   
   
-    <span class="md-status md-status--draft"></span>
+    <span class="md-status md-status--stable"></span>
   
 
   
@@ -6785,7 +6785,7 @@
     
   
   
-    <span class="md-status md-status--draft"></span>
+    <span class="md-status md-status--stable"></span>
   
 
   
@@ -6968,7 +6968,7 @@
     
   
   
-    <span class="md-status md-status--draft"></span>
+    <span class="md-status md-status--stable"></span>
   
 
   
@@ -7003,7 +7003,7 @@
     
   
   
-    <span class="md-status md-status--draft"></span>
+    <span class="md-status md-status--stable"></span>
   
 
   
@@ -7038,7 +7038,7 @@
     
   
   
-    <span class="md-status md-status--draft"></span>
+    <span class="md-status md-status--stable"></span>
   
 
   
@@ -7073,7 +7073,7 @@
     
   
   
-    <span class="md-status md-status--draft"></span>
+    <span class="md-status md-status--stable"></span>
   
 
   
@@ -7108,7 +7108,7 @@
     
   
   
-    <span class="md-status md-status--draft"></span>
+    <span class="md-status md-status--stable"></span>
   
 
   
@@ -13357,7 +13357,8 @@
 <h1 id="adr-061-typescript-fp-effect">ADR-061 TypeScript FP 版はハブの依存を Effect で表し、失敗は素の型の和にする<a class="headerlink" href="#adr-061-typescript-fp-effect" title="Permanent link">&para;</a></h1>
 <p>日付: 2026-11-28</p>
 <h2 id="_1">ステータス<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p>ハブの依存の型は、2026-11-28 に Unit 4 の Bolt 計画の承認で決まりました。失敗の型の表し方と、取得の失敗を付ける場所は、同じ日に推奨案を採用しました。後の 2 つは、利用者の事前の指示によるもので、人が個別に確認してはいません</p>
+<p>2026-11-28 承認されました（実装と章の公開の後に、人がまとめて承認しました）</p>
+<p>それまでの経緯: ハブの依存の型は、2026-11-28 に Unit 4 の Bolt 計画の承認で決まりました。失敗の型の表し方と、取得の失敗を付ける場所は、同じ日に推奨案を採用しました。後の 2 つは、利用者の事前の指示によるもので、人が個別に確認してはいません</p>
 <h2 id="_2">コンテキスト<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>第 6 章でハブが保管を読み書きするようになり、第 7 章で取得の失敗を型に出します。次の 3 つを決めます。</p>
 <ol>

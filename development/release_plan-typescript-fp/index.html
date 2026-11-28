@@ -7193,7 +7193,7 @@
     
   
   
-    <span class="md-status md-status--draft"></span>
+    <span class="md-status md-status--stable"></span>
   
 
   
@@ -7228,7 +7228,7 @@
     
   
   
-    <span class="md-status md-status--draft"></span>
+    <span class="md-status md-status--stable"></span>
   
 
   
@@ -7263,7 +7263,7 @@
     
   
   
-    <span class="md-status md-status--draft"></span>
+    <span class="md-status md-status--stable"></span>
   
 
   
@@ -7298,7 +7298,7 @@
     
   
   
-    <span class="md-status md-status--draft"></span>
+    <span class="md-status md-status--stable"></span>
   
 
   
@@ -7333,7 +7333,7 @@
     
   
   
-    <span class="md-status md-status--draft"></span>
+    <span class="md-status md-status--stable"></span>
   
 
   
@@ -7368,7 +7368,7 @@
     
   
   
-    <span class="md-status md-status--draft"></span>
+    <span class="md-status md-status--stable"></span>
   
 
   
@@ -7403,7 +7403,7 @@
     
   
   
-    <span class="md-status md-status--draft"></span>
+    <span class="md-status md-status--stable"></span>
   
 
   
@@ -14707,15 +14707,13 @@
 </tr>
 </tbody>
 </table>
-<p>Unit 4〜7 は、利用者の指示「執筆完了まで、判断はすべて推奨を採用する」に基づいて進め、6 箇所のゲートで同期停止していません。第 6〜13 章は、まとめて承認を受けました。変更依頼数と人の修正箇所数の 0 は、この承認で依頼も手直しも無かったことを指します。ADR-060〜066 は、個別の確認を受けていません。</p>
+<p>Unit 4〜7 は、利用者の指示「執筆完了まで、判断はすべて推奨を採用する」に基づいて進め、6 箇所のゲートで同期停止していません。第 6〜13 章は、まとめて承認を受けました。変更依頼数と人の修正箇所数の 0 は、この承認で依頼も手直しも無かったことを指します。ADR-060〜066 は、完了の記録の後に、まとめて承認を受けました。</p>
 <p>2026-11-28 に、13 章すべてを main に取り込みました。</p>
 <p>GitHub Project・Issue・Milestone への同期は、Kotlin FP 版と同じく行わない想定です。必要な場合は <code>syncing-github-project</code> で追加します。</p>
 <hr />
 <h2 id="_21">次のステップ<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h2>
 <p>計画した 13 章は、書き終えました。次は、残った判断と改善です。</p>
 <ol>
-<li>CI の <code>check:all</code>（91 秒）が上限の 60 秒を超えていることを、人が決める（ADR-054 の追記）</li>
-<li>ADR-060〜066 を、人が確認する。特に、利用者名とリスト名をログに載せる判断（ADR-066）</li>
 <li>第 13 章に挙げた改善（核の中の副作用の検査、起動の組み立てを通る smoke、認証と CSRF、時間の上限）を扱うかを決める</li>
 </ol>
 <hr />

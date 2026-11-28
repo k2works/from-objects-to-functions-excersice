@@ -4,7 +4,7 @@ title: "リリース計画 - Zettai 連載（TypeScript FP 版）"
 description: "Zettai 連載 TypeScript FP 版の AI-DLC Level 1 計画。Effect v4 で全 13 章を辿る Intent、7 Unit・14 ストーリーの受入条件、非機能要件、エントロピー評価、リスク、承認ゲートと進捗指標を定義する。"
 tags: [plan]
 status: stable
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-27T21:28:45Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T00:37:46Z }
 verified:
   - { by: human:kakimomokuri, at: 2026-11-27T06:47:02Z }
 ---
@@ -290,7 +290,7 @@ DAG に現れない前倒しの判断が 2 つあります。
 
 ## Unit ごとの Bolt 計画概要
 
-各 Unit の詳しい Bolt 計画は、着手時に `opening-iteration` で `iteration_plan-typescript-fp-N.md` として作成します。作成済みは [Unit 1 の Bolt 計画](iteration_plan-typescript-fp-1.md)（承認済み）と [Unit 2 の Bolt 計画](iteration_plan-typescript-fp-2.md)（承認済み）です。
+各 Unit の詳しい Bolt 計画は、着手時に `opening-iteration` で `iteration_plan-typescript-fp-N.md` として作成します。作成済みは [Unit 1 の Bolt 計画](iteration_plan-typescript-fp-1.md)（承認済み）、[Unit 2 の Bolt 計画](iteration_plan-typescript-fp-2.md)（承認済み）、[Unit 3 の Bolt 計画](iteration_plan-typescript-fp-3.md)（承認済み）です。
 
 | Unit | ゴール | 確認したい仮説 |
 | :--- | :--- | :--- |
@@ -351,7 +351,7 @@ GitHub Project・Issue・Milestone への同期は、Kotlin FP 版と同じく�
 
 ## 次のステップ
 
-1. Unit 3（第 4〜5 章）の Bolt 計画を作り、承認を得る
+1. [Unit 3 の Bolt 計画](iteration_plan-typescript-fp-3.md)に従って Bolt 3-1 を進める（計画は承認済み）
 
 ---
 

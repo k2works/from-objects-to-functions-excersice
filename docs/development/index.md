@@ -47,6 +47,7 @@
 | :--- | :--- | :--- | :--- | :--- |
 | Unit 1 土台と第 1 章 | [Unit 1 の Bolt 計画](iteration_plan-typescript-fp-1.md) | [ふりかえり](retrospective-typescript-fp-1.md) | [Bolt 終了報告](bolt_report-typescript-fp-1.md) | **完了** |
 | Unit 2 ウォーキングスケルトンとドメイン分離 | [Unit 2 の Bolt 計画](iteration_plan-typescript-fp-2.md) | [ふりかえり](retrospective-typescript-fp-2.md) | [Bolt 終了報告](bolt_report-typescript-fp-2.md) | 完了 |
+| Unit 3 依存の注入とイベント | [Unit 3 の Bolt 計画](iteration_plan-typescript-fp-3.md) | - | - | 計画承認 |
 
 ### Bolt 計画（なでしこ3 版）
 

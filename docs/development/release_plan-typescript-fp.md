@@ -4,7 +4,7 @@ title: "リリース計画 - Zettai 連載（TypeScript FP 版）"
 description: "Zettai 連載 TypeScript FP 版の AI-DLC Level 1 計画。Effect v4 で全 13 章を辿る Intent、7 Unit・14 ストーリーの受入条件、非機能要件、エントロピー評価、リスク、承認ゲートと進捗指標を定義する。"
 tags: [plan]
 status: stable
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T07:00:36Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T07:31:02Z }
 verified:
   - { by: human:kakimomokuri, at: 2026-11-27T06:47:02Z }
 ---
@@ -361,9 +361,8 @@ GitHub Project・Issue・Milestone への同期は、Kotlin FP 版と同じく�
 
 計画した 13 章は、書き終えました。次は、残った判断と改善です。
 
-1. CI の `check:all`（91 秒）が上限の 60 秒を超えていることを、人が決める（ADR-054 の追記）
-2. ADR-060〜066 を、人が確認する。特に、利用者名とリスト名をログに載せる判断（ADR-066）
-3. 第 13 章に挙げた改善（核の中の副作用の検査、起動の組み立てを通る smoke、認証と CSRF、時間の上限）を扱うかを決める
+1. ADR-060〜066 を、人が確認する。特に、利用者名とリスト名をログに載せる判断（ADR-066）
+2. 第 13 章に挙げた改善（核の中の副作用の検査、起動の組み立てを通る smoke、認証と CSRF、時間の上限）を扱うかを決める
 
 ---
 

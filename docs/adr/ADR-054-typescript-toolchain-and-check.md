@@ -4,7 +4,7 @@ title: "ADR-054 TypeScript FP 版は TypeScript 7 と @effect/tsgo を使い、n
 description: "Zettai 連載 TypeScript FP 版で、TypeScript 7.0.2・@effect/tsgo・Oxlint・Prettier を採り、tsc でビルドして Node で実行し、累積する step を npm workspaces で管理する決定。品質ゲート npm run check の各段が守るもの、実測した秒数、選ばなかった案と代償を記録する。"
 tags: [adr, typescript, zettai, effect, testing]
 status: draft
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T07:00:36Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T07:31:02Z }
 ---
 
 # ADR-054 TypeScript FP 版は TypeScript 7 と @effect/tsgo を使い、npm run check を 5 段にする
@@ -165,6 +165,17 @@ step が 10 個になり、全部を実行する `check` が上限の 60 秒を�
 | smoke（10 step） | 15.5 秒 |
 
 原因は、全部の step のテストと smoke を実行することです。**手元の分割は、CI の時間を短くしません。** CI の上限を引き上げるか、CI の検査を並列に分けるかは、まだ決めていません。
+
+## 追記（2026-11-28、CI の上限の変更）
+
+人が、CI の上限だけを引き上げる案を選びました。以前の追記の「開発機と CI のどちらも 60 秒」は、次の表で置き換えます。
+
+| 対象 | コマンド | 上限 | 直近の実測 |
+| :--- | :--- | :--- | :--- |
+| 開発機 | `npm run check` | 60 秒（変えない） | 21・28・22 秒 |
+| CI の検査のステップ | `npm run check:all` | **150 秒** | 91 秒（1 回） |
+
+超えたら、段ごとに測って原因を調べます。**どちらの上限も、機械では確かめません。** 150 秒は、実測 1 回に余裕を持たせた値で、step を足した場合の時間を見積もったものではありません。選ばなかったのは、CI のテストと smoke を並列に分ける案です。ワークフローが複雑になり、短くなる時間は測っていません。
 
 ## 備考
 

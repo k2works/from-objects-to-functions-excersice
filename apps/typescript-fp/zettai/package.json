@@ -8,7 +8,8 @@
     "zettai-step3-events",
     "zettai-step4-commands",
     "zettai-step5-errors",
-    "zettai-step6-projection"
+    "zettai-step6-projection",
+    "zettai-step7-persistence"
   ],
   "engines": {
     "node": ">=22.19.0"
@@ -26,6 +27,7 @@
     "@effect/tsgo": "0.73.7",
     "@testcontainers/postgresql": "12.2.2",
     "@types/node": "22.19.1",
+    "@types/pg": "8.23.1",
     "fast-check": "4.11.0",
     "oxlint": "1.95.0",
     "oxlint-tsgolint": "7.0.2008",

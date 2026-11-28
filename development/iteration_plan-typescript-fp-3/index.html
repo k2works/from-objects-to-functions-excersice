@@ -13226,12 +13226,12 @@
 <li>節は「ToDo リストの作成の表示」「状態変更の保存」「再帰の力を解き放つ」「イベントを畳み込む」「モノイドの発見」</li>
 <li>第 4 章と同じく、型の主張は壊して確かめる。性質テストが示す範囲（生成した値の範囲）を書く</li>
 <li><strong>実績（2026-11-28）</strong>: <a href="../../article/zettai/typescript-fp/chapter05/">第 5 章</a> を書いた。2026-11-28、第 5 章は人の全文確認を受けて承認された。第 4 章の抜粋への注記と、モノイドを自作のままにする決定も承認に含む</li>
-<li>[-] <strong>3-2.6 品質ゲート、反映、報告</strong></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <strong>3-2.6 品質ゲート、反映、報告</strong></li>
 <li>3-1.6 と同じ確認をする。<code>comparison/</code> の更新は、依存の注入の節に必要な場合だけ行う</li>
 <li>Bolt 終了報告とふりかえりを書き、リリース計画の指標を記録する</li>
 <li>完了判定: 人が第 5 章を全文確認し、CI が成功する</li>
 <li><strong>実績（2026-11-28、開発機）</strong>: <code>npm run check</code> はテスト 34 ファイル 181 件と smoke が通り、読者の手順どおりの起動も確かめた。第 5 章の変更で、第 4 章の 3 つの抜粋が実装から消えたため、版の注記と検査の除外を足した。<a href="../bolt_report-typescript-fp-3/">Bolt 終了報告</a>と<a href="../retrospective-typescript-fp-3/">ふりかえり</a>を書いた。<code>comparison/</code> は変えていない。追跡対象になる 95 ファイルだけを短いドライブ名で実行した <code>check</code>、記事の検査、<code>mkdocs build --strict</code> も通った</li>
-<li><strong>残り</strong>: 第 5 章の人の全文確認と、push の後の CI。リリース計画の指標は、完了の時点で記録する</li>
+<li>人の全文確認の後、コミット <code>179abee</code>・<code>d7f72a6</code> を push した。4 つの CI が成功し、<a href="https://github.com/k2works/from-objects-to-functions-excersice/actions/runs/46098331998">TypeScript の CI</a>（Node 24.22.3）は 34 ファイル 181 件と smoke、記事の検査、<code>mkdocs build --strict</code> が通った。公開サイトのブランチに第 5 章があることを確かめ、リリース計画の指標を記録した</li>
 </ul>
 <p>実装は <code>feat(typescript-fp):</code>、記事は <code>docs(typescript-fp):</code> でコミットします。コミットと push は、人の指示を受けてから行います。<strong>第 4 章を公開してから、Bolt 3-2 に進みます。</strong></p>
 <hr />
@@ -13301,15 +13301,16 @@
 <h2 id="_16">完了条件<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h2>
 <h3 id="definition-of-done">Definition of Done<a class="headerlink" href="#definition-of-done" title="Permanent link">&para;</a></h3>
 <ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> US-004 と US-005 の受入条件をすべて満たす</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>npm run check</code> が通る。追跡ファイルだけを取り出した場所でも通る</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <a href="../release_plan-typescript-fp/">リリース計画</a> の「全 Bolt 共通の完了条件」を満たす</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> ADR-058・059 がある</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 第 4〜5 章を人が全文確認した（ゲートには数えない）</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> CI の <code>check</code> と <code>article</code> が成功した（push 後に確認）</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 索引、<code>mkdocs.yml</code>、執筆計画、リリース計画が一致する</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Bolt 終了報告とふりかえりがある</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> US-004 と US-005 の受入条件をすべて満たす</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <code>npm run check</code> が通る。追跡ファイルだけを取り出した場所でも通る</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="../release_plan-typescript-fp/">リリース計画</a> の「全 Bolt 共通の完了条件」を満たす</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> ADR-058・059 がある</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> 第 4〜5 章を人が全文確認した（ゲートには数えない）</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> CI の <code>check</code> と <code>article</code> が成功した（push 後に確認）</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> 索引、<code>mkdocs.yml</code>、執筆計画、リリース計画が一致する</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Bolt 終了報告とふりかえりがある</li>
 </ul>
+<p>追跡ファイルだけの確認には、条件があります。<strong>Windows の深いディレクトリでは smoke が失敗し、短いドライブ名に割り当てると通りました。</strong> 受入条件は、テスト、型のテスト、比較の記録と照合しました。</p>
 <h3 id="_17">デモ項目<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -13439,6 +13440,11 @@
 <td style="text-align: left;">2026-11-28</td>
 <td style="text-align: left;">第 5 章と、第 4 章の抜粋への注記を承認した</td>
 <td style="text-align: left;">human:kakimomokuri</td>
+</tr>
+<tr>
+<td style="text-align: left;">2026-11-28</td>
+<td style="text-align: left;">CI の成功と公開を確かめ、Unit 3 を完了にした</td>
+<td style="text-align: left;">anthropic/claude-sonnet-5-5</td>
 </tr>
 </tbody>
 </table>

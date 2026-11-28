@@ -4,9 +4,10 @@ title: "第 4 章 ドメインとアダプタのモデリング"
 description: "Zettai 連載 TypeScript FP 版の第 4 章。ドメインの入口をハブにまとめ、依存の渡し方を引数・Context.Service・Layer の 3 通りで比べる。矢印を単独で呼んで調べる手順を示し、Brand で利用者とリスト名を区別する。目印が実行時に残らず、as や JSON.parse では守れないことも確かめる。"
 tags: [article, zettai, typescript, effect, domain-model, chapter]
 status: stable
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T01:06:22Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T02:29:19Z }
 verified:
   - { by: human:kakimomokuri, at: 2026-11-28T01:21:38Z }
+  - { by: human:kakimomokuri, at: 2026-11-28T02:29:20Z }
 ---
 
 # 第 4 章 ドメインとアダプタのモデリング
@@ -59,6 +60,9 @@ export const makeApp =
 
 組み立てるのは、起動の入口とテストです。
 
+> 次の抜粋は、この章の時点のコードです。第 5 章で、状態の渡し方が変わります。
+
+<!-- code-check: ignore 第 4 章の時点のコード（コミット d27f080）。第 5 章で変わる -->
 ```typescript
   const server = yield* serve(makeApp(makeHub(findToDoList(sampleLists))), port)
 ```
@@ -92,6 +96,9 @@ AssertionError: expected [ '../domain/find-todo-list.ts' ] to deeply equal []
 
 渡し忘れと、ハブの代わりに取得の依存を渡す誤りは、型のテストで固定します。`@ts-expect-error` は、次の行が型エラーになることを求める指定です。エラーが無くなると、型検査が失敗します。
 
+> 次の抜粋は、この章の時点のコードです。第 5 章で、状態の渡し方が変わります。
+
+<!-- code-check: ignore 第 4 章の時点のコード（コミット d27f080）。第 5 章で変わる -->
 ```typescript
   // @ts-expect-error 取得の依存を渡さないと、ハブを作れません
   makeHub()
@@ -262,6 +269,9 @@ export type DueDate = Brand.Branded<string, "DueDate">
 
 `name` を持つオブジェクトをやめて、目印を付けた文字列にしました。実行時の値が文字列なので、`Map` のキーを中身で引けます。第 2 章で必要だった、キーにするための取り出しが無くなります。
 
+> 次の抜粋は、この章の時点のコードです。第 5 章で、状態の渡し方が変わります。
+
+<!-- code-check: ignore 第 4 章の時点のコード（コミット d27f080）。第 5 章で変わる -->
 ```typescript
 // User の実行時の値は文字列なので、Map は中身で引けます。
 export type ToDoListStore = ReadonlyMap<User, ReadonlyArray<ToDoList>>

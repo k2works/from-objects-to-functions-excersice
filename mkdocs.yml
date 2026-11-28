@@ -142,6 +142,7 @@ nav:
           - 「Kotlin FP」Unit 7 監視と総括: development/bolt_report-kotlin-fp-7.md
           - 「TypeScript FP」Unit 1 土台と第 1 章: development/bolt_report-typescript-fp-1.md
           - 「TypeScript FP」Unit 2 ウォーキングスケルトンとドメイン分離: development/bolt_report-typescript-fp-2.md
+          - 「TypeScript FP」Unit 3 依存の注入とイベント: development/bolt_report-typescript-fp-3.md
           - Unit 1 実行環境と第 1 章: development/bolt_report-1.md
           - Unit 2 ウォーキングスケルトンとドメイン分離: development/bolt_report-2.md
           - Unit 3 関数型 DI とイベント: development/bolt_report-3.md
@@ -173,6 +174,7 @@ nav:
           - 「Kotlin FP」Unit 7 監視と総括: development/retrospective-kotlin-fp-7.md
           - 「TypeScript FP」Unit 1 土台と第 1 章: development/retrospective-typescript-fp-1.md
           - 「TypeScript FP」Unit 2 ウォーキングスケルトンとドメイン分離: development/retrospective-typescript-fp-2.md
+          - 「TypeScript FP」Unit 3 依存の注入とイベント: development/retrospective-typescript-fp-3.md
           - Unit 7 監視とアーキテクチャ総括: development/retrospective-7.md
           - 「なでしこ3」Unit 1 実行環境・テスト基盤と第 1 章: development/retrospective-nadesiko-1.md
           - 「なでしこ3」Unit 2 ウォーキングスケルトンとドメイン分離: development/retrospective-nadesiko-2.md
@@ -236,6 +238,7 @@ nav:
       - ADR-056 TypeScript FP 版の HTTP の実装方式: adr/ADR-056-typescript-http-with-stable-parts.md
       - ADR-057 TypeScript FP 版の受け入れテストの経路: adr/ADR-057-typescript-acceptance-route-as-higher-order-function.md
       - ADR-058 TypeScript FP 版の依存の渡し方: adr/ADR-058-typescript-dependency-by-function-argument.md
+      - ADR-059 TypeScript FP 版の状態変換のモノイド: adr/ADR-059-typescript-own-state-transition-monoid.md
   - 記事:
       - 概要: article/index.md
       - 執筆計画: article/outline.md
@@ -338,6 +341,7 @@ nav:
               - 第 2 章 関数を使って HTTP を扱う: article/zettai/typescript-fp/chapter02.md
               - 第 3 章 ドメインの定義とテスト: article/zettai/typescript-fp/chapter03.md
               - 第 4 章 ドメインとアダプタのモデリング: article/zettai/typescript-fp/chapter04.md
+              - 第 5 章 イベントで状態を変更する: article/zettai/typescript-fp/chapter05.md
           - 横断比較: article/zettai/comparison/index.md
   - リファレンス:
       - 概要: reference/index.md

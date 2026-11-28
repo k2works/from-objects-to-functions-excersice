@@ -8,7 +8,7 @@ describe("httpRoute", () => {
   const ask = (zettai: ZettaiDriver) => zettai.itemsOf(userOf("uberto"), listNameOf("book"))
 
   it("stops the server after the scenario", async () => {
-    const leaked = await httpRoute(new Map(), async (zettai) => zettai)
+    const leaked = await httpRoute([], async (zettai) => zettai)
 
     await expect(ask(leaked)).rejects.toThrow("fetch failed")
   })
@@ -17,7 +17,7 @@ describe("httpRoute", () => {
     const used: Array<ZettaiDriver> = []
 
     await expect(
-      httpRoute(new Map(), async (zettai) => {
+      httpRoute([], async (zettai) => {
         used.push(zettai)
         throw new Error("scenario failed")
       })

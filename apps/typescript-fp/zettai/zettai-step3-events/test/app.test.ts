@@ -2,14 +2,15 @@ import { Effect } from "effect"
 import { describe, expect, it } from "vitest"
 import { findToDoList } from "../src/domain/find-todo-list.ts"
 import { makeHub } from "../src/domain/hub.ts"
+import { replay } from "../src/domain/replay.ts"
 import { makeApp } from "../src/web/app.ts"
-import { listOf, userOf } from "./support/model.ts"
+import { createdWith } from "./support/history.ts"
 
-const store = new Map([
-  [userOf("uberto"), [listOf("book", "write chapter")]],
-  [userOf("利用者"), [listOf("買い物 メモ", "牛乳")]]
+const state = replay([
+  ...createdWith("uberto", "book", "write chapter"),
+  ...createdWith("利用者", "買い物 メモ", "牛乳")
 ])
-const app = makeApp(makeHub(findToDoList(store)))
+const app = makeApp(makeHub(findToDoList(state)))
 
 // サーバーは起動しません。Request を渡して、Response を受け取ります。
 const call = async (path: string, method = "GET") => {

@@ -1,31 +1,39 @@
 import { describe, it } from "vitest"
-import { listOf as list, userOf } from "../support/model.ts"
-import type { ToDoListStore } from "../../src/domain/find-todo-list.ts"
+import { createdWith } from "../support/history.ts"
 import { listOwner } from "./actor.ts"
 import { routes } from "./routes.ts"
 
-const store: ToDoListStore = new Map([
-  [userOf("uberto"), [list("shopping", "milk & <bread>", "eggs"), list("empty")]],
-  [userOf("frank"), [list("gardening", "water the plants")]]
-])
+// 準備は、起きた出来事の列で書きます。
+const history = [
+  ...createdWith("uberto", "shopping", "milk & <bread>", "eggs"),
+  ...createdWith("uberto", "empty"),
+  ...createdWith("frank", "gardening", "water the plants")
+]
 
 describe.each(Object.entries(routes))("viewing ToDo lists via %s", (_name, route) => {
   it("shows the owner the items of a list in order", () =>
-    route(store, async (zettai) => {
+    route(history, async (zettai) => {
       const uberto = listOwner(zettai, "uberto")
 
       await uberto.canSee("shopping", ["milk & <bread>", "eggs"])
     }))
 
   it("shows an empty list as a list without items", () =>
-    route(store, async (zettai) => {
+    route(history, async (zettai) => {
       const uberto = listOwner(zettai, "uberto")
 
       await uberto.canSee("empty", [])
     }))
 
+  it("shows a list that has just been created as a list without items", () =>
+    route([...history, ...createdWith("uberto", "new list")], async (zettai) => {
+      const uberto = listOwner(zettai, "uberto")
+
+      await uberto.canSee("new list", [])
+    }))
+
   it("does not show the lists of another user", () =>
-    route(store, async (zettai) => {
+    route(history, async (zettai) => {
       const uberto = listOwner(zettai, "uberto")
       const frank = listOwner(zettai, "frank")
 
@@ -35,7 +43,7 @@ describe.each(Object.entries(routes))("viewing ToDo lists via %s", (_name, route
     }))
 
   it("does not show a list that does not exist", () =>
-    route(store, async (zettai) => {
+    route(history, async (zettai) => {
       const somebody = listOwner(zettai, "somebody")
 
       await somebody.cannotSee("shopping")

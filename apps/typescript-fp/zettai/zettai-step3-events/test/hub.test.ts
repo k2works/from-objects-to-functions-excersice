@@ -2,6 +2,7 @@ import { Effect, Option } from "effect"
 import { describe, expect, it } from "vitest"
 import { findToDoList } from "../src/domain/find-todo-list.ts"
 import { makeHub } from "../src/domain/hub.ts"
+import { emptyState } from "../src/domain/state.ts"
 import { makeToDoItem } from "../src/domain/todo-list.ts"
 import { makeApp } from "../src/web/app.ts"
 import { listNameOf, userOf } from "./support/model.ts"
@@ -43,5 +44,5 @@ export const missingDependencies = () => {
   // @ts-expect-error ハブを渡さないと、App を作れません
   makeApp()
   // @ts-expect-error web が受け取るのはハブです。取得の依存は受け取りません
-  makeApp(findToDoList(new Map()))
+  makeApp(findToDoList(emptyState))
 }

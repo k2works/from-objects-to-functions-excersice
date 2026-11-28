@@ -1,6 +1,7 @@
 import { Effect, Option } from "effect"
 import { findToDoList } from "../../src/domain/find-todo-list.ts"
 import { makeHub } from "../../src/domain/hub.ts"
+import { replay } from "../../src/domain/replay.ts"
 import type { ListName, User } from "../../src/domain/todo-list.ts"
 import { makeApp } from "../../src/web/app.ts"
 import { serve } from "../../src/web/server.ts"
@@ -21,11 +22,11 @@ const driverFor = (port: number): ZettaiDriver => ({
 })
 
 // 実サーバーを起動する経路です。処理が終わると、成功でも失敗でも停止します。
-export const httpRoute: Route = (store, use) =>
+export const httpRoute: Route = (history, use) =>
   Effect.runPromise(
     Effect.scoped(
       Effect.gen(function* () {
-        const server = yield* serve(makeApp(makeHub(findToDoList(store))), 0)
+        const server = yield* serve(makeApp(makeHub(findToDoList(replay(history)))), 0)
         return yield* Effect.promise(() => use(driverFor(server.port)))
       })
     )

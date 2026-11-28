@@ -4,7 +4,7 @@ title: "Unit 4 の Bolt 計画（イテレーション 4）- Zettai 連載（Typ
 description: "Zettai 連載 TypeScript FP 版の Unit 4（第 6〜7 章）の Bolt 計画。コマンドと状態遷移を純粋な関数にし、型付きエラーと defect の線引きをゲートで決める。承認で決める設計の案と、承認の対象となる新規ファイルを含む。"
 tags: [development, plan, ai-dlc, bolt, zettai, typescript, effect, unit-4]
 status: stable
-generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T04:43:59Z }
+generated: { by: anthropic/claude-sonnet-5-5, at: 2026-11-28T04:52:33Z }
 verified:
   - { by: human:kakimomokuri, at: 2026-11-28T04:29:46Z }
 ---
@@ -259,24 +259,31 @@ verified:
 
 ### ステップ計画
 
-- [ ] **4-2.1 step を追加する**
+- [x] **4-2.1 step を追加する**
   - `zettai-step5-errors` を足し、step 4 を複製する。`check` の時間を測る
-- [ ] **4-2.2 ★ゲート ④: 型付きエラーと defect の線引き**
+  - **実績（2026-11-28）**: 51 ファイルを複製した。`check` は 24 秒、76 ファイル 523 件
+- [x] **4-2.2 ★ゲート ④: 型付きエラーと defect の線引き**
   - 上の 3 案を比べる。代償は、確かめた事実と見込みを分けて書く
   - 完了判定: 人が選び、ADR-060 を書いた
-- [ ] **4-2.3 取得の型と HTTP への対応**
+  - **実績（2026-11-28。同期停止していない）**: 3 案を比べ、利用者の事前の指示に従って推奨の案 A を採用した。結果は [ADR-060](../adr/ADR-060-typescript-typed-errors-and-defects.md)。人の個別の確認は受けていない
+- [x] **4-2.3 取得の型と HTTP への対応**
   - いまの形では、失敗の種類を足しても型検査が通ることを先に示す。Red → Green で対応を作り、壊して確かめる
   - 失敗の型の表し方を比べ、ADR-061 を書く。変更したファイルを数える
   - 完了判定: US-007 の受入条件 1〜4・7
-- [ ] **4-2.4 ファンクタの法則**
+  - **実績**: 失敗の対応と `getList` の 6 件を先に失敗させた。受入条件 1 は `Result` ではなく `Effect` のエラーの型引数で満たした。`src/` は 4、既存のテストは 3 ファイルが変わった（[ADR-061](../adr/ADR-061-typescript-hub-ports-and-error-types.md)）。defect の 500 のテストは、実装の前から通っていたため、壊して失敗することを確かめた
+- [x] **4-2.4 ファンクタの法則**
   - `Result.map` と `Effect.map` の恒等則と合成則を性質テストにする。壊した `map` で失敗することを確かめる
   - 完了判定: US-007 の受入条件 5・6
-- [ ] **4-2.5 第 7 章の執筆**
+  - **実績**: 関数を 2 回当てる `map` は合成則だけで、元を 2 回実行する `map` は実行の記録を比べて、見分けられた。関数を使わない `map` は、`number` だけの 2 つの法則を満たした。この法則のテストは、ライブラリの確認なので、先に失敗させていない
+- [x] **4-2.5 第 7 章の執筆**
   - 節は「より適切なエラー処理」「ファンクタと圏を学ぶ」「ファンクタを使ったエラーハンドリング」「`Result` と `Effect` の型付きエラーで実装する」
-- [ ] **4-2.6 品質ゲート、反映、報告**
+  - **実績**: [第 7 章](../article/zettai/typescript-fp/chapter07.md) を書いた。**人の全文確認は受けていない**
+- [-] **4-2.6 品質ゲート、反映、報告**
   - 4-1.7 と同じ確認をする。`comparison/` に、失敗の扱いの比較が要るかを判断する
   - Bolt 終了報告とふりかえりを書き、リリース計画の指標を記録する
   - 完了判定: 人が第 7 章を全文確認し、CI が成功する
+  - **実績（2026-11-28、開発機）**: [Bolt 終了報告](bolt_report-typescript-fp-4.md)と[ふりかえり](retrospective-typescript-fp-4.md)を書いた。`comparison/` は変えていない
+  - **残り**: 人の全文確認、main への取り込みと push、CI
 
 実装は `feat(typescript-fp):`、記事は `docs(typescript-fp):` でコミットします。コミットと push は、人の指示を受けてから行います。**第 6 章を公開してから、Bolt 4-2 に進みます。**
 
@@ -397,6 +404,7 @@ GitHub Project への同期は行いません。
 | 2026-11-28 | 提案した内容で承認を得た | human:kakimomokuri |
 | 2026-11-28 | 「執筆完了まで、判断はすべて推奨を採用する」と指示した | human:kakimomokuri |
 | 2026-11-28 | Bolt 4-1 の実績を記録した | anthropic/claude-sonnet-5-5 |
+| 2026-11-28 | Bolt 4-2 の実績を記録した | anthropic/claude-sonnet-5-5 |
 
 ---
 

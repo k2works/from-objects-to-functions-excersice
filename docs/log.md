@@ -1,6 +1,25 @@
 # Docs Update Log
 
 ## 2026-11-28
+* **Update**: [retrospective-typescript-fp-4](/development/retrospective-typescript-fp-4.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [bolt_report-typescript-fp-4](/development/bolt_report-typescript-fp-4.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [chapter07](/article/zettai/typescript-fp/chapter07.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [ADR-061-typescript-hub-ports-and-error-types](/adr/ADR-061-typescript-hub-ports-and-error-types.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [ADR-060-typescript-typed-errors-and-defects](/adr/ADR-060-typescript-typed-errors-and-defects.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [iteration_plan-typescript-fp-4](/development/iteration_plan-typescript-fp-4.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [outline](/article/outline.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [retrospective-typescript-fp-4](/development/retrospective-typescript-fp-4.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [bolt_report-typescript-fp-4](/development/bolt_report-typescript-fp-4.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [chapter07](/article/zettai/typescript-fp/chapter07.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [ADR-061-typescript-hub-ports-and-error-types](/adr/ADR-061-typescript-hub-ports-and-error-types.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [ADR-060-typescript-typed-errors-and-defects](/adr/ADR-060-typescript-typed-errors-and-defects.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [iteration_plan-typescript-fp-4](/development/iteration_plan-typescript-fp-4.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [outline](/article/outline.md) を更新（anthropic/claude-sonnet-5-5）
+* **Creation**: [retrospective-typescript-fp-4](/development/retrospective-typescript-fp-4.md) を作成（anthropic/claude-sonnet-5-5）
+* **Creation**: [bolt_report-typescript-fp-4](/development/bolt_report-typescript-fp-4.md) を作成（anthropic/claude-sonnet-5-5）
+* **Creation**: [ADR-061-typescript-hub-ports-and-error-types](/adr/ADR-061-typescript-hub-ports-and-error-types.md) を作成（anthropic/claude-sonnet-5-5）
+* **Creation**: [ADR-060-typescript-typed-errors-and-defects](/adr/ADR-060-typescript-typed-errors-and-defects.md) を作成（anthropic/claude-sonnet-5-5）
+* **Creation**: [chapter07](/article/zettai/typescript-fp/chapter07.md) を作成（anthropic/claude-sonnet-5-5）
 * **Update**: [iteration_plan-typescript-fp-4](/development/iteration_plan-typescript-fp-4.md) を更新（anthropic/claude-sonnet-5-5）
 * **Update**: [chapter06](/article/zettai/typescript-fp/chapter06.md) を更新（anthropic/claude-sonnet-5-5）
 * **Update**: [iteration_plan-typescript-fp-4](/development/iteration_plan-typescript-fp-4.md) を更新（anthropic/claude-sonnet-5-5）

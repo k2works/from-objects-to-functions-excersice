@@ -65,5 +65,7 @@
 | [ADR-057](ADR-057-typescript-acceptance-route-as-higher-order-function.md) | TypeScript FP 版は受け入れテストの経路を、driver を渡す高階関数で差し替える | 承認 |
 | [ADR-058](ADR-058-typescript-dependency-by-function-argument.md) | TypeScript FP 版は依存を、関数の引数でハブに渡す | 承認 |
 | [ADR-059](ADR-059-typescript-own-state-transition-monoid.md) | TypeScript FP 版は状態変換のモノイドを、自作の関数で表す | 承認 |
+| [ADR-060](ADR-060-typescript-typed-errors-and-defects.md) | TypeScript FP 版は業務上ありうる失敗だけを型で運び、想定外の失敗は defect にする | 推奨案を採用（個別の確認なし） |
+| [ADR-061](ADR-061-typescript-hub-ports-and-error-types.md) | TypeScript FP 版はハブの依存を Effect で表し、失敗は素の型の和にする | 推奨案を採用（個別の確認なし） |
 
 ADR の作成には `creating-adr` スキルを使用してください。

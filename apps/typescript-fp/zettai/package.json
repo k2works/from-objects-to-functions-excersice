@@ -11,7 +11,8 @@
     "zettai-step6-projection",
     "zettai-step7-persistence",
     "zettai-step8-transaction",
-    "zettai-step9-validation"
+    "zettai-step9-validation",
+    "zettai-step10-observability"
   ],
   "engines": {
     "node": ">=22.19.0"

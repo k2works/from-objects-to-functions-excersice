@@ -1,0 +1,84 @@
+import { Result } from "effect"
+import fc from "fast-check"
+import {
+  addToDoItem,
+  changeItemStatus,
+  createToDoList,
+  renameToDoList
+} from "../../src/domain/commands.ts"
+import type { ToDoListCommand } from "../../src/domain/commands.ts"
+import type { ToDoStatus } from "../../src/domain/todo-list.ts"
+import { itemAdded, itemStatusChanged, listCreated, listRenamed } from "../../src/domain/events.ts"
+import type { ToDoListEvent } from "../../src/domain/events.ts"
+import { makeToDoItem, parseDueDate } from "../../src/domain/todo-list.ts"
+import { createdWith } from "./history.ts"
+import { listNameOf, userOf } from "./model.ts"
+
+// 名前の候補を少なくします。多いと、作ったリストに項目が足されることが、ほとんど起きません。
+const user = fc.constantFrom("uberto", "frank").map(userOf)
+const listName = fc.constantFrom("book", "a/b").map(listNameOf)
+// 期限と状態を持つ項目も生成します。持たないと、変換の往復がそれらを確かめません。
+const dueDate = fc.constantFrom("2026-12-01", "2028-02-29")
+const item = fc
+  .record(
+    {
+      text: fc.constantFrom("milk", "eggs", "bread"),
+      status: fc.constantFrom<ToDoStatus>("Todo", "InProgress", "Done", "Blocked"),
+      due: dueDate
+    },
+    { requiredKeys: ["text", "status"] }
+  )
+  .map(({ text, status, due }) =>
+    makeToDoItem(text, {
+      status,
+      ...(due === undefined ? {} : { dueDate: Result.getOrThrow(parseDueDate(due)) })
+    })
+  )
+
+const status = fc.constantFrom<ToDoStatus>("Todo", "InProgress", "Done", "Blocked")
+const description = fc.constantFrom("milk", "eggs")
+
+// 名前の変更はリストを無くすので、少なめに混ぜます。
+const renamed = fc.tuple(user, listName, listName).map(([u, l, n]) => listRenamed(u, l, n))
+
+const created = fc.tuple(user, listName).map(([u, l]) => listCreated(u, l))
+const added = fc.tuple(user, listName, item).map(([u, l, i]) => itemAdded(u, l, i))
+const changed = fc
+  .tuple(user, listName, description, status)
+  .map(([u, l, d, s]) => itemStatusChanged(u, l, d, s))
+
+// 追加が効くには、その前に作成が要ります。作成と追加を多めにします。
+const edits: fc.Arbitrary<ToDoListEvent> = fc.oneof(
+  { weight: 3, arbitrary: created },
+  { weight: 4, arbitrary: added },
+  { weight: 2, arbitrary: changed }
+)
+
+export const event: fc.Arbitrary<ToDoListEvent> = fc.oneof(
+  { weight: 9, arbitrary: edits },
+  { weight: 1, arbitrary: renamed }
+)
+
+export const events = fc.array(event, { maxLength: 12 })
+
+// 上の列だけでは、完了した項目がほとんど現れません。項目のあるリストを先に置き、状態の変更を多めに混ぜます。
+const finish = fc
+  .tuple(listName, description)
+  .map(([l, d]) => itemStatusChanged(userOf("uberto"), l, d, "Done"))
+
+export const busyEvents = fc
+  .array(fc.oneof(event, finish), { maxLength: 12 })
+  .map((history) => [...createdWith("uberto", "book", "milk", "eggs"), ...history])
+
+// コマンドで足す新しい項目は、Todo で始まります。
+const newItem = fc.constantFrom("milk", "eggs", "bread").map((text) => makeToDoItem(text))
+
+// コマンドも、少ない候補から生成します。受け付けと拒否の両方が起きるようにします。
+export const command: fc.Arbitrary<ToDoListCommand> = fc.oneof(
+  fc.tuple(user, listName).map(([u, l]) => createToDoList(u, l)),
+  fc.tuple(user, listName, newItem).map(([u, l, i]) => addToDoItem(u, l, i)),
+  fc.tuple(user, listName, description, status).map(([u, l, d, s]) => changeItemStatus(u, l, d, s)),
+  fc.tuple(user, listName, listName).map(([u, l, n]) => renameToDoList(u, l, n))
+)
+
+export const commands = fc.array(command, { minLength: 10, maxLength: 40 })

@@ -235,6 +235,7 @@ nav:
       - ADR-055 TypeScript FP 版のテストの道具: adr/ADR-055-typescript-testing-tools.md
       - ADR-056 TypeScript FP 版の HTTP の実装方式: adr/ADR-056-typescript-http-with-stable-parts.md
       - ADR-057 TypeScript FP 版の受け入れテストの経路: adr/ADR-057-typescript-acceptance-route-as-higher-order-function.md
+      - ADR-058 TypeScript FP 版の依存の渡し方: adr/ADR-058-typescript-dependency-by-function-argument.md
   - 記事:
       - 概要: article/index.md
       - 執筆計画: article/outline.md
@@ -336,6 +337,7 @@ nav:
               - 第 1 章 新しいアプリケーションを準備する: article/zettai/typescript-fp/chapter01.md
               - 第 2 章 関数を使って HTTP を扱う: article/zettai/typescript-fp/chapter02.md
               - 第 3 章 ドメインの定義とテスト: article/zettai/typescript-fp/chapter03.md
+              - 第 4 章 ドメインとアダプタのモデリング: article/zettai/typescript-fp/chapter04.md
           - 横断比較: article/zettai/comparison/index.md
   - リファレンス:
       - 概要: reference/index.md

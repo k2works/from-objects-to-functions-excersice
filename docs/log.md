@@ -1,6 +1,19 @@
 # Docs Update Log
 
 ## 2026-11-28
+* **Verification**: [chapter04](/article/zettai/typescript-fp/chapter04.md) を human:kakimomokuri が検証
+* **Update**: [iteration_plan-typescript-fp-3](/development/iteration_plan-typescript-fp-3.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [chapter04](/article/zettai/typescript-fp/chapter04.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [ADR-058-typescript-dependency-by-function-argument](/adr/ADR-058-typescript-dependency-by-function-argument.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [iteration_plan-typescript-fp-3](/development/iteration_plan-typescript-fp-3.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [outline](/article/outline.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [chapter04](/article/zettai/typescript-fp/chapter04.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [ADR-058-typescript-dependency-by-function-argument](/adr/ADR-058-typescript-dependency-by-function-argument.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [iteration_plan-typescript-fp-3](/development/iteration_plan-typescript-fp-3.md) を更新（anthropic/claude-sonnet-5-5）
+* **Update**: [outline](/article/outline.md) を更新（anthropic/claude-sonnet-5-5）
+* **Creation**: [ADR-058-typescript-dependency-by-function-argument](/adr/ADR-058-typescript-dependency-by-function-argument.md) を作成（anthropic/claude-sonnet-5-5）
+* **Creation**: [chapter04](/article/zettai/typescript-fp/chapter04.md) を作成（anthropic/claude-sonnet-5-5）
+* **Update**: [iteration_plan-typescript-fp-3](/development/iteration_plan-typescript-fp-3.md) を更新（anthropic/claude-sonnet-5-5）
 * **Verification**: [iteration_plan-typescript-fp-3](/development/iteration_plan-typescript-fp-3.md) を human:kakimomokuri が検証
 * **Update**: [iteration_plan-typescript-fp-3](/development/iteration_plan-typescript-fp-3.md) を更新（anthropic/claude-sonnet-5-5）
 * **Update**: [release_plan-typescript-fp](/development/release_plan-typescript-fp.md) を更新（anthropic/claude-sonnet-5-5）
